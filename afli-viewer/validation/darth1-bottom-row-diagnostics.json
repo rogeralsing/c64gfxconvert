@@ -1,0 +1,3097 @@
+[
+  {
+    "y": 192,
+    "expected_screen_row": 0,
+    "screen_row_candidate_mismatch_counts": [
+      0,
+      222,
+      95,
+      215,
+      131,
+      208,
+      124,
+      211
+    ],
+    "mismatching_columns": []
+  },
+  {
+    "y": 193,
+    "expected_screen_row": 1,
+    "screen_row_candidate_mismatch_counts": [
+      228,
+      0,
+      236,
+      85,
+      218,
+      108,
+      224,
+      119
+    ],
+    "mismatching_columns": []
+  },
+  {
+    "y": 194,
+    "expected_screen_row": 2,
+    "screen_row_candidate_mismatch_counts": [
+      96,
+      230,
+      0,
+      227,
+      114,
+      220,
+      92,
+      227
+    ],
+    "mismatching_columns": []
+  },
+  {
+    "y": 195,
+    "expected_screen_row": 3,
+    "screen_row_candidate_mismatch_counts": [
+      219,
+      81,
+      233,
+      0,
+      206,
+      101,
+      227,
+      95
+    ],
+    "mismatching_columns": []
+  },
+  {
+    "y": 196,
+    "expected_screen_row": 4,
+    "screen_row_candidate_mismatch_counts": [
+      214,
+      102,
+      230,
+      0,
+      208,
+      106,
+      226,
+      100
+    ],
+    "mismatching_columns": [
+      {
+        "char_column": 5,
+        "source_pair": "02",
+        "bitmap": "78",
+        "actual": [
+          10,
+          9,
+          9,
+          9,
+          9,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          2,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2,
+          2
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 6,
+        "source_pair": "7a",
+        "bitmap": "3c",
+        "actual": [
+          7,
+          7,
+          1,
+          1,
+          1,
+          1,
+          7,
+          7
+        ],
+        "expected": [
+          10,
+          10,
+          7,
+          7,
+          7,
+          7,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 7,
+        "source_pair": "8a",
+        "bitmap": "1f",
+        "actual": [
+          15,
+          15,
+          15,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 8,
+        "source_pair": "8a",
+        "bitmap": "15",
+        "actual": [
+          15,
+          15,
+          15,
+          10,
+          15,
+          10,
+          15,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          8,
+          10,
+          8,
+          10,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 9,
+        "source_pair": "09",
+        "bitmap": "3f",
+        "actual": [
+          9,
+          9,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "expected": [
+          9,
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 10,
+        "source_pair": "09",
+        "bitmap": "db",
+        "actual": [
+          9,
+          9,
+          11,
+          9,
+          9,
+          11,
+          9,
+          9
+        ],
+        "expected": [
+          0,
+          0,
+          9,
+          0,
+          0,
+          9,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 11,
+        "source_pair": "06",
+        "bitmap": "7f",
+        "actual": [
+          12,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 12,
+        "source_pair": "08",
+        "bitmap": "86",
+        "actual": [
+          9,
+          15,
+          15,
+          15,
+          15,
+          9,
+          9,
+          15
+        ],
+        "expected": [
+          0,
+          8,
+          8,
+          8,
+          8,
+          0,
+          0,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 13,
+        "source_pair": "2a",
+        "bitmap": "c0",
+        "actual": [
+          9,
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          2,
+          2,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 14,
+        "source_pair": "0c",
+        "bitmap": "0c",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          11,
+          11,
+          15,
+          15
+        ],
+        "expected": [
+          12,
+          12,
+          12,
+          12,
+          0,
+          0,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 15,
+        "source_pair": "0c",
+        "bitmap": "20",
+        "actual": [
+          11,
+          11,
+          10,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "expected": [
+          12,
+          12,
+          0,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 17,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          0,
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 18,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 19,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 20,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 21,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          0,
+          1,
+          2,
+          3,
+          5,
+          6,
+          7
+        ]
+      },
+      {
+        "char_column": 23,
+        "source_pair": "7a",
+        "bitmap": "20",
+        "actual": [
+          15,
+          15,
+          10,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          7,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 24,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 25,
+        "source_pair": "0a",
+        "bitmap": "03",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          9,
+          9
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 26,
+        "source_pair": "0c",
+        "bitmap": "40",
+        "actual": [
+          15,
+          9,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          12,
+          0,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 28,
+        "source_pair": "08",
+        "bitmap": "1f",
+        "actual": [
+          10,
+          10,
+          10,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          8,
+          8,
+          8,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 29,
+        "source_pair": "9a",
+        "bitmap": "80",
+        "actual": [
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 31,
+        "source_pair": "8a",
+        "bitmap": "03",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          10,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 32,
+        "source_pair": "0c",
+        "bitmap": "01",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          12
+        ],
+        "expected": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 33,
+        "source_pair": "09",
+        "bitmap": "17",
+        "actual": [
+          11,
+          11,
+          11,
+          9,
+          11,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          0,
+          9,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 34,
+        "source_pair": "ab",
+        "bitmap": "25",
+        "actual": [
+          15,
+          15,
+          12,
+          15,
+          15,
+          12,
+          15,
+          12
+        ],
+        "expected": [
+          11,
+          11,
+          10,
+          11,
+          11,
+          10,
+          11,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 35,
+        "source_pair": "08",
+        "bitmap": "11",
+        "actual": [
+          11,
+          11,
+          11,
+          10,
+          11,
+          11,
+          11,
+          10
+        ],
+        "expected": [
+          8,
+          8,
+          8,
+          0,
+          8,
+          8,
+          8,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "y": 197,
+    "expected_screen_row": 5,
+    "screen_row_candidate_mismatch_counts": [
+      209,
+      93,
+      234,
+      0,
+      210,
+      93,
+      227,
+      101
+    ],
+    "mismatching_columns": [
+      {
+        "char_column": 5,
+        "source_pair": "9c",
+        "bitmap": "7d",
+        "actual": [
+          10,
+          9,
+          9,
+          9,
+          9,
+          9,
+          10,
+          9
+        ],
+        "expected": [
+          12,
+          9,
+          9,
+          9,
+          9,
+          9,
+          12,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 6,
+        "source_pair": "cf",
+        "bitmap": "80",
+        "actual": [
+          1,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected": [
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 7,
+        "source_pair": "cf",
+        "bitmap": "9e",
+        "actual": [
+          10,
+          15,
+          15,
+          10,
+          10,
+          10,
+          10,
+          15
+        ],
+        "expected": [
+          12,
+          15,
+          15,
+          12,
+          12,
+          12,
+          12,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 9,
+        "source_pair": "9b",
+        "bitmap": "7f",
+        "actual": [
+          9,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8,
+          8
+        ],
+        "expected": [
+          11,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 10,
+        "source_pair": "89",
+        "bitmap": "04",
+        "actual": [
+          11,
+          11,
+          11,
+          11,
+          11,
+          9,
+          11,
+          11
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          9,
+          9,
+          8,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 11,
+        "source_pair": "09",
+        "bitmap": "00",
+        "actual": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          0,
+          3
+        ]
+      },
+      {
+        "char_column": 12,
+        "source_pair": "9a",
+        "bitmap": "8f",
+        "actual": [
+          9,
+          15,
+          15,
+          15,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          9,
+          10,
+          10,
+          10,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 13,
+        "source_pair": "9f",
+        "bitmap": "80",
+        "actual": [
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          9,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 15,
+        "source_pair": "cf",
+        "bitmap": "b3",
+        "actual": [
+          10,
+          11,
+          10,
+          10,
+          11,
+          11,
+          10,
+          10
+        ],
+        "expected": [
+          12,
+          15,
+          12,
+          12,
+          15,
+          15,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 20,
+        "source_pair": "af",
+        "bitmap": "fa",
+        "actual": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          12,
+          10,
+          12
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          15,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 28,
+        "source_pair": "9f",
+        "bitmap": "7f",
+        "actual": [
+          10,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          15,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 29,
+        "source_pair": "af",
+        "bitmap": "a2",
+        "actual": [
+          12,
+          15,
+          12,
+          15,
+          15,
+          15,
+          12,
+          15
+        ],
+        "expected": [
+          10,
+          15,
+          10,
+          15,
+          15,
+          15,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 32,
+        "source_pair": "8f",
+        "bitmap": "0f",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          12,
+          12,
+          12,
+          12
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          15,
+          8,
+          8,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 33,
+        "source_pair": "09",
+        "bitmap": "00",
+        "actual": [
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 34,
+        "source_pair": "2c",
+        "bitmap": "c0",
+        "actual": [
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          2,
+          2,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 35,
+        "source_pair": "bc",
+        "bitmap": "5f",
+        "actual": [
+          11,
+          10,
+          11,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          12,
+          11,
+          12,
+          11,
+          11,
+          11,
+          11,
+          11
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 36,
+        "source_pair": "06",
+        "bitmap": "3f",
+        "actual": [
+          9,
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          6,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      }
+    ]
+  },
+  {
+    "y": 198,
+    "expected_screen_row": 6,
+    "screen_row_candidate_mismatch_counts": [
+      212,
+      93,
+      232,
+      0,
+      207,
+      95,
+      225,
+      104
+    ],
+    "mismatching_columns": [
+      {
+        "char_column": 5,
+        "source_pair": "02",
+        "bitmap": "3f",
+        "actual": [
+          10,
+          10,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 6,
+        "source_pair": "9a",
+        "bitmap": "80",
+        "actual": [
+          1,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "expected": [
+          9,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 7,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          0,
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 8,
+        "source_pair": "0a",
+        "bitmap": "01",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 9,
+        "source_pair": "06",
+        "bitmap": "f5",
+        "actual": [
+          8,
+          8,
+          8,
+          8,
+          9,
+          8,
+          9,
+          8
+        ],
+        "expected": [
+          0,
+          0,
+          0,
+          0,
+          6,
+          0,
+          6,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 10,
+        "source_pair": "09",
+        "bitmap": "d0",
+        "actual": [
+          9,
+          9,
+          11,
+          9,
+          11,
+          11,
+          11,
+          11
+        ],
+        "expected": [
+          0,
+          0,
+          9,
+          0,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 11,
+        "source_pair": "09",
+        "bitmap": "3f",
+        "actual": [
+          12,
+          12,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "expected": [
+          9,
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 12,
+        "source_pair": "08",
+        "bitmap": "0c",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          9,
+          9,
+          15,
+          15
+        ],
+        "expected": [
+          8,
+          8,
+          8,
+          8,
+          0,
+          0,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 13,
+        "source_pair": "7a",
+        "bitmap": "10",
+        "actual": [
+          10,
+          10,
+          10,
+          9,
+          10,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          7,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 14,
+        "source_pair": "0c",
+        "bitmap": "13",
+        "actual": [
+          15,
+          15,
+          15,
+          11,
+          15,
+          15,
+          11,
+          11
+        ],
+        "expected": [
+          12,
+          12,
+          12,
+          0,
+          12,
+          12,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 15,
+        "source_pair": "8a",
+        "bitmap": "33",
+        "actual": [
+          11,
+          11,
+          10,
+          10,
+          11,
+          11,
+          10,
+          10
+        ],
+        "expected": [
+          10,
+          10,
+          8,
+          8,
+          10,
+          10,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 16,
+        "source_pair": "8a",
+        "bitmap": "04",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          10,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          8,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 17,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          0,
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 18,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 19,
+        "source_pair": "7a",
+        "bitmap": "36",
+        "actual": [
+          15,
+          15,
+          10,
+          10,
+          15,
+          10,
+          10,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          7,
+          7,
+          10,
+          7,
+          7,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 20,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 22,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          4,
+          5
+        ]
+      },
+      {
+        "char_column": 23,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 24,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 25,
+        "source_pair": "8a",
+        "bitmap": "05",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          9,
+          15,
+          9
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          8,
+          10,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5
+        ]
+      },
+      {
+        "char_column": 26,
+        "source_pair": "0c",
+        "bitmap": "40",
+        "actual": [
+          15,
+          9,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          12,
+          0,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 28,
+        "source_pair": "02",
+        "bitmap": "3c",
+        "actual": [
+          10,
+          10,
+          9,
+          9,
+          9,
+          9,
+          10,
+          10
+        ],
+        "expected": [
+          2,
+          2,
+          0,
+          0,
+          0,
+          0,
+          2,
+          2
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 29,
+        "source_pair": "8a",
+        "bitmap": "80",
+        "actual": [
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          8,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 30,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          4,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 31,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3,
+          5,
+          7
+        ]
+      },
+      {
+        "char_column": 32,
+        "source_pair": "0c",
+        "bitmap": "07",
+        "actual": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          12,
+          12,
+          12
+        ],
+        "expected": [
+          12,
+          12,
+          12,
+          12,
+          12,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      },
+      {
+        "char_column": 33,
+        "source_pair": "09",
+        "bitmap": "3d",
+        "actual": [
+          11,
+          11,
+          9,
+          9,
+          9,
+          9,
+          11,
+          9
+        ],
+        "expected": [
+          9,
+          9,
+          0,
+          0,
+          0,
+          0,
+          9,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3,
+          7
+        ]
+      },
+      {
+        "char_column": 34,
+        "source_pair": "0c",
+        "bitmap": "c0",
+        "actual": [
+          12,
+          12,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "expected": [
+          0,
+          0,
+          12,
+          12,
+          12,
+          12,
+          12,
+          12
+        ],
+        "matching_screen_rows_same_bitmap": [
+          1,
+          3
+        ]
+      },
+      {
+        "char_column": 35,
+        "source_pair": "08",
+        "bitmap": "07",
+        "actual": [
+          11,
+          11,
+          11,
+          11,
+          11,
+          10,
+          10,
+          10
+        ],
+        "expected": [
+          8,
+          8,
+          8,
+          8,
+          8,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": [
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "y": 199,
+    "expected_screen_row": 7,
+    "screen_row_candidate_mismatch_counts": [
+      187,
+      250,
+      162,
+      250,
+      165,
+      229,
+      159,
+      249
+    ],
+    "mismatching_columns": [
+      {
+        "char_column": 5,
+        "source_pair": "0b",
+        "bitmap": "08",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          11,
+          11,
+          11,
+          11,
+          0,
+          11,
+          11,
+          11
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 6,
+        "source_pair": "9f",
+        "bitmap": "80",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 7,
+        "source_pair": "af",
+        "bitmap": "08",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          15,
+          10,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 8,
+        "source_pair": "8f",
+        "bitmap": "0f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          15,
+          8,
+          8,
+          8,
+          8
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 9,
+        "source_pair": "79",
+        "bitmap": "06",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          9,
+          9,
+          7,
+          7,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 10,
+        "source_pair": "9b",
+        "bitmap": "ee",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          11,
+          9,
+          9,
+          9,
+          11
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 11,
+        "source_pair": "9b",
+        "bitmap": "bf",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          11,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 12,
+        "source_pair": "9f",
+        "bitmap": "8f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          15,
+          15,
+          15,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 13,
+        "source_pair": "2f",
+        "bitmap": "80",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          2,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 14,
+        "source_pair": "9f",
+        "bitmap": "1f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 15,
+        "source_pair": "ab",
+        "bitmap": "cf",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 16,
+        "source_pair": "af",
+        "bitmap": "d1",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          15,
+          10,
+          15,
+          15,
+          15,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 17,
+        "source_pair": "af",
+        "bitmap": "ee",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          15,
+          10,
+          10,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 18,
+        "source_pair": "af",
+        "bitmap": "ae",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          15,
+          10,
+          15,
+          10,
+          10,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 19,
+        "source_pair": "7f",
+        "bitmap": "04",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          7,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 20,
+        "source_pair": "af",
+        "bitmap": "ef",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          15,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 21,
+        "source_pair": "af",
+        "bitmap": "fe",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 22,
+        "source_pair": "0a",
+        "bitmap": "00",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 23,
+        "source_pair": "ac",
+        "bitmap": "9b",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          12,
+          12,
+          10,
+          10,
+          12,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 24,
+        "source_pair": "af",
+        "bitmap": "9a",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          15,
+          15,
+          10,
+          10,
+          15,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 25,
+        "source_pair": "af",
+        "bitmap": "41",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          10,
+          15,
+          15,
+          15,
+          15,
+          15,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 26,
+        "source_pair": "9f",
+        "bitmap": "e0",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          9,
+          9,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 27,
+        "source_pair": "0f",
+        "bitmap": "00",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 28,
+        "source_pair": "9a",
+        "bitmap": "3f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 29,
+        "source_pair": "ac",
+        "bitmap": "73",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          12,
+          10,
+          10,
+          10,
+          12,
+          12,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 30,
+        "source_pair": "af",
+        "bitmap": "ae",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          15,
+          10,
+          15,
+          10,
+          10,
+          10,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 31,
+        "source_pair": "af",
+        "bitmap": "28",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          15,
+          15,
+          10,
+          15,
+          10,
+          15,
+          15,
+          15
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 32,
+        "source_pair": "ab",
+        "bitmap": "d0",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          10,
+          10,
+          11,
+          10,
+          11,
+          11,
+          11,
+          11
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 33,
+        "source_pair": "9b",
+        "bitmap": "bf",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          11,
+          9,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 34,
+        "source_pair": "ab",
+        "bitmap": "1f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          11,
+          11,
+          11,
+          10,
+          10,
+          10,
+          10,
+          10
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 35,
+        "source_pair": "89",
+        "bitmap": "a0",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          8,
+          9,
+          8,
+          9,
+          9,
+          9,
+          9,
+          9
+        ],
+        "matching_screen_rows_same_bitmap": []
+      },
+      {
+        "char_column": 36,
+        "source_pair": "09",
+        "bitmap": "3f",
+        "actual": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "expected": [
+          9,
+          9,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "matching_screen_rows_same_bitmap": []
+      }
+    ]
+  }
+]

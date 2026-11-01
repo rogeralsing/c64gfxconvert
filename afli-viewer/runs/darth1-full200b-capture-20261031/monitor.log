@@ -1,0 +1,57 @@
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 01100000 000 002   18869762
+(C:$2088) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$2088) 
+resourceget "Speed"
+Speed=100
+(C:$2088) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$2088) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200b-capture-20261031/bank-a.bin" 0 4000 7f3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200b-capture-20261031/bank-a.bin' from $4000 to $7f3f
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200b-capture-20261031/bank-b.bin" 0 c000 ff3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200b-capture-20261031/bank-b.bin' from $c000 to $ff3f
+(C:$2088) 
+bank cpu
+(C:$2088) 
+m d011 d018
+>C:d011  70 00 00 00  00 c8 00 79                             P@@@@H@Y
+(C:$d019) 
+io d000
+VIC-II:
+>C:d000  00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   @@@@@@@@@@@@@@@@
+>C:d010  00 70 00 00  00 00 c8 00  79 70 f1 00  00 00 00 00   @P@@@@H@YP�@@@@@
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f2 f3 f4 f5  f6 f7 fc ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 2/0 IRQ: 44
+Mode: Invalid Bitmap 1 (ECM/BMM/MCM=1/1/0)
+Colors: Border: 0 BG: 0 BG1: 1 BG2: 2 BG3: 3
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $00
+Video $dc00, Bitmap $e000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled:  no  no  no  no  no  no  no  no
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $00 $00 $00 $00 $00 $00 $00 $00
+MC:      $00 $00 $00 $00 $00 $00 $00 $00
+MCBASE:  $00 $00 $00 $00 $00 $00 $00 $00
+X-Pos:  $000$000$000$000$000$000$000$000
+Y-Pos:     0   0   0   0   0   0   0   0
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   2   3   4   5   6   7   c
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200b-capture-20261031/darth1-vice.png" 2
+(C:$d040) 

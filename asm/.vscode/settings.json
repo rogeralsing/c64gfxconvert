@@ -1,0 +1,12 @@
+{
+  "vs64.kickInstallDir": "/Users/rogerjohansson/.local/share/c64-tools/KickAssembler",
+  "vs64.javaExecutable": "/opt/homebrew/opt/openjdk/bin/java",
+  "vs64.ninjaExecutable": "/opt/homebrew/bin/ninja",
+  "vs64.viceExecutable": "/opt/homebrew/bin/x64sc",
+  "vs64.viceArgs": "-pal",
+  "files.associations": {
+    "*.asm": "kickass"
+  },
+  "vs64.vicePort": "6502",
+  "vs64.viceTimeout": "30"
+}

@@ -1,0 +1,56 @@
+{
+  "name": "tentacles",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/tentacles.prg",
+  "program_bytes": 48013,
+  "program_sha256": "ef9d7f9e0a075a490e70f524fce5a3de93ea0a3cb124667b890a1bde720db390",
+  "source": "/Users/rogerjohansson/Downloads/^^tentacles.fp2",
+  "source_sha256": "97725217a9c4f306263fcba84bb76a062493b3579e2b2180a3b822b5009e2400",
+  "command": [
+    "/opt/homebrew/bin/x64sc",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+reu",
+    "+refreshonbreak",
+    "-sounddev",
+    "dummy",
+    "-autostartprgmode",
+    "1",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:6519",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/tentacles.prg"
+  ],
+  "direct_prg_autostart": true,
+  "pid": 35414,
+  "attempts": [
+    {
+      "pc": "0xfd75",
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;fd75 55 00 a7 fd 2f 37 00100101 000 003      39315\n(C:$fd75) "
+    },
+    {
+      "pc": "0xde9",
+      "registers": "(C:$0de9)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;0de9 d3 61 11 f4 2f 35 10100100 000 000    4108104\n(C:$0de9) "
+    },
+    {
+      "pc": "0x2088",
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    5601960\n(C:$2088) "
+    }
+  ],
+  "first_display_pc": "0x2088",
+  "capture_registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    6604416\n(C:$2088) ",
+  "capture_pc": "0x2088",
+  "screenshot_response": "(C:$2088) ",
+  "phase_b_bytes": 16292,
+  "phase_b_exact_match": true,
+  "phase_b_sha256": "0f04e2c94a208850d77da6715781adffe70b0d686172c745c9329795f510554f",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/proof-tentacles/tentacles-vice.png",
+  "refresh_on_break": false,
+  "warp": false,
+  "passed_binary_playback_checks": true,
+  "emulator_exit_code": -15,
+  "owned_emulator_closed": true,
+  "visual_confirmation": "Tentacles image visibly rendered after resume to complete a PAL frame."
+}

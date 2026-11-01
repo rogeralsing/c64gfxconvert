@@ -1,0 +1,64 @@
+{
+  "name": "Gladjefull-p",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/Gladjefull-p-full200d-20261031/Gladjefull-p-vice.png",
+  "screenshot_sha256": "0eccfa5f72c4415009434cfaed87110f225134ce468542a1df8837847b22e102",
+  "source_sha256": "f96f5fea45caa5b1cc109471593c625702e3341a8507904d24e05cd696da0d27",
+  "payload_dumps": [
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/Gladjefull-p-full200d-20261031/bank-a.bin",
+      "bytes_matched": 16192,
+      "sha256": "c17403d589d7cc30b272e2f65b5a1d14fd9827b1d2e30b0e8cd59b8717a9f407"
+    },
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/Gladjefull-p-full200d-20261031/bank-b.bin",
+      "bytes_matched": 16192,
+      "sha256": "c17403d589d7cc30b272e2f65b5a1d14fd9827b1d2e30b0e8cd59b8717a9f407"
+    }
+  ],
+  "source_active_payload_bytes_matched": 16192,
+  "display_mask": {
+    "left_hires_pixels": 24,
+    "screen_bytes_zeroed": "first3tilecolumns of each25tile-rows in all8screenpages",
+    "bitmap_bytes_zeroed": "first24bytes of each25character rows",
+    "source_file_modified": false,
+    "unused_bitmap_tail_compared": false
+  },
+  "comparison": "one global one-to-one VICE RGB-to-C64-index mapping after exact RAM payload match",
+  "screenshot_dimensions": [
+    384,
+    272
+  ],
+  "source_crop": [
+    24,
+    0,
+    320,
+    200
+  ],
+  "compared_pixels": 59200,
+  "minimum_mismatches": 40695,
+  "best_origin": [
+    32,
+    30
+  ],
+  "zero_mismatch_origins": [],
+  "expected_reference_sha256": "9d62cd08e0a8516935160f8cae87bcea4979425012021db33afca5e531e21e1d",
+  "vice_rgb_to_c64_index": {
+    "0,0,0": 9,
+    "44,61,236": 6,
+    "98,98,98": 9,
+    "98,213,50": 3,
+    "115,133,255": 14,
+    "119,83,0": 9,
+    "126,243,214": 3,
+    "148,148,148": 9,
+    "170,64,245": 11,
+    "175,60,88": 8,
+    "183,99,30": 8,
+    "183,255,134": 13,
+    "205,205,205": 15,
+    "238,123,149": 10,
+    "255,255,70": 7,
+    "255,255,255": 1
+  },
+  "pass": false
+}

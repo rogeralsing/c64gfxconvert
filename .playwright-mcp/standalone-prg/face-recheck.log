@@ -1,0 +1,128 @@
+Error - failed to retrieve executable path, falling back to getcwd() + argv[0]
+ 
+*** VICE Version 3.10 ***
+ 
+This is the condensed log, for the full log use --verbose or --debug.
+ 
+Main: random seed was: 0x6ae60c9b
+Main: command line was: /opt/homebrew/bin/x64sc -pal -speed 100 +warp +reu +refreshonbreak -sounddev dummy -autostartprgmode 1 -remotemonitor -remotemonitoraddress ip4://127.0.0.1:6518 -autostart /Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg
+Main: VICE system file directory: '/opt/homebrew/Cellar/vice/3.10/share/vice'.
+Main: VICE system file search path: '/Users/rogerjohansson/.local/share/vice:/opt/homebrew/bin:/opt/homebrew/Cellar/vice/3.10/share/vice'.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/kernal-901227-03.bin'.
+C64MEM: Kernal rev #3 ($03) Sum: 50954 ($C70A) SHA1: 1d503e56df85a62fee696e7618dc5b4e781df1bb.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/basic-901226-01.bin'.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/chargen-901225-01.bin'.
+DriveROM: Error - 2000 ROM image not found. Hardware-level 2000 emulation is not available.
+DriveROM: Error - 4000 ROM image not found. Hardware-level 4000 emulation is not available.
+DriveROM: Error - CMDHD ROM image not found. Hardware-level CMDHD emulation is not available.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/DRIVES/dos1541ii-251968-03.bin'.
+VIC-II: Initializing chip model "MOS8565" (63 cycles per line, 312 raster lines).
+Window: Chip 'VICII' using GTK3 backend 'OpenGL'.
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/builtin.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/builtin-interlaced.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/bicubic.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/bicubic-interlaced.frag
+Sound: Available sound devices: coreaudio dummy dump fs wav voc iff aiff flac ogg soundmovie
+Joystick: Warning - Failed to open `/Users/rogerjohansson/.config/vice/gtk3-joymap-C64SC.vjm'.
+Joystick: Warning - using minimal default mapping.
+Keymap: Loading keymap `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/gtk3_sym.vkm'.
+Hotkeys: parsing default file '/opt/homebrew/Cellar/vice/3.10/share/vice/hotkeys/hotkeys.vhk' for machine C64
+
+Main CPU: starting at ($FFFC).
+Main CPU: RESET.
+VIC-II: VSP Bug: safe channels are: 136. Emulation of memory corruption is disabled.
+AUTOSTART: Autodetecting image type of `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 49.
+Filesystem Image: Unknown disk image `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg'.
+Tape: Error - Cannot open file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg'
+Error - no CRT header found.
+CART: '/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg' is not a valid CRT file.
+AUTOSTART: Loading PRG file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg' with direct RAM injection.
+AUTOSTART: Resetting the machine to autostart '*'
+VIC-II: VSP Bug: safe channels are: 1234. Emulation of memory corruption is disabled.
+AUTOSTART: Turning Warp mode on.
+AUTOSTART: `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face.prg' recognized as program/p00 file.
+Main CPU: RESET.
+Sound: Opened device `dummy', speed 48000Hz, fragment size 0.67ms, buffer size 20.00ms
+Sound: reSID: MOS8580, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
+VSync: Sync reset
+Sound: Warning - Sound buffer overflow (cycle based)
+Unit 8: RESET.
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Buffer overflow warning repeated 25 times, will now be ignored
+VSync: Sync reset
+VSync: Sync reset
+AUTOSTART: Injecting program data at $0801 (size $bb8b)
+AUTOSTART: Ready
+AUTOSTART: Turning Warp mode off.
+AUTOSTART: Starting program.
+AUTOSTART: Restoring FileSystemDevice8 to 1.
+AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Restoring FSDeviceLongNames to 0.
+AUTOSTART: Done.
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+AUTOSTART: Autodetecting image type of `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 49.
+Filesystem Image: Unknown disk image `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg'.
+Tape: Error - Cannot open file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg'
+Error - no CRT header found.
+CART: '/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg' is not a valid CRT file.
+AUTOSTART: Loading PRG file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg' with direct RAM injection.
+AUTOSTART: Resetting the machine to autostart '*'
+VIC-II: VSP Bug: safe channels are: 0235. Emulation of memory corruption is disabled.
+AUTOSTART: Turning Warp mode on.
+AUTOSTART: `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/face2.prg' recognized as program/p00 file.
+Main CPU: RESET.
+VSync: Sync reset
+Unit 8: RESET.
+AUTOSTART: Injecting program data at $0801 (size $bb8b)
+AUTOSTART: Ready
+AUTOSTART: Turning Warp mode off.
+AUTOSTART: Starting program.
+AUTOSTART: Restoring FileSystemDevice8 to 1.
+AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Restoring FSDeviceLongNames to 0.
+AUTOSTART: Done.
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+VSync: Sync reset
+AUTOSTART: Autodetecting image type of `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/mage.prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 49.
+Filesystem Image: Unknown disk image `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/mage.prg'.
+Tape: Error - Cannot open file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/mage.prg'
+Error - no CRT header found.
+CART: '/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/mage.prg' is not a valid CRT file.
+AUTOSTART: Loading PRG file `/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/st

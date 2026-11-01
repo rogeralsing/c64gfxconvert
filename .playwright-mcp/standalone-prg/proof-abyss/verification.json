@@ -1,0 +1,56 @@
+{
+  "name": "abyss",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/abyss.prg",
+  "program_bytes": 48013,
+  "program_sha256": "f7afb3da5d953070c25ed6c6d094667c956f8bba34901ecac1ca96782634b04d",
+  "source": "/Users/rogerjohansson/Downloads/^^abyss.fp2",
+  "source_sha256": "137bac90a17c638ceb76da8178a30d52a2939d1dce014ad2ea66c35eeffb039b",
+  "command": [
+    "/opt/homebrew/bin/x64sc",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+reu",
+    "+refreshonbreak",
+    "-sounddev",
+    "dummy",
+    "-autostartprgmode",
+    "1",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:6519",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/abyss.prg"
+  ],
+  "direct_prg_autostart": true,
+  "pid": 34790,
+  "attempts": [
+    {
+      "pc": "0xfd75",
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;fd75 55 00 a7 fd 2f 37 00100101 000 003      39315\n(C:$fd75) "
+    },
+    {
+      "pc": "0xe16",
+      "registers": "(C:$0e16)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;0e16 58 33 ff f4 2f 35 00100100 000 001    4029481\n(C:$0e16) "
+    },
+    {
+      "pc": "0x2088",
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    5523336\n(C:$2088) "
+    }
+  ],
+  "first_display_pc": "0x2088",
+  "capture_registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    6525792\n(C:$2088) ",
+  "capture_pc": "0x2088",
+  "screenshot_response": "(C:$2088) ",
+  "phase_b_bytes": 16292,
+  "phase_b_exact_match": true,
+  "phase_b_sha256": "15adf1a9e27a45494cd63700f12783fe3c3ed12836bd66ed2be07b60634eca00",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/proof-abyss/abyss-vice.png",
+  "refresh_on_break": false,
+  "warp": false,
+  "passed_binary_playback_checks": true,
+  "emulator_exit_code": -15,
+  "owned_emulator_closed": true,
+  "visual_confirmation": "Abyss image visibly rendered after resume to complete a PAL frame."
+}

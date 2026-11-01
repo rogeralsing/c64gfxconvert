@@ -1,0 +1,285 @@
+{
+  "kind": "expected reference decoded from source AFLI; not an emulator capture",
+  "palette_source": "/Users/rogerjohansson/git/asynkron/c64/index.html",
+  "palette_declaration_sha256": "dbeb41850ec4b208b4ee86c350e89e6228bf778ea85b972f793e214673b6cd12",
+  "palette": {
+    "0": {
+      "name": "Black",
+      "hex": "#000000",
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "1": {
+      "name": "White",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ]
+    },
+    "2": {
+      "name": "Red",
+      "hex": "#8D333D",
+      "rgb": [
+        141,
+        51,
+        61
+      ]
+    },
+    "3": {
+      "name": "Cyan",
+      "hex": "#65BFB3",
+      "rgb": [
+        101,
+        191,
+        179
+      ]
+    },
+    "4": {
+      "name": "Purple",
+      "hex": "#8E37A2",
+      "rgb": [
+        142,
+        55,
+        162
+      ]
+    },
+    "5": {
+      "name": "Green",
+      "hex": "#4CA549",
+      "rgb": [
+        76,
+        165,
+        73
+      ]
+    },
+    "6": {
+      "name": "Blue",
+      "hex": "#332CAD",
+      "rgb": [
+        51,
+        44,
+        173
+      ]
+    },
+    "7": {
+      "name": "Yellow",
+      "hex": "#CDD156",
+      "rgb": [
+        205,
+        209,
+        86
+      ]
+    },
+    "8": {
+      "name": "Orange",
+      "hex": "#8F501B",
+      "rgb": [
+        143,
+        80,
+        27
+      ]
+    },
+    "9": {
+      "name": "Brown",
+      "hex": "#533D01",
+      "rgb": [
+        83,
+        61,
+        1
+      ]
+    },
+    "10": {
+      "name": "Light red",
+      "hex": "#BD636D",
+      "rgb": [
+        189,
+        99,
+        109
+      ]
+    },
+    "11": {
+      "name": "Dark gray",
+      "hex": "#4F4F4F",
+      "rgb": [
+        79,
+        79,
+        79
+      ]
+    },
+    "12": {
+      "name": "Gray",
+      "hex": "#767676",
+      "rgb": [
+        118,
+        118,
+        118
+      ]
+    },
+    "13": {
+      "name": "Light green",
+      "hex": "#8BE98B",
+      "rgb": [
+        139,
+        233,
+        139
+      ]
+    },
+    "14": {
+      "name": "Light blue",
+      "hex": "#6C65E6",
+      "rgb": [
+        108,
+        101,
+        230
+      ]
+    },
+    "15": {
+      "name": "Light gray",
+      "hex": "#A3A3A3",
+      "rgb": [
+        163,
+        163,
+        163
+      ]
+    }
+  },
+  "images": [
+    {
+      "name": "darth1",
+      "source": "/Users/rogerjohansson/Downloads/darth1.afl",
+      "source_bytes": 16385,
+      "load_address": "$4000",
+      "source_sha256": "acd304348b4e5cb83c656278f3cf74365e69c95e68e29160f2749f1b97ba1185",
+      "decoded_dimensions": [
+        320,
+        200
+      ],
+      "decoded_index_sha256": "c4739e3bf09783096d5fc73c962211380e084ed248a6a84912c9c6ab1352e47a",
+      "decoded_rgb_sha256": "64cc4f177c6e3a8e9f9765df93acb542dff0ec0dcc6c1d2503692aaeb05129b9",
+      "expected_png_sha256": "f0ed52ebc15326f48394df13e139c28278b8957455a1e1ce2d3ac88501e54982",
+      "screen_active_bytes": 8000,
+      "bitmap_active_bytes": 8000,
+      "screen_gap_bytes": 192,
+      "screen_gap_nonzero_bytes": 0,
+      "bitmap_tail_bytes": 191,
+      "bitmap_tail_nonzero_bytes": 0,
+      "palette_index_histogram": {
+        "0": 21778,
+        "1": 3961,
+        "2": 805,
+        "3": 300,
+        "4": 55,
+        "5": 690,
+        "6": 487,
+        "7": 2709,
+        "8": 3155,
+        "9": 9875,
+        "10": 5386,
+        "11": 4627,
+        "12": 3981,
+        "13": 594,
+        "14": 9,
+        "15": 5588
+      },
+      "left_16_hires_pixel_indices": [
+        0
+      ],
+      "reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth1-expected-afli.png",
+      "labeled_reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth1-expected-labeled.png",
+      "expected_color_indices": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth1-expected-color-indices.bin"
+    },
+    {
+      "name": "darth2",
+      "source": "/Users/rogerjohansson/Downloads/darth2.afl",
+      "source_bytes": 16385,
+      "load_address": "$4000",
+      "source_sha256": "70b2cbeb230d481d0b779e7b042b22088852e86de05f0af101c2ba8c591d6bef",
+      "decoded_dimensions": [
+        320,
+        200
+      ],
+      "decoded_index_sha256": "e996b4115f653906b639940b19c02bde29945923e60e8634269d48e99dd16cf9",
+      "decoded_rgb_sha256": "cf2c4dac381fdf95413216078b0cb19965e2fb072844f4ef1661d09ef0cd4690",
+      "expected_png_sha256": "84928a12916f8fdc05f389dd07bc7016da9fde4ab1a19f2b6e37f35ddd5818d8",
+      "screen_active_bytes": 8000,
+      "bitmap_active_bytes": 8000,
+      "screen_gap_bytes": 192,
+      "screen_gap_nonzero_bytes": 0,
+      "bitmap_tail_bytes": 191,
+      "bitmap_tail_nonzero_bytes": 0,
+      "palette_index_histogram": {
+        "0": 21801,
+        "1": 3942,
+        "2": 774,
+        "3": 338,
+        "4": 55,
+        "5": 667,
+        "6": 468,
+        "7": 2629,
+        "8": 3199,
+        "9": 9829,
+        "10": 5429,
+        "11": 4696,
+        "12": 3904,
+        "13": 596,
+        "14": 2,
+        "15": 5671
+      },
+      "left_16_hires_pixel_indices": [
+        0
+      ],
+      "reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth2-expected-afli.png",
+      "labeled_reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth2-expected-labeled.png",
+      "expected_color_indices": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/darth2-expected-color-indices.bin"
+    },
+    {
+      "name": "Gladjefull-p",
+      "source": "/Users/rogerjohansson/Downloads/Gladjefull-p.afl",
+      "source_bytes": 16385,
+      "load_address": "$4000",
+      "source_sha256": "f96f5fea45caa5b1cc109471593c625702e3341a8507904d24e05cd696da0d27",
+      "decoded_dimensions": [
+        320,
+        200
+      ],
+      "decoded_index_sha256": "9d62cd08e0a8516935160f8cae87bcea4979425012021db33afca5e531e21e1d",
+      "decoded_rgb_sha256": "89f518d24ff03ec10df38315f06ca136edf4ac23d5e059aa838453c284d244ef",
+      "expected_png_sha256": "a3f6f222212f9f20eca2a6fdcabea48af98baf39b968eb23b3cd7083d532f394",
+      "screen_active_bytes": 8000,
+      "bitmap_active_bytes": 8000,
+      "screen_gap_bytes": 192,
+      "screen_gap_nonzero_bytes": 0,
+      "bitmap_tail_bytes": 191,
+      "bitmap_tail_nonzero_bytes": 0,
+      "palette_index_histogram": {
+        "0": 7360,
+        "1": 1873,
+        "2": 2791,
+        "3": 411,
+        "4": 618,
+        "5": 292,
+        "6": 3440,
+        "7": 4397,
+        "8": 5171,
+        "9": 12692,
+        "10": 7303,
+        "11": 4698,
+        "12": 4225,
+        "13": 781,
+        "14": 692,
+        "15": 7256
+      },
+      "left_16_hires_pixel_indices": [
+        0
+      ],
+      "reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/Gladjefull-p-expected-afli.png",
+      "labeled_reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/Gladjefull-p-expected-labeled.png",
+      "expected_color_indices": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/Gladjefull-p-expected-color-indices.bin"
+    }
+  ]
+}

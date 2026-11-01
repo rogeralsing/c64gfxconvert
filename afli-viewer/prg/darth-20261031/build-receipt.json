@@ -1,0 +1,70 @@
+{
+  "format": "standalone PAL C64 AFLI PRG",
+  "player_download": "https://www.godot64.de/iflis/diashow_eng.prg",
+  "player_source": "https://github.com/godot64/GoDot/blob/90c8c5c05a6683edb76a82efd8d3cff6f4713c3d/extras/iflidiashow.a",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "bootstrap_sha256": "644db00369c5a601367ba0696a7074723df3fca0bf7e457dd3c80fba121d6638",
+  "bootstrap_source_sha256": "da6f7bd486364c09af962317f98a741829b02170dd329df66d0fc09416f6ef58",
+  "entry": "$2000 (BASIC SYS 8192)",
+  "display_loop": "$2088",
+  "patches": [
+    {
+      "address": "$0e76",
+      "original": "$19",
+      "replacement": "$08",
+      "purpose": "hires, 40 columns, fixed X-scroll 0"
+    },
+    {
+      "address": "$0efe",
+      "original": "$01",
+      "replacement": "$00",
+      "purpose": "disable per-frame X-scroll toggle"
+    }
+  ],
+  "vic_banks": [
+    {
+      "dd00_low_bits": 2,
+      "screens": "$4000-$5fff",
+      "bitmap": "$6000-$7f3f"
+    },
+    {
+      "dd00_low_bits": 0,
+      "screens": "$c000-$dfff",
+      "bitmap": "$e000-$ff3f"
+    }
+  ],
+  "notes": [
+    "Both banks contain the same static AFLI image.",
+    "Original raster timing and VIC bank switching remain unchanged.",
+    "The hires FLI left strip may appear gray; the leftmost 24 pixels are outside the valid image area.",
+    "Original AFLI files are read only and retain their hashes."
+  ],
+  "files": [
+    {
+      "input": "/Users/rogerjohansson/Downloads/darth1.afl",
+      "input_sha256": "acd304348b4e5cb83c656278f3cf74365e69c95e68e29160f2749f1b97ba1185",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/prg/darth-20261031/darth1.prg",
+      "output_sha256": "8da94f626ff0f7fdec1048b4c06e9b095ad741524ff081164781be58171f1059",
+      "bytes": 48013,
+      "active_bank_sha256": "84a47212abe4d438190db23e13a709807a2b92b06e219b1136e4f2973ebd66b8",
+      "display_mask": {
+        "left_character_columns": 3,
+        "left_hires_pixels": 24,
+        "visible_image_width": 296
+      }
+    },
+    {
+      "input": "/Users/rogerjohansson/Downloads/darth2.afl",
+      "input_sha256": "70b2cbeb230d481d0b779e7b042b22088852e86de05f0af101c2ba8c591d6bef",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/prg/darth-20261031/darth2.prg",
+      "output_sha256": "ba5cd2e36f4973d551f0c854fc0d79abd42dc5322b226e7d4660ad9ab087fe63",
+      "bytes": 48013,
+      "active_bank_sha256": "3048a7cfb3378f8213eedcf811005df75a9f6311119092c622e0988b60f23503",
+      "display_mask": {
+        "left_character_columns": 3,
+        "left_hires_pixels": 24,
+        "visible_image_width": 296
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "name": "face-afl",
+  "source": "/Users/rogerjohansson/git/asynkron/c64/images/face-afl.afl",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/face-afl-20261101/face-afl-vice.png",
+  "screenshot_sha256": "24767aea15400c2737b65b2853f7fe82a89d983517596679c6eef53fafb53826",
+  "source_sha256": "c570ba9cfbcab4ffad21ff19170b7a600a5d173c6f4135a305204a5ba62ed003",
+  "payload_dumps": [
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/face-afl-20261101/bank-a.bin",
+      "bytes_matched": 16192,
+      "sha256": "e6ddc5027927c821d4e063503823104198476d66c106d75df72fbef425680c25"
+    },
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/face-afl-20261101/bank-b.bin",
+      "bytes_matched": 16192,
+      "sha256": "e6ddc5027927c821d4e063503823104198476d66c106d75df72fbef425680c25"
+    }
+  ],
+  "source_active_payload_bytes_matched": 16192,
+  "display_mask": {
+    "left_hires_pixels": 24,
+    "screen_bytes_zeroed": "first3tilecolumns of each25tile-rows in all8screenpages",
+    "bitmap_bytes_zeroed": "first24bytes of each25character rows",
+    "source_file_modified": false,
+    "unused_bitmap_tail_compared": false
+  },
+  "comparison": "one global one-to-one VICE RGB-to-C64-index mapping after exact RAM payload match",
+  "screenshot_dimensions": [
+    384,
+    272
+  ],
+  "source_crop": [
+    24,
+    0,
+    320,
+    200
+  ],
+  "compared_pixels": 59200,
+  "minimum_mismatches": 0,
+  "best_origin": [
+    32,
+    32
+  ],
+  "zero_mismatch_origins": [
+    [
+      32,
+      32
+    ]
+  ],
+  "expected_reference_sha256": "2b71bd4584a8cb34358a177f43d8a3674cbb1bbcbf158162862e2b056305a8f6",
+  "vice_rgb_to_c64_index": {
+    "0,0,0": 0,
+    "44,61,236": 6,
+    "98,98,98": 11,
+    "98,213,50": 5,
+    "115,133,255": 14,
+    "119,83,0": 9,
+    "126,243,214": 3,
+    "148,148,148": 12,
+    "170,64,245": 4,
+    "175,60,88": 2,
+    "183,99,30": 8,
+    "183,255,134": 13,
+    "205,205,205": 15,
+    "238,123,149": 10,
+    "255,255,70": 7,
+    "255,255,255": 1
+  },
+  "active_frame_origin": [
+    32,
+    32
+  ],
+  "pass": true
+}

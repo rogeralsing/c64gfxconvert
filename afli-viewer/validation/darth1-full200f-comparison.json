@@ -1,0 +1,64 @@
+{
+  "name": "darth1",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200f-20261031/darth1-vice.png",
+  "screenshot_sha256": "170ba39b86aefe50dbba9cde9d9f0caa04e680f8ede44f924a0a9b9c80112181",
+  "source_sha256": "acd304348b4e5cb83c656278f3cf74365e69c95e68e29160f2749f1b97ba1185",
+  "payload_dumps": [
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200f-20261031/bank-a.bin",
+      "bytes_matched": 16192,
+      "sha256": "84a47212abe4d438190db23e13a709807a2b92b06e219b1136e4f2973ebd66b8"
+    },
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth1-full200f-20261031/bank-b.bin",
+      "bytes_matched": 16192,
+      "sha256": "84a47212abe4d438190db23e13a709807a2b92b06e219b1136e4f2973ebd66b8"
+    }
+  ],
+  "source_active_payload_bytes_matched": 16192,
+  "display_mask": {
+    "left_hires_pixels": 24,
+    "screen_bytes_zeroed": "first3tilecolumns of each25tile-rows in all8screenpages",
+    "bitmap_bytes_zeroed": "first24bytes of each25character rows",
+    "source_file_modified": false,
+    "unused_bitmap_tail_compared": false
+  },
+  "comparison": "one global one-to-one VICE RGB-to-C64-index mapping after exact RAM payload match",
+  "screenshot_dimensions": [
+    384,
+    272
+  ],
+  "source_crop": [
+    24,
+    0,
+    320,
+    200
+  ],
+  "compared_pixels": 59200,
+  "minimum_mismatches": 29177,
+  "best_origin": [
+    32,
+    31
+  ],
+  "zero_mismatch_origins": [],
+  "expected_reference_sha256": "c4739e3bf09783096d5fc73c962211380e084ed248a6a84912c9c6ab1352e47a",
+  "vice_rgb_to_c64_index": {
+    "0,0,0": 0,
+    "44,61,236": 9,
+    "98,98,98": 9,
+    "98,213,50": 11,
+    "115,133,255": 7,
+    "119,83,0": 9,
+    "126,243,214": 1,
+    "148,148,148": 12,
+    "170,64,245": 8,
+    "175,60,88": 8,
+    "183,99,30": 9,
+    "183,255,134": 1,
+    "205,205,205": 15,
+    "238,123,149": 10,
+    "255,255,70": 15,
+    "255,255,255": 1
+  },
+  "pass": false
+}

@@ -1,0 +1,45 @@
+{
+  "format": "standalone PAL C64 IFLI PRG",
+  "player": "GoDot English PAL IFLI slideshow player, display routines",
+  "player_source": "https://github.com/godot64/GoDot/blob/master/extras/iflidiashow.a",
+  "player_download": "https://www.godot64.de/iflis/diashow_eng.prg",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "bootstrap_sha256": "644db00369c5a601367ba0696a7074723df3fca0bf7e457dd3c80fba121d6638",
+  "files": [
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^face.fp2",
+      "input_sha256": "df6cb474b98d320db9968c2f8961782ccef03bb3ab3a0acec93b2f2660fd3d92",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final/face.prg",
+      "output_sha256": "31979e1d934d875d91fe8630be1c526077b6581bd5bf0a9eea5cce0b6ea9b609",
+      "bytes": 48013
+    },
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^mage.fp2",
+      "input_sha256": "bdb533b755feafb3cd9cd9531bea2a489866669fb10655d4b8eafbe29fd05254",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final/mage.prg",
+      "output_sha256": "c1db44d689d70ac5c76e1321ebff2c3da2a382564e3ec722e7837c3b1497ed15",
+      "bytes": 48013
+    },
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^dragon.fp2",
+      "input_sha256": "672b2e27aefad90a322c7095a09830860b76e0d576da3feb7e4f3bb4dece5c74",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final/dragon.prg",
+      "output_sha256": "e92bd4c3f5303b856252f49babd17716e516c5945ca76380beec8ed81c53b34b",
+      "bytes": 48013
+    },
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^abyss.fp2",
+      "input_sha256": "137bac90a17c638ceb76da8178a30d52a2939d1dce014ad2ea66c35eeffb039b",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final/abyss.prg",
+      "output_sha256": "f7afb3da5d953070c25ed6c6d094667c956f8bba34901ecac1ca96782634b04d",
+      "bytes": 48013
+    },
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^tentacles.fp2",
+      "input_sha256": "97725217a9c4f306263fcba84bb76a062493b3579e2b2180a3b822b5009e2400",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final/tentacles.prg",
+      "output_sha256": "ef9d7f9e0a075a490e70f524fce5a3de93ea0a3cb124667b890a1bde720db390",
+      "bytes": 48013
+    }
+  ]
+}

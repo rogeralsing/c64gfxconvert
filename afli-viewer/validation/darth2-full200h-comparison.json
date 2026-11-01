@@ -1,0 +1,73 @@
+{
+  "name": "darth2",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth2-full200h-20261031/darth2-vice.png",
+  "screenshot_sha256": "0323054ee8b2f2295f24af8f1f684855ffdc7fd40c1343ac4084a5e8a1a79fc7",
+  "source_sha256": "70b2cbeb230d481d0b779e7b042b22088852e86de05f0af101c2ba8c591d6bef",
+  "payload_dumps": [
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth2-full200h-20261031/bank-a.bin",
+      "bytes_matched": 16192,
+      "sha256": "3048a7cfb3378f8213eedcf811005df75a9f6311119092c622e0988b60f23503"
+    },
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth2-full200h-20261031/bank-b.bin",
+      "bytes_matched": 16192,
+      "sha256": "3048a7cfb3378f8213eedcf811005df75a9f6311119092c622e0988b60f23503"
+    }
+  ],
+  "source_active_payload_bytes_matched": 16192,
+  "display_mask": {
+    "left_hires_pixels": 24,
+    "screen_bytes_zeroed": "first3tilecolumns of each25tile-rows in all8screenpages",
+    "bitmap_bytes_zeroed": "first24bytes of each25character rows",
+    "source_file_modified": false,
+    "unused_bitmap_tail_compared": false
+  },
+  "comparison": "one global one-to-one VICE RGB-to-C64-index mapping after exact RAM payload match",
+  "screenshot_dimensions": [
+    384,
+    272
+  ],
+  "source_crop": [
+    24,
+    0,
+    320,
+    200
+  ],
+  "compared_pixels": 59200,
+  "minimum_mismatches": 0,
+  "best_origin": [
+    32,
+    32
+  ],
+  "zero_mismatch_origins": [
+    [
+      32,
+      32
+    ]
+  ],
+  "expected_reference_sha256": "e996b4115f653906b639940b19c02bde29945923e60e8634269d48e99dd16cf9",
+  "vice_rgb_to_c64_index": {
+    "0,0,0": 0,
+    "44,61,236": 6,
+    "98,98,98": 11,
+    "98,213,50": 5,
+    "115,133,255": 14,
+    "119,83,0": 9,
+    "126,243,214": 3,
+    "148,148,148": 12,
+    "170,64,245": 4,
+    "175,60,88": 2,
+    "183,99,30": 8,
+    "183,255,134": 13,
+    "205,205,205": 15,
+    "238,123,149": 10,
+    "255,255,70": 7,
+    "255,255,255": 1
+  },
+  "active_frame_origin": [
+    32,
+    32
+  ],
+  "pass": true
+}

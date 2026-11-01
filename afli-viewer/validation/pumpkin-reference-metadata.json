@@ -1,0 +1,197 @@
+{
+  "kind": "expected reference decoded from source AFLI; not an emulator capture",
+  "palette_source": "/Users/rogerjohansson/git/asynkron/c64/index.html",
+  "palette_declaration_sha256": "dbeb41850ec4b208b4ee86c350e89e6228bf778ea85b972f793e214673b6cd12",
+  "palette": {
+    "0": {
+      "name": "Black",
+      "hex": "#000000",
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    "1": {
+      "name": "White",
+      "hex": "#FFFFFF",
+      "rgb": [
+        255,
+        255,
+        255
+      ]
+    },
+    "2": {
+      "name": "Red",
+      "hex": "#8D333D",
+      "rgb": [
+        141,
+        51,
+        61
+      ]
+    },
+    "3": {
+      "name": "Cyan",
+      "hex": "#65BFB3",
+      "rgb": [
+        101,
+        191,
+        179
+      ]
+    },
+    "4": {
+      "name": "Purple",
+      "hex": "#8E37A2",
+      "rgb": [
+        142,
+        55,
+        162
+      ]
+    },
+    "5": {
+      "name": "Green",
+      "hex": "#4CA549",
+      "rgb": [
+        76,
+        165,
+        73
+      ]
+    },
+    "6": {
+      "name": "Blue",
+      "hex": "#332CAD",
+      "rgb": [
+        51,
+        44,
+        173
+      ]
+    },
+    "7": {
+      "name": "Yellow",
+      "hex": "#CDD156",
+      "rgb": [
+        205,
+        209,
+        86
+      ]
+    },
+    "8": {
+      "name": "Orange",
+      "hex": "#8F501B",
+      "rgb": [
+        143,
+        80,
+        27
+      ]
+    },
+    "9": {
+      "name": "Brown",
+      "hex": "#533D01",
+      "rgb": [
+        83,
+        61,
+        1
+      ]
+    },
+    "10": {
+      "name": "Light red",
+      "hex": "#BD636D",
+      "rgb": [
+        189,
+        99,
+        109
+      ]
+    },
+    "11": {
+      "name": "Dark gray",
+      "hex": "#4F4F4F",
+      "rgb": [
+        79,
+        79,
+        79
+      ]
+    },
+    "12": {
+      "name": "Gray",
+      "hex": "#767676",
+      "rgb": [
+        118,
+        118,
+        118
+      ]
+    },
+    "13": {
+      "name": "Light green",
+      "hex": "#8BE98B",
+      "rgb": [
+        139,
+        233,
+        139
+      ]
+    },
+    "14": {
+      "name": "Light blue",
+      "hex": "#6C65E6",
+      "rgb": [
+        108,
+        101,
+        230
+      ]
+    },
+    "15": {
+      "name": "Light gray",
+      "hex": "#A3A3A3",
+      "rgb": [
+        163,
+        163,
+        163
+      ]
+    }
+  },
+  "images": [
+    {
+      "name": "pumpkin",
+      "source": "/Users/rogerjohansson/Downloads/pumpkin.afl",
+      "source_bytes": 16385,
+      "load_address": "$4000",
+      "source_sha256": "5ec430c86bd6c07c4f9664c8d224cc3cc6c1db81de3b8fb67cc348740df16d91",
+      "decoded_dimensions": [
+        320,
+        200
+      ],
+      "decoded_index_sha256": "2db69eadb2c29b4047a5bddf3640b4c9513304521514bed8d96c424196333f9e",
+      "decoded_rgb_sha256": "b17e512b91b86ec9f67615fc2b5ab8367a8a30cbb254b4e8aa0d225196233ac4",
+      "expected_png_sha256": "7495999854323988de1dd505dfc324f7f1c408660e9fa1c1aae1e770ba625248",
+      "screen_active_bytes": 8000,
+      "bitmap_active_bytes": 8000,
+      "screen_gap_bytes": 192,
+      "screen_gap_nonzero_bytes": 0,
+      "bitmap_tail_bytes": 191,
+      "bitmap_tail_nonzero_bytes": 0,
+      "palette_index_histogram": {
+        "0": 13435,
+        "1": 1942,
+        "2": 3024,
+        "3": 265,
+        "4": 611,
+        "5": 119,
+        "6": 3766,
+        "7": 4234,
+        "8": 4505,
+        "9": 9493,
+        "10": 5888,
+        "11": 3775,
+        "12": 3278,
+        "13": 678,
+        "14": 736,
+        "15": 8251
+      },
+      "left_16_hires_pixel_indices": [
+        0
+      ],
+      "reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/pumpkin-expected-afli.png",
+      "labeled_reference_png": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/pumpkin-expected-labeled.png",
+      "expected_color_indices": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/validation/pumpkin-expected-color-indices.bin"
+    }
+  ]
+}

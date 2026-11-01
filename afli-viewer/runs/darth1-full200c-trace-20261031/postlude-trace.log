@@ -1,0 +1,85 @@
+break 0efa
+(C:$2088) BREAK: 1  C:$0efa  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 0efa)  248/$0f8,  20/$14
+.C:0efa  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   77892716
+(C:$0efa) 
+
+delete
+Deleting all checkpoints
+(C:$0efa) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0efa 00 00 00 ef 2f 35 10100100 248 020   77892716
+(C:$0efa) 
+d 0ee0 0f10
+.C:0ee0  EA          NOP
+.C:0ee1  EA          NOP
+.C:0ee2  EA          NOP
+.C:0ee3  EA          NOP
+.C:0ee4  EA          NOP
+.C:0ee5  EA          NOP
+.C:0ee6  EA          NOP
+.C:0ee7  EA          NOP
+.C:0ee8  EA          NOP
+.C:0ee9  EA          NOP
+.C:0eea  68          PLA
+.C:0eeb  68          PLA
+.C:0eec  68          PLA
+.C:0eed  8A          TXA
+.C:0eee  48          PHA
+.C:0eef  98          TYA
+.C:0ef0  48          PHA
+.C:0ef1  A5 FC       LDA $FC
+.C:0ef3  48          PHA
+.C:0ef4  20 00 84    JSR $8400
+.C:0ef7  CE 19 D0    DEC $D019
+.C:0efa  A9 30       LDA #$30
+.C:0efc  8D 11 D0    STA $D011
+.C:0eff  EA          NOP
+.C:0f00  EA          NOP
+.C:0f01  EA          NOP
+.C:0f02  AD 00 DD    LDA $DD00
+.C:0f05  49 02       EOR #$02
+.C:0f07  8D 00 DD    STA $DD00
+.C:0f0a  A9 2C       LDA #$2C
+.C:0f0c  8D 12 D0    STA $D012
+.C:0f0f  A9 C3       LDA #$C3
+(C:$0f11) 
+step
+.C:0efc  8D 11 D0    STA $D011      - A:30 X:00 Y:00 SP:ef ..-..I..   77892718
+(C:$0efc) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0efc 30 00 00 ef 2f 35 00100100 248 022   77892718
+(C:$0efc) 
+step
+.C:0eff  EA          NOP            - A:30 X:00 Y:00 SP:ef ..-..I..   77892722
+(C:$0eff) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0eff 30 00 00 ef 2f 35 00100100 248 026   77892722
+(C:$0eff) 
+step
+.C:0f00  EA          NOP            - A:30 X:00 Y:00 SP:ef ..-..I..   77892724
+(C:$0f00) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0f00 30 00 00 ef 2f 35 00100100 248 028   77892724
+(C:$0f00) 
+step
+.C:0f01  EA          NOP            - A:30 X:00 Y:00 SP:ef ..-..I..   77892726
+(C:$0f01) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0f01 30 00 00 ef 2f 35 00100100 248 030   77892726
+(C:$0f01) 
+step
+.C:0f02  AD 00 DD    LDA $DD00      - A:30 X:00 Y:00 SP:ef ..-..I..   77892728
+(C:$0f02) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0f02 30 00 00 ef 2f 35 00100100 248 032   77892728
+(C:$0f02) 
+x

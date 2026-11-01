@@ -1,0 +1,28 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "vs64",
+      "action": "build",
+      "label": "build project",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    },
+    {
+      "type": "process",
+      "label": "Build + Run VICE x64sc",
+      "command": "${workspaceFolder}/run-vice.sh",
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    },
+    {
+      "type": "process",
+      "label": "Build + Run RetroDebugger",
+      "command": "${workspaceFolder}/run-retro.sh",
+      "options": {"cwd": "${workspaceFolder}"},
+      "problemMatcher": []
+    }
+  ]
+}

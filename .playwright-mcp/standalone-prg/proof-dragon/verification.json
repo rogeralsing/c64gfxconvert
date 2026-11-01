@@ -1,0 +1,56 @@
+{
+  "name": "dragon",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/dragon.prg",
+  "program_bytes": 48013,
+  "program_sha256": "e92bd4c3f5303b856252f49babd17716e516c5945ca76380beec8ed81c53b34b",
+  "source": "/Users/rogerjohansson/Downloads/^^dragon.fp2",
+  "source_sha256": "672b2e27aefad90a322c7095a09830860b76e0d576da3feb7e4f3bb4dece5c74",
+  "command": [
+    "/opt/homebrew/bin/x64sc",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+reu",
+    "+refreshonbreak",
+    "-sounddev",
+    "dummy",
+    "-autostartprgmode",
+    "1",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:6519",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/final-six/dragon.prg"
+  ],
+  "direct_prg_autostart": true,
+  "pid": 33953,
+  "attempts": [
+    {
+      "pc": "0xfd75",
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;fd75 55 00 a7 fd 2f 37 00100101 000 003      39315\n(C:$fd75) "
+    },
+    {
+      "pc": "0xe09",
+      "registers": "(C:$0e09)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;0e09 28 76 ff f4 2f 35 00100100 000 003    4127763\n(C:$0e09) "
+    },
+    {
+      "pc": "0x2088",
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    5621616\n(C:$2088) "
+    }
+  ],
+  "first_display_pc": "0x2088",
+  "capture_registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 3b 00 00 f6 2f 35 01100000 000 000    6624072\n(C:$2088) ",
+  "capture_pc": "0x2088",
+  "screenshot_response": "(C:$2088) ",
+  "phase_b_bytes": 16292,
+  "phase_b_exact_match": true,
+  "phase_b_sha256": "b23adc3a508e3654a327b94477d3da5d9253002adaad2f93544ae34c5f3accd5",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/standalone-prg/proof-dragon/dragon-vice.png",
+  "refresh_on_break": false,
+  "warp": false,
+  "passed_binary_playback_checks": true,
+  "emulator_exit_code": -15,
+  "owned_emulator_closed": true,
+  "visual_confirmation": "Dragon image visibly rendered after resume to complete a PAL frame."
+}

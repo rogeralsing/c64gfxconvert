@@ -1,0 +1,49 @@
+{
+  "source": "/Users/rogerjohansson/Downloads/^^aaa.fp2",
+  "source_sha256": "bdb533b755feafb3cd9cd9531bea2a489866669fb10655d4b8eafbe29fd05254",
+  "size": 33694,
+  "header_valid": true,
+  "color_indices_valid": true,
+  "background": 0,
+  "left_margin": [
+    {
+      "phase": 0,
+      "blank_first_8_mc_columns": true,
+      "nonbackground_pixels": 0,
+      "examples": []
+    },
+    {
+      "phase": 1,
+      "blank_first_8_mc_columns": true,
+      "nonbackground_pixels": 0,
+      "examples": []
+    }
+  ],
+  "disk": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/aaa-export/aaa.d64",
+  "vice_pid": 2378,
+  "vice_command": [
+    "/opt/homebrew/bin/x64sc",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+reu",
+    "+refreshonbreak",
+    "+drive8truedrive",
+    "-trapdevice8",
+    "-sounddev",
+    "dummy",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:6517",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/aaa-export/aaa.d64"
+  ],
+  "launched_at": "2026-10-31T15:14:20.603491+00:00",
+  "display_pc": "0xc6a",
+  "monitor_registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;0c6a 10 00 00 f4 2f 35 01100000 000 000   14525784\n(C:$0c6a) ",
+  "warp_response": "(C:$0c6a) ",
+  "screenshot_response": "(C:$0c6a) ",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/aaa-export/aaa-vice.png",
+  "left_running": true
+}

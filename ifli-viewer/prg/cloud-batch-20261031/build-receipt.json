@@ -1,0 +1,186 @@
+{
+  "format": "standalone PAL C64 IFLI PRG",
+  "player": "GoDot English PAL IFLI slideshow player, display routines",
+  "player_source": "https://github.com/godot64/GoDot/blob/master/extras/iflidiashow.a",
+  "player_download": "https://www.godot64.de/iflis/diashow_eng.prg",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "bootstrap_sha256": "644db00369c5a601367ba0696a7074723df3fca0bf7e457dd3c80fba121d6638",
+  "files": [
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/arnold.fp2",
+      "input_sha256": "3f03257bb55bd26d974185f894aca9818b3b8bdf5bdd9ffcbc1a2198c6ff5984",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/arnold.prg",
+      "output_sha256": "96ceab9caa16df61af25862aad59b37fdff7a45299fd33363527e55183dd9ae9",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/arnold.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 46
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/arnold.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/arnold-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/elf.fp2",
+      "input_sha256": "022e6ac3f7e8e23dfc92466a04834553ce88d3b2f2dd458f0151ae012e508763",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/elf.prg",
+      "output_sha256": "93158a519210e65637e75b4eb3480afc17e01f2a1141acbf7a9f997e7edb91fe",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/elf.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 0
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/elf.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/elf-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face.fp2",
+      "input_sha256": "28e1dff4dba561d4ca6aad86353c0e82ad4833fff605f9feb54a53bad1392704",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/face.prg",
+      "output_sha256": "fc80e99813093179e28e8b7cee05cb86189e144377cb56fd06a8c17152c20b00",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 263
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/face-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face2.fp2",
+      "input_sha256": "3f7cfddf0a1d43c655fdaacf8f922845b507fbda59d354a57f6b072d0235c085",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/face2.prg",
+      "output_sha256": "89bd046ad756e5d28dc3b6d9edb51568fe4d4072c83689f33db3e8758a1a4384",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face2.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 79
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/face2.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/face2-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/ikplus.fp2",
+      "input_sha256": "a1d2c81d8ffe18e34bd6a50912cfdad0e4887922623b357a091d4157c6d061d7",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/ikplus.prg",
+      "output_sha256": "0e6c9190057a35a99c628aec763eaed94ee8cec272ee85e4dae471964155f704",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/ikplus.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 321
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/ikplus.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/ikplus-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/mage.fp2",
+      "input_sha256": "ad4ad0585c284426016afa3f21d46bae523a49925d9987b5b00f9b1409b02806",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/mage.prg",
+      "output_sha256": "7c6152dd634f959c906d94a0e2917a957142bde2fb9e394d1644c5b56c41a50b",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/mage.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 213
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/mage.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/mage-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/r-type.fp2",
+      "input_sha256": "367f87e514055f68779df0712f811a8ea1f3cd94c7458009f4d746106a77b16a",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/r-type.prg",
+      "output_sha256": "8fda20b2c562002d9fbf166f712177710d22289e59665035e007aff347ef0166",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/r-type.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 291
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/r-type.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/r-type-vice.png"
+    },
+    {
+      "input": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/tentacles.fp2",
+      "input_sha256": "7d7c43d8d1c66e46562d44a394b5cddd01b30509d486dd40bbed21f7f07a6c69",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/tentacles.prg",
+      "output_sha256": "c3178e66ea7c51f36ce20ef69b20df9b261f21b88dd47c06cd464fa56da5449f",
+      "bytes": 48013,
+      "verification": "Direct PAL VICE autostart; screenshot inspected; display loop $2088; 16292 phase B bytes match source after the 24-pixel bitmap mask; warp disabled, speed100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/tentacles.prg",
+      "display_mask": {
+        "left_hires_pixels": 24,
+        "source_reserved_pixels": 16,
+        "additional_pixels_hidden": 8,
+        "bitmap_columns_blanked": [
+          0,
+          1,
+          2
+        ],
+        "changed_bitmap_bytes": 0
+      },
+      "saved_output": "/Users/rogerjohansson/Library/CloudStorage/GoogleDrive-roger@asynkron.se/Min enhet/c64/tentacles.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/tentacles-vice.png"
+    }
+  ]
+}

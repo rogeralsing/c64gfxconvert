@@ -1,0 +1,160 @@
+break 8400
+(C:$2088) BREAK: 1  C:$8400  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 8400)   45/$02d,  53/$35
+.C:8400  A9 38       LDA #$38       - A:35 X:00 Y:00 SP:ed .V-..I..   42774344
+(C:$8400) 
+
+delete
+Deleting all checkpoints
+(C:$8400) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8400 35 00 00 ed 2f 35 01100100 045 053   42774344
+(C:$8400) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8412  A9 39       LDA #$39       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774367
+(C:$8412) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8412 00 00 00 ed 2f 35 00100110 046 013   42774367
+(C:$8412) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8424  A9 3A       LDA #$3A       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774390
+(C:$8424) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8424 00 00 00 ed 2f 35 00100110 046 036   42774390
+(C:$8424) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8436  A9 3B       LDA #$3B       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774413
+(C:$8436) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8436 00 00 00 ed 2f 35 00100110 046 059   42774413
+(C:$8436) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8448  A9 3C       LDA #$3C       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774436
+(C:$8448) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8448 00 00 00 ed 2f 35 00100110 047 019   42774436
+(C:$8448) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:845a  A9 3D       LDA #$3D       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774459
+(C:$845a) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;845a 00 00 00 ed 2f 35 00100110 047 042   42774459
+(C:$845a) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:846c  A9 3E       LDA #$3E       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774482
+(C:$846c) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;846c 00 00 00 ed 2f 35 00100110 048 002   42774482
+(C:$846c) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:847e  A9 3F       LDA #$3F       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774505
+(C:$847e) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;847e 00 00 00 ed 2f 35 00100110 048 025   42774505
+(C:$847e) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8490  A9 38       LDA #$38       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774528
+(C:$8490) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8490 00 00 00 ed 2f 35 00100110 048 048   42774528
+(C:$8490) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84a2  A9 39       LDA #$39       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774551
+(C:$84a2) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84a2 00 00 00 ed 2f 35 00100110 049 008   42774551
+(C:$84a2) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84b4  A9 3A       LDA #$3A       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774614
+(C:$84b4) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84b4 00 00 00 ed 2f 35 00100110 050 008   42774614
+(C:$84b4) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84c6  A9 3B       LDA #$3B       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774677
+(C:$84c6) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84c6 00 00 00 ed 2f 35 00100110 051 008   42774677
+(C:$84c6) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84d8  A9 3C       LDA #$3C       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774740
+(C:$84d8) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84d8 00 00 00 ed 2f 35 00100110 052 008   42774740
+(C:$84d8) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84ea  A9 3D       LDA #$3D       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774803
+(C:$84ea) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84ea 00 00 00 ed 2f 35 00100110 053 008   42774803
+(C:$84ea) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:84fc  A9 3E       LDA #$3E       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774866
+(C:$84fc) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84fc 00 00 00 ed 2f 35 00100110 054 008   42774866
+(C:$84fc) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:850e  A9 3F       LDA #$3F       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774929
+(C:$850e) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;850e 00 00 00 ed 2f 35 00100110 055 008   42774929
+(C:$850e) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8520  A9 38       LDA #$38       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42774992
+(C:$8520) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8520 00 00 00 ed 2f 35 00100110 056 008   42774992
+(C:$8520) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8532  A9 39       LDA #$39       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42775055
+(C:$8532) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8532 00 00 00 ed 2f 35 00100110 057 008   42775055
+(C:$8532) 
+step 7
+Stepping through the next 7 instruction(s).
+.C:8544  A9 3A       LDA #$3A       - A:00 X:00 Y:00 SP:ed ..-..IZ.   42775118
+(C:$8544) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8544 00 00 00 ed 2f 35 00100110 058 008   42775118
+(C:$8544) 
+x

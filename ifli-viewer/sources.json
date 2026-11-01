@@ -1,0 +1,28 @@
+{
+  "retrieved_at": "2026-10-31T13:48:30.528652+00:00",
+  "files": [
+    {
+      "file": "butterfly.fp2",
+      "url": "https://www.godot64.de/iflis/butterfly.fp2",
+      "sha256": "a4629f38715eff6ffb3fd05e58b0c41b32ecd4458e2e5813f1eb76028abccff5"
+    },
+    {
+      "file": "diashow_eng.prg",
+      "url": "https://www.godot64.de/iflis/diashow_eng.prg",
+      "sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82"
+    },
+    {
+      "file": "instruct.txt",
+      "url": "https://www.godot64.de/iflis/instruct.txt",
+      "sha256": "b2632e57da4fef73d9ece91b63801ff03beb36cb021f48fc987e010e34cd0278"
+    },
+    {
+      "file": "iflishow.d64",
+      "url": "https://www.godot64.de/download/iflishow.d64",
+      "sha256": "dfcc418ea7bb88e252857c97abe9e251494aa46245d41cc416fc9519ca813b6c"
+    }
+  ],
+  "custom_disk": "butterfly.d64",
+  "player": "original English PAL slideshow viewer",
+  "verification": "Original compressed butterfly FP2 displayed in VICE3.10 with REU=0, Speed=100, warp off; monitor refresh disabled for accurate capture."
+}

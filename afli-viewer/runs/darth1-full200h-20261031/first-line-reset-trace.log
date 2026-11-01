@@ -1,0 +1,58 @@
+break 8490
+(C:$2088) BREAK: 1  C:$8490  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 8490)   48/$030,   5/$05
+.C:8490  A9 38       LDA #$38       - A:00 X:00 Y:00 SP:ed ..-..IZ.   39256061
+(C:$8490) 
+
+delete
+Deleting all checkpoints
+(C:$8490) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8490 00 00 00 ed 2f 35 00100110 048 005   39256061
+(C:$8490) 
+step 3
+Stepping through the next 3 instruction(s).
+.C:8497  8D 18 D0    STA $D018      - A:18 X:00 Y:00 SP:ed ..-..I..   39256112
+(C:$8497) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;8497 18 00 00 ed 2f 35 00100100 048 056   39256112
+(C:$8497) 
+io d000
+VIC-II:
+>C:d000  00 00 00 00  00 00 00 00  00 00 00 00  00 00 00 00   @@@@@@@@@@@@@@@@
+>C:d010  00 38 30 00  00 00 c8 00  09 f1 f1 00  00 00 00 00   @80@@@H@i��@@@@@
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f2 f3 f4 f5  f6 f7 fc ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 56/48 IRQ: 44
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 0, Idle: 0, 40x25
+VC $028, VCBASE $000, VMLI 40, Phi1 $0e
+Video $c000, Bitmap $e000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled:  no  no  no  no  no  no  no  no
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $00 $00 $00 $00 $00 $00 $00 $00
+MC:      $00 $00 $00 $00 $00 $00 $00 $00
+MCBASE:  $00 $00 $00 $00 $00 $00 $00 $00
+X-Pos:  $000$000$000$000$000$000$000$000
+Y-Pos:     0   0   0   0   0   0   0   0
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   2   3   4   5   6   7   c
+(C:$d040) 
+step 4
+Stepping through the next 4 instruction(s).
+.C:84a2  A9 39       LDA #$39       - A:00 X:00 Y:00 SP:ed ..-..IZ.   39256127
+(C:$84a2) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;84a2 00 00 00 ed 2f 35 00100110 049 008   39256127
+(C:$84a2) 
+x

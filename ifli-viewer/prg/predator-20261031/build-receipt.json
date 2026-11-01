@@ -1,0 +1,27 @@
+{
+  "format": "standalone PAL C64 IFLI PRG",
+  "player": "GoDot English PAL IFLI slideshow player, display routines",
+  "player_source": "https://github.com/godot64/GoDot/blob/master/extras/iflidiashow.a",
+  "player_download": "https://www.godot64.de/iflis/diashow_eng.prg",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "bootstrap_sha256": "644db00369c5a601367ba0696a7074723df3fca0bf7e457dd3c80fba121d6638",
+  "files": [
+    {
+      "input": "/Users/rogerjohansson/Downloads/^^predator.fp2",
+      "input_sha256": "88cb250cdfb0dca51d5f88f080fc2403fdc982b53834fa5e5f32479c751fb4fc",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/predator-20261031/predator.prg",
+      "output_sha256": "c3033fcd14c0b330b469c00b4ed2c57fbe9432c77fe1b27e3ecf7aa48a9faf2f",
+      "bytes": 48013,
+      "display_mask": {
+        "left_character_columns": 3,
+        "left_hires_pixels": 24,
+        "additional_hires_pixels_beyond_converter": 8,
+        "phases": 2
+      },
+      "verification": "Direct PAL VICE autostart; visible screenshot inspected; display loop $2088; all 16292 phase B bytes match after the 24-pixel bitmap mask; warp and autostart warp disabled, speed 100, VSync enabled.",
+      "requested_destination": "/Users/rogerjohansson/Downloads/predator.prg",
+      "saved_output": "/Users/rogerjohansson/Downloads/predator.prg",
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/predator-20261031/predator-vice.png"
+    }
+  ]
+}

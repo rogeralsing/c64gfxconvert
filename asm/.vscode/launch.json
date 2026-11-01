@@ -1,0 +1,14 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "vice",
+      "request": "launch",
+      "name": "Launch VICE x64sc",
+      "preLaunchTask": "${defaultBuildTask}",
+      "hostname": "127.0.0.1",
+      "port": 6502,
+      "timeout": 30
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "name": "pumpkin",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/pumpkin-20261101/pumpkin-vice.png",
+  "screenshot_sha256": "dd343407ebd0b7c1938b8be376b247ed950c4c53ae92637ae491c3973d1ad855",
+  "source_sha256": "5ec430c86bd6c07c4f9664c8d224cc3cc6c1db81de3b8fb67cc348740df16d91",
+  "payload_dumps": [
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/pumpkin-20261101/bank-a.bin",
+      "bytes_matched": 16192,
+      "sha256": "64ca6afc191eac62e3d40ee61577ea5528a8c54000d59291debc9fd303d07e26"
+    },
+    {
+      "path": "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/pumpkin-20261101/bank-b.bin",
+      "bytes_matched": 16192,
+      "sha256": "64ca6afc191eac62e3d40ee61577ea5528a8c54000d59291debc9fd303d07e26"
+    }
+  ],
+  "source_active_payload_bytes_matched": 16192,
+  "display_mask": {
+    "left_hires_pixels": 24,
+    "screen_bytes_zeroed": "first3tilecolumns of each25tile-rows in all8screenpages",
+    "bitmap_bytes_zeroed": "first24bytes of each25character rows",
+    "source_file_modified": false,
+    "unused_bitmap_tail_compared": false
+  },
+  "comparison": "one global one-to-one VICE RGB-to-C64-index mapping after exact RAM payload match",
+  "screenshot_dimensions": [
+    384,
+    272
+  ],
+  "source_crop": [
+    24,
+    0,
+    320,
+    200
+  ],
+  "compared_pixels": 59200,
+  "minimum_mismatches": 0,
+  "best_origin": [
+    32,
+    32
+  ],
+  "zero_mismatch_origins": [
+    [
+      32,
+      32
+    ]
+  ],
+  "expected_reference_sha256": "2db69eadb2c29b4047a5bddf3640b4c9513304521514bed8d96c424196333f9e",
+  "vice_rgb_to_c64_index": {
+    "0,0,0": 0,
+    "44,61,236": 6,
+    "98,98,98": 11,
+    "98,213,50": 5,
+    "115,133,255": 14,
+    "119,83,0": 9,
+    "126,243,214": 3,
+    "148,148,148": 12,
+    "170,64,245": 4,
+    "175,60,88": 2,
+    "183,99,30": 8,
+    "183,255,134": 13,
+    "205,205,205": 15,
+    "238,123,149": 10,
+    "255,255,70": 7,
+    "255,255,255": 1
+  },
+  "active_frame_origin": [
+    32,
+    32
+  ],
+  "pass": true
+}

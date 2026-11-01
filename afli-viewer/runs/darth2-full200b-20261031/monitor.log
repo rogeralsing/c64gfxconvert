@@ -1,0 +1,21 @@
+r
+(C:$e5d4)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;e5d4 00 00 0a f3 2f 37 00100010 000 000    2869776
+(C:$e5d4) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$e5d4) 
+resourceget "Speed"
+Speed=100
+(C:$e5d4) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$e5d4) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$e5d4) 
+bank ram
+(C:$e5d4) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth2-full200b-20261031/bank-a.bin" 0 4000 7f3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-viewer/runs/darth2-full200b-20261031/bank-a.bin' from $4000 to $7f3f
+(C:$e5d4) 

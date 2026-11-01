@@ -1,0 +1,71 @@
+Instructions for the IFLI viewers loadable from this site
+
+1. IFLI-diashow
+
+This is the program that comes with the GoDot full version disks (available from 
+this site). It is a PAL viewer for Funpaint II images. Those are recognized 
+automatically by the leading double up arrow in their filenames. You just insert a 
+disk containing FP II files and RUN the program. It will then retrieve all 
+suitable files, load and display them, and finally prompt you for a further disk.
+
+The STOP key is useful if you want to skip an image whilst loading. STOP at the 
+final prompt will end the program. You start loading the next image by pressing 
+the SPACE bar when one image is currently displayed. 
+
+There are some nifty nice particulars of how to start the program. If you add one, 
+some, or all of the three following parameters to the LOAD command the program 
+will act like a slideshow:
+
+LOAD "IFLI*",8:"u=8,9 w=10 l=1"
+
+Where U means "unit", W means "wait", and L means "loop". The above command line 
+leads to the following behavior of the viewer: It starts retrieving FPII images on 
+drive #8 (though it may have been loaded from drive 10 itself), will show each 
+image found there for 10 seconds without further ado, will then change drives to 
+#9 and also display all FP II's from there. After that it will return to drive #8 
+again and continue (you could have changed the disk in the meantime). Since LOOP 
+is set to 1, this will continue endlessly (good for store window presentations 
+from two 1581 drives). You stop the slideshow by removing the disk from the 
+current drive, and pressing STOP at the error message that will be displayed then. 
+The U parameter can have up to four sequence numbers like eg "u=8,9,10,11" or also 
+"u=10,9,8,11" or even "u=8,9,8,9". The STOP key works like mentioned earlier.
+
+The program does *not* apply for accelerated systems, so switch off your SCPU or 
+trigger your emulator down to 100%.
+
+2. diashow(eng)
+
+This is the *same* program as above but with English messages.
+
+3. ntscifli
+
+This program is published here courtesy Todd Elliott and may be renamed to "NTSC 
+IFLI viewer". It is nothing more than a viewer without any function to LOAD an 
+image, or to even access a drive from within the program. If you have a JiffyDOS 
+equipped machine you act as follows:
+
+After loading the viewer, display the directory using "@$" from the BASIC prompt. 
+Cursor to the name of the wanted image and type a "%" to the first position of 
+that line (where the number of blocks is; you needn't erase that number), and 
+press the RETURN key. The image now gets loaded to its proper memory location. 
+When ready you just RUN the viewer (or - if you typed NEW for any reason - you 
+start it by SYS 2061).
+
+If you have no JiffyDOS you LOAD the directory, print it out (so you know the 
+correct names of the images), and then LOAD the viewer. Then you load the images 
+you want to see to their *absolute* memory address (adding ",8,1" to the LOAD 
+command), and start the viewer by "SYS 2061". 
+
+Pressing SPACE will bring you back to BASIC for the next picture to LOAD.
+
+"NTSC IFLI Viewer" is prepared for use with a SuperCPU. You needn't deal with 
+the device's switches to slow it down or care for anything else, the program 
+*knows* about your SuperCPU.
+
+Note that compressed Funpaint images require a REU to be attached to your system, 
+otherwise the image doesn't display correctly. In fact, all IFLI images from this 
+site *are* compressed.
+
+Have fun.
+
+Arndt

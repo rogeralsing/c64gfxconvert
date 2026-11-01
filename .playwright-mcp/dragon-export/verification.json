@@ -1,0 +1,28 @@
+{
+  "source": "/Users/rogerjohansson/Downloads/^^dragon.fp2",
+  "source_sha256": "672b2e27aefad90a322c7095a09830860b76e0d576da3feb7e4f3bb4dece5c74",
+  "size": 33694,
+  "header_valid": true,
+  "color_indices_valid": true,
+  "background": 0,
+  "left_margin": [
+    {
+      "phase": 0,
+      "blank_first_8_mc_columns": true,
+      "nonbackground_pixels": 0
+    },
+    {
+      "phase": 1,
+      "blank_first_8_mc_columns": true,
+      "nonbackground_pixels": 0
+    }
+  ],
+  "disk": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/dragon-export/dragon.d64",
+  "viewer_pid": 6213,
+  "restarted_after_closed_window": true,
+  "display_pc": "0xc6a",
+  "screenshot": "/Users/rogerjohansson/git/asynkron/c64/.playwright-mcp/dragon-export/dragon-vice.png",
+  "screenshot_response": "(C:$0c6a) ",
+  "monitor_port": 6517,
+  "refresh_on_break": false
+}

@@ -1,0 +1,10 @@
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 3b 00 00 f6 2f 35 01100000 000 000   27636336
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/teapot-validation/phase-b.bin" 0 c000 ffa3
+Saving file '/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/teapot-validation/phase-b.bin' from $c000 to $ffa3
+(C:$2088) 
+(C:$2088) 

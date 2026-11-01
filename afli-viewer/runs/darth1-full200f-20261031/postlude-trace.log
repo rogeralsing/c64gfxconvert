@@ -1,0 +1,16 @@
+break 0efa
+(C:$2088) BREAK: 1  C:$0efa  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 0efa)  248/$0f8,  20/$14
+.C:0efa  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   93283364
+(C:$0efa) 
+
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;0efa 00 00 00 ef 2f 35 10100100 248 020   93283364
+(C:$0efa) 
+delete
+Deleting all checkpoints
+(C:$0efa) 
+x

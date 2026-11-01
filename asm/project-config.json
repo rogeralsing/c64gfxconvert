@@ -1,0 +1,12 @@
+{
+  "name": "hello-raster",
+  "description": "PAL C64 raster starter",
+  "toolkit": "kick",
+  "machine": "c64",
+  "sources": ["src/main.asm"],
+  "build": "debug",
+  "definitions": [],
+  "includes": [],
+  "args": ["-symbolfile", "-vicesymbols"],
+  "compiler": ""
+}

@@ -1,0 +1,22 @@
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 3b 00 00 f6 2f 35 01100000 000 000    6958224
+(C:$2088) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$2088) 
+resourceget "Speed"
+Speed=100
+(C:$2088) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$2088) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/elf-phase-b.bin" 0 c000 ffa3
+Saving file '/Users/rogerjohansson/git/asynkron/c64/ifli-viewer/prg/cloud-batch-20261031/elf-phase-b.bin' from $c000 to $ffa3
+(C:$2088) 
+(C:$2088) 
