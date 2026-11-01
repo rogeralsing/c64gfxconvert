@@ -28,6 +28,8 @@ screen byte = screen.bin[row * 1024 + tile]
 
 When allocation colors coincide, the first matching code in that order is used. Every underlay pixel must be an opaque palette color allowed by its fitted tile and row.
 
+The converter reserves the sprite color in each 8 × 1 physical strip containing sprite bits. Covered halves do not affect the bitmap fit; remaining halves choose their closest permitted bitmap colors, excluding the sprite color. The global background and tile-color allocations remain shared, but matching values are not used on active strips. Other strips retain normal FLI fitting. Existing layer archives remain supported.
+
 The physical valid area is canvas x112–319: **208 pixels, or 104 wide logical columns**, by 200 rows. The sprites cover canvas x112–303, a **192-pixel hires overlay**. They can cover either half of a wide underlay pixel independently. A mask coordinate uses `column = canvasX - 112`, byte `y * 24 + floor(column / 8)`, and bit `0x80 >> (column % 8)`. Set bits draw the selected sprite color; clear bits reveal FLI. The mask is raster data, not prepacked 64-byte hardware sprite frames.
 
 The [shared native builder](prg/build-layers.py) now accepts this ZIP alongside AFLI layer ZIPs. It packs the arbitrary mask into hardware sprite patterns, loads ColorRAM, selects multicolor bitmap mode and the global background, and emits a standalone PAL PRG without an REU. The two VIC banks switch at raster 135, with overlapping stored rows around the source y87 boundary. It retains the 21-row sprite reuse and black cleanup below the 200-row image.

@@ -26,6 +26,29 @@ test('sprite pixels free both AFLI row colors while keeping an exportable underl
   assert.equal(encodeAfli(result.afli, palette).length, 16385);
 });
 
+test('active AFLI strips reserve the sprite color and fit the next-best bitmap colors', () => {
+  const source = image([254, 254, 254]);
+  const targets = image(palette[1].rgb);
+  const desired = [1, 1, 1, 1, 7, 7, 15, 15];
+  for (const y of [0, 1]) {
+    desired.forEach((color, x) => setPixel(targets, 112 + x, y, palette[color].rgb));
+  }
+  // One exact white starts the sprite strip; the other near-white source
+  // pixels still snap to white but must use another bitmap color underneath.
+  setPixel(source, 112, 0, palette[1].rgb);
+  const result = createAfliSpriteImage(source, targets, palette, bands, 1, 0, 0);
+  const colors = new Map(palette.map(color => [color.rgb.join(','), color.index]));
+  const at = (x, y) => colors.get(Array.from(result.afli.pixels.data.subarray(
+    (y * 320 + x) * 4, (y * 320 + x) * 4 + 3)).join(','));
+  assert.equal(result.spritePixelCount, 1);
+  for (let x = 112; x < 120; x += 1) assert.notEqual(at(x, 0), 1, `active bitmap pixel ${x}`);
+  assert.deepEqual(Array.from(result.afli.rowColors.subarray(224, 226)), [7, 15]);
+  for (let x = 116; x < 120; x += 1) assert.equal(at(x, 0), desired[x - 112]);
+  assert.equal(at(112, 1), 1, 'the next scanline without sprites can still use white');
+  assert.equal(at(120, 0), 1, 'a neighboring strip without sprites can still use white');
+  assert.equal(encodeAfli(result.afli, palette).length, 16385);
+});
+
 test('all sixteen C64 colors can be exact sprite colors only inside the eight-sprite field', () => {
   for (const color of palette) {
     const source = image(color.rgb);

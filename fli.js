@@ -7,9 +7,12 @@
  * rowColors contains two indices per tile row: (tileIndex * 8 + row) * 2.
  * Optional overlayMask contains two hires bits per logical pixel; only the
  * uncovered halves contribute error to the jointly chosen tile and row colors.
+ * An overlayColorIndex reserves that color for sprites in each active strip.
  */
-function optimizeFliImage(source, palette, brightnessBands, backgroundColorIndex, overlayMask = null) {
-  const result = optimizeFliFrames([source], palette, brightnessBands, backgroundColorIndex, overlayMask);
+function optimizeFliImage(source, palette, brightnessBands, backgroundColorIndex, overlayMask = null,
+  overlayColorIndex = null) {
+  const result = optimizeFliFrames([source], palette, brightnessBands, backgroundColorIndex,
+    overlayMask, overlayColorIndex);
   return { ...result.frames[0], backgroundColorIndex: result.backgroundColorIndex, tileColors: result.tileColors };
 }
 
@@ -131,13 +134,15 @@ function optimizeHiresBitmapImage(source, palette, brightnessBands) {
  * (tileIndex * 8 + rowWithinTile) * 2, with tiles in row-major order. No image
  * background is reserved; brightness-band SSE has priority over chroma SSE.
  */
-function optimizeAfliImage(source, palette, brightnessBands, overlayMask = null) {
-  const { pixels, colors } = fitC64TwoColorCells(source, palette, brightnessBands, 1, overlayMask);
+function optimizeAfliImage(source, palette, brightnessBands, overlayMask = null, overlayColorIndex = null) {
+  const { pixels, colors } = fitC64TwoColorCells(source, palette, brightnessBands, 1,
+    overlayMask, overlayColorIndex);
   return { pixels, rowColors: colors };
 }
 
 /** Shared exhaustive two-color search for 8 × 8 Hires and 8 × 1 AFLI cells. */
-function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overlayMask = null) {
+function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overlayMask = null,
+  overlayColorIndex = null) {
   const { width, height } = source;
   if (!Number.isInteger(width) || width <= 0 || width % 8 !== 0 ||
       !Number.isInteger(height) || height <= 0 || height % 8 !== 0) {
@@ -148,6 +153,10 @@ function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overl
       overlayMask.BYTES_PER_ELEMENT !== 1 || overlayMask.length !== width * height ||
       overlayMask.some(value => value !== 0 && value !== 1))) {
     throw new Error('AFLI overlay mask must contain one binary byte per pixel.');
+  }
+  if (overlayColorIndex !== null && (!overlayMask || !Number.isInteger(overlayColorIndex) ||
+      overlayColorIndex < 0 || overlayColorIndex >= palette.length)) {
+    throw new Error('Choose a valid overlay color with its sprite mask.');
   }
   // A fixed black matte handles alpha independently of the selected image BG.
   // Black remains optional in every tile's searched pair.
@@ -186,6 +195,7 @@ function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overl
   for (let tileY = 0; tileY < height; tileY += cellHeight) {
     for (let tileX = 0; tileX < width; tileX += 8) {
       histogram.fill(0);
+      let hasOverlay = false;
       for (let row = 0; row < cellHeight; row += 1) {
         const offset = (tileY + row) * width + tileX;
         for (let column = 0; column < 8; column += 1) {
@@ -193,6 +203,7 @@ function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overl
           // A front-priority sprite hides this pixel, so it cannot consume one
           // of the two colors needed by the visible bitmap pixels in this row.
           if (!overlayMask || overlayMask[pixel] === 0) histogram[targets[pixel]] += 1;
+          else hasOverlay = true;
         }
       }
       let bestPair = 0;
@@ -202,6 +213,7 @@ function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overl
       // used color with an unused partner. Per-pixel nearest choices are exact
       // for a fixed pair, so the weighted histogram finds the global cell fit.
       for (let pair = 0; pair < pairs.length; pair += 1) {
+        if (hasOverlay && pairs[pair].includes(overlayColorIndex)) continue;
         let primary = 0;
         let secondary = 0;
         const offset = pair * 16;
@@ -235,7 +247,8 @@ function fitC64TwoColorCells(source, palette, brightnessBands, cellHeight, overl
   return { pixels, colors };
 }
 
-function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorIndex, overlayMask = null) {
+function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorIndex, overlayMask = null,
+  overlayColorIndex = null) {
   const { width, height, brightnessError, chromaError, frameTargets } = prepareC64FittingTargets(
     sources, palette, brightnessBands, backgroundColorIndex
   );
@@ -243,6 +256,10 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
       overlayMask.BYTES_PER_ELEMENT !== 1 || overlayMask.length !== width * 2 * height ||
       overlayMask.some(value => value !== 0 && value !== 1))) {
     throw new Error('FLI overlay mask must contain two binary hires bytes per logical pixel.');
+  }
+  if (overlayColorIndex !== null && (!overlayMask || !Number.isInteger(overlayColorIndex) ||
+      overlayColorIndex < 0 || overlayColorIndex >= palette.length)) {
+    throw new Error('Choose a valid overlay color with its sprite mask.');
   }
 
   // Ignore only floating-point roundoff when comparing sums of the same terms.
@@ -266,18 +283,20 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
   }
 
   const rowCache = new Map();
-  function getRow(indices, weights = null) {
+  function getRow(indices, weights = null, excludedColor = -1) {
     const entries = indices.map((index, pixel) => ({ index, weight: weights?.[pixel] ?? 1 }))
       .sort((a, b) => a.index - b.index || a.weight - b.weight);
     const sorted = entries.map(entry => entry.index);
     const sortedWeights = entries.map(entry => entry.weight);
-    const key = weights ? entries.reduce((value, entry, pixel) =>
+    const pixelKey = weights ? entries.reduce((value, entry, pixel) =>
       value | (entry.index | entry.weight << 4) << (pixel * 6), 0)
       : sorted[0] | sorted[1] << 4 | sorted[2] << 8 | sorted[3] << 12;
+    const key = pixelKey + (excludedColor + 1) * 0x1000000;
     if (!rowCache.has(key)) {
       rowCache.set(key, {
         indices: sorted,
         weights: sortedWeights,
+        excludedColor,
         computed: 0,
         primary: new Float64Array(16),
         secondary: new Float64Array(16),
@@ -293,7 +312,8 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
     row.subsetPrimary = new Float64Array(16);
     row.subsetSecondary = new Float64Array(16);
     row.subsetColor = new Uint8Array(16);
-    row.subsetColor[0] = backgroundColorIndex;
+    row.subsetColor[0] = backgroundColorIndex === row.excludedColor
+      ? (row.excludedColor === 0 ? 1 : 0) : backgroundColorIndex;
 
     for (let mask = 1; mask < 16; mask += 1) {
       const parent = maskParent[mask] * 16;
@@ -304,6 +324,7 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
       let bestPrimary = Infinity;
       let bestSecondary = Infinity;
       for (let candidate = 0; candidate < 16; candidate += 1) {
+        if (candidate === row.excludedColor) continue;
         primary[offset + candidate] = primary[parent + candidate] + weight * brightnessError[target + candidate];
         secondary[offset + candidate] = secondary[parent + candidate] + weight * chromaError[target + candidate];
         if (isBetter(primary[offset + candidate], secondary[offset + candidate], bestPrimary, bestSecondary)) {
@@ -326,9 +347,13 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
       const index = row.indices[pixel];
       if (index !== backgroundColorIndex && index !== tileColor && !extraColors.includes(index)) extraColors.push(index);
     }
-    if (extraColors.length <= 2) {
-      row.colors[tileColor * 2] = extraColors[0] ?? backgroundColorIndex;
-      row.colors[tileColor * 2 + 1] = extraColors[1] ?? backgroundColorIndex;
+    const exactTargetsAllowed = row.indices.every((index, pixel) =>
+      row.weights[pixel] === 0 || index !== row.excludedColor);
+    if (exactTargetsAllowed && extraColors.length <= 2) {
+      const fallback = backgroundColorIndex === row.excludedColor
+        ? (row.excludedColor === 0 ? 1 : 0) : backgroundColorIndex;
+      row.colors[tileColor * 2] = extraColors[0] ?? fallback;
+      row.colors[tileColor * 2 + 1] = extraColors[1] ?? fallback;
       return;
     }
 
@@ -337,11 +362,18 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
     const baseSecondary = new Float64Array(16);
     const pixelPrimary = new Float64Array(4);
     const pixelSecondary = new Float64Array(4);
+    const fixedColors = [backgroundColorIndex, tileColor].filter(color => color !== row.excludedColor);
     for (let pixel = 0; pixel < 4; pixel += 1) {
+      if (row.weights[pixel] === 0) continue;
+      if (fixedColors.length === 0) {
+        pixelPrimary[pixel] = Infinity;
+        pixelSecondary[pixel] = Infinity;
+        continue;
+      }
       const offset = row.indices[pixel] * 16;
-      const useTile = isBetter(brightnessError[offset + tileColor], chromaError[offset + tileColor],
-        brightnessError[offset + backgroundColorIndex], chromaError[offset + backgroundColorIndex]);
-      const color = useTile ? tileColor : backgroundColorIndex;
+      let color = fixedColors[0];
+      if (fixedColors.length > 1 && isBetter(brightnessError[offset + fixedColors[1]], chromaError[offset + fixedColors[1]],
+        brightnessError[offset + color], chromaError[offset + color])) color = fixedColors[1];
       pixelPrimary[pixel] = row.weights[pixel] * brightnessError[offset + color];
       pixelSecondary[pixel] = row.weights[pixel] * chromaError[offset + color];
     }
@@ -391,7 +423,9 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
             const hires = (offset + column) * 2;
             return 2 - overlayMask[hires] - overlayMask[hires + 1];
           }) : null;
-          rows.push(getRow(Array.from(targets.subarray(offset, offset + 4)), weights));
+          const activeOverlay = weights?.some(weight => weight < 2);
+          rows.push(getRow(Array.from(targets.subarray(offset, offset + 4)), weights,
+            activeOverlay && overlayColorIndex !== null ? overlayColorIndex : -1));
         }
       }
       let bestPrimary = Infinity;
@@ -426,7 +460,10 @@ function optimizeFliFrames(sources, palette, brightnessBands, backgroundColorInd
           const second = rowFit.colors[tileColor * 2 + 1];
           rowColors[rowColorOffset] = first;
           rowColors[rowColorOffset + 1] = second;
-          const allowed = [backgroundColorIndex, tileColor, first, second];
+          // Global background and shared tile colors remain stored as selected,
+          // but an active sprite strip may not map bitmap pixels to its color.
+          const allowed = [backgroundColorIndex, tileColor, first, second]
+            .filter(color => color !== rowFit.excludedColor);
           for (let column = 0; column < 4; column += 1) {
             const pixel = (tileY + row) * width + tileX + column;
             const errorOffset = targets[pixel] * 16;

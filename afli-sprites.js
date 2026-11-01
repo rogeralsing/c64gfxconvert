@@ -3,6 +3,7 @@ const C64_SPRITE_MATCH_MAX = 5;
 /**
  * Fit AFLI beneath one front-priority monochrome sprite layer.
  * The PAL eight-sprite player exposes AFLI x112..319; its sprites cover x112..303.
+ * Each strip with sprite bits reserves the sprite color for the overlay.
  */
 function createAfliSpriteImage(sourceRGB, resolvedTargets, palette, brightnessBands,
   spriteColorIndex, matchAmount, ditherAmount) {
@@ -10,7 +11,7 @@ function createAfliSpriteImage(sourceRGB, resolvedTargets, palette, brightnessBa
     throw new Error('AFLI sprites require matching 320 × 200 source and target images.');
   }
   const layer = createC64SpriteLayer(sourceRGB, palette, spriteColorIndex, matchAmount, ditherAmount);
-  const afli = optimizeAfliImage(resolvedTargets, palette, brightnessBands, layer.spriteMask);
+  const afli = optimizeAfliImage(resolvedTargets, palette, brightnessBands, layer.spriteMask, spriteColorIndex);
   return { pixels: compositeC64SpriteLayer(afli.pixels, layer), afli, ...layer };
 }
 

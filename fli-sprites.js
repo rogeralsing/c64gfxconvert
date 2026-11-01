@@ -2,6 +2,7 @@
  * FLI Virtual with one front-priority hires sprite layer. The target bitmap is
  * 160 × 200, while matching and composition retain all 320 source columns.
  * The sprite matcher is shared with AFLI Virtual + Sprites.
+ * Active sprite strips use other bitmap colors, including for uncovered halves.
  */
 function createFliSpriteImage(sourceRGB, resolvedTargets, palette, brightnessBands,
   backgroundColorIndex, spriteColorIndex, matchAmount, ditherAmount) {
@@ -13,6 +14,7 @@ function createFliSpriteImage(sourceRGB, resolvedTargets, palette, brightnessBan
   }
   const layer = createC64SpriteLayer(sourceRGB, palette, spriteColorIndex, matchAmount, ditherAmount,
     palette?.[backgroundColorIndex]?.rgb);
-  const fli = optimizeFliImage(resolvedTargets, palette, brightnessBands, backgroundColorIndex, layer.spriteMask);
+  const fli = optimizeFliImage(resolvedTargets, palette, brightnessBands, backgroundColorIndex,
+    layer.spriteMask, spriteColorIndex);
   return { pixels: compositeC64SpriteLayer(fli.pixels, layer), fli, ...layer };
 }

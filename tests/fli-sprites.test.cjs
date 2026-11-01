@@ -93,18 +93,38 @@ test('fully covered wide pixels release their FLI color slots across the shared 
 test('a partly covered wide pixel still determines the tile color needed by its visible half', () => {
   const source = image();
   const targets = image(palette[0].rgb, 160);
-  const rows = [[1, 4, 2, 3], [1, 8, 5, 6]];
+  const rows = [[2, 4, 5, 3], [2, 8, 7, 6]];
   for (let y = 0; y < 8; y += 1) {
     rows[y % 2].forEach((color, column) => setPixel(targets, 56 + column, y, palette[color].rgb));
     for (const x of [112, 114, 115]) setPixel(source, x, y, palette[1].rgb);
   }
   const result = createFliSpriteImage(source, targets, palette, bands, 0, 1, 0, 0);
-  assert.equal(result.fli.tileColors[14], 1, 'white is the only shared color that preserves all visible targets');
+  assert.equal(result.fli.tileColors[14], 2, 'red is the only shared color that preserves all visible targets');
   for (let y = 0; y < 8; y += 1) {
-    assert.equal(colorAt(result.pixels, 113, y), 1, 'the uncovered white half cannot be discarded');
+    assert.equal(colorAt(result.pixels, 113, y), 2, 'the uncovered red half cannot be discarded');
     for (let column = 2; column < 4; column += 1) {
       assert.equal(colorAt(result.fli.pixels, 56 + column, y), rows[y % 2][column]);
     }
+  }
+});
+
+test('FLI bitmap strips reserve the sprite color even when it is the global background', () => {
+  for (const [spriteColor, background] of [[1, 0], [1, 1], [0, 0]]) {
+    const source = image(spriteColor === 0 ? [1, 1, 1] : [254, 254, 254]);
+    const targets = image(palette[spriteColor].rgb, 160);
+    [spriteColor, spriteColor, 7, 15].forEach((color, x) => setPixel(targets, 56 + x, 0, palette[color].rgb));
+    setPixel(source, 112, 0, palette[spriteColor].rgb);
+    const result = createFliSpriteImage(source, targets, palette, bands, background, spriteColor, 0, 0);
+    assert.equal(result.spritePixelCount, 1);
+    assert.equal(result.fli.backgroundColorIndex, background, 'the global hardware background stays selected');
+    for (let x = 56; x < 60; x += 1) {
+      assert.notEqual(colorAt(result.fli.pixels, x, 0), spriteColor, `active row ${spriteColor}/${background}/${x}`);
+    }
+    assert.ok(!result.fli.rowColors.subarray(224, 226).includes(spriteColor), 'both free colors serve the bitmap');
+    assert.equal(colorAt(result.fli.pixels, 56, 1), spriteColor, 'an inactive scanline can still use the sprite color');
+    assert.equal(colorAt(result.fli.pixels, 60, 0), spriteColor, 'the neighboring strip is unaffected');
+    assert.equal(colorAt(result.pixels, 112, 0), spriteColor, 'the overlay still supplies its selected color');
+    assertFliConstraints(result.fli);
   }
 });
 
@@ -119,18 +139,22 @@ function error(target, candidate) {
 function better(next, previous) {
   return next[0] < previous[0] - 1e-12 || Math.abs(next[0] - previous[0]) <= 1e-12 && next[1] < previous[1] - 1e-12;
 }
-function exhaustiveTileError(rows, weights) {
+function exhaustiveTileError(rows, weights, spriteColor = null, background = 0) {
   let best = [Infinity, Infinity];
   for (let tile = 0; tile < 16; tile += 1) {
     const total = [0, 0];
     for (let row = 0; row < 8; row += 1) {
+      const excluded = weights[row].some(weight => weight < 2) ? spriteColor : null;
       let rowBest = [Infinity, Infinity];
       for (let first = 0; first < 16; first += 1) {
+        if (first === excluded) continue;
         for (let second = first; second < 16; second += 1) {
+          if (second === excluded) continue;
           const score = [0, 0];
           for (let column = 0; column < 4; column += 1) {
             let pixelBest = [Infinity, Infinity];
-            for (const color of [0, tile, first, second]) {
+            for (const color of [background, tile, first, second]) {
+              if (color === excluded) continue;
               const next = error(rows[row][column], color);
               if (better(next, pixelBest)) pixelBest = next;
             }
@@ -151,7 +175,7 @@ function exhaustiveTileError(rows, weights) {
 test('FLI fitting minimizes brightness then chroma using the count of uncovered hires halves', () => {
   const rows = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 1],
     [6, 2, 5, 3], [7, 4, 8, 12], [9, 1, 11, 13], [15, 10, 14, 2]];
-  const weights = [[1, 2, 2, 2], [2, 1, 2, 2], [2, 2, 1, 2], [2, 2, 2, 1],
+  const weights = [[1, 2, 2, 2], [2, 1, 2, 2], [2, 2, 1, 2], [2, 2, 2, 2],
     [0, 1, 2, 2], [2, 0, 1, 2], [2, 2, 0, 1], [1, 2, 2, 0]];
   const source = image();
   const targets = image(palette[0].rgb, 160);
@@ -161,17 +185,19 @@ test('FLI fitting minimizes brightness then chroma using the count of uncovered 
       setPixel(source, 112 + column * 2 + half, y, palette[1].rgb);
     }
   }));
-  const result = createFliSpriteImage(source, targets, palette, bands, 0, 1, 0, 0);
-  const actual = [0, 0];
-  rows.forEach((row, y) => row.forEach((target, column) => {
-    const next = error(target, colorAt(result.fli.pixels, 56 + column, y));
-    actual[0] += weights[y][column] * next[0];
-    actual[1] += weights[y][column] * next[1];
-  }));
-  const expected = exhaustiveTileError(rows, weights);
-  assert.ok(Math.abs(actual[0] - expected[0]) < 1e-10, `brightness ${actual[0]} versus ${expected[0]}`);
-  assert.ok(Math.abs(actual[1] - expected[1]) < 1e-10, `chroma ${actual[1]} versus ${expected[1]}`);
-  assertFliConstraints(result.fli);
+  for (const background of [0, 1]) {
+    const result = createFliSpriteImage(source, targets, palette, bands, background, 1, 0, 0);
+    const actual = [0, 0];
+    rows.forEach((row, y) => row.forEach((target, column) => {
+      const next = error(target, colorAt(result.fli.pixels, 56 + column, y));
+      actual[0] += weights[y][column] * next[0];
+      actual[1] += weights[y][column] * next[1];
+    }));
+    const expected = exhaustiveTileError(rows, weights, 1, background);
+    assert.ok(Math.abs(actual[0] - expected[0]) < 1e-10, `brightness ${actual[0]} versus ${expected[0]}`);
+    assert.ok(Math.abs(actual[1] - expected[1]) < 1e-10, `chroma ${actual[1]} versus ${expected[1]}`);
+    assertFliConstraints(result.fli);
+  }
 });
 
 test('FLI sprite conversion rejects a wide-pixel source, a hires target, and malformed overlay masks', () => {
