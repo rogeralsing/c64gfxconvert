@@ -1,0 +1,634 @@
+{
+  "format": "experimental PAL eight-sprite AFLI PRG",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "player_source": "https://github.com/godot64/GoDot/blob/90c8c5c05a6683edb76a82efd8d3cff6f4713c3d/extras/iflidiashow.a",
+  "bootstrap_source_sha256": "40f3571f34f928ca57e0379f7f810c5126d132c471ec54b92d0692d7f211aae9",
+  "bootstrap_sha256": "36e4336b7c4645284d12617c5303f3d18f6e09bdeb8f42f7bc846f9681659229",
+  "builder_sha256": "625abf8705b695c9ce6c23bf731645d2e37118df68a42d489d94458363686077",
+  "entry_nops": 12,
+  "entry": "$2000",
+  "idle": "$2088",
+  "nmi": "$208b",
+  "irq_trampoline": "$2090",
+  "raster_preamble": "$2200",
+  "rows_start": "$2800",
+  "frame_counter": "$02f0",
+  "image_raster_origin": 48,
+  "image_height": 200,
+  "display_mask": {
+    "left_hires_pixels": 112,
+    "visible_image_width": 208
+  },
+  "kernel": {
+    "first_full_badline": 48,
+    "late_badlines": [
+      49,
+      247
+    ],
+    "cpu_cycles_per_late_line": 14
+  },
+  "end_of_image": {
+    "black_from_raster": 248,
+    "d011": "$70",
+    "sprite_colors": 0,
+    "new_sprite_dma": false,
+    "restore_after_raster_wrap": true
+  },
+  "sprites": {
+    "count": 8,
+    "x_source": [
+      112,
+      136,
+      160,
+      184,
+      208,
+      232,
+      256,
+      280
+    ],
+    "x_vic": [
+      136,
+      160,
+      184,
+      208,
+      232,
+      256,
+      280,
+      304
+    ],
+    "x_msb": 224,
+    "initial_y": 31,
+    "preamble_y": 52,
+    "initial_visible_raster": 32,
+    "width": 24,
+    "height": 21,
+    "color": 1,
+    "front": true,
+    "multicolor": false,
+    "x_expand": false,
+    "y_expand": false,
+    "checker_block": [
+      4,
+      3
+    ],
+    "checker_rows_hex": [
+      "f0f0f0",
+      "f0f0f0",
+      "f0f0f0",
+      "0f0f0f",
+      "0f0f0f",
+      "0f0f0f",
+      "f0f0f0",
+      "f0f0f0",
+      "f0f0f0",
+      "0f0f0f",
+      "0f0f0f",
+      "0f0f0f",
+      "f0f0f0",
+      "f0f0f0",
+      "f0f0f0",
+      "0f0f0f",
+      "0f0f0f",
+      "0f0f0f",
+      "f0f0f0",
+      "f0f0f0",
+      "f0f0f0"
+    ],
+    "pointer": 253,
+    "data_addresses": [
+      "$7f40",
+      "$ff40"
+    ],
+    "pointer_table_offsets": [
+      1016,
+      2040,
+      3064,
+      4088,
+      5112,
+      6136,
+      7160,
+      8184
+    ],
+    "y_update_events": [
+      {
+        "raster": 55,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 73
+      },
+      {
+        "raster": 57,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 73
+      },
+      {
+        "raster": 59,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 73
+      },
+      {
+        "raster": 61,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 73
+      },
+      {
+        "raster": 63,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 73
+      },
+      {
+        "raster": 65,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 73
+      },
+      {
+        "raster": 67,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 73
+      },
+      {
+        "raster": 69,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 73
+      },
+      {
+        "raster": 76,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 94
+      },
+      {
+        "raster": 78,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 94
+      },
+      {
+        "raster": 80,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 94
+      },
+      {
+        "raster": 82,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 94
+      },
+      {
+        "raster": 84,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 94
+      },
+      {
+        "raster": 86,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 94
+      },
+      {
+        "raster": 88,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 94
+      },
+      {
+        "raster": 90,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 94
+      },
+      {
+        "raster": 97,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 115
+      },
+      {
+        "raster": 99,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 115
+      },
+      {
+        "raster": 101,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 115
+      },
+      {
+        "raster": 103,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 115
+      },
+      {
+        "raster": 105,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 115
+      },
+      {
+        "raster": 107,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 115
+      },
+      {
+        "raster": 109,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 115
+      },
+      {
+        "raster": 111,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 115
+      },
+      {
+        "raster": 118,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 136
+      },
+      {
+        "raster": 120,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 136
+      },
+      {
+        "raster": 122,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 136
+      },
+      {
+        "raster": 124,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 136
+      },
+      {
+        "raster": 126,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 136
+      },
+      {
+        "raster": 128,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 136
+      },
+      {
+        "raster": 130,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 136
+      },
+      {
+        "raster": 132,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 136
+      },
+      {
+        "raster": 139,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 157
+      },
+      {
+        "raster": 141,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 157
+      },
+      {
+        "raster": 143,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 157
+      },
+      {
+        "raster": 145,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 157
+      },
+      {
+        "raster": 147,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 157
+      },
+      {
+        "raster": 149,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 157
+      },
+      {
+        "raster": 151,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 157
+      },
+      {
+        "raster": 153,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 157
+      },
+      {
+        "raster": 160,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 178
+      },
+      {
+        "raster": 162,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 178
+      },
+      {
+        "raster": 164,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 178
+      },
+      {
+        "raster": 166,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 178
+      },
+      {
+        "raster": 168,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 178
+      },
+      {
+        "raster": 170,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 178
+      },
+      {
+        "raster": 172,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 178
+      },
+      {
+        "raster": 174,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 178
+      },
+      {
+        "raster": 181,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 199
+      },
+      {
+        "raster": 183,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 199
+      },
+      {
+        "raster": 185,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 199
+      },
+      {
+        "raster": 187,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 199
+      },
+      {
+        "raster": 189,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 199
+      },
+      {
+        "raster": 191,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 199
+      },
+      {
+        "raster": 193,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 199
+      },
+      {
+        "raster": 195,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 199
+      },
+      {
+        "raster": 202,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 220
+      },
+      {
+        "raster": 204,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 220
+      },
+      {
+        "raster": 206,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 220
+      },
+      {
+        "raster": 208,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 220
+      },
+      {
+        "raster": 210,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 220
+      },
+      {
+        "raster": 212,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 220
+      },
+      {
+        "raster": 214,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 220
+      },
+      {
+        "raster": 216,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 220
+      },
+      {
+        "raster": 223,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 241
+      },
+      {
+        "raster": 225,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 241
+      },
+      {
+        "raster": 227,
+        "sprite": 2,
+        "address": "$d005",
+        "new_y": 241
+      },
+      {
+        "raster": 229,
+        "sprite": 3,
+        "address": "$d007",
+        "new_y": 241
+      },
+      {
+        "raster": 231,
+        "sprite": 4,
+        "address": "$d009",
+        "new_y": 241
+      },
+      {
+        "raster": 233,
+        "sprite": 5,
+        "address": "$d00b",
+        "new_y": 241
+      },
+      {
+        "raster": 235,
+        "sprite": 6,
+        "address": "$d00d",
+        "new_y": 241
+      },
+      {
+        "raster": 237,
+        "sprite": 7,
+        "address": "$d00f",
+        "new_y": 241
+      },
+      {
+        "raster": 244,
+        "sprite": 0,
+        "address": "$d001",
+        "new_y": 6
+      },
+      {
+        "raster": 246,
+        "sprite": 1,
+        "address": "$d003",
+        "new_y": 6
+      }
+    ]
+  },
+  "patches": [
+    {
+      "address": "$0dc7",
+      "original": "3b",
+      "replacement": "38",
+      "purpose": "start generated scanline phase zero"
+    },
+    {
+      "address": "$0dcc",
+      "original": "08",
+      "replacement": "18",
+      "purpose": "advance generated screen banks to compensate the DMA-delayed D018 write"
+    },
+    {
+      "address": "$0e71",
+      "original": "38",
+      "replacement": "08",
+      "purpose": "select the first screen matrix before the initial DMA"
+    },
+    {
+      "address": "$0e76",
+      "original": "19",
+      "replacement": "08",
+      "purpose": "hires, 40 columns, fixed X-scroll 0"
+    },
+    {
+      "address": "$0e95",
+      "original": "2f",
+      "replacement": "2b",
+      "purpose": "start the stable IRQ four raster lines earlier"
+    },
+    {
+      "address": "$0e9f",
+      "original": "3b",
+      "replacement": "38",
+      "purpose": "retain initial phase zero for the first VIC badline/RC reset"
+    },
+    {
+      "address": "$0ed2",
+      "original": "30",
+      "replacement": "2c",
+      "purpose": "move the second stabilizing IRQ four lines earlier"
+    },
+    {
+      "address": "$0ef4",
+      "original": "20 00 84",
+      "replacement": "20 90 20",
+      "purpose": "enter the custom fourteen-cycle sprite AFLI kernel"
+    },
+    {
+      "address": "$0efa",
+      "original": "ad 16 d0 49 01 8d 16 d0",
+      "replacement": "a9 30 8d 11 d0 ea ea ea",
+      "purpose": "replace the X-scroll toggle with the vertical-border postlude"
+    },
+    {
+      "address": "$0f0b",
+      "original": "2f",
+      "replacement": "2b",
+      "purpose": "re-arm the earlier stable IRQ"
+    }
+  ],
+  "files": [
+    {
+      "input": "/Users/rogerjohansson/git/asynkron/c64/images/face-afl.afl",
+      "input_sha256": "c570ba9cfbcab4ffad21ff19170b7a600a5d173c6f4135a305204a5ba62ed003",
+      "output": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/face-afl-trial2-rebuild-check-20261101/face-afl.prg",
+      "output_sha256": "d51e83695cc72f69bb0067b58d3f1c558752cafc92d96f762a1be5d4a38ffb67",
+      "bytes": 48013,
+      "expected_bank": "face-afl-expected-bank.bin",
+      "expected_bank_sha256": "1506d10c70037edd28810c65a2dfd57dc2ccf1be18bacad91a3f3f82db0b4db4"
+    }
+  ],
+  "timing_reference": "https://codebase64.net/doku.php?id=magazines%3Adiscovery3",
+  "validation": "Experimental; actual VICE timing and pixels must be verified before claiming success."
+}

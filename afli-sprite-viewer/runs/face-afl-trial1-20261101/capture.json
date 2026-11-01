@@ -1,0 +1,38 @@
+{
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/face-afl-trial1-20261101/face-afl.prg",
+  "source": "/Users/rogerjohansson/git/asynkron/c64/images/face-afl.afl",
+  "source_sha256": "c570ba9cfbcab4ffad21ff19170b7a600a5d173c6f4135a305204a5ba62ed003",
+  "program_sha256": "ce77add62c1848721b53b5ad7b2ef3e0334a4b93f1110d716709b5342f07fccd",
+  "pid": 29226,
+  "port": 59264,
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "vsync": true,
+  "frame_counter_address": "$02f0",
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-1.png",
+      "sha256": "68c0f7d6c2786ba6ad60b0e9d9cfd991978e19490125c573a24623af05e41d40",
+      "frame_counter": 225,
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 38 00 00 f6 2f 35 00100000 000 002   23626514\n(C:$2088) ",
+      "vic": "VIC-II:\n>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _\ufffd_P_\ufffd_@_x_0_\n>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@\ufffdH@YP\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 2/0 IRQ: 43\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/0, RC 7, Idle: 1, 40x24\nVC $000, VCBASE $000, VMLI  0, Phi1 $fd\nVideo $5c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis:  /   /   /   /   /   /   /   / \nPointer: $fd $fd $fd $fd $fd $fd $fd $fd\nMC:      $3f $3f $3f $3f $3f $3f $3f $3f\nMCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:    31  31  31  31  31  31  31  31\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-2.png",
+      "sha256": "68c0f7d6c2786ba6ad60b0e9d9cfd991978e19490125c573a24623af05e41d40",
+      "frame_counter": 251,
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 38 00 00 f6 2f 35 00100000 000 002   24137570\n(C:$2088) ",
+      "vic": "VIC-II:\n>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _\ufffd_P_\ufffd_@_x_0_\n>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@\ufffdH@YP\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 2/0 IRQ: 43\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/0, RC 7, Idle: 1, 40x24\nVC $000, VCBASE $000, VMLI  0, Phi1 $fd\nVideo $5c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis:  /   /   /   /   /   /   /   / \nPointer: $fd $fd $fd $fd $fd $fd $fd $fd\nMC:      $3f $3f $3f $3f $3f $3f $3f $3f\nMCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:    31  31  31  31  31  31  31  31\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-3.png",
+      "sha256": "68c0f7d6c2786ba6ad60b0e9d9cfd991978e19490125c573a24623af05e41d40",
+      "frame_counter": 21,
+      "registers": "(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2088 38 00 00 f6 2f 35 00100000 000 002   24648626\n(C:$2088) ",
+      "vic": "VIC-II:\n>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _\ufffd_P_\ufffd_@_x_0_\n>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@\ufffdH@YP\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 2/0 IRQ: 43\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/0, RC 7, Idle: 1, 40x24\nVC $000, VCBASE $000, VMLI  0, Phi1 $fd\nVideo $5c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis:  /   /   /   /   /   /   /   / \nPointer: $fd $fd $fd $fd $fd $fd $fd $fd\nMC:      $3f $3f $3f $3f $3f $3f $3f $3f\nMCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:    31  31  31  31  31  31  31  31\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    }
+  ],
+  "identical_capture_hashes": true,
+  "frame_counter_advances": true
+}

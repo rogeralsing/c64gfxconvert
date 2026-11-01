@@ -1,0 +1,43 @@
+{
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/predator-layers-20261101/predator-layers/predator-layers.prg",
+  "source": "/Users/rogerjohansson/Downloads/predator-layers.zip",
+  "source_sha256": "0eaf2315dc3f2640793e7f3d5a55488a478d71f330c87fc7991f3baad71be19a",
+  "program_sha256": "65572d42d3ebafa774039142f34a7d15795ea56e77767a377651e75eb19f0a98",
+  "pid": 80391,
+  "port": 62312,
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "vsync": true,
+  "frame_counter_address": "$02f0",
+  "register_observation": {
+    "symbol": "row100",
+    "address": "$2a46",
+    "timing": "execution breakpoint inside the active image"
+  },
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-1.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 145,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2a46 38 73 3b ed 2f 35 00100101 099 024    6984141\n(C:$2a46) ",
+      "vic": "VIC-II:\n>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S\ufffd^P^\ufffd^@^x^0^\n>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@\ufffdH@9\ufffd\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 24/99 IRQ: 44\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/3, RC 3, Idle: 0, 40x25\nVC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00\nVideo $4c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d\nPointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce\nMC:      $0f $0f $0f $0f $0f $0f $0f $0f\nMCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:   115 115  94  94  94  94  94  94\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-2.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 171,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2a46 38 73 3b ed 2f 35 00100101 099 024    7495197\n(C:$2a46) ",
+      "vic": "VIC-II:\n>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S\ufffd^P^\ufffd^@^x^0^\n>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@\ufffdH@9\ufffd\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 24/99 IRQ: 44\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/3, RC 3, Idle: 0, 40x25\nVC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00\nVideo $4c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d\nPointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce\nMC:      $0f $0f $0f $0f $0f $0f $0f $0f\nMCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:   115 115  94  94  94  94  94  94\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-3.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 197,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;2a46 38 73 3b ed 2f 35 00100101 099 024    8006253\n(C:$2a46) ",
+      "vic": "VIC-II:\n>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S\ufffd^P^\ufffd^@^x^0^\n>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@\ufffdH@9\ufffd\ufffd@@@@\ufffd\n>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\nRaster cycle/line: 24/99 IRQ: 44\nMode: Hires Bitmap (ECM/BMM/MCM=0/1/0)\nColors: Border: 0 BG: 0 \nScroll X/Y: 0/3, RC 3, Idle: 0, 40x25\nVC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00\nVideo $4c00, Bitmap $6000 (RAM)\n\nSprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7\nEnabled: yes yes yes yes yes yes yes yes\nDMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d\nPointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce\nMC:      $0f $0f $0f $0f $0f $0f $0f $0f\nMCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f\nX-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130\nY-Pos:   115 115  94  94  94  94  94  94\nX/Y-Exp:  /   /   /   /   /   /   /   / \nPri./MC: s/  s/  s/  s/  s/  s/  s/  s/ \nColor:     1   1   1   1   1   1   1   1\n(C:$d040) "
+    }
+  ],
+  "identical_capture_hashes": true,
+  "frame_counter_advances": true
+}

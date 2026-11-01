@@ -1,0 +1,20 @@
+{
+  "program": "afli-sprites.prg",
+  "sha256": "d51e83695cc72f69bb0067b58d3f1c558752cafc92d96f762a1be5d4a38ffb67",
+  "bytes": 48013,
+  "validated_build": "prg/face-afl-trial2-20261101/face-afl.prg",
+  "source": "../images/face-afl.afl",
+  "validation": "validation/face-afl-trial2-20261101-comparison.json",
+  "platform": "PAL C64; verified with VICE x64sc",
+  "valid_afli_area": [
+    208,
+    200
+  ],
+  "sprites": 8,
+  "sprite_size": [
+    24,
+    21
+  ],
+  "sprite_field_width": 192,
+  "bottom_blank": true
+}

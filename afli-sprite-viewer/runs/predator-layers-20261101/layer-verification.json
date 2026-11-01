@@ -1,0 +1,119 @@
+{
+  "pass": true,
+  "failures": [],
+  "source": "/Users/rogerjohansson/Downloads/predator-layers.zip",
+  "source_sha256": "0eaf2315dc3f2640793e7f3d5a55488a478d71f330c87fc7991f3baad71be19a",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/predator-layers-20261101/predator-layers/predator-layers.prg",
+  "program_sha256": "65572d42d3ebafa774039142f34a7d15795ea56e77767a377651e75eb19f0a98",
+  "sprite_color": {
+    "index": 1,
+    "name": "White",
+    "rgb": [
+      255,
+      255,
+      255
+    ]
+  },
+  "sprite_pixels": 4993,
+  "contract": {
+    "source_rect": [
+      112,
+      0,
+      320,
+      200
+    ],
+    "image_origin": [
+      32,
+      32
+    ],
+    "sprite_rect": [
+      112,
+      0,
+      304,
+      200
+    ],
+    "black_bottom_rect": [
+      0,
+      232,
+      384,
+      272
+    ],
+    "vic_bank_split_y": 87
+  },
+  "expected_composite_indices_sha256": "52945b448a0f0c614489fdba248ce702d880b6da8aa5bb582324da0dfc6fce47",
+  "ram": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-a.bin",
+      "visible_source_y": [
+        0,
+        87
+      ],
+      "bytes_compared": 4524,
+      "mismatches": 0,
+      "first_mismatches": []
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-b.bin",
+      "visible_source_y": [
+        87,
+        200
+      ],
+      "bytes_compared": 5876,
+      "mismatches": 0,
+      "first_mismatches": []
+    }
+  ],
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-1.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 145,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4993,
+      "underlay_pixels": 36607,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-2.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 171,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4993,
+      "underlay_pixels": 36607,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-3.png",
+      "sha256": "5febaa75c12245824f4371299bfff388a28231e9c6e72f11c7e588baa38652cc",
+      "frame_counter": 197,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4993,
+      "underlay_pixels": 36607,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    }
+  ],
+  "counter_advances": [
+    26,
+    26
+  ],
+  "identical_raw_capture_hashes": true,
+  "evidence_limit": "Three advancing normal-speed PAL captures; not a claim of indefinite stability"
+}

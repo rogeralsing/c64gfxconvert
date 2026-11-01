@@ -1,0 +1,122 @@
+{
+  "pass": true,
+  "failures": [],
+  "source": "/Users/rogerjohansson/Downloads/wh40k-layers (2).zip",
+  "source_sha256": "47e81c2bfcd9ea4de39952baf2a195c85e681f3b93901dead1528f4b1ccdca45",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/wh40k-layers-20261101/wh40k-layers-2/wh40k-layers-2.prg",
+  "program_sha256": "098d0aa1a89b4c15bbaa1acea1e6174e8cb23962384ffde574b4e46fb3e98c84",
+  "sprite_color": {
+    "index": 0,
+    "name": "Black",
+    "rgb": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sprite_pixels": 7178,
+  "source_mode": "afli",
+  "background_color": null,
+  "color_ram": null,
+  "contract": {
+    "source_rect": [
+      112,
+      0,
+      320,
+      200
+    ],
+    "image_origin": [
+      32,
+      32
+    ],
+    "sprite_rect": [
+      112,
+      0,
+      304,
+      200
+    ],
+    "black_bottom_rect": [
+      0,
+      232,
+      384,
+      272
+    ],
+    "vic_bank_split_y": 87
+  },
+  "expected_composite_indices_sha256": "968f370250c4cc177d1b127c1401910dd597f114abc0516d057f8c00ee10175a",
+  "ram": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/wh40k-layers-2-20261101/bank-a.bin",
+      "visible_source_y": [
+        0,
+        87
+      ],
+      "bytes_compared": 4524,
+      "mismatches": 0,
+      "first_mismatches": []
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/wh40k-layers-2-20261101/bank-b.bin",
+      "visible_source_y": [
+        87,
+        200
+      ],
+      "bytes_compared": 5876,
+      "mismatches": 0,
+      "first_mismatches": []
+    }
+  ],
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/wh40k-layers-2-20261101/wh40k-layers-2-vice-1.png",
+      "sha256": "92ed66bbb2c93567c747fad85ad8ad068fabd9ca926d1145f5dfdb188e79c1a7",
+      "frame_counter": 147,
+      "pixels_compared": 41600,
+      "sprite_pixels": 7178,
+      "underlay_pixels": 34422,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/wh40k-layers-2-20261101/wh40k-layers-2-vice-2.png",
+      "sha256": "92ed66bbb2c93567c747fad85ad8ad068fabd9ca926d1145f5dfdb188e79c1a7",
+      "frame_counter": 173,
+      "pixels_compared": 41600,
+      "sprite_pixels": 7178,
+      "underlay_pixels": 34422,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/wh40k-layers-2-20261101/wh40k-layers-2-vice-3.png",
+      "sha256": "92ed66bbb2c93567c747fad85ad8ad068fabd9ca926d1145f5dfdb188e79c1a7",
+      "frame_counter": 199,
+      "pixels_compared": 41600,
+      "sprite_pixels": 7178,
+      "underlay_pixels": 34422,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    }
+  ],
+  "counter_advances": [
+    26,
+    26
+  ],
+  "identical_raw_capture_hashes": true,
+  "evidence_limit": "Three advancing normal-speed PAL captures; not a claim of indefinite stability"
+}

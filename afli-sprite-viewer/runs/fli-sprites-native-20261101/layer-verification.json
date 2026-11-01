@@ -1,0 +1,135 @@
+{
+  "pass": true,
+  "failures": [],
+  "source": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/validation/fli-sprites-native-fixture.zip",
+  "source_sha256": "030fe36d915a2ab05b377d473fc5739dc55a607b4dfd770ec95103e4ba641682",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/fli-sprites-native-20261101/fli-sprites-native-fixture/fli-sprites-native-fixture.prg",
+  "program_sha256": "de5ea1acb6dce980f177c4817b56d0140446fe42504b2eb003e42bf8ecd79cd4",
+  "sprite_color": {
+    "index": 1,
+    "name": "White",
+    "rgb": [
+      255,
+      255,
+      255
+    ]
+  },
+  "sprite_pixels": 4714,
+  "source_mode": "fli",
+  "background_color": {
+    "index": 3,
+    "name": "Cyan",
+    "rgb": [
+      101,
+      191,
+      179
+    ]
+  },
+  "color_ram": {
+    "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/color-ram.bin",
+    "bytes_compared": 1000,
+    "mismatches": 0,
+    "first_mismatches": []
+  },
+  "contract": {
+    "source_rect": [
+      112,
+      0,
+      320,
+      200
+    ],
+    "image_origin": [
+      32,
+      32
+    ],
+    "sprite_rect": [
+      112,
+      0,
+      304,
+      200
+    ],
+    "black_bottom_rect": [
+      0,
+      232,
+      384,
+      272
+    ],
+    "vic_bank_split_y": 87
+  },
+  "expected_composite_indices_sha256": "ad06297dc197447a27c1550625b3c8ed7173919e128ff2c0c1cc2b5f14df1c40",
+  "ram": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/bank-a.bin",
+      "visible_source_y": [
+        0,
+        87
+      ],
+      "bytes_compared": 4524,
+      "mismatches": 0,
+      "first_mismatches": []
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/bank-b.bin",
+      "visible_source_y": [
+        87,
+        200
+      ],
+      "bytes_compared": 5876,
+      "mismatches": 0,
+      "first_mismatches": []
+    }
+  ],
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/fli-sprites-native-fixture-vice-1.png",
+      "sha256": "c5b83dc8eafa3654322f94699f51610b2504625a14c910be46702cd0204e76de",
+      "frame_counter": 129,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4714,
+      "underlay_pixels": 36886,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/fli-sprites-native-fixture-vice-2.png",
+      "sha256": "c5b83dc8eafa3654322f94699f51610b2504625a14c910be46702cd0204e76de",
+      "frame_counter": 155,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4714,
+      "underlay_pixels": 36886,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/fli-sprites-native-20261101/fli-sprites-native-fixture-vice-3.png",
+      "sha256": "c5b83dc8eafa3654322f94699f51610b2504625a14c910be46702cd0204e76de",
+      "frame_counter": 181,
+      "pixels_compared": 41600,
+      "sprite_pixels": 4714,
+      "underlay_pixels": 36886,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    }
+  ],
+  "counter_advances": [
+    26,
+    26
+  ],
+  "identical_raw_capture_hashes": true,
+  "evidence_limit": "Three advancing normal-speed PAL captures; not a claim of indefinite stability"
+}

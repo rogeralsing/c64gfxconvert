@@ -1,0 +1,19 @@
+[
+  {
+    "bank": "a",
+    "bytes_compared": 16384,
+    "mismatches": 0,
+    "excluded_runtime_vectors": []
+  },
+  {
+    "bank": "b",
+    "bytes_compared": 16380,
+    "mismatches": 0,
+    "excluded_runtime_vectors": [
+      16378,
+      16379,
+      16382,
+      16383
+    ]
+  }
+]

@@ -1,6 +1,6 @@
-/** Reserve two character columns for every FLI-derived display mode. */
+/** Read the preset's display inset; unrecognized legacy layout modes stay full width. */
 function getC64ImageLeftInset(mode) {
-  return ['fli', 'ifli', 'virtual-fli', 'afli', 'virtual-afli'].includes(mode) ? 16 : 0;
+  return C64_GRAPHICS_MODES.some(preset => preset.id === mode) ? getC64GraphicsMode(mode).leftInset : 0;
 }
 
 /** Fit, scale, and pan the source in display pixels without changing its aspect ratio. */

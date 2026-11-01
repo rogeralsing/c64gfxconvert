@@ -1,0 +1,135 @@
+{
+  "pass": true,
+  "failures": [],
+  "source": "/Users/rogerjohansson/Downloads/R-Type_-Biomekaniskt-monster-i-a-layers.zip",
+  "source_sha256": "e6e3241b806714d97c8d3a61dfc84b0c36be706f1b8c080036e5c1e0047dd11a",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/r-type-layers-20261101/R-Type_-Biomekaniskt-monster-i-a-layers/R-Type_-Biomekaniskt-monster-i-a-layers.prg",
+  "program_sha256": "a7fa3bd1522265a7e5a91fad3a16854cd0d64563ef0c0a07de8eaf76ea16e298",
+  "sprite_color": {
+    "index": 0,
+    "name": "Black",
+    "rgb": [
+      0,
+      0,
+      0
+    ]
+  },
+  "sprite_pixels": 15902,
+  "source_mode": "fli",
+  "background_color": {
+    "index": 0,
+    "name": "Black",
+    "rgb": [
+      0,
+      0,
+      0
+    ]
+  },
+  "color_ram": {
+    "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/color-ram.bin",
+    "bytes_compared": 1000,
+    "mismatches": 0,
+    "first_mismatches": []
+  },
+  "contract": {
+    "source_rect": [
+      112,
+      0,
+      320,
+      200
+    ],
+    "image_origin": [
+      32,
+      32
+    ],
+    "sprite_rect": [
+      112,
+      0,
+      304,
+      200
+    ],
+    "black_bottom_rect": [
+      0,
+      232,
+      384,
+      272
+    ],
+    "vic_bank_split_y": 87
+  },
+  "expected_composite_indices_sha256": "cb2eabbbf54ce8808bd3f29e7cede8c718a5d1318b1de85d1e24dc77f42fdd33",
+  "ram": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/bank-a.bin",
+      "visible_source_y": [
+        0,
+        87
+      ],
+      "bytes_compared": 4524,
+      "mismatches": 0,
+      "first_mismatches": []
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/bank-b.bin",
+      "visible_source_y": [
+        87,
+        200
+      ],
+      "bytes_compared": 5876,
+      "mismatches": 0,
+      "first_mismatches": []
+    }
+  ],
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/R-Type_-Biomekaniskt-monster-i-a-layers-vice-1.png",
+      "sha256": "6cb386a00814221bb8e02a47e8d3984bce4993112e200219b43aff7886d772fd",
+      "frame_counter": 130,
+      "pixels_compared": 41600,
+      "sprite_pixels": 15902,
+      "underlay_pixels": 25698,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/R-Type_-Biomekaniskt-monster-i-a-layers-vice-2.png",
+      "sha256": "6cb386a00814221bb8e02a47e8d3984bce4993112e200219b43aff7886d772fd",
+      "frame_counter": 156,
+      "pixels_compared": 41600,
+      "sprite_pixels": 15902,
+      "underlay_pixels": 25698,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/r-type-layers-20261101/R-Type_-Biomekaniskt-monster-i-a-layers-vice-3.png",
+      "sha256": "6cb386a00814221bb8e02a47e8d3984bce4993112e200219b43aff7886d772fd",
+      "frame_counter": 182,
+      "pixels_compared": 41600,
+      "sprite_pixels": 15902,
+      "underlay_pixels": 25698,
+      "mismatches": 0,
+      "sprite_mismatches": 0,
+      "row_mismatches": {},
+      "first_mismatches": [],
+      "bottom_pixels_compared": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {}
+    }
+  ],
+  "counter_advances": [
+    26,
+    26
+  ],
+  "identical_raw_capture_hashes": true,
+  "evidence_limit": "Three advancing normal-speed PAL captures; not a claim of indefinite stability"
+}

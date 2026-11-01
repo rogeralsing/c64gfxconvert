@@ -1,0 +1,166 @@
+{
+  "pass": true,
+  "failures": [],
+  "source_sha256": "c570ba9cfbcab4ffad21ff19170b7a600a5d173c6f4135a305204a5ba62ed003",
+  "program_sha256": "d51e83695cc72f69bb0067b58d3f1c558752cafc92d96f762a1be5d4a38ffb67",
+  "contract": {
+    "source_rect": [
+      112,
+      0,
+      320,
+      200
+    ],
+    "image_origin": [
+      32,
+      32
+    ],
+    "image_raster_origin": 48,
+    "first_sprite_raster": 32,
+    "local_sprite_row": "(source_y+16)%21",
+    "sprite_field": [
+      112,
+      0,
+      304,
+      200
+    ],
+    "color_index": 1,
+    "checker_block": [
+      4,
+      3
+    ]
+  },
+  "expected_index_sha256": "98976d0c0e18264964d571f58512e8dcdcca99cc189a3363bf968211b9fcd6d5",
+  "opaque_mask_sha256": "b313e1cbc20ad276fb5ea750d84ec43c8706203082c874e8dea571f5ee95d204",
+  "bank_reports": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial2-20261101/bank-a.bin",
+      "sha256": "1506d10c70037edd28810c65a2dfd57dc2ccf1be18bacad91a3f3f82db0b4db4",
+      "bytes_compared": 16384,
+      "mismatch_count": 0,
+      "unspecified_non_graphics_tail": [],
+      "first_mismatches": [],
+      "valid_source_screen_bytes_preserved": 5200,
+      "valid_source_bitmap_bytes_preserved": 5200,
+      "pointer_table_entries_checked": 64,
+      "checker_bytes_checked": 64
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial2-20261101/bank-b.bin",
+      "sha256": "964c86ced60c7736357727bb2e0a04de0f89c4128dd6e685f4a504fb7e8ee086",
+      "bytes_compared": 16296,
+      "mismatch_count": 0,
+      "unspecified_non_graphics_tail": [
+        "$ffa4-$fff9",
+        "$fffc-$fffd"
+      ],
+      "first_mismatches": [],
+      "valid_source_screen_bytes_preserved": 5200,
+      "valid_source_bitmap_bytes_preserved": 5200,
+      "pointer_table_entries_checked": 64,
+      "checker_bytes_checked": 64
+    }
+  ],
+  "samples": [
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial2-20261101/face-afl-vice-1.png",
+      "sha256": "195937a5d0153240fbf02784759805f746177256c5e09f36169e5a1e827cb2ac",
+      "frame_counter": 238,
+      "observed_vic_raster": 99,
+      "observed_vic_cycle": 24,
+      "pixels_compared": 41600,
+      "opaque_checker_pixels": 19200,
+      "preserved_source_pixels": 22400,
+      "mismatches": 0,
+      "opaque_mismatches": 0,
+      "source_mismatches": 0,
+      "row_mismatches": {},
+      "bottom_black_required": true,
+      "bottom_rect": [
+        0,
+        232,
+        384,
+        272
+      ],
+      "bottom_pixels_checked": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {},
+      "first_bottom_nonblack": [],
+      "first_mismatches": []
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial2-20261101/face-afl-vice-2.png",
+      "sha256": "195937a5d0153240fbf02784759805f746177256c5e09f36169e5a1e827cb2ac",
+      "frame_counter": 8,
+      "observed_vic_raster": 99,
+      "observed_vic_cycle": 24,
+      "pixels_compared": 41600,
+      "opaque_checker_pixels": 19200,
+      "preserved_source_pixels": 22400,
+      "mismatches": 0,
+      "opaque_mismatches": 0,
+      "source_mismatches": 0,
+      "row_mismatches": {},
+      "bottom_black_required": true,
+      "bottom_rect": [
+        0,
+        232,
+        384,
+        272
+      ],
+      "bottom_pixels_checked": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {},
+      "first_bottom_nonblack": [],
+      "first_mismatches": []
+    },
+    {
+      "screenshot": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial2-20261101/face-afl-vice-3.png",
+      "sha256": "195937a5d0153240fbf02784759805f746177256c5e09f36169e5a1e827cb2ac",
+      "frame_counter": 34,
+      "observed_vic_raster": 99,
+      "observed_vic_cycle": 24,
+      "pixels_compared": 41600,
+      "opaque_checker_pixels": 19200,
+      "preserved_source_pixels": 22400,
+      "mismatches": 0,
+      "opaque_mismatches": 0,
+      "source_mismatches": 0,
+      "row_mismatches": {},
+      "bottom_black_required": true,
+      "bottom_rect": [
+        0,
+        232,
+        384,
+        272
+      ],
+      "bottom_pixels_checked": 15360,
+      "bottom_nonblack_pixels": 0,
+      "bottom_nonblack_by_row": {},
+      "first_bottom_nonblack": [],
+      "first_mismatches": []
+    }
+  ],
+  "counter_advances": [
+    26,
+    26
+  ],
+  "identical_raw_capture_hashes": true,
+  "register_observation": {
+    "address": "$2a46",
+    "kernel_row_label": 100,
+    "timing": "exec breakpoint before the opcode fetch waits for DMA"
+  },
+  "register_observation_interpretation": "kernel row100 code symbol; actual VIC raster/cycle recorded per sample",
+  "expected_y_at_observation": [
+    115,
+    115,
+    94,
+    94,
+    94,
+    94,
+    94,
+    94
+  ],
+  "require_black_bottom": true,
+  "evidence_limit": "Three advancing PAL captures plus RAM/register evidence; no claim of indefinite stability"
+}

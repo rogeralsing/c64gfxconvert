@@ -1,0 +1,174 @@
+r
+(C:$3122)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;3122 1f 06 70 ed 2f 35 11100101 000 001    6977881
+(C:$3122) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$3122) 
+resourceget "Speed"
+Speed=100
+(C:$3122) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$3122) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$3122) 
+break 2a46
+BREAK: 1  C:$2a46  (Stop on exec)
+(C:$3122) 
+x
+#1 (Stop on  exec 2a46)   99/$063,  24/$18
+.C:2a46  A0 3D       LDY #$3D       - A:38 X:73 Y:3B SP:ed ..-..I.C    6984141
+(C:$2a46) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2a46 38 73 3b ed 2f 35 00100101 099 024    6984141
+(C:$2a46) 
+delete 1
+(C:$2a46) 
+bank ram
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-a.bin" 0 4000 7fff
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-a.bin' from $4000 to $7fff
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-b.bin" 0 c000 ffff
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/bank-b.bin' from $c000 to $ffff
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-1.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-1.bin' from $02f0 to $02f0
+(C:$2a46) 
+bank cpu
+(C:$2a46) 
+io d000
+VIC-II:
+>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S�^P^�^@^x^0^
+>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@�H@9��@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 24/99 IRQ: 44
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/3, RC 3, Idle: 0, 40x25
+VC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00
+Video $4c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d
+Pointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce
+MC:      $0f $0f $0f $0f $0f $0f $0f $0f
+MCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:   115 115  94  94  94  94  94  94
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-1.png" 2
+(C:$d040) 
+r
+(C:$3122)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;3122 1f 06 70 ed 2f 35 11100101 000 001    7488937
+(C:$3122) 
+break 2a46
+BREAK: 1  C:$2a46  (Stop on exec)
+(C:$3122) 
+x
+#1 (Stop on  exec 2a46)   99/$063,  24/$18
+.C:2a46  A0 3D       LDY #$3D       - A:38 X:73 Y:3B SP:ed ..-..I.C    7495197
+(C:$2a46) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2a46 38 73 3b ed 2f 35 00100101 099 024    7495197
+(C:$2a46) 
+delete 1
+(C:$2a46) 
+bank ram
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-2.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-2.bin' from $02f0 to $02f0
+(C:$2a46) 
+bank cpu
+(C:$2a46) 
+io d000
+VIC-II:
+>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S�^P^�^@^x^0^
+>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@�H@9��@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 24/99 IRQ: 44
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/3, RC 3, Idle: 0, 40x25
+VC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00
+Video $4c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d
+Pointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce
+MC:      $0f $0f $0f $0f $0f $0f $0f $0f
+MCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:   115 115  94  94  94  94  94  94
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-2.png" 2
+(C:$d040) 
+r
+(C:$3122)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;3122 1f 06 70 ed 2f 35 11100101 000 001    7999993
+(C:$3122) 
+break 2a46
+BREAK: 1  C:$2a46  (Stop on exec)
+(C:$3122) 
+x
+#1 (Stop on  exec 2a46)   99/$063,  24/$18
+.C:2a46  A0 3D       LDY #$3D       - A:38 X:73 Y:3B SP:ed ..-..I.C    8006253
+(C:$2a46) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2a46 38 73 3b ed 2f 35 00100101 099 024    8006253
+(C:$2a46) 
+delete 1
+(C:$2a46) 
+bank ram
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-3.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/frame-counter-3.bin' from $02f0 to $02f0
+(C:$2a46) 
+bank cpu
+(C:$2a46) 
+io d000
+VIC-II:
+>C:d000  88 73 a0 73  b8 5e d0 5e  e8 5e 00 5e  18 5e 30 5e   .S S�^P^�^@^x^0^
+>C:d010  e0 3b 63 00  00 ff c8 00  39 f1 f1 00  00 00 00 ff    ;C@@�H@9��@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 24/99 IRQ: 44
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/3, RC 3, Idle: 0, 40x25
+VC $0fa, VCBASE $0f0, VMLI 10, Phi1 $00
+Video $4c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis: D/d D/d D/d D/d D/d D/d D/d D/d
+Pointer: $c7 $c8 $c9 $ca $cb $cc $cd $ce
+MC:      $0f $0f $0f $0f $0f $0f $0f $0f
+MCBASE:  $0f $0f $0f $0f $0f $0f $0f $0f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:   115 115  94  94  94  94  94  94
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/predator-layers-20261101/predator-layers-vice-3.png" 2
+(C:$d040) 

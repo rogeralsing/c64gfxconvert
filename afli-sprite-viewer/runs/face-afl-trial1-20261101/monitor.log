@@ -1,0 +1,135 @@
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 00100000 000 002   23626514
+(C:$2088) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$2088) 
+resourceget "Speed"
+Speed=100
+(C:$2088) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$2088) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/bank-a.bin" 0 4000 7fff
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/bank-a.bin' from $4000 to $7fff
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/bank-b.bin" 0 c000 ffff
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/bank-b.bin' from $c000 to $ffff
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-1.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-1.bin' from $02f0 to $02f0
+(C:$2088) 
+bank cpu
+(C:$2088) 
+io d000
+VIC-II:
+>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _�_P_�_@_x_0_
+>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@�H@YP�@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 2/0 IRQ: 43
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fd
+Video $5c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fd $fd $fd $fd $fd $fd $fd $fd
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:    31  31  31  31  31  31  31  31
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-1.png" 2
+(C:$d040) 
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 00100000 000 002   24137570
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-2.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-2.bin' from $02f0 to $02f0
+(C:$2088) 
+bank cpu
+(C:$2088) 
+io d000
+VIC-II:
+>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _�_P_�_@_x_0_
+>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@�H@YP�@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 2/0 IRQ: 43
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fd
+Video $5c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fd $fd $fd $fd $fd $fd $fd $fd
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:    31  31  31  31  31  31  31  31
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-2.png" 2
+(C:$d040) 
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 00100000 000 002   24648626
+(C:$2088) 
+bank ram
+(C:$2088) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-3.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/frame-counter-3.bin' from $02f0 to $02f0
+(C:$2088) 
+bank cpu
+(C:$2088) 
+io d000
+VIC-II:
+>C:d000  88 1f a0 1f  b8 1f d0 1f  e8 1f 00 1f  18 1f 30 1f   ._ _�_P_�_@_x_0_
+>C:d010  e0 30 00 00  00 ff c8 00  79 70 f1 00  00 00 00 ff    0@@@�H@YP�@@@@�
+>C:d020  f0 f0 f1 f2  f3 f4 f0 f1  f1 f1 f1 f1  f1 f1 f1 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 2/0 IRQ: 43
+Mode: Hires Bitmap (ECM/BMM/MCM=0/1/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fd
+Video $5c00, Bitmap $6000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fd $fd $fd $fd $fd $fd $fd $fd
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $088$0a0$0b8$0d0$0e8$100$118$130
+Y-Pos:    31  31  31  31  31  31  31  31
+X/Y-Exp:  /   /   /   /   /   /   /   / 
+Pri./MC: s/  s/  s/  s/  s/  s/  s/  s/ 
+Color:     1   1   1   1   1   1   1   1
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/runs/face-afl-trial1-20261101/face-afl-vice-3.png" 2
+(C:$d040) 

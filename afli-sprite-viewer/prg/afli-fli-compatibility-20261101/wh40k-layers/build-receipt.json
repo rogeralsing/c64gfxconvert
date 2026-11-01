@@ -1,0 +1,744 @@
+{
+  "format": "standalone PAL AFLI Virtual + Sprites PRG",
+  "input": "/Users/rogerjohansson/Downloads/wh40k-layers.zip",
+  "input_sha256": "5aecdcb9cc8a73d68e01e05ba4293ce3fbcba86543a13285e2271d10e2416db8",
+  "output": "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/afli-fli-compatibility-20261101/wh40k-layers/wh40k-layers.prg",
+  "output_sha256": "6bd878e51b430895bee66521eba5fe38c41c06e741a033de2937c2d7eb281c72",
+  "bytes": 48105,
+  "source_image_payload_sha256": "85dfe4660325525526a4d8701dbaa42e13166ef3d396cb54b576a1afcf21c4aa",
+  "sprite_mask_sha256": "05b5228cc72ef2068891c3d3291a89cfe4f4387a7d09bcaca89e7787ba20a717",
+  "source_mode": "afli",
+  "source_image": {
+    "width": 320,
+    "height": 200,
+    "pixelAspectRatio": [
+      1,
+      1
+    ]
+  },
+  "background_color": null,
+  "color_ram_sha256": null,
+  "sprite_color": {
+    "index": 1,
+    "name": "White",
+    "rgb": [
+      255,
+      255,
+      255
+    ]
+  },
+  "sprite_pixels": 1854,
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "player_source": "https://github.com/godot64/GoDot/blob/90c8c5c05a6683edb76a82efd8d3cff6f4713c3d/extras/iflidiashow.a",
+  "builder_sha256": "e139698bdbe3645cfc77f1ba4507c26b8999487d1318125380dd7891c3ae919a",
+  "bootstrap_source_sha256": "89f5f8ecd0b131f4d43bb1f4f625f9838e0e92dfdd9155c1ce47c029ffb31dbb",
+  "bootstrap_sha256": "c16feded55fab4aa1632bd561f635591cc4d61dd80cf5ebf96488d79ee0e698c",
+  "entry": "$2000",
+  "frame_counter": "$02f0",
+  "entry_nops": 12,
+  "image_origin": [
+    32,
+    32
+  ],
+  "image_raster_origin": 48,
+  "image_height": 200,
+  "valid_source_rect": [
+    112,
+    0,
+    320,
+    200
+  ],
+  "sprite_source_rect": [
+    112,
+    0,
+    304,
+    200
+  ],
+  "bank_switch_raster": 135,
+  "bitmap_bank_split_y": 87,
+  "sprite_bank_split_y": 88,
+  "kernel_cycles_per_late_line": 14,
+  "sprite_pointer_matrix": "max(0, source_y - 1) & 7",
+  "sprite_row": "(source_y + 16) % 21",
+  "banks": [
+    {
+      "address": "$4000",
+      "expected": "bank-a-expected.bin",
+      "sha256": "b6b6cd25d7b2fcf957b7633413bf40a26be5a6a2c3c1d61acd7bfc504d136e85",
+      "bitmap_rows": [
+        0,
+        88
+      ],
+      "sprite_rows": [
+        0,
+        89
+      ],
+      "sprite_block_offsets": [
+        11712,
+        11776,
+        11840,
+        11904,
+        11968,
+        12032,
+        12096,
+        12160,
+        12224,
+        12288,
+        12352,
+        12416,
+        12480,
+        12544,
+        12608,
+        12672,
+        12736,
+        12800,
+        12864,
+        12928,
+        12992,
+        13056,
+        13120,
+        13184,
+        13248,
+        13312,
+        13376,
+        13440,
+        13504,
+        13568,
+        13632,
+        13696,
+        13760,
+        13824,
+        13888,
+        13952,
+        14016,
+        14080,
+        14144,
+        14208,
+        14272,
+        14336,
+        14400,
+        14464,
+        14528,
+        14592,
+        14656,
+        14720,
+        14784,
+        14848,
+        14912,
+        14976,
+        15040,
+        15104,
+        15168,
+        15232,
+        15296,
+        15360,
+        15424,
+        15488,
+        15552,
+        15616,
+        15680,
+        15744
+      ]
+    },
+    {
+      "address": "$c000",
+      "expected": "bank-b-expected.bin",
+      "sha256": "ed38063965dd0c17936c41923011b0f565c90f327e65b8363bf801fa97b5cf67",
+      "bitmap_rows": [
+        80,
+        200
+      ],
+      "sprite_rows": [
+        87,
+        200
+      ],
+      "sprite_block_offsets": [
+        8192,
+        8256,
+        8320,
+        8384,
+        8448,
+        8512,
+        8576,
+        8640,
+        8704,
+        8768,
+        8832,
+        8896,
+        8960,
+        9024,
+        9088,
+        9152,
+        9216,
+        9280,
+        9344,
+        9408,
+        9472,
+        9536,
+        9600,
+        9664,
+        9728,
+        9792,
+        9856,
+        9920,
+        9984,
+        10048,
+        10112,
+        10176,
+        10240,
+        10304,
+        10368,
+        10432,
+        10496,
+        10560,
+        10624,
+        10688,
+        10752,
+        10816,
+        10880,
+        10944,
+        11008,
+        11072,
+        11136,
+        11200,
+        11264,
+        11328,
+        0,
+        64,
+        128,
+        192,
+        256,
+        320,
+        1024,
+        1088,
+        1152,
+        1216,
+        1280,
+        1344,
+        2048,
+        2112
+      ]
+    }
+  ],
+  "y_update_events": [
+    {
+      "raster": 55,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 73
+    },
+    {
+      "raster": 57,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 73
+    },
+    {
+      "raster": 59,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 73
+    },
+    {
+      "raster": 61,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 73
+    },
+    {
+      "raster": 63,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 73
+    },
+    {
+      "raster": 65,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 73
+    },
+    {
+      "raster": 67,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 73
+    },
+    {
+      "raster": 69,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 73
+    },
+    {
+      "raster": 76,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 94
+    },
+    {
+      "raster": 78,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 94
+    },
+    {
+      "raster": 80,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 94
+    },
+    {
+      "raster": 82,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 94
+    },
+    {
+      "raster": 84,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 94
+    },
+    {
+      "raster": 86,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 94
+    },
+    {
+      "raster": 88,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 94
+    },
+    {
+      "raster": 90,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 94
+    },
+    {
+      "raster": 97,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 115
+    },
+    {
+      "raster": 99,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 115
+    },
+    {
+      "raster": 101,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 115
+    },
+    {
+      "raster": 103,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 115
+    },
+    {
+      "raster": 105,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 115
+    },
+    {
+      "raster": 107,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 115
+    },
+    {
+      "raster": 109,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 115
+    },
+    {
+      "raster": 111,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 115
+    },
+    {
+      "raster": 118,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 136
+    },
+    {
+      "raster": 120,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 136
+    },
+    {
+      "raster": 122,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 136
+    },
+    {
+      "raster": 124,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 136
+    },
+    {
+      "raster": 126,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 136
+    },
+    {
+      "raster": 128,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 136
+    },
+    {
+      "raster": 130,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 136
+    },
+    {
+      "raster": 132,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 136
+    },
+    {
+      "raster": 139,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 157
+    },
+    {
+      "raster": 141,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 157
+    },
+    {
+      "raster": 143,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 157
+    },
+    {
+      "raster": 145,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 157
+    },
+    {
+      "raster": 147,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 157
+    },
+    {
+      "raster": 149,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 157
+    },
+    {
+      "raster": 151,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 157
+    },
+    {
+      "raster": 153,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 157
+    },
+    {
+      "raster": 160,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 178
+    },
+    {
+      "raster": 162,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 178
+    },
+    {
+      "raster": 164,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 178
+    },
+    {
+      "raster": 166,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 178
+    },
+    {
+      "raster": 168,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 178
+    },
+    {
+      "raster": 170,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 178
+    },
+    {
+      "raster": 172,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 178
+    },
+    {
+      "raster": 174,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 178
+    },
+    {
+      "raster": 181,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 199
+    },
+    {
+      "raster": 183,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 199
+    },
+    {
+      "raster": 185,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 199
+    },
+    {
+      "raster": 187,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 199
+    },
+    {
+      "raster": 189,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 199
+    },
+    {
+      "raster": 191,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 199
+    },
+    {
+      "raster": 193,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 199
+    },
+    {
+      "raster": 195,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 199
+    },
+    {
+      "raster": 202,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 220
+    },
+    {
+      "raster": 204,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 220
+    },
+    {
+      "raster": 206,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 220
+    },
+    {
+      "raster": 208,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 220
+    },
+    {
+      "raster": 210,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 220
+    },
+    {
+      "raster": 212,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 220
+    },
+    {
+      "raster": 214,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 220
+    },
+    {
+      "raster": 216,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 220
+    },
+    {
+      "raster": 223,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 241
+    },
+    {
+      "raster": 225,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 241
+    },
+    {
+      "raster": 227,
+      "sprite": 2,
+      "address": "$d005",
+      "new_y": 241
+    },
+    {
+      "raster": 229,
+      "sprite": 3,
+      "address": "$d007",
+      "new_y": 241
+    },
+    {
+      "raster": 231,
+      "sprite": 4,
+      "address": "$d009",
+      "new_y": 241
+    },
+    {
+      "raster": 233,
+      "sprite": 5,
+      "address": "$d00b",
+      "new_y": 241
+    },
+    {
+      "raster": 235,
+      "sprite": 6,
+      "address": "$d00d",
+      "new_y": 241
+    },
+    {
+      "raster": 237,
+      "sprite": 7,
+      "address": "$d00f",
+      "new_y": 241
+    },
+    {
+      "raster": 244,
+      "sprite": 0,
+      "address": "$d001",
+      "new_y": 6
+    },
+    {
+      "raster": 246,
+      "sprite": 1,
+      "address": "$d003",
+      "new_y": 6
+    }
+  ],
+  "patches": [
+    {
+      "address": "$0dc7",
+      "original": "3b",
+      "replacement": "38",
+      "purpose": "start generated scanline phase zero"
+    },
+    {
+      "address": "$0dcc",
+      "original": "08",
+      "replacement": "18",
+      "purpose": "advance generated screen banks to compensate the DMA-delayed D018 write"
+    },
+    {
+      "address": "$0e71",
+      "original": "38",
+      "replacement": "08",
+      "purpose": "select the first screen matrix before the initial DMA"
+    },
+    {
+      "address": "$0e76",
+      "original": "19",
+      "replacement": "08",
+      "purpose": "hires, 40 columns, fixed X-scroll 0"
+    },
+    {
+      "address": "$0e95",
+      "original": "2f",
+      "replacement": "2b",
+      "purpose": "start the stable IRQ four raster lines earlier"
+    },
+    {
+      "address": "$0e9f",
+      "original": "3b",
+      "replacement": "38",
+      "purpose": "retain initial phase zero for the first VIC badline/RC reset"
+    },
+    {
+      "address": "$0ed2",
+      "original": "30",
+      "replacement": "2c",
+      "purpose": "move the second stabilizing IRQ four lines earlier"
+    },
+    {
+      "address": "$0ef4",
+      "original": "20 00 84",
+      "replacement": "20 90 20",
+      "purpose": "enter the custom fourteen-cycle sprite AFLI kernel"
+    },
+    {
+      "address": "$0efa",
+      "original": "ad 16 d0 49 01 8d 16 d0",
+      "replacement": "a9 30 8d 11 d0 ea ea ea",
+      "purpose": "replace the X-scroll toggle with the vertical-border postlude"
+    },
+    {
+      "address": "$0f0b",
+      "original": "2f",
+      "replacement": "2b",
+      "purpose": "re-arm the earlier stable IRQ"
+    },
+    {
+      "address": "$0e6c",
+      "original": "00",
+      "replacement": "02",
+      "purpose": "begin every image in VIC bank A"
+    },
+    {
+      "address": "$0f02",
+      "original": "ad 00 dd 49 02 8d 00 dd",
+      "replacement": "a9 02 8d 00 dd ea ea ea",
+      "purpose": "restore VIC bank A after the image"
+    }
+  ],
+  "validation": "Unverified until actual PAL VICE pixel, raster, and frame comparisons pass."
+}

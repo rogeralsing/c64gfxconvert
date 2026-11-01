@@ -113,6 +113,27 @@ function resolveVirtualPaletteRows(mapping, virtualPalette, palette) {
 }
 
 /**
+ * Resolve virtual pairs by row, then split exact even and odd source columns.
+ * Both IFLI frames use the first component on even rows and second on odd rows.
+ * No phase-dependent component swap or pixel averaging is applied.
+ */
+function splitIfliVirtualRows(mapping, virtualPalette, palette) {
+  const { width } = mapping.pixels;
+  if (!Number.isInteger(width) || width <= 0 || width % 2 !== 0) {
+    throw new Error('IFLI virtual row source must have a positive even width.');
+  }
+
+  const { height, data } = resolveVirtualPaletteRows(mapping, virtualPalette, palette);
+  const frames = [new ImageData(width / 2, height), new ImageData(width / 2, height)];
+  for (let pixel = 0; pixel < width * height; pixel += 1) {
+    const source = pixel * 4;
+    const destination = Math.floor(pixel / 2) * 4;
+    frames[pixel % 2].data.set(data.subarray(source, source + 4), destination);
+  }
+  return frames;
+}
+
+/**
  * Place a multicolor frame on the hires display grid. Phase B starts one hires
  * pixel to the right, matching its sampling origin rather than moving a whole
  * wide pixel. The exposed left column uses the shared background; the right
