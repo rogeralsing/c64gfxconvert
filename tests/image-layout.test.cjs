@@ -17,7 +17,9 @@ test('FLI modes fit wide images inside their reserved display areas', () => {
         leftInset: 16, availableWidth: 304, canvasWidth: 320, canvasHeight: 200 } },
     { modes: ['virtual-afli-sprites', 'virtual-fli-sprites'],
       expected: { x: 112, y: 48, width: 208, height: 104,
-        leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } }
+        leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } },
+    { modes: ['pafli'], expected: { x: 28, y: 27, width: 292, height: 146,
+      leftInset: 28, availableWidth: 292, canvasWidth: 320, canvasHeight: 200 } }
   ]) {
     for (const mode of modes) {
       assert.equal(getC64ImageLeftInset(mode), expected.leftInset, mode);
@@ -33,7 +35,9 @@ test('FLI modes center tall images inside their remaining display areas', () => 
         leftInset: 16, availableWidth: 304, canvasWidth: 320, canvasHeight: 200 } },
     { modes: ['virtual-afli-sprites', 'virtual-fli-sprites'],
       expected: { x: 191, y: 0, width: 50, height: 200,
-        leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } }
+        leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } },
+    { modes: ['pafli'], expected: { x: 149, y: 0, width: 50, height: 200,
+      leftInset: 28, availableWidth: 292, canvasWidth: 320, canvasHeight: 200 } }
   ]) {
     for (const mode of modes) {
       assert.deepEqual({ ...getC64ImagePlacement(100, 400, mode) }, expected, mode);
@@ -41,8 +45,8 @@ test('FLI modes center tall images inside their remaining display areas', () => 
   }
 });
 
-test('bitmap and hires images retain the entire 320 by 200 display area', () => {
-  for (const mode of ['bitmap', 'hires']) {
+test('bitmap, hires and NUFLI images retain the entire 320 by 200 display area', () => {
+  for (const mode of ['bitmap', 'hires', 'nufli']) {
     assert.equal(getC64ImageLeftInset(mode), 0, mode);
     assert.deepEqual({ ...getC64ImagePlacement(1000, 500, mode) }, {
       x: 0, y: 20, width: 320, height: 160,

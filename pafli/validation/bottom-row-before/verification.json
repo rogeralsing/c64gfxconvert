@@ -1,0 +1,103 @@
+{
+  "pass": false,
+  "program_sha256": "9fe7949b6ae5fd0ba6ce3914b074c9ad233162fbaa2f2a0f95c8be3882fc2019",
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "visible_area": [
+    28,
+    0,
+    320,
+    200
+  ],
+  "bank_bytes_matched_per_phase": 16192,
+  "alternating": true,
+  "one_counter_increment_per_frame": true,
+  "stable_phases": true,
+  "samples": [
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 150,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1487,
+      "screenshot": "frame-1-phase-1.png",
+      "sha256": "a0f8d158e5f987346d4d9c17a27328175c8a6e2dd7210e0ff7689972baeca72a"
+    },
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 151,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1645,
+      "screenshot": "frame-2-phase-0.png",
+      "sha256": "a8644bb4d46f20eb34211faecc0424267f7c3fe30d434e5b55313f4b9d6440bb"
+    },
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 152,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1487,
+      "screenshot": "frame-3-phase-1.png",
+      "sha256": "a0f8d158e5f987346d4d9c17a27328175c8a6e2dd7210e0ff7689972baeca72a"
+    },
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 153,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1645,
+      "screenshot": "frame-4-phase-0.png",
+      "sha256": "a8644bb4d46f20eb34211faecc0424267f7c3fe30d434e5b55313f4b9d6440bb"
+    },
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 154,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1487,
+      "screenshot": "frame-5-phase-1.png",
+      "sha256": "a0f8d158e5f987346d4d9c17a27328175c8a6e2dd7210e0ff7689972baeca72a"
+    },
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 155,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "lower_border_nonblack_pixels": 1645,
+      "screenshot": "frame-6-phase-0.png",
+      "sha256": "a8644bb4d46f20eb34211faecc0424267f7c3fe30d434e5b55313f4b9d6440bb"
+    }
+  ]
+}

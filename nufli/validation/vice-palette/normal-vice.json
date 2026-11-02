@@ -1,0 +1,122 @@
+{
+  "source": "VICE binary monitor Palette Get 0x91; normal local PAL settings; no palette override",
+  "command": [
+    "/opt/homebrew/bin/x64sc",
+    "+saveres",
+    "-minimized",
+    "-pal",
+    "-sounddev",
+    "dummy",
+    "+confirmonexit",
+    "+refreshonbreak",
+    "-binarymonitor",
+    "-binarymonitoraddress",
+    "ip4://127.0.0.1:49990"
+  ],
+  "version": [
+    4,
+    3,
+    10,
+    0,
+    0,
+    4,
+    0,
+    0,
+    0,
+    0
+  ],
+  "resources": {
+    "MachineVideoStandard": 1,
+    "VICIIModel": 1,
+    "VICIIExternalPalette": 0,
+    "VICIIPaletteFile": "pepto-pal",
+    "VICIIColorSaturation": 1250,
+    "VICIIColorContrast": 1250,
+    "VICIIColorBrightness": 1000,
+    "VICIIColorGamma": 1000,
+    "VICIIColorTint": 1000,
+    "VICIIFilter": 1
+  },
+  "colors": [
+    [
+      0,
+      0,
+      0
+    ],
+    [
+      255,
+      255,
+      255
+    ],
+    [
+      175,
+      60,
+      88
+    ],
+    [
+      126,
+      243,
+      214
+    ],
+    [
+      170,
+      64,
+      245
+    ],
+    [
+      98,
+      213,
+      50
+    ],
+    [
+      44,
+      61,
+      236
+    ],
+    [
+      255,
+      255,
+      70
+    ],
+    [
+      183,
+      99,
+      30
+    ],
+    [
+      119,
+      83,
+      0
+    ],
+    [
+      238,
+      123,
+      149
+    ],
+    [
+      98,
+      98,
+      98
+    ],
+    [
+      148,
+      148,
+      148
+    ],
+    [
+      183,
+      255,
+      134
+    ],
+    [
+      115,
+      133,
+      255
+    ],
+    [
+      205,
+      205,
+      205
+    ]
+  ]
+}

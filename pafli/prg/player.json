@@ -1,0 +1,81 @@
+{
+  "player_source": "https://github.com/godot64/GoDot/blob/90c8c5c05a6683edb76a82efd8d3cff6f4713c3d/extras/iflidiashow.a",
+  "player_sha256": "a6585bcba70bfaba240f3fa0732a04a28451e5159a0e49f2fc81d4fa39c3eb82",
+  "engine_sha256": "bffdf40443b2cf5f9fc0c1fd9f5410d6b69d8e6eda0f17fd386fab53e9869968",
+  "bootstrap_sha256": "7aeb3a5f17021c2cab96dca629d985ba00c78462960a3ad970a97b1cb724f8c4",
+  "bootstrap_source_sha256": "adf04b5d30ac61018b84fce7cc16c3b306990bc4c83efed6675c51387bc9489d",
+  "shared_bootstrap_source_sha256": "3a37088a0a843d3b766d223470bdabb5124e5c3ed0ef12d172232366b39d89c4",
+  "entry": "$20c0 (SYS 8384)",
+  "frame_end": "$20a0",
+  "frame_counter": "$02f0",
+  "phase_b_source_offset": -4,
+  "phase_b_display_offset": 4,
+  "visible_area": [
+    28,
+    0,
+    320,
+    200
+  ],
+  "patches": [
+    {
+      "address": "$0dc7",
+      "expected": "3b",
+      "replacement": "38",
+      "purpose": "start generated scanline phase zero"
+    },
+    {
+      "address": "$0dcc",
+      "expected": "08",
+      "replacement": "18",
+      "purpose": "advance generated screen banks to compensate the DMA-delayed D018 write"
+    },
+    {
+      "address": "$0e71",
+      "expected": "38",
+      "replacement": "08",
+      "purpose": "select the first screen matrix before the initial DMA"
+    },
+    {
+      "address": "$0e76",
+      "expected": "19",
+      "replacement": "0c",
+      "purpose": "initial phase B: hires, 40 columns, X-scroll 4"
+    },
+    {
+      "address": "$0e95",
+      "expected": "2f",
+      "replacement": "2b",
+      "purpose": "start the stable IRQ four raster lines earlier"
+    },
+    {
+      "address": "$0e9f",
+      "expected": "3b",
+      "replacement": "38",
+      "purpose": "retain initial phase zero for the first VIC badline/RC reset"
+    },
+    {
+      "address": "$0ed2",
+      "expected": "30",
+      "replacement": "2c",
+      "purpose": "move the second stabilizing IRQ four lines earlier"
+    },
+    {
+      "address": "$0ef4",
+      "expected": "200084",
+      "replacement": "209020",
+      "purpose": "add 20 entry cycles through the bootstrap JMP trampoline"
+    },
+    {
+      "address": "$0efa",
+      "expected": "ad16d049018d16d0",
+      "replacement": "4ca020eaeaeaeaea",
+      "purpose": "close border and toggle X-scroll by four before the original bank switch"
+    },
+    {
+      "address": "$0f0b",
+      "expected": "2f",
+      "replacement": "2b",
+      "purpose": "re-arm the earlier stable IRQ"
+    }
+  ]
+}

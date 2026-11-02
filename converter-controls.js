@@ -132,5 +132,114 @@ globalThis.C64ConverterControls = (() => {
     };
   }
 
-  return { createPalettePicker, createSpriteOverlayControls, createVirtualPaletteView };
+  function createLevelsControls({ root, onChange }) {
+    const black = root.querySelector('#levels-black');
+    const white = root.querySelector('#levels-white');
+    const gamma = root.querySelector('#levels-gamma');
+    const chart = root.querySelector('#levels-histogram');
+    const context = chart.getContext('2d');
+    const histogram = new Float64Array(256);
+    const styles = root.ownerDocument.defaultView.getComputedStyle(root);
+    const accent = styles.getPropertyValue('--accent').trim();
+    const mint = styles.getPropertyValue('--mint').trim();
+    const line = styles.getPropertyValue('--line').trim();
+
+    function getState() {
+      return { blackPoint: black.valueAsNumber, whitePoint: white.valueAsNumber, gamma: gamma.valueAsNumber };
+    }
+
+    function draw() {
+      const state = getState();
+      const lookup = createSourceLevelsLookup(state);
+      const width = chart.width;
+      const bottom = chart.height - 18;
+      const top = 4;
+      const x = value => 1 + value / 255 * (width - 2);
+      const y = value => bottom - value / 255 * (bottom - top);
+      const peak = Math.max(1, ...histogram);
+      context.clearRect(0, 0, chart.width, chart.height);
+      context.fillStyle = line;
+      for (let bin = 0; bin < 256; bin += 1) {
+        const height = histogram[bin] / peak * (bottom - top);
+        context.fillRect(x(bin), bottom - height, Math.max(1, width / 256), height);
+      }
+      context.strokeStyle = mint;
+      context.lineWidth = 1;
+      context.setLineDash([2, 3]);
+      for (const value of [state.blackPoint, state.whitePoint]) {
+        context.beginPath();
+        context.moveTo(x(value), top);
+        context.lineTo(x(value), bottom);
+        context.stroke();
+      }
+      context.setLineDash([]);
+      context.strokeStyle = accent;
+      context.lineWidth = 2;
+      context.beginPath();
+      for (let value = 0; value < 256; value += 1) {
+        if (value === 0) context.moveTo(x(value), y(lookup[value]));
+        else context.lineTo(x(value), y(lookup[value]));
+      }
+      context.stroke();
+      const gradient = context.createLinearGradient(0, 0, width, 0);
+      gradient.addColorStop(0, '#000000');
+      gradient.addColorStop(1, '#ffffff');
+      context.fillStyle = gradient;
+      context.fillRect(0, bottom + 5, width, 6);
+      const middle = state.blackPoint + (state.whitePoint - state.blackPoint) * 0.5 ** state.gamma;
+      for (const [value, color] of [[state.blackPoint, mint], [middle, accent], [state.whitePoint, mint]]) {
+        context.fillStyle = color;
+        context.beginPath();
+        context.moveTo(x(value), bottom + 1);
+        context.lineTo(x(value) - 3, bottom + 5);
+        context.lineTo(x(value) + 3, bottom + 5);
+        context.closePath();
+        context.fill();
+      }
+    }
+
+    function updateLabels() {
+      root.querySelector('#levels-black-value').value = black.value;
+      root.querySelector('#levels-white-value').value = white.value;
+      root.querySelector('#levels-gamma-value').value = gamma.valueAsNumber.toFixed(2);
+      black.setAttribute('aria-valuetext', `${black.value} input black point`);
+      white.setAttribute('aria-valuetext', `${white.value} input white point`);
+      gamma.setAttribute('aria-valuetext', `${gamma.valueAsNumber.toFixed(2)} midtone gamma`);
+      draw();
+    }
+
+    for (const input of [black, white, gamma]) {
+      input.addEventListener('input', () => {
+        if (black.valueAsNumber >= white.valueAsNumber) {
+          if (input === black) black.value = String(white.valueAsNumber - 1);
+          else white.value = String(black.valueAsNumber + 1);
+        }
+        updateLabels();
+        onChange?.(getState());
+      });
+    }
+    root.querySelector('#reset-levels').addEventListener('click', () => {
+      black.value = '0';
+      white.value = '255';
+      gamma.value = '1';
+      updateLabels();
+      onChange?.(getState());
+    });
+    updateLabels();
+    return {
+      getState,
+      setSource(source) {
+        histogram.fill(0);
+        if (source) {
+          for (let offset = 0; offset < source.data.length; offset += 4) {
+            const weight = source.data[offset + 3] / 255;
+            for (let channel = 0; channel < 3; channel += 1) histogram[source.data[offset + channel]] += weight;
+          }
+        }
+        draw();
+      }
+    };
+  }
+
+  return { createPalettePicker, createSpriteOverlayControls, createVirtualPaletteView, createLevelsControls };
 })();

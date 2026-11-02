@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "program": "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/stress.prg",
+  "sha256": "451da49ea3a610a0a62702f23cf627fb92ff3fe6fa69bf2e1522f2a6dbdee5bd",
+  "expected_sha256": "3186bf411f867a19b8da9a04f29191983f79c94d94da1290969ac0caec98f47f",
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "comparison": "exact RGB using the converter's external palette; all 320 columns and 200 rows",
+  "samples": [
+    {
+      "file": "vice-1.png",
+      "sha256": "c44a656bb8b74110b77ad8116efcaf7d25a56f4cab8d45ebc83a45a3a48d804e",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   13778860\n(C:$310d) "
+    },
+    {
+      "file": "vice-2.png",
+      "sha256": "c44a656bb8b74110b77ad8116efcaf7d25a56f4cab8d45ebc83a45a3a48d804e",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   14250604\n(C:$310d) "
+    },
+    {
+      "file": "vice-3.png",
+      "sha256": "c44a656bb8b74110b77ad8116efcaf7d25a56f4cab8d45ebc83a45a3a48d804e",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   14722348\n(C:$310d) "
+    }
+  ]
+}

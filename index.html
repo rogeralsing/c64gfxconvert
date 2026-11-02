@@ -90,6 +90,11 @@
     .control-label output { color: var(--accent); font-variant-numeric: tabular-nums; }
     .image-slider { display: block; width: 100%; height: 28px; margin: 8px 0; accent-color: var(--accent); cursor: pointer; }
     .image-slider:focus-visible { outline: 2px solid var(--mint); outline-offset: 4px; }
+    .levels-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
+    .levels-heading h3 { margin: 0; font-size: 14px; font-weight: 400; }
+    .levels-heading .framing-reset { margin: 0; }
+    .levels-histogram { width: 100%; height: 120px; padding: 12px; border: 1px solid var(--line); background: var(--panel); }
+    .levels-slider { margin-top: 16px; }
     .background-control { min-width: 0; margin: 0; padding: 0; border: 0; }
     .background-control legend { margin-bottom: 12px; padding: 0; font-size: 14px; }
     .palette-swatches { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 8px; padding: 3px; }
@@ -292,11 +297,30 @@
             </div>
             <div class="image-control">
               <div class="control-label"><label for="brightness">Brightness</label><output id="brightness-value" for="brightness">0%</output></div>
-              <input id="brightness" class="image-slider" type="range" min="-100" max="100" step="1" value="0" aria-valuetext="0% (unchanged)">
+              <input id="brightness" class="image-slider" type="range" min="-100" max="300" step="1" value="0" aria-valuetext="0% (unchanged)">
             </div>
             <div class="image-control">
               <div class="control-label"><label for="contrast">Contrast</label><output id="contrast-value" for="contrast">100%</output></div>
-              <input id="contrast" class="image-slider" type="range" min="0" max="200" step="1" value="100" aria-valuetext="100% (unchanged)">
+              <input id="contrast" class="image-slider" type="range" min="0" max="400" step="1" value="100" aria-valuetext="100% (unchanged)">
+            </div>
+            <div id="source-levels" class="image-control" role="group" aria-labelledby="levels-heading">
+              <div class="levels-heading">
+                <h3 id="levels-heading">Levels</h3>
+                <button id="reset-levels" class="framing-reset" type="button" aria-label="Reset levels">Reset</button>
+              </div>
+              <canvas id="levels-histogram" class="levels-histogram" width="256" height="112" role="img" aria-label="Source RGB histogram and input levels curve"></canvas>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-black">Black point</label><output id="levels-black-value" for="levels-black">0</output></div>
+                <input id="levels-black" class="image-slider" type="range" min="0" max="254" step="1" value="0" aria-valuetext="0 input black point">
+              </div>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-gamma">Midtones</label><output id="levels-gamma-value" for="levels-gamma">1.00</output></div>
+                <input id="levels-gamma" class="image-slider" type="range" min="0.1" max="5" step="0.05" value="1" aria-valuetext="1.00 midtone gamma">
+              </div>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-white">White point</label><output id="levels-white-value" for="levels-white">255</output></div>
+                <input id="levels-white" class="image-slider" type="range" min="1" max="255" step="1" value="255" aria-valuetext="255 input white point">
+              </div>
             </div>
             <div class="image-control">
               <div class="control-label"><label for="hue">Hue</label><output id="hue-value" for="hue">0°</output></div>
@@ -317,6 +341,9 @@
             <div class="image-control">
               <div class="control-label"><label for="dither">Dither</label><output id="dither-value" for="dither">100%</output></div>
               <input id="dither" class="image-slider" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100% dither strength">
+            </div>
+            <div class="image-control">
+              <label class="grid-toggle"><input id="scanline-dither" type="checkbox">Dither line ends</label>
             </div>
           </section>
         </aside>
@@ -339,6 +366,9 @@
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
                 <button id="sprite-layers-save" class="afli-save" type="button" title="Save the bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save layers</button>
+                <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
+                <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
+                <button id="pafli-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
               </div>
             </div>
             <div id="preview-panel" class="preview-panel" role="tabpanel" aria-labelledby="tab-unrestricted" tabindex="0">
@@ -356,15 +386,15 @@
                 <h3 id="ifli-frames-heading">IFLI frames</h3>
                 <div class="ifli-frame-grid">
                   <figure>
-                    <figcaption><span>Frame 1</span><span>160 × 200</span></figcaption>
+                    <figcaption><span>Frame 1</span><span id="frame-first-resolution">160 × 200</span></figcaption>
                     <div class="ifli-static-screen"><canvas id="ifli-frame-first" width="160" height="200" role="img" aria-label="IFLI frame 1 with double-width pixels">IFLI frame 1 appears here.</canvas></div>
                   </figure>
                   <figure>
-                    <figcaption><span>Frame 2</span><span>160 × 200</span></figcaption>
+                    <figcaption><span>Frame 2</span><span id="frame-second-resolution">160 × 200</span></figcaption>
                     <div class="ifli-static-screen"><canvas id="ifli-frame-second" width="160" height="200" role="img" aria-label="IFLI frame 2 with double-width pixels">IFLI frame 2 appears here.</canvas></div>
                   </figure>
                 </div>
-                <figure class="ifli-merged-view">
+                <figure id="ifli-column-merge-view" class="ifli-merged-view">
                   <figcaption><span>Column merge</span><span>320 × 200 · square pixels</span></figcaption>
                   <div class="ifli-static-screen"><canvas id="ifli-frame-merged" width="320" height="200" role="img" aria-label="IFLI column merge: even columns from frame 1, odd columns from frame 2">The merged IFLI image appears here.</canvas></div>
                 </figure>
@@ -397,35 +427,44 @@
   </div>
 
   <script src="./fli.js?v=reserved-sprite-color"></script>
-  <script src="./ifli.js?v=virtual-ifli-rows"></script>
+  <script src="./scanline-dither.js?v=enclosed-lines"></script>
+  <script src="./ifli.js?v=pafli-same-rows"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./afli-export.js?v=afli"></script>
+  <script src="./pafli.js?v=black-bottom-row"></script>
+  <script src="./pafli-player-data.js?v=1"></script>
+  <script src="./pafli-export.js?v=black-bottom-row"></script>
+  <script src="./nufli-data.js?v=1"></script>
+  <script src="./nufli.js?v=2"></script>
+  <script src="./nufli-export.js?v=1"></script>
   <script src="./afli-sprites.js?v=reserved-sprite-color"></script>
   <script src="./fli-sprites.js?v=reserved-sprite-color"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
-  <script src="./graphics-modes.js?v=feature-presets"></script>
+  <script src="./graphics-modes.js?v=pafli"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
-  <script src="./converter-controls.js?v=shared-controls"></script>
+  <script src="./source-levels.js?v=1"></script>
+  <script src="./converter-controls.js?v=source-levels"></script>
   <script>
-    // RGB values sampled from the supplied palette image, in C64 color-index order.
+    // Colodore PAL reference colors, in C64 color-index order.
+    // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
     const C64_PALETTE = [
       { index: 0, name: 'Black', hex: '#000000', rgb: [0, 0, 0] },
       { index: 1, name: 'White', hex: '#FFFFFF', rgb: [255, 255, 255] },
-      { index: 2, name: 'Red', hex: '#8D333D', rgb: [141, 51, 61] },
-      { index: 3, name: 'Cyan', hex: '#65BFB3', rgb: [101, 191, 179] },
-      { index: 4, name: 'Purple', hex: '#8E37A2', rgb: [142, 55, 162] },
-      { index: 5, name: 'Green', hex: '#4CA549', rgb: [76, 165, 73] },
-      { index: 6, name: 'Blue', hex: '#332CAD', rgb: [51, 44, 173] },
-      { index: 7, name: 'Yellow', hex: '#CDD156', rgb: [205, 209, 86] },
-      { index: 8, name: 'Orange', hex: '#8F501B', rgb: [143, 80, 27] },
-      { index: 9, name: 'Brown', hex: '#533D01', rgb: [83, 61, 1] },
-      { index: 10, name: 'Light red', hex: '#BD636D', rgb: [189, 99, 109] },
-      { index: 11, name: 'Dark gray', hex: '#4F4F4F', rgb: [79, 79, 79] },
-      { index: 12, name: 'Gray', hex: '#767676', rgb: [118, 118, 118] },
-      { index: 13, name: 'Light green', hex: '#8BE98B', rgb: [139, 233, 139] },
-      { index: 14, name: 'Light blue', hex: '#6C65E6', rgb: [108, 101, 230] },
-      { index: 15, name: 'Light gray', hex: '#A3A3A3', rgb: [163, 163, 163] }
+      { index: 2, name: 'Red', hex: '#96282E', rgb: [150, 40, 46] },
+      { index: 3, name: 'Cyan', hex: '#5BD6CE', rgb: [91, 214, 206] },
+      { index: 4, name: 'Purple', hex: '#9F2DAD', rgb: [159, 45, 173] },
+      { index: 5, name: 'Green', hex: '#41B936', rgb: [65, 185, 54] },
+      { index: 6, name: 'Blue', hex: '#2724C4', rgb: [39, 36, 196] },
+      { index: 7, name: 'Yellow', hex: '#EFF347', rgb: [239, 243, 71] },
+      { index: 8, name: 'Orange', hex: '#9F4815', rgb: [159, 72, 21] },
+      { index: 9, name: 'Brown', hex: '#5E3500', rgb: [94, 53, 0] },
+      { index: 10, name: 'Light red', hex: '#DA5F66', rgb: [218, 95, 102] },
+      { index: 11, name: 'Dark gray', hex: '#474747', rgb: [71, 71, 71] },
+      { index: 12, name: 'Gray', hex: '#787878', rgb: [120, 120, 120] },
+      { index: 13, name: 'Light green', hex: '#91FF84', rgb: [145, 255, 132] },
+      { index: 14, name: 'Light blue', hex: '#6864FF', rgb: [104, 100, 255] },
+      { index: 15, name: 'Light gray', hex: '#AEAEAE', rgb: [174, 174, 174] }
     ];
 
     // Dark to light, using the paired brightness columns in the supplied gradient.
@@ -508,9 +547,13 @@
     const interlaceValue = document.getElementById('interlace-value');
     const ditherSlider = document.getElementById('dither');
     const ditherValue = document.getElementById('dither-value');
+    const scanlineDither = document.getElementById('scanline-dither');
     const ifliPlayback = document.getElementById('ifli-playback');
     const ifliSave = document.getElementById('ifli-save');
     const afliSave = document.getElementById('afli-save');
+    const nufliSave = document.getElementById('nufli-save');
+    const nufliPrgSave = document.getElementById('nufli-prg-save');
+    const pafliSave = document.getElementById('pafli-save');
     const spriteLayersSave = document.getElementById('sprite-layers-save');
     const spriteLayerViews = document.getElementById('sprite-layer-views');
     const spriteUnderlayCanvas = document.getElementById('sprite-underlay');
@@ -538,10 +581,15 @@
     let ifliNextFrameIndex = 0;
     let ifliAnimation = null;
     let ifliPaused = false;
+    let pafliNextFrameTime = 0;
     let imageName = '';
     let renderRequest = 0;
     let dragDepth = 0;
 
+    const levelsControls = C64ConverterControls.createLevelsControls({
+      root: document.getElementById('source-levels'),
+      onChange: updatePalettePreview
+    });
     const backgroundPicker = C64ConverterControls.createPalettePicker({
       container: backgroundPalette,
       name: 'background-color',
@@ -592,6 +640,18 @@
 
     function isAfliMode() {
       return currentGraphicsMode().format === 'afli';
+    }
+
+    function isNufliMode() {
+      return currentGraphicsMode().format === 'nufli';
+    }
+
+    function isPafliMode() {
+      return currentGraphicsMode().format === 'pafli';
+    }
+
+    function isAlternatingMode() {
+      return isIfliMode() || isPafliMode();
     }
 
     function isAfliSpriteMode() {
@@ -886,7 +946,9 @@
 
     function adjustSourcePixels(source) {
       const adjusted = applyBrightnessContrast(source, brightnessSlider.valueAsNumber, contrastSlider.valueAsNumber);
-      return applyHueSaturation(adjusted, hueSlider.valueAsNumber, saturationSlider.valueAsNumber);
+      levelsControls.setSource(adjusted);
+      const leveled = applySourceLevels(adjusted, levelsControls.getState());
+      return applyHueSaturation(leveled, hueSlider.valueAsNumber, saturationSlider.valueAsNumber);
     }
 
     function updatePalettePreview() {
@@ -964,20 +1026,43 @@
       updatePalettePreview();
     });
 
+    scanlineDither.addEventListener('change', () => {
+      fliResult = null;
+      ifliResult = null;
+      renderPreview();
+    });
+
+    function processScanlines(pixels) {
+      return scanlineDither.checked ? breakUpScanlines(pixels) : pixels;
+    }
+
     function stopIfliAnimation() {
       if (ifliAnimation !== null) cancelAnimationFrame(ifliAnimation);
       ifliAnimation = null;
+      pafliNextFrameTime = 0;
     }
 
-    function isIfliPreview() {
-      return isIfliMode() && activeMode === 'restricted';
+    function isAlternatingPreview() {
+      return isAlternatingMode() && activeMode === 'restricted';
+    }
+
+    function ensureAlternatingResult() {
+      if (!isPafliMode()) return ensureIfliResult();
+      if (!virtualPaletteMapping) return null;
+      if (!ifliResult) {
+        ifliResult = optimizePafliImages(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
+        ifliFrameIndex = 0;
+        ifliNextFrameIndex = 0;
+      }
+      return ifliResult;
     }
 
     function ensureIfliResult() {
       if (!isIfliMode() || !virtualPaletteMapping) return null;
       if (!ifliResult) {
         const split = currentGraphicsMode().virtualRows ? splitIfliVirtualRows : splitIfliVirtualColumns;
-        const [first, second] = split(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE);
+        const [first, second] = split(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE)
+          .map(processScanlines);
         ifliResult = optimizeIfliImages(first, second, C64_PALETTE,
           C64_BRIGHTNESS_BANDS, backgroundColorIndex);
         ifliResult.displayFrames = ifliResult.frames.map((frame, phase) =>
@@ -1015,9 +1100,16 @@
     }
 
     function getRestrictedTarget() {
-      return usesVirtualPalette() && currentGraphicsMode().virtualRows
+      const target = usesVirtualPalette() && currentGraphicsMode().virtualRows
         ? resolveVirtualPaletteRows(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE)
         : palettePixels;
+      return processScanlines(target);
+    }
+
+    function ensureNufliResult() {
+      if (!isNufliMode() || !palettePixels) return null;
+      if (!fliResult) fliResult = optimizeNufliImage(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
+      return fliResult;
     }
 
     function updateIfliSaveState() {
@@ -1030,6 +1122,45 @@
       spriteLayersSave.hidden = !isSpriteMode();
       spriteLayersSave.disabled = !isSpriteMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
+      for (const button of [nufliSave, nufliPrgSave]) {
+        button.hidden = !isNufliMode();
+        button.disabled = !isNufliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      }
+      pafliSave.hidden = !isPafliMode();
+      pafliSave.disabled = !isPafliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+    }
+
+    for (const [button, encode, extension, ensureResult, name] of [
+      [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
+      [nufliPrgSave, encodeNufliPrg, 'prg', ensureNufliResult, 'NUFLI'],
+      [pafliSave, encodePafliPrg, 'prg', ensureAlternatingResult, 'PAFLI']
+    ]) {
+      button.addEventListener('click', () => {
+        if (button.disabled) return;
+        error.hidden = true;
+        let objectUrl;
+        try {
+          const data = encode(ensureResult(), C64_PALETTE);
+          const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
+            .replace(/^-+|-+$/g, '').slice(0, 12) || 'image';
+          const filename = name === 'PAFLI' ? `${basename}-pafli.${extension}` : `${basename}.${extension}`;
+          objectUrl = URL.createObjectURL(new Blob([data], { type: 'application/octet-stream' }));
+          const link = document.createElement('a');
+          link.href = objectUrl;
+          link.download = filename;
+          document.body.append(link);
+          link.click();
+          link.remove();
+          announcement.textContent = `Saved ${name} image as ${filename}.`;
+        } catch (cause) {
+          error.textContent = `Could not save ${name} data: ${cause.message}`;
+          error.hidden = false;
+        } finally {
+          if (objectUrl) setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+          updateIfliSaveState();
+        }
+      });
     }
 
     ifliSave.addEventListener('click', () => {
@@ -1121,19 +1252,30 @@
       }
     });
 
-    function advanceIfliFrame() {
+    function advanceIfliFrame(timestamp) {
       ifliAnimation = null;
-      if (!isIfliPreview() || !ifliResult || ifliPaused || document.hidden) return;
+      if (!isAlternatingPreview() || !ifliResult || ifliPaused || document.hidden) return;
+
+      // PAL alternates at 50 frames per second, independent of monitor refresh.
+      if (isPafliMode()) {
+        if (pafliNextFrameTime > timestamp) {
+          ifliAnimation = requestAnimationFrame(advanceIfliFrame);
+          return;
+        }
+        pafliNextFrameTime = pafliNextFrameTime === 0 || timestamp - pafliNextFrameTime > 100
+          ? timestamp + 20 : pafliNextFrameTime + 20;
+      }
 
       ifliFrameIndex = ifliNextFrameIndex;
       context.putImageData(ifliResult.displayFrames[ifliFrameIndex], 0, 0);
       canvas.dataset.ifliFrame = String(ifliFrameIndex);
+      tileGrid.style.transform = isPafliMode() && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
       ifliNextFrameIndex = 1 - ifliFrameIndex;
       ifliAnimation = requestAnimationFrame(advanceIfliFrame);
     }
 
     function startIfliAnimation() {
-      if (ifliAnimation === null && isIfliPreview() && ifliResult && !ifliPaused && !document.hidden) {
+      if (ifliAnimation === null && isAlternatingPreview() && ifliResult && !ifliPaused && !document.hidden) {
         ifliAnimation = requestAnimationFrame(advanceIfliFrame);
       }
     }
@@ -1163,41 +1305,43 @@
       const bitmap = mode.format === 'bitmap';
       const hires = mode.format === 'hires';
       const afli = isAfliMode();
+      const nufli = isNufliMode();
+      const pafli = isPafliMode();
       const name = mode.label;
       const restricted = activeMode === 'restricted';
-      const widePixels = !hires && !afli && (!ifli || restricted);
+      const widePixels = !hires && !afli && !nufli && !pafli && (!ifli || restricted);
       const resolution = usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
       const imageWidth = (320 - leftInset) / (usesFullResolutionSource() || spriteMode ? 1 : 2);
       restrictedTab.textContent = bitmap ? 'Bitmap' : name;
       document.getElementById('brand-mode').textContent = bitmap ? 'Bitmap' : name;
       document.title = `C64 ${name} — Image preview`;
-      if (ifli) document.getElementById('ifli-frames-heading').textContent = `${name} frames`;
+      if (isAlternatingMode()) document.getElementById('ifli-frames-heading').textContent = `${name} frames`;
       virtualPaletteView.setVisible(usesVirtualPalette());
-      backgroundSettings.hidden = hires || afli;
-      backgroundSettings.querySelector('fieldset').disabled = hires || afli;
-      backgroundPicker.setEnabled(!hires && !afli);
+      backgroundSettings.hidden = hires || afli || nufli || pafli;
+      backgroundSettings.querySelector('fieldset').disabled = hires || afli || nufli || pafli;
+      backgroundPicker.setEnabled(!hires && !afli && !nufli && !pafli);
       spriteControls.setVisible(spriteMode);
       document.getElementById('format-resolution').textContent = fliSprites ? `${resolution} + sprites` : resolution;
       document.getElementById('image-area-row').hidden = leftInset === 0;
-      document.getElementById('image-area-row').title = `${leftInset / 8} character columns reserved on the left`;
-      document.getElementById('format-image-area').textContent = `${imageWidth} × 200`;
+      document.getElementById('image-area-row').title = pafli ? '28 pixels reserved for both AFLI phases' : `${leftInset / 8} character columns reserved on the left`;
+      document.getElementById('format-image-area').textContent = `${imageWidth} × ${pafli ? 192 : 200}`;
       document.getElementById('format-pixel-ratio').textContent = fliSprites ? '2:1 + 1:1' : widePixels ? '2 : 1' : '1 : 1';
-      document.getElementById('canvas-resolution').textContent = isIfliPreview()
-        ? '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
+      document.getElementById('canvas-resolution').textContent = isAlternatingPreview()
+        ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
-      if (leftInset) document.getElementById('canvas-resolution').textContent += ` · ${leftInset / 8} columns reserved on the left`;
-      document.getElementById('color-mode').textContent = restricted ? (fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI Virtual restricted')
+      if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
+      document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI Virtual restricted')
         : activeMode === 'palette' ? (usesVirtualPalette() ? `${IFLI_VIRTUAL_PALETTE.length} virtual colors` : '16 C64 colors') : 'Unrestricted';
-      const footerMode = restricted ? (spriteMode ? name.toUpperCase() : ifli ? `${name.toUpperCase()} · ALTERNATING DISPLAY FRAMES` : virtualFli ? 'FLI VIRTUAL RESTRICTED' : virtualAfli ? 'AFLI VIRTUAL RESTRICTED' : bitmap ? 'MULTI COLOR BITMAP' : 'HIRES BITMAP')
+      const footerMode = restricted ? (isAlternatingMode() ? `${name.toUpperCase()} · ALTERNATING DISPLAY FRAMES` : nufli ? 'NUFLI' : spriteMode ? name.toUpperCase() : virtualFli ? 'FLI VIRTUAL RESTRICTED' : virtualAfli ? 'AFLI VIRTUAL RESTRICTED' : bitmap ? 'MULTI COLOR BITMAP' : 'HIRES BITMAP')
         : activeMode === 'palette' ? (ifli ? 'IFLI VIRTUAL PALETTE' : virtualFli ? 'FLI VIRTUAL PALETTE' : virtualAfli ? 'AFLI VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
-      document.getElementById('footer-format').textContent = isIfliPreview()
-        ? '2 × 160 × 200 / 2:1' : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
+      document.getElementById('footer-format').textContent = isAlternatingPreview()
+        ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1' : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
     }
 
     function renderIfliFrameViews() {
-      const visible = isIfliPreview() && Boolean(ifliResult);
+      const visible = isAlternatingPreview() && Boolean(ifliResult);
       const wasVisible = !ifliFrameViews.hidden;
       ifliFrameViews.hidden = !visible;
       previewPanel.classList.toggle('ifli-details-visible', visible ||
@@ -1205,24 +1349,32 @@
       if (wasVisible !== visible) previewPanel.scrollTop = 0;
       if (!visible || ifliFrameViewsResult === ifliResult) return;
 
-      const frames = ifliResult.frames.map(frame => frame.pixels);
+      const pafli = isPafliMode();
+      const frames = pafli ? ifliResult.displayFrames : ifliResult.frames.map(frame => frame.pixels);
+      document.getElementById('ifli-column-merge-view').hidden = pafli;
+      for (const id of ['frame-first-resolution', 'frame-second-resolution']) {
+        document.getElementById(id).textContent = pafli ? '320 × 200' : '160 × 200';
+      }
       for (const [index, pixels] of frames.entries()) {
         const target = ifliFrameCanvases[index];
         target.width = pixels.width;
         target.height = pixels.height;
         target.getContext('2d').putImageData(pixels, 0, 0);
-        target.setAttribute('aria-label', `${imageName}, IFLI frame ${index + 1}, 160 by 200 double-width pixels`);
+        target.setAttribute('aria-label', `${imageName}, ${currentGraphicsMode().label} frame ${index + 1}, ${pafli ? '320 by 200 aligned square pixels' : '160 by 200 double-width pixels'}`);
       }
-      const merged = mergeIfliFrames(frames[0], frames[1]);
-      ifliMergedCanvas.width = merged.width;
-      ifliMergedCanvas.height = merged.height;
-      ifliMergedCanvas.getContext('2d').putImageData(merged, 0, 0);
-      ifliMergedCanvas.setAttribute('aria-label', `${imageName}, 320 by 200 column merge, even columns from frame 1 and odd columns from frame 2`);
-      const blended = blendIfliFrames(frames[0], frames[1], C64_PALETTE[backgroundColorIndex].rgb);
+      if (!pafli) {
+        const merged = mergeIfliFrames(frames[0], frames[1]);
+        ifliMergedCanvas.width = merged.width;
+        ifliMergedCanvas.height = merged.height;
+        ifliMergedCanvas.getContext('2d').putImageData(merged, 0, 0);
+        ifliMergedCanvas.setAttribute('aria-label', `${imageName}, 320 by 200 column merge, even columns from frame 1 and odd columns from frame 2`);
+      }
+      const blended = pafli ? ifliResult.blended : blendIfliFrames(frames[0], frames[1], C64_PALETTE[backgroundColorIndex].rgb);
       ifliBlendedCanvas.width = blended.width;
       ifliBlendedCanvas.height = blended.height;
       ifliBlendedCanvas.getContext('2d').putImageData(blended, 0, 0);
-      ifliBlendedCanvas.setAttribute('aria-label', `${imageName}, 320 by 200 50/50 blend, frame 2 shifted one hires pixel right`);
+      ifliBlendedCanvas.setAttribute('aria-label', pafli ? `${imageName}, 320 by 200 50/50 blend of aligned PAFLI phases`
+        : `${imageName}, 320 by 200 50/50 blend, frame 2 shifted one hires pixel right`);
       ifliFrameViewsResult = ifliResult;
     }
 
@@ -1252,11 +1404,13 @@
       updatePreviewDetails();
       updateIfliSaveState();
       previewStatus.textContent = unrestrictedPixels ? 'IMAGE LOADED' : 'WAITING FOR IMAGE';
-      if (activeMode === 'restricted' && !isIfliMode() && palettePixels && !fliResult) {
+      if (activeMode === 'restricted' && !isAlternatingMode() && palettePixels && !fliResult) {
         if (isSpriteMode()) {
           ensureSpriteResult();
         } else if (isAfliMode()) {
           ensureAfliResult();
+        } else if (isNufliMode()) {
+          ensureNufliResult();
         } else {
           const target = getRestrictedTarget();
           if (currentGraphicsMode().format === 'hires') {
@@ -1268,12 +1422,12 @@
         }
       }
 
-      if (isIfliPreview()) ensureIfliResult();
+      if (isAlternatingPreview()) ensureAlternatingResult();
 
-      const pixels = activeMode === 'restricted' ? (isIfliMode()
+      const pixels = activeMode === 'restricted' ? (isAlternatingMode()
         ? ifliResult?.displayFrames[ifliFrameIndex] : fliResult?.pixels)
         : activeMode === 'palette' ? palettePixels : unrestrictedPixels;
-      ifliPlayback.hidden = !isIfliPreview();
+      ifliPlayback.hidden = !isAlternatingPreview();
       ifliPlayback.disabled = !ifliResult;
       renderIfliFrameViews();
       renderSpriteLayerViews();
@@ -1285,19 +1439,20 @@
       if (canvas.width !== pixels.width) canvas.width = pixels.width;
       if (canvas.height !== pixels.height) canvas.height = pixels.height;
       context.putImageData(pixels, 0, 0);
-      const modeName = activeMode === 'restricted' ? (isIfliMode()
+      const modeName = activeMode === 'restricted' ? (isAlternatingMode()
         ? `${currentGraphicsMode().label} alternating frames` : currentGraphicsMode().label)
         : activeMode === 'palette' ? 'C64 Palette' : 'Unrestricted';
-      const format = isIfliPreview() ? 'two 160 by 200 double-width frames'
+      const format = isAlternatingPreview() ? (isPafliMode() ? 'two aligned 320 by 200 square-pixel frames' : 'two 160 by 200 double-width frames')
         : isFliSpriteMode() && activeMode === 'restricted' ? '320 by 200, double-width bitmap pixels with hires sprites'
           : usesFullResolutionSource() ? '320 by 200 square pixels' : '160 by 200 double-width pixels';
       const leftInset = getC64ImageLeftInset(graphicsMode);
-      const reservedArea = leftInset ? `, ${leftInset / 8} character columns reserved on the left` : '';
+      const reservedArea = leftInset ? (isPafliMode() ? ', 28 pixels reserved on the left' : `, ${leftInset / 8} character columns reserved on the left`) : '';
       canvas.setAttribute('aria-label', `${imageName}, ${modeName} preview, ${format}${reservedArea}`);
-      if (isIfliPreview()) {
+      if (isAlternatingPreview()) {
         canvas.dataset.ifliFrame = String(ifliFrameIndex);
         startIfliAnimation();
       } else delete canvas.dataset.ifliFrame;
+      tileGrid.style.transform = isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
     }
 
     function selectPreviewTab(tab, moveFocus = false) {

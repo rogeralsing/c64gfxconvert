@@ -1,0 +1,175 @@
+r
+(C:$2088)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 00100000 000 000   12147408
+(C:$2088) 
+resourceget "Speed"
+Speed=100
+(C:$2088) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$2088) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$2088) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$2088) 
+resourceget "VICIIColorSaturation"
+VICIIColorSaturation=1000
+(C:$2088) 
+resourceget "VICIIColorContrast"
+VICIIColorContrast=1000
+(C:$2088) 
+resourceget "VICIIColorBrightness"
+VICIIColorBrightness=1000
+(C:$2088) 
+resourceget "VICIIColorGamma"
+VICIIColorGamma=1000
+(C:$2088) 
+break 20a0
+BREAK: 1  C:$20a0  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12163055
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12163055
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-0.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-0.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-0.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-0.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-0.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-0.bin' from $02f0 to $02f0
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/phase-1-ram.bin" 0 c000 ff3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/phase-1-ram.bin' from $c000 to $ff3f
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-1-phase-1.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12182711
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12182711
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-1.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-1.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-1.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-1.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-1.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-1.bin' from $02f0 to $02f0
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/phase-0-ram.bin" 0 4000 7f3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/phase-0-ram.bin' from $4000 to $7f3f
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-2-phase-0.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12202367
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12202367
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-2.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-2.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-2.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-2.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-2.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-2.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-3-phase-1.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12222023
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12222023
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-3.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-3.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-3.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-3.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-3.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-3.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-4-phase-0.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12241679
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12241679
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-4.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-4.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-4.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-4.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-4.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-4.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-5-phase-1.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   12261335
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   12261335
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-5.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-bank-5.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-5.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/vic-scroll-5.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-5.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/counter-5.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/bottom-row-before/frame-6-phase-0.png" 2
+(C:$20a0) 

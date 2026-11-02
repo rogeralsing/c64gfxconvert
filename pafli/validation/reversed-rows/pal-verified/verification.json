@@ -1,0 +1,97 @@
+{
+  "pass": true,
+  "program_sha256": "e92b8d05282fa84f76b2bbf99704cf3e4bea836bc43027f526a00ae82992486b",
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "visible_area": [
+    28,
+    0,
+    320,
+    200
+  ],
+  "bank_bytes_matched_per_phase": 16192,
+  "alternating": true,
+  "one_counter_increment_per_frame": true,
+  "stable_phases": true,
+  "samples": [
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 237,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-1-phase-0.png",
+      "sha256": "49c116920279e23648bf36cb15e8a3884ac37a2eae9a49e18c8e45505eff5c9a"
+    },
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 238,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-2-phase-1.png",
+      "sha256": "2fa5ff98facc3916bffbe9ba708cc0285b32a85d19443e8971c46b13f4b27de5"
+    },
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 239,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-3-phase-0.png",
+      "sha256": "49c116920279e23648bf36cb15e8a3884ac37a2eae9a49e18c8e45505eff5c9a"
+    },
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 240,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-4-phase-1.png",
+      "sha256": "2fa5ff98facc3916bffbe9ba708cc0285b32a85d19443e8971c46b13f4b27de5"
+    },
+    {
+      "phase": 0,
+      "xscroll": 0,
+      "counter": 241,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-5-phase-0.png",
+      "sha256": "49c116920279e23648bf36cb15e8a3884ac37a2eae9a49e18c8e45505eff5c9a"
+    },
+    {
+      "phase": 1,
+      "xscroll": 4,
+      "counter": 242,
+      "mismatches": 0,
+      "compared_pixels": 58400,
+      "origin": [
+        32,
+        32
+      ],
+      "screenshot": "frame-6-phase-1.png",
+      "sha256": "2fa5ff98facc3916bffbe9ba708cc0285b32a85d19443e8971c46b13f4b27de5"
+    }
+  ]
+}

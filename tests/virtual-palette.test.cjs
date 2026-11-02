@@ -36,10 +36,10 @@ function rgbToOklab(red, green, blue) {
 }
 
 const palette = [
-  [0, 0, 0], [255, 255, 255], [141, 51, 61], [101, 191, 179],
-  [142, 55, 162], [76, 165, 73], [51, 44, 173], [205, 209, 86],
-  [143, 80, 27], [83, 61, 1], [189, 99, 109], [79, 79, 79],
-  [118, 118, 118], [139, 233, 139], [108, 101, 230], [163, 163, 163]
+  [0, 0, 0], [255, 255, 255], [150, 40, 46], [91, 214, 206],
+  [159, 45, 173], [65, 185, 54], [39, 36, 196], [239, 243, 71],
+  [159, 72, 21], [94, 53, 0], [218, 95, 102], [71, 71, 71],
+  [120, 120, 120], [145, 255, 132], [104, 100, 255], [174, 174, 174]
 ].map((rgb, index) => ({ index, rgb }));
 const bands = [[0], [6, 9], [2, 11], [4, 8], [14, 12], [5, 10], [3, 15], [13, 7], [1]]
   .map(indices => {
@@ -73,7 +73,7 @@ test('pink cannot mix with yellow or light green in either order', () => {
 });
 
 test('neutral shadows use palette lightness instead of uniformly spaced row numbers', () => {
-  const grays = [0, 1, 48, 79, 118, 163, 255];
+  const grays = [0, 1, 48, 79, 120, 174, 255];
   const mapped = mapToIfliVirtualPalette(source(grays.map(gray => [gray, gray, gray])), virtualPalette, bands);
   for (const [pixel, gray] of grays.entries()) {
     const actual = byIndex.get(mapped.virtualIndices[pixel]);
@@ -83,7 +83,7 @@ test('neutral shadows use palette lightness instead of uniformly spaced row numb
       assert.ok(Math.abs(actualLightness - targetLightness) < 0.08,
         `dark gray 48 should not become a medium brown: ${actualLightness}`);
     } else {
-      const expected = gray <= 1 ? 0 : gray;
+      const expected = gray <= 1 ? 0 : gray === 79 ? 71 : gray;
       assert.deepEqual(Array.from(actual.rgb), [expected, expected, expected], `gray ${gray}`);
     }
   }

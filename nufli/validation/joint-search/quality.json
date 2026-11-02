@@ -1,0 +1,26 @@
+{
+  "before": {
+    "milliseconds": 802.509875,
+    "mismatch": 6015,
+    "mainMismatch": 5589,
+    "brightnessError": 38.483532534643885,
+    "chromaError": 103.70715275011986,
+    "weightedError": 3848353357.171541
+  },
+  "after": {
+    "milliseconds": 1136.5213330000001,
+    "mismatch": 5017,
+    "mainMismatch": 4591,
+    "brightnessError": 24.72524704134398,
+    "chromaError": 92.53615487772154,
+    "weightedError": 2472524796.6705527
+  },
+  "source": "../wh40k-source.png",
+  "metrics": {
+    "brightnessError": "sum of squared brightness-band lightness differences",
+    "chromaError": "sum of squared Oklab a/b differences",
+    "weightedError": "brightnessError * 100000000 + chromaError",
+    "mismatch": "pixels different from the same palette-mapped source",
+    "milliseconds": "one local fit; not a performance guarantee"
+  }
+}

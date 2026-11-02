@@ -1,0 +1,20 @@
+{
+  "contract": "Refitting an already legal NUF preserves all source colors, checked through an independent file decoder.",
+  "fixtures": [
+    {
+      "name": "staggered bitmap and underlay colors",
+      "before_mismatches": 195,
+      "after_mismatches": 0
+    },
+    {
+      "name": "rightmost underlay with Y writes elsewhere",
+      "before_mismatches": 2064,
+      "after_mismatches": 0
+    },
+    {
+      "name": "left-edge bitmap and both sprite layers",
+      "before_mismatches": 108,
+      "after_mismatches": 0
+    }
+  ]
+}

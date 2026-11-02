@@ -15,12 +15,16 @@ const C64_GRAPHICS_MODES = Object.freeze([
   { id: 'virtual-afli', label: 'AFLI Virtual', format: 'afli',
     virtualColors: true, spriteOverlay: false, virtualRows: true },
   { id: 'virtual-afli-sprites', label: 'AFLI Virtual + Sprites', format: 'afli',
-    virtualColors: true, spriteOverlay: true, virtualRows: true }
+    virtualColors: true, spriteOverlay: true, virtualRows: true },
+  { id: 'nufli', label: 'NUFLI', format: 'nufli',
+    virtualColors: false, spriteOverlay: false, virtualRows: false },
+  { id: 'pafli', label: 'PAFLI', format: 'pafli', leftInset: 28,
+    virtualColors: true, spriteOverlay: false, virtualRows: true }
 ].map(preset => {
   const sourceWidth = ['fli', 'bitmap'].includes(preset.format) ? 160 : 320;
   return Object.freeze({
     ...preset,
-    leftInset: preset.spriteOverlay ? 112 : ['fli', 'afli', 'ifli'].includes(preset.format) ? 16 : 0,
+    leftInset: preset.leftInset ?? (preset.spriteOverlay ? 112 : ['fli', 'afli', 'ifli'].includes(preset.format) ? 16 : 0),
     sourceWidth,
     restrictedWidth: preset.spriteOverlay || preset.format === 'ifli' ? 320 : sourceWidth
   });

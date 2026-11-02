@@ -1,0 +1,264 @@
+resourceget "InitialWarpMode"
+(C:$310d) InitialWarpMode=0
+(C:$310d) 
+resourceget "Speed"
+Speed=100
+(C:$310d) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$310d) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$310d) 
+resourceget "VICIIColorSaturation"
+VICIIColorSaturation=1000
+(C:$310d) 
+resourceget "VICIIColorContrast"
+VICIIColorContrast=1000
+(C:$310d) 
+resourceget "VICIIColorBrightness"
+VICIIColorBrightness=1000
+(C:$310d) 
+resourceget "VICIIColorGamma"
+VICIIColorGamma=1000
+(C:$310d) 
+d 3100 31f4
+.C:3100  7F A9 FE    RRA $FEA9,X
+.C:3103  9D F8 07    STA $07F8,X
+.C:3106  CA          DEX
+.C:3107  10 ED       BPL $30F6
+.C:3109  AD 0D DC    LDA $DC0D
+.C:310c  58          CLI
+.C:310d  4C 0D 31    JMP $310D
+.C:3110  A9 2A       LDA #$2A
+.C:3112  8D 12 D0    STA $D012
+.C:3115  A9 30       LDA #$30
+.C:3117  8D 14 03    STA $0314
+.C:311a  EE 19 D0    INC $D019
+.C:311d  58          CLI
+.C:311e  EA          NOP
+.C:311f  EA          NOP
+.C:3120  EA          NOP
+.C:3121  EA          NOP
+.C:3122  EA          NOP
+.C:3123  EA          NOP
+.C:3124  EA          NOP
+.C:3125  EA          NOP
+.C:3126  EA          NOP
+.C:3127  EA          NOP
+.C:3128  EA          NOP
+.C:3129  EA          NOP
+.C:312a  EA          NOP
+.C:312b  EA          NOP
+.C:312c  EA          NOP
+.C:312d  4C 1E 31    JMP $311E
+.C:3130  BA          TSX
+.C:3131  8A          TXA
+.C:3132  18          CLC
+.C:3133  69 06       ADC #$06
+.C:3135  AA          TAX
+.C:3136  9A          TXS
+.C:3137  A0 FF       LDY #$FF
+.C:3139  B9 01 DC    LDA $DC01,Y
+.C:313c  29 FC       AND #$FC
+.C:313e  AE 12 D0    LDX $D012
+.C:3141  E0 2A       CPX #$2A
+.C:3143  F0 00       BEQ $3145
+.C:3145  8C 18 D0    STY $D018
+.C:3148  09 02       ORA #$02
+.C:314a  8D 00 DD    STA $DD00
+.C:314d  A2 2B       LDX #$2B
+.C:314f  8E 01 D0    STX $D001
+.C:3152  8E 03 D0    STX $D003
+.C:3155  8E 05 D0    STX $D005
+.C:3158  8E 07 D0    STX $D007
+.C:315b  8E 09 D0    STX $D009
+.C:315e  8E 0B D0    STX $D00B
+.C:3161  8E 0D D0    STX $D00D
+.C:3164  8E 0F D0    STX $D00F
+.C:3167  AE 00 24    LDX $2400
+.C:316a  8E 28 D0    STX $D028
+.C:316d  AE 80 24    LDX $2480
+.C:3170  8E 29 D0    STX $D029
+.C:3173  AE 00 28    LDX $2800
+.C:3176  8E 2A D0    STX $D02A
+.C:3179  AE 80 28    LDX $2880
+.C:317c  8E 2B D0    STX $D02B
+.C:317f  AE 00 2C    LDX $2C00
+.C:3182  8E 2C D0    STX $D02C
+.C:3185  AE 80 2C    LDX $2C80
+.C:3188  8E 2D D0    STX $D02D
+.C:318b  A2 AA       LDX #$AA
+.C:318d  8E 01 D0    STX $D001
+.C:3190  8E 03 D0    STX $D003
+.C:3193  8E 05 D0    STX $D005
+.C:3196  8E 07 D0    STX $D007
+.C:3199  8E 09 D0    STX $D009
+.C:319c  8E 0B D0    STX $D00B
+.C:319f  8E 0D D0    STX $D00D
+.C:31a2  8E 0F D0    STX $D00F
+.C:31a5  09 01       ORA #$01
+.C:31a7  8D BC 19    STA $19BC
+.C:31aa  A9 00       LDA #$00
+.C:31ac  8C 17 D0    STY $D017
+.C:31af  99 18 D0    STA $D018,Y
+.C:31b2  8C 17 D0    STY $D017
+.C:31b5  A0 05       LDY #$05
+.C:31b7  88          DEY
+.C:31b8  D0 FD       BNE $31B7
+.C:31ba  AD F0 3F    LDA $3FF0
+.C:31bd  8D 26 D0    STA $D026
+.C:31c0  AD F1 3F    LDA $3FF1
+.C:31c3  8D 25 D0    STA $D025
+.C:31c6  AD F7 3F    LDA $3FF7
+.C:31c9  8D 27 D0    STA $D027
+.C:31cc  AD F6 3F    LDA $3FF6
+.C:31cf  8D 2E D0    STA $D02E
+.C:31d2  24 00       BIT $00
+.C:31d4  A9 38       LDA #$38
+.C:31d6  A0 78       LDY #$78
+.C:31d8  8C 18 D0    STY $D018
+.C:31db  A2 3E       LDX #$3E
+.C:31dd  20 00 10    JSR $1000
+.C:31e0  A9 00       LDA #$00
+.C:31e2  8D 17 D0    STA $D017
+.C:31e5  A9 29       LDA #$29
+.C:31e7  8D 12 D0    STA $D012
+.C:31ea  A9 10       LDA #$10
+.C:31ec  8D 14 03    STA $0314
+.C:31ef  EE 19 D0    INC $D019
+.C:31f2  4C 81 EA    JMP $EA81
+(C:$31f5) 
+break 310d
+BREAK: 1  C:$310d  (Stop on exec)
+(C:$31f5) 
+x
+#1 (Stop on  exec 310d)    0/$000,   4/$04
+.C:310d  4C 0D 31    JMP $310D      - A:01 X:FF Y:FF SP:f6 ..-....C   13778860
+(C:$310d) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;310d 01 ff ff f6 2f 37 00100001 000 004   13778860
+(C:$310d) 
+delete 1
+(C:$310d) 
+io d000
+VIC-II:
+>C:d000  18 d4 30 d4  60 d4 90 d4  c0 d4 f0 d4  20 d4 18 d4   xT0T�T.T�T�T TxT
+>C:d010  40 10 00 00  00 ff c8 00  19 70 f1 ff  80 7e 81 ff   @p@@@�H@yP��.�.�
+>C:d020  f0 f0 f0 f0  f0 f0 fb f7  f0 f0 fd f7  f0 fd f4 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 4/0 IRQ: 41
+Mode: Standard Text (ECM/BMM/MCM=0/0/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fe
+Video $0400, Charset $2000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fe $fe $fe $fe $fe $fe $fe $fe
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $018$030$060$090$0c0$0f0$120$018
+Y-Pos:   212 212 212 212 212 212 212 212
+X/Y-Exp:  /  X/  X/  X/  X/  X/  X/   / 
+Pri./MC: b/  b/  b/  b/  b/  b/  b/  b/*
+Color:     7   0   0   d   7   0   d   4
+Multi Color 1: 0  Multi Color 2: b
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/pal-stress/vice-1.png" 2
+(C:$d040) 
+bank ram
+(C:$d040) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/pal-stress/display-ram.bin" 0 2000 79ff
+Saving file '/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/pal-stress/display-ram.bin' from $2000 to $79ff
+(C:$d040) 
+bank cpu
+(C:$d040) 
+break 310d
+(C:$310d) BREAK: 1  C:$310d  (Stop on exec)
+(C:$310d) 
+x
+#1 (Stop on  exec 310d)    0/$000,   4/$04
+.C:310d  4C 0D 31    JMP $310D      - A:01 X:FF Y:FF SP:f6 ..-....C   14250604
+(C:$310d) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;310d 01 ff ff f6 2f 37 00100001 000 004   14250604
+(C:$310d) 
+delete 1
+(C:$310d) 
+io d000
+VIC-II:
+>C:d000  18 d4 30 d4  60 d4 90 d4  c0 d4 f0 d4  20 d4 18 d4   xT0T�T.T�T�T TxT
+>C:d010  40 10 00 00  00 ff c8 00  19 70 f1 ff  80 7e 81 ff   @p@@@�H@yP��.�.�
+>C:d020  f0 f0 f0 f0  f0 f0 fb f7  f0 f0 fd f7  f0 fd f4 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 4/0 IRQ: 41
+Mode: Standard Text (ECM/BMM/MCM=0/0/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fe
+Video $0400, Charset $2000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fe $fe $fe $fe $fe $fe $fe $fe
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $018$030$060$090$0c0$0f0$120$018
+Y-Pos:   212 212 212 212 212 212 212 212
+X/Y-Exp:  /  X/  X/  X/  X/  X/  X/   / 
+Pri./MC: b/  b/  b/  b/  b/  b/  b/  b/*
+Color:     7   0   0   d   7   0   d   4
+Multi Color 1: 0  Multi Color 2: b
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/pal-stress/vice-2.png" 2
+(C:$d040) 
+break 310d
+(C:$310d) BREAK: 1  C:$310d  (Stop on exec)
+(C:$310d) 
+x
+#1 (Stop on  exec 310d)    0/$000,   4/$04
+.C:310d  4C 0D 31    JMP $310D      - A:01 X:FF Y:FF SP:f6 ..-....C   14722348
+(C:$310d) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;310d 01 ff ff f6 2f 37 00100001 000 004   14722348
+(C:$310d) 
+delete 1
+(C:$310d) 
+io d000
+VIC-II:
+>C:d000  18 d4 30 d4  60 d4 90 d4  c0 d4 f0 d4  20 d4 18 d4   xT0T�T.T�T�T TxT
+>C:d010  40 10 00 00  00 ff c8 00  19 70 f1 ff  80 7e 81 ff   @p@@@�H@yP��.�.�
+>C:d020  f0 f0 f0 f0  f0 f0 fb f7  f0 f0 fd f7  f0 fd f4 ff   ����������������
+>C:d030  ff ff ff ff  ff ff ff ff  ff ff ff ff  ff ff ff ff   ����������������
+
+Raster cycle/line: 4/0 IRQ: 41
+Mode: Standard Text (ECM/BMM/MCM=0/0/0)
+Colors: Border: 0 BG: 0 
+Scroll X/Y: 0/0, RC 7, Idle: 1, 40x24
+VC $000, VCBASE $000, VMLI  0, Phi1 $fe
+Video $0400, Charset $2000 (RAM)
+
+Sprites: S.0 S.1 S.2 S.3 S.4 S.5 S.6 S.7
+Enabled: yes yes yes yes yes yes yes yes
+DMA/dis:  /   /   /   /   /   /   /   / 
+Pointer: $fe $fe $fe $fe $fe $fe $fe $fe
+MC:      $3f $3f $3f $3f $3f $3f $3f $3f
+MCBASE:  $3f $3f $3f $3f $3f $3f $3f $3f
+X-Pos:  $018$030$060$090$0c0$0f0$120$018
+Y-Pos:   212 212 212 212 212 212 212 212
+X/Y-Exp:  /  X/  X/  X/  X/  X/  X/   / 
+Pri./MC: b/  b/  b/  b/  b/  b/  b/  b/*
+Color:     7   0   0   d   7   0   d   4
+Multi Color 1: 0  Multi Color 2: b
+(C:$d040) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/colodore/pal-stress/vice-3.png" 2
+(C:$d040) 

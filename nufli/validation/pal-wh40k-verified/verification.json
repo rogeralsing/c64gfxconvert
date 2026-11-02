@@ -1,0 +1,45 @@
+{
+  "pass": true,
+  "program": "/Users/rogerjohansson/git/asynkron/c64/nufli/validation/wh40k.prg",
+  "sha256": "31444517b4adbb22e10c0cfab9bbf5a4c26d6db6d6f591f5e2bde4159e3b1c3f",
+  "expected_sha256": "e485a1b4ee135aab5337de37a58823dd72ae8022ebc0491fa81cdfbd0fe43ddd",
+  "pal": true,
+  "speed_percent": 100,
+  "warp": false,
+  "comparison": "exact RGB using the converter's external palette; all 320 columns and 200 rows",
+  "samples": [
+    {
+      "file": "vice-1.png",
+      "sha256": "2d4f1d0bf1873ef15fda01ccc212eca06da09c556d74084421181a889c0ed098",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   13680580\n(C:$310d) "
+    },
+    {
+      "file": "vice-2.png",
+      "sha256": "2d4f1d0bf1873ef15fda01ccc212eca06da09c556d74084421181a889c0ed098",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   14152324\n(C:$310d) "
+    },
+    {
+      "file": "vice-3.png",
+      "sha256": "2d4f1d0bf1873ef15fda01ccc212eca06da09c556d74084421181a889c0ed098",
+      "mismatches": 0,
+      "origin": [
+        32,
+        32
+      ],
+      "compared_pixels": 64000,
+      "registers": "  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH\n.;310d 01 ff ff f6 2f 37 00100001 000 004   14624068\n(C:$310d) "
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+r
+(C:$2088) 
+resourceget "Speed"
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2088 38 00 00 f6 2f 35 00100000 000 000   11872224
+(C:$2088) 
+resourceget "InitialWarpMode"
+InitialWarpMode=0
+(C:$2088) 
+resourceget "AutostartWarp"
+AutostartWarp=0
+(C:$2088) 
+resourceget "VICIIVSync"
+VICIIVSync=1
+(C:$2088) 
+resourceget "VICIIColorSaturation"
+VICIIColorSaturation=1000
+(C:$2088) 
+resourceget "VICIIColorContrast"
+VICIIColorContrast=1000
+(C:$2088) 
+resourceget "VICIIColorBrightness"
+VICIIColorBrightness=1000
+(C:$2088) 
+resourceget "VICIIColorGamma"
+VICIIColorGamma=1000
+(C:$2088) 
+break 20a0
+BREAK: 1  C:$20a0  (Stop on exec)
+(C:$2088) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11887871
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11887871
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-0.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-0.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-0.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-0.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-0.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-0.bin' from $02f0 to $02f0
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/phase-0-ram.bin" 0 4000 7f3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/phase-0-ram.bin' from $4000 to $7f3f
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-1-phase-0.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11907527
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11907527
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-1.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-1.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-1.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-1.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-1.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-1.bin' from $02f0 to $02f0
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/phase-1-ram.bin" 0 c000 ff3f
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/phase-1-ram.bin' from $c000 to $ff3f
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-2-phase-1.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11927183
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11927183
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-2.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-2.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-2.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-2.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-2.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-2.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-3-phase-0.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11946839
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11946839
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-3.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-3.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-3.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-3.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-3.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-3.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-4-phase-1.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11966495
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11966495
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-4.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-4.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-4.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-4.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-4.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-4.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-5-phase-0.png" 2
+(C:$20a0) 
+x
+#1 (Stop on  exec 20a0)  248/$0f8,  23/$17
+.C:20a0  A9 30       LDA #$30       - A:00 X:00 Y:00 SP:ef N.-..I..   11986151
+(C:$20a0) 
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;20a0 00 00 00 ef 2f 35 10100100 248 023   11986151
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-5.bin" 0 dd00 dd00
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-bank-5.bin' from $dd00 to $dd00
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-5.bin" 0 d016 d016
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/vic-scroll-5.bin' from $d016 to $d016
+(C:$20a0) 
+bank ram
+(C:$20a0) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-5.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/counter-5.bin' from $02f0 to $02f0
+(C:$20a0) 
+bank cpu
+(C:$20a0) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/pafli/validation/data-only-bottom/pal-verified/frame-6-phase-1.png" 2
+(C:$20a0) 
