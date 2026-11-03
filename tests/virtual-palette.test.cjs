@@ -167,6 +167,52 @@ test('invalid component bands and missing selected rows produce clear errors', (
   assert.throws(() => mapToIfliVirtualPalette(source([[255, 255, 255]]), missingWhite, bands), /brightness level 16/);
 });
 
+test('virtual brightness caps clamp both ends of the palette image even with dithering', () => {
+  const pixels = source(Array.from({ length: 256 }, (_, gray) => [gray, gray, gray]));
+  const before = new Uint8ClampedArray(pixels.data);
+  for (const limits of [{ minLevel: 1, maxLevel: 15 }, { minLevel: 4, maxLevel: 11 }]) {
+    for (const dither of [0, 0.4, 1]) {
+      const mapped = mapToIfliVirtualPalette(pixels, virtualPalette, bands, dither, limits);
+      const rows = Array.from(mapped.virtualIndices, index => bucket(byIndex.get(index)));
+      assert.equal(rows[0], limits.minLevel, 'black must clamp to the lowest allowed virtual row');
+      assert.equal(rows[255], limits.maxLevel, 'white must clamp to the highest allowed virtual row');
+      assert.ok(rows.every(row => row >= limits.minLevel && row <= limits.maxLevel), `dither ${dither}`);
+      for (let pixel = 0; pixel < rows.length; pixel += 1) {
+        const selected = byIndex.get(mapped.virtualIndices[pixel]);
+        assert.deepEqual(Array.from(mapped.pixels.data.subarray(pixel * 4, pixel * 4 + 3)),
+          Array.from(selected.rgb, Math.round), 'display must retain the selected component pair');
+      }
+    }
+  }
+  assert.deepEqual(pixels.data, before, 'palette caps must not change the source');
+});
+
+test('a single selected virtual row stays exact across all 17 levels at full dither', () => {
+  const pixels = source(palette.map(color => color.rgb));
+  for (let level = 0; level <= 16; level += 1) {
+    const mapped = mapToIfliVirtualPalette(pixels, virtualPalette, bands, 1, { minLevel: level, maxLevel: level });
+    for (const index of mapped.virtualIndices) {
+      const selected = byIndex.get(index);
+      assert.equal(bucket(selected), level);
+      if (level === 1) {
+        assert.equal(selected.colorIndices[0], 0);
+        assert.ok([6, 9].includes(selected.colorIndices[1]), 'row 1 is black mixed with blue or brown');
+      }
+      if (level === 2) assert.ok(selected.colorIndices.every(color => [6, 9].includes(color)), 'row 2 uses blue/brown');
+    }
+  }
+});
+
+test('virtual brightness caps reject invalid or inverted row bounds', () => {
+  const pixels = source([[128, 128, 128]]);
+  for (const limits of [
+    { minLevel: -1 }, { maxLevel: 17 }, { minLevel: 5, maxLevel: 4 },
+    { minLevel: 0.5 }, { maxLevel: NaN }
+  ]) {
+    assert.throws(() => mapToIfliVirtualPalette(pixels, virtualPalette, bands, 1, limits), /brightness limits/);
+  }
+});
+
 test('IFLI Virtual uses row parity for both frames and preserves exact even and odd columns', () => {
   const width = virtualPalette.length * 2;
   const height = 4;

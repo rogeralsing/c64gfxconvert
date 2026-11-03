@@ -11,6 +11,12 @@ reference, rather than a universal RGB palette for every physical C64 and TV.
 graphics modes. Brightness bands and virtual-color mixtures are calculated
 from the palette when the page loads.
 
+In virtual modes, **Darkest level** and **Lightest level** clamp the C64 Palette
+view to the existing 17 virtual brightness rows, numbered 0–16. Row 0 is black,
+row 1 mixes black with blue/brown, row 2 uses blue/brown, and row 16 is white.
+Dithering stays inside the selected bounds. These caps do not change the source
+image; subsequent format fitting uses the capped palette image as its target.
+
 NUFLI and PAFLI verification load `colodore.vpl` explicitly into VICE with
 neutral saturation, contrast, brightness, and gamma controls. Existing palette
 files and screenshots under older validation directories remain historical

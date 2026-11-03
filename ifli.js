@@ -272,8 +272,15 @@ function buildIfliVirtualPalette(palette, brightnessBands, maxBandDifference = 2
  * between the two measured rows surrounding the source lightness. Index 255
  * denotes a fully transparent source pixel. Saved indices retain the exact
  * component pair; display pixels contain rounded mixture RGB and retain alpha.
+ * Optional brightness limits clamp the selected row after dithering; they do
+ * not rescale or change the source image.
  */
-function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, ditherAmount = 0) {
+function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, ditherAmount = 0,
+    { minLevel = 0, maxLevel = 16 } = {}) {
+  if (!Number.isInteger(minLevel) || !Number.isInteger(maxLevel) ||
+      minLevel < 0 || maxLevel > 16 || minLevel > maxLevel) {
+    throw new RangeError('Virtual palette brightness limits require 0 <= minLevel <= maxLevel <= 16.');
+  }
   if (virtualPalette.length === 0 || virtualPalette.length > 255) {
     throw new Error('IFLI mapping requires between 1 and 255 virtual colors.');
   }
@@ -329,6 +336,7 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
       const brighterProbability = nearestBrighter + (fraction - nearestBrighter) * ditherAmount;
       levelIndex = threshold < brighterProbability ? brighter : darker;
     }
+    levelIndex = Math.max(minLevel, Math.min(maxLevel, levelIndex));
     const level = levels[levelIndex];
 
     let nearest = level[0];

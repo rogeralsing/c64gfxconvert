@@ -1,0 +1,115 @@
+Error - failed to retrieve executable path, falling back to getcwd() + argv[0]
+ 
+*** VICE Version 3.10 ***
+ 
+This is the condensed log, for the full log use --verbose or --debug.
+ 
+Main: random seed was: 0x6ae8ca81
+Main: command line was: /opt/homebrew/bin/x64sc +saveres -pal -speed 100 +warp +autostart-warp -VICIIvsync +reu -sounddev dummy +confirmonexit +refreshonbreak +binarymonitor -VICIIfilter 0 -VICIIextpal -VICIIpalette /Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl -VICIIsaturation 1000 -VICIIcontrast 1000 -VICIIbrightness 1000 -VICIIgamma 1000 -autostartprgmode 1 -autostart /Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg -remotemonitor -remotemonitoraddress ip4://127.0.0.1:57461
+Main: VICE system file directory: '/opt/homebrew/Cellar/vice/3.10/share/vice'.
+Main: VICE system file search path: '/Users/rogerjohansson/.local/share/vice:/opt/homebrew/bin:/opt/homebrew/Cellar/vice/3.10/share/vice'.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/kernal-901227-03.bin'.
+C64MEM: Kernal rev #3 ($03) Sum: 50954 ($C70A) SHA1: 1d503e56df85a62fee696e7618dc5b4e781df1bb.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/basic-901226-01.bin'.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/chargen-901225-01.bin'.
+DriveROM: Error - 2000 ROM image not found. Hardware-level 2000 emulation is not available.
+DriveROM: Error - 4000 ROM image not found. Hardware-level 4000 emulation is not available.
+DriveROM: Error - CMDHD ROM image not found. Hardware-level CMDHD emulation is not available.
+Sysfile: Loading `/opt/homebrew/Cellar/vice/3.10/share/vice/DRIVES/dos1541ii-251968-03.bin'.
+VIC-II: Initializing chip model "MOS8565" (63 cycles per line, 312 raster lines).
+Window: Chip 'VICII' using GTK3 backend 'OpenGL'.
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/builtin.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/builtin-interlaced.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/bicubic.frag
+OpenGL: Loading vertex shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/viewport.vert
+OpenGL: Loading fragment shader: /opt/homebrew/Cellar/vice/3.10/share/vice/GLSL/bicubic-interlaced.frag
+Palette: Loading palette `/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl'.
+Palette: Loading palette `/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl'.
+Sound: Available sound devices: coreaudio dummy dump fs wav voc iff aiff flac ogg soundmovie
+Joystick: Warning - Failed to open `/Users/rogerjohansson/.config/vice/gtk3-joymap-C64SC.vjm'.
+Joystick: Warning - using minimal default mapping.
+Keymap: Loading keymap `/opt/homebrew/Cellar/vice/3.10/share/vice/C64/gtk3_sym.vkm'.
+Hotkeys: parsing default file '/opt/homebrew/Cellar/vice/3.10/share/vice/hotkeys/hotkeys.vhk' for machine C64
+
+Main CPU: starting at ($FFFC).
+Main CPU: RESET.
+VIC-II: VSP Bug: safe channels are: 0136. Emulation of memory corruption is disabled.
+AUTOSTART: Autodetecting image type of `/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg'.
+Filesystem Image Probe: Error - Import GCR: Unknown GCR image version 49.
+Filesystem Image: Unknown disk image `/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg'.
+Tape: Error - Cannot open file `/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg'
+Error - no CRT header found.
+CART: '/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg' is not a valid CRT file.
+AUTOSTART: Loading PRG file `/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg' with direct RAM injection.
+AUTOSTART: Resetting the machine to autostart '*'
+VIC-II: VSP Bug: safe channels are: 01457. Emulation of memory corruption is disabled.
+AUTOSTART: `/Users/rogerjohansson/Downloads/^^Eleganta-f (1).prg' recognized as program/p00 file.
+Main CPU: RESET.
+Sound: Opened device `dummy', speed 48000Hz, fragment size 0.67ms, buffer size 20.00ms
+Sound: reSID: MOS8580, filter on, sampling rate 48000Hz - resampling, pass to 21600Hz
+VSync: Sync reset
+Sound: Warning - Sound buffer overflow (cycle based)
+Unit 8: RESET.
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Sound buffer overflow (cycle based)
+Sound: Warning - Buffer overflow warning repeated 25 times, will now be ignored
+AUTOSTART: Injecting program data at $0801 (size $bb8b)
+AUTOSTART: Ready
+AUTOSTART: Starting program.
+AUTOSTART: Restoring FileSystemDevice8 to 1.
+AUTOSTART: Restoring FSDevice8ConvertP00 to 1.
+AUTOSTART: Restoring FSDeviceLongNames to 0.
+AUTOSTART: Done.
+VSync: Sync reset
+VSync: Sync reset
+
+Configure Flags:
+--disable-arch --disable-pdf-docs --enable-gtk3ui --enable-midi --enable-lame --enable-ethernet --enable-cpuhistory --with-flac --with-vorbis --with-gif --with-png --disable-debug --disable-dependency-tracking --prefix=/opt/homebrew/Cellar/vice/3.10 --libdir=/opt/homebrew/Cellar/vice/3.10/lib
+
+Resources with non default values:
+ConfirmOnExit=0
+Window0Height=638
+Window0Width=720
+Window0Xpos=368
+Window0Ypos=161
+SoundDeviceName="dummy"
+VICIIPaletteFile="/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl"
+VICIIExternalPalette=1
+VICIIColorSaturation=1000
+VICIIColorContrast=1000
+VICIIFilter=0
+AutostartWarp=0
+AutostartPrgMode=1
+RefreshOnBreak=0
+MonitorServerAddress="ip4://127.0.0.1:57461"
+MonitorServer=1
+
+reconstructed commandline options (might be incomplete):
+-default +confirmonexit -windowxpos "368" -windowypos "161" -windowwidth "720" -windowheight "638" +refreshonbreak -sounddev "dummy" -VICIIfilter "0" -VICIIextpal -VICIIpalette "/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl" -VICIIsaturation "1000" -VICIIcontrast "1000" +autostart-warp -autostartprgmode "1" -remotemonitor -remotemonitoraddress "ip4://127.0.0.1:57461"
+
+VIC-II: VSP Bug: safe channels are: 14567. Emulation of memory corruption is disabled.

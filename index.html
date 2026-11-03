@@ -106,8 +106,10 @@
     .virtual-palette { margin-bottom: 18px; padding: 18px; border: 1px solid var(--line); background: var(--panel); }
     .virtual-palette h2 { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 14px; }
     .virtual-palette-count { color: var(--muted); font-variant-numeric: tabular-nums; }
-    .virtual-palette-swatches { display: grid; gap: 4px; }
+    .virtual-palette-swatches { display: grid; gap: 4px; margin-top: 18px; }
     .virtual-palette-row { display: flex; gap: 4px; }
+    .virtual-palette-row.is-outside-range .virtual-palette-swatch { opacity: 0.25; }
+    .virtual-palette-level { flex: 0 0 20px; align-self: center; color: var(--muted); font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
     .virtual-palette-swatch { display: block; flex: 1; min-width: 0; height: 20px; border: 1px solid #59637f; }
 
     .preview { min-width: 0; border: 1px solid var(--line); background: var(--panel); }
@@ -232,6 +234,14 @@
           </section>
           <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
             <h2 id="virtual-palette-heading">Virtual palette <span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
+            <div class="image-control">
+              <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
+              <input id="palette-darkest" class="image-slider" type="range" min="0" max="16" step="1" value="0" aria-valuetext="Virtual brightness level 0 of 16">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="palette-lightest">Lightest level</label><output id="palette-lightest-value" for="palette-lightest">16</output></div>
+              <input id="palette-lightest" class="image-slider" type="range" min="0" max="16" step="1" value="16" aria-valuetext="Virtual brightness level 16 of 16">
+            </div>
             <div id="virtual-palette-swatches" class="virtual-palette-swatches" role="list" aria-labelledby="virtual-palette-heading"></div>
           </section>
           <section class="source" aria-labelledby="source-heading">
@@ -428,7 +438,7 @@
 
   <script src="./fli.js?v=reserved-sprite-color"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=pafli-same-rows"></script>
+  <script src="./ifli.js?v=virtual-brightness-caps"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./afli-export.js?v=afli"></script>
   <script src="./pafli.js?v=black-bottom-row"></script>
@@ -444,7 +454,7 @@
   <script src="./graphics-modes.js?v=pafli"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=source-levels"></script>
+  <script src="./converter-controls.js?v=virtual-brightness-caps"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -615,7 +625,8 @@
     const virtualPaletteView = C64ConverterControls.createVirtualPaletteView({
       root: virtualPalette,
       palette: IFLI_VIRTUAL_PALETTE,
-      basePalette: C64_PALETTE
+      basePalette: C64_PALETTE,
+      onChange: updatePalettePreview
     });
 
     function updateGridVisibility() {
@@ -966,7 +977,7 @@
 
       if (usesVirtualPalette()) {
         virtualPaletteMapping = mapToIfliVirtualPalette(unrestrictedPixels, IFLI_VIRTUAL_PALETTE,
-          C64_BRIGHTNESS_BANDS, ditherSlider.valueAsNumber / 100);
+          C64_BRIGHTNESS_BANDS, ditherSlider.valueAsNumber / 100, virtualPaletteView.getLimits());
         palettePixels = virtualPaletteMapping.pixels;
       } else {
         palettePixels = mapToC64Palette(unrestrictedPixels, ditherSlider.valueAsNumber / 100);

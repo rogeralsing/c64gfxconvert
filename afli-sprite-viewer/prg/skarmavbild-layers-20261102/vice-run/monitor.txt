@@ -1,0 +1,50 @@
+
+r
+(C:$3122)   ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;3122 1f 06 70 ed 2f 35 11100101 000 001   18810793
+(C:$3122) 
+break 2a46
+BREAK: 1  C:$2a46  (Stop on exec)
+(C:$3122) 
+x
+#1 (Stop on  exec 2a46)   99/$063,  24/$18
+.C:2a46  A0 3D       LDY #$3D       - A:38 X:73 Y:3B SP:ed ..-..I.C   18817053
+(C:$2a46) 
+
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2a46 38 73 3b ed 2f 35 00100101 099 024   18817053
+(C:$2a46) 
+delete 1
+(C:$2a46) 
+bank ram
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/skarmavbild-layers-20261102/vice-run/counter-0.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/skarmavbild-layers-20261102/vice-run/counter-0.bin' from $02f0 to $02f0
+(C:$2a46) 
+bank cpu
+(C:$2a46) 
+
+break 2a46
+(C:$3122) BREAK: 1  C:$2a46  (Stop on exec)
+(C:$3122) 
+x
+#1 (Stop on  exec 2a46)   99/$063,  24/$18
+.C:2a46  A0 3D       LDY #$3D       - A:38 X:73 Y:3B SP:ed ..-..I.C   19426389
+(C:$2a46) 
+
+r
+  ADDR A  X  Y  SP 00 01 NV-BDIZC LIN CYC  STOPWATCH
+.;2a46 38 73 3b ed 2f 35 00100101 099 024   19426389
+(C:$2a46) 
+delete 1
+(C:$2a46) 
+bank ram
+(C:$2a46) 
+bsave "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/skarmavbild-layers-20261102/vice-run/counter-1.bin" 0 02f0 02f0
+Saving file '/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/skarmavbild-layers-20261102/vice-run/counter-1.bin' from $02f0 to $02f0
+(C:$2a46) 
+bank cpu
+(C:$2a46) 
+scrsh "/Users/rogerjohansson/git/asynkron/c64/afli-sprite-viewer/prg/skarmavbild-layers-20261102/vice-run/screenshot.png" 2
+(C:$2a46) 

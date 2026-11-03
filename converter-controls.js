@@ -94,9 +94,11 @@ globalThis.C64ConverterControls = (() => {
     return { getState, setVisible };
   }
 
-  function createVirtualPaletteView({ root, palette, basePalette }) {
+  function createVirtualPaletteView({ root, palette, basePalette, onChange }) {
     const document = root.ownerDocument;
     const swatches = root.querySelector('.virtual-palette-swatches');
+    const darkest = root.querySelector('#palette-darkest');
+    const lightest = root.querySelector('#palette-lightest');
     const baseColors = new Map(basePalette.map(color => [color.index, color]));
     root.querySelector('.virtual-palette-count').textContent = palette.length;
     const sorted = [...palette].sort((first, second) =>
@@ -111,6 +113,11 @@ globalThis.C64ConverterControls = (() => {
         row.className = 'virtual-palette-row';
         row.setAttribute('role', 'presentation');
         row.dataset.brightness = String(brightness);
+        const level = document.createElement('span');
+        level.className = 'virtual-palette-level';
+        level.textContent = String(brightness);
+        level.setAttribute('aria-hidden', 'true');
+        row.append(level);
         swatches.append(row);
         previousBrightness = brightness;
       }
@@ -122,12 +129,43 @@ globalThis.C64ConverterControls = (() => {
       swatch.dataset.virtualColor = color.id;
       swatch.title = label;
       swatch.setAttribute('role', 'listitem');
-      swatch.setAttribute('aria-label', label);
+      swatch.setAttribute('aria-label', `Level ${brightness} · ${label}`);
       row.append(swatch);
     }
+
+    function getLimits() {
+      return { minLevel: darkest.valueAsNumber, maxLevel: lightest.valueAsNumber };
+    }
+
+    function updateLimits() {
+      const { minLevel, maxLevel } = getLimits();
+      root.querySelector('#palette-darkest-value').value = String(minLevel);
+      root.querySelector('#palette-lightest-value').value = String(maxLevel);
+      darkest.setAttribute('aria-valuetext', `Virtual brightness level ${minLevel} of 16`);
+      lightest.setAttribute('aria-valuetext', `Virtual brightness level ${maxLevel} of 16`);
+      for (const row of swatches.children) {
+        const level = Number(row.dataset.brightness);
+        row.classList.toggle('is-outside-range', level < minLevel || level > maxLevel);
+      }
+    }
+
+    for (const input of [darkest, lightest]) {
+      input.addEventListener('input', () => {
+        if (darkest.valueAsNumber > lightest.valueAsNumber) {
+          if (input === darkest) darkest.value = lightest.value;
+          else lightest.value = darkest.value;
+        }
+        updateLimits();
+        onChange?.(getLimits());
+      });
+    }
+    updateLimits();
     return {
+      getLimits,
       setVisible(visible) {
         root.hidden = !visible;
+        darkest.disabled = !visible;
+        lightest.disabled = !visible;
       }
     };
   }
