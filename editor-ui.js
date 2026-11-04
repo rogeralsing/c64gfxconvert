@@ -64,6 +64,8 @@
     reference.hidden = !document.getElementById('background-settings').hidden ||
       !document.getElementById('sprite-settings').hidden || !document.getElementById('virtual-palette').hidden;
   };
-  document.getElementById('graphics-mode-options').addEventListener('change', syncPaletteReference);
+  for (const id of ['graphics-mode-options', 'virtual-colors']) {
+    document.getElementById(id).addEventListener('change', syncPaletteReference);
+  }
   syncPaletteReference();
 })();

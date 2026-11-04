@@ -12,10 +12,10 @@ const { getC64GraphicsMode, getC64ImageLeftInset, getC64ImagePlacement } = conte
 
 test('FLI modes fit wide images inside their reserved display areas', () => {
   for (const { modes, expected } of [
-    { modes: ['ifli', 'virtual-ifli', 'virtual-fli', 'virtual-afli'],
+    { modes: ['ifli', 'fli', 'afli'],
       expected: { x: 16, y: 24, width: 304, height: 152,
         leftInset: 16, availableWidth: 304, canvasWidth: 320, canvasHeight: 200 } },
-    { modes: ['virtual-afli-sprites', 'virtual-fli-sprites'],
+    { modes: ['afli-sprites', 'fli-sprites'],
       expected: { x: 112, y: 48, width: 208, height: 104,
         leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } },
     { modes: ['pafli'], expected: { x: 28, y: 27, width: 292, height: 146,
@@ -30,10 +30,10 @@ test('FLI modes fit wide images inside their reserved display areas', () => {
 
 test('FLI modes center tall images inside their remaining display areas', () => {
   for (const { modes, expected } of [
-    { modes: ['ifli', 'virtual-ifli', 'virtual-fli', 'virtual-afli'],
+    { modes: ['ifli', 'fli', 'afli'],
       expected: { x: 143, y: 0, width: 50, height: 200,
         leftInset: 16, availableWidth: 304, canvasWidth: 320, canvasHeight: 200 } },
-    { modes: ['virtual-afli-sprites', 'virtual-fli-sprites'],
+    { modes: ['afli-sprites', 'fli-sprites'],
       expected: { x: 191, y: 0, width: 50, height: 200,
         leftInset: 112, availableWidth: 208, canvasWidth: 320, canvasHeight: 200 } },
     { modes: ['pafli'], expected: { x: 149, y: 0, width: 50, height: 200,
@@ -86,11 +86,11 @@ test('omitted transform fields retain the original placement', () => {
 
 test('zoom preserves aspect ratio and the center of the usable display area', () => {
   for (const { source, mode, scale, expected } of [
-    { source: [1000, 500], mode: 'virtual-fli', scale: 2,
+    { source: [1000, 500], mode: 'fli', scale: 2,
       expected: { x: -136, y: -52, width: 608, height: 304 } },
-    { source: [1000, 500], mode: 'virtual-afli-sprites', scale: 2,
+    { source: [1000, 500], mode: 'afli-sprites', scale: 2,
       expected: { x: 8, y: -4, width: 416, height: 208 } },
-    { source: [1000, 500], mode: 'virtual-fli-sprites', scale: 2,
+    { source: [1000, 500], mode: 'fli-sprites', scale: 2,
       expected: { x: 8, y: -4, width: 416, height: 208 } },
     { source: [1000, 500], mode: 'bitmap', scale: 0.5,
       expected: { x: 80, y: 60, width: 160, height: 80 } },
@@ -106,9 +106,9 @@ test('zoom preserves aspect ratio and the center of the usable display area', ()
 test('pan uses display pixels after zoom in both full-width and reserved modes', () => {
   const transform = { scale: 2, offsetX: 24, offsetY: -10 };
   for (const { modes, expected } of [
-    { modes: ['ifli', 'virtual-ifli', 'virtual-fli', 'virtual-afli'],
+    { modes: ['ifli', 'fli', 'afli'],
       expected: { x: -112, y: -62, width: 608, height: 304 } },
-    { modes: ['virtual-afli-sprites', 'virtual-fli-sprites'],
+    { modes: ['afli-sprites', 'fli-sprites'],
       expected: { x: 32, y: -14, width: 416, height: 208 } },
     { modes: ['bitmap', 'hires'],
       expected: { x: -136, y: -70, width: 640, height: 320 } }

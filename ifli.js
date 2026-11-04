@@ -44,53 +44,19 @@ function sampleIfliPhases(source) {
 }
 
 /**
- * Resolve each hires column's retained virtual pair into its real C64 component.
- * Even columns use their own pair's first color; odd columns use their own
- * pair's second color on the first row. Every other row reverses those choices.
- * Source alpha and transparent RGB remain unchanged.
- */
-function splitIfliVirtualColumns(mapping, virtualPalette, palette) {
-  const { width, height, data } = mapping.pixels;
-  if (!Number.isInteger(width) || width <= 0 || width % 2 !== 0 ||
-      !Number.isInteger(height) || height <= 0 || mapping.virtualIndices.length !== width * height) {
-    throw new Error('IFLI virtual source must have a positive even width, positive height, and matching indices.');
-  }
-
-  const virtualByIndex = new Map(virtualPalette.map(color => [color.index, color]));
-  const paletteByIndex = new Map(palette.map(color => [color.index, color]));
-  const frames = [new ImageData(width / 2, height), new ImageData(width / 2, height)];
-  for (let pixel = 0; pixel < width * height; pixel += 1) {
-    const source = pixel * 4;
-    const phase = pixel % 2;
-    const componentIndex = phase ^ (Math.floor(pixel / width) & 1);
-    const destination = Math.floor(pixel / 2) * 4;
-    const frame = frames[phase].data;
-    const index = mapping.virtualIndices[pixel];
-    if (data[source + 3] === 0 || index === 255) {
-      frame.set(data.subarray(source, source + 4), destination);
-      continue;
-    }
-
-    const virtual = virtualByIndex.get(index);
-    const component = virtual && paletteByIndex.get(virtual.colorIndices[componentIndex]);
-    if (!component) throw new Error('IFLI virtual pixels require valid virtual and C64 color indices.');
-    frame.set(component.rgb, destination);
-    frame[destination + 3] = data[source + 3];
-  }
-  return frames;
-}
-
-/**
- * Resolve every retained virtual pair by scanline without changing image size.
- * Even rows use each pixel's first C64 component; odd rows use its second.
+ * Resolve every retained virtual pair without changing image size.
+ * Lines alternate components by row; checkers alternate by row and column.
  * Alpha and transparent/sentinel RGBA values remain unchanged.
  */
-function resolveVirtualPaletteRows(mapping, virtualPalette, palette) {
+function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern = 'lines') {
+  if (pattern !== 'lines' && pattern !== 'checkers') {
+    throw new Error('Virtual color pattern must be lines or checkers.');
+  }
   const { width, height, data } = mapping.pixels;
   if (!Number.isInteger(width) || width <= 0 || !Number.isInteger(height) || height <= 0 ||
       !data || data.length !== width * height * 4 ||
       !mapping.virtualIndices || mapping.virtualIndices.length !== width * height) {
-    throw new Error('Virtual row source must have positive dimensions and matching pixels and indices.');
+    throw new Error('Virtual color source must have positive dimensions and matching pixels and indices.');
   }
 
   const virtualByIndex = new Map(virtualPalette.map(color => [color.index, color]));
@@ -104,26 +70,26 @@ function resolveVirtualPaletteRows(mapping, virtualPalette, palette) {
       if (data[offset + 3] === 0 || index === 255) continue;
       const pair = virtualByIndex.get(index)?.colorIndices;
       if (!pair || pair.length !== 2 || !paletteByIndex.has(pair[0]) || !paletteByIndex.has(pair[1])) {
-        throw new Error('Virtual row pixels require valid virtual pairs and C64 color indices.');
+        throw new Error('Virtual color pixels require valid virtual pairs and C64 color indices.');
       }
-      resolved.data.set(paletteByIndex.get(pair[y & 1]).rgb, offset);
+      const component = (y + (pattern === 'checkers' ? x : 0)) & 1;
+      resolved.data.set(paletteByIndex.get(pair[component]).rgb, offset);
     }
   }
   return resolved;
 }
 
 /**
- * Resolve virtual pairs by row, then split exact even and odd source columns.
- * Both IFLI frames use the first component on even rows and second on odd rows.
- * No phase-dependent component swap or pixel averaging is applied.
+ * Split exact even and odd source columns into the two IFLI frames.
+ * Virtual components are resolved upstream, when enabled. No color mapping,
+ * phase-dependent component swap, or pixel averaging is applied here.
  */
-function splitIfliVirtualRows(mapping, virtualPalette, palette) {
-  const { width } = mapping.pixels;
-  if (!Number.isInteger(width) || width <= 0 || width % 2 !== 0) {
-    throw new Error('IFLI virtual row source must have a positive even width.');
+function splitIfliColumns(pixels) {
+  const { width, height, data } = pixels;
+  if (!Number.isInteger(width) || width <= 0 || width % 2 !== 0 ||
+      !Number.isInteger(height) || height <= 0 || !data || data.length !== width * height * 4) {
+    throw new Error('IFLI source must have a positive even width, positive height, and matching pixels.');
   }
-
-  const { height, data } = resolveVirtualPaletteRows(mapping, virtualPalette, palette);
   const frames = [new ImageData(width / 2, height), new ImageData(width / 2, height)];
   for (let pixel = 0; pixel < width * height; pixel += 1) {
     const source = pixel * 4;

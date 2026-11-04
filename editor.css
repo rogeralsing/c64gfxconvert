@@ -151,7 +151,8 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .background-control { min-width: 0; margin: 0; padding: 0; border: 0; }
 .background-control legend { margin-bottom: 10px; padding: 0; font-size: 11px; font-weight: 600; }
 .palette-swatches { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; padding: 3px; }
-.palette-choice { display: block; min-width: 0; cursor: pointer; }
+/* Keep hidden radio focus inside its swatch and the inspector's scroll area. */
+.palette-choice { position: relative; display: block; min-width: 0; cursor: pointer; }
 .palette-swatch { display: block; width: 100%; height: 23px; border: 1px solid #666; border-radius: 2px; }
 .palette-choice input:checked + .palette-swatch { outline: 2px solid #dedede; outline-offset: 2px; }
 .palette-choice input:focus-visible + .palette-swatch { outline: 2px solid var(--focus); outline-offset: 2px; }

@@ -48,7 +48,7 @@ const bands = [[0], [6, 9], [2, 11], [4, 8], [14, 12], [5, 10], [3, 15], [13, 7]
   });
 const context = vm.createContext({ ImageData, Uint8Array, Uint8ClampedArray, rgbToOklab });
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../ifli.js'), 'utf8'), context);
-const { buildIfliVirtualPalette, mapToIfliVirtualPalette, splitIfliVirtualRows } = context;
+const { buildIfliVirtualPalette, mapToIfliVirtualPalette, resolveVirtualPaletteColors, splitIfliColumns } = context;
 const virtualPalette = buildIfliVirtualPalette(palette, bands);
 const byIndex = new Map(virtualPalette.map(color => [color.index, color]));
 const bucket = color => color.brightnessBands[0] + color.brightnessBands[1];
@@ -213,7 +213,7 @@ test('virtual brightness caps reject invalid or inverted row bounds', () => {
   }
 });
 
-test('IFLI Virtual uses row parity for both frames and preserves exact even and odd columns', () => {
+test('virtual lines and checkers resolve retained pairs before splitting exact IFLI columns', () => {
   const width = virtualPalette.length * 2;
   const height = 4;
   const pixels = source(Array.from({ length: width * height }, () => [17, 33, 66]), width);
@@ -223,24 +223,30 @@ test('IFLI Virtual uses row parity for both frames and preserves exact even and 
       indices[y * width + x] = virtualPalette[(Math.floor(x / 2) + x % 2) % virtualPalette.length].index;
     }
   }
-  const frames = splitIfliVirtualRows({ pixels, virtualIndices: indices }, virtualPalette, palette);
-  assert.equal(frames.length, 2);
-  for (let phase = 0; phase < 2; phase += 1) {
-    assert.equal(frames[phase].width, width / 2);
-    assert.equal(frames[phase].height, height);
-    for (let y = 0; y < height; y += 1) {
-      for (let x = 0; x < width / 2; x += 1) {
-        const pair = virtualPalette[(x + phase) % virtualPalette.length].colorIndices;
-        const expected = [...palette[pair[y % 2]].rgb, 255];
-        const offset = (y * width / 2 + x) * 4;
-        assert.deepEqual(Array.from(frames[phase].data.subarray(offset, offset + 4)), expected,
-          `frame ${phase}, row ${y}, column ${x}`);
+  for (const pattern of ['lines', 'checkers']) {
+    const resolved = resolveVirtualPaletteColors({ pixels, virtualIndices: indices }, virtualPalette, palette, pattern);
+    assert.equal(resolved.width, width);
+    assert.equal(resolved.height, height);
+    const frames = splitIfliColumns(resolved);
+    assert.equal(frames.length, 2);
+    for (let phase = 0; phase < 2; phase += 1) {
+      assert.equal(frames[phase].width, width / 2);
+      assert.equal(frames[phase].height, height);
+      for (let y = 0; y < height; y += 1) {
+        for (let x = 0; x < width / 2; x += 1) {
+          const pair = virtualPalette[(x + phase) % virtualPalette.length].colorIndices;
+          const component = pattern === 'lines' ? y % 2 : (y % 2) ^ phase;
+          const expected = [...palette[pair[component]].rgb, 255];
+          const offset = (y * width / 2 + x) * 4;
+          assert.deepEqual(Array.from(frames[phase].data.subarray(offset, offset + 4)), expected,
+            `${pattern}, frame ${phase}, row ${y}, column ${x}`);
+        }
       }
     }
   }
 });
 
-test('IFLI Virtual preserves partial alpha and transparent or sentinel RGBA without changing its source', () => {
+test('virtual patterns preserve partial alpha and transparent or sentinel RGBA without changing their source', () => {
   const pair = virtualPalette.find(color => color.colorIndices[0] !== color.colorIndices[1]);
   const [first, second] = pair.colorIndices.map(index => palette[index].rgb);
   const pixels = source([
@@ -250,22 +256,40 @@ test('IFLI Virtual preserves partial alpha and transparent or sentinel RGBA with
   const indices = Uint8Array.from([254, pair.index, 255, pair.index, pair.index, 254, pair.index, 255]);
   const beforePixels = new Uint8ClampedArray(pixels.data);
   const beforeIndices = new Uint8Array(indices);
-  const frames = splitIfliVirtualRows({ pixels, virtualIndices: indices }, virtualPalette, palette);
-  assert.deepEqual(Array.from(frames[0].data), [11, 22, 33, 0, 21, 22, 23, 255, ...second, 31, ...second, 255]);
-  assert.deepEqual(Array.from(frames[1].data), [...first, 127, ...first, 1, 51, 52, 53, 0, 41, 42, 43, 61]);
+  for (const pattern of ['lines', 'checkers']) {
+    const resolved = resolveVirtualPaletteColors({ pixels, virtualIndices: indices }, virtualPalette, palette, pattern);
+    const frames = splitIfliColumns(resolved);
+    const odd = pattern === 'lines' ? first : second;
+    assert.deepEqual(Array.from(frames[0].data), [11, 22, 33, 0, 21, 22, 23, 255, ...second, 31, ...second, 255]);
+    assert.deepEqual(Array.from(frames[1].data), [...odd, 127, ...odd, 1, 51, 52, 53, 0, 41, 42, 43, 61]);
+  }
   assert.deepEqual(pixels.data, beforePixels);
   assert.deepEqual(indices, beforeIndices);
 });
 
-test('IFLI Virtual rejects odd or nonpositive widths and malformed retained virtual colors', () => {
+test('IFLI column splitting preserves real source colors without virtual color mapping or averaging', () => {
+  const pixels = source([
+    [11, 22, 33, 0], [39, 36, 196], [150, 40, 46, 127], [255, 255, 255],
+    [94, 53, 0], [71, 71, 71, 1], [145, 255, 132], [120, 120, 120, 61]
+  ], 4);
+  const before = new Uint8ClampedArray(pixels.data);
+  const frames = splitIfliColumns(pixels);
+  assert.deepEqual(Array.from(frames[0].data), [11, 22, 33, 0, 150, 40, 46, 127, 94, 53, 0, 255, 145, 255, 132, 255]);
+  assert.deepEqual(Array.from(frames[1].data), [39, 36, 196, 255, 255, 255, 255, 255, 71, 71, 71, 1, 120, 120, 120, 61]);
+  assert.deepEqual(pixels.data, before);
+});
+
+test('IFLI splitting and virtual resolution reject invalid geometry, indices, pairs, and patterns', () => {
   const pixels = source([[7, 8, 9], [7, 8, 9]], 2);
   const mapping = { pixels, virtualIndices: new Uint8Array(2) };
   for (const width of [0, 1, 3, 2.5]) {
-    assert.throws(() => splitIfliVirtualRows({ ...mapping, pixels: { ...pixels, width } }, virtualPalette, palette),
+    assert.throws(() => splitIfliColumns({ ...pixels, width }),
       /positive even width/);
   }
-  assert.throws(() => splitIfliVirtualRows({ ...mapping, virtualIndices: new Uint8Array(1) }, virtualPalette, palette),
+  assert.throws(() => splitIfliColumns({ ...pixels, data: new Uint8ClampedArray(4) }), /matching pixels/);
+  assert.throws(() => resolveVirtualPaletteColors({ ...mapping, virtualIndices: new Uint8Array(1) }, virtualPalette, palette),
     /matching pixels and indices/);
-  assert.throws(() => splitIfliVirtualRows({ ...mapping, virtualIndices: Uint8Array.from([254, 254]) }, virtualPalette, palette),
+  assert.throws(() => resolveVirtualPaletteColors({ ...mapping, virtualIndices: Uint8Array.from([254, 254]) }, virtualPalette, palette),
     /valid virtual pairs/);
+  assert.throws(() => resolveVirtualPaletteColors(mapping, virtualPalette, palette, 'invalid'), /pattern/);
 });
