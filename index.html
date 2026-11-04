@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=studio">
+  <link rel="stylesheet" href="./editor.css?v=swatch-focus">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -23,7 +23,7 @@
   <div class="workspace">
     <header class="masthead">
       <div class="app-mark" aria-hidden="true">64</div>
-      <div class="brand"><h1>C64 Studio</h1><strong id="brand-mode">FLI Virtual</strong></div>
+      <div class="brand"><h1>C64 Studio</h1><strong id="brand-mode">FLI</strong></div>
       <div class="header-actions"><span class="local">Local workspace</span><button class="open-button" data-open-image type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg>Open image</button></div>
     </header>
     <main>
@@ -46,7 +46,7 @@
               <div class="preview-tabs" role="tablist" aria-label="Image color mode">
                 <button id="tab-unrestricted" class="preview-tab" type="button" role="tab" aria-selected="true" aria-controls="preview-panel" data-mode="unrestricted">Unrestricted</button>
                 <button id="tab-palette" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="palette">C64 Palette</button>
-                <button id="tab-restricted" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="restricted">FLI Virtual</button>
+                <button id="tab-restricted" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="restricted">FLI</button>
               </div>
               <div class="preview-actions">
                 <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked>Tile grid</label>
@@ -112,6 +112,14 @@
           <section class="mode-control" aria-labelledby="graphics-mode-heading">
             <h2 id="graphics-mode-heading">Graphics mode</h2>
             <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
+            <div class="image-control">
+              <h2><label for="virtual-colors">Virtual Colors</label></h2>
+              <select id="virtual-colors" class="mode-select">
+                <option value="off">Off</option>
+                <option value="lines" selected>Lines</option>
+                <option value="checkers">Checkers</option>
+              </select>
+            </div>
           </section>
           <details id="source-settings" class="source inspector-panel" open>
             <summary><h2 id="source-heading">Source image</h2></summary>
@@ -254,7 +262,7 @@
 
   <script src="./fli.js?v=reserved-sprite-color"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=virtual-brightness-caps"></script>
+  <script src="./ifli.js?v=virtual-patterns"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./afli-export.js?v=afli"></script>
   <script src="./pafli.js?v=black-bottom-row"></script>
@@ -267,7 +275,7 @@
   <script src="./fli-sprites.js?v=reserved-sprite-color"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
-  <script src="./graphics-modes.js?v=pafli"></script>
+  <script src="./graphics-modes.js?v=independent-virtual-colors"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
   <script src="./converter-controls.js?v=virtual-brightness-caps"></script>
@@ -342,6 +350,7 @@
     const announcement = document.getElementById('announcement');
     const tabs = Array.from(document.querySelectorAll('.preview-tab'));
     const graphicsModeSelect = document.getElementById('graphics-mode-options');
+    const virtualColorsSelect = document.getElementById('virtual-colors');
     for (const mode of C64_GRAPHICS_MODES) {
       const option = document.createElement('option');
       option.value = mode.id;
@@ -457,7 +466,7 @@
     }
 
     function usesVirtualPalette() {
-      return currentGraphicsMode().virtualColors;
+      return virtualColorsSelect.value !== 'off';
     }
 
     function isAfliMode() {
@@ -870,7 +879,7 @@
 
     function ensureAlternatingResult() {
       if (!isPafliMode()) return ensureIfliResult();
-      if (!virtualPaletteMapping) return null;
+      if (!palettePixels) return null;
       if (!ifliResult) {
         ifliResult = optimizePafliImages(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
         ifliFrameIndex = 0;
@@ -880,11 +889,9 @@
     }
 
     function ensureIfliResult() {
-      if (!isIfliMode() || !virtualPaletteMapping) return null;
+      if (!isIfliMode() || !palettePixels) return null;
       if (!ifliResult) {
-        const split = currentGraphicsMode().virtualRows ? splitIfliVirtualRows : splitIfliVirtualColumns;
-        const [first, second] = split(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE)
-          .map(processScanlines);
+        const [first, second] = splitIfliColumns(getPaletteTarget()).map(processScanlines);
         ifliResult = optimizeIfliImages(first, second, C64_PALETTE,
           C64_BRIGHTNESS_BANDS, backgroundColorIndex);
         ifliResult.displayFrames = ifliResult.frames.map((frame, phase) =>
@@ -921,11 +928,14 @@
       return fliResult;
     }
 
-    function getRestrictedTarget() {
-      const target = usesVirtualPalette() && currentGraphicsMode().virtualRows
-        ? resolveVirtualPaletteRows(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE)
+    function getPaletteTarget() {
+      return usesVirtualPalette()
+        ? resolveVirtualPaletteColors(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE, virtualColorsSelect.value)
         : palettePixels;
-      return processScanlines(target);
+    }
+
+    function getRestrictedTarget() {
+      return processScanlines(getPaletteTarget());
     }
 
     function ensureNufliResult() {
@@ -936,7 +946,7 @@
 
     function updateIfliSaveState() {
       ifliSave.hidden = !isIfliMode();
-      ifliSave.disabled = !isIfliMode() || !virtualPaletteMapping ||
+      ifliSave.disabled = !isIfliMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
       afliSave.hidden = !isAfliMode() || isAfliSpriteMode();
       afliSave.disabled = !isAfliMode() || isAfliSpriteMode() || !palettePixels ||
@@ -1120,8 +1130,6 @@
     function updatePreviewDetails() {
       const mode = currentGraphicsMode();
       const ifli = isIfliMode();
-      const virtualFli = mode.format === 'fli' && mode.virtualColors;
-      const virtualAfli = mode.format === 'afli' && mode.virtualColors;
       const spriteMode = isSpriteMode();
       const fliSprites = isFliSpriteMode();
       const bitmap = mode.format === 'bitmap';
@@ -1153,10 +1161,10 @@
         ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
-      document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI Virtual restricted')
+      document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
         : activeMode === 'palette' ? (usesVirtualPalette() ? `${IFLI_VIRTUAL_PALETTE.length} virtual colors` : '16 C64 colors') : 'Unrestricted';
-      const footerMode = restricted ? (isAlternatingMode() ? `${name.toUpperCase()} · ALTERNATING DISPLAY FRAMES` : nufli ? 'NUFLI' : spriteMode ? name.toUpperCase() : virtualFli ? 'FLI VIRTUAL RESTRICTED' : virtualAfli ? 'AFLI VIRTUAL RESTRICTED' : bitmap ? 'MULTI COLOR BITMAP' : 'HIRES BITMAP')
-        : activeMode === 'palette' ? (ifli ? 'IFLI VIRTUAL PALETTE' : virtualFli ? 'FLI VIRTUAL PALETTE' : virtualAfli ? 'AFLI VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
+      const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
+        : activeMode === 'palette' ? (usesVirtualPalette() ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
       document.getElementById('footer-format').textContent = isAlternatingPreview()
         ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1' : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
@@ -1319,6 +1327,12 @@
       announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
     });
 
+    virtualColorsSelect.addEventListener('change', () => {
+      if (unrestrictedPixels) updatePalettePreview();
+      else renderPreview();
+      announcement.textContent = `Virtual colors: ${virtualColorsSelect.selectedOptions[0].textContent}.`;
+    });
+
     async function loadImage(file) {
       if (!file) return;
 
@@ -1406,6 +1420,6 @@
 
     renderPreview();
   </script>
-  <script src="./editor-ui.js?v=studio"></script>
+  <script src="./editor-ui.js?v=virtual-colors"></script>
 </body>
 </html>
