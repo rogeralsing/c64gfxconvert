@@ -32,13 +32,18 @@ globalThis.C64ConverterControls = (() => {
     }
     return {
       getValue: () => selectedValue,
+      setValue(value) {
+        if (!inputs.some(input => input.value === String(value))) throw new Error('Unknown palette color.');
+        selectedValue = value;
+        for (const input of inputs) input.checked = input.value === String(value);
+      },
       setEnabled(enabled) {
         for (const input of inputs) input.disabled = !enabled;
       }
     };
   }
 
-  function createSpriteOverlayControls({ root, palette, valueElement, value = 1, onChange }) {
+  function createSpriteOverlayControls({ root, palette, valueElement, value = 1, paletteContainer, onChange }) {
     const match = root.querySelector('#sprite-match');
     const dither = root.querySelector('#sprite-dither');
     const matchValue = root.querySelector('#sprite-match-value');
@@ -46,7 +51,7 @@ globalThis.C64ConverterControls = (() => {
     match.max = String(C64_SPRITE_MATCH_MAX * 100);
 
     const picker = createPalettePicker({
-      container: root.querySelector('#sprite-palette'),
+      container: paletteContainer || root.querySelector('#sprite-palette'),
       name: 'sprite-color',
       palette,
       value,
@@ -91,7 +96,18 @@ globalThis.C64ConverterControls = (() => {
     updateColorValue(palette.find(color => color.index === value));
     updateSliderLabels();
     setVisible(!root.hidden);
-    return { getState, setVisible };
+    return {
+      getState, setVisible,
+      setColorIndex(index) {
+        picker.setValue(index);
+        updateColorValue(palette.find(color => color.index === index));
+      },
+      setState({ matchAmount, ditherAmount }) {
+        match.value = String(matchAmount * 100);
+        dither.value = String(ditherAmount * 100);
+        updateSliderLabels();
+      }
+    };
   }
 
   function createVirtualPaletteView({ root, palette, basePalette, onChange }) {
@@ -202,6 +218,14 @@ globalThis.C64ConverterControls = (() => {
     updateLimits();
     return {
       getSettings,
+      setSettings({ minLevel, maxLevel, excludedIndices: excluded = [] }) {
+        darkest.value = String(minLevel);
+        lightest.value = String(maxLevel);
+        excludedIndices.clear();
+        for (const index of excluded) excludedIndices.add(index);
+        previousLimits = getLimits();
+        updateLimits();
+      },
       setVisible(visible) {
         root.hidden = !visible;
         darkest.disabled = !visible;
@@ -307,6 +331,12 @@ globalThis.C64ConverterControls = (() => {
     updateLabels();
     return {
       getState,
+      setState({ blackPoint, whitePoint, gamma: middle }) {
+        black.value = String(blackPoint);
+        white.value = String(whitePoint);
+        gamma.value = String(middle);
+        updateLabels();
+      },
       setSource(source) {
         histogram.fill(0);
         if (source) {

@@ -6,11 +6,11 @@ const C64_SPRITE_MATCH_MAX = 5;
  * Each strip with sprite bits reserves the sprite color for the overlay.
  */
 function createAfliSpriteImage(sourceRGB, resolvedTargets, palette, brightnessBands,
-  spriteColorIndex, matchAmount, ditherAmount) {
+  spriteColorIndex, matchAmount, ditherAmount, overlay = null) {
   if (!c64SpriteImageHasSize(sourceRGB, 320) || !c64SpriteImageHasSize(resolvedTargets, 320)) {
     throw new Error('AFLI sprites require matching 320 × 200 source and target images.');
   }
-  const layer = createC64SpriteLayer(sourceRGB, palette, spriteColorIndex, matchAmount, ditherAmount);
+  const layer = overlay || createC64SpriteLayer(sourceRGB, palette, spriteColorIndex, matchAmount, ditherAmount);
   const afli = optimizeAfliImage(resolvedTargets, palette, brightnessBands, layer.spriteMask, spriteColorIndex);
   return { pixels: compositeC64SpriteLayer(afli.pixels, layer), afli, ...layer };
 }
