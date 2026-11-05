@@ -203,6 +203,44 @@ test('a single selected virtual row stays exact across all 17 levels at full dit
   }
 });
 
+test('each excluded virtual color stays out of the mapping at every dither strength', () => {
+  const pixels = source(Array.from({ length: 4 }, () => virtualPalette.map(color => color.rgb)).flat(), virtualPalette.length);
+  const before = new Uint8ClampedArray(pixels.data);
+  const metadata = JSON.stringify(virtualPalette);
+  for (const color of virtualPalette) {
+    for (const dither of [0, 0.4, 1]) {
+      const mapped = mapToIfliVirtualPalette(pixels, virtualPalette, bands, dither, { excludedIndices: [color.index] });
+      assert.ok(!mapped.virtualIndices.includes(color.index), `excluded color ${color.index}, dither ${dither}`);
+      assert.ok(Array.from(mapped.virtualIndices).every(index => byIndex.has(index)), 'replacement colors must retain valid pair indices');
+    }
+  }
+  assert.deepEqual(pixels.data, before, 'exclusions must not change the source');
+  assert.equal(JSON.stringify(virtualPalette), metadata, 'exclusions must not alter the shared palette');
+});
+
+test('excluded brightness rows fall back to an enabled row inside the selected caps', () => {
+  const pixels = source([[0, 0, 0], [20, 20, 20], [255, 255, 255]]);
+  const excludedIndices = virtualPalette.filter(color => bucket(color) === 1).map(color => color.index);
+  for (const dither of [0, 0.4, 1]) {
+    const mapped = mapToIfliVirtualPalette(pixels, virtualPalette, bands, dither,
+      { minLevel: 1, maxLevel: 2, excludedIndices });
+    assert.ok(Array.from(mapped.virtualIndices).every(index => bucket(byIndex.get(index)) === 2));
+  }
+});
+
+test('a sole enabled virtual color maps every opaque pixel while preserving alpha and transparent RGB', () => {
+  const gray = virtualPalette.find(color => color.colorIndices.every(index => index === 12));
+  const excludedIndices = virtualPalette.filter(color => color.index !== gray.index).map(color => color.index);
+  const pixels = source([[11, 22, 33, 0], [0, 0, 0, 1], [255, 255, 255, 127], [255, 0, 0, 255]]);
+  const mapped = mapToIfliVirtualPalette(pixels, virtualPalette, bands, 1, { excludedIndices });
+  assert.deepEqual(Array.from(mapped.virtualIndices), [255, gray.index, gray.index, gray.index]);
+  assert.deepEqual(Array.from(mapped.pixels.data), [11, 22, 33, 0, 120, 120, 120, 1, 120, 120, 120, 127, 120, 120, 120, 255]);
+  assert.throws(() => mapToIfliVirtualPalette(pixels, virtualPalette, bands, 1,
+    { minLevel: 0, maxLevel: 7, excludedIndices }), /enabled virtual color.*brightness range/);
+  assert.throws(() => mapToIfliVirtualPalette(pixels, virtualPalette, bands, 1,
+    { excludedIndices: virtualPalette.map(color => color.index) }), /enabled virtual color.*brightness range/);
+});
+
 test('virtual brightness caps reject invalid or inverted row bounds', () => {
   const pixels = source([[128, 128, 128]]);
   for (const limits of [

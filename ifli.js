@@ -240,9 +240,11 @@ function buildIfliVirtualPalette(palette, brightnessBands, maxBandDifference = 2
  * component pair; display pixels contain rounded mixture RGB and retain alpha.
  * Optional brightness limits clamp the selected row after dithering; they do
  * not rescale or change the source image.
+ * Excluded color indices never participate in selection. Empty rows are
+ * skipped while keeping the full palette's brightness calibration and caps.
  */
 function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, ditherAmount = 0,
-    { minLevel = 0, maxLevel = 16 } = {}) {
+    { minLevel = 0, maxLevel = 16, excludedIndices = [] } = {}) {
   if (!Number.isInteger(minLevel) || !Number.isInteger(maxLevel) ||
       minLevel < 0 || maxLevel > 16 || minLevel > maxLevel) {
     throw new RangeError('Virtual palette brightness limits require 0 <= minLevel <= maxLevel <= 16.');
@@ -271,6 +273,15 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
     }
     return level.reduce((sum, entry) => sum + entry.lab.lightness, 0) / level.length;
   });
+  const excluded = new Set(excludedIndices);
+  const availableLevels = [];
+  for (let index = minLevel; index <= maxLevel; index += 1) {
+    levels[index] = levels[index].filter(entry => !excluded.has(entry.color.index));
+    if (levels[index].length) availableLevels.push(index);
+  }
+  if (availableLevels.length === 0) {
+    throw new Error('At least one enabled virtual color is required in the selected brightness range.');
+  }
 
   const thresholds = [
     [0, 8, 2, 10],
@@ -287,9 +298,10 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
 
     const pixel = offset / 4;
     const lab = rgbToOklab(source.data[offset], source.data[offset + 1], source.data[offset + 2]);
-    let brighter = 0;
-    while (brighter < 16 && lab.lightness > levelLightness[brighter]) brighter += 1;
-    const darker = Math.max(0, brighter - 1);
+    let upper = 0;
+    while (upper < availableLevels.length - 1 && lab.lightness > levelLightness[availableLevels[upper]]) upper += 1;
+    const brighter = availableLevels[upper];
+    const darker = availableLevels[Math.max(0, upper - 1)];
     const span = levelLightness[brighter] - levelLightness[darker];
     const fraction = span > 0
       ? Math.max(0, Math.min(1, (lab.lightness - levelLightness[darker]) / span)) : 0;
@@ -302,7 +314,6 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
       const brighterProbability = nearestBrighter + (fraction - nearestBrighter) * ditherAmount;
       levelIndex = threshold < brighterProbability ? brighter : darker;
     }
-    levelIndex = Math.max(minLevel, Math.min(maxLevel, levelIndex));
     const level = levels[levelIndex];
 
     let nearest = level[0];

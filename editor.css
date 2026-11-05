@@ -165,7 +165,9 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .virtual-palette-row { display: flex; gap: 3px; }
 .virtual-palette-row.is-outside-range .virtual-palette-swatch { opacity: 0.2; }
 .virtual-palette-level { flex: 0 0 16px; align-self: center; color: #aaa; font-size: 11px; text-align: right; font-variant-numeric: tabular-nums; }
-.virtual-palette-swatch { display: block; flex: 1; min-width: 0; height: 13px; border: 1px solid #ffffff30; border-radius: 1px; }
+.virtual-palette-swatch { display: block; flex: 1; min-width: 0; height: 13px; padding: 0; border: 1px solid #ffffff30; border-radius: 1px; cursor: pointer; }
+.virtual-palette-swatch[aria-pressed="false"] { opacity: 0.2; }
+.virtual-palette-swatch:hover { border-color: #fff9; }
 .palette-reference-swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-top: 12px; }
 .palette-reference-swatch { height: 23px; border: 1px solid #666; border-radius: 2px; }
 .format { margin: 0; }
