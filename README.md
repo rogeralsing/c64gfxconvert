@@ -2,8 +2,8 @@
 
 [Open the converter](https://rogeralsing.github.io/c64gfxconvert/)
 
-A browser-based Commodore 64 image converter with FLI, IFLI, AFLI, NUFLI,
-PAFLI, hires and multicolor bitmap modes, optional virtual colors, sprite
+A browser-based Commodore 64 image converter with FLI, IFLI, AFLI, HIRES,
+Multicolor Bitmap and NUFLI modes, optional virtual colors, sprite
 overlays, and native exports. Image processing stays in your browser.
 
 <img src="assets/images/c64-studio-layers.png" alt="C64 Studio showing a layered FLI conversion and per-layer image settings" width="960">
@@ -12,12 +12,30 @@ overlays, and native exports. Image processing stays in your browser.
 
 Open `index.html` in a modern browser. No build step or server is required.
 
+## Graphics formats
+
+| Format | Logical pixels | Color allocation |
+| --- | --- | --- |
+| **FLI** | 160 × 200, double-width pixels | One shared background, one color per 4 × 8 tile, and two additional colors per scanline within each tile. |
+| **IFLI** | Two 160 × 200 frames, double-width pixels | Alternates two FLI frames one hires pixel apart. Both frames share the background and tile color; scanline colors may differ. |
+| **AFLI** | 320 × 200, square pixels | Two freely chosen colors per 8 × 1 scanline strip, with no shared background color. |
+| **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
+| **Multicolor Bitmap** | 160 × 200, double-width pixels | Three colors per 4 × 8 tile, plus one background color shared by the whole image. |
+| **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
+
+Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+The IFLI preview alternates the two frames and shows them individually below
+the simulation:
+
+<img src="assets/images/c64-studio-ifli.png" alt="IFLI simulation with its two constituent frames shown underneath" width="960">
+
 ## Layers
 
 Build one image from several source images, with separate conversion settings
 for each layer. For example, put scenery on the bottom layer and figures with
 a transparent background on a layer above it. Transparent pixels reveal the
-layers below. The screenshot above shows both layers combined; these views
+layers below. The opening screenshot shows both layers combined; these views
 show each layer on its own:
 
 | Background layer only | Foreground layer only |
