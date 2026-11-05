@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=swatch-focus">
+  <link rel="stylesheet" href="./editor.css?v=palette-exclusions">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -240,7 +240,7 @@
               <div class="control-label"><label for="palette-lightest">Lightest level</label><output id="palette-lightest-value" for="palette-lightest">16</output></div>
               <input id="palette-lightest" class="image-slider" type="range" min="0" max="16" step="1" value="16" aria-valuetext="Virtual brightness level 16 of 16">
             </div>
-            <div id="virtual-palette-swatches" class="virtual-palette-swatches" role="list" aria-labelledby="virtual-palette-heading"></div>
+            <div id="virtual-palette-swatches" class="virtual-palette-swatches" role="group" aria-labelledby="virtual-palette-heading"></div>
           </section>
             </div>
           </details>
@@ -262,7 +262,7 @@
 
   <script src="./fli.js?v=reserved-sprite-color"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=virtual-patterns"></script>
+  <script src="./ifli.js?v=palette-exclusions"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./afli-export.js?v=afli"></script>
   <script src="./pafli.js?v=black-bottom-row"></script>
@@ -278,7 +278,7 @@
   <script src="./graphics-modes.js?v=independent-virtual-colors"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=virtual-brightness-caps"></script>
+  <script src="./converter-controls.js?v=palette-exclusions"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -797,7 +797,7 @@
 
       if (usesVirtualPalette()) {
         virtualPaletteMapping = mapToIfliVirtualPalette(unrestrictedPixels, IFLI_VIRTUAL_PALETTE,
-          C64_BRIGHTNESS_BANDS, ditherSlider.valueAsNumber / 100, virtualPaletteView.getLimits());
+          C64_BRIGHTNESS_BANDS, ditherSlider.valueAsNumber / 100, virtualPaletteView.getSettings());
         palettePixels = virtualPaletteMapping.pixels;
       } else {
         palettePixels = mapToC64Palette(unrestrictedPixels, ditherSlider.valueAsNumber / 100);
@@ -1162,7 +1162,7 @@
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
       document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
-        : activeMode === 'palette' ? (usesVirtualPalette() ? `${IFLI_VIRTUAL_PALETTE.length} virtual colors` : '16 C64 colors') : 'Unrestricted';
+        : activeMode === 'palette' ? (usesVirtualPalette() ? `${IFLI_VIRTUAL_PALETTE.length - virtualPaletteView.getSettings().excludedIndices.length} virtual colors` : '16 C64 colors') : 'Unrestricted';
       const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
         : activeMode === 'palette' ? (usesVirtualPalette() ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;

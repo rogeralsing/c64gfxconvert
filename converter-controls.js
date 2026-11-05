@@ -100,7 +100,8 @@ globalThis.C64ConverterControls = (() => {
     const darkest = root.querySelector('#palette-darkest');
     const lightest = root.querySelector('#palette-lightest');
     const baseColors = new Map(basePalette.map(color => [color.index, color]));
-    root.querySelector('.virtual-palette-count').textContent = palette.length;
+    const excludedIndices = new Set();
+    const buttons = new Map();
     const sorted = [...palette].sort((first, second) =>
       first.brightnessBands[0] + first.brightnessBands[1] - second.brightnessBands[0] - second.brightnessBands[1]
       || first.index - second.index);
@@ -123,13 +124,21 @@ globalThis.C64ConverterControls = (() => {
       }
       const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
       const label = `${color.index} · ${names} · ${color.hex}`;
-      const swatch = document.createElement('span');
+      const swatch = document.createElement('button');
+      swatch.type = 'button';
       swatch.className = 'virtual-palette-swatch';
       swatch.style.backgroundColor = color.hex;
       swatch.dataset.virtualColor = color.id;
       swatch.title = label;
-      swatch.setAttribute('role', 'listitem');
       swatch.setAttribute('aria-label', `Level ${brightness} · ${label}`);
+      swatch.addEventListener('click', () => {
+        if (swatch.getAttribute('aria-disabled') === 'true') return;
+        if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
+        else excludedIndices.add(color.index);
+        updateLimits();
+        onChange?.(getSettings());
+      });
+      buttons.set(color.index, { swatch, label });
       row.append(swatch);
     }
 
@@ -137,8 +146,22 @@ globalThis.C64ConverterControls = (() => {
       return { minLevel: darkest.valueAsNumber, maxLevel: lightest.valueAsNumber };
     }
 
+    function getSettings() {
+      return { ...getLimits(), excludedIndices: [...excludedIndices] };
+    }
+
+    function enabledInRange({ minLevel, maxLevel } = getLimits()) {
+      return palette.filter(color => {
+        const level = color.brightnessBands[0] + color.brightnessBands[1];
+        return !excludedIndices.has(color.index) && level >= minLevel && level <= maxLevel;
+      });
+    }
+
     function updateLimits() {
       const { minLevel, maxLevel } = getLimits();
+      const enabled = enabledInRange();
+      const count = palette.length - excludedIndices.size;
+      root.querySelector('.virtual-palette-count').textContent = excludedIndices.size ? `${count} / ${palette.length}` : count;
       root.querySelector('#palette-darkest-value').value = String(minLevel);
       root.querySelector('#palette-lightest-value').value = String(maxLevel);
       darkest.setAttribute('aria-valuetext', `Virtual brightness level ${minLevel} of 16`);
@@ -147,25 +170,43 @@ globalThis.C64ConverterControls = (() => {
         const level = Number(row.dataset.brightness);
         row.classList.toggle('is-outside-range', level < minLevel || level > maxLevel);
       }
+      for (const [index, { swatch, label }] of buttons) {
+        const excluded = excludedIndices.has(index);
+        const last = enabled.length === 1 && enabled[0].index === index;
+        swatch.setAttribute('aria-pressed', String(!excluded));
+        swatch.setAttribute('aria-disabled', String(last));
+        swatch.title = `${label}${excluded ? ' · Disabled' : last ? ' · At least one color must remain enabled in this brightness range' : ''}`;
+      }
     }
 
+    let previousLimits = getLimits();
     for (const input of [darkest, lightest]) {
       input.addEventListener('input', () => {
         if (darkest.valueAsNumber > lightest.valueAsNumber) {
           if (input === darkest) darkest.value = lightest.value;
           else lightest.value = darkest.value;
         }
+        if (enabledInRange().length === 0) {
+          darkest.value = String(previousLimits.minLevel);
+          lightest.value = String(previousLimits.maxLevel);
+          updateLimits();
+          const announcement = document.getElementById('announcement');
+          if (announcement) announcement.textContent = 'Enable a color in that brightness range first.';
+          return;
+        }
+        previousLimits = getLimits();
         updateLimits();
-        onChange?.(getLimits());
+        onChange?.(getSettings());
       });
     }
     updateLimits();
     return {
-      getLimits,
+      getSettings,
       setVisible(visible) {
         root.hidden = !visible;
         darkest.disabled = !visible;
         lightest.disabled = !visible;
+        for (const { swatch } of buttons.values()) swatch.disabled = !visible;
       }
     };
   }
