@@ -33,19 +33,12 @@
 
   const screen = document.querySelector('.screen');
   const scale = document.getElementById('view-scale');
-  const filename = document.getElementById('filename');
-  const documentName = document.getElementById('document-name');
   const syncScale = () => {
-    scale.textContent = filename.textContent ? `${Math.round(screen.getBoundingClientRect().width / 320 * 100)}%` : 'Fit';
+    scale.textContent = document.getElementById('preview').classList.contains('has-image')
+      ? `${Math.round(screen.getBoundingClientRect().width / 320 * 100)}%` : 'Fit';
   };
-  const syncDocumentName = () => {
-    documentName.textContent = filename.textContent || 'Untitled';
-    documentName.title = documentName.textContent;
-    document.getElementById('tool-reset-framing').disabled = !filename.textContent;
-    syncScale();
-  };
-  new MutationObserver(syncDocumentName).observe(filename, { childList: true });
-  syncDocumentName();
+  new MutationObserver(syncScale).observe(document.getElementById('preview'), { attributes: true, attributeFilter: ['class'] });
+  syncScale();
 
   new ResizeObserver(syncScale).observe(screen);
 
@@ -67,5 +60,8 @@
   for (const id of ['graphics-mode-options', 'virtual-colors']) {
     document.getElementById(id).addEventListener('change', syncPaletteReference);
   }
+  new MutationObserver(syncPaletteReference).observe(document.getElementById('virtual-palette'), {
+    attributes: true, attributeFilter: ['hidden']
+  });
   syncPaletteReference();
 })();

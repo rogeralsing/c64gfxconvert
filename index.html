@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=palette-exclusions">
+  <link rel="stylesheet" href="./editor.css?v=projects">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -18,14 +18,30 @@
       <symbol id="icon-color" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
       <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
       <symbol id="icon-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M15 4v16"/></symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M16 8V3H3v13h5"/></symbol>
+      <symbol id="icon-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
+      <symbol id="icon-down" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6"/></symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
+      <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M9 5c1-.2 2-.3 3-.3 6 0 10 7.3 10 7.3s-1 2-3 4M6 6c-3 2-4 6-4 6s4 7 10 7c2 0 4-.7 5-1.5"/></symbol>
     </defs>
   </svg>
   <div class="workspace">
     <header class="masthead">
       <div class="app-mark" aria-hidden="true">64</div>
       <div class="brand"><h1>C64 Studio</h1><strong id="brand-mode">FLI</strong></div>
-      <div class="header-actions"><span class="local">Local workspace</span><button class="open-button" data-open-image type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg>Open image</button></div>
+      <div class="header-actions">
+        <span class="local">Local workspace</span>
+        <div class="project-actions" role="group" aria-label="Project files">
+          <input id="project-input" class="sr-only" type="file" accept=".json,application/json" tabindex="-1" aria-label="Open project JSON">
+          <button id="project-open" class="open-button" type="button">Open project</button>
+          <button id="project-save" class="open-button" type="button">Save project</button>
+        </div>
+        <button class="open-button" data-open-image type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg>Open image</button>
+      </div>
     </header>
+    <p id="project-error" class="project-error" role="alert" hidden></p>
     <main>
       <div class="editor">
         <nav class="tool-rail" aria-label="Workspace tools">
@@ -53,7 +69,7 @@
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
-                <button id="sprite-layers-save" class="afli-save" type="button" title="Save the bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save layers</button>
+                <button id="sprite-layers-save" class="afli-save" type="button" title="Save the combined bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save sprite ZIP</button>
                 <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
                 <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
                 <button id="pafli-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
@@ -109,18 +125,40 @@
         </section>
         <aside class="config-sidebar" aria-label="Image settings" tabindex="0">
           <div class="inspector-heading">Properties<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-panel"/></svg></div>
-          <section class="mode-control" aria-labelledby="graphics-mode-heading">
-            <h2 id="graphics-mode-heading">Graphics mode</h2>
-            <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
-            <div class="image-control">
-              <h2><label for="virtual-colors">Virtual Colors</label></h2>
-              <select id="virtual-colors" class="mode-select">
-                <option value="off">Off</option>
-                <option value="lines" selected>Lines</option>
-                <option value="checkers">Checkers</option>
-              </select>
+          <details id="image-settings" class="inspector-panel image-settings" open>
+            <summary><h2>Image</h2></summary>
+            <div class="mode-control">
+              <h3 id="graphics-mode-heading">Graphics format</h3>
+              <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
+              <div id="background-settings" class="image-control">
+              <fieldset class="background-control">
+                <legend>Background color</legend>
+                <div id="background-palette" class="palette-swatches"></div>
+                <p id="background-color-value" class="background-value" role="status">0 · Black · #000000</p>
+              </fieldset>
             </div>
-          </section>
+              <div id="sprite-color-settings" class="image-control" hidden>
+              <fieldset class="background-control">
+                <legend>Sprite color</legend>
+                <div id="sprite-palette" class="palette-swatches"></div>
+                <p id="sprite-color-value" class="background-value" role="status">1 · White · #FFFFFF</p>
+              </fieldset>
+              </div>
+            </div>
+          </details>
+          <details id="layer-settings" class="inspector-panel layer-panel" open>
+            <summary><h2>Layers</h2><span id="layer-count" class="virtual-palette-count">1</span></summary>
+            <div id="layer-list" class="layer-list" role="list" aria-label="Image layers"></div>
+            <div class="layer-actions" role="toolbar" aria-label="Layer actions">
+              <button type="button" data-layer-action="add" title="New layer" aria-label="New layer"><svg aria-hidden="true"><use href="#icon-plus"/></svg><span>New</span></button>
+              <button type="button" data-layer-action="duplicate" title="Duplicate layer" aria-label="Duplicate layer"><svg aria-hidden="true"><use href="#icon-copy"/></svg></button>
+              <span class="layer-actions-spacer"></span>
+              <button type="button" data-layer-action="up" title="Move layer up" aria-label="Move layer up"><svg aria-hidden="true"><use href="#icon-up"/></svg></button>
+              <button type="button" data-layer-action="down" title="Move layer down" aria-label="Move layer down"><svg aria-hidden="true"><use href="#icon-down"/></svg></button>
+              <button type="button" data-layer-action="remove" title="Delete layer" aria-label="Delete layer"><svg aria-hidden="true"><use href="#icon-trash"/></svg></button>
+            </div>
+          </details>
+          <div class="layer-properties-heading"><span>Layer settings</span><strong id="active-layer-name">Layer 1</strong></div>
           <details id="source-settings" class="source inspector-panel" open>
             <summary><h2 id="source-heading">Source image</h2></summary>
             <div class="source-body">
@@ -207,20 +245,17 @@
           <details id="color-settings" class="inspector-panel" open>
             <summary><h2>Color & palette</h2></summary>
             <div class="panel-body">
-              <div id="palette-reference" hidden><h3 class="palette-reference-heading">C64 palette<span class="virtual-palette-count">16</span></h3><div class="palette-reference-swatches" role="list" aria-label="C64 palette"></div></div>
-              <div id="background-settings" class="image-control">
-              <fieldset class="background-control">
-                <legend>Background color</legend>
-                <div id="background-palette" class="palette-swatches"></div>
-                <p id="background-color-value" class="background-value" role="status">0 · Black · #000000</p>
-              </fieldset>
+            <div class="image-control">
+              <h2><label for="virtual-colors">Virtual Colors</label></h2>
+              <select id="virtual-colors" class="mode-select">
+                <option value="off">Off</option>
+                <option value="lines" selected>Lines</option>
+                <option value="checkers">Checkers</option>
+              </select>
             </div>
+              <div id="palette-reference" hidden><h3 class="palette-reference-heading">C64 palette<span class="virtual-palette-count">16</span></h3><div class="palette-reference-swatches" role="list" aria-label="C64 palette"></div></div>
             <div id="sprite-settings" class="image-control" hidden>
-              <fieldset class="background-control">
-                <legend>Sprite color</legend>
-                <div id="sprite-palette" class="palette-swatches"></div>
-                <p id="sprite-color-value" class="background-value" role="status">1 · White · #FFFFFF</p>
-              </fieldset>
+
               <div class="image-control">
                 <div class="control-label"><label for="sprite-match">Match range</label><output id="sprite-match-value" for="sprite-match">25%</output></div>
                 <input id="sprite-match" class="image-slider" type="range" min="0" max="500" step="1" value="25" aria-valuetext="25% sprite match range">
@@ -271,14 +306,17 @@
   <script src="./nufli-data.js?v=1"></script>
   <script src="./nufli.js?v=2"></script>
   <script src="./nufli-export.js?v=1"></script>
-  <script src="./afli-sprites.js?v=reserved-sprite-color"></script>
-  <script src="./fli-sprites.js?v=reserved-sprite-color"></script>
+  <script src="./afli-sprites.js?v=layers"></script>
+  <script src="./fli-sprites.js?v=layers"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
   <script src="./graphics-modes.js?v=independent-virtual-colors"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=palette-exclusions"></script>
+  <script src="./converter-controls.js?v=projects"></script>
+  <script src="./layers.js?v=projects"></script>
+  <script src="./layer-panel.js?v=1"></script>
+  <script src="./project.js?v=1"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -334,6 +372,10 @@
     ];
 
     const input = document.getElementById('image-input');
+    const projectInput = document.getElementById('project-input');
+    const projectOpen = document.getElementById('project-open');
+    const projectSave = document.getElementById('project-save');
+    const projectError = document.getElementById('project-error');
     const dropZone = document.getElementById('drop-zone');
     const canvas = document.getElementById('canvas');
     const tileGrid = document.getElementById('tile-grid');
@@ -397,13 +439,11 @@
     let activeMode = 'unrestricted';
     let sourceImage = null;
     let sourcePan = null;
-    let hiresSourcePixels = null;
-    let fliSourcePixels = null;
     let unrestrictedPixels = null;
     let spriteSourcePixels = null;
     let palettePixels = null;
     let fliResult = null;
-    let virtualPaletteMapping = null;
+    let documentTargetPixels = null;
     let ifliResult = null;
     let ifliFrameViewsResult = null;
     let spriteLayerViewsResult = null;
@@ -413,8 +453,14 @@
     let ifliPaused = false;
     let pafliNextFrameTime = 0;
     let imageName = '';
-    let renderRequest = 0;
+    const loadingLayers = new Set();
+    let projectLoading = false;
     let dragDepth = 0;
+    let layerStack = null;
+    const layerControlIds = ['source-scale', 'source-position-x', 'source-position-y',
+      'brightness', 'contrast', 'levels-black', 'levels-white', 'levels-gamma', 'hue',
+      'saturation', 'rgb-noise', 'interlace', 'dither', 'scanline-dither', 'virtual-colors',
+      'sprite-match', 'sprite-dither'];
 
     const levelsControls = C64ConverterControls.createLevelsControls({
       root: document.getElementById('source-levels'),
@@ -426,10 +472,7 @@
       palette: C64_PALETTE,
       value: backgroundColorIndex,
       onChange(color) {
-        backgroundColorIndex = color.index;
-        backgroundColorValue.textContent = `${color.index} · ${color.name} · ${color.hex}`;
-        fliResult = null;
-        ifliResult = null;
+        setBackgroundColor(color.index);
         renderPreview();
       }
     });
@@ -437,10 +480,8 @@
       root: spriteSettings,
       palette: C64_PALETTE,
       valueElement: document.getElementById('sprite-color-value'),
-      onChange() {
-        fliResult = null;
-        renderPreview();
-      }
+      paletteContainer: document.getElementById('sprite-palette'),
+      onChange: updatePalettePreview
     });
     const virtualPaletteView = C64ConverterControls.createVirtualPaletteView({
       root: virtualPalette,
@@ -448,6 +489,210 @@
       basePalette: C64_PALETTE,
       onChange: updatePalettePreview
     });
+
+    layerStack = createC64LayerStack(readLayerSettings());
+    const layerPanel = createC64LayerPanel({
+      root: document.getElementById('layer-settings'), stack: layerStack,
+      onSelect: selectImageLayer,
+      onAction: changeImageLayers,
+      onRename(id, name) {
+        const layer = layerStack.layers.find(layer => layer.id === id);
+        layer.name = name;
+        layer.autoName = false;
+        syncLayerInfo();
+      }
+    });
+    const projectCodec = createC64ProjectCodec({
+      modeIds: C64_GRAPHICS_MODES.map(mode => mode.id),
+      controls: layerControlIds.map(id => {
+        const control = document.getElementById(id);
+        return { id, type: control.type, min: Number(control.min), max: Number(control.max),
+          step: Number(control.step) || 1, options: control.options && [...control.options].map(option => option.value) };
+      }),
+      virtualPalette: IFLI_VIRTUAL_PALETTE
+    });
+
+    function setBackgroundColor(index) {
+      backgroundColorIndex = index;
+      backgroundPicker.setValue(index);
+      const color = C64_PALETTE[index];
+      backgroundColorValue.textContent = `${color.index} · ${color.name} · ${color.hex}`;
+      fliResult = null;
+      ifliResult = null;
+    }
+
+    function syncLoadingState() {
+      preview.setAttribute('aria-busy', String(projectLoading || loadingLayers.size > 0));
+      projectSave.disabled = projectLoading || loadingLayers.size > 0;
+      projectOpen.disabled = projectLoading;
+      updateIfliSaveState();
+    }
+
+    function readImageDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('The source image could not be read.'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function decodeSourceImage(dataUrl) {
+      const image = new Image();
+      image.src = dataUrl;
+      await image.decode();
+      return image;
+    }
+
+    projectSave.addEventListener('click', () => {
+      if (projectSave.disabled) return;
+      projectError.hidden = true;
+      try {
+        finishSourcePan();
+        layerStack.updateSettings(readLayerSettings());
+        const json = projectCodec.stringify({
+          image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex },
+          view: { previewMode: activeMode, grid: gridToggle.checked, paused: ifliPaused },
+          activeLayer: layerStack.layers.indexOf(layerStack.active()),
+          layers: layerStack.layers.map(layer => ({
+            name: layer.name, autoName: layer.autoName, visible: layer.visible, settings: layer.settings,
+            source: layer.image ? { fileName: layer.fileName, dataUrl: layer.sourceDataUrl } : null
+          }))
+        });
+        const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${imageName.replace(/\.[^.]*$/, '') || 'untitled'}-project.json`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+        announcement.textContent = 'Project saved with embedded source images.';
+      } catch (cause) {
+        projectError.textContent = `Could not save project. ${cause.message}`;
+        projectError.hidden = false;
+      }
+    });
+
+    projectOpen.addEventListener('click', () => projectInput.click());
+    projectInput.addEventListener('change', async () => {
+      const file = projectInput.files[0];
+      projectInput.value = '';
+      if (!file || projectLoading) return;
+      projectLoading = true;
+      projectError.hidden = true;
+      syncLoadingState();
+      try {
+        const project = projectCodec.parse(await file.text());
+        const layers = await Promise.all(project.layers.map(async layer => ({
+          ...layer, fileName: layer.source?.fileName || '', sourceDataUrl: layer.source?.dataUrl || '',
+          image: layer.source ? await decodeSourceImage(layer.source.dataUrl).catch(() => {
+            throw new Error(`The embedded image for “${layer.name}” could not be opened.`);
+          }) : null
+        })));
+        finishSourcePan();
+        stopIfliAnimation();
+        layerStack.replace(layers, project.activeLayer);
+        loadingLayers.clear();
+        graphicsMode = project.image.graphicsMode;
+        graphicsModeSelect.value = graphicsMode;
+        setBackgroundColor(project.image.backgroundColorIndex);
+        spriteControls.setColorIndex(project.image.spriteColorIndex);
+        gridToggle.checked = project.view.grid;
+        ifliPaused = project.view.paused;
+        activeMode = project.view.previewMode;
+        restoreLayerControls();
+        error.hidden = true;
+        rebuildLayerComposite();
+        selectPreviewTab(tabs.find(tab => tab.dataset.mode === activeMode));
+        announcement.textContent = `${file.name} opened. ${layers.length} image layers restored.`;
+      } catch (cause) {
+        projectError.textContent = `Could not open project. ${cause.message}`;
+        projectError.hidden = false;
+      } finally {
+        projectLoading = false;
+        syncLoadingState();
+      }
+    });
+
+    function readLayerSettings() {
+      const values = Object.fromEntries(layerControlIds.map(id => {
+        const control = document.getElementById(id);
+        return [id, control.type === 'checkbox' ? control.checked
+          : control.type === 'range' ? control.valueAsNumber : control.value];
+      }));
+      return { values, palette: virtualPaletteView.getSettings() };
+    }
+
+    function restoreLayerControls() {
+      const layer = layerStack.active();
+      sourceImage = layer.image;
+      for (const [id, value] of Object.entries(layer.settings.values)) {
+        const control = document.getElementById(id);
+        if (control.type === 'checkbox') control.checked = value;
+        else control.value = String(value);
+      }
+      const values = layer.settings.values;
+      levelsControls.setState({ blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma'] });
+      virtualPaletteView.setSettings(layer.settings.palette);
+      spriteControls.setState({ matchAmount: values['sprite-match'] / 100, ditherAmount: values['sprite-dither'] / 100 });
+      updateFramingValues();
+      updateToneControls(false);
+      updateHueSaturationControls(false);
+      updatePatternLabels();
+      levelsControls.setSource(renderImageLayer(layer)?.histogram || null);
+      syncLayerInfo();
+    }
+
+    function syncLayerInfo() {
+      const layer = layerStack.active();
+      sourceImage = layer.image;
+      sourceFraming.hidden = !sourceImage;
+      sourceFraming.disabled = !sourceImage;
+      document.getElementById('file-info').hidden = !sourceImage;
+      document.getElementById('filename').textContent = layer.fileName;
+      document.getElementById('file-dimensions').textContent = sourceImage
+        ? `${sourceImage.naturalWidth} × ${sourceImage.naturalHeight} original pixels` : '';
+      document.getElementById('active-layer-name').textContent = layer.name;
+      document.getElementById('tool-reset-framing').disabled = !sourceImage;
+      dropZone.querySelector('.choose').textContent = sourceImage ? 'Change image' : 'Choose image';
+      const loaded = layerStack.layers.filter(layer => layer.image);
+      imageName = loaded[0]?.fileName || '';
+      const documentName = document.getElementById('document-name');
+      documentName.textContent = imageName ? `${imageName}${loaded.length > 1 ? ` · ${loaded.length} layers` : ''}` : 'Untitled';
+      documentName.title = documentName.textContent;
+      preview.classList.toggle('has-image', Boolean(unrestrictedPixels));
+      preview.dataset.canPan = String(Boolean(sourceImage && layer.visible));
+      document.querySelector('#empty-state h2').textContent = loaded.length ? 'No visible layers' : 'No image open';
+    }
+
+    function selectImageLayer(id) {
+      if (layerStack.active().id === id) return;
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      layerStack.select(id);
+      restoreLayerControls();
+      layerPanel.render();
+      error.hidden = true;
+      renderPreview();
+      announcement.textContent = `${layerStack.active().name} selected.`;
+    }
+
+    function changeImageLayers(action, id) {
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      if (action === 'add') layerStack.add();
+      else if (action === 'duplicate') layerStack.duplicate();
+      else if (action === 'remove') {
+        loadingLayers.delete(layerStack.active().id);
+        layerStack.remove();
+      } else if (action === 'up' || action === 'down') layerStack.move(action === 'up' ? 1 : -1);
+      else if (action === 'visibility') {
+        const layer = layerStack.layers.find(layer => layer.id === id);
+        layer.visible = !layer.visible;
+      }
+      restoreLayerControls();
+      syncLoadingState();
+      rebuildLayerComposite();
+    }
 
     function updateGridVisibility() {
       tileGrid.hidden = activeMode === 'unrestricted' || !palettePixels || !gridToggle.checked;
@@ -497,12 +742,13 @@
       return currentGraphicsMode().spriteOverlay;
     }
 
-    function rebuildSourcePixels() {
-      if (!sourceImage) return;
-      const placement = getC64ImagePlacement(sourceImage.naturalWidth, sourceImage.naturalHeight, graphicsMode, {
-        scale: sourceScale.valueAsNumber / 100,
-        offsetX: sourcePositionX.valueAsNumber,
-        offsetY: sourcePositionY.valueAsNumber
+    function renderImageLayer(layer) {
+      if (!layer.image) return null;
+      if (layer.cache?.format === graphicsMode) return layer.cache;
+      const values = layer.settings.values;
+      const placement = getC64ImagePlacement(layer.image.naturalWidth, layer.image.naturalHeight, graphicsMode, {
+        scale: values['source-scale'] / 100,
+        offsetX: values['source-position-x'], offsetY: values['source-position-y']
       });
       const hiresCanvas = document.createElement('canvas');
       hiresCanvas.width = placement.canvasWidth;
@@ -512,11 +758,33 @@
       hiresContext.imageSmoothingQuality = 'high';
 
       // Fit in display space, then halve X to account for double-width pixels.
-      hiresContext.drawImage(sourceImage, placement.x, placement.y, placement.width, placement.height);
+      hiresContext.drawImage(layer.image, placement.x, placement.y, placement.width, placement.height);
       hiresContext.clearRect(0, 0, placement.leftInset, placement.canvasHeight);
-      hiresSourcePixels = hiresContext.getImageData(0, 0, placement.canvasWidth, placement.canvasHeight);
-      fliSourcePixels = usesFullResolutionSource() ? null : sampleIfliPhases(hiresSourcePixels)[0];
-      unrestrictedPixels = usesFullResolutionSource() ? hiresSourcePixels : fliSourcePixels;
+      const hires = hiresContext.getImageData(0, 0, placement.canvasWidth, placement.canvasHeight);
+      const source = usesFullResolutionSource() || isFliSpriteMode() ? hires : sampleIfliPhases(hires)[0];
+      const adjusted = applyBrightnessContrast(source, values.brightness, values.contrast);
+      const leveled = applySourceLevels(adjusted, {
+        blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma']
+      });
+      const colored = applyHueSaturation(leveled, values.hue, values.saturation);
+      const noise = values['rgb-noise'] / 100;
+      const sourceColors = !isIfliMode() ? applyRgbNoise(colored, noise) : colored;
+      const interlaced = applyInterlace(sourceColors, values.interlace / 100, 1);
+      const modified = isIfliMode() ? applyRgbNoise(interlaced, noise) : interlaced;
+      // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
+      const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
+      const mapping = values['virtual-colors'] !== 'off'
+        ? mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
+          values.dither / 100, layer.settings.palette) : null;
+      const mapped = mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
+      let target = mapping ? resolveVirtualPaletteColors(mapping, IFLI_VIRTUAL_PALETTE,
+        C64_PALETTE, values['virtual-colors']) : mapped;
+      if (values['scanline-dither']) {
+        target = isIfliMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
+      }
+      layer.cache = { format: graphicsMode, source: pixels, palette: mapped, target,
+        spriteSource: modified, mapping, histogram: adjusted };
+      return layer.cache;
     }
 
     function updateFramingValues() {
@@ -532,7 +800,6 @@
     function updateSourceFraming() {
       updateFramingValues();
       if (!sourceImage) return;
-      rebuildSourcePixels();
       updatePalettePreview();
     }
 
@@ -559,7 +826,7 @@
     document.getElementById('reset-framing').addEventListener('click', () => resetSourceFraming());
 
     canvas.addEventListener('pointerdown', event => {
-      if (!sourceImage || sourcePan || event.button !== 0) return;
+      if (!sourceImage || !layerStack.active().visible || sourcePan || event.button !== 0) return;
       const bounds = canvas.getBoundingClientRect();
       sourcePan = {
         pointerId: event.pointerId,
@@ -775,40 +1042,43 @@
       return mapped;
     }
 
-    function adjustSourcePixels(source) {
-      const adjusted = applyBrightnessContrast(source, brightnessSlider.valueAsNumber, contrastSlider.valueAsNumber);
-      levelsControls.setSource(adjusted);
-      const leveled = applySourceLevels(adjusted, levelsControls.getState());
-      return applyHueSaturation(leveled, hueSlider.valueAsNumber, saturationSlider.valueAsNumber);
+    function updatePalettePreview() {
+      if (!layerStack) return;
+      layerStack.updateSettings(readLayerSettings());
+      rebuildLayerComposite();
     }
 
-    function updatePalettePreview() {
-      const source = usesFullResolutionSource() || isFliSpriteMode() ? hiresSourcePixels : fliSourcePixels;
-      if (!source) return;
-      const adjusted = adjustSourcePixels(source);
-      const interlace = interlaceSlider.valueAsNumber / 100;
-      const noise = rgbNoiseSlider.valueAsNumber / 100;
-      const sourceColors = !isIfliMode() ? applyRgbNoise(adjusted, noise) : adjusted;
-      const interlaced = applyInterlace(sourceColors, interlace, 1);
-      const modified = isIfliMode() ? applyRgbNoise(interlaced, noise) : interlaced;
-      // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
-      spriteSourcePixels = isFliSpriteMode() ? modified : null;
-      unrestrictedPixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
-
-      if (usesVirtualPalette()) {
-        virtualPaletteMapping = mapToIfliVirtualPalette(unrestrictedPixels, IFLI_VIRTUAL_PALETTE,
-          C64_BRIGHTNESS_BANDS, ditherSlider.valueAsNumber / 100, virtualPaletteView.getSettings());
-        palettePixels = virtualPaletteMapping.pixels;
-      } else {
-        palettePixels = mapToC64Palette(unrestrictedPixels, ditherSlider.valueAsNumber / 100);
-        virtualPaletteMapping = null;
-      }
+    function rebuildLayerComposite() {
+      const visible = layerStack.layers.filter(layer => layer.visible && layer.image);
+      const width = currentGraphicsMode().sourceWidth;
+      const rendered = visible.map(renderImageLayer);
+      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), width, 200) : null;
+      palettePixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.palette), width, 200) : null;
+      documentTargetPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, 200) : null;
+      spriteSourcePixels = isSpriteMode() && rendered.length
+        ? compositeC64LayerPixels(rendered.map(layer => layer.spriteSource), 320, 200) : null;
       fliResult = null;
       ifliResult = null;
+      const selected = renderImageLayer(layerStack.active());
+      levelsControls.setSource(selected?.histogram || null);
+      syncLayerInfo();
+      layerPanel.render();
       renderPreview();
     }
 
-    function updateToneControls() {
+    function getDocumentSpriteOverlay() {
+      const colorIndex = spriteControls.getState().colorIndex;
+      const layers = layerStack.layers.filter(layer => layer.visible && layer.image).map(layer => {
+        const source = renderImageLayer(layer).spriteSource;
+        const { spriteMask: mask } = createC64SpriteLayer(source, C64_PALETTE, colorIndex,
+          layer.settings.values['sprite-match'] / 100, layer.settings.values['sprite-dither'] / 100,
+          isFliSpriteMode() ? C64_PALETTE[backgroundColorIndex].rgb : null);
+        return { source, mask };
+      });
+      return compositeC64LayerSprites(layers, colorIndex, C64_PALETTE[colorIndex].rgb);
+    }
+
+    function updateToneControls(refresh = true) {
       const brightness = brightnessSlider.valueAsNumber;
       const contrast = contrastSlider.valueAsNumber;
       const brightnessLabel = `${brightness > 0 ? '+' : ''}${brightness}%`;
@@ -816,56 +1086,41 @@
       brightnessSlider.setAttribute('aria-valuetext', brightness === 0 ? '0% (unchanged)' : brightnessLabel);
       contrastValue.value = `${contrast}%`;
       contrastSlider.setAttribute('aria-valuetext', contrast === 100 ? '100% (unchanged)' : `${contrast}%`);
-      updatePalettePreview();
+      if (refresh !== false) updatePalettePreview();
     }
 
     brightnessSlider.addEventListener('input', updateToneControls);
     contrastSlider.addEventListener('input', updateToneControls);
 
-    function updateHueSaturationControls() {
+    function updateHueSaturationControls(refresh = true) {
       const hue = hueSlider.valueAsNumber;
       const saturation = saturationSlider.valueAsNumber;
       hueValue.value = `${hue > 0 ? '+' : ''}${hue}°`;
       hueSlider.setAttribute('aria-valuetext', hue === 0 ? '0 degrees (unchanged)' : `${hue} degrees`);
       saturationValue.value = `${saturation}%`;
       saturationSlider.setAttribute('aria-valuetext', saturation === 100 ? '100% (unchanged)' : `${saturation}%`);
-      updatePalettePreview();
+      if (refresh !== false) updatePalettePreview();
     }
 
     hueSlider.addEventListener('input', updateHueSaturationControls);
     saturationSlider.addEventListener('input', updateHueSaturationControls);
 
-    rgbNoiseSlider.addEventListener('input', () => {
-      const amount = rgbNoiseSlider.valueAsNumber;
-      rgbNoiseValue.value = `${amount}%`;
-      rgbNoiseSlider.setAttribute('aria-valuetext', amount === 0 ? '0% (off)' : `${amount}% RGB noise`);
-      updatePalettePreview();
-    });
-
-    interlaceSlider.addEventListener('input', () => {
-      const amount = interlaceSlider.valueAsNumber;
-      interlaceValue.value = `${amount}%`;
-      interlaceSlider.setAttribute('aria-valuetext', amount === 0 ? '0% (off)'
-        : amount < 0 ? `${-amount}% darkening` : `${amount}% brightness lift`);
-      updatePalettePreview();
-    });
-
-    ditherSlider.addEventListener('input', () => {
-      const amount = ditherSlider.valueAsNumber;
-      ditherValue.value = `${amount}%`;
-      ditherSlider.setAttribute('aria-valuetext', amount === 0 ? '0% (off)' : `${amount}% dither strength`);
-      updatePalettePreview();
-    });
-
-    scanlineDither.addEventListener('change', () => {
-      fliResult = null;
-      ifliResult = null;
-      renderPreview();
-    });
-
-    function processScanlines(pixels) {
-      return scanlineDither.checked ? breakUpScanlines(pixels) : pixels;
+    function updatePatternLabels() {
+      const noise = rgbNoiseSlider.valueAsNumber;
+      rgbNoiseValue.value = `${noise}%`;
+      rgbNoiseSlider.setAttribute('aria-valuetext', noise === 0 ? '0% (off)' : `${noise}% RGB noise`);
+      const interlace = interlaceSlider.valueAsNumber;
+      interlaceValue.value = `${interlace}%`;
+      interlaceSlider.setAttribute('aria-valuetext', interlace === 0 ? '0% (off)'
+        : interlace < 0 ? `${-interlace}% darkening` : `${interlace}% brightness lift`);
+      const dither = ditherSlider.valueAsNumber;
+      ditherValue.value = `${dither}%`;
+      ditherSlider.setAttribute('aria-valuetext', dither === 0 ? '0% (off)' : `${dither}% dither strength`);
     }
+    for (const slider of [rgbNoiseSlider, interlaceSlider, ditherSlider]) {
+      slider.addEventListener('input', () => { updatePatternLabels(); updatePalettePreview(); });
+    }
+    scanlineDither.addEventListener('change', updatePalettePreview);
 
     function stopIfliAnimation() {
       if (ifliAnimation !== null) cancelAnimationFrame(ifliAnimation);
@@ -891,7 +1146,7 @@
     function ensureIfliResult() {
       if (!isIfliMode() || !palettePixels) return null;
       if (!ifliResult) {
-        const [first, second] = splitIfliColumns(getPaletteTarget()).map(processScanlines);
+        const [first, second] = splitIfliColumns(getRestrictedTarget());
         ifliResult = optimizeIfliImages(first, second, C64_PALETTE,
           C64_BRIGHTNESS_BANDS, backgroundColorIndex);
         ifliResult.displayFrames = ifliResult.frames.map((frame, phase) =>
@@ -908,8 +1163,8 @@
         const target = getRestrictedTarget();
         const sprite = spriteControls.getState();
         fliResult = isAfliSpriteMode()
-          ? createAfliSpriteImage(unrestrictedPixels, target, C64_PALETTE, C64_BRIGHTNESS_BANDS,
-            sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount)
+          ? createAfliSpriteImage(spriteSourcePixels, target, C64_PALETTE, C64_BRIGHTNESS_BANDS,
+            sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount, getDocumentSpriteOverlay())
           : optimizeAfliImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
       }
       return isAfliSpriteMode() ? fliResult.afli : fliResult;
@@ -923,19 +1178,13 @@
         const target = getRestrictedTarget();
         const sprite = spriteControls.getState();
         fliResult = createFliSpriteImage(spriteSourcePixels, target, C64_PALETTE, C64_BRIGHTNESS_BANDS,
-          backgroundColorIndex, sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount);
+          backgroundColorIndex, sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount, getDocumentSpriteOverlay());
       }
       return fliResult;
     }
 
-    function getPaletteTarget() {
-      return usesVirtualPalette()
-        ? resolveVirtualPaletteColors(virtualPaletteMapping, IFLI_VIRTUAL_PALETTE, C64_PALETTE, virtualColorsSelect.value)
-        : palettePixels;
-    }
-
     function getRestrictedTarget() {
-      return processScanlines(getPaletteTarget());
+      return documentTargetPixels;
     }
 
     function ensureNufliResult() {
@@ -1139,6 +1388,11 @@
       const pafli = isPafliMode();
       const name = mode.label;
       const restricted = activeMode === 'restricted';
+      const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
+      const singleSettings = visibleLayers[0]?.settings || layerStack.active().settings;
+      const virtualImagePalette = singleSettings.values['virtual-colors'] !== 'off';
+      const paletteDescription = visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
+        ? `${IFLI_VIRTUAL_PALETTE.length - singleSettings.palette.excludedIndices.length} virtual colors` : '16 C64 colors';
       const widePixels = !hires && !afli && !nufli && !pafli && (!ifli || restricted);
       const resolution = usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
@@ -1152,6 +1406,7 @@
       backgroundSettings.querySelector('fieldset').disabled = hires || afli || nufli || pafli;
       backgroundPicker.setEnabled(!hires && !afli && !nufli && !pafli);
       spriteControls.setVisible(spriteMode);
+      document.getElementById('sprite-color-settings').hidden = !spriteMode;
       document.getElementById('format-resolution').textContent = fliSprites ? `${resolution} + sprites` : resolution;
       document.getElementById('image-area-row').hidden = leftInset === 0;
       document.getElementById('image-area-row').title = pafli ? '28 pixels reserved for both AFLI phases' : `${leftInset / 8} character columns reserved on the left`;
@@ -1162,9 +1417,10 @@
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
       document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
-        : activeMode === 'palette' ? (usesVirtualPalette() ? `${IFLI_VIRTUAL_PALETTE.length - virtualPaletteView.getSettings().excludedIndices.length} virtual colors` : '16 C64 colors') : 'Unrestricted';
+        : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
       const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
-        : activeMode === 'palette' ? (usesVirtualPalette() ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
+        : activeMode === 'palette' ? (visibleLayers.length > 1 ? 'LAYER PALETTES'
+          : virtualImagePalette ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
       document.getElementById('footer-format').textContent = isAlternatingPreview()
         ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1' : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
@@ -1319,71 +1575,49 @@
       finishSourcePan();
       stopIfliAnimation();
       graphicsMode = graphicsModeSelect.value;
-      rebuildSourcePixels();
-      fliResult = null;
-      ifliResult = null;
-      if (unrestrictedPixels) updatePalettePreview();
-      else renderPreview();
+      layerStack.invalidate();
+      rebuildLayerComposite();
       announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
     });
 
     virtualColorsSelect.addEventListener('change', () => {
-      if (unrestrictedPixels) updatePalettePreview();
-      else renderPreview();
+      updatePalettePreview();
       announcement.textContent = `Virtual colors: ${virtualColorsSelect.selectedOptions[0].textContent}.`;
     });
 
     async function loadImage(file) {
       if (!file) return;
-
-      const request = ++renderRequest;
+      finishSourcePan();
+      const layer = layerStack.active();
+      const request = ++layer.loadRequest;
+      loadingLayers.add(layer.id);
       error.hidden = true;
-      preview.setAttribute('aria-busy', 'true');
-      updateIfliSaveState();
-      let objectUrl;
-
+      syncLoadingState();
       try {
-        if (file.type && !file.type.startsWith('image/')) {
-          throw new Error('Please choose an image file.');
+        if (file.type && !file.type.startsWith('image/')) throw new Error('Please choose an image file.');
+        const sourceDataUrl = await readImageDataUrl(file);
+        const image = await decodeSourceImage(sourceDataUrl);
+        if (request !== layer.loadRequest || !layerStack.layers.includes(layer)) return;
+        layer.image = image;
+        layer.fileName = file.name;
+        layer.sourceDataUrl = sourceDataUrl;
+        if (layer.autoName) {
+          layer.name = file.name.replace(/\.[^.]*$/, '') || file.name;
+          layer.autoName = false;
         }
-
-        objectUrl = URL.createObjectURL(file);
-        const image = new Image();
-        image.src = objectUrl;
-        await image.decode();
-
-        if (request !== renderRequest) return;
-
-        resetSourceFraming(false);
-        sourceImage = image;
-        sourceFraming.hidden = false;
-        sourceFraming.disabled = false;
-        rebuildSourcePixels();
-        imageName = file.name;
-        updatePalettePreview();
-
-        document.getElementById('filename').textContent = file.name;
-        document.getElementById('file-dimensions').textContent = `${image.naturalWidth} × ${image.naturalHeight} original pixels`;
-        document.getElementById('file-info').hidden = false;
-        document.getElementById('empty-state').hidden = true;
-        canvas.hidden = false;
-        preview.classList.add('has-image');
-        previewStatus.textContent = 'Image loaded';
-        dropZone.querySelector('.choose').textContent = 'Change image';
-        announcement.textContent = `${file.name} loaded. ${usesFullResolutionSource()
-          ? 'Source is 320 by 200 square pixels.' : 'Source is 160 by 200 double-width pixels.'}`;
+        Object.assign(layer.settings.values, { 'source-scale': 100, 'source-position-x': 0, 'source-position-y': 0 });
+        layer.cache = null;
+        if (layerStack.active() === layer) restoreLayerControls();
+        rebuildLayerComposite();
+        announcement.textContent = `${file.name} loaded into ${layer.name}.`;
       } catch (cause) {
-        if (request !== renderRequest) return;
-        error.textContent = cause.message === 'Please choose an image file.'
-          ? cause.message
+        if (request !== layer.loadRequest || !layerStack.layers.includes(layer)) return;
+        error.textContent = cause.message === 'Please choose an image file.' ? cause.message
           : 'This image could not be opened. Try a PNG, JPEG, WebP, or another browser-supported image.';
         error.hidden = false;
       } finally {
-        if (objectUrl) URL.revokeObjectURL(objectUrl);
-        if (request === renderRequest) {
-          preview.setAttribute('aria-busy', 'false');
-          updateIfliSaveState();
-        }
+        if (request === layer.loadRequest) loadingLayers.delete(layer.id);
+        syncLoadingState();
       }
     }
 
@@ -1418,8 +1652,9 @@
       loadImage(event.dataTransfer.files[0]);
     });
 
-    renderPreview();
+    restoreLayerControls();
+    rebuildLayerComposite();
   </script>
-  <script src="./editor-ui.js?v=virtual-colors"></script>
+  <script src="./editor-ui.js?v=layers"></script>
 </body>
 </html>
