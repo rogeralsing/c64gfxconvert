@@ -20,10 +20,24 @@ Open `index.html` in a modern browser. No build step or server is required.
 | **IFLI** | Two 160 × 200 frames, double-width pixels | Alternates two FLI frames one hires pixel apart. Both frames share the background and tile color; scanline colors may differ. |
 | **AFLI** | 320 × 200, square pixels | Two freely chosen colors per 8 × 1 scanline strip, with no shared background color. |
 | **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
+| **HIRES · 2 colors** | 320 × 200, square pixels | One user-selected shadow/highlight pair for the entire image. Source brightness drives the pattern; no automatic palette matching. |
 | **Multicolor Bitmap** | 160 × 200, double-width pixels | Three colors per 4 × 8 tile, plus one background color shared by the whole image. |
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
+and **Highlight color** from the normal C64 palette. Adjust **Brightness**,
+**Contrast**, **Levels**, and **Dither** to shape the result. Dither at 0% uses a
+hard threshold; 100% uses a 4 × 4 ordered pattern. Palette choices do not change
+the pattern, so swapping the colors also works as an inversion. Transparent
+layer edges use ordered coverage to keep the final image within the selected
+pair. Both colors are preserved in saved projects.
+
+**Save Hires** downloads an Art Studio `.art` image: 320 × 200 pixels with the
+selected colors, stored as a native C64 hires bitmap. The 9,009-byte file contains
+a `$2000` load address, bitmap, screen colors, border color, and padding. Export
+always uses the converted image, even while viewing the unrestricted source.
 
 The IFLI preview alternates the two frames and shows them individually below
 the simulation:

@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const context = vm.createContext({});
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../project.js'), 'utf8'), context);
 const codec = context.createC64ProjectCodec({
-  modeIds: ['fli', 'afli-sprites'],
+  modeIds: ['fli', 'afli-sprites', 'hires-2color'],
   controls: [
     { id: 'brightness', type: 'range', min: -100, max: 300, step: 1 },
     { id: 'levels-black', type: 'range', min: 0, max: 254, step: 1 },
@@ -66,6 +66,8 @@ test('project import rejects unsupported documents and unusable settings before 
     project => { project.version = 2; },
     project => { project.image.graphicsMode = 'unknown'; },
     project => { project.image.spriteColorIndex = 16; },
+    ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(twoColorIndices =>
+      project => { project.image.twoColorIndices = twoColorIndices; }),
     project => { project.layers = []; },
     project => { project.activeLayer = 2; },
     project => { project.layers[0].visible = 'false'; },
@@ -84,4 +86,14 @@ test('project import rejects unsupported documents and unusable settings before 
     change(project);
     assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project/);
   }
+});
+
+test('two-color projects preserve the chosen shadow and highlight without changing legacy projects', () => {
+  const project = fixture();
+  project.image.graphicsMode = 'hires-2color';
+  project.image.twoColorIndices = [14, 5];
+  const loaded = codec.parse(codec.stringify(project));
+  assert.equal(loaded.image.graphicsMode, 'hires-2color');
+  assert.deepEqual(Array.from(loaded.image.twoColorIndices), [14, 5]);
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.twoColorIndices, undefined);
 });
