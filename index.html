@@ -610,15 +610,19 @@
     });
 
     projectOpen.addEventListener('click', () => projectInput.click());
-    projectInput.addEventListener('change', async () => {
+    projectInput.addEventListener('change', () => {
       const file = projectInput.files[0];
       projectInput.value = '';
-      if (!file || projectLoading) return;
+      if (file) openProject(() => file.text(), file.name);
+    });
+
+    async function openProject(readText, name) {
+      if (projectLoading) return;
       projectLoading = true;
       projectError.hidden = true;
       syncLoadingState();
       try {
-        const project = projectCodec.parse(await file.text());
+        const project = projectCodec.parse(await readText());
         const layers = await Promise.all(project.layers.map(async layer => ({
           ...layer, fileName: layer.source?.fileName || '', sourceDataUrl: layer.source?.dataUrl || '',
           image: layer.source ? await decodeSourceImage(layer.source.dataUrl).catch(() => {
@@ -642,7 +646,7 @@
         error.hidden = true;
         rebuildLayerComposite();
         selectPreviewTab(tabs.find(tab => tab.dataset.mode === activeMode));
-        announcement.textContent = `${file.name} opened. ${layers.length} image layers restored.`;
+        announcement.textContent = `${name} opened. ${layers.length} image layers restored.`;
       } catch (cause) {
         projectError.textContent = `Could not open project. ${cause.message}`;
         projectError.hidden = false;
@@ -650,7 +654,7 @@
         projectLoading = false;
         syncLoadingState();
       }
-    });
+    }
 
     function readLayerSettings() {
       const values = Object.fromEntries(layerControlIds.map(id => {
@@ -1736,6 +1740,14 @@
 
     restoreLayerControls();
     rebuildLayerComposite();
+
+    if (new URLSearchParams(window.location.search).get('project') === 'dutchbreeze') {
+      openProject(async () => {
+        const response = await fetch('./examples/DutchBreezeRemake.json');
+        if (!response.ok) throw new Error(`The demo project could not be downloaded (HTTP ${response.status}).`);
+        return response.text();
+      }, 'DutchBreezeRemake.json');
+    }
   </script>
   <script src="./editor-ui.js?v=layers"></script>
 </body>

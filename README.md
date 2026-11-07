@@ -90,8 +90,11 @@ order, visibility, the active layer, shared graphics settings, and preview optio
 Images are embedded in the JSON, so the original files are not needed to reopen
 it. Larger source images produce larger project files. Projects stay local.
 
-Download [DutchBreezeRemake](examples/DutchBreezeRemake.json), then choose
-**Open project** to explore the layered example shown above.
+[Open the DutchBreezeRemake demo](https://rogeralsing.github.io/c64gfxconvert/?project=dutchbreeze)
+with all layers and settings loaded. The `?project=dutchbreeze` query parameter
+opens the bundled demo automatically. Without it, the converter starts empty.
+You can also download [the project JSON](examples/DutchBreezeRemake.json) and
+choose **Open project**.
 
 ## Tests
 
