@@ -46,7 +46,7 @@ test('FLI modes center tall images inside their remaining display areas', () => 
 });
 
 test('bitmap, hires and NUFLI images retain the entire 320 by 200 display area', () => {
-  for (const mode of ['bitmap', 'hires', 'nufli']) {
+  for (const mode of ['bitmap', 'hires', 'hires-2color', 'nufli']) {
     assert.equal(getC64ImageLeftInset(mode), 0, mode);
     assert.deepEqual({ ...getC64ImagePlacement(1000, 500, mode) }, {
       x: 0, y: 20, width: 320, height: 160,

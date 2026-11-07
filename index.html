@@ -69,6 +69,7 @@
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
+                <button id="two-color-save" class="afli-save" type="button" title="Save the two-color bitmap as an Art Studio (.art) image" disabled hidden>Save Hires</button>
                 <button id="sprite-layers-save" class="afli-save" type="button" title="Save the combined bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save sprite ZIP</button>
                 <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
                 <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
@@ -130,6 +131,18 @@
             <div class="mode-control">
               <h3 id="graphics-mode-heading">Graphics format</h3>
               <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
+              <div id="two-color-settings" hidden>
+                <fieldset class="background-control image-control">
+                  <legend>Shadow color</legend>
+                  <div id="two-color-shadow-palette" class="palette-swatches"></div>
+                  <p id="two-color-shadow-value" class="background-value" role="status"></p>
+                </fieldset>
+                <fieldset class="background-control image-control">
+                  <legend>Highlight color</legend>
+                  <div id="two-color-highlight-palette" class="palette-swatches"></div>
+                  <p id="two-color-highlight-value" class="background-value" role="status"></p>
+                </fieldset>
+              </div>
               <div id="background-settings" class="image-control">
               <fieldset class="background-control">
                 <legend>Background color</legend>
@@ -310,13 +323,15 @@
   <script src="./fli-sprites.js?v=layers"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
-  <script src="./graphics-modes.js?v=independent-virtual-colors"></script>
+  <script src="./graphics-modes.js?v=two-color-hires"></script>
+  <script src="./two-color.js?v=1"></script>
+  <script src="./two-color-export.js?v=1"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
   <script src="./converter-controls.js?v=projects"></script>
   <script src="./layers.js?v=projects"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=1"></script>
+  <script src="./project.js?v=two-color-hires"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -423,6 +438,7 @@
     const ifliPlayback = document.getElementById('ifli-playback');
     const ifliSave = document.getElementById('ifli-save');
     const afliSave = document.getElementById('afli-save');
+    const twoColorSave = document.getElementById('two-color-save');
     const nufliSave = document.getElementById('nufli-save');
     const nufliPrgSave = document.getElementById('nufli-prg-save');
     const pafliSave = document.getElementById('pafli-save');
@@ -435,6 +451,7 @@
     const ifliMergedCanvas = document.getElementById('ifli-frame-merged');
     const ifliBlendedCanvas = document.getElementById('ifli-frame-blended');
     let backgroundColorIndex = 0;
+    let twoColorIndices = [0, 1];
     let graphicsMode = C64_GRAPHICS_MODES[0].id;
     let activeMode = 'unrestricted';
     let sourceImage = null;
@@ -475,6 +492,22 @@
         setBackgroundColor(color.index);
         renderPreview();
       }
+    });
+    const twoColorPickers = ['shadow', 'highlight'].map((role, slot) => {
+      const valueElement = document.getElementById(`two-color-${role}-value`);
+      const updateLabel = color => { valueElement.textContent = `${color.index} · ${color.name} · ${color.hex}`; };
+      const picker = C64ConverterControls.createPalettePicker({
+        container: document.getElementById(`two-color-${role}-palette`),
+        name: `two-color-${role}`, palette: C64_PALETTE, value: twoColorIndices[slot],
+        onChange(color) {
+          twoColorIndices[slot] = color.index;
+          updateLabel(color);
+          layerStack.invalidate();
+          rebuildLayerComposite();
+        }
+      });
+      updateLabel(C64_PALETTE[twoColorIndices[slot]]);
+      return { ...picker, setColorIndex(index) { picker.setValue(index); updateLabel(C64_PALETTE[index]); } };
     });
     const spriteControls = C64ConverterControls.createSpriteOverlayControls({
       root: spriteSettings,
@@ -551,7 +584,8 @@
         finishSourcePan();
         layerStack.updateSettings(readLayerSettings());
         const json = projectCodec.stringify({
-          image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex },
+          image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
+            twoColorIndices },
           view: { previewMode: activeMode, grid: gridToggle.checked, paused: ifliPaused },
           activeLayer: layerStack.layers.indexOf(layerStack.active()),
           layers: layerStack.layers.map(layer => ({
@@ -596,6 +630,8 @@
         graphicsModeSelect.value = graphicsMode;
         setBackgroundColor(project.image.backgroundColorIndex);
         spriteControls.setColorIndex(project.image.spriteColorIndex);
+        twoColorIndices = project.image.twoColorIndices || [0, 1];
+        twoColorPickers.forEach((picker, slot) => picker.setColorIndex(twoColorIndices[slot]));
         gridToggle.checked = project.view.grid;
         ifliPaused = project.view.paused;
         activeMode = project.view.previewMode;
@@ -711,7 +747,11 @@
     }
 
     function usesVirtualPalette() {
-      return virtualColorsSelect.value !== 'off';
+      return !isTwoColorMode() && virtualColorsSelect.value !== 'off';
+    }
+
+    function isTwoColorMode() {
+      return Boolean(currentGraphicsMode().twoColor);
     }
 
     function isAfliMode() {
@@ -773,13 +813,14 @@
       const modified = isIfliMode() ? applyRgbNoise(interlaced, noise) : interlaced;
       // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
-      const mapping = values['virtual-colors'] !== 'off'
+      const mapping = !isTwoColorMode() && values['virtual-colors'] !== 'off'
         ? mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
           values.dither / 100, layer.settings.palette) : null;
-      const mapped = mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
+      const mapped = isTwoColorMode() ? convertTwoColorHires(pixels, C64_PALETTE, twoColorIndices, values.dither / 100)
+        : mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
       let target = mapping ? resolveVirtualPaletteColors(mapping, IFLI_VIRTUAL_PALETTE,
         C64_PALETTE, values['virtual-colors']) : mapped;
-      if (values['scanline-dither']) {
+      if (!isTwoColorMode() && values['scanline-dither']) {
         target = isIfliMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
       }
       layer.cache = { format: graphicsMode, source: pixels, palette: mapped, target,
@@ -1053,8 +1094,11 @@
       const width = currentGraphicsMode().sourceWidth;
       const rendered = visible.map(renderImageLayer);
       unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), width, 200) : null;
-      palettePixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.palette), width, 200) : null;
-      documentTargetPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, 200) : null;
+      palettePixels = rendered.length ? (isTwoColorMode()
+        ? compositeTwoColorHires(rendered.map(layer => layer.palette), width, 200, C64_PALETTE[twoColorIndices[0]].rgb)
+        : compositeC64LayerPixels(rendered.map(layer => layer.palette), width, 200)) : null;
+      documentTargetPixels = isTwoColorMode() ? palettePixels
+        : rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, 200) : null;
       spriteSourcePixels = isSpriteMode() && rendered.length
         ? compositeC64LayerPixels(rendered.map(layer => layer.spriteSource), 320, 200) : null;
       fliResult = null;
@@ -1193,6 +1237,10 @@
       return fliResult;
     }
 
+    function ensureTwoColorResult() {
+      return { pixels: getRestrictedTarget(), colorIndices: twoColorIndices };
+    }
+
     function updateIfliSaveState() {
       ifliSave.hidden = !isIfliMode();
       ifliSave.disabled = !isIfliMode() || !palettePixels ||
@@ -1200,6 +1248,8 @@
       afliSave.hidden = !isAfliMode() || isAfliSpriteMode();
       afliSave.disabled = !isAfliMode() || isAfliSpriteMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
+      twoColorSave.hidden = !isTwoColorMode();
+      twoColorSave.disabled = !isTwoColorMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       spriteLayersSave.hidden = !isSpriteMode();
       spriteLayersSave.disabled = !isSpriteMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
@@ -1212,6 +1262,7 @@
     }
 
     for (const [button, encode, extension, ensureResult, name] of [
+      [twoColorSave, encodeTwoColorHiresArt, 'art', ensureTwoColorResult, 'two-color hires'],
       [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
       [nufliPrgSave, encodeNufliPrg, 'prg', ensureNufliResult, 'NUFLI'],
       [pafliSave, encodePafliPrg, 'prg', ensureAlternatingResult, 'PAFLI']
@@ -1383,6 +1434,7 @@
       const fliSprites = isFliSpriteMode();
       const bitmap = mode.format === 'bitmap';
       const hires = mode.format === 'hires';
+      const twoColor = isTwoColorMode();
       const afli = isAfliMode();
       const nufli = isNufliMode();
       const pafli = isPafliMode();
@@ -1390,8 +1442,8 @@
       const restricted = activeMode === 'restricted';
       const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
       const singleSettings = visibleLayers[0]?.settings || layerStack.active().settings;
-      const virtualImagePalette = singleSettings.values['virtual-colors'] !== 'off';
-      const paletteDescription = visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
+      const virtualImagePalette = !twoColor && singleSettings.values['virtual-colors'] !== 'off';
+      const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
         ? `${IFLI_VIRTUAL_PALETTE.length - singleSettings.palette.excludedIndices.length} virtual colors` : '16 C64 colors';
       const widePixels = !hires && !afli && !nufli && !pafli && (!ifli || restricted);
       const resolution = usesFullResolutionSource() ? '320 × 200' : '160 × 200';
@@ -1402,6 +1454,13 @@
       document.title = `C64 Studio — ${name}`;
       if (isAlternatingMode()) document.getElementById('ifli-frames-heading').textContent = `${name} frames`;
       virtualPaletteView.setVisible(usesVirtualPalette());
+      document.getElementById('two-color-settings').hidden = !twoColor;
+      for (const picker of twoColorPickers) picker.setEnabled(twoColor);
+      virtualColorsSelect.disabled = twoColor;
+      virtualColorsSelect.closest('.image-control').hidden = twoColor;
+      document.getElementById('scanline-dither').disabled = twoColor;
+      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor;
+      document.getElementById('tab-palette').textContent = twoColor ? 'Two colors' : 'C64 Palette';
       backgroundSettings.hidden = hires || afli || nufli || pafli;
       backgroundSettings.querySelector('fieldset').disabled = hires || afli || nufli || pafli;
       backgroundPicker.setEnabled(!hires && !afli && !nufli && !pafli);
@@ -1416,10 +1475,10 @@
         ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
-      document.getElementById('color-mode').textContent = restricted ? (pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
+      document.getElementById('color-mode').textContent = restricted ? (twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
         : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
       const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
-        : activeMode === 'palette' ? (visibleLayers.length > 1 ? 'LAYER PALETTES'
+        : activeMode === 'palette' ? (twoColor ? 'TWO-COLOR HIRES' : visibleLayers.length > 1 ? 'LAYER PALETTES'
           : virtualImagePalette ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
       document.getElementById('footer-format').textContent = isAlternatingPreview()
@@ -1499,7 +1558,9 @@
           ensureNufliResult();
         } else {
           const target = getRestrictedTarget();
-          if (currentGraphicsMode().format === 'hires') {
+          if (isTwoColorMode()) {
+            fliResult = { pixels: target };
+          } else if (currentGraphicsMode().format === 'hires') {
             fliResult = optimizeHiresBitmapImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
           } else {
             const optimize = currentGraphicsMode().format === 'bitmap' ? optimizeMulticolorBitmapImage : optimizeFliImage;
@@ -1577,6 +1638,7 @@
       graphicsMode = graphicsModeSelect.value;
       layerStack.invalidate();
       rebuildLayerComposite();
+      if (isTwoColorMode()) selectPreviewTab(restrictedTab);
       announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
     });
 

@@ -18,6 +18,10 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         !colorIndex(image.backgroundColorIndex) || !colorIndex(image.spriteColorIndex)) {
       invalid('unsupported image settings');
     }
+    if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
+        image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
+      invalid('two-color hires requires two C64 palette colors');
+    }
     if (!object(view) || !['unrestricted', 'palette', 'restricted'].includes(view.previewMode) ||
         typeof view.grid !== 'boolean' || typeof view.paused !== 'boolean') {
       invalid('unsupported preview settings');
@@ -63,7 +67,8 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
     return {
       app: 'c64gfxconvert', version: 1,
       image: { graphicsMode: image.graphicsMode, backgroundColorIndex: image.backgroundColorIndex,
-        spriteColorIndex: image.spriteColorIndex },
+        spriteColorIndex: image.spriteColorIndex,
+        ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }) },
       view: { previewMode: view.previewMode, grid: view.grid, paused: view.paused },
       activeLayer, layers: restored
     };
