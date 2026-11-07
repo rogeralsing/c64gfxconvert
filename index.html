@@ -70,6 +70,7 @@
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
                 <button id="two-color-save" class="afli-save" type="button" title="Save the two-color bitmap as an Art Studio (.art) image" disabled hidden>Save Hires</button>
+                <button id="multicolor-save" class="afli-save" type="button" title="Save the converted multicolor bitmap as a Koala Painter (.koa) image" disabled hidden>Save Multicolor</button>
                 <button id="sprite-layers-save" class="afli-save" type="button" title="Save the combined bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save sprite ZIP</button>
                 <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
                 <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
@@ -326,6 +327,7 @@
   <script src="./graphics-modes.js?v=two-color-hires"></script>
   <script src="./two-color.js?v=1"></script>
   <script src="./two-color-export.js?v=1"></script>
+  <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=feature-presets"></script>
   <script src="./source-levels.js?v=1"></script>
   <script src="./converter-controls.js?v=projects"></script>
@@ -439,6 +441,7 @@
     const ifliSave = document.getElementById('ifli-save');
     const afliSave = document.getElementById('afli-save');
     const twoColorSave = document.getElementById('two-color-save');
+    const multicolorSave = document.getElementById('multicolor-save');
     const nufliSave = document.getElementById('nufli-save');
     const nufliPrgSave = document.getElementById('nufli-prg-save');
     const pafliSave = document.getElementById('pafli-save');
@@ -752,6 +755,10 @@
 
     function isTwoColorMode() {
       return Boolean(currentGraphicsMode().twoColor);
+    }
+
+    function isMulticolorBitmapMode() {
+      return currentGraphicsMode().format === 'bitmap';
     }
 
     function isAfliMode() {
@@ -1241,6 +1248,15 @@
       return { pixels: getRestrictedTarget(), colorIndices: twoColorIndices };
     }
 
+    function ensureMulticolorResult() {
+      if (!isMulticolorBitmapMode() || !palettePixels) return null;
+      if (!fliResult) {
+        fliResult = optimizeMulticolorBitmapImage(getRestrictedTarget(), C64_PALETTE,
+          C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+      }
+      return fliResult;
+    }
+
     function updateIfliSaveState() {
       ifliSave.hidden = !isIfliMode();
       ifliSave.disabled = !isIfliMode() || !palettePixels ||
@@ -1250,6 +1266,8 @@
         preview.getAttribute('aria-busy') === 'true';
       twoColorSave.hidden = !isTwoColorMode();
       twoColorSave.disabled = !isTwoColorMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      multicolorSave.hidden = !isMulticolorBitmapMode();
+      multicolorSave.disabled = !isMulticolorBitmapMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       spriteLayersSave.hidden = !isSpriteMode();
       spriteLayersSave.disabled = !isSpriteMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
@@ -1263,6 +1281,7 @@
 
     for (const [button, encode, extension, ensureResult, name] of [
       [twoColorSave, encodeTwoColorHiresArt, 'art', ensureTwoColorResult, 'two-color hires'],
+      [multicolorSave, encodeMulticolorBitmapKoala, 'koa', ensureMulticolorResult, 'multicolor bitmap'],
       [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
       [nufliPrgSave, encodeNufliPrg, 'prg', ensureNufliResult, 'NUFLI'],
       [pafliSave, encodePafliPrg, 'prg', ensureAlternatingResult, 'PAFLI']
@@ -1556,6 +1575,8 @@
           ensureAfliResult();
         } else if (isNufliMode()) {
           ensureNufliResult();
+        } else if (isMulticolorBitmapMode()) {
+          ensureMulticolorResult();
         } else {
           const target = getRestrictedTarget();
           if (isTwoColorMode()) {
@@ -1563,8 +1584,7 @@
           } else if (currentGraphicsMode().format === 'hires') {
             fliResult = optimizeHiresBitmapImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
           } else {
-            const optimize = currentGraphicsMode().format === 'bitmap' ? optimizeMulticolorBitmapImage : optimizeFliImage;
-            fliResult = optimize(target, C64_PALETTE, C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+            fliResult = optimizeFliImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS, backgroundColorIndex);
           }
         }
       }

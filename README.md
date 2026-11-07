@@ -39,6 +39,11 @@ selected colors, stored as a native C64 hires bitmap. The 9,009-byte file contai
 a `$2000` load address, bitmap, screen colors, border color, and padding. Export
 always uses the converted image, even while viewing the unrestricted source.
 
+**Save Multicolor** downloads a Koala Painter `.koa` image in **Multicolor Bitmap**
+mode. The 10,003-byte file contains a `$6000` load address, bitmap, screen colors,
+color RAM, and the selected background color. Export uses the fitted composition
+from all visible layers, regardless of the selected preview tab.
+
 The IFLI preview alternates the two frames and shows them individually below
 the simulation:
 
