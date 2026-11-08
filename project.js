@@ -22,6 +22,16 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
     }
+    const spriteConfig = image.spriteConfig;
+    if (spriteConfig !== undefined) {
+      const colors = (value, count) => Array.isArray(value) && value.length === count && value.every(colorIndex);
+      if (!object(spriteConfig) || !integer(spriteConfig.columns, 1, 8) || !integer(spriteConfig.rows, 1, 8) ||
+          spriteConfig.columns * spriteConfig.rows > (image.graphicsMode === 'sprites-hires' ? 4 : 8) ||
+          !colors(spriteConfig.multicolorIndices, 2) || !colors(spriteConfig.spriteColorIndices, 8) ||
+          !colors(spriteConfig.overlayColorIndices, 8)) {
+        invalid('sprite grids require at most eight sprites and valid C64 colors');
+      }
+    }
     if (!object(view) || !['unrestricted', 'palette', 'restricted'].includes(view.previewMode) ||
         typeof view.grid !== 'boolean' || typeof view.paused !== 'boolean') {
       invalid('unsupported preview settings');
@@ -68,7 +78,13 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
       app: 'c64gfxconvert', version: 1,
       image: { graphicsMode: image.graphicsMode, backgroundColorIndex: image.backgroundColorIndex,
         spriteColorIndex: image.spriteColorIndex,
-        ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }) },
+        ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
+        ...(spriteConfig === undefined ? {} : { spriteConfig: {
+          columns: spriteConfig.columns, rows: spriteConfig.rows,
+          multicolorIndices: [...spriteConfig.multicolorIndices],
+          spriteColorIndices: [...spriteConfig.spriteColorIndices],
+          overlayColorIndices: [...spriteConfig.overlayColorIndices]
+        } }) },
       view: { previewMode: view.previewMode, grid: view.grid, paused: view.paused },
       activeLayer, layers: restored
     };

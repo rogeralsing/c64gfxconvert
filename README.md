@@ -3,7 +3,7 @@
 [Open the converter](https://rogeralsing.github.io/c64gfxconvert/)
 
 A browser-based Commodore 64 image converter with FLI, IFLI, MCI, AFLI, HIRES,
-Multicolor Bitmap and NUFLI modes, optional virtual colors, sprite
+Multicolor Bitmap, standalone Sprites and NUFLI modes, optional virtual colors, sprite
 overlays, and native exports. Image processing stays in your browser.
 
 <img src="assets/images/c64-studio-layers.png" alt="C64 Studio showing a layered FLI conversion and per-layer image settings" width="960">
@@ -23,9 +23,31 @@ Open `index.html` in a modern browser. No build step or server is required.
 | **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
 | **HIRES · 2 colors** | 320 × 200, square pixels | One user-selected shadow/highlight pair for the entire image. Source brightness drives the pattern; no automatic palette matching. |
 | **Multicolor Bitmap** | 160 × 200, double-width pixels | Three colors per 4 × 8 tile, plus one background color shared by the whole image. |
+| **Multicolor Sprites** | 12 × 21 double-width pixels per sprite | One shared background, two shared multicolors, and one individual color per sprite. Configurable grid, up to eight sprites. |
+| **Multicolor + Hires Sprites** | 24 × 21 display pixels per cell | A multicolor sprite beneath a hires sprite with its own color. Up to four cells, using eight hardware sprites. |
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+For standalone sprites, choose **Multicolor Sprites** or **Multicolor + Hires
+Sprites**. Set **Sprite grid · columns × rows** to a layout such as 1 × 1,
+1 × 8, or 2 × 2. Every cell covers 24 × 21 display pixels. The overlay mode
+uses two hardware sprites per cell, so 2 × 2 uses four multicolor sprites and
+four hires overlays. Switching to overlays reduces an oversized grid to 2 × 2.
+
+Choose the background and two shared multicolors, then use **Edit sprite colors**
+to choose each cell's multicolor sprite color and optional hires overlay color.
+The restricted preview fits only these colors. Source framing, adjustments,
+layers, and per-layer dithering remain available. Virtual colors and line-end
+dithering do not apply to standalone sprites. Overlay mode also shows the
+multicolor and hires layers separately.
+
+**Save sprites** downloads a ZIP containing `sprites.bin` and `manifest.json`.
+The binary contains one native 64-byte frame per hardware sprite: 63 image
+bytes and one zero padding byte. The manifest records colors, relative grid
+positions, hardware slots, and VIC enable/multicolor masks. Hires overlays occupy
+lower-numbered slots so they appear in front. The ZIP does not include a player.
+Saved projects preserve the sprite grid and every chosen color.
 
 For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
 and **Highlight color** from the normal C64 palette. Adjust **Brightness**,
@@ -69,7 +91,7 @@ show each layer on its own:
 | <img src="assets/images/c64-studio-background-layer.png" alt="Scenery layer visible with the figures layer hidden" width="480"> | <img src="assets/images/c64-studio-foreground-layer.png" alt="Figures layer visible with the scenery layer hidden" width="480"> |
 
 **Image** settings apply to the whole composition: graphics format, background
-color where the format supports it, and the hardware sprite color in sprite
+color where the format supports it, and hardware sprite colors in sprite
 modes. All layers use the same graphics format.
 
 Select a layer in **Layers** to edit its source image, position, scale,

@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=projects">
+  <link rel="stylesheet" href="./editor.css?v=sprite-grid">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -65,7 +65,7 @@
                 <button id="tab-restricted" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="restricted">FLI</button>
               </div>
               <div class="preview-actions">
-                <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked>Tile grid</label>
+                <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked><span id="grid-label">Tile grid</span></label>
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="mci-save" class="ifli-save" type="button" title="Save both converted frames as a True Paint (.mci) image" disabled hidden>Save MCI</button>
@@ -73,6 +73,7 @@
                 <button id="two-color-save" class="afli-save" type="button" title="Save the two-color bitmap as an Art Studio (.art) image" disabled hidden>Save Hires</button>
                 <button id="multicolor-save" class="afli-save" type="button" title="Save the converted multicolor bitmap as a Koala Painter (.koa) image" disabled hidden>Save Multicolor</button>
                 <button id="sprite-layers-save" class="afli-save" type="button" title="Save the combined bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save sprite ZIP</button>
+                <button id="sprite-grid-save" class="afli-save" type="button" title="Save hardware sprite frames and color/layout metadata as ZIP" disabled hidden>Save sprites</button>
                 <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
                 <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
                 <button id="pafli-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
@@ -158,6 +159,33 @@
                 <div id="sprite-palette" class="palette-swatches"></div>
                 <p id="sprite-color-value" class="background-value" role="status">1 · White · #FFFFFF</p>
               </fieldset>
+              </div>
+              <div id="sprite-grid-settings" class="image-control" hidden>
+                <div class="control-label"><label for="sprite-grid-size">Sprite grid · columns × rows</label></div>
+                <select id="sprite-grid-size" class="mode-select"></select>
+                <p id="sprite-grid-summary" class="background-value" role="status"></p>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 1</legend>
+                  <div id="sprite-grid-multi-1-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-multi-1-value" class="background-value"></p>
+                </fieldset>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 2</legend>
+                  <div id="sprite-grid-multi-2-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-multi-2-value" class="background-value"></p>
+                </fieldset>
+                <div class="control-label image-control"><label for="sprite-grid-selected">Edit sprite colors</label></div>
+                <select id="sprite-grid-selected" class="mode-select"></select>
+                <fieldset class="background-control image-control">
+                  <legend>Multicolor sprite color</legend>
+                  <div id="sprite-grid-color-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-color-value" class="background-value"></p>
+                </fieldset>
+                <fieldset id="sprite-grid-overlay-settings" class="background-control image-control" hidden>
+                  <legend>Hires overlay color</legend>
+                  <div id="sprite-grid-overlay-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-overlay-value" class="background-value"></p>
+                </fieldset>
               </div>
             </div>
           </details>
@@ -324,18 +352,21 @@
   <script src="./nufli-export.js?v=1"></script>
   <script src="./afli-sprites.js?v=layers"></script>
   <script src="./fli-sprites.js?v=layers"></script>
+  <script src="./sprite-grid.js?v=1"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
-  <script src="./graphics-modes.js?v=mci"></script>
+  <script src="./sprite-grid-export.js?v=1"></script>
+  <script src="./graphics-modes.js?v=sprite-grid"></script>
   <script src="./two-color.js?v=1"></script>
   <script src="./two-color-export.js?v=1"></script>
   <script src="./multicolor-export.js?v=1"></script>
-  <script src="./image-layout.js?v=feature-presets"></script>
+  <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=1"></script>
   <script src="./converter-controls.js?v=projects"></script>
+  <script src="./sprite-grid-controls.js?v=1"></script>
   <script src="./layers.js?v=projects"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=two-color-hires"></script>
+  <script src="./project.js?v=sprite-grid"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -449,6 +480,7 @@
     const nufliPrgSave = document.getElementById('nufli-prg-save');
     const pafliSave = document.getElementById('pafli-save');
     const spriteLayersSave = document.getElementById('sprite-layers-save');
+    const spriteGridSave = document.getElementById('sprite-grid-save');
     const spriteLayerViews = document.getElementById('sprite-layer-views');
     const spriteUnderlayCanvas = document.getElementById('sprite-underlay');
     const spriteLayerCanvas = document.getElementById('sprite-layer');
@@ -464,6 +496,7 @@
     let sourcePan = null;
     let unrestrictedPixels = null;
     let spriteSourcePixels = null;
+    let spriteGridDither = null;
     let palettePixels = null;
     let fliResult = null;
     let documentTargetPixels = null;
@@ -521,6 +554,14 @@
       valueElement: document.getElementById('sprite-color-value'),
       paletteContainer: document.getElementById('sprite-palette'),
       onChange: updatePalettePreview
+    });
+    const spriteGridControls = createC64SpriteGridControls({
+      root: document.getElementById('sprite-grid-settings'), palette: C64_PALETTE,
+      onChange(layoutChanged) {
+        finishSourcePan();
+        if (layoutChanged) layerStack.invalidate();
+        rebuildLayerComposite();
+      }
     });
     const virtualPaletteView = C64ConverterControls.createVirtualPaletteView({
       root: virtualPalette,
@@ -591,7 +632,7 @@
         layerStack.updateSettings(readLayerSettings());
         const json = projectCodec.stringify({
           image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
-            twoColorIndices },
+            twoColorIndices, spriteConfig: spriteGridControls.getState() },
           view: { previewMode: activeMode, grid: gridToggle.checked, paused: ifliPaused },
           activeLayer: layerStack.layers.indexOf(layerStack.active()),
           layers: layerStack.layers.map(layer => ({
@@ -638,6 +679,8 @@
         loadingLayers.clear();
         graphicsMode = project.image.graphicsMode;
         graphicsModeSelect.value = graphicsMode;
+        spriteGridControls.setState(project.image.spriteConfig);
+        spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
         setBackgroundColor(project.image.backgroundColorIndex);
         spriteControls.setColorIndex(project.image.spriteColorIndex);
         twoColorIndices = project.image.twoColorIndices || [0, 1];
@@ -761,11 +804,21 @@
     }
 
     function usesFullResolutionSource() {
-      return currentGraphicsMode().sourceWidth === 320;
+      return isStandaloneSpriteMode() || currentGraphicsMode().sourceWidth === 320;
+    }
+
+    function isStandaloneSpriteMode() {
+      return currentGraphicsMode().format === 'sprites';
+    }
+
+    function currentDisplaySize() {
+      const { columns, rows } = spriteGridControls.getState();
+      return isStandaloneSpriteMode() ? { width: columns * 24, height: rows * 21 }
+        : { width: 320, height: 200 };
     }
 
     function usesVirtualPalette() {
-      return !isTwoColorMode() && virtualColorsSelect.value !== 'off';
+      return !isStandaloneSpriteMode() && !isTwoColorMode() && virtualColorsSelect.value !== 'off';
     }
 
     function isTwoColorMode() {
@@ -811,7 +864,7 @@
       const placement = getC64ImagePlacement(layer.image.naturalWidth, layer.image.naturalHeight, graphicsMode, {
         scale: values['source-scale'] / 100,
         offsetX: values['source-position-x'], offsetY: values['source-position-y']
-      });
+      }, currentDisplaySize());
       const hiresCanvas = document.createElement('canvas');
       hiresCanvas.width = placement.canvasWidth;
       hiresCanvas.height = placement.canvasHeight;
@@ -835,14 +888,14 @@
       const modified = isMulticolorInterlaceMode() ? applyRgbNoise(interlaced, noise) : interlaced;
       // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
-      const mapping = !isTwoColorMode() && values['virtual-colors'] !== 'off'
+      const mapping = !isStandaloneSpriteMode() && !isTwoColorMode() && values['virtual-colors'] !== 'off'
         ? mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
           values.dither / 100, layer.settings.palette) : null;
       const mapped = isTwoColorMode() ? convertTwoColorHires(pixels, C64_PALETTE, twoColorIndices, values.dither / 100)
         : mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
       let target = mapping ? resolveVirtualPaletteColors(mapping, IFLI_VIRTUAL_PALETTE,
         C64_PALETTE, values['virtual-colors']) : mapped;
-      if (!isTwoColorMode() && values['scanline-dither']) {
+      if (!isStandaloneSpriteMode() && !isTwoColorMode() && values['scanline-dither']) {
         target = isMulticolorInterlaceMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
       }
       layer.cache = { format: graphicsMode, source: pixels, palette: mapped, target,
@@ -906,8 +959,9 @@
     });
     canvas.addEventListener('pointermove', event => {
       if (!sourcePan || event.pointerId !== sourcePan.pointerId) return;
-      const x = Math.round(sourcePan.offsetX + (event.clientX - sourcePan.x) * 320 / sourcePan.width);
-      const y = Math.round(sourcePan.offsetY + (event.clientY - sourcePan.y) * 200 / sourcePan.height);
+      const display = currentDisplaySize();
+      const x = Math.round(sourcePan.offsetX + (event.clientX - sourcePan.x) * display.width / sourcePan.width);
+      const y = Math.round(sourcePan.offsetY + (event.clientY - sourcePan.y) * display.height / sourcePan.height);
       const nextX = Math.max(Number(sourcePositionX.min), Math.min(Number(sourcePositionX.max), x));
       const nextY = Math.max(Number(sourcePositionY.min), Math.min(Number(sourcePositionY.max), y));
       if (nextX === sourcePositionX.valueAsNumber && nextY === sourcePositionY.valueAsNumber) return;
@@ -1113,16 +1167,34 @@
 
     function rebuildLayerComposite() {
       const visible = layerStack.layers.filter(layer => layer.visible && layer.image);
-      const width = currentGraphicsMode().sourceWidth;
+      const { width: displayWidth, height } = currentDisplaySize();
+      const width = isStandaloneSpriteMode() ? displayWidth : currentGraphicsMode().sourceWidth;
       const rendered = visible.map(renderImageLayer);
-      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), width, 200) : null;
+      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), width, height) : null;
       palettePixels = rendered.length ? (isTwoColorMode()
-        ? compositeTwoColorHires(rendered.map(layer => layer.palette), width, 200, C64_PALETTE[twoColorIndices[0]].rgb)
-        : compositeC64LayerPixels(rendered.map(layer => layer.palette), width, 200)) : null;
+        ? compositeTwoColorHires(rendered.map(layer => layer.palette), width, height, C64_PALETTE[twoColorIndices[0]].rgb)
+        : compositeC64LayerPixels(rendered.map(layer => layer.palette), width, height)) : null;
       documentTargetPixels = isTwoColorMode() ? palettePixels
-        : rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, 200) : null;
+        : rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, height) : null;
       spriteSourcePixels = isSpriteMode() && rendered.length
         ? compositeC64LayerPixels(rendered.map(layer => layer.spriteSource), 320, 200) : null;
+      spriteGridDither = null;
+      if (isStandaloneSpriteMode() && rendered.length) {
+        spriteGridDither = new Float32Array(width * height);
+        const opacity = new Float32Array(width * height);
+        // Compose dither strength with the same visible-layer coverage as source colors.
+        rendered.forEach((layer, index) => {
+          const strength = visible[index].settings.values.dither / 100;
+          for (let pixel = 0; pixel < opacity.length; pixel += 1) {
+            const alpha = layer.source.data[pixel * 4 + 3] / 255;
+            if (!alpha) continue;
+            const below = opacity[pixel] * (1 - alpha);
+            const combined = alpha + below;
+            spriteGridDither[pixel] = (strength * alpha + spriteGridDither[pixel] * below) / combined;
+            opacity[pixel] = combined;
+          }
+        });
+      }
       fliResult = null;
       ifliResult = null;
       const selected = renderImageLayer(layerStack.active());
@@ -1264,6 +1336,14 @@
       return { pixels: getRestrictedTarget(), colorIndices: twoColorIndices };
     }
 
+    function ensureSpriteGridResult() {
+      if (!isStandaloneSpriteMode() || !palettePixels) return null;
+      if (!fliResult) fliResult = createC64SpriteGridImage(unrestrictedPixels, C64_PALETTE, {
+        ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)
+      }, spriteGridDither);
+      return fliResult;
+    }
+
     function ensureMulticolorResult() {
       if (!isMulticolorBitmapMode() || !palettePixels) return null;
       if (!fliResult) {
@@ -1274,6 +1354,8 @@
     }
 
     function updateIfliSaveState() {
+      spriteGridSave.hidden = !isStandaloneSpriteMode();
+      spriteGridSave.disabled = !isStandaloneSpriteMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       ifliSave.hidden = !isIfliMode();
       ifliSave.disabled = !isIfliMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
@@ -1299,6 +1381,9 @@
 
     for (const [button, encode, extension, ensureResult, name] of [
       [mciSave, encodeTruePaintMci, 'mci', ensureMulticolorInterlaceResult, 'MCI'],
+      [spriteGridSave, result => encodeC64SpriteGrid(result, {
+        ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)
+      }), 'zip', ensureSpriteGridResult, 'sprites'],
       [twoColorSave, encodeTwoColorHiresArt, 'art', ensureTwoColorResult, 'two-color hires'],
       [multicolorSave, encodeMulticolorBitmapKoala, 'koa', ensureMulticolorResult, 'multicolor bitmap'],
       [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
@@ -1315,7 +1400,7 @@
             .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
             .replace(/^-+|-+$/g, '').slice(0, 12) || 'image';
           const filename = name === 'PAFLI' ? `${basename}-pafli.${extension}` : `${basename}.${extension}`;
-          objectUrl = URL.createObjectURL(new Blob([data], { type: 'application/octet-stream' }));
+          objectUrl = URL.createObjectURL(new Blob([data], { type: extension === 'zip' ? 'application/zip' : 'application/octet-stream' }));
           const link = document.createElement('a');
           link.href = objectUrl;
           link.download = filename;
@@ -1467,6 +1552,19 @@
 
     function updatePreviewDetails() {
       const mode = currentGraphicsMode();
+      const standaloneSprites = isStandaloneSpriteMode();
+      const display = currentDisplaySize();
+      const screen = document.querySelector('.screen');
+      screen.style.setProperty('--screen-aspect', `${display.width} / ${display.height}`);
+      screen.style.setProperty('--screen-fit-width', `${display.width / display.height * 100}cqh`);
+      screen.dataset.displayWidth = String(display.width);
+      const spriteConfig = spriteGridControls.getState();
+      tileGrid.style.backgroundSize = standaloneSprites
+        ? `${100 / spriteConfig.columns}% ${100 / spriteConfig.rows}%` : '';
+      document.getElementById('grid-label').textContent = standaloneSprites ? 'Sprite grid' : 'Tile grid';
+      document.getElementById('color-settings').hidden = standaloneSprites;
+      document.querySelector('[aria-label="Palette and color settings"]').dataset.inspectorPanel = standaloneSprites
+        ? 'image-settings' : 'color-settings';
       const multicolorInterlace = isMulticolorInterlaceMode();
       const spriteMode = isSpriteMode();
       const fliSprites = isFliSpriteMode();
@@ -1480,11 +1578,11 @@
       const restricted = activeMode === 'restricted';
       const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
       const singleSettings = visibleLayers[0]?.settings || layerStack.active().settings;
-      const virtualImagePalette = !twoColor && singleSettings.values['virtual-colors'] !== 'off';
+      const virtualImagePalette = !standaloneSprites && !twoColor && singleSettings.values['virtual-colors'] !== 'off';
       const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
         ? `${IFLI_VIRTUAL_PALETTE.length - singleSettings.palette.excludedIndices.length} virtual colors` : '16 C64 colors';
-      const widePixels = !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
-      const resolution = usesFullResolutionSource() ? '320 × 200' : '160 × 200';
+      const widePixels = !standaloneSprites && !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
+      const resolution = standaloneSprites ? `${display.width} × ${display.height}` : usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
       const imageWidth = (320 - leftInset) / (usesFullResolutionSource() || spriteMode ? 1 : 2);
       restrictedTab.textContent = bitmap ? 'Bitmap' : name;
@@ -1494,33 +1592,38 @@
       virtualPaletteView.setVisible(usesVirtualPalette());
       document.getElementById('two-color-settings').hidden = !twoColor;
       for (const picker of twoColorPickers) picker.setEnabled(twoColor);
-      virtualColorsSelect.disabled = twoColor;
-      virtualColorsSelect.closest('.image-control').hidden = twoColor;
-      document.getElementById('scanline-dither').disabled = twoColor;
-      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor;
+      virtualColorsSelect.disabled = twoColor || standaloneSprites;
+      virtualColorsSelect.closest('.image-control').hidden = twoColor || standaloneSprites;
+      document.getElementById('scanline-dither').disabled = twoColor || standaloneSprites;
+      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor || standaloneSprites;
       document.getElementById('tab-palette').textContent = twoColor ? 'Two colors' : 'C64 Palette';
       backgroundSettings.hidden = hires || afli || nufli || pafli;
       backgroundSettings.querySelector('fieldset').disabled = hires || afli || nufli || pafli;
       backgroundPicker.setEnabled(!hires && !afli && !nufli && !pafli);
       spriteControls.setVisible(spriteMode);
       document.getElementById('sprite-color-settings').hidden = !spriteMode;
+      spriteGridControls.setVisible(standaloneSprites);
       document.getElementById('format-resolution').textContent = fliSprites ? `${resolution} + sprites` : resolution;
       document.getElementById('image-area-row').hidden = leftInset === 0;
       document.getElementById('image-area-row').title = pafli ? '28 pixels reserved for both AFLI phases' : `${leftInset / 8} character columns reserved on the left`;
       document.getElementById('format-image-area').textContent = `${imageWidth} × ${pafli ? 192 : 200}`;
-      document.getElementById('format-pixel-ratio').textContent = fliSprites ? '2:1 + 1:1' : widePixels ? '2 : 1' : '1 : 1';
+      document.getElementById('format-pixel-ratio').textContent = standaloneSprites
+        ? mode.hiresOverlay ? '2:1 + 1:1' : '2 : 1' : fliSprites ? '2:1 + 1:1' : widePixels ? '2 : 1' : '1 : 1';
       document.getElementById('canvas-resolution').textContent = isAlternatingPreview()
         ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
-      document.getElementById('color-mode').textContent = restricted ? (twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : isMciMode() ? '4 colors per tile · 2 frames' : multicolorInterlace ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
+      document.getElementById('color-mode').textContent = restricted ? (standaloneSprites
+        ? `4 colors per sprite${mode.hiresOverlay ? ' + hires overlay' : ''}` : twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : isMciMode() ? '4 colors per tile · 2 frames' : multicolorInterlace ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
         : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
       const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
         : activeMode === 'palette' ? (twoColor ? 'TWO-COLOR HIRES' : visibleLayers.length > 1 ? 'LAYER PALETTES'
           : virtualImagePalette ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
       document.getElementById('footer-format').textContent = isAlternatingPreview()
-        ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1' : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
+        ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1'
+        : standaloneSprites && restricted ? `${resolution} / ${mode.hiresOverlay ? 'mixed pixels' : '2:1 sprite pixels'}`
+          : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
     }
 
     function renderIfliFrameViews() {
@@ -1528,7 +1631,7 @@
       const wasVisible = !ifliFrameViews.hidden;
       ifliFrameViews.hidden = !visible;
       previewPanel.classList.toggle('ifli-details-visible', visible ||
-        (isSpriteMode() && activeMode === 'restricted' && Boolean(fliResult)));
+        ((isSpriteMode() || (isStandaloneSpriteMode() && currentGraphicsMode().hiresOverlay)) && activeMode === 'restricted' && Boolean(fliResult)));
       if (wasVisible !== visible) previewPanel.scrollTop = 0;
       if (!visible || ifliFrameViewsResult === ifliResult) return;
 
@@ -1562,23 +1665,32 @@
     }
 
     function renderSpriteLayerViews() {
-      const visible = isSpriteMode() && activeMode === 'restricted' && Boolean(fliResult);
+      const standalone = isStandaloneSpriteMode() && currentGraphicsMode().hiresOverlay;
+      const visible = (isSpriteMode() || standalone) && activeMode === 'restricted' && Boolean(fliResult);
       const wasVisible = !spriteLayerViews.hidden;
       spriteLayerViews.hidden = !visible;
       if (wasVisible !== visible) previewPanel.scrollTop = 0;
       if (!visible || spriteLayerViewsResult === fliResult) return;
-      const type = isFliSpriteMode() ? 'FLI' : 'AFLI';
-      const underlay = (isFliSpriteMode() ? fliResult.fli : fliResult.afli).pixels;
+      const type = standalone ? 'Multicolor sprites' : isFliSpriteMode() ? 'FLI' : 'AFLI';
+      const underlay = standalone ? fliResult.multicolorPixels : (isFliSpriteMode() ? fliResult.fli : fliResult.afli).pixels;
+      const overlay = standalone ? fliResult.overlayPixels : fliResult.spritePixels;
       spriteUnderlayCanvas.width = underlay.width;
       spriteUnderlayCanvas.height = underlay.height;
       spriteUnderlayCanvas.getContext('2d').putImageData(underlay, 0, 0);
-      spriteLayerCanvas.getContext('2d').putImageData(fliResult.spritePixels, 0, 0);
+      spriteLayerCanvas.width = overlay.width;
+      spriteLayerCanvas.height = overlay.height;
+      spriteLayerCanvas.getContext('2d').putImageData(overlay, 0, 0);
+      for (const target of [spriteUnderlayCanvas, spriteLayerCanvas]) {
+        target.style.aspectRatio = standalone ? `${underlay.width} / ${underlay.height}` : '';
+      }
       document.getElementById('sprite-layer-heading').textContent = `${type} and sprite layers`;
       document.getElementById('sprite-underlay-name').textContent = `${type} image`;
       document.getElementById('sprite-underlay-resolution').textContent = `${underlay.width} × ${underlay.height}`;
       spriteUnderlayCanvas.setAttribute('aria-label', `${imageName}, fitted ${type} image beneath the sprite layer`);
-      spriteLayerCanvas.setAttribute('aria-label', `${imageName}, ${C64_PALETTE[fliResult.spriteColorIndex].name} sprite layer with transparent holes`);
-      document.getElementById('sprite-pixel-count').textContent = `${fliResult.spritePixelCount.toLocaleString()} pixels`;
+      spriteLayerCanvas.setAttribute('aria-label', standalone ? `${imageName}, hires sprite overlay with transparent holes`
+        : `${imageName}, ${C64_PALETTE[fliResult.spriteColorIndex].name} sprite layer with transparent holes`);
+      document.getElementById('sprite-pixel-count').textContent = standalone
+        ? `${spriteGridControls.getState().columns * spriteGridControls.getState().rows} hires sprites` : `${fliResult.spritePixelCount.toLocaleString()} pixels`;
       spriteLayerViewsResult = fliResult;
     }
 
@@ -1588,7 +1700,9 @@
       updateIfliSaveState();
       previewStatus.textContent = unrestrictedPixels ? 'Image loaded' : 'No image open';
       if (activeMode === 'restricted' && !isAlternatingMode() && palettePixels && !fliResult) {
-        if (isSpriteMode()) {
+        if (isStandaloneSpriteMode()) {
+          ensureSpriteGridResult();
+        } else if (isSpriteMode()) {
           ensureSpriteResult();
         } else if (isAfliMode()) {
           ensureAfliResult();
@@ -1629,6 +1743,7 @@
         ? `${currentGraphicsMode().label} alternating frames` : currentGraphicsMode().label)
         : activeMode === 'palette' ? 'C64 Palette' : 'Unrestricted';
       const format = isAlternatingPreview() ? (isPafliMode() ? 'two aligned 320 by 200 square-pixel frames' : 'two 160 by 200 double-width frames')
+        : isStandaloneSpriteMode() ? `${pixels.width} by ${pixels.height} pixels, ${spriteGridControls.getState().columns} by ${spriteGridControls.getState().rows} sprite grid`
         : isFliSpriteMode() && activeMode === 'restricted' ? '320 by 200, double-width bitmap pixels with hires sprites'
           : usesFullResolutionSource() ? '320 by 200 square pixels' : '160 by 200 double-width pixels';
       const leftInset = getC64ImageLeftInset(graphicsMode);
@@ -1675,9 +1790,10 @@
       finishSourcePan();
       stopIfliAnimation();
       graphicsMode = graphicsModeSelect.value;
+      spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
       layerStack.invalidate();
       rebuildLayerComposite();
-      if (isTwoColorMode()) selectPreviewTab(restrictedTab);
+      if (isTwoColorMode() || isStandaloneSpriteMode()) selectPreviewTab(restrictedTab);
       announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
     });
 
