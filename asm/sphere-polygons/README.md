@@ -1,5 +1,7 @@
 # Live polygons through a fixed C64 charset
 
+The measured delta/cache follow-up is in [optimization/README.md](optimization/README.md). Five kernels were tried; the shared-edge football variant passed native checks and measured 5.012 FPS on the sampled PAL poses.
+
 This PAL C64 experiment rotates two complete 3D meshes and converts their visible white faces into characters from a fixed, mathematically generated 256-character font. Yaw, pitch and roll are independent runtime values. The 6510 calculates each frame; there are no stored animation frames or screen deltas.
 
 | Model | Shared vertices | Faces |

@@ -1,0 +1,1279 @@
+{
+  "framesPerCase": 512,
+  "curveCapacity": 24,
+  "cases": {
+    "checker/0": {
+      "edges": 32452,
+      "edgeSamples": 270704,
+      "maximumSamples": 19,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 824,
+          "misses": 31628,
+          "bypasses": 0,
+          "hitRate": 0.025391347220510292,
+          "sampleHitRate": 0.023368697913588275
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 854,
+          "misses": 31598,
+          "bypasses": 0,
+          "hitRate": 0.02631578947368421,
+          "sampleHitRate": 0.02382676281104084
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 792,
+          "misses": 31660,
+          "bypasses": 0,
+          "hitRate": 0.024405275483791445,
+          "sampleHitRate": 0.022430403688161238
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 822,
+          "misses": 31630,
+          "bypasses": 0,
+          "hitRate": 0.025329717736965365,
+          "sampleHitRate": 0.0229771263077014
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 852,
+          "misses": 31600,
+          "bypasses": 0,
+          "hitRate": 0.026254159990139282,
+          "sampleHitRate": 0.02368638808440215
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 1260,
+          "misses": 31192,
+          "bypasses": 0,
+          "hitRate": 0.03882657463330457,
+          "sampleHitRate": 0.03576600271883681
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 1228,
+          "misses": 31224,
+          "bypasses": 0,
+          "hitRate": 0.03784050289658573,
+          "sampleHitRate": 0.03495330693303387
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 1206,
+          "misses": 31246,
+          "bypasses": 0,
+          "hitRate": 0.03716257857759152,
+          "sampleHitRate": 0.0345321827531178
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 1256,
+          "misses": 31196,
+          "bypasses": 0,
+          "hitRate": 0.03870331566621472,
+          "sampleHitRate": 0.03558129913115432
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 1274,
+          "misses": 31178,
+          "bypasses": 0,
+          "hitRate": 0.039257981018119066,
+          "sampleHitRate": 0.03653436964359596
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 1260,
+          "misses": 31192,
+          "bypasses": 0,
+          "hitRate": 0.03882657463330457,
+          "sampleHitRate": 0.03576600271883681
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 1506,
+          "misses": 30946,
+          "bypasses": 0,
+          "hitRate": 0.0464070011093307,
+          "sampleHitRate": 0.044764761510727585
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 1432,
+          "misses": 31020,
+          "bypasses": 0,
+          "hitRate": 0.04412671021816837,
+          "sampleHitRate": 0.040627401146639874
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 1594,
+          "misses": 30858,
+          "bypasses": 0,
+          "hitRate": 0.04911869838530753,
+          "sampleHitRate": 0.046035522193983096
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 1624,
+          "misses": 30828,
+          "bypasses": 0,
+          "hitRate": 0.05004314063848145,
+          "sampleHitRate": 0.04705508599799042
+        }
+      }
+    },
+    "checker/1": {
+      "edges": 32592,
+      "edgeSamples": 270288,
+      "maximumSamples": 18,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 467,
+          "misses": 32125,
+          "bypasses": 0,
+          "hitRate": 0.014328669612174766,
+          "sampleHitRate": 0.01197241460960161
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 416,
+          "misses": 32176,
+          "bypasses": 0,
+          "hitRate": 0.012763868433971527,
+          "sampleHitRate": 0.01007813887408986
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 507,
+          "misses": 32085,
+          "bypasses": 0,
+          "hitRate": 0.015555964653902798,
+          "sampleHitRate": 0.012516278932102054
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 567,
+          "misses": 32025,
+          "bypasses": 0,
+          "hitRate": 0.017396907216494846,
+          "sampleHitRate": 0.015194903214349138
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 506,
+          "misses": 32086,
+          "bypasses": 0,
+          "hitRate": 0.015525282277859598,
+          "sampleHitRate": 0.012220298348428343
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 841,
+          "misses": 31751,
+          "bypasses": 0,
+          "hitRate": 0.02580387825233186,
+          "sampleHitRate": 0.020489255904812643
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 674,
+          "misses": 31918,
+          "bypasses": 0,
+          "hitRate": 0.02067992145311733,
+          "sampleHitRate": 0.01698188598827917
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 866,
+          "misses": 31726,
+          "bypasses": 0,
+          "hitRate": 0.02657093765341188,
+          "sampleHitRate": 0.022561119990528622
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 850,
+          "misses": 31742,
+          "bypasses": 0,
+          "hitRate": 0.02608001963672067,
+          "sampleHitRate": 0.02232433552358965
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 873,
+          "misses": 31719,
+          "bypasses": 0,
+          "hitRate": 0.026785714285714284,
+          "sampleHitRate": 0.020222873379506304
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 841,
+          "misses": 31751,
+          "bypasses": 0,
+          "hitRate": 0.02580387825233186,
+          "sampleHitRate": 0.020489255904812643
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 1061,
+          "misses": 31531,
+          "bypasses": 0,
+          "hitRate": 0.032554000981836036,
+          "sampleHitRate": 0.03144423725803587
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 1210,
+          "misses": 31382,
+          "bypasses": 0,
+          "hitRate": 0.03712567501227295,
+          "sampleHitRate": 0.031566329248801275
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 1291,
+          "misses": 31301,
+          "bypasses": 0,
+          "hitRate": 0.03961094747177221,
+          "sampleHitRate": 0.033364411294619076
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 1249,
+          "misses": 31343,
+          "bypasses": 0,
+          "hitRate": 0.038322287677957784,
+          "sampleHitRate": 0.03143683774344403
+        }
+      }
+    },
+    "checker/2": {
+      "edges": 32252,
+      "edgeSamples": 264272,
+      "maximumSamples": 19,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 1495,
+          "misses": 30757,
+          "bypasses": 0,
+          "hitRate": 0.046353714498325684,
+          "sampleHitRate": 0.03932690561239935
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 1529,
+          "misses": 30723,
+          "bypasses": 0,
+          "hitRate": 0.04740791268758526,
+          "sampleHitRate": 0.04106375249742689
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 1441,
+          "misses": 30811,
+          "bypasses": 0,
+          "hitRate": 0.044679399727148704,
+          "sampleHitRate": 0.041733516982502876
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 1598,
+          "misses": 30654,
+          "bypasses": 0,
+          "hitRate": 0.0495473148952003,
+          "sampleHitRate": 0.04408336865048132
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 1479,
+          "misses": 30773,
+          "bypasses": 0,
+          "hitRate": 0.045857621232791766,
+          "sampleHitRate": 0.03829387903372283
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 2655,
+          "misses": 29597,
+          "bypasses": 0,
+          "hitRate": 0.08232047624953491,
+          "sampleHitRate": 0.07060528546346188
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 2978,
+          "misses": 29274,
+          "bypasses": 0,
+          "hitRate": 0.09233535904750093,
+          "sampleHitRate": 0.07882409033117395
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 2920,
+          "misses": 29332,
+          "bypasses": 0,
+          "hitRate": 0.09053702095994047,
+          "sampleHitRate": 0.08495035418054125
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 2990,
+          "misses": 29262,
+          "bypasses": 0,
+          "hitRate": 0.09270742899665137,
+          "sampleHitRate": 0.08633907489253496
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 2730,
+          "misses": 29522,
+          "bypasses": 0,
+          "hitRate": 0.08464591343172516,
+          "sampleHitRate": 0.07539580432281891
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 2655,
+          "misses": 29597,
+          "bypasses": 0,
+          "hitRate": 0.08232047624953491,
+          "sampleHitRate": 0.07060528546346188
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 4192,
+          "misses": 28060,
+          "bypasses": 0,
+          "hitRate": 0.12997643556988714,
+          "sampleHitRate": 0.12458376218441605
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 3868,
+          "misses": 28384,
+          "bypasses": 0,
+          "hitRate": 0.11993054694282525,
+          "sampleHitRate": 0.1101819337652116
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 4489,
+          "misses": 27763,
+          "bypasses": 0,
+          "hitRate": 0.13918516681136053,
+          "sampleHitRate": 0.12909426651328934
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 4243,
+          "misses": 28009,
+          "bypasses": 0,
+          "hitRate": 0.1315577328537765,
+          "sampleHitRate": 0.12121601985832778
+        }
+      }
+    },
+    "checker/3": {
+      "edges": 32792,
+      "edgeSamples": 275148,
+      "maximumSamples": 19,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 1037,
+          "misses": 31755,
+          "bypasses": 0,
+          "hitRate": 0.031623566723591116,
+          "sampleHitRate": 0.02471760652448864
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 1046,
+          "misses": 31746,
+          "bypasses": 0,
+          "hitRate": 0.03189802390827031,
+          "sampleHitRate": 0.02696003605332403
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 1006,
+          "misses": 31786,
+          "bypasses": 0,
+          "hitRate": 0.030678214198585022,
+          "sampleHitRate": 0.026683821070841874
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 1038,
+          "misses": 31754,
+          "bypasses": 0,
+          "hitRate": 0.031654061966333254,
+          "sampleHitRate": 0.025440853649672177
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 995,
+          "misses": 31797,
+          "bypasses": 0,
+          "hitRate": 0.030342766528421567,
+          "sampleHitRate": 0.02608414380624246
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 1865,
+          "misses": 30927,
+          "bypasses": 0,
+          "hitRate": 0.056873627714076606,
+          "sampleHitRate": 0.04646590198729411
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 1748,
+          "misses": 31044,
+          "bypasses": 0,
+          "hitRate": 0.053305684313247136,
+          "sampleHitRate": 0.04515751522816811
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 1776,
+          "misses": 31016,
+          "bypasses": 0,
+          "hitRate": 0.054159551110026835,
+          "sampleHitRate": 0.047203686743134604
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 1776,
+          "misses": 31016,
+          "bypasses": 0,
+          "hitRate": 0.054159551110026835,
+          "sampleHitRate": 0.04417985956648785
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 1820,
+          "misses": 30972,
+          "bypasses": 0,
+          "hitRate": 0.055501341790680656,
+          "sampleHitRate": 0.046647622370506056
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 1865,
+          "misses": 30927,
+          "bypasses": 0,
+          "hitRate": 0.056873627714076606,
+          "sampleHitRate": 0.04646590198729411
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 2234,
+          "misses": 30558,
+          "bypasses": 0,
+          "hitRate": 0.0681263722859234,
+          "sampleHitRate": 0.05945527497928388
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 2271,
+          "misses": 30521,
+          "bypasses": 0,
+          "hitRate": 0.06925469626738229,
+          "sampleHitRate": 0.059004608428918255
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 2518,
+          "misses": 30274,
+          "bypasses": 0,
+          "hitRate": 0.07678702122468894,
+          "sampleHitRate": 0.06577187549973106
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 2598,
+          "misses": 30194,
+          "bypasses": 0,
+          "hitRate": 0.07922664064405953,
+          "sampleHitRate": 0.06713841278148487
+        }
+      }
+    },
+    "football/0": {
+      "edges": 29280,
+      "edgeSamples": 212896,
+      "maximumSamples": 15,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 5208,
+          "misses": 24072,
+          "bypasses": 0,
+          "hitRate": 0.1778688524590164,
+          "sampleHitRate": 0.17342740117240343
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 5182,
+          "misses": 24098,
+          "bypasses": 0,
+          "hitRate": 0.1769808743169399,
+          "sampleHitRate": 0.17245039831654893
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 5111,
+          "misses": 24169,
+          "bypasses": 0,
+          "hitRate": 0.17455601092896175,
+          "sampleHitRate": 0.1717646174658049
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 5231,
+          "misses": 24049,
+          "bypasses": 0,
+          "hitRate": 0.17865437158469946,
+          "sampleHitRate": 0.1752029159777544
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 5264,
+          "misses": 24016,
+          "bypasses": 0,
+          "hitRate": 0.17978142076502732,
+          "sampleHitRate": 0.17688448820081165
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 6126,
+          "misses": 23154,
+          "bypasses": 0,
+          "hitRate": 0.20922131147540984,
+          "sampleHitRate": 0.20827070494513752
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 6294,
+          "misses": 22986,
+          "bypasses": 0,
+          "hitRate": 0.21495901639344261,
+          "sampleHitRate": 0.21100443408988426
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 6257,
+          "misses": 23023,
+          "bypasses": 0,
+          "hitRate": 0.21369535519125682,
+          "sampleHitRate": 0.20918194799338644
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 6425,
+          "misses": 22855,
+          "bypasses": 0,
+          "hitRate": 0.21943306010928962,
+          "sampleHitRate": 0.21656583496167142
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 6412,
+          "misses": 22868,
+          "bypasses": 0,
+          "hitRate": 0.21898907103825135,
+          "sampleHitRate": 0.2157485344957162
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 6126,
+          "misses": 23154,
+          "bypasses": 0,
+          "hitRate": 0.20922131147540984,
+          "sampleHitRate": 0.20827070494513752
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 6664,
+          "misses": 22616,
+          "bypasses": 0,
+          "hitRate": 0.22759562841530054,
+          "sampleHitRate": 0.2263828348113633
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 6591,
+          "misses": 22689,
+          "bypasses": 0,
+          "hitRate": 0.22510245901639345,
+          "sampleHitRate": 0.21809709905305877
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 7183,
+          "misses": 22097,
+          "bypasses": 0,
+          "hitRate": 0.2453210382513661,
+          "sampleHitRate": 0.24231549676837516
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 7165,
+          "misses": 22115,
+          "bypasses": 0,
+          "hitRate": 0.24470628415300547,
+          "sampleHitRate": 0.24227791973545768
+        }
+      }
+    },
+    "football/1": {
+      "edges": 29440,
+      "edgeSamples": 214288,
+      "maximumSamples": 15,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 4923,
+          "misses": 24517,
+          "bypasses": 0,
+          "hitRate": 0.16722146739130433,
+          "sampleHitRate": 0.17284215635033226
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 5147,
+          "misses": 24293,
+          "bypasses": 0,
+          "hitRate": 0.17483016304347826,
+          "sampleHitRate": 0.17580545807511386
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 5084,
+          "misses": 24356,
+          "bypasses": 0,
+          "hitRate": 0.17269021739130436,
+          "sampleHitRate": 0.1726648249085343
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 5123,
+          "misses": 24317,
+          "bypasses": 0,
+          "hitRate": 0.1740149456521739,
+          "sampleHitRate": 0.17244082729784216
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 5202,
+          "misses": 24238,
+          "bypasses": 0,
+          "hitRate": 0.1766983695652174,
+          "sampleHitRate": 0.17899742402747704
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 6213,
+          "misses": 23227,
+          "bypasses": 0,
+          "hitRate": 0.21103940217391304,
+          "sampleHitRate": 0.22047898155753004
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 6534,
+          "misses": 22906,
+          "bypasses": 0,
+          "hitRate": 0.2219429347826087,
+          "sampleHitRate": 0.22480493541402224
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 6635,
+          "misses": 22805,
+          "bypasses": 0,
+          "hitRate": 0.22537364130434784,
+          "sampleHitRate": 0.2352814903307698
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 6495,
+          "misses": 22945,
+          "bypasses": 0,
+          "hitRate": 0.22061820652173914,
+          "sampleHitRate": 0.22478160232957514
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 6567,
+          "misses": 22873,
+          "bypasses": 0,
+          "hitRate": 0.22306385869565218,
+          "sampleHitRate": 0.2292335548420817
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 6213,
+          "misses": 23227,
+          "bypasses": 0,
+          "hitRate": 0.21103940217391304,
+          "sampleHitRate": 0.22047898155753004
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 6802,
+          "misses": 22638,
+          "bypasses": 0,
+          "hitRate": 0.2310461956521739,
+          "sampleHitRate": 0.2378154633017248
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 7215,
+          "misses": 22225,
+          "bypasses": 0,
+          "hitRate": 0.24507472826086957,
+          "sampleHitRate": 0.25556727394907786
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 7670,
+          "misses": 21770,
+          "bypasses": 0,
+          "hitRate": 0.26052989130434784,
+          "sampleHitRate": 0.26827913835585754
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 7331,
+          "misses": 22109,
+          "bypasses": 0,
+          "hitRate": 0.2490149456521739,
+          "sampleHitRate": 0.25705592473680283
+        }
+      }
+    },
+    "football/2": {
+      "edges": 27664,
+      "edgeSamples": 211304,
+      "maximumSamples": 14,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 7830,
+          "misses": 19834,
+          "bypasses": 0,
+          "hitRate": 0.28303932909196067,
+          "sampleHitRate": 0.29465604058607503
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 7366,
+          "misses": 20298,
+          "bypasses": 0,
+          "hitRate": 0.26626662810873336,
+          "sampleHitRate": 0.27769469579373796
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 7300,
+          "misses": 20364,
+          "bypasses": 0,
+          "hitRate": 0.26388085598611916,
+          "sampleHitRate": 0.2728012721008594
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 7022,
+          "misses": 20642,
+          "bypasses": 0,
+          "hitRate": 0.2538316946211683,
+          "sampleHitRate": 0.2691856282891001
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 7658,
+          "misses": 20006,
+          "bypasses": 0,
+          "hitRate": 0.2768218623481781,
+          "sampleHitRate": 0.28685685079317
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 9598,
+          "misses": 18066,
+          "bypasses": 0,
+          "hitRate": 0.3469491035280509,
+          "sampleHitRate": 0.3795858100177943
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 9441,
+          "misses": 18223,
+          "bypasses": 0,
+          "hitRate": 0.34127385772122615,
+          "sampleHitRate": 0.34978041116117065
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 9403,
+          "misses": 18261,
+          "bypasses": 0,
+          "hitRate": 0.3399002313475998,
+          "sampleHitRate": 0.3498513989323439
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 8792,
+          "misses": 18872,
+          "bypasses": 0,
+          "hitRate": 0.31781376518218624,
+          "sampleHitRate": 0.33570590239654713
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 9634,
+          "misses": 18030,
+          "bypasses": 0,
+          "hitRate": 0.3482504337767496,
+          "sampleHitRate": 0.35998845265588914
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 9598,
+          "misses": 18066,
+          "bypasses": 0,
+          "hitRate": 0.3469491035280509,
+          "sampleHitRate": 0.3795858100177943
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 10860,
+          "misses": 16804,
+          "bypasses": 0,
+          "hitRate": 0.392567958357432,
+          "sampleHitRate": 0.40883277174118804
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 9403,
+          "misses": 18261,
+          "bypasses": 0,
+          "hitRate": 0.3399002313475998,
+          "sampleHitRate": 0.3498513989323439
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 11197,
+          "misses": 16467,
+          "bypasses": 0,
+          "hitRate": 0.40474985540775016,
+          "sampleHitRate": 0.42467250974898724
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 11420,
+          "misses": 16244,
+          "bypasses": 0,
+          "hitRate": 0.41281087333718913,
+          "sampleHitRate": 0.4238727141937682
+        }
+      }
+    },
+    "football/3": {
+      "edges": 29724,
+      "edgeSamples": 217008,
+      "maximumSamples": 15,
+      "candidates": {
+        "32/xor": {
+          "slots": 32,
+          "hash": "xor",
+          "hits": 4826,
+          "misses": 24898,
+          "bypasses": 0,
+          "hitRate": 0.16236038218274795,
+          "sampleHitRate": 0.16499391727493917
+        },
+        "32/y2": {
+          "slots": 32,
+          "hash": "y2",
+          "hits": 4973,
+          "misses": 24751,
+          "bypasses": 0,
+          "hitRate": 0.16730588076974834,
+          "sampleHitRate": 0.1691135810661358
+        },
+        "32/x2": {
+          "slots": 32,
+          "hash": "x2",
+          "hits": 4548,
+          "misses": 25176,
+          "bypasses": 0,
+          "hitRate": 0.15300767056923698,
+          "sampleHitRate": 0.1573674703236747
+        },
+        "32/y4p2": {
+          "slots": 32,
+          "hash": "y4p2",
+          "hits": 4588,
+          "misses": 25136,
+          "bypasses": 0,
+          "hitRate": 0.15435338447046157,
+          "sampleHitRate": 0.15745963282459632
+        },
+        "32/y5": {
+          "slots": 32,
+          "hash": "y5",
+          "hits": 4916,
+          "misses": 24808,
+          "bypasses": 0,
+          "hitRate": 0.1653882384605033,
+          "sampleHitRate": 0.1672472904224729
+        },
+        "64/xor": {
+          "slots": 64,
+          "hash": "xor",
+          "hits": 6199,
+          "misses": 23525,
+          "bypasses": 0,
+          "hitRate": 0.20855201184228234,
+          "sampleHitRate": 0.2184435596844356
+        },
+        "64/y2": {
+          "slots": 64,
+          "hash": "y2",
+          "hits": 6312,
+          "misses": 23412,
+          "bypasses": 0,
+          "hitRate": 0.21235365361324182,
+          "sampleHitRate": 0.21786293592862935
+        },
+        "64/x2": {
+          "slots": 64,
+          "hash": "x2",
+          "hits": 6048,
+          "misses": 23676,
+          "bypasses": 0,
+          "hitRate": 0.20347194186515946,
+          "sampleHitRate": 0.20449476516994766
+        },
+        "64/y4p2": {
+          "slots": 64,
+          "hash": "y4p2",
+          "hits": 6237,
+          "misses": 23487,
+          "bypasses": 0,
+          "hitRate": 0.2098304400484457,
+          "sampleHitRate": 0.21338383838383837
+        },
+        "64/y5": {
+          "slots": 64,
+          "hash": "y5",
+          "hits": 6370,
+          "misses": 23354,
+          "bypasses": 0,
+          "hitRate": 0.2143049387700175,
+          "sampleHitRate": 0.21763713780137137
+        },
+        "128/xor": {
+          "slots": 128,
+          "hash": "xor",
+          "hits": 6199,
+          "misses": 23525,
+          "bypasses": 0,
+          "hitRate": 0.20855201184228234,
+          "sampleHitRate": 0.2184435596844356
+        },
+        "128/y2": {
+          "slots": 128,
+          "hash": "y2",
+          "hits": 6784,
+          "misses": 22940,
+          "bypasses": 0,
+          "hitRate": 0.2282330776476921,
+          "sampleHitRate": 0.2374935486249355
+        },
+        "128/x2": {
+          "slots": 128,
+          "hash": "x2",
+          "hits": 6539,
+          "misses": 23185,
+          "bypasses": 0,
+          "hitRate": 0.21999058000269142,
+          "sampleHitRate": 0.21929606281796063
+        },
+        "128/y4p2": {
+          "slots": 128,
+          "hash": "y4p2",
+          "hits": 7634,
+          "misses": 22090,
+          "bypasses": 0,
+          "hitRate": 0.25682949804871485,
+          "sampleHitRate": 0.2589720194647202
+        },
+        "128/y5": {
+          "slots": 128,
+          "hash": "y5",
+          "hits": 7490,
+          "misses": 22234,
+          "bypasses": 0,
+          "hitRate": 0.2519849280043063,
+          "sampleHitRate": 0.2552855194278552
+        }
+      }
+    }
+  },
+  "totals": {
+    "32/xor": {
+      "hits": 26610,
+      "misses": 219586,
+      "edges": 246196,
+      "sampleHits": 198783,
+      "samples": 1935908,
+      "hitRate": 0.10808461550959399,
+      "sampleHitRate": 0.1026820489403422
+    },
+    "32/y2": {
+      "hits": 26513,
+      "misses": 219683,
+      "edges": 246196,
+      "sampleHits": 197208,
+      "samples": 1935908,
+      "hitRate": 0.10769062048124259,
+      "sampleHitRate": 0.10186847722102496
+    },
+    "32/x2": {
+      "hits": 25789,
+      "misses": 220407,
+      "edges": 246196,
+      "sampleHits": 193188,
+      "samples": 1935908,
+      "hitRate": 0.10474987408406311,
+      "sampleHitRate": 0.09979193226124382
+    },
+    "32/y4p2": {
+      "hits": 25989,
+      "misses": 220207,
+      "edges": 246196,
+      "sampleHits": 194279,
+      "samples": 1935908,
+      "hitRate": 0.10556223496726186,
+      "sampleHitRate": 0.10035549209983119
+    },
+    "32/y5": {
+      "hits": 26872,
+      "misses": 219324,
+      "edges": 246196,
+      "sampleHits": 199935,
+      "samples": 1935908,
+      "hitRate": 0.10914880826658435,
+      "sampleHitRate": 0.1032771185407571
+    },
+    "64/xor": {
+      "hits": 34757,
+      "misses": 211439,
+      "edges": 246196,
+      "sampleHits": 265862,
+      "samples": 1935908,
+      "hitRate": 0.14117613608669516,
+      "sampleHitRate": 0.13733193932769533
+    },
+    "64/y2": {
+      "hits": 35209,
+      "misses": 210987,
+      "edges": 246196,
+      "sampleHits": 261591,
+      "samples": 1935908,
+      "hitRate": 0.14301207168272434,
+      "sampleHitRate": 0.135125739446296
+    },
+    "64/x2": {
+      "hits": 35111,
+      "misses": 211085,
+      "edges": 246196,
+      "sampleHits": 264138,
+      "samples": 1935908,
+      "hitRate": 0.14261401484995695,
+      "sampleHitRate": 0.13644140114096331
+    },
+    "64/y4p2": {
+      "hits": 34821,
+      "misses": 211375,
+      "edges": 246196,
+      "sampleHits": 262155,
+      "samples": 1935908,
+      "hitRate": 0.14143609156931874,
+      "sampleHitRate": 0.13541707560483246
+    },
+    "64/y5": {
+      "hits": 35680,
+      "misses": 210516,
+      "edges": 246196,
+      "sampleHits": 266466,
+      "samples": 1935908,
+      "hitRate": 0.1449251815626574,
+      "sampleHitRate": 0.13764393762513508
+    },
+    "128/xor": {
+      "hits": 34757,
+      "misses": 211439,
+      "edges": 246196,
+      "sampleHits": 265862,
+      "samples": 1935908,
+      "hitRate": 0.14117613608669516,
+      "sampleHitRate": 0.13733193932769533
+    },
+    "128/y2": {
+      "hits": 40103,
+      "misses": 206093,
+      "edges": 246196,
+      "sampleHits": 306983,
+      "samples": 1935908,
+      "hitRate": 0.1628905424945978,
+      "sampleHitRate": 0.15857313467375517
+    },
+    "128/x2": {
+      "hits": 38529,
+      "misses": 207667,
+      "edges": 246196,
+      "sampleHits": 287594,
+      "samples": 1935908,
+      "hitRate": 0.1564972623438236,
+      "sampleHitRate": 0.1485576793938555
+    },
+    "128/y4p2": {
+      "hits": 43576,
+      "misses": 202620,
+      "edges": 246196,
+      "sampleHits": 328704,
+      "samples": 1935908,
+      "hitRate": 0.17699718923134414,
+      "sampleHitRate": 0.1697931926517169
+    },
+    "128/y5": {
+      "hits": 43120,
+      "misses": 203076,
+      "edges": 246196,
+      "sampleHits": 323371,
+      "samples": 1935908,
+      "hitRate": 0.175145006417651,
+      "sampleHitRate": 0.1670384129824351
+    }
+  }
+}

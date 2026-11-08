@@ -1,0 +1,163 @@
+{
+  "scope": "PAL VICE100% warp off; same16 animationposes/model and14axisprobes. Median and mean cadence are sampled, not a complete native turn.",
+  "baseline_program_sha256": "1379a1c305d1ef6553aead15fd74da1f093538cb88a0c4d57b5c71f7bb34b25c",
+  "candidate_program_sha256": "80c328509a5e5e5f127c67dcbe9e6f9efdfc30986fc5d12c9cecd92cbdb5be98",
+  "native_pass": true,
+  "native_frames": 46,
+  "native_screenshots": 18,
+  "three_axis_rotation_verified": true,
+  "models": {
+    "checker": {
+      "baseline": {
+        "frames": 16,
+        "cycles": {
+          "render": {
+            "min": 216693,
+            "mean": 236490.4375,
+            "max": 254733
+          },
+          "geometry": {
+            "min": 14517,
+            "mean": 15737.0625,
+            "max": 15824
+          },
+          "raster": {
+            "min": 172986,
+            "mean": 192198.5625,
+            "max": 209635
+          },
+          "resolve": {
+            "min": 27839,
+            "mean": 28544.125,
+            "max": 29657
+          }
+        },
+        "presentation_cycles": {
+          "min": 235870,
+          "mean": 248976.13333333333,
+          "max": 255533
+        },
+        "measured_fps": 3.8557641883800473,
+        "mean_cadence_fps": 3.9571985748567067,
+        "gif": "checker-native.gif",
+        "screen_bytes_compared": 16000,
+        "font_bytes_compared": 32768,
+        "coverage_bytes_compared": 16000,
+        "projection_bytes_compared": 2048
+      },
+      "shared_edge_cache": {
+        "frames": 16,
+        "cycles": {
+          "render": {
+            "min": 216876,
+            "mean": 236712,
+            "max": 254966
+          },
+          "geometry": {
+            "min": 14643,
+            "mean": 15745.0625,
+            "max": 15822
+          },
+          "raster": {
+            "min": 173356,
+            "mean": 192552.6875,
+            "max": 210054
+          },
+          "resolve": {
+            "min": 27694,
+            "mean": 28406.25,
+            "max": 29473
+          }
+        },
+        "presentation_cycles": {
+          "min": 235869,
+          "mean": 248976.13333333333,
+          "max": 255536
+        },
+        "measured_fps": 3.855779277957147,
+        "mean_cadence_fps": 3.9571985748567067,
+        "gif": "checker-native.gif",
+        "screen_bytes_compared": 16000,
+        "font_bytes_compared": 32768,
+        "coverage_bytes_compared": 16000,
+        "projection_bytes_compared": 2048
+      }
+    },
+    "football": {
+      "baseline": {
+        "frames": 16,
+        "cycles": {
+          "render": {
+            "min": 185951,
+            "mean": 197243.375,
+            "max": 201743
+          },
+          "geometry": {
+            "min": 15414,
+            "mean": 15417.4375,
+            "max": 15420
+          },
+          "raster": {
+            "min": 142388,
+            "mean": 153956.0625,
+            "max": 158644
+          },
+          "resolve": {
+            "min": 27542,
+            "mean": 27861.875,
+            "max": 28140
+          }
+        },
+        "presentation_cycles": {
+          "min": 196557,
+          "mean": 209663.93333333332,
+          "max": 216223
+        },
+        "measured_fps": 4.556839782991772,
+        "mean_cadence_fps": 4.699177318368856,
+        "gif": "football-native.gif",
+        "screen_bytes_compared": 16000,
+        "font_bytes_compared": 32768,
+        "coverage_bytes_compared": 16000,
+        "projection_bytes_compared": 2048
+      },
+      "shared_edge_cache": {
+        "frames": 16,
+        "cycles": {
+          "render": {
+            "min": 181915,
+            "mean": 192264.875,
+            "max": 195624
+          },
+          "geometry": {
+            "min": 15414,
+            "mean": 15417.5625,
+            "max": 15421
+          },
+          "raster": {
+            "min": 138844,
+            "mean": 148818.0625,
+            "max": 152233
+          },
+          "resolve": {
+            "min": 27648,
+            "mean": 28021.25,
+            "max": 28458
+          }
+        },
+        "presentation_cycles": {
+          "min": 196552,
+          "mean": 196559.86666666667,
+          "max": 196564
+        },
+        "measured_fps": 5.012454212454212,
+        "mean_cadence_fps": 5.012457612574693,
+        "gif": "football-native.gif",
+        "screen_bytes_compared": 16000,
+        "font_bytes_compared": 32768,
+        "coverage_bytes_compared": 16000,
+        "projection_bytes_compared": 2048
+      }
+    }
+  }
+}
