@@ -3,6 +3,7 @@ globalThis.C64ConverterControls = (() => {
   function createPalettePicker({ container, name, palette, value, onChange }) {
     const document = container.ownerDocument;
     const inputs = [];
+    const swatches = [];
     let selectedValue = value;
     for (const color of palette) {
       const choice = document.createElement('label');
@@ -29,9 +30,16 @@ globalThis.C64ConverterControls = (() => {
       choice.append(radio, swatch);
       container.append(choice);
       inputs.push(radio);
+      swatches.push({ color, choice, swatch });
     }
     return {
       getValue: () => selectedValue,
+      refreshPalette() {
+        for (const { color, choice, swatch } of swatches) {
+          choice.title = `${color.index} · ${color.name} · ${color.hex}`;
+          swatch.style.backgroundColor = color.hex;
+        }
+      },
       setValue(value) {
         if (!inputs.some(input => input.value === String(value))) throw new Error('Unknown palette color.');
         selectedValue = value;
@@ -98,6 +106,10 @@ globalThis.C64ConverterControls = (() => {
     setVisible(!root.hidden);
     return {
       getState, setVisible,
+      refreshPalette() {
+        picker.refreshPalette();
+        updateColorValue(palette.find(color => color.index === picker.getValue()));
+      },
       setColorIndex(index) {
         picker.setValue(index);
         updateColorValue(palette.find(color => color.index === index));
@@ -218,6 +230,16 @@ globalThis.C64ConverterControls = (() => {
     updateLimits();
     return {
       getSettings,
+      refreshPalette() {
+        for (const color of palette) {
+          const entry = buttons.get(color.index);
+          const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
+          entry.label = `${color.index} · ${names} · ${color.hex}`;
+          entry.swatch.style.backgroundColor = color.hex;
+          entry.swatch.setAttribute('aria-label', `Level ${color.brightnessBands[0] + color.brightnessBands[1]} · ${entry.label}`);
+        }
+        updateLimits();
+      },
       setSettings({ minLevel, maxLevel, excludedIndices: excluded = [] }) {
         darkest.value = String(minLevel);
         lightest.value = String(maxLevel);

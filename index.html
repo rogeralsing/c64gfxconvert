@@ -142,6 +142,10 @@
             <div class="mode-control">
               <h3 id="graphics-mode-heading">Graphics format</h3>
               <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
+              <div class="image-control">
+                <h3 id="c64-palette-heading">C64 palette</h3>
+                <select id="c64-palette-options" class="mode-select" aria-labelledby="c64-palette-heading"></select>
+              </div>
               <div id="two-color-settings" hidden>
                 <fieldset class="background-control image-control">
                   <legend>Shadow color</legend>
@@ -369,6 +373,7 @@
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
   <script src="./ifli.js?v=palette-exclusions"></script>
+  <script src="./palettes.js?v=1"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
@@ -392,58 +397,17 @@
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=projects"></script>
-  <script src="./sprite-grid-controls.js?v=1"></script>
-  <script src="./charset-controls.js?v=similarity"></script>
+  <script src="./converter-controls.js?v=palette-switch"></script>
+  <script src="./sprite-grid-controls.js?v=palette-switch"></script>
+  <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=charset-dither"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=charset-similarity"></script>
+  <script src="./project.js?v=palette-switch"></script>
   <script>
-    // Colodore PAL reference colors, in C64 color-index order.
-    // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
-    const C64_PALETTE = [
-      { index: 0, name: 'Black', hex: '#000000', rgb: [0, 0, 0] },
-      { index: 1, name: 'White', hex: '#FFFFFF', rgb: [255, 255, 255] },
-      { index: 2, name: 'Red', hex: '#96282E', rgb: [150, 40, 46] },
-      { index: 3, name: 'Cyan', hex: '#5BD6CE', rgb: [91, 214, 206] },
-      { index: 4, name: 'Purple', hex: '#9F2DAD', rgb: [159, 45, 173] },
-      { index: 5, name: 'Green', hex: '#41B936', rgb: [65, 185, 54] },
-      { index: 6, name: 'Blue', hex: '#2724C4', rgb: [39, 36, 196] },
-      { index: 7, name: 'Yellow', hex: '#EFF347', rgb: [239, 243, 71] },
-      { index: 8, name: 'Orange', hex: '#9F4815', rgb: [159, 72, 21] },
-      { index: 9, name: 'Brown', hex: '#5E3500', rgb: [94, 53, 0] },
-      { index: 10, name: 'Light red', hex: '#DA5F66', rgb: [218, 95, 102] },
-      { index: 11, name: 'Dark gray', hex: '#474747', rgb: [71, 71, 71] },
-      { index: 12, name: 'Gray', hex: '#787878', rgb: [120, 120, 120] },
-      { index: 13, name: 'Light green', hex: '#91FF84', rgb: [145, 255, 132] },
-      { index: 14, name: 'Light blue', hex: '#6864FF', rgb: [104, 100, 255] },
-      { index: 15, name: 'Light gray', hex: '#AEAEAE', rgb: [174, 174, 174] }
-    ];
-
-    // Dark to light, using the paired brightness columns in the supplied gradient.
-    const C64_BRIGHTNESS_BANDS = [
-      [0],      // Black
-      [6, 9],   // Blue, brown
-      [2, 11],  // Red, dark gray
-      [4, 8],   // Purple, orange
-      [14, 12], // Light blue, gray
-      [5, 10],  // Green, light red
-      [3, 15],  // Cyan, light gray
-      [13, 7],  // Light green, yellow
-      [1]       // White
-    ].map((indices) => {
-      const colors = indices.map((index) => ({
-        color: C64_PALETTE[index],
-        lab: rgbToOklab(...C64_PALETTE[index].rgb)
-      }));
-
-      return {
-        lightness: colors.reduce((sum, entry) => sum + entry.lab.lightness, 0) / colors.length,
-        colors
-      };
-    });
-
-    const IFLI_VIRTUAL_PALETTE = buildIfliVirtualPalette(C64_PALETTE, C64_BRIGHTNESS_BANDS);
+    const paletteState = createC64PaletteState();
+    const C64_PALETTE = paletteState.palette;
+    const C64_BRIGHTNESS_BANDS = paletteState.brightnessBands;
+    const IFLI_VIRTUAL_PALETTE = paletteState.virtualPalette;
 
     const DITHER_THRESHOLDS = [
       [0, 8, 2, 10],
@@ -473,6 +437,14 @@
     const announcement = document.getElementById('announcement');
     const tabs = Array.from(document.querySelectorAll('.preview-tab'));
     const graphicsModeSelect = document.getElementById('graphics-mode-options');
+    const c64PaletteSelect = document.getElementById('c64-palette-options');
+    for (const preset of C64_PALETTES) {
+      const option = document.createElement('option');
+      option.value = preset.id;
+      option.textContent = preset.label;
+      c64PaletteSelect.append(option);
+    }
+    c64PaletteSelect.value = paletteState.id;
     const virtualColorsSelect = document.getElementById('virtual-colors');
     for (const mode of C64_GRAPHICS_MODES) {
       const option = document.createElement('option');
@@ -640,6 +612,24 @@
       ifliResult = null;
     }
 
+    function setC64Palette(id) {
+      const preset = paletteState.select(id);
+      c64PaletteSelect.value = id;
+      backgroundPicker.refreshPalette();
+      setBackgroundColor(backgroundColorIndex);
+      twoColorPickers.forEach((picker, slot) => {
+        picker.refreshPalette();
+        picker.setColorIndex(twoColorIndices[slot]);
+      });
+      spriteControls.refreshPalette();
+      spriteGridControls.refreshPalette();
+      charsetControls.refreshPalette();
+      virtualPaletteView.refreshPalette();
+      layerStack.invalidate();
+      document.dispatchEvent(new Event('c64palettechange'));
+      return preset;
+    }
+
     function syncLoadingState() {
       preview.setAttribute('aria-busy', String(projectLoading || loadingLayers.size > 0));
       projectSave.disabled = projectLoading || loadingLayers.size > 0;
@@ -670,7 +660,7 @@
         finishSourcePan();
         layerStack.updateSettings(readLayerSettings());
         const json = projectCodec.stringify({
-          image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
+          image: { graphicsMode, paletteId: paletteState.id, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
             twoColorIndices, spriteConfig: spriteGridControls.getState(),
             charsetMulticolorIndices: charsetControls.getState(),
             charsetSimilarityThreshold: charsetControls.getSimilarityThreshold() },
@@ -720,6 +710,7 @@
         loadingLayers.clear();
         graphicsMode = project.image.graphicsMode;
         graphicsModeSelect.value = graphicsMode;
+        setC64Palette(project.image.paletteId || 'colodore');
         spriteGridControls.setState(project.image.spriteConfig);
         spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
         charsetControls.setState(project.image.charsetMulticolorIndices);
@@ -1883,6 +1874,14 @@
       announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
     });
 
+    c64PaletteSelect.addEventListener('change', () => {
+      finishSourcePan();
+      stopIfliAnimation();
+      const preset = setC64Palette(c64PaletteSelect.value);
+      rebuildLayerComposite();
+      announcement.textContent = `${preset.label} palette selected.`;
+    });
+
     virtualColorsSelect.addEventListener('change', () => {
       updatePalettePreview();
       announcement.textContent = `Virtual colors: ${virtualColorsSelect.selectedOptions[0].textContent}.`;
@@ -1966,6 +1965,6 @@
       }, 'DutchBreezeRemake.json');
     }
   </script>
-  <script src="./editor-ui.js?v=layers"></script>
+  <script src="./editor-ui.js?v=palette-switch"></script>
 </body>
 </html>

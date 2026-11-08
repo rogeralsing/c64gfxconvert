@@ -66,6 +66,8 @@ test('project import rejects unsupported documents and unusable settings before 
     project => { project.version = 2; },
     project => { project.image.graphicsMode = 'unknown'; },
     project => { project.image.spriteColorIndex = 16; },
+    ...[null, '', 'unknown', 'Pepto', 0, false, [], {}].map(paletteId =>
+      project => { project.image.paletteId = paletteId; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(twoColorIndices =>
       project => { project.image.twoColorIndices = twoColorIndices; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(charsetMulticolorIndices =>
@@ -90,6 +92,16 @@ test('project import rejects unsupported documents and unusable settings before 
     change(project);
     assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project/);
   }
+});
+
+test('projects preserve the selected C64 palette while accepting legacy projects without a palette', () => {
+  for (const paletteId of ['colodore', 'pepto']) {
+    const project = fixture();
+    project.image.paletteId = paletteId;
+    const loaded = codec.parse(codec.stringify(project));
+    assert.equal(loaded.image.paletteId, paletteId);
+  }
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.paletteId, undefined);
 });
 
 test('two-color projects preserve the chosen shadow and highlight without changing legacy projects', () => {

@@ -12,6 +12,11 @@ overlays, and native exports. Image processing stays in your browser.
 
 Open `index.html` in a modern browser. No build step or server is required.
 
+Choose **Colodore (PAL)** or **Pepto (PAL)** in **Image → C64 palette**, below
+the graphics format. Colodore remains the default. Switching updates conversion,
+previews, color swatches, and virtual colors across all layers. Projects save
+the chosen palette; older projects use Colodore. See [palette sources](palettes/README.md).
+
 ## Graphics formats
 
 | Format | Logical pixels | Color allocation |

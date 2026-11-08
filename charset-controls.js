@@ -25,6 +25,12 @@ function createC64CharsetControls({ root, palette, onChange }) {
     return { ...picker, updateLabel };
   });
   return {
+    refreshPalette() {
+      pickers.forEach((picker, slot) => {
+        picker.refreshPalette();
+        picker.updateLabel(indices[slot]);
+      });
+    },
     getState: () => [...indices],
     getSimilarityThreshold: () => similarity.valueAsNumber,
     setSimilarityThreshold(value = 35) {
