@@ -19,3 +19,14 @@ The same workflow is available from a terminal:
 Both run scripts build first. The `build` folder contains `hello-raster.prg`, KickAssembler debug data (`hello-raster.dbg`), labels (`main.sym`), and VICE labels (`main.vs`).
 
 Tool paths are configured in `.vscode/settings.json`. KickAssembler lives in `~/.local/share/c64-tools/KickAssembler`; VICE is `/opt/homebrew/bin/x64sc`; RetroDebugger is `/Applications/Retro Debugger.app`.
+
+## Parallax experiment
+
+Run `./run-parallax.sh` for a native PAL C64 test using the extracted Rimrunner
+world and animated mounted rider, with three scroll speeds. See
+[PARALLAX.md](PARALLAX.md) for the technique, local asset requirements, and source.
+
+## Rimrunner graphics study
+
+See [RIMRUNNER.md](RIMRUNNER.md) for local original-asset extraction, PNG/BIN
+formats, validation, and reuse limitations.
