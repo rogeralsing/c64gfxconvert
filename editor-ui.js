@@ -35,12 +35,13 @@
   const scale = document.getElementById('view-scale');
   const syncScale = () => {
     scale.textContent = document.getElementById('preview').classList.contains('has-image')
-      ? `${Math.round(screen.getBoundingClientRect().width / 320 * 100)}%` : 'Fit';
+      ? `${Math.round(screen.getBoundingClientRect().width / Number(screen.dataset.displayWidth || 320) * 100)}%` : 'Fit';
   };
   new MutationObserver(syncScale).observe(document.getElementById('preview'), { attributes: true, attributeFilter: ['class'] });
   syncScale();
 
   new ResizeObserver(syncScale).observe(screen);
+  new MutationObserver(syncScale).observe(screen, { attributes: true, attributeFilter: ['data-display-width'] });
 
   const reference = document.getElementById('palette-reference');
   const swatches = reference.querySelector('.palette-reference-swatches');

@@ -129,3 +129,19 @@ test('rejects nonpositive scales and nonfinite or nonnumeric transform values', 
     assert.throws(() => getC64ImagePlacement(320, 200, 'ifli', { offsetY: invalid }), /offsets.*finite/);
   }
 });
+
+test('sprite grids fit and pan sources in their native display dimensions', () => {
+  for (const [width, height, expected] of [
+    [24, 168, { x: 0, y: 73.5, width: 24, height: 21 }],
+    [192, 21, { x: 84, y: 0, width: 24, height: 21 }],
+    [48, 42, { x: 0, y: 0, width: 48, height: 42 }]
+  ]) {
+    const placement = getC64ImagePlacement(48, 42, 'sprites', {}, { width, height });
+    assert.deepEqual({ ...placement }, { ...expected, leftInset: 0,
+      availableWidth: width, canvasWidth: width, canvasHeight: height });
+    const moved = getC64ImagePlacement(48, 42, 'sprites-hires',
+      { offsetX: 3, offsetY: -2 }, { width, height });
+    assert.equal(moved.x, expected.x + 3);
+    assert.equal(moved.y, expected.y - 2);
+  }
+});
