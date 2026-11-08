@@ -68,6 +68,7 @@
                 <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked>Tile grid</label>
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
+                <button id="mci-save" class="ifli-save" type="button" title="Save both converted frames as a True Paint (.mci) image" disabled hidden>Save MCI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
                 <button id="two-color-save" class="afli-save" type="button" title="Save the two-color bitmap as an Art Studio (.art) image" disabled hidden>Save Hires</button>
                 <button id="multicolor-save" class="afli-save" type="button" title="Save the converted multicolor bitmap as a Koala Painter (.koa) image" disabled hidden>Save Multicolor</button>
@@ -309,10 +310,11 @@
     <footer><span id="footer-mode">C64 · FULL-COLOR SOURCE</span><span id="footer-format">160 × 200 / 2:1</span></footer>
   </div>
 
-  <script src="./fli.js?v=reserved-sprite-color"></script>
+  <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
   <script src="./ifli.js?v=palette-exclusions"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
+  <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
   <script src="./pafli.js?v=black-bottom-row"></script>
   <script src="./pafli-player-data.js?v=1"></script>
@@ -324,7 +326,7 @@
   <script src="./fli-sprites.js?v=layers"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
-  <script src="./graphics-modes.js?v=two-color-hires"></script>
+  <script src="./graphics-modes.js?v=mci"></script>
   <script src="./two-color.js?v=1"></script>
   <script src="./two-color-export.js?v=1"></script>
   <script src="./multicolor-export.js?v=1"></script>
@@ -439,6 +441,7 @@
     const scanlineDither = document.getElementById('scanline-dither');
     const ifliPlayback = document.getElementById('ifli-playback');
     const ifliSave = document.getElementById('ifli-save');
+    const mciSave = document.getElementById('mci-save');
     const afliSave = document.getElementById('afli-save');
     const twoColorSave = document.getElementById('two-color-save');
     const multicolorSave = document.getElementById('multicolor-save');
@@ -749,6 +752,14 @@
       return currentGraphicsMode().format === 'ifli';
     }
 
+    function isMciMode() {
+      return currentGraphicsMode().format === 'mci';
+    }
+
+    function isMulticolorInterlaceMode() {
+      return isIfliMode() || isMciMode();
+    }
+
     function usesFullResolutionSource() {
       return currentGraphicsMode().sourceWidth === 320;
     }
@@ -778,7 +789,7 @@
     }
 
     function isAlternatingMode() {
-      return isIfliMode() || isPafliMode();
+      return isMulticolorInterlaceMode() || isPafliMode();
     }
 
     function isAfliSpriteMode() {
@@ -819,9 +830,9 @@
       });
       const colored = applyHueSaturation(leveled, values.hue, values.saturation);
       const noise = values['rgb-noise'] / 100;
-      const sourceColors = !isIfliMode() ? applyRgbNoise(colored, noise) : colored;
+      const sourceColors = !isMulticolorInterlaceMode() ? applyRgbNoise(colored, noise) : colored;
       const interlaced = applyInterlace(sourceColors, values.interlace / 100, 1);
-      const modified = isIfliMode() ? applyRgbNoise(interlaced, noise) : interlaced;
+      const modified = isMulticolorInterlaceMode() ? applyRgbNoise(interlaced, noise) : interlaced;
       // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
       const mapping = !isTwoColorMode() && values['virtual-colors'] !== 'off'
@@ -832,7 +843,7 @@
       let target = mapping ? resolveVirtualPaletteColors(mapping, IFLI_VIRTUAL_PALETTE,
         C64_PALETTE, values['virtual-colors']) : mapped;
       if (!isTwoColorMode() && values['scanline-dither']) {
-        target = isIfliMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
+        target = isMulticolorInterlaceMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
       }
       layer.cache = { format: graphicsMode, source: pixels, palette: mapped, target,
         spriteSource: modified, mapping, histogram: adjusted };
@@ -1188,7 +1199,7 @@
     }
 
     function ensureAlternatingResult() {
-      if (!isPafliMode()) return ensureIfliResult();
+      if (!isPafliMode()) return ensureMulticolorInterlaceResult();
       if (!palettePixels) return null;
       if (!ifliResult) {
         ifliResult = optimizePafliImages(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
@@ -1198,11 +1209,12 @@
       return ifliResult;
     }
 
-    function ensureIfliResult() {
-      if (!isIfliMode() || !palettePixels) return null;
+    function ensureMulticolorInterlaceResult() {
+      if (!isMulticolorInterlaceMode() || !palettePixels) return null;
       if (!ifliResult) {
         const [first, second] = splitIfliColumns(getRestrictedTarget());
-        ifliResult = optimizeIfliImages(first, second, C64_PALETTE,
+        const optimize = isMciMode() ? optimizeMciImages : optimizeIfliImages;
+        ifliResult = optimize(first, second, C64_PALETTE,
           C64_BRIGHTNESS_BANDS, backgroundColorIndex);
         ifliResult.displayFrames = ifliResult.frames.map((frame, phase) =>
           expandIfliFrame(frame.pixels, phase, C64_PALETTE[backgroundColorIndex].rgb));
@@ -1265,6 +1277,8 @@
       ifliSave.hidden = !isIfliMode();
       ifliSave.disabled = !isIfliMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
+      mciSave.hidden = !isMciMode();
+      mciSave.disabled = !isMciMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       afliSave.hidden = !isAfliMode() || isAfliSpriteMode();
       afliSave.disabled = !isAfliMode() || isAfliSpriteMode() || !palettePixels ||
         preview.getAttribute('aria-busy') === 'true';
@@ -1284,6 +1298,7 @@
     }
 
     for (const [button, encode, extension, ensureResult, name] of [
+      [mciSave, encodeTruePaintMci, 'mci', ensureMulticolorInterlaceResult, 'MCI'],
       [twoColorSave, encodeTwoColorHiresArt, 'art', ensureTwoColorResult, 'two-color hires'],
       [multicolorSave, encodeMulticolorBitmapKoala, 'koa', ensureMulticolorResult, 'multicolor bitmap'],
       [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
@@ -1324,7 +1339,7 @@
       ifliSave.disabled = true;
       let objectUrl;
       try {
-        const data = encodeFunPaintIfli(ensureIfliResult(), C64_PALETTE);
+        const data = encodeFunPaintIfli(ensureMulticolorInterlaceResult(), C64_PALETTE);
         // The player recognizes the leading PETSCII up arrows. Keep the full
         // filename within the C64 directory's 16-character filename limit.
         const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
@@ -1452,7 +1467,7 @@
 
     function updatePreviewDetails() {
       const mode = currentGraphicsMode();
-      const ifli = isIfliMode();
+      const multicolorInterlace = isMulticolorInterlaceMode();
       const spriteMode = isSpriteMode();
       const fliSprites = isFliSpriteMode();
       const bitmap = mode.format === 'bitmap';
@@ -1468,7 +1483,7 @@
       const virtualImagePalette = !twoColor && singleSettings.values['virtual-colors'] !== 'off';
       const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
         ? `${IFLI_VIRTUAL_PALETTE.length - singleSettings.palette.excludedIndices.length} virtual colors` : '16 C64 colors';
-      const widePixels = !hires && !afli && !nufli && !pafli && (!ifli || restricted);
+      const widePixels = !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
       const resolution = usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
       const imageWidth = (320 - leftInset) / (usesFullResolutionSource() || spriteMode ? 1 : 2);
@@ -1498,7 +1513,7 @@
         ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
           : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
-      document.getElementById('color-mode').textContent = restricted ? (twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : ifli ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
+      document.getElementById('color-mode').textContent = restricted ? (twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : isMciMode() ? '4 colors per tile · 2 frames' : multicolorInterlace ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
         : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
       const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
         : activeMode === 'palette' ? (twoColor ? 'TWO-COLOR HIRES' : visibleLayers.length > 1 ? 'LAYER PALETTES'

@@ -2,7 +2,7 @@
 
 [Open the converter](https://rogeralsing.github.io/c64gfxconvert/)
 
-A browser-based Commodore 64 image converter with FLI, IFLI, AFLI, HIRES,
+A browser-based Commodore 64 image converter with FLI, IFLI, MCI, AFLI, HIRES,
 Multicolor Bitmap and NUFLI modes, optional virtual colors, sprite
 overlays, and native exports. Image processing stays in your browser.
 
@@ -18,6 +18,7 @@ Open `index.html` in a modern browser. No build step or server is required.
 | --- | --- | --- |
 | **FLI** | 160 × 200, double-width pixels | One shared background, one color per 4 × 8 tile, and two additional colors per scanline within each tile. |
 | **IFLI** | Two 160 × 200 frames, double-width pixels | Alternates two FLI frames one hires pixel apart. Both frames share the background and tile color; scanline colors may differ. |
+| **MCI** | Two 160 × 200 frames, double-width pixels | Alternates two standard multicolor frames one hires pixel apart. Both frames share the background and one tile color; each frame has two additional colors fixed throughout each 4 × 8 tile. The full image width is available. |
 | **AFLI** | 320 × 200, square pixels | Two freely chosen colors per 8 × 1 scanline strip, with no shared background color. |
 | **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
 | **HIRES · 2 colors** | 320 × 200, square pixels | One user-selected shadow/highlight pair for the entire image. Source brightness drives the pattern; no automatic palette matching. |
@@ -44,7 +45,13 @@ mode. The 10,003-byte file contains a `$6000` load address, bitmap, screen color
 color RAM, and the selected background color. Export uses the fitted composition
 from all visible layers, regardless of the selected preview tab.
 
-The IFLI preview alternates the two frames and shows them individually below
+**Save MCI** downloads a native True Paint `.mci` image containing both fitted
+bitmaps, their separate screen colors, shared color RAM, and background color.
+The 19,434-byte file loads at `$9C00`. Like other exports, it uses the fitted
+composition regardless of the selected preview tab. MCI uses standard multicolor
+cells without FLI's per-scanline color changes or reserved left columns.
+
+The IFLI and MCI previews alternate the two frames and show them individually below
 the simulation:
 
 <img src="assets/images/c64-studio-ifli.png" alt="IFLI simulation with its two constituent frames shown underneath" width="960">
