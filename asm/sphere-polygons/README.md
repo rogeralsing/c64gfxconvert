@@ -67,6 +67,32 @@ Most time goes to character coverage, rather than 3D rotation. Projection and ma
 
 The earlier analytic sphere in `../sphere-math` measured 7.161 FPS with the same font and radius. Its prepared geometric fields assume a fixed camera and tilted rotation axis. This first general polygon renderer is slower, while allowing independent rotation around three axes and different meshes. The checker mesh also approximates curved patches with flat polygons, so the two images are not identical.
 
+## Character plotting CPU costs
+
+Run `python3 profile-c64.py` after building. The profiler uses VICE's native per-instruction counts and the assembler's source map. It measures four fixed three-axis orientations per model on the unchanged PRG. Each instruction belongs to one exclusive category; their cycles plus VICE's stolen VIC cycles equal every measured render interval exactly.
+
+The following shares use **CPU instruction cycles**, excluding VIC bus stalls and the final raster wait. The earlier FPS table uses presentation clocks and different sampled poses.
+
+| Work | Checker | Football |
+| --- | ---: | ---: |
+| Polygon edge setup and rational DDA | 44.52% | 41.53% |
+| Span/mask preparation, coverage OR and filling | 24.94% | 26.70% |
+| Clear coverage buffer | 3.02% | 3.44% |
+| Clear per-face crossing arrays | 2.67% | 2.43% |
+| Read coverage and prepare glyph index | 2.90% | 3.30% |
+| Read selected glyph from font lookup | 1.93% | 2.20% |
+| Write screen character codes | 2.42% | 2.75% |
+| Circle-safe glyph clipping | 4.51% | 5.03% |
+| Face traversal, culling and bounds | 5.36% | 4.03% |
+| Rotation matrix and vertex projection | 6.86% | 7.60% |
+| Resolve loops and render driver | 0.88% | 1.00% |
+
+Mean CPU cost was 212,001 cycles for checker and 186,171 for football. VIC bus stalls added 12,225 and 10,707 clocks respectively. `build/char-cpu-profile/profile.json` preserves the exact poses, per-instruction exports, source hashes and reconciliation.
+
+Glyph choice does not search the font. Reading the coverage byte, transferring it to an index and looking up the glyph costs 10,240 CPU cycles per frame. The lookup itself costs 4,096 cycles. The resolver writes 1,024 positions, including the 24 unused bytes at the end of screen RAM. Clearing coverage costs 6,403 cycles. The main cost is producing polygon edge crossings and character masks before resolution.
+
+The renderer fills one polygon's character coverage at a time. Edges supply mathematical crossings rather than a drawn wireframe. Adjacent polygons may update the same tile several times before the combined mask selects its final glyph.
+
 ## Verification
 
 ```sh
