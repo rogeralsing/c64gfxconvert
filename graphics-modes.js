@@ -5,6 +5,7 @@ const C64_GRAPHICS_MODES = Object.freeze([
   { id: 'ifli', label: 'IFLI', format: 'ifli', spriteOverlay: false },
   { id: 'mci', label: 'MCI', format: 'mci', spriteOverlay: false },
   { id: 'bitmap', label: 'Multi Color Bitmap', format: 'bitmap', spriteOverlay: false },
+  { id: 'charset', label: 'Charset · Hires + Multicolor', format: 'charset', spriteOverlay: false },
   { id: 'sprites', label: 'Multicolor Sprites', format: 'sprites', spriteOverlay: false },
   { id: 'sprites-hires', label: 'Multicolor + Hires Sprites', format: 'sprites', spriteOverlay: false, hiresOverlay: true },
   { id: 'hires', label: 'Hires', format: 'hires', spriteOverlay: false },

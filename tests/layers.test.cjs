@@ -19,7 +19,7 @@ class ImageData {
 }
 const context = vm.createContext({ ImageData, Uint8Array, Uint8ClampedArray, structuredClone });
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../layers.js'), 'utf8'), context);
-const { createC64LayerStack, compositeC64LayerPixels, compositeC64LayerSprites } = context;
+const { createC64LayerStack, compositeC64LayerPixels, compositeC64LayerSprites, compositeC64LayerDither } = context;
 const image = colors => new ImageData(Uint8ClampedArray.from(colors.flat()), colors.length, 1);
 
 test('new and duplicated layers own independent settings while reusing the immutable image', () => {
@@ -108,6 +108,18 @@ test('single-layer and empty composites preserve hidden RGB, transparency, and d
   assert.equal(original.data[0], 11);
   assert.deepEqual(Array.from(compositeC64LayerPixels([], 2, 1).data), [0, 0, 0, 0, 0, 0, 0, 0]);
   assert.throws(() => compositeC64LayerPixels([original], 3, 1), /matching positive dimensions/);
+});
+
+test('dither strength follows visible layer coverage, including transparent holes and partial alpha', () => {
+  const bottom = image([[0, 0, 0, 255], [0, 0, 0, 255], [0, 0, 0, 255], [0, 0, 0, 0]]);
+  const top = image([[0, 0, 0, 0], [0, 0, 0, 128], [0, 0, 0, 255], [0, 0, 0, 0]]);
+  const result = compositeC64LayerDither([bottom, top], [1, 0], 4, 1);
+  assert.equal(result[0], 1);
+  assert.ok(Math.abs(result[1] - 127 / 255) < 1e-6);
+  assert.equal(result[2], 0);
+  assert.equal(result[3], 0);
+  const reversed = compositeC64LayerDither([top, bottom], [0, 1], 4, 1);
+  assert.deepEqual(Array.from(reversed), [1, 1, 1, 0]);
 });
 
 test('foreground image coverage occludes lower sprite masks while transparent holes expose them', () => {
