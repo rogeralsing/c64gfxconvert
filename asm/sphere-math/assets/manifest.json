@@ -1,0 +1,361 @@
+{
+  "version": 1,
+  "geometry": {
+    "width": 320,
+    "height": 200,
+    "radius": 94,
+    "camera": 3.2,
+    "tilt": 22,
+    "checks": 12,
+    "bands": 6
+  },
+  "recordSize": 13,
+  "tileCount": 476,
+  "fallbackTiles": 88,
+  "limbTiles": 82,
+  "latitudeBoundaryTiles": 86,
+  "fontGlyphs": 256,
+  "fontSignature": "828db7b1",
+  "exactComplementMap": true,
+  "probePixelIndices": [
+    1,
+    4,
+    6
+  ],
+  "clipClasses": 63,
+  "sourceGlyphs": 158,
+  "limbRemapSelection": "Exact circle-safe candidate sets; source glyph IDs ascending from all probe signatures; minimum full-font 64-bit Hamming distance, lowest glyph ID on ties; no poses or reference images",
+  "scaleRepresentatives": [
+    0.015383108269856992,
+    0.016071748045348527,
+    0.01679475517585893,
+    0.0176685304004573,
+    0.018650550567268914,
+    0.019546320833613715,
+    0.020575783449249138,
+    0.02156026864787234,
+    0.022537289071621378,
+    0.023554136790692973,
+    0.024849430759038258,
+    0.026398416292169373,
+    0.027650208744420247,
+    0.029277539089551524,
+    0.03155048070598785,
+    0.03299793236575193,
+    0.03519309190314042,
+    0.036803492924496445,
+    0.03802049916352768,
+    0.04015177011674217,
+    0.04241511143131533,
+    0.04369643363590456,
+    0.04736158758340835,
+    0.049352690268875635,
+    0.051780961717185194,
+    0.054717708750120005,
+    0.05697470856500557,
+    0.0606659461632459,
+    0.06510361700972178,
+    0.06726080290914552,
+    0.06934773121957254,
+    0.07382939981129946
+  ],
+  "scaleUnits": "checker units per display pixel",
+  "scaleSelection": "32 log-gradient clusters from analytic-eligible static geometry; no poses or image fitting",
+  "bytes": {
+    "font.bin": 2048,
+    "records.bin": 6188,
+    "probes.bin": 4284,
+    "valid.bin": 952,
+    "single.bin": 800,
+    "xor.bin": 5256,
+    "inverse.bin": 256,
+    "probe-lut.bin": 512,
+    "glyph-compact.bin": 256,
+    "limb-remap.bin": 9954,
+    "scale-single.bin": 2048,
+    "scale-pair.bin": 2048,
+    "scale-lo.bin": 32,
+    "scale-hi.bin": 32,
+    "pair-lo.bin": 72,
+    "pair-hi.bin": 72
+  },
+  "totalAssetBytes": 34810,
+  "quality": [
+    {
+      "mode": 0,
+      "poses": 16,
+      "meanError": 0.03321719245174301,
+      "maxError": 0.035796600403341976,
+      "meanSpill": 0,
+      "maxSpill": 0,
+      "rows": [
+        {
+          "spin": 0,
+          "mode": 0,
+          "errors": 903,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03251944684528954
+        },
+        {
+          "spin": 8,
+          "mode": 0,
+          "errors": 930,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03349178910976664
+        },
+        {
+          "spin": 16,
+          "mode": 0,
+          "errors": 843,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03035868625756266
+        },
+        {
+          "spin": 24,
+          "mode": 0,
+          "errors": 875,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03151109190435033
+        },
+        {
+          "spin": 32,
+          "mode": 0,
+          "errors": 872,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03140305387496399
+        },
+        {
+          "spin": 40,
+          "mode": 0,
+          "errors": 924,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03327571305099395
+        },
+        {
+          "spin": 48,
+          "mode": 0,
+          "errors": 912,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.032843560933448576
+        },
+        {
+          "spin": 56,
+          "mode": 0,
+          "errors": 950,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.034212042639008934
+        },
+        {
+          "spin": 64,
+          "mode": 0,
+          "errors": 939,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03381590319792567
+        },
+        {
+          "spin": 72,
+          "mode": 0,
+          "errors": 974,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03507634687409968
+        },
+        {
+          "spin": 80,
+          "mode": 0,
+          "errors": 946,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03406799193316047
+        },
+        {
+          "spin": 88,
+          "mode": 0,
+          "errors": 930,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03349178910976664
+        },
+        {
+          "spin": 96,
+          "mode": 0,
+          "errors": 861,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.031006914433880726
+        },
+        {
+          "spin": 104,
+          "mode": 0,
+          "errors": 943,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.033959953903774126
+        },
+        {
+          "spin": 112,
+          "mode": 0,
+          "errors": 962,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03464419475655431
+        },
+        {
+          "spin": 120,
+          "mode": 0,
+          "errors": 994,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.035796600403341976
+        }
+      ]
+    },
+    {
+      "mode": 1,
+      "poses": 16,
+      "meanError": 0.04247695188706425,
+      "maxError": 0.0451959089599539,
+      "meanSpill": 0,
+      "maxSpill": 0,
+      "rows": [
+        {
+          "spin": 0,
+          "mode": 1,
+          "errors": 1126,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.040550273696341115
+        },
+        {
+          "spin": 8,
+          "mode": 1,
+          "errors": 1151,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04145059060789398
+        },
+        {
+          "spin": 16,
+          "mode": 1,
+          "errors": 1138,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04098242581388649
+        },
+        {
+          "spin": 24,
+          "mode": 1,
+          "errors": 1191,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.042891097666378566
+        },
+        {
+          "spin": 32,
+          "mode": 1,
+          "errors": 1096,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.039469893402477675
+        },
+        {
+          "spin": 40,
+          "mode": 1,
+          "errors": 1216,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04379141457793143
+        },
+        {
+          "spin": 48,
+          "mode": 1,
+          "errors": 1205,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04339527513684817
+        },
+        {
+          "spin": 56,
+          "mode": 1,
+          "errors": 1143,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04116248919619706
+        },
+        {
+          "spin": 64,
+          "mode": 1,
+          "errors": 1162,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04184673004897724
+        },
+        {
+          "spin": 72,
+          "mode": 1,
+          "errors": 1195,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04303514837222702
+        },
+        {
+          "spin": 80,
+          "mode": 1,
+          "errors": 1241,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.0446917314894843
+        },
+        {
+          "spin": 88,
+          "mode": 1,
+          "errors": 1246,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04487179487179487
+        },
+        {
+          "spin": 96,
+          "mode": 1,
+          "errors": 1085,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.03907375396139441
+        },
+        {
+          "spin": 104,
+          "mode": 1,
+          "errors": 1235,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.04447565543071161
+        },
+        {
+          "spin": 112,
+          "mode": 1,
+          "errors": 1255,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.0451959089599539
+        },
+        {
+          "spin": 120,
+          "mode": 1,
+          "errors": 1187,
+          "spill": 0,
+          "area": 27768,
+          "error": 0.042747046960530104
+        }
+      ]
+    }
+  ]
+}
