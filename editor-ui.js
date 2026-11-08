@@ -45,7 +45,7 @@
 
   const reference = document.getElementById('palette-reference');
   const swatches = reference.querySelector('.palette-reference-swatches');
-  for (const color of C64_PALETTE) {
+  const referenceSwatches = C64_PALETTE.map(color => {
     const swatch = document.createElement('span');
     swatch.className = 'palette-reference-swatch';
     swatch.style.backgroundColor = color.hex;
@@ -53,7 +53,15 @@
     swatch.setAttribute('role', 'listitem');
     swatch.setAttribute('aria-label', swatch.title);
     swatches.append(swatch);
-  }
+    return { color, swatch };
+  });
+  document.addEventListener('c64palettechange', () => {
+    for (const { color, swatch } of referenceSwatches) {
+      swatch.style.backgroundColor = color.hex;
+      swatch.title = `${color.index} · ${color.name} · ${color.hex}`;
+      swatch.setAttribute('aria-label', swatch.title);
+    }
+  });
   const syncPaletteReference = () => {
     reference.hidden = !document.getElementById('background-settings').hidden ||
       !document.getElementById('sprite-settings').hidden || !document.getElementById('virtual-palette').hidden;

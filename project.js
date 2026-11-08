@@ -18,6 +18,9 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         !colorIndex(image.backgroundColorIndex) || !colorIndex(image.spriteColorIndex)) {
       invalid('unsupported image settings');
     }
+    if (image.paletteId !== undefined && !['colodore', 'pepto'].includes(image.paletteId)) {
+      invalid('unsupported C64 palette');
+    }
     if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
@@ -85,6 +88,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
       app: 'c64gfxconvert', version: 1,
       image: { graphicsMode: image.graphicsMode, backgroundColorIndex: image.backgroundColorIndex,
         spriteColorIndex: image.spriteColorIndex,
+        ...(image.paletteId === undefined ? {} : { paletteId: image.paletteId }),
         ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
         ...(image.charsetMulticolorIndices === undefined ? {} : {
           charsetMulticolorIndices: [...image.charsetMulticolorIndices]
