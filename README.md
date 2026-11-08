@@ -32,12 +32,25 @@ Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**
 
 Select **Charset · Hires + Multicolor** to convert a full screen into one C64
 character set. Choose a background and two shared multicolors from all 16 colors.
-The converter chooses each cell's foreground color and whether it uses hires or
-multicolor. It reuses identical eight-byte patterns across cells, including when
-their colors or resolution differ. If fitting needs more than 256 patterns, it
-chooses representative patterns and refits cells to that limited character set.
-The preview always shows the actual exported result. The pattern count reports
-how many cells needed approximation, and the generated charset appears below.
+The converter scores each cell in hires and multicolor with every legal
+foreground color. It compares rendered colors in Oklab, so close shades can
+collapse to one foreground when that preserves more detail. Pattern reuse also
+reconsiders the cell's foreground and resolution, rather than comparing glyph
+bytes alone.
+
+**Tile similarity** controls how much difference is allowed when merging nearby
+patterns, even when the screen already fits within 256 glyphs. The default is
+35%. At 0%, only identical patterns share a slot unless the hardware limit
+forces approximation. Higher values allow more shape and shade differences.
+Perceptual error limits protect contrast and dithering at moderate settings.
+If the screen still needs more than 256 patterns, the converter retains
+representative patterns by rendered similarity and refits the remaining cells.
+
+The result includes both the charset and its 40 × 25 placement map. Merged cells
+reference the same glyph index while retaining their own color and mode. The
+preview always shows the actual exported result. The summary reports pattern
+reduction, approximated cells, and how many cells use each mode; the generated
+charset appears below.
 
 In this mixed character mode, Color RAM bit 3 selects the cell's resolution:
 
@@ -56,7 +69,9 @@ See the [Commodore Programmer's Reference](https://www.commodore.ca/manuals/c64_
 **Save charset** downloads a ZIP with a 2,048-byte `charset.bin`, 1,000-byte
 `screen.bin`, 1,000-byte `color-ram.bin`, and a manifest containing shared colors
 and VIC mode settings. It contains raw data without load addresses or a player.
-Projects preserve the shared colors, source layers, and conversion settings.
+Projects preserve shared colors, tile similarity, source layers, and conversion
+settings. `screen.bin` places the glyphs in row-major order, and `color-ram.bin`
+stores each position's foreground and hires/multicolor flag.
 Source adjustments and per-layer dithering remain available; virtual colors and
 line-end dithering do not apply to charset conversion.
 

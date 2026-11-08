@@ -6,6 +6,10 @@ function createC64CharsetImage(sourceRGB, palette, settings, ditherAmount = 0) {
       !settings.multicolorIndices.every(colorIndex)) {
     throw new Error('Character mode requires a background and two shared C64 colors.');
   }
+  const similarityThreshold = settings.similarityThreshold ?? 35;
+  if (!Number.isInteger(similarityThreshold) || similarityThreshold < 0 || similarityThreshold > 100) {
+    throw new Error('Character tile similarity must be between 0 and 100.');
+  }
   if (!Array.isArray(palette) || palette.length !== 16 || palette.some((color, index) =>
     color?.index !== index || !Array.isArray(color.rgb) || color.rgb.length !== 3 ||
     color.rgb.some(value => !Number.isInteger(value) || value < 0 || value > 255))) {
@@ -83,6 +87,7 @@ function createC64CharsetImage(sourceRGB, palette, settings, ditherAmount = 0) {
 
   const cellPatterns = [];
   const attributes = new Uint8Array(1000);
+  const initialErrors = new Float64Array(1000);
   const patterns = [];
   const patternByKey = new Map();
   for (let cell = 0; cell < 1000; cell += 1) {
@@ -113,117 +118,230 @@ function createC64CharsetImage(sourceRGB, palette, settings, ditherAmount = 0) {
       }
     }
     const key = String.fromCharCode(...bestGlyph);
+    initialErrors[cell] = bestError;
     let pattern = patternByKey.get(key);
     if (!pattern) {
-      pattern = { glyph: bestGlyph, count: 0, index: patterns.length };
+      pattern = { glyph: bestGlyph, count: 0, index: patterns.length, cells: [] };
       patternByKey.set(key, pattern);
       patterns.push(pattern);
     }
     pattern.count += 1;
+    pattern.cells.push(cell);
     cellPatterns.push(pattern);
   }
   const unrestrictedCharacterCount = patterns.length;
+  const initialAttributes = new Uint8Array(attributes);
+  const initialPatterns = [...cellPatterns];
   let dictionary = patterns;
   let approximatedCellCount = 0;
-  if (patterns.length > 256) {
-    // Weighted farthest-point sampling retains common glyphs and covers shape diversity.
-    const bitCounts = new Uint8Array(256);
-    for (let value = 1; value < 256; value += 1) bitCounts[value] = bitCounts[value >> 1] + (value & 1);
-    const distances = new Uint8Array(patterns.length).fill(65);
-    const selected = new Set();
-    dictionary = [];
-    let next = patterns.reduce((best, pattern) => pattern.count > best.count ? pattern : best, patterns[0]);
-    while (dictionary.length < 256) {
-      dictionary.push(next);
-      selected.add(next.index);
-      let nextScore = -1;
-      let nextPattern;
-      for (const pattern of patterns) {
-        if (selected.has(pattern.index)) continue;
-        let distance = 0;
-        for (let row = 0; row < 8; row += 1) distance += bitCounts[pattern.glyph[row] ^ next.glyph[row]];
-        distances[pattern.index] = Math.min(distances[pattern.index], distance);
-        const score = distances[pattern.index] * Math.sqrt(pattern.count);
-        if (score > nextScore) { nextScore = score; nextPattern = pattern; }
-      }
-      next = nextPattern;
+  let similarityMergedCellCount = 0;
+  const fittedColorErrors = new Float32Array(16 * 16);
+  for (let target = 0; target < 16; target += 1) {
+    for (let color = 0; color < 16; color += 1) {
+      fittedColorErrors[target * 16 + color] = (labs[target][0] - labs[color][0]) ** 2 +
+        (labs[target][1] - labs[color][1]) ** 2 + (labs[target][2] - labs[color][2]) ** 2;
     }
-
-    // Row-byte lookup tables compare all stored glyphs and legal cell attributes.
-    const rowErrors = new Float64Array(16 * 8 * 256);
-    const deltas = new Float64Array(8);
-    const pairErrors = new Float64Array(16);
-    const fittedColorErrors = new Float32Array(16 * 16);
-    for (let target = 0; target < 16; target += 1) {
-      for (let color = 0; color < 16; color += 1) {
-        fittedColorErrors[target * 16 + color] = (labs[target][0] - labs[color][0]) ** 2 +
-          (labs[target][1] - labs[color][1]) ** 2 + (labs[target][2] - labs[color][2]) ** 2;
-      }
-    }
-    for (let cell = 0; cell < 1000; cell += 1) {
-      if (selected.has(cellPatterns[cell].index)) continue;
+  }
+  function renderedColor(glyph, attribute, x, y) {
+    if (!(attribute & 8)) return glyph[y] & (128 >> x) ? attribute & 7 : backgroundColorIndex;
+    const code = (glyph[y] >> (6 - (x & ~1))) & 3;
+    return code === 0 ? backgroundColorIndex : code === 3 ? attribute & 7 : multicolorIndices[code - 1];
+  }
+  if (patterns.length > 256 || similarityThreshold > 0 && patterns.length > 1) {
+    const strength = similarityThreshold / 100;
+    // Bound both average loss and individual changed pixels; sharp details survive normal settings.
+    const meanLimit = (0.15 * strength) ** 2 * 64;
+    const peakLimit = similarityThreshold ? (0.1 + 0.9 * strength) ** 2 : 0;
+    const epsilon = 1e-7;
+    const rawRows = new Float64Array(16 * 8 * 256);
+    const fittedRows = new Float64Array(rawRows.length);
+    const targetColors = new Uint8Array(64);
+    const rawDeltas = new Float64Array(8);
+    const fittedDeltas = new Float64Array(8);
+    const rawPairs = new Float64Array(16);
+    const fittedPairs = new Float64Array(16);
+    function buildRows(cell) {
       const originX = cell % 40 * 8;
       const originY = Math.floor(cell / 40) * 8;
-      const originalAttribute = attributes[cell];
-      const originalIndices = [backgroundColorIndex, ...multicolorIndices, originalAttribute & 7];
-      // Approximate the fitted image, including its dithering, rather than reverting to raw RGB.
-      for (let row = 0; row < 8; row += 1) {
-        const byte = cellPatterns[cell].glyph[row];
+      for (let y = 0; y < 8; y += 1) {
         for (let x = 0; x < 8; x += 1) {
-          const color = originalAttribute & 8 ? originalIndices[(byte >> (6 - (x & ~1))) & 3]
-            : byte & (128 >> x) ? originalAttribute & 7 : backgroundColorIndex;
-          const pixel = (originY + row) * 320 + originX + x;
-          errors.set(fittedColorErrors.subarray(color * 16, color * 16 + 16), pixel * 16);
+          targetColors[y * 8 + x] = renderedColor(initialPatterns[cell].glyph, initialAttributes[cell], x, y);
         }
       }
       for (let attribute = 0; attribute < 16; attribute += 1) {
-        const multicolor = attribute >= 8;
         const foreground = attribute & 7;
+        const indices = [backgroundColorIndex, ...multicolorIndices, foreground];
         for (let row = 0; row < 8; row += 1) {
           const start = (originY + row) * 320 + originX;
           const table = attribute * 2048 + row * 256;
-          if (!multicolor) {
-            let backgroundError = 0;
+          if (attribute < 8) {
+            let rawBase = 0;
+            let fittedBase = 0;
             for (let x = 0; x < 8; x += 1) {
-              const background = errors[(start + x) * 16 + backgroundColorIndex];
-              backgroundError += background;
-              deltas[7 - x] = errors[(start + x) * 16 + foreground] - background;
+              const rawBackground = errors[(start + x) * 16 + backgroundColorIndex];
+              const fittedBackground = fittedColorErrors[targetColors[row * 8 + x] * 16 + backgroundColorIndex];
+              rawBase += rawBackground;
+              fittedBase += fittedBackground;
+              rawDeltas[7 - x] = errors[(start + x) * 16 + foreground] - rawBackground;
+              fittedDeltas[7 - x] = fittedColorErrors[targetColors[row * 8 + x] * 16 + foreground] - fittedBackground;
             }
-            rowErrors[table] = backgroundError;
+            rawRows[table] = rawBase;
+            fittedRows[table] = fittedBase;
             for (let byte = 1; byte < 256; byte += 1) {
               const bit = byte & -byte;
-              rowErrors[table + byte] = rowErrors[table + (byte ^ bit)] + deltas[31 - Math.clz32(bit)];
+              const channel = 31 - Math.clz32(bit);
+              rawRows[table + byte] = rawRows[table + (byte ^ bit)] + rawDeltas[channel];
+              fittedRows[table + byte] = fittedRows[table + (byte ^ bit)] + fittedDeltas[channel];
             }
           } else {
-            const indices = [backgroundColorIndex, ...multicolorIndices, foreground];
             for (let pair = 0; pair < 4; pair += 1) {
               for (let code = 0; code < 4; code += 1) {
-                pairErrors[pair * 4 + code] = errors[(start + pair * 2) * 16 + indices[code]] +
+                rawPairs[pair * 4 + code] = errors[(start + pair * 2) * 16 + indices[code]] +
                   errors[(start + pair * 2 + 1) * 16 + indices[code]];
+                fittedPairs[pair * 4 + code] = fittedColorErrors[targetColors[row * 8 + pair * 2] * 16 + indices[code]] +
+                  fittedColorErrors[targetColors[row * 8 + pair * 2 + 1] * 16 + indices[code]];
               }
             }
             for (let byte = 0; byte < 256; byte += 1) {
-              rowErrors[table + byte] = pairErrors[byte >> 6] + pairErrors[4 + ((byte >> 4) & 3)] +
-                pairErrors[8 + ((byte >> 2) & 3)] + pairErrors[12 + (byte & 3)];
+              const a = byte >> 6;
+              const b = 4 + ((byte >> 4) & 3);
+              const c = 8 + ((byte >> 2) & 3);
+              const d = 12 + (byte & 3);
+              rawRows[table + byte] = rawPairs[a] + rawPairs[b] + rawPairs[c] + rawPairs[d];
+              fittedRows[table + byte] = fittedPairs[a] + fittedPairs[b] + fittedPairs[c] + fittedPairs[d];
             }
           }
         }
       }
-      let bestError = Infinity;
-      let bestPattern;
-      for (const pattern of dictionary) {
-        for (let attribute = 0; attribute < 16; attribute += 1) {
-          let error = 0;
-          for (let row = 0; row < 8; row += 1) error += rowErrors[attribute * 2048 + row * 256 + pattern.glyph[row]];
-          if (error < bestError) {
-            bestError = error;
-            bestPattern = pattern;
-            attributes[cell] = attribute;
-          }
+    }
+    function withinPeak(glyph, attribute, fittedError) {
+      if (fittedError <= epsilon || peakLimit >= 1) return true;
+      for (let y = 0; y < 8; y += 1) {
+        for (let x = 0; x < 8; x += 1) {
+          if (fittedColorErrors[targetColors[y * 8 + x] * 16 + renderedColor(glyph, attribute, x, y)] > peakLimit + epsilon) return false;
         }
       }
-      if (bestPattern !== cellPatterns[cell]) approximatedCellCount += 1;
-      cellPatterns[cell] = bestPattern;
+      return true;
+    }
+    const glyphScore = {};
+    function scoreGlyph(pattern, cell, rankRaw) {
+      let fallbackError = Infinity;
+      let fallbackAttribute = 0;
+      let acceptedRank = Infinity;
+      let acceptedError = Infinity;
+      let acceptedAttribute = -1;
+      for (let attribute = 0; attribute < 16; attribute += 1) {
+        let rawError = 0;
+        let fittedError = 0;
+        for (let row = 0; row < 8; row += 1) {
+          const table = attribute * 2048 + row * 256 + pattern.glyph[row];
+          rawError += rawRows[table];
+          fittedError += fittedRows[table];
+        }
+        if (fittedError < fallbackError) { fallbackError = fittedError; fallbackAttribute = attribute; }
+        const rank = rankRaw ? rawError : fittedError;
+        if (rank < acceptedRank && fittedError <= meanLimit + epsilon &&
+            rawError - initialErrors[cell] <= meanLimit + epsilon && withinPeak(pattern.glyph, attribute, fittedError)) {
+          acceptedRank = rank;
+          acceptedError = fittedError;
+          acceptedAttribute = attribute;
+        }
+      }
+      glyphScore.error = Math.max(0, acceptedAttribute >= 0 ? acceptedError : fallbackError);
+      glyphScore.attribute = acceptedAttribute >= 0 ? acceptedAttribute : fallbackAttribute;
+      glyphScore.accepted = acceptedAttribute >= 0;
+      glyphScore.rank = acceptedAttribute >= 0 ? acceptedRank : Infinity;
+      return glyphScore;
+    }
+    function sourceKey(cell) {
+      const rgba = [];
+      for (let y = 0; y < 8; y += 1) {
+        const offset = ((Math.floor(cell / 40) * 8 + y) * 320 + cell % 40 * 8) * 4;
+        rgba.push(...sourceRGB.data.subarray(offset, offset + 32));
+      }
+      return initialPatterns[cell].index + ':' + initialAttributes[cell] + ':' + String.fromCharCode(...rgba);
+    }
+    // One million costs and attributes at most: 5 MB, without retaining row lookup tables.
+    const costs = new Float32Array(1000 * patterns.length);
+    const choices = new Uint8Array(costs.length);
+    const identicalCells = new Map();
+    const cellKeys = [];
+    for (let cell = 0; cell < 1000; cell += 1) {
+      const key = sourceKey(cell);
+      cellKeys.push(key);
+      const previous = identicalCells.get(key);
+      const offset = cell * patterns.length;
+      if (previous !== undefined) {
+        costs.set(costs.subarray(previous * patterns.length, (previous + 1) * patterns.length), offset);
+        choices.set(choices.subarray(previous * patterns.length, (previous + 1) * patterns.length), offset);
+        continue;
+      }
+      identicalCells.set(key, cell);
+      buildRows(cell);
+      for (const pattern of patterns) {
+        const result = pattern === initialPatterns[cell]
+          ? { error: 0, attribute: initialAttributes[cell], accepted: true } : scoreGlyph(pattern, cell, false);
+        costs[offset + pattern.index] = result.error;
+        choices[offset + pattern.index] = result.attribute | (result.accepted ? 16 : 0);
+      }
+    }
+    const bestCosts = new Float32Array(1000).fill(Infinity);
+    const covered = new Uint8Array(1000);
+    const selected = new Set();
+    dictionary = [];
+    let next = patterns.reduce((best, pattern) => pattern.count > best.count ? pattern : best, patterns[0]);
+    while (next && dictionary.length < 256) {
+      dictionary.push(next);
+      selected.add(next.index);
+      for (let cell = 0; cell < 1000; cell += 1) {
+        const offset = cell * patterns.length + next.index;
+        bestCosts[cell] = Math.min(bestCosts[cell], costs[offset]);
+        if (choices[offset] & 16) covered[cell] = 1;
+      }
+      let nextScore = -1;
+      next = null;
+      for (const pattern of patterns) {
+        if (selected.has(pattern.index)) continue;
+        let score = 0;
+        let needed = false;
+        for (const cell of pattern.cells) {
+          if (!covered[cell]) { needed = true; score += bestCosts[cell]; }
+        }
+        if (needed && score > nextScore) { nextScore = score; next = pattern; }
+      }
+    }
+    const assignments = new Map();
+    for (let cell = 0; cell < 1000; cell += 1) {
+      if (selected.has(initialPatterns[cell].index)) continue;
+      const key = cellKeys[cell];
+      let assignment = assignments.get(key);
+      if (!assignment) {
+        buildRows(cell);
+        let bestAccepted = null;
+        let bestFallback = null;
+        for (const pattern of dictionary) {
+          const result = scoreGlyph(pattern, cell, true);
+          const candidate = { ...result, pattern };
+          if (result.accepted && (!bestAccepted || result.rank < bestAccepted.rank)) bestAccepted = candidate;
+          if (!bestFallback || result.error < bestFallback.error) bestFallback = candidate;
+        }
+        assignment = bestAccepted || bestFallback;
+        assignments.set(key, assignment);
+      }
+      cellPatterns[cell] = assignment.pattern;
+      attributes[cell] = assignment.attribute;
+      let changed = false;
+      for (let y = 0; y < 8 && !changed; y += 1) {
+        for (let x = 0; x < 8; x += 1) {
+          const before = renderedColor(initialPatterns[cell].glyph, initialAttributes[cell], x, y);
+          const after = renderedColor(assignment.pattern.glyph, assignment.attribute, x, y);
+          if (fittedColorErrors[before * 16 + after] > epsilon) { changed = true; break; }
+        }
+      }
+      if (changed) {
+        approximatedCellCount += 1;
+        if (assignment.accepted && similarityThreshold) similarityMergedCellCount += 1;
+      }
     }
   }
   const charset = new Uint8Array(2048);
@@ -251,7 +369,9 @@ function createC64CharsetImage(sourceRGB, palette, settings, ditherAmount = 0) {
       }
     }
   }
+  const hiresCellCount = attributes.reduce((count, attribute) => count + (attribute < 8 ? 1 : 0), 0);
   return { pixels, charset, screen, colorRam, characterCount: dictionary.length,
-    unrestrictedCharacterCount, approximatedCellCount, backgroundColorIndex,
+    unrestrictedCharacterCount, approximatedCellCount, similarityMergedCellCount,
+    hiresCellCount, multicolorCellCount: 1000 - hiresCellCount, similarityThreshold, backgroundColorIndex,
     multicolorIndices: [...multicolorIndices] };
 }

@@ -89,11 +89,30 @@ test('exports native mixed hires and multicolor character data that independentl
   assert.equal(manifest.format, 'c64-multicolor-charset');
   assert.equal(manifest.characterCount, 3);
   assert.equal(manifest.approximatedCellCount, 0);
+  assert.equal(manifest.hiresCellCount, 998);
+  assert.equal(manifest.multicolorCellCount, 2);
+  assert.deepEqual(manifest.optimization, { similarityThreshold: 35 });
   assert.equal(manifest.hardware.bitmapMode, false);
   assert.equal(manifest.hardware.extendedColorMode, false);
   assert.equal(manifest.hardware.multicolorMode, true);
   assert.equal(manifest.layout.loadAddressesIncluded, false);
   assert.deepEqual(result, before);
+});
+
+test('export preserves disabled and maximum similarity settings while deriving mode counts from color RAM', () => {
+  for (const similarityThreshold of [0, 100]) {
+    const { result, settings } = fixture();
+    settings.similarityThreshold = similarityThreshold;
+    result.similarityThreshold = similarityThreshold;
+    result.similarityMergedCellCount = 17;
+    result.hiresCellCount = 0;
+    result.multicolorCellCount = 1000;
+    const files = entries(encodeC64Charset(result, settings, palette));
+    const manifest = JSON.parse(files.get('manifest.json').toString('utf8'));
+    assert.deepEqual(manifest.optimization, { similarityThreshold, similarityMergedCellCount: 17 });
+    assert.equal(manifest.hiresCellCount, 998);
+    assert.equal(manifest.multicolorCellCount, 2);
+  }
 });
 
 test('rejects stale shared colors, invalid glyph references, color RAM, geometry, and preview bytes', () => {
@@ -110,7 +129,13 @@ test('rejects stale shared colors, invalid glyph references, color RAM, geometry
     ({ result }) => { result.colorRam[1] = 11; },
     ({ result }) => { result.charset[0] ^= 0x40; },
     ({ result }) => { result.unrestrictedCharacterCount = 2; },
-    ({ result }) => { result.approximatedCellCount = 1001; }
+    ({ result }) => { result.approximatedCellCount = 1001; },
+    ({ settings }) => { settings.similarityThreshold = -1; },
+    ({ settings }) => { settings.similarityThreshold = 101; },
+    ({ settings }) => { settings.similarityThreshold = null; },
+    ({ settings }) => { settings.similarityThreshold = '35'; },
+    ({ result }) => { result.similarityThreshold = 0; },
+    ({ result }) => { result.similarityMergedCellCount = -1; }
   ]) {
     const data = fixture();
     change(data);

@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=charset">
+  <link rel="stylesheet" href="./editor.css?v=charset-similarity">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -197,6 +197,11 @@
               </div>
               <div id="charset-settings" class="image-control" hidden>
                 <p class="background-value">40 × 25 cells. Each cell uses hires or multicolor, with an individual foreground from colors 0–7.</p>
+                <div class="image-control">
+                  <div class="control-label"><label for="charset-similarity">Tile similarity</label><output id="charset-similarity-value" for="charset-similarity">35%</output></div>
+                  <input id="charset-similarity" class="image-slider" type="range" min="0" max="100" step="1" value="35" aria-valuetext="35% tile similarity" aria-describedby="charset-similarity-help">
+                  <p id="charset-similarity-help" class="background-value">Higher values merge more similar tiles. At 0%, patterns stay exact unless the 256-pattern limit forces reuse.</p>
+                </div>
                 <fieldset class="background-control image-control">
                   <legend>Shared multicolor 1</legend>
                   <div id="charset-multi-1-palette" class="palette-swatches"></div>
@@ -208,6 +213,7 @@
                   <p id="charset-multi-2-value" class="background-value"></p>
                 </fieldset>
                 <p id="charset-summary" class="background-value" role="status">Up to 256 unique patterns for 40 × 25 cells.</p>
+                <p id="charset-mode-counts" class="background-value">Color and resolution are fitted per cell.</p>
               </div>
             </div>
           </details>
@@ -375,11 +381,11 @@
   <script src="./afli-sprites.js?v=layers"></script>
   <script src="./fli-sprites.js?v=layers"></script>
   <script src="./sprite-grid.js?v=1"></script>
-  <script src="./charset.js?v=1"></script>
+  <script src="./charset.js?v=perceptual-reuse"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
   <script src="./sprite-grid-export.js?v=1"></script>
-  <script src="./charset-export.js?v=1"></script>
+  <script src="./charset-export.js?v=similarity"></script>
   <script src="./graphics-modes.js?v=charset"></script>
   <script src="./two-color.js?v=1"></script>
   <script src="./two-color-export.js?v=1"></script>
@@ -388,10 +394,10 @@
   <script src="./source-levels.js?v=1"></script>
   <script src="./converter-controls.js?v=projects"></script>
   <script src="./sprite-grid-controls.js?v=1"></script>
-  <script src="./charset-controls.js?v=1"></script>
+  <script src="./charset-controls.js?v=similarity"></script>
   <script src="./layers.js?v=charset-dither"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=charset"></script>
+  <script src="./project.js?v=charset-similarity"></script>
   <script>
     // Colodore PAL reference colors, in C64 color-index order.
     // https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl
@@ -666,7 +672,8 @@
         const json = projectCodec.stringify({
           image: { graphicsMode, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
             twoColorIndices, spriteConfig: spriteGridControls.getState(),
-            charsetMulticolorIndices: charsetControls.getState() },
+            charsetMulticolorIndices: charsetControls.getState(),
+            charsetSimilarityThreshold: charsetControls.getSimilarityThreshold() },
           view: { previewMode: activeMode, grid: gridToggle.checked, paused: ifliPaused },
           activeLayer: layerStack.layers.indexOf(layerStack.active()),
           layers: layerStack.layers.map(layer => ({
@@ -716,6 +723,7 @@
         spriteGridControls.setState(project.image.spriteConfig);
         spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
         charsetControls.setState(project.image.charsetMulticolorIndices);
+        charsetControls.setSimilarityThreshold(project.image.charsetSimilarityThreshold);
         setBackgroundColor(project.image.backgroundColorIndex);
         spriteControls.setColorIndex(project.image.spriteColorIndex);
         twoColorIndices = project.image.twoColorIndices || [0, 1];
@@ -1376,7 +1384,8 @@
     function ensureCharsetResult() {
       if (!isCharsetMode() || !unrestrictedPixels) return null;
       if (!fliResult) fliResult = createC64CharsetImage(unrestrictedPixels, C64_PALETTE, {
-        backgroundColorIndex, multicolorIndices: charsetControls.getState()
+        backgroundColorIndex, multicolorIndices: charsetControls.getState(),
+        similarityThreshold: charsetControls.getSimilarityThreshold()
       }, documentDither);
       return fliResult;
     }
@@ -1421,7 +1430,8 @@
     for (const [button, encode, extension, ensureResult, name] of [
       [mciSave, encodeTruePaintMci, 'mci', ensureMulticolorInterlaceResult, 'MCI'],
       [charsetSave, result => encodeC64Charset(result, {
-        backgroundColorIndex, multicolorIndices: charsetControls.getState()
+        backgroundColorIndex, multicolorIndices: charsetControls.getState(),
+        similarityThreshold: charsetControls.getSimilarityThreshold()
       }, C64_PALETTE), 'zip', ensureCharsetResult, 'charset'],
       [spriteGridSave, result => encodeC64SpriteGrid(result, {
         ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)

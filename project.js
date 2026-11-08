@@ -26,6 +26,9 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         image.charsetMulticolorIndices.length !== 2 || image.charsetMulticolorIndices.some(value => !colorIndex(value)))) {
       invalid('character mode requires two shared C64 palette colors');
     }
+    if (image.charsetSimilarityThreshold !== undefined && !integer(image.charsetSimilarityThreshold, 0, 100)) {
+      invalid('character similarity threshold must be an integer from 0 to 100');
+    }
     const spriteConfig = image.spriteConfig;
     if (spriteConfig !== undefined) {
       const colors = (value, count) => Array.isArray(value) && value.length === count && value.every(colorIndex);
@@ -85,6 +88,9 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
         ...(image.charsetMulticolorIndices === undefined ? {} : {
           charsetMulticolorIndices: [...image.charsetMulticolorIndices]
+        }),
+        ...(image.charsetSimilarityThreshold === undefined ? {} : {
+          charsetSimilarityThreshold: image.charsetSimilarityThreshold
         }),
         ...(spriteConfig === undefined ? {} : { spriteConfig: {
           columns: spriteConfig.columns, rows: spriteConfig.rows,

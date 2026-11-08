@@ -6,6 +6,13 @@ function encodeC64Charset(result, settings, palette) {
     value.length === length && value.every(byte => integer(byte, 0, 255));
   const background = settings?.backgroundColorIndex;
   const shared = settings?.multicolorIndices;
+  const similarityThreshold = settings?.similarityThreshold ?? 35;
+  if ((settings?.similarityThreshold !== undefined && !integer(settings.similarityThreshold, 0, 100)) ||
+      (result?.similarityThreshold !== undefined &&
+        (!integer(result.similarityThreshold, 0, 100) || result.similarityThreshold !== similarityThreshold)) ||
+      (result?.similarityMergedCellCount !== undefined && !integer(result.similarityMergedCellCount, 0, 1000))) {
+    throw new Error('Character export requires matching similarity thresholds from 0 to 100 and valid merge counts.');
+  }
   if (!color(background) || !Array.isArray(shared) || shared.length !== 2 || !shared.every(color) ||
       result?.backgroundColorIndex !== background || !Array.isArray(result.multicolorIndices) ||
       result.multicolorIndices.length !== 2 || result.multicolorIndices.some((value, index) => value !== shared[index])) {
@@ -27,9 +34,11 @@ function encodeC64Charset(result, settings, palette) {
       result.screen.some(index => index >= result.characterCount) || result.colorRam.some(value => value > 15)) {
     throw new Error('Character export requires a 320 × 200 screen, at most 256 glyphs, and valid color RAM.');
   }
+  let multicolorCellCount = 0;
   for (let cell = 0; cell < 1000; cell += 1) {
     const foreground = result.colorRam[cell] & 7;
     const multicolor = (result.colorRam[cell] & 8) !== 0;
+    if (multicolor) multicolorCellCount += 1;
     const allocation = multicolor ? [background, shared[0], shared[1], foreground] : [background, foreground];
     for (let row = 0; row < 8; row += 1) {
       const bits = result.charset[result.screen[cell] * 8 + row];
@@ -53,6 +62,12 @@ function encodeC64Charset(result, settings, palette) {
     characterCount: result.characterCount,
     unrestrictedCharacterCount: result.unrestrictedCharacterCount,
     approximatedCellCount: result.approximatedCellCount,
+    hiresCellCount: 1000 - multicolorCellCount,
+    multicolorCellCount,
+    optimization: { similarityThreshold: result.similarityThreshold ?? similarityThreshold,
+      ...(result.similarityMergedCellCount === undefined ? {} : {
+        similarityMergedCellCount: result.similarityMergedCellCount
+      }) },
     hardware: { bitmapMode: false, extendedColorMode: false, multicolorMode: true,
       backgroundColorRegister: background, sharedMulticolorRegisters: [...shared],
       colorRamModeBit: 8, foregroundColorMask: 7,
