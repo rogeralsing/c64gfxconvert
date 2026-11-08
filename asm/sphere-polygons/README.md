@@ -93,6 +93,25 @@ Glyph choice does not search the font. Reading the coverage byte, transferring i
 
 The renderer fills one polygon's character coverage at a time. Edges supply mathematical crossings rather than a drawn wireframe. Adjacent polygons may update the same tile several times before the combined mask selects its final glyph.
 
+## Delta opportunity study
+
+`node delta-study.cjs` measures 64 consecutive host frames per model using the default yaw/pitch/roll increments. It excludes the first two frames from comparison. It counts actual post-clipping character codes and coverage bytes; it does not implement native delta rendering or measure a speedup.
+
+Each alternating destination screen contains the image from two presentations earlier. Comparing only with the immediately previous presentation overstates reuse for this buffer arrangement.
+
+| Model | Changed chars versus previous presentation | Changed chars versus actual destination | Unchanged ball cells versus destination |
+| --- | ---: | ---: | ---: |
+| Checker | 223.29 | 282.65 | 40.50% |
+| Football | 116.60 | 149.24 | 68.58% |
+
+The percentages use the 475 cells touched by the exact integer-dot radius94 circle, rather than all 1,000 screen positions. The large permanently black exterior is excluded from this denominator. Pre-clipping coverage changes averaged 283.24 checker cells and 149.63 football cells against the two-frame-old state. No current white front face had an exactly unchanged projected polygon in either sampled trajectory.
+
+Whole-face reuse therefore has a weak signal here. Retaining old row spans and coverage could skip unchanged span mask/address setup, rather than merely suppressing screen stores after all work has already been done. That could target more of the measured span cost. Constructing all new edge crossings would still retain the roughly 42–45% DDA cost. Endpoint comparisons, history and dirty-cell tracking have their own CPU and memory cost; changed-cell counts do not establish a native gain.
+
+Per-face removal also needs care: the present coverage is an OR of white contributions. Removing one face must preserve neighboring white contributions. Retained merged white intervals per sample row, or explicit contribution counts, would provide a sound basis for incremental updates. State must follow each physical destination buffer, or a canonical history must propagate both intervening changes.
+
+`build/delta-feasibility.json` records the poses, both history comparisons and source hashes. The native renderer remains unchanged.
+
 ## Verification
 
 ```sh
