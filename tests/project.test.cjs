@@ -70,6 +70,8 @@ test('project import rejects unsupported documents and unusable settings before 
       project => { project.image.twoColorIndices = twoColorIndices; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(charsetMulticolorIndices =>
       project => { project.image.charsetMulticolorIndices = charsetMulticolorIndices; }),
+    ...[null, -1, 101, 0.5, '35', false].map(charsetSimilarityThreshold =>
+      project => { project.image.charsetSimilarityThreshold = charsetSimilarityThreshold; }),
     project => { project.layers = []; },
     project => { project.activeLayer = 2; },
     project => { project.layers[0].visible = 'false'; },
@@ -107,6 +109,17 @@ test('character projects preserve both shared multicolors without changing legac
   const saved = JSON.parse(codec.stringify(project));
   assert.deepEqual(saved.image, project.image);
   assert.equal(codec.parse(JSON.stringify(fixture())).image.charsetMulticolorIndices, undefined);
+});
+
+test('character projects preserve disabled and maximum similarity thresholds', () => {
+  for (const charsetSimilarityThreshold of [0, 100]) {
+    const project = fixture();
+    project.image.graphicsMode = 'charset';
+    project.image.charsetSimilarityThreshold = charsetSimilarityThreshold;
+    const loaded = codec.parse(codec.stringify(project));
+    assert.equal(loaded.image.charsetSimilarityThreshold, charsetSimilarityThreshold);
+  }
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.charsetSimilarityThreshold, undefined);
 });
 
 test('sprite projects preserve grid geometry and independent shared, sprite, and overlay colors', () => {

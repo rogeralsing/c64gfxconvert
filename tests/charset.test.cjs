@@ -1,6 +1,6 @@
 const assert = require('node:assert/strict');
 const test = require('node:test');
-const { ImageData, palette, createContext, setPixel } = require('./fixtures/sprite-images.cjs');
+const { ImageData, palette, rgbToOklab, createContext, setPixel } = require('./fixtures/sprite-images.cjs');
 
 const { createC64CharsetImage } = createContext(['charset.js']);
 const settings = { backgroundColorIndex: 0, multicolorIndices: [5, 6] };
@@ -49,7 +49,7 @@ test('mixed hires and multicolor cells share glyph bytes while retaining indepen
   assert.equal(result.characterCount, 2);
   assert.equal(result.unrestrictedCharacterCount, 2);
   assert.equal(result.approximatedCellCount, 0);
-  assert.deepEqual(Array.from(result.charset.subarray(0, 8)), glyph);
+  assert.deepEqual(Array.from(result.charset.subarray(result.screen[0] * 8, result.screen[0] * 8 + 8)), glyph);
   assert.ok(result.charset.subarray(result.characterCount * 8).every(value => value === 0));
 });
 
@@ -64,6 +64,69 @@ test('multicolor characters use shared colors above seven and three-bit individu
   assert.ok(result.colorRam.every(attribute => attribute < 16));
 });
 
+test('near blue tiles share one placement index with independent multicolor foregrounds below the character limit', () => {
+  const options = { backgroundColorIndex: 0, multicolorIndices: [14, 6] };
+  const source = image();
+  const first = Array(8).fill(0x1b);
+  const second = [...first];
+  second[0] = 0x2b;
+  drawCell(source, 0, first, 13, options);
+  drawCell(source, 1, second, 15, options);
+  const result = createC64CharsetImage(source, palette, options);
+  assert.equal(result.unrestrictedCharacterCount, 3);
+  assert.equal(result.characterCount, 2);
+  assert.equal(result.screen[0], result.screen[1]);
+  assert.equal(result.colorRam[0], 13);
+  assert.equal(result.colorRam[1], 15);
+  assert.equal(result.similarityMergedCellCount, 1);
+  assert.deepEqual(result.pixels.data, decode(result).data);
+  const exact = createC64CharsetImage(source, palette, { ...options, similarityThreshold: 0 });
+  assert.equal(exact.characterCount, 3);
+  assert.notEqual(exact.screen[0], exact.screen[1]);
+  assert.deepEqual(exact.pixels.data, source.data);
+});
+
+test('default similarity protects sharp details while maximum similarity can merge a one-pixel variation', () => {
+  const source = image();
+  const first = Array(8).fill(0x55);
+  const second = [...first];
+  second[0] = 0x54;
+  drawCell(source, 0, first, 1);
+  drawCell(source, 1, second, 1);
+  const conservative = createC64CharsetImage(source, palette, settings);
+  assert.notEqual(conservative.screen[0], conservative.screen[1]);
+  assert.deepEqual(conservative.pixels.data, source.data);
+  const strong = createC64CharsetImage(source, palette, { ...settings, similarityThreshold: 100 });
+  assert.equal(strong.screen[0], strong.screen[1]);
+  assert.equal(strong.characterCount, 2);
+  assert.deepEqual(strong.pixels.data, decode(strong).data);
+  const edges = image();
+  drawCell(edges, 0, first, 1);
+  drawCell(edges, 1, [0, 0, ...first.slice(2)], 1);
+  const distinctEdges = createC64CharsetImage(edges, palette, { ...settings, similarityThreshold: 100 });
+  assert.notEqual(distinctEdges.screen[0], distinctEdges.screen[1]);
+  assert.deepEqual(distinctEdges.pixels.data, edges.data);
+});
+
+test('perceptual fitness merges close blue shades in hires while retaining multicolor where four wide colors fit better', () => {
+  const options = { backgroundColorIndex: 0, multicolorIndices: [6, 14] };
+  const source = image();
+  for (let y = 0; y < 8; y += 1) {
+    for (let x = 1; x < 8; x += 2) setPixel(source, x, y, y & 1 ? [45, 40, 205] : palette[6].rgb);
+  }
+  drawCell(source, 1, Array(8).fill(0x1b), 13, options);
+  const result = createC64CharsetImage(source, palette, options);
+  assert.equal(result.colorRam[0], 6);
+  assert.equal(result.colorRam[1], 13);
+  assert.equal(result.hiresCellCount, 999);
+  assert.equal(result.multicolorCellCount, 1);
+  for (let y = 0; y < 8; y += 1) {
+    assert.deepEqual(Array.from(result.pixels.data.subarray((y * 320 + 1) * 4, (y * 320 + 1) * 4 + 4)),
+      [...palette[6].rgb, 255]);
+  }
+  assert.deepEqual(result.pixels.data, decode(result).data);
+});
+
 test('overfull character screens reuse at most 256 stored glyphs and preview the actual hardware output', () => {
   const source = image();
   let random = 0x12345678;
@@ -72,7 +135,7 @@ test('overfull character screens reuse at most 256 stored glyphs and preview the
       random ^= random << 13; random ^= random >>> 17; random ^= random << 5;
       return random & 255;
     });
-    drawCell(source, cell, glyph, 1);
+    drawCell(source, cell, glyph, (cell % 2 ? 8 : 0) + cell % 7 + 1);
   }
   const result = createC64CharsetImage(source, palette, settings);
   assert.equal(result.charset.length, 2048);
@@ -84,6 +147,20 @@ test('overfull character screens reuse at most 256 stored glyphs and preview the
   assert.ok(result.screen.every(index => index < result.characterCount));
   assert.deepEqual(result.pixels.data, decode(result).data);
   assert.notDeepEqual(result.pixels.data, source.data);
+  const labCache = new Map();
+  function lab(data, offset) {
+    const key = data[offset] | data[offset + 1] << 8 | data[offset + 2] << 16;
+    if (!labCache.has(key)) labCache.set(key, Object.values(rgbToOklab(data[offset], data[offset + 1], data[offset + 2])));
+    return labCache.get(key);
+  }
+  let error = 0;
+  for (let offset = 0; offset < source.data.length; offset += 4) {
+    const target = lab(source.data, offset);
+    const actual = lab(result.pixels.data, offset);
+    error += target.reduce((sum, value, channel) => sum + (value - actual[channel]) ** 2, 0);
+  }
+  // Previous byte-Hamming selection scored 0.10343527 on this deterministic colored fixture.
+  assert.ok(error / 64000 < 0.09, `Mean Oklab error: ${error / 64000}`);
   const repeat = createC64CharsetImage(source, palette, settings);
   assert.deepEqual(result.charset, repeat.charset);
   assert.deepEqual(result.screen, repeat.screen);
@@ -126,7 +203,7 @@ test('per-pixel float dither maps preserve separate strengths and exact colors r
 
 test('overfull dictionaries preserve retained ordered dither glyphs instead of flattening gray cells', () => {
   const colors = palette.map(color => ({ ...color, rgb: color.index === 1 ? [255, 255, 255] : [0, 0, 0] }));
-  const options = { backgroundColorIndex: 0, multicolorIndices: [0, 1] };
+  const options = { backgroundColorIndex: 0, multicolorIndices: [0, 1], similarityThreshold: 0 };
   const source = image([255, 255, 255, 255]);
   let random = 0x12345678;
   for (let cell = 0; cell < 500; cell += 1) {
@@ -161,6 +238,9 @@ test('rejects invalid source dimensions, palette settings, and dither strengths'
   for (const options of [{ backgroundColorIndex: 16, multicolorIndices: [1, 2] },
     { backgroundColorIndex: 0, multicolorIndices: [1] }, { backgroundColorIndex: 0, multicolorIndices: [1, -1] }]) {
     assert.throws(() => createC64CharsetImage(source, palette, options), /background and two shared/);
+  }
+  for (const similarityThreshold of [-1, 101, 35.5, NaN, '35']) {
+    assert.throws(() => createC64CharsetImage(source, palette, { ...settings, similarityThreshold }), /tile similarity/);
   }
   for (const dither of [-1, NaN, '1', new Float32Array(1), new Float64Array(320 * 200).fill(2)]) {
     assert.throws(() => createC64CharsetImage(source, palette, settings, dither), /between 0 and 1/);
