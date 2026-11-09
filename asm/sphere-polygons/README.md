@@ -1,6 +1,6 @@
 # Live polygons through a fixed C64 charset
 
-For the precomputed checker-only follow-up, see [compression formats](precomputed/hybrid/README.md) and [smooth 50 FPS PAL playback](precomputed/hybrid/player/README.md).
+For the precomputed checker-only follow-up, see [compression formats](precomputed/hybrid/README.md) and [compressed PAL playback](precomputed/hybrid/player/README.md).
 
 The measured delta/cache follow-up is in [optimization/README.md](optimization/README.md). Five kernels were tried; the shared-edge football variant passed native checks and measured 5.012 FPS on the sampled PAL poses.
 

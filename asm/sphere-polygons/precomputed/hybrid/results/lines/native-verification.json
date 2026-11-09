@@ -1,0 +1,32 @@
+{
+  "comparedScreenBytes": 6400000,
+  "partialGlyphWrites": 127968,
+  "codeAndInputBytes": 283,
+  "addressConstantBytes": 84,
+  "mathematicalLookupBytes": 1888,
+  "zeroPageBytes": 22,
+  "prgBytes": 6402,
+  "prgSha256": "2be53c2463c06a8daab2461d7b8c624c04ba1c4ca20da19cf5dd71bd5c6efd33",
+  "measurement": "py65 instruction cycles per callable line, including anchor seek and clipping; no VIC stalls or full-movie FPS.",
+  "groups": {
+    "synthetic-full": {
+      "cases": 1088,
+      "min": 6682,
+      "mean": 11452.604779411764,
+      "max": 15534
+    },
+    "synthetic-finite": {
+      "cases": 1088,
+      "min": 12,
+      "mean": 1986.688419117647,
+      "max": 4677
+    },
+    "checker": {
+      "cases": 4224,
+      "min": 6797,
+      "mean": 11308.84209280303,
+      "max": 15910
+    }
+  },
+  "pass": true
+}
