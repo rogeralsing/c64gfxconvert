@@ -1,0 +1,24 @@
+{
+  "pass": true,
+  "isolatedFromRepositoryAndChatFolder": true,
+  "commands": [
+    {
+      "command": "node build.cjs",
+      "exitCode": 0
+    },
+    {
+      "command": "node build-preview.cjs --html-only",
+      "exitCode": 0
+    },
+    {
+      "command": "node build-analysis.cjs",
+      "exitCode": 0
+    }
+  ],
+  "htmlMatchesReviewedBytes": true,
+  "htmlSha256": {
+    "font-v2.html": "991f5cd2c5539261bb5cf950f67a2707c776f4ca9c99156ee2e84e7fd5bf36c0",
+    "font-v2-analysis.html": "99e2df3522437b5eea3aae43386cddc5049c0df8ecf9a7f2e1c0bb024742114d"
+  },
+  "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac"
+}

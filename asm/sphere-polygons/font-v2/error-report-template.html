@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fontens användning och fel</title>
+<style>
+:root{color-scheme:dark;--bg:#151613;--panel:#1c1e19;--text:#eeeee8;--muted:#a5aa9d;--line:#3b4035;--accent:#d5e4b2;--error:#ed9671}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}button,select{font:inherit;color:inherit;background:transparent;border:1px solid var(--line);border-radius:3px}button{cursor:pointer;padding:8px 12px}select{padding:8px 10px;max-width:100%}button:hover,select:hover{border-color:var(--muted)}button:focus-visible,select:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button:disabled{cursor:default;opacity:.5}::selection{background:var(--accent);color:var(--bg)}.page{max-width:1080px;margin:auto;padding:32px 28px 40px}h1{font-size:32px;line-height:1.35;font-weight:500;margin:0 0 10px}h2{font-size:20px;line-height:1.3;font-weight:500;margin:0 0 12px}p{margin:0}.muted,.scope{color:var(--muted)}.scope{max-width:72ch}.comparison{width:100%;border-collapse:collapse;margin:24px 0}.comparison th,.comparison td{text-align:right;border-bottom:1px solid var(--line);padding:10px 8px}.comparison th:first-child,.comparison td:first-child{text-align:left;padding-left:0}.comparison th{font-weight:400;color:var(--muted);font-size:12px}.number{font-variant-numeric:tabular-nums}.controls{display:flex;flex-wrap:wrap;gap:16px;margin:26px 0 12px}.control{display:grid;gap:6px;min-width:0}.control span{font-size:12px;color:var(--muted)}.group-note{font-size:12px;color:var(--muted);margin-bottom:24px;max-width:75ch}.detail{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;margin-bottom:24px}.detail-title{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;margin-bottom:16px}.detail-title p{font-size:12px;color:var(--muted)}.samples{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;max-width:520px}.sample{margin:0}.sample canvas{display:block;width:128px;max-width:100%;height:auto;aspect-ratio:1;image-rendering:pixelated;image-rendering:crisp-edges;background:#000}.sample figcaption{font-size:12px;color:var(--muted);margin-top:7px}.table-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;align-items:baseline;margin-bottom:10px}.table-top span{font-size:12px;color:var(--muted)}.patterns{width:100%;border-collapse:collapse}.patterns th,.patterns td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:right}.patterns th{font-size:12px;color:var(--muted);font-weight:400}.patterns th:first-child,.patterns td:first-child{text-align:left;padding-left:0}.patterns th:last-child,.patterns td:last-child{padding-right:0}.pattern-button{display:flex;align-items:center;gap:12px;background:transparent;border:0;padding:0;min-height:44px;text-align:left}.pattern-button canvas{width:40px;height:40px;image-rendering:pixelated;image-rendering:crisp-edges;background:#000}.pattern-button span{color:var(--muted);font-size:12px}.pattern-button[aria-pressed=true] span{color:var(--accent)}tr.selected{background:var(--panel)}.more{margin-top:18px}.empty{padding:24px 0;color:var(--muted)}footer{margin-top:30px;border-top:1px solid var(--line);padding-top:16px;font-size:12px;color:var(--muted)}
+@media(max-width:600px){.page{padding:24px 16px}h1{font-size:28px}.controls{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}.control select{width:100%}.comparison th,.comparison td,.patterns th,.patterns td{padding:10px 5px}.comparison th:first-child,.comparison td:first-child{max-width:125px}.samples{gap:12px}.pattern-button{gap:8px}.pattern-button canvas{width:32px;height:32px}.detail{padding:18px 0}}
+.usage{margin-top:26px}.usage-top{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:baseline}.usage-note{color:var(--muted);font-size:12px;max-width:75ch;margin:10px 0 18px}.table-scroll{width:100%;overflow-x:auto}.usage-table{width:100%;border-collapse:collapse}.usage-table th,.usage-table td{padding:10px 8px;border-bottom:1px solid var(--line);text-align:right;vertical-align:middle}.usage-table th{font-size:12px;font-weight:400;color:var(--muted)}.usage-table th:first-child,.usage-table td:first-child{text-align:left;padding-left:0}.usage-table th:nth-child(2),.usage-table td:nth-child(2){text-align:left;min-width:190px}.usage-form{display:flex;align-items:center;gap:10px}.usage-form canvas{display:block;width:32px;height:32px;image-rendering:pixelated;image-rendering:crisp-edges;background:#000}.usage-index{font-size:12px}.usage-description{font-size:12px;color:var(--muted);margin-top:3px}.analysis{border-top:1px solid var(--line);margin-top:32px;padding-top:18px}.analysis>summary{cursor:pointer;font-size:18px;line-height:1.4;font-weight:500}.analysis[open]>summary{margin-bottom:20px}
+</style>
+</head>
+<body>
+<main class="page">
+  <header><h1>Fontens användning och fel</h1><p id="scope" class="scope"></p></header>
+  <section id="usage" class="usage" aria-labelledby="usage-heading">
+    <div class="usage-top"><div><h2 id="usage-heading">Teckenanvändning</h2><p id="usage-summary" class="muted number"></p></div><label class="control" id="usage-case-control" hidden><span>Visa användning i</span><select id="usage-case"><option value="">Alla testfall</option></select></label><label class="control"><span>Sortera tecken</span><select id="usage-sorting"><option value="least">Minst använda på sfären</option><option value="most">Mest använda på sfären</option><option value="balanced" id="usage-balanced-option">Minst använda · lika vikt per fall</option><option value="index">Teckennummer</option></select></label></div>
+    <p id="usage-note" class="usage-note">På sfären räknar aktiva 8 × 8-rutor inom sfärens område, även svarta fält. Hela skärmen inkluderar den tomma bakgrunden.</p>
+    <div class="table-scroll"><table id="usage-table" class="usage-table number" aria-label="Användning per tecken över alla mätta bilder"><thead><tr><th>Tecken</th><th>Formtyp</th><th>På sfären</th><th>Hela skärmen</th><th>Bilder på sfären</th><th>Bilder totalt</th><th id="usage-share-head" hidden>Balanserad andel</th></tr></thead><tbody id="usage-rows"></tbody></table></div>
+    <p id="usage-empty" class="empty" hidden>Användningsmätningen saknas.</p>
+    <div class="table-top more"><span id="usage-count" class="number"></span><button id="usage-more" type="button" hidden>Visa 40 till</button></div>
+  </section>
+  <section id="final-test" class="analysis" aria-labelledby="final-test-heading" hidden><h2 id="final-test-heading">Separat sluttest · inte använt under sökningen</h2><p id="final-test-scope" class="group-note"></p><table class="comparison number" aria-label="Fontskillnad på separata sluttestfall"><thead><tr><th>Font</th><th>Balanserat pixelfel</th></tr></thead><tbody id="final-test-rows"></tbody></table><p id="final-test-cases" class="group-note number"></p></section>
+  <details id="case-matrix" class="analysis" hidden><summary>Testmatris · vinklar, storlekar och schackrutor</summary><p id="case-note" class="group-note"></p><div class="table-scroll"><table class="comparison number" aria-label="Pixelfel per testfall"><thead><tr><th>Fall</th><th>Urval</th><th>Lutning</th><th>Radie</th><th>Rutor runtom</th><th>Startvinkel</th><th>Bilder</th><th>Före</th><th>Efter</th></tr></thead><tbody id="case-rows"></tbody></table></div></details>
+  <details id="iteration-history" class="analysis" hidden><summary>Iterationer</summary><p class="group-note">Kontrollfallen följs mellan iterationerna men ingår inte i fontens anpassningsunderlag.</p><div class="table-scroll"><table class="comparison number" aria-label="Uppmätta resultat per iteration"><thead><tr><th>Iteration</th><th>Anpassningsfel</th><th>Kontrollfel</th><th>Pixelfel totalt</th><th>Rutor med fler än 3 fel</th></tr></thead><tbody id="iteration-rows"></tbody></table></div></details>
+  <details id="form-errors" class="analysis" open><summary>Värsta referensformerna · fler än tre felpixlar</summary>
+  <table class="comparison number" aria-label="Jämförelse mellan fonter">
+    <thead><tr><th>Font</th><th id="balanced-error-head" hidden>Balanserat fel</th><th>Pixelfel totalt</th><th>Rutor med fler än 3 fel</th></tr></thead>
+    <tbody id="comparison"></tbody>
+  </table>
+  <p id="comparison-note" class="group-note" hidden></p>
+  <div class="controls">
+    <label class="control"><span>Visa mätning</span><select id="dataset"><option value="baseline">Före</option><option value="improved">Efter</option></select></label>
+    <label class="control"><span>Vad räknas som samma form?</span><select id="grouping"><option value="family">Rotation, spegling och invers tillsammans</option><option value="exact">Exakt samma 8 × 8-form</option></select></label>
+    <label class="control"><span>Sortera efter</span><select id="sorting"><option value="totalError" selected>Totalt pixelfel</option><option value="count">Antal förekomster</option></select></label>
+  </div>
+  <p id="group-note" class="group-note"></p>
+  <section id="detail" class="detail" aria-labelledby="detail-heading" hidden>
+    <div class="detail-title"><h2 id="detail-heading">Ett förekommande exempel</h2><p id="detail-meta" class="number"></p></div>
+    <div class="samples">
+      <figure class="sample"><canvas id="target" width="8" height="8" role="img" aria-label="Bitmapreferensens form"></canvas><figcaption>Bitmapreferens</figcaption></figure>
+      <figure class="sample"><canvas id="selected" width="8" height="8" role="img" aria-label="Fontens valda tecken"></canvas><figcaption>Valt tecken</figcaption></figure>
+      <figure class="sample"><canvas id="difference" width="8" height="8" role="img" aria-label="Felpixlar mellan referensen och tecknet"></canvas><figcaption id="difference-label">Felpixlar</figcaption></figure>
+    </div>
+  </section>
+  <div class="table-top"><h2>Former som återkommer</h2><span id="table-count" class="number"></span></div>
+  <table id="patterns" class="patterns number" aria-label="Former med fler än tre felpixlar, grupperade och räknade">
+    <thead><tr><th>Form</th><th>Antal</th><th>Fel per ruta</th><th>Totalt fel</th></tr></thead><tbody id="pattern-rows"></tbody>
+  </table>
+  <p id="empty" class="empty" hidden>Inga rutor med fler än tre felpixlar i denna mätning.</p>
+  <button id="more" class="more" type="button" hidden>Visa 30 till</button>
+  </details>
+  <footer>Endast rutor med minst fyra felpixlar ingår i listan. Antal räknar rutförekomster över alla mätta bilder.</footer>
+</main>
+<script>
+'use strict';
+const errorData = /*ERROR_DATA*/null;
+const state = {dataset:'improved', grouping:'family', sorting:'totalError', limit:30, selected:null, usageSorting:'least', usageLimit:40, usageCase:''};
+const $ = id => document.getElementById(id);
+const number = value => Number(value || 0).toLocaleString('sv-SE');
+const decimal = value => Number(value || 0).toLocaleString('sv-SE',{minimumFractionDigits:1,maximumFractionDigits:1});
+const reports = errorData || {};
+const available = ['baseline','improved'].filter(name => reports[name] && reports[name].summary);
+const usageSource = () => reports.improved?.usage ? reports.improved : reports.baseline;
+const percent = value => Number.isFinite(value) ? (value*100).toLocaleString('sv-SE',{minimumFractionDigits:2,maximumFractionDigits:2})+' %' : '—';
+const caseMetadata = (report, entry) => ({...(report.sample?.cases || []).find(item=>String(item.id)===String(entry.id)), ...entry});
+const splitLabel = value => value==='train'?'Anpassning':value==='validation'?'Kontroll':value || '—';
+function caseLabel(report, entry, index) {
+  const value=caseMetadata(report,entry);
+  return 'Fall '+(index+1)+(value.split?' · '+splitLabel(value.split):'')+' · '+value.tilt+'° · radie '+value.radius+' · '+value.checks+' rutor';
+}
+function usageReport() {
+  const report=usageSource();
+  const item=report?.perCase?.find(entry=>String(entry.id)===state.usageCase);
+  if(!item) return report;
+  const metadata=new Map(report.usage.map(glyph=>[glyph.index,glyph]));
+  return {...report,frames:item.frames,usage:item.usage.map(glyph=>({...metadata.get(glyph.index),...glyph})),
+    summary:{...report.summary,tilesChecked:item.frames*1000,activeSphereTilesChecked:item.activeSphereTilesChecked}, selectedCase:item};
+}
+function setupCases() {
+  const report=usageSource();
+  if(!report) return;
+  const cases=report.perCase || [];
+  $('usage-case-control').hidden=!cases.length;
+  cases.forEach((entry,index)=>{const option=document.createElement('option');option.value=String(entry.id);option.textContent=caseLabel(report,entry,index);$('usage-case').append(option);});
+  $('case-matrix').hidden=!cases.length;
+  const previous=new Map((reports.baseline?.perCase || []).map(entry=>[String(entry.id),entry]));
+  const after=new Map((reports.improved?.perCase || []).map(entry=>[String(entry.id),entry]));
+  cases.forEach((entry,index)=>{
+    const value=caseMetadata(report,entry),row=document.createElement('tr');
+    const fields=[number(index+1),splitLabel(value.split),Number.isFinite(value.tilt)?value.tilt+'°':'—',Number.isFinite(value.radius)?value.radius+' px':'—',number(value.checks),Number.isFinite(value.phaseDegrees)?value.phaseDegrees+'°':'—',number(value.frames),percent(previous.get(String(entry.id))?.meanNormalizedError),percent(after.get(String(entry.id))?.meanNormalizedError)];
+    for(const field of fields){const cell=document.createElement('td');cell.textContent=field;row.append(cell);}$('case-rows').append(row);
+  });
+  $('case-note').textContent=number(cases.length)+' testfall. Varje fall väger lika i det balanserade felet. Procenttalen är felpixlar delat med sfärens area över fallets bilder.';
+  if(cases.some(entry=>caseMetadata(report,entry).split==='validation')) $('case-note').textContent+=' Kontrollfallen ingår inte i anpassningsunderlaget. Samma kontrollfall kan återkomma mellan iterationerna.';
+}
+function setupIterations() {
+  const iterations=reports.iterations;
+  if(!Array.isArray(iterations) || !iterations.length) return;
+  $('iteration-history').hidden=false;
+  iterations.forEach((entry,index)=>{
+    const row=document.createElement('tr');
+    const fields=[entry.label || 'Iteration '+(index+1),percent(entry.trainMeanCaseNormalizedError),percent(entry.controlMeanCaseNormalizedError),Number.isFinite(entry.totalPixelErrors)?number(entry.totalPixelErrors):'—',Number.isFinite(entry.badTiles)?number(entry.badTiles):'—'];
+    for(const field of fields){const cell=document.createElement('td');cell.textContent=field;row.append(cell);}$('iteration-rows').append(row);
+  });
+}
+function setupFinalTest() {
+  const result=reports.finalTest;
+  if(!result || typeof result!=='object') return;
+  const measured=value=>Number.isFinite(value)?number(value):'—';
+  $('final-test').hidden=false;
+  $('final-test-scope').textContent=measured(result.cases)+' nya testfall · '+measured(result.frames)+' bilder. Samma korrigerade pixelmatchning används för båda fonterna.';
+  for(const [label,value] of [['Utgångsfont',result.beforeMeanCaseNormalizedError],['Slutfont',result.afterMeanCaseNormalizedError]]) {
+    const row=document.createElement('tr'),name=document.createElement('td'),error=document.createElement('td');name.textContent=label;error.textContent=percent(value);row.append(name,error);$('final-test-rows').append(row);
+  }
+  $('final-test-cases').textContent=measured(result.improvedCases)+' fall bättre · '+measured(result.worseCases)+' sämre · '+measured(result.equalCases)+' lika';
+  $('comparison-note').hidden=false;
+  $('comparison-note').textContent='Huvudjämförelsen omfattar både font och teckenval. Sluttestet använder samma korrigerade pixelmatchare för båda fonterna och mäter enbart fontskillnaden.';
+}
+function draw(canvas, rows, difference = false) {
+  const context = canvas.getContext('2d');
+  context.fillStyle = '#000'; context.fillRect(0,0,8,8);
+  context.fillStyle = difference ? getComputedStyle(document.documentElement).getPropertyValue('--error').trim() : '#fff';
+  for(let y=0;y<8;y++) for(let x=0;x<8;x++) if((rows[y] >>> (7-x)) & 1) context.fillRect(x,y,1,1);
+}
+function renderUsage() {
+  const report = usageReport();
+  const usage = report?.usage;
+  if(!Array.isArray(usage)) {$('usage-empty').hidden=false;$('usage-table').hidden=true;return;}
+  const weighted=usage.every(glyph=>Number.isFinite(glyph.weightedSphereUsage));
+  $('usage-share-head').hidden=!weighted;
+  $('usage-balanced-option').disabled=!weighted;
+  const ordered = [...usage].sort((a,b)=>state.usageSorting==='index' ? a.index-b.index : (state.usageSorting==='balanced'&&weighted ? a.weightedSphereUsage-b.weightedSphereUsage : state.usageSorting==='most' ? b.sphereCount-a.sphereCount : a.sphereCount-b.sphereCount) || a.index-b.index);
+  const visible = ordered.slice(0,state.usageLimit);
+  $('usage-rows').replaceChildren();
+  for(const glyph of visible) {
+    const row=document.createElement('tr'),shape=document.createElement('td'),form=document.createElement('div');form.className='usage-form';
+    const canvas=document.createElement('canvas');canvas.width=canvas.height=8;canvas.setAttribute('aria-hidden','true');draw(canvas,glyph.rows);
+    const index=document.createElement('span');index.className='usage-index';index.textContent='#'+String(glyph.index).padStart(3,'0');form.append(canvas,index);shape.append(form);row.append(shape);
+    const description=document.createElement('td'),label=document.createElement('div'),status=document.createElement('div');label.textContent=glyph.label;status.className='usage-description';status.textContent=({basic:'Grundtecken',quadrant:'Grundtecken',diagonal:'Diagonal',edge:'Diagonal',corner:'Hörn',crossing:'Möte'})[glyph.kind] || glyph.kind;description.append(label,status);row.append(description);
+    for(const value of [glyph.sphereCount,glyph.count,glyph.sphereFramesUsed,glyph.framesUsed]) {const cell=document.createElement('td');cell.textContent=number(value);row.append(cell);}
+    const share=document.createElement('td');share.hidden=!weighted;share.textContent=weighted?(glyph.weightedSphereUsage*100).toLocaleString('sv-SE',{minimumFractionDigits:4,maximumFractionDigits:4})+' %':'';row.append(share);
+    $('usage-rows').append(row);
+  }
+  const unused=usage.filter(glyph=>glyph.sphereCount===0);
+  $('usage-summary').textContent=number(usage.length)+' tecken · '+number(unused.length)+' oanvända på sfären';
+  $('usage-note').textContent='Mätningen omfattar '+number(report.summary.tilesChecked)+' rutförekomster totalt, varav '+number(report.summary.activeSphereTilesChecked)+' i sfärens aktiva 8 × 8-rutor, även svarta fält. Hela skärmen inkluderar den tomma bakgrunden.';
+  if(weighted) $('usage-note').textContent+=report.selectedCase?' Andelen gäller detta testfalls sfärrutor.':' Balanserad andel ger varje testfall lika vikt, oavsett sfärens storlek.';
+  $('usage-count').textContent=number(visible.length)+' av '+number(usage.length)+' tecken · '+number(report.frames)+' bilder';
+  $('usage-more').hidden=visible.length>=usage.length;
+}
+function selectedDetail(pattern) {
+  state.selected = pattern.key;
+  const example = pattern.example;
+  const target = example.targetRows || pattern.rows;
+  const chosen = example.selectedRows;
+  draw($('target'),target); draw($('selected'),chosen);
+  draw($('difference'),target.map((row,y)=>row ^ chosen[y]),true);
+  const column = example.cell % 40, row = Math.floor(example.cell / 40);
+  const report=reports[state.dataset],caseIndex=(report.perCase || []).findIndex(entry=>String(entry.id)===String(example.caseId));
+  const prefix=example.caseId!==undefined ? 'Fall '+(caseIndex>=0?caseIndex+1:example.caseId)+' · '+splitLabel(example.split)+' · ' : '';
+  $('detail-meta').textContent = prefix+'Bild ' + example.frame + ' · ruta ' + column + ', ' + row + ' · tecken #' + example.glyphIndex;
+  $('difference-label').textContent = number(example.error) + ' av 64 pixlar skiljer sig';
+  $('detail').hidden = false;
+  for(const button of document.querySelectorAll('.pattern-button')) {
+    const active = button.dataset.key === state.selected;
+    button.setAttribute('aria-pressed',String(active));
+    button.closest('tr').classList.toggle('selected',active);
+  }
+}
+function render() {
+  const report = reports[state.dataset];
+  if(!report) return;
+  const source = state.grouping === 'exact' ? report.exactPatterns : report.patternGroups;
+  const patterns = [...source].sort((a,b)=>b[state.sorting]-a[state.sorting] || b.totalError-a.totalError || a.key.localeCompare(b.key));
+  const visible = patterns.slice(0,state.limit);
+  $('pattern-rows').replaceChildren();
+  for(let i=0;i<visible.length;i++) {
+    const pattern = visible[i], row = document.createElement('tr'), shape = document.createElement('td');
+    const button = document.createElement('button'); button.type='button'; button.className='pattern-button'; button.dataset.key=pattern.key;
+    button.setAttribute('aria-label','Visa exempel för form ' + (i+1) + ', ' + number(pattern.count) + ' förekomster');
+    const canvas = document.createElement('canvas'); canvas.width=canvas.height=8; canvas.setAttribute('aria-hidden','true'); draw(canvas,pattern.rows);
+    const label = document.createElement('span'); label.textContent = '#' + String(i+1).padStart(2,'0');
+    button.append(canvas,label);button.addEventListener('click',()=>selectedDetail(pattern));shape.append(button);row.append(shape);
+    for(const value of [number(pattern.count),decimal(pattern.meanError),number(pattern.totalError)]) {const cell=document.createElement('td');cell.textContent=value;row.append(cell);}
+    $('pattern-rows').append(row);
+  }
+  const measuredCount = state.grouping === 'exact' ? report.summary.uniqueExactPatterns : report.summary.symmetryGroups;
+  const partial = patterns.length < measuredCount;
+  $('table-count').textContent = number(visible.length) + ' av ' + number(measuredCount) + (state.grouping === 'exact' ? ' exakta former' : ' formgrupper') + (partial ? ' · urval' : '');
+  $('group-note').textContent = state.grouping === 'exact'
+    ? 'Endast identiska bitmapformer räknas tillsammans. Orientering och fyllningssida måste vara samma.'
+    : 'Samma bitmapform räknas tillsammans även efter rotation, spegling eller inverterad fyllning. Exemplet visar en faktiskt förekommande orientering.';
+  if(partial) $('group-note').textContent += ' Listan innehåller ett urval av de uppmätta formerna. Sorteringen gäller detta urval; summeringarna ovan omfattar hela mätningen.';
+  $('empty').hidden = patterns.length > 0; $('patterns').hidden = !patterns.length; $('more').hidden = visible.length >= patterns.length;
+  const selected = visible.find(pattern=>pattern.key===state.selected) || visible[0];
+  if(selected) selectedDetail(selected); else $('detail').hidden=true;
+}
+for(const name of ['dataset','grouping','sorting']) $(name).addEventListener('change',event=>{state[name]=event.target.value;state.limit=30;state.selected=null;render();});
+$('more').addEventListener('click',()=>{state.limit+=30;render();});
+$('usage-sorting').addEventListener('change',event=>{state.usageSorting=event.target.value;state.usageLimit=40;renderUsage();});
+$('usage-more').addEventListener('click',()=>{state.usageLimit+=40;renderUsage();});
+$('usage-case').addEventListener('change',event=>{state.usageCase=event.target.value;state.usageLimit=40;renderUsage();});
+const balanced=available.some(name=>Number.isFinite(reports[name].summary.meanCaseNormalizedError));
+$('balanced-error-head').hidden=!balanced;
+for(const name of available) {
+  const report=reports[name], summary=report.summary, row=document.createElement('tr');
+  const label=document.createElement('td');label.textContent=(name==='baseline'?'Före':'Efter')+' · '+report.font.count+' tecken';row.append(label);
+  const normalized=document.createElement('td');normalized.hidden=!balanced;normalized.textContent=percent(summary.meanCaseNormalizedError);row.append(normalized);
+  for(const value of [summary.totalPixelErrors,summary.badTiles]) {const cell=document.createElement('td');cell.textContent=number(value);row.append(cell);}
+  $('comparison').append(row);
+}
+for(const option of $('dataset').options) option.disabled = !available.includes(option.value);
+if(available.length) {
+  if(!available.includes(state.dataset)) state.dataset=available[0];
+  $('dataset').value=state.dataset;
+  const report=reports[state.dataset];
+  const caseCount=report.sample?.caseCount || report.perCase?.length || 0;
+  $('scope').textContent=number(report.frames)+(caseCount?' bilder i '+number(caseCount)+' testfall. ':' bilder över '+report.sample.periodDegrees+'° rotation. ')+'Varje 8 × 8-ruta jämförs mot bitmapreferensen med bästa pixelmatchning i fonten.';
+  if(report.sample?.scope) $('scope').textContent+=' Urval: '+report.sample.scope+'.';
+  setupCases();setupIterations();setupFinalTest();render();renderUsage();
+} else {$('empty').hidden=false;$('empty').textContent='Feldatasamlingen saknas.';$('patterns').hidden=true;}
+</script>
+</body>
+</html>

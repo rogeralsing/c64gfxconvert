@@ -1,0 +1,110 @@
+<div id="checker-font-v2">
+  <style>
+    #checker-font-v2{display:grid;gap:calc(var(--font-size-base)*1)}
+    #checker-font-v2 .heading{display:flex;flex-wrap:wrap;gap:calc(var(--font-size-base)*.5);align-items:baseline;padding-right:90px}
+    #checker-font-v2 .screen{display:block;width:100%;height:auto;aspect-ratio:8/5;image-rendering:pixelated;touch-action:none;cursor:grab}
+    #checker-font-v2 .rotation{display:grid;gap:calc(var(--font-size-base)*.25)}
+    #checker-font-v2 .status{display:flex;justify-content:space-between;flex-wrap:wrap;gap:calc(var(--font-size-base)*.5)}
+  </style>
+  <div class="heading"><h2>Schackboll · genomsnittsfont</h2><span class="text-small text-muted" data-value="font-summary">256 matematiska tecken</span></div>
+  <canvas class="screen" width="320" height="200" role="img" aria-label="Roterande schackboll ritad med 256 tecken, inklusive hörn och korsningar"></canvas>
+  <div class="viz-controls">
+    <button class="btn" type="button" data-action="play">Pausa</button>
+    <label class="form-check"><input class="form-check-input" type="checkbox" data-control="grid"><span class="form-check-label">Rutnät</span></label>
+    <label class="form-label">Teckenval
+      <select class="form-select" data-control="method"><option value="conics">Matematiskt · som tidigare</option><option value="matching">Bästa pixelmatchning</option></select>
+    </label>
+  </div>
+  <label class="form-label rotation">Rotation <output class="tabular-nums" data-value="angle">22°</output><input class="form-range" type="range" min="0" max="360" step="0.25" value="22" data-control="angle"></label>
+  <div class="status text-small text-muted"><span data-value="used"></span><span>40 × 25 tecken · 8 × 8 pixlar</span></div>
+  <script>
+  /* RENDER_SOURCES */
+  (function () {
+    'use strict';
+    const root = document.getElementById('checker-font-v2');
+    const find = selector => root.querySelector(selector);
+    const canvas = find('canvas'), context = canvas.getContext('2d', {alpha:false});
+    const image = context.createImageData(320, 200);
+    const font = window.GlyphMath.generateFont(256);
+    const direct = window.DirectMethods.conics.create(font);
+    const matching = new window.SphereMath.SphereRenderer();
+    const saved = window.openai?.widgetState;
+    const previous = saved?.modelContent?.fontVersion === 'v2' ? saved : null;
+    const state = {angle:0.38, tilt:22, checks:12, radius:94, solid:false,
+      grid:previous?.modelContent?.grid === true,
+      method:previous?.modelContent?.method === 'conics' ? 'conics' : 'matching',
+      playing:!matchMedia('(prefers-reduced-motion: reduce)').matches};
+    if (Number.isFinite(previous?.privateContent?.angle)) state.angle = previous.privateContent.angle;
+    window.DirectCore.prepareSilhouette(font, state.radius);
+    let screen, lastTime = 0, lastRender = 0, dragging = null;
+
+    function controls() {
+      const kinds = font.glyphs.reduce((result, glyph) => {result[glyph.sourceKind] = (result[glyph.sourceKind] || 0) + 1; return result;}, {});
+      find('[data-value="font-summary"]').textContent = (kinds.basic || 0) + ' raka fyllningar · ' + (kinds.diagonal || 0) + ' diagonaler · ' + ((kinds.corner || 0) + (kinds.crossing || 0)) + ' hörn/korsningar';
+      find('[data-action="play"]').textContent = state.playing ? 'Pausa' : 'Rotera';
+      find('[data-action="play"]').setAttribute('aria-pressed', String(state.playing));
+      find('[data-control="grid"]').checked = state.grid;
+      find('[data-control="method"]').value = state.method;
+      const degrees = ((state.angle * 180 / Math.PI) % 360 + 360) % 360;
+      find('[data-control="angle"]').value = degrees;
+      find('[data-value="angle"]').textContent = degrees.toFixed(1) + '°';
+    }
+    function save() {
+      window.openai?.setWidgetState?.({modelContent:{fontVersion:'v2', fontCount:font.count, method:state.method, grid:state.grid},
+        privateContent:{angle:state.angle}})?.catch(() => {});
+    }
+    function render() {
+      let pixels;
+      if (state.method === 'matching') {
+        matching.render(state, font);
+        screen = matching.screen;
+        pixels = matching.output;
+      } else {
+        screen = direct.render(state).screen;
+        pixels = window.DirectCore.reconstruct(screen, font);
+      }
+      for (let index = 0; index < pixels.length; index++) {
+        const offset = index * 4, value = pixels[index] * 255;
+        image.data[offset] = image.data[offset + 1] = image.data[offset + 2] = value;
+        image.data[offset + 3] = 255;
+      }
+      context.putImageData(image, 0, 0);
+      if (state.grid) {
+        const accent = getComputedStyle(root).getPropertyValue('--viz-series-1').trim() || getComputedStyle(root).color;
+        context.strokeStyle = accent; context.globalAlpha = .45; context.lineWidth = .4; context.beginPath();
+        for (let x = 8; x < 320; x += 8) {context.moveTo(x, 0); context.lineTo(x, 200);}
+        for (let y = 8; y < 200; y += 8) {context.moveTo(0, y); context.lineTo(320, y);}
+        context.stroke(); context.globalAlpha = 1;
+      }
+      find('[data-value="used"]').textContent = new Set(screen).size + ' av ' + font.count + ' tecken används';
+      controls();
+    }
+    find('[data-action="play"]').addEventListener('click', () => {state.playing = !state.playing; controls(); save();});
+    find('[data-control="grid"]').addEventListener('change', event => {state.grid = event.target.checked; render(); save();});
+    find('[data-control="method"]').addEventListener('change', event => {state.method = event.target.value; render(); save();});
+    find('[data-control="angle"]').addEventListener('input', event => {state.angle = Number(event.target.value) * Math.PI / 180; state.playing = false; render(); save();});
+    canvas.addEventListener('pointerdown', event => {dragging = {x:event.clientX, angle:state.angle}; state.playing = false; canvas.setPointerCapture(event.pointerId); controls();});
+    canvas.addEventListener('pointermove', event => {if (dragging) {state.angle = dragging.angle + (event.clientX - dragging.x) * .012; render();}});
+    for (const name of ['pointerup', 'pointercancel']) canvas.addEventListener(name, () => {dragging = null; save();});
+    window.addEventListener('openai:set_globals', event => {
+      const update = event.detail?.globals?.widgetState;
+      if (update?.modelContent?.fontVersion !== 'v2') return;
+      state.grid = update.modelContent.grid === true;
+      state.method = update.modelContent.method === 'matching' ? 'matching' : 'conics';
+      if (Number.isFinite(update.privateContent?.angle)) state.angle = update.privateContent.angle;
+      render();
+    });
+    function tick(time) {
+      if (!root.isConnected) return;
+      const elapsed = lastTime ? Math.min((time - lastTime) / 1000, .1) : 0;
+      lastTime = time;
+      if (state.playing && !document.hidden) {
+        state.angle += elapsed * .32;
+        if (time - lastRender >= 40) {render(); lastRender = time;}
+      }
+      requestAnimationFrame(tick);
+    }
+    render(); requestAnimationFrame(tick);
+  })();
+  </script>
+</div>

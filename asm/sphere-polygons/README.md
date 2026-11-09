@@ -152,6 +152,12 @@ Verified PRG SHA256: `1379a1c305d1ef6553aead15fd74da1f093538cb88a0c4d57b5c71f7bb
 
 ## Approximation limits
 
+The separate [bitmap-tested font experiment](font-v2/README.md) evolves a
+2,048-byte mathematical font across sphere orientations, sizes and checker
+counts. It includes a portable HTML preview, per-glyph usage, recurring error
+bitmaps and independent final-test evidence. It does not change these native
+players' frozen fonts or encoded movies.
+
 A single glyph approximates each tile's union of white faces. Multiple boundaries inside one tile, thin faces and high curvature can exceed the font's shapes. Q6 matrix and Q3 vertex rounding also move edges. Nearly edge-on quantized hexagons can fold slightly; min/max spans then approximate their narrow footprint. The strict circle remap prevents protrusions outside the ball, but can erode boundary detail. Neither native-to-host agreement nor zero circle spill proves a perfect polygon image.
 
 The football has adjoining white hexagons without extra seam strokes. Black pentagons provide its pattern. Both meshes use orthographic projection, fixed size and a fixed white-on-black palette.

@@ -1,0 +1,37 @@
+[
+  {
+    "label": "Utgångsläge",
+    "trainMeanCaseNormalizedError": 0.035676940126293355,
+    "controlMeanCaseNormalizedError": 0.03353641580307171,
+    "totalPixelErrors": 1189512,
+    "badTiles": 98354
+  },
+  {
+    "label": "Varv 1 · font",
+    "trainMeanCaseNormalizedError": 0.03372687296349651,
+    "controlMeanCaseNormalizedError": 0.033336166592931454,
+    "totalPixelErrors": 1141811,
+    "badTiles": 99396
+  },
+  {
+    "label": "Varv 2 · fler former",
+    "trainMeanCaseNormalizedError": 0.032552567529859334,
+    "controlMeanCaseNormalizedError": 0.03180364628726081,
+    "totalPixelErrors": 1097186,
+    "badTiles": 88341
+  },
+  {
+    "label": "Varv 3 · konturval",
+    "trainMeanCaseNormalizedError": 0.03213287689273736,
+    "controlMeanCaseNormalizedError": 0.03145893269459746,
+    "totalPixelErrors": 1084467,
+    "badTiles": 88321
+  },
+  {
+    "label": "Varv 4 · förkastat",
+    "trainMeanCaseNormalizedError": 0.03211573356139082,
+    "controlMeanCaseNormalizedError": 0.03156320211581626,
+    "totalPixelErrors": 1085313,
+    "badTiles": 88324
+  }
+]
