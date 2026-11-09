@@ -104,8 +104,9 @@ def main():
     for slot, index in enumerate(samples):
         x, y = 10 + (slot % 3) * 330, 10 + (slot // 3) * 234
         contact.paste(frames[index], (x, y + 24))
-        diameter = scene["frames"][index]["diameter"]
-        draw.text((x, y), f"{index / scene['fps']:.2f}s | frame {index} | diameter {diameter:.0f}px",
+        diameter = scene["frames"][index].get("diameter")
+        detail = f"diameter {diameter:.0f}px" if diameter is not None else scene["frames"][index].get("phase", "bitmap")
+        draw.text((x, y), f"{index / scene['fps']:.2f}s | frame {index} | {detail}",
                   fill=(217, 241, 138))
     contact_file = output / f"{options.basename}-contact.png"
     contact.save(contact_file)

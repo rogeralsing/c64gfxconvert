@@ -108,8 +108,9 @@ function main(argv = process.argv.slice(2)) {
   const meaningfulLoadedBytes = codeStateBytes + pointers.length + playback.bytecodeBytes + font.length + movie.length + 13;
   const result = {
     name: 'sparse-front', variant: 'sparse-front', codec: 'four-page sparse offset/glyph pairs',
-    hidden: false, sparse: true, dataset: 'spiral',
-    settings: {checks: 14, checkerRows: 7, maximumDiameter: 96, fontGlyphs: 168},
+    hidden: false, sparse: true, dataset: study.sourceMetadata.name || 'spiral',
+    settings: {fontGlyphs: font.length / 8, ...(study.sourceMetadata.settings || {}),
+      ...(study.sourceMetadata.checks ? {checks: study.sourceMetadata.checks, checkerRows: study.sourceMetadata.checkerRows} : {})},
     storedFrames: count, storedTransitions: index.length, firstSourcePose: 0,
     sourcePoseIndices: Array.from({length: count}, (_, frame) => frame),
     nominalFps: 25, nominalDurationSeconds: playback.nominalSeconds, uniqueFrameSeconds: count / 25, fieldsPerImage: 2,

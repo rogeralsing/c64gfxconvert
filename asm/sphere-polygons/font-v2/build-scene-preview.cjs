@@ -14,7 +14,7 @@ function main(argv = process.argv.slice(2)) {
   const options = {};
   for (let index = 0; index < argv.length; index++) {
     const [name, inline] = argv[index].split('=');
-    assert(['--scene-dir', '--output-dir', '--summary-file', '--playback-script'].includes(name), 'Unknown option ' + name);
+    assert(['--scene-dir', '--output-dir', '--summary-file', '--playback-script', '--scene-source', '--basename'].includes(name), 'Unknown option ' + name);
     options[name] = inline === undefined ? argv[++index] : inline;
     assert(options[name], 'Missing value for ' + name);
   }
@@ -37,7 +37,7 @@ function main(argv = process.argv.slice(2)) {
   assert.equal(font.length, 1344);
   assert(screens.every(code => code < font.length / 8));
   assert(screens.subarray(0, 1000).every(code => code === 0), 'The first image must be empty');
-  const scriptPath = path.join(here, 'scenes/spiral.scene.cjs');
+  const scriptPath = path.resolve(options['--scene-source'] || metadata.sceneSource && path.resolve(here, metadata.sceneSource) || path.join(here, 'scenes/spiral.scene.cjs'));
   const playbackPath = path.resolve(options['--playback-script'] || path.join(here, 'scenes/spiral.playback.json'));
   const playbackSource = fs.readFileSync(playbackPath, 'utf8');
   const commands = JSON.parse(playbackSource);
@@ -68,7 +68,9 @@ function main(argv = process.argv.slice(2)) {
     .replace('<!-- PLAYBACK_SOURCE -->', htmlText(playbackSource))
     .replace('<!-- PLAYBACK_PATH -->', htmlText(playbackPath));
   fs.mkdirSync(output, {recursive: true});
-  const destination = path.join(output, 'spiral-scene.html');
+  const basename = options['--basename'] || 'spiral-scene';
+  assert(/^[a-zA-Z0-9_-]+$/.test(basename), 'Invalid preview basename');
+  const destination = path.join(output, basename + '.html');
   fs.writeFileSync(destination, html);
   const manifest = {pass: true, html: destination, htmlBytes: Buffer.byteLength(html),
     frameCount: scene.frames.length, fps: scene.fps, uniqueDurationSeconds: scene.durationSeconds,
