@@ -1,0 +1,9736 @@
+{
+  "palette": {
+    "glyphs": [
+      {
+        "index": 0,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 0,
+        "kind": "basic",
+        "family": "axis",
+        "label": "Tomt",
+        "predefined": true,
+        "fixed": false
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          254,
+          254,
+          254,
+          254
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -120,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 1
+      },
+      {
+        "rows": [
+          128,
+          128,
+          128,
+          128,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -14,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 2
+      },
+      {
+        "rows": [
+          254,
+          254,
+          254,
+          254,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": -101,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 3
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          128,
+          128,
+          128,
+          128
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": 4,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 4
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          240
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          -15
+        ],
+        "threshold": -120,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 5
+      },
+      {
+        "rows": [
+          240,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          -15
+        ],
+        "threshold": -14,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 6
+      },
+      {
+        "rows": [
+          240,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          13
+        ],
+        "threshold": -15,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 7
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          240
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          13
+        ],
+        "threshold": 79,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 8
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          15
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": -101,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 9
+      },
+      {
+        "rows": [
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": 4,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 10
+      },
+      {
+        "rows": [
+          15,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          4
+        ],
+        "threshold": 4,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 11
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          15
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          4
+        ],
+        "threshold": 32,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 12
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          127,
+          127,
+          127,
+          127
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          -1
+        ],
+        "threshold": -3,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 13
+      },
+      {
+        "rows": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          -1
+        ],
+        "threshold": 25,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 14
+      },
+      {
+        "index": 15,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 64,
+        "kind": "basic",
+        "family": "axis",
+        "label": "Fyllt",
+        "predefined": true,
+        "fixed": false
+      },
+      {
+        "rows": [
+          127,
+          127,
+          127,
+          127,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 60,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          1
+        ],
+        "threshold": 4,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 16
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "filled": 4,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          1
+        ],
+        "threshold": 32,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 17
+      },
+      {
+        "index": 18,
+        "rows": [
+          127,
+          127,
+          127,
+          127,
+          127,
+          127,
+          127,
+          127
+        ],
+        "filled": 56,
+        "kind": "basic",
+        "family": "axis",
+        "label": "1 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 1,
+        "fixed": false
+      },
+      {
+        "index": 19,
+        "rows": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "filled": 8,
+        "kind": "basic",
+        "family": "axis",
+        "label": "7 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 7,
+        "fixed": false
+      },
+      {
+        "index": 20,
+        "rows": [
+          254,
+          254,
+          254,
+          254,
+          254,
+          254,
+          254,
+          254
+        ],
+        "filled": 56,
+        "kind": "basic",
+        "family": "axis",
+        "label": "1 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 1,
+        "fixed": false
+      },
+      {
+        "index": 21,
+        "rows": [
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128,
+          128
+        ],
+        "filled": 8,
+        "kind": "basic",
+        "family": "axis",
+        "label": "7 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 7,
+        "fixed": false
+      },
+      {
+        "index": 22,
+        "rows": [
+          0,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 56,
+        "kind": "basic",
+        "family": "axis",
+        "label": "1 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 1,
+        "fixed": false
+      },
+      {
+        "index": 23,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          255
+        ],
+        "filled": 8,
+        "kind": "basic",
+        "family": "axis",
+        "label": "7 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 7,
+        "fixed": false
+      },
+      {
+        "index": 24,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          0
+        ],
+        "filled": 56,
+        "kind": "basic",
+        "family": "axis",
+        "label": "1 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 1,
+        "fixed": false
+      },
+      {
+        "index": 25,
+        "rows": [
+          255,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 8,
+        "kind": "basic",
+        "family": "axis",
+        "label": "7 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 7,
+        "fixed": false
+      },
+      {
+        "index": 26,
+        "rows": [
+          63,
+          127,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 61,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 27,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          3
+        ],
+        "filled": 3,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 13,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 28,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          127,
+          63
+        ],
+        "filled": 61,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": -5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 29,
+        "rows": [
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 3,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 30,
+        "rows": [
+          252,
+          254,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 61,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": -5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 31,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          128,
+          192
+        ],
+        "filled": 3,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 32,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          254,
+          252
+        ],
+        "filled": 61,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -12,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 33,
+        "rows": [
+          192,
+          128,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 3,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 34,
+        "rows": [
+          63,
+          63,
+          63,
+          63,
+          63,
+          63,
+          63,
+          63
+        ],
+        "filled": 48,
+        "kind": "basic",
+        "family": "axis",
+        "label": "2 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 2,
+        "fixed": false
+      },
+      {
+        "index": 35,
+        "rows": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "filled": 16,
+        "kind": "basic",
+        "family": "axis",
+        "label": "6 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 6,
+        "fixed": false
+      },
+      {
+        "index": 36,
+        "rows": [
+          252,
+          252,
+          252,
+          252,
+          252,
+          252,
+          252,
+          252
+        ],
+        "filled": 48,
+        "kind": "basic",
+        "family": "axis",
+        "label": "2 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 2,
+        "fixed": false
+      },
+      {
+        "index": 37,
+        "rows": [
+          192,
+          192,
+          192,
+          192,
+          192,
+          192,
+          192,
+          192
+        ],
+        "filled": 16,
+        "kind": "basic",
+        "family": "axis",
+        "label": "6 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 6,
+        "fixed": false
+      },
+      {
+        "index": 38,
+        "rows": [
+          0,
+          0,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 48,
+        "kind": "basic",
+        "family": "axis",
+        "label": "2 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 2,
+        "fixed": false
+      },
+      {
+        "index": 39,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          255,
+          255
+        ],
+        "filled": 16,
+        "kind": "basic",
+        "family": "axis",
+        "label": "6 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 6,
+        "fixed": false
+      },
+      {
+        "index": 40,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          0,
+          0
+        ],
+        "filled": 48,
+        "kind": "basic",
+        "family": "axis",
+        "label": "2 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 2,
+        "fixed": false
+      },
+      {
+        "index": 41,
+        "rows": [
+          255,
+          255,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 16,
+        "kind": "basic",
+        "family": "axis",
+        "label": "6 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 6,
+        "fixed": false
+      },
+      {
+        "index": 42,
+        "rows": [
+          31,
+          63,
+          127,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 58,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 43,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          3,
+          7
+        ],
+        "filled": 6,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 12,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 44,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          127,
+          63,
+          31
+        ],
+        "filled": 58,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": -4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 45,
+        "rows": [
+          7,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 6,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 46,
+        "rows": [
+          248,
+          252,
+          254,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 58,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": -4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 47,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          128,
+          192,
+          224
+        ],
+        "filled": 6,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 48,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          254,
+          252,
+          248
+        ],
+        "filled": 58,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -11,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 49,
+        "rows": [
+          224,
+          192,
+          128,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 6,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 50,
+        "rows": [
+          7,
+          31,
+          127,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          1,
+          2
+        ],
+        "threshold": 5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 51,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          7,
+          31
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          1,
+          2
+        ],
+        "threshold": 17,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 52,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          127,
+          31,
+          7
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          1,
+          -2
+        ],
+        "threshold": -9,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 53,
+        "rows": [
+          31,
+          7,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          1,
+          -2
+        ],
+        "threshold": 3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 54,
+        "rows": [
+          224,
+          248,
+          254,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -1,
+          2
+        ],
+        "threshold": -2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 55,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          128,
+          224,
+          248
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -1,
+          2
+        ],
+        "threshold": 10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 56,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          254,
+          248,
+          224
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -1,
+          -2
+        ],
+        "threshold": -16,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 57,
+        "rows": [
+          248,
+          224,
+          128,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -1,
+          -2
+        ],
+        "threshold": -4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 58,
+        "rows": [
+          31,
+          63,
+          63,
+          127,
+          127,
+          255,
+          255,
+          255
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          2,
+          1
+        ],
+        "threshold": 5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 59,
+        "rows": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          3,
+          7
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          2,
+          1
+        ],
+        "threshold": 17,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 60,
+        "rows": [
+          255,
+          255,
+          255,
+          127,
+          127,
+          63,
+          63,
+          31
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          2,
+          -1
+        ],
+        "threshold": -2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 61,
+        "rows": [
+          7,
+          3,
+          3,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          2,
+          -1
+        ],
+        "threshold": 10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 62,
+        "rows": [
+          248,
+          252,
+          252,
+          254,
+          254,
+          255,
+          255,
+          255
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -2,
+          1
+        ],
+        "threshold": -9,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 63,
+        "rows": [
+          0,
+          0,
+          0,
+          128,
+          128,
+          192,
+          192,
+          224
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -2,
+          1
+        ],
+        "threshold": 3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 64,
+        "rows": [
+          255,
+          255,
+          255,
+          254,
+          254,
+          252,
+          252,
+          248
+        ],
+        "filled": 55,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -2,
+          -1
+        ],
+        "threshold": -16,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 65,
+        "rows": [
+          224,
+          192,
+          192,
+          128,
+          128,
+          0,
+          0,
+          0
+        ],
+        "filled": 9,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -2,
+          -1
+        ],
+        "threshold": -4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          252,
+          248,
+          248,
+          248,
+          248
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -89,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 66
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          224,
+          192,
+          192,
+          192,
+          192
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -44,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 67
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          248,
+          252,
+          252,
+          252,
+          252
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": -71,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 68
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          192,
+          224,
+          224,
+          224,
+          224
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": -26,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 69
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          240,
+          0,
+          0
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          -15
+        ],
+        "threshold": -89,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 70
+      },
+      {
+        "rows": [
+          255,
+          255,
+          240,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          -15
+        ],
+        "threshold": -44,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 71
+      },
+      {
+        "rows": [
+          0,
+          0,
+          240,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          15
+        ],
+        "threshold": 16,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 72
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          240,
+          255,
+          255
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -4,
+          15
+        ],
+        "threshold": 61,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 73
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          15,
+          0,
+          0
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": -71,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 74
+      },
+      {
+        "rows": [
+          255,
+          255,
+          15,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": -26,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 75
+      },
+      {
+        "rows": [
+          0,
+          0,
+          15,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          4
+        ],
+        "threshold": 12,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 76
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          255,
+          255
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          4
+        ],
+        "threshold": 24,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 77
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          63,
+          31,
+          31,
+          31,
+          31
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          -1
+        ],
+        "threshold": 5,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 78
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          7,
+          3,
+          3,
+          3,
+          3
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          -1
+        ],
+        "threshold": 17,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 79
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          31,
+          63,
+          63,
+          63,
+          63
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          1
+        ],
+        "threshold": 12,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 80
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          3,
+          7,
+          7,
+          7,
+          7
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          4,
+          1
+        ],
+        "threshold": 24,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 81
+      },
+      {
+        "rows": [
+          254,
+          254,
+          254,
+          252,
+          252,
+          252,
+          248,
+          248
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -98,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 82
+      },
+      {
+        "rows": [
+          224,
+          224,
+          192,
+          192,
+          192,
+          128,
+          128,
+          128
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -4
+        ],
+        "threshold": -34,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 83
+      },
+      {
+        "rows": [
+          248,
+          248,
+          252,
+          252,
+          252,
+          254,
+          254,
+          254
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          4
+        ],
+        "threshold": -70,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 84
+      },
+      {
+        "rows": [
+          128,
+          128,
+          128,
+          192,
+          192,
+          192,
+          224,
+          224
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          4
+        ],
+        "threshold": -6,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 85
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          252,
+          224,
+          0
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -5,
+          -14
+        ],
+        "threshold": -97,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 86
+      },
+      {
+        "rows": [
+          255,
+          248,
+          192,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -5,
+          -14
+        ],
+        "threshold": -37,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 87
+      },
+      {
+        "rows": [
+          0,
+          224,
+          252,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -5,
+          13
+        ],
+        "threshold": 1,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 88
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          192,
+          248,
+          255
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -5,
+          13
+        ],
+        "threshold": 56,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 89
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          63,
+          7,
+          0
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -3
+        ],
+        "threshold": -13,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 90
+      },
+      {
+        "rows": [
+          255,
+          31,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -3
+        ],
+        "threshold": 0,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 91
+      },
+      {
+        "rows": [
+          0,
+          7,
+          63,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          3
+        ],
+        "threshold": 8,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 92
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          31,
+          255
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          3
+        ],
+        "threshold": 21,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 93
+      },
+      {
+        "rows": [
+          127,
+          127,
+          127,
+          63,
+          63,
+          63,
+          31,
+          31
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          -1
+        ],
+        "threshold": 1,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 94
+      },
+      {
+        "rows": [
+          7,
+          7,
+          3,
+          3,
+          3,
+          1,
+          1,
+          1
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          -1
+        ],
+        "threshold": 14,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 95
+      },
+      {
+        "rows": [
+          31,
+          31,
+          63,
+          63,
+          63,
+          127,
+          127,
+          127
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          1
+        ],
+        "threshold": 8,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 96
+      },
+      {
+        "rows": [
+          1,
+          1,
+          1,
+          3,
+          3,
+          3,
+          7,
+          7
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          1
+        ],
+        "threshold": 21,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 97
+      },
+      {
+        "index": 98,
+        "rows": [
+          31,
+          31,
+          31,
+          31,
+          31,
+          31,
+          31,
+          31
+        ],
+        "filled": 40,
+        "kind": "basic",
+        "family": "axis",
+        "label": "3 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 3,
+        "fixed": false
+      },
+      {
+        "index": 99,
+        "rows": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "filled": 24,
+        "kind": "basic",
+        "family": "axis",
+        "label": "5 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 5,
+        "fixed": false
+      },
+      {
+        "index": 100,
+        "rows": [
+          248,
+          248,
+          248,
+          248,
+          248,
+          248,
+          248,
+          248
+        ],
+        "filled": 40,
+        "kind": "basic",
+        "family": "axis",
+        "label": "3 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 3,
+        "fixed": false
+      },
+      {
+        "index": 101,
+        "rows": [
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224,
+          224
+        ],
+        "filled": 24,
+        "kind": "basic",
+        "family": "axis",
+        "label": "5 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 5,
+        "fixed": false
+      },
+      {
+        "index": 102,
+        "rows": [
+          0,
+          0,
+          0,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 40,
+        "kind": "basic",
+        "family": "axis",
+        "label": "3 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 3,
+        "fixed": false
+      },
+      {
+        "index": 103,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          255,
+          255,
+          255
+        ],
+        "filled": 24,
+        "kind": "basic",
+        "family": "axis",
+        "label": "5 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 5,
+        "fixed": false
+      },
+      {
+        "index": 104,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          0,
+          0,
+          0
+        ],
+        "filled": 40,
+        "kind": "basic",
+        "family": "axis",
+        "label": "3 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 3,
+        "fixed": false
+      },
+      {
+        "index": 105,
+        "rows": [
+          255,
+          255,
+          255,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 24,
+        "kind": "basic",
+        "family": "axis",
+        "label": "5 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 5,
+        "fixed": false
+      },
+      {
+        "index": 106,
+        "rows": [
+          15,
+          31,
+          63,
+          127,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 54,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 107,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          3,
+          7,
+          15
+        ],
+        "filled": 10,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 11,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 108,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          127,
+          63,
+          31,
+          15
+        ],
+        "filled": 54,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": -3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 109,
+        "rows": [
+          15,
+          7,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 10,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 110,
+        "rows": [
+          240,
+          248,
+          252,
+          254,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 54,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": -3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 111,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          128,
+          192,
+          224,
+          240
+        ],
+        "filled": 10,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 112,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          254,
+          252,
+          248,
+          240
+        ],
+        "filled": 54,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 113,
+        "rows": [
+          240,
+          224,
+          192,
+          128,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 10,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 114,
+        "rows": [
+          0,
+          3,
+          15,
+          63,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          1,
+          2
+        ],
+        "threshold": 8,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 115,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          3,
+          15,
+          63,
+          255
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          1,
+          2
+        ],
+        "threshold": 14,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 116,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          63,
+          15,
+          3,
+          0
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          1,
+          -2
+        ],
+        "threshold": -6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 117,
+        "rows": [
+          255,
+          63,
+          15,
+          3,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          1,
+          -2
+        ],
+        "threshold": 0,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 118,
+        "rows": [
+          0,
+          192,
+          240,
+          252,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -1,
+          2
+        ],
+        "threshold": 1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 119,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          192,
+          240,
+          252,
+          255
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -1,
+          2
+        ],
+        "threshold": 7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 120,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          252,
+          240,
+          192,
+          0
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -1,
+          -2
+        ],
+        "threshold": -13,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 121,
+        "rows": [
+          255,
+          252,
+          240,
+          192,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -1,
+          -2
+        ],
+        "threshold": -7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 122,
+        "rows": [
+          15,
+          15,
+          31,
+          31,
+          63,
+          63,
+          127,
+          127
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          2,
+          1
+        ],
+        "threshold": 8,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 123,
+        "rows": [
+          1,
+          1,
+          3,
+          3,
+          7,
+          7,
+          15,
+          15
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          2,
+          1
+        ],
+        "threshold": 14,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 124,
+        "rows": [
+          127,
+          127,
+          63,
+          63,
+          31,
+          31,
+          15,
+          15
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          2,
+          -1
+        ],
+        "threshold": 1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 125,
+        "rows": [
+          15,
+          15,
+          7,
+          7,
+          3,
+          3,
+          1,
+          1
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          2,
+          -1
+        ],
+        "threshold": 7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 126,
+        "rows": [
+          240,
+          240,
+          248,
+          248,
+          252,
+          252,
+          254,
+          254
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -2,
+          1
+        ],
+        "threshold": -6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 127,
+        "rows": [
+          128,
+          128,
+          192,
+          192,
+          224,
+          224,
+          240,
+          240
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -2,
+          1
+        ],
+        "threshold": 0,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 128,
+        "rows": [
+          254,
+          254,
+          252,
+          252,
+          248,
+          248,
+          240,
+          240
+        ],
+        "filled": 44,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -2,
+          -1
+        ],
+        "threshold": -13,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 129,
+        "rows": [
+          240,
+          240,
+          224,
+          224,
+          192,
+          192,
+          128,
+          128
+        ],
+        "filled": 20,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -2,
+          -1
+        ],
+        "threshold": -7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -2
+        ],
+        "threshold": -65,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 130
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          224,
+          224,
+          224
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -2
+        ],
+        "threshold": -54,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 131
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          248,
+          248,
+          248
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": -55,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 132
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          1
+        ],
+        "threshold": -42,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 133
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          224,
+          0,
+          0,
+          0
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -3,
+          -14
+        ],
+        "threshold": -64,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 134
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          248,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -3,
+          -14
+        ],
+        "threshold": -55,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 135
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          224,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -3,
+          13
+        ],
+        "threshold": 31,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 136
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          248,
+          255,
+          255,
+          255
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -3,
+          13
+        ],
+        "threshold": 40,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 137
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          7,
+          0,
+          0,
+          0
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": -55,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 138
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          31,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          -15
+        ],
+        "threshold": -42,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 139
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          7,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          5
+        ],
+        "threshold": 20,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 140
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          31,
+          255,
+          255,
+          255
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          1,
+          5
+        ],
+        "threshold": 23,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 141
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          5,
+          -1
+        ],
+        "threshold": 13,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 142
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          7,
+          7,
+          7
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          5,
+          -1
+        ],
+        "threshold": 16,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 143
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          31,
+          31,
+          31
+        ],
+        "filled": 35,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          5,
+          1
+        ],
+        "threshold": 20,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 144
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 29,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          5,
+          1
+        ],
+        "threshold": 23,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 145
+      },
+      {
+        "index": 146,
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "basic",
+        "family": "axis",
+        "label": "4 px tomt till vänster",
+        "predefined": true,
+        "emptySide": "left",
+        "emptyPixels": 4,
+        "fixed": false
+      },
+      {
+        "index": 147,
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "basic",
+        "family": "axis",
+        "label": "4 px tomt till höger",
+        "predefined": true,
+        "emptySide": "right",
+        "emptyPixels": 4,
+        "fixed": false
+      },
+      {
+        "index": 148,
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          255,
+          255,
+          255,
+          255
+        ],
+        "filled": 32,
+        "kind": "basic",
+        "family": "axis",
+        "label": "4 px tomt upptill",
+        "predefined": true,
+        "emptySide": "top",
+        "emptyPixels": 4,
+        "fixed": false
+      },
+      {
+        "index": 149,
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          0,
+          0,
+          0,
+          0
+        ],
+        "filled": 32,
+        "kind": "basic",
+        "family": "axis",
+        "label": "4 px tomt nedtill",
+        "predefined": true,
+        "emptySide": "bottom",
+        "emptyPixels": 4,
+        "fixed": false
+      },
+      {
+        "index": 150,
+        "rows": [
+          7,
+          15,
+          31,
+          63,
+          127,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 151,
+        "rows": [
+          0,
+          0,
+          0,
+          1,
+          3,
+          7,
+          15,
+          31
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 152,
+        "rows": [
+          255,
+          255,
+          255,
+          127,
+          63,
+          31,
+          15,
+          7
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": -2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 153,
+        "rows": [
+          31,
+          15,
+          7,
+          3,
+          1,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 154,
+        "rows": [
+          224,
+          240,
+          248,
+          252,
+          254,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": -2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 155,
+        "rows": [
+          0,
+          0,
+          0,
+          128,
+          192,
+          224,
+          240,
+          248
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 156,
+        "rows": [
+          255,
+          255,
+          255,
+          254,
+          252,
+          248,
+          240,
+          224
+        ],
+        "filled": 49,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -9,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 157,
+        "rows": [
+          248,
+          240,
+          224,
+          192,
+          128,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          248,
+          248,
+          240,
+          240,
+          224
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -7
+        ],
+        "threshold": -89,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 158
+      },
+      {
+        "rows": [
+          248,
+          240,
+          240,
+          224,
+          224,
+          192,
+          192,
+          192
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          -7
+        ],
+        "threshold": -64,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 159
+      },
+      {
+        "rows": [
+          224,
+          240,
+          240,
+          248,
+          248,
+          252,
+          252,
+          252
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          7
+        ],
+        "threshold": -40,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 160
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          224,
+          224,
+          240,
+          240,
+          248
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -15,
+          7
+        ],
+        "threshold": -15,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 161
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          254,
+          248,
+          224,
+          0,
+          0
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -7,
+          -15
+        ],
+        "threshold": -89,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 162
+      },
+      {
+        "rows": [
+          255,
+          255,
+          248,
+          224,
+          128,
+          0,
+          0,
+          0
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -7,
+          -15
+        ],
+        "threshold": -64,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 163
+      },
+      {
+        "rows": [
+          0,
+          0,
+          224,
+          248,
+          254,
+          255,
+          255,
+          255
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -7,
+          15
+        ],
+        "threshold": 16,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 164
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          128,
+          224,
+          248,
+          255,
+          255
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          -7,
+          15
+        ],
+        "threshold": 41,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 165
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          127,
+          31,
+          7,
+          0,
+          0
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          -7
+        ],
+        "threshold": -20,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 166
+      },
+      {
+        "rows": [
+          255,
+          255,
+          31,
+          7,
+          1,
+          0,
+          0,
+          0
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          -7
+        ],
+        "threshold": -7,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 167
+      },
+      {
+        "rows": [
+          0,
+          0,
+          7,
+          31,
+          127,
+          255,
+          255,
+          255
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          7
+        ],
+        "threshold": 29,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 168
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          1,
+          7,
+          31,
+          255,
+          255
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          3,
+          7
+        ],
+        "threshold": 42,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 169
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          31,
+          31,
+          15,
+          15,
+          7
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          7,
+          -3
+        ],
+        "threshold": 8,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 170
+      },
+      {
+        "rows": [
+          31,
+          15,
+          15,
+          7,
+          7,
+          3,
+          3,
+          3
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          7,
+          -3
+        ],
+        "threshold": 21,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 171
+      },
+      {
+        "rows": [
+          7,
+          15,
+          15,
+          31,
+          31,
+          63,
+          63,
+          63
+        ],
+        "filled": 39,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          7,
+          3
+        ],
+        "threshold": 29,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 172
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          7,
+          7,
+          15,
+          15,
+          31
+        ],
+        "filled": 25,
+        "kind": "diagonal",
+        "label": "Matematiskt rakt snitt",
+        "family": "general-line",
+        "normal": [
+          7,
+          3
+        ],
+        "threshold": 42,
+        "fixed": false,
+        "metadata": {
+          "operation": "half-plane",
+          "coordinateSystem": "integer tile coordinates x,y=0..7",
+          "maxComponent": 15
+        },
+        "index": 173
+      },
+      {
+        "rows": [
+          31,
+          30,
+          28,
+          24,
+          16,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 174
+      },
+      {
+        "rows": [
+          224,
+          225,
+          227,
+          231,
+          239,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 175
+      },
+      {
+        "rows": [
+          248,
+          120,
+          56,
+          24,
+          8,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 176
+      },
+      {
+        "rows": [
+          7,
+          135,
+          199,
+          231,
+          247,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 177
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          31,
+          15,
+          7,
+          3,
+          1
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 178
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          224,
+          240,
+          248,
+          252,
+          254
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 179
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          248,
+          240,
+          224,
+          192,
+          128
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 1,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 180
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          7,
+          15,
+          31,
+          63,
+          127
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 1,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 181
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          8,
+          24,
+          56,
+          120,
+          248
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 182
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          247,
+          231,
+          199,
+          135,
+          7
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 183
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          16,
+          24,
+          28,
+          30,
+          31
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 184
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          239,
+          231,
+          227,
+          225,
+          224
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 185
+      },
+      {
+        "rows": [
+          128,
+          192,
+          224,
+          240,
+          248,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 186
+      },
+      {
+        "rows": [
+          127,
+          63,
+          31,
+          15,
+          7,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 187
+      },
+      {
+        "rows": [
+          1,
+          3,
+          7,
+          15,
+          31,
+          0,
+          0,
+          0
+        ],
+        "filled": 15,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 3,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 188
+      },
+      {
+        "rows": [
+          254,
+          252,
+          248,
+          240,
+          224,
+          255,
+          255,
+          255
+        ],
+        "filled": 49,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": -1,
+              "threshold": -1
+            }
+          ],
+          "orbitId": "0,0,0,16,24,28,30,31",
+          "transform": {
+            "turn": 3,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 189
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          31,
+          31,
+          31,
+          31,
+          31
+        ],
+        "filled": 25,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 190
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          224,
+          224,
+          224,
+          224,
+          224
+        ],
+        "filled": 39,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 191
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          248,
+          248,
+          248,
+          248,
+          248
+        ],
+        "filled": 25,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 192
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          7,
+          7,
+          7,
+          7,
+          7
+        ],
+        "filled": 39,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 193
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          248,
+          248,
+          0,
+          0,
+          0
+        ],
+        "filled": 25,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 194
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          7,
+          7,
+          255,
+          255,
+          255
+        ],
+        "filled": 39,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 195
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          31,
+          31,
+          0,
+          0,
+          0
+        ],
+        "filled": 25,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 196
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          224,
+          224,
+          255,
+          255,
+          255
+        ],
+        "filled": 39,
+        "kind": "corner",
+        "label": "Förskjutet hörn",
+        "family": "junction",
+        "metadata": {
+          "operation": "and",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,0,248,248,248,248,248",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 197
+      },
+      {
+        "index": 198,
+        "rows": [
+          3,
+          7,
+          15,
+          31,
+          63,
+          127,
+          255,
+          255
+        ],
+        "filled": 43,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 199,
+        "rows": [
+          0,
+          0,
+          1,
+          3,
+          7,
+          15,
+          31,
+          63
+        ],
+        "filled": 21,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 9,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 200,
+        "rows": [
+          255,
+          255,
+          127,
+          63,
+          31,
+          15,
+          7,
+          3
+        ],
+        "filled": 43,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": -1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 201,
+        "rows": [
+          63,
+          31,
+          15,
+          7,
+          3,
+          1,
+          0,
+          0
+        ],
+        "filled": 21,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 202,
+        "rows": [
+          192,
+          224,
+          240,
+          248,
+          252,
+          254,
+          255,
+          255
+        ],
+        "filled": 43,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": -1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 203,
+        "rows": [
+          0,
+          0,
+          128,
+          192,
+          224,
+          240,
+          248,
+          252
+        ],
+        "filled": 21,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 2,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 204,
+        "rows": [
+          255,
+          255,
+          254,
+          252,
+          248,
+          240,
+          224,
+          192
+        ],
+        "filled": 43,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -8,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 205,
+        "rows": [
+          252,
+          248,
+          240,
+          224,
+          192,
+          128,
+          0,
+          0
+        ],
+        "filled": 21,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -5,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 206,
+        "rows": [
+          0,
+          0,
+          1,
+          7,
+          31,
+          127,
+          255,
+          255
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          1,
+          2
+        ],
+        "threshold": 11,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 207,
+        "rows": [
+          255,
+          255,
+          127,
+          31,
+          7,
+          1,
+          0,
+          0
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          1,
+          -2
+        ],
+        "threshold": -3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 208,
+        "rows": [
+          0,
+          0,
+          128,
+          224,
+          248,
+          254,
+          255,
+          255
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -1,
+          2
+        ],
+        "threshold": 4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 209,
+        "rows": [
+          255,
+          255,
+          254,
+          248,
+          224,
+          128,
+          0,
+          0
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -1,
+          -2
+        ],
+        "threshold": -10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 210,
+        "rows": [
+          3,
+          7,
+          7,
+          15,
+          15,
+          31,
+          31,
+          63
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger",
+        "normal": [
+          2,
+          1
+        ],
+        "threshold": 11,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 211,
+        "rows": [
+          63,
+          31,
+          31,
+          15,
+          15,
+          7,
+          7,
+          3
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger",
+        "normal": [
+          2,
+          -1
+        ],
+        "threshold": 4,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 212,
+        "rows": [
+          192,
+          224,
+          224,
+          240,
+          240,
+          248,
+          248,
+          252
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster",
+        "normal": [
+          -2,
+          1
+        ],
+        "threshold": -3,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 213,
+        "rows": [
+          252,
+          248,
+          248,
+          240,
+          240,
+          224,
+          224,
+          192
+        ],
+        "filled": 32,
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster",
+        "normal": [
+          -2,
+          -1
+        ],
+        "threshold": -10,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "rows": [
+          195,
+          231,
+          255,
+          231,
+          195,
+          129,
+          0,
+          0
+        ],
+        "filled": 30,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 214
+      },
+      {
+        "rows": [
+          60,
+          24,
+          0,
+          24,
+          60,
+          126,
+          255,
+          255
+        ],
+        "filled": 34,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 215
+      },
+      {
+        "rows": [
+          63,
+          31,
+          14,
+          4,
+          4,
+          14,
+          31,
+          63
+        ],
+        "filled": 30,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 216
+      },
+      {
+        "rows": [
+          192,
+          224,
+          241,
+          251,
+          251,
+          241,
+          224,
+          192
+        ],
+        "filled": 34,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 217
+      },
+      {
+        "rows": [
+          252,
+          248,
+          112,
+          32,
+          32,
+          112,
+          248,
+          252
+        ],
+        "filled": 30,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 1,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 218
+      },
+      {
+        "rows": [
+          3,
+          7,
+          143,
+          223,
+          223,
+          143,
+          7,
+          3
+        ],
+        "filled": 34,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 1,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 219
+      },
+      {
+        "rows": [
+          0,
+          0,
+          129,
+          195,
+          231,
+          255,
+          231,
+          195
+        ],
+        "filled": 30,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 220
+      },
+      {
+        "rows": [
+          255,
+          255,
+          126,
+          60,
+          24,
+          0,
+          24,
+          60
+        ],
+        "filled": 34,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 1,
+              "threshold": -2
+            },
+            {
+              "a": -1,
+              "b": 1,
+              "threshold": -2
+            }
+          ],
+          "orbitId": "0,0,129,195,231,255,231,195",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 221
+      },
+      {
+        "index": 222,
+        "rows": [
+          1,
+          3,
+          7,
+          15,
+          31,
+          63,
+          127,
+          255
+        ],
+        "filled": 36,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 223,
+        "rows": [
+          0,
+          1,
+          3,
+          7,
+          15,
+          31,
+          63,
+          127
+        ],
+        "filled": 28,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt höger",
+        "normal": [
+          1,
+          1
+        ],
+        "threshold": 8,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 224,
+        "rows": [
+          255,
+          127,
+          63,
+          31,
+          15,
+          7,
+          3,
+          1
+        ],
+        "filled": 36,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 0,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 225,
+        "rows": [
+          127,
+          63,
+          31,
+          15,
+          7,
+          3,
+          1,
+          0
+        ],
+        "filled": 28,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt höger",
+        "normal": [
+          1,
+          -1
+        ],
+        "threshold": 1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 226,
+        "rows": [
+          128,
+          192,
+          224,
+          240,
+          248,
+          252,
+          254,
+          255
+        ],
+        "filled": 36,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 0,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 227,
+        "rows": [
+          0,
+          128,
+          192,
+          224,
+          240,
+          248,
+          252,
+          254
+        ],
+        "filled": 28,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · nedåt vänster",
+        "normal": [
+          -1,
+          1
+        ],
+        "threshold": 1,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 228,
+        "rows": [
+          255,
+          254,
+          252,
+          248,
+          240,
+          224,
+          192,
+          128
+        ],
+        "filled": 36,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -7,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "index": 229,
+        "rows": [
+          254,
+          252,
+          248,
+          240,
+          224,
+          192,
+          128,
+          0
+        ],
+        "filled": 28,
+        "kind": "diagonal",
+        "family": "45",
+        "label": "Diagonal 45° · uppåt vänster",
+        "normal": [
+          -1,
+          -1
+        ],
+        "threshold": -6,
+        "predefined": false,
+        "fixed": false
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          63,
+          192,
+          192,
+          192,
+          192
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 230
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          192,
+          63,
+          63,
+          63,
+          63
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 231
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          252,
+          3,
+          3,
+          3,
+          3
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 232
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          3,
+          252,
+          252,
+          252,
+          252
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 233
+      },
+      {
+        "rows": [
+          240,
+          240,
+          15,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 234
+      },
+      {
+        "rows": [
+          15,
+          15,
+          240,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 235
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          240,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 236
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          15,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,15,240,240",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 237
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          31,
+          224,
+          224,
+          224,
+          224
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 238
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          224,
+          31,
+          31,
+          31,
+          31
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 239
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          248,
+          7,
+          7,
+          7,
+          7
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 240
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          7,
+          248,
+          248,
+          248,
+          248
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 241
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 242
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 1,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 243
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          15,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 244
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          240,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -2
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": 0
+            }
+          ],
+          "orbitId": "15,15,15,15,15,240,240,240",
+          "transform": {
+            "turn": 3,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 245
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          240,
+          240,
+          240,
+          240
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Kvadranthörn eller korsning",
+        "family": "quadrants",
+        "metadata": {
+          "operation": "quadrants",
+          "quadrantMask": 6,
+          "orbitId": "15,15,15,15,240,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 246
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          15,
+          15,
+          15,
+          15
+        ],
+        "filled": 32,
+        "kind": "crossing",
+        "label": "Kvadranthörn eller korsning",
+        "family": "quadrants",
+        "metadata": {
+          "operation": "quadrants",
+          "quadrantMask": 6,
+          "orbitId": "15,15,15,15,240,240,240,240",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 247
+      },
+      {
+        "rows": [
+          63,
+          63,
+          192,
+          192,
+          192,
+          192,
+          192,
+          192
+        ],
+        "filled": 24,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 248
+      },
+      {
+        "rows": [
+          192,
+          192,
+          63,
+          63,
+          63,
+          63,
+          63,
+          63
+        ],
+        "filled": 40,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 0,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 249
+      },
+      {
+        "rows": [
+          252,
+          252,
+          3,
+          3,
+          3,
+          3,
+          3,
+          3
+        ],
+        "filled": 24,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 250
+      },
+      {
+        "rows": [
+          3,
+          3,
+          252,
+          252,
+          252,
+          252,
+          252,
+          252
+        ],
+        "filled": 40,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 0,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 251
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          3,
+          3,
+          3,
+          252,
+          252
+        ],
+        "filled": 24,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 252
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          252,
+          252,
+          252,
+          3,
+          3
+        ],
+        "filled": 40,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 2,
+            "mirror": false,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 253
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          192,
+          192,
+          192,
+          63,
+          63
+        ],
+        "filled": 24,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": false
+          }
+        },
+        "fixed": false,
+        "index": 254
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          63,
+          63,
+          63,
+          192,
+          192
+        ],
+        "filled": 40,
+        "kind": "crossing",
+        "label": "Förskjuten schackkorsning",
+        "family": "junction",
+        "metadata": {
+          "operation": "xor",
+          "lines": [
+            {
+              "a": 1,
+              "b": 0,
+              "threshold": -4
+            },
+            {
+              "a": 0,
+              "b": 1,
+              "threshold": -4
+            }
+          ],
+          "orbitId": "192,192,192,192,192,192,63,63",
+          "transform": {
+            "turn": 2,
+            "mirror": true,
+            "inverted": true
+          }
+        },
+        "fixed": false,
+        "index": 255
+      }
+    ],
+    "usedCount": 256,
+    "fontBytes": 2048,
+    "lockedGlyphs": 0,
+    "maximumExcludedFragmentPixels": 2,
+    "allShapesMathematical": true,
+    "optimization": {
+      "trainingCases": 36,
+      "trainingFrames": 1152,
+      "sha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac"
+    }
+  },
+  "report": {
+    "pass": true,
+    "scope": "All glyphs unlocked; bounded mathematical-orbit optimization using training targets only.",
+    "objective": "sum(pattern.weight * nearest64bitHammingError); lower bound before actual renderer selection and circle restrictions.",
+    "normalization": "Each case receives equal weight; pixel error is divided by its actual visible sphere-pixel area and frame count.",
+    "trainingCases": 36,
+    "trainingFrames": 1152,
+    "trainingPatternClasses": 59187,
+    "trainingTileInstances": 1152000,
+    "weightSum": 0.04586517666988854,
+    "candidateGlyphs": 6628,
+    "candidateOrbits": 436,
+    "candidatePool": {
+      "maxHalfPlaneNormalComponent": 15,
+      "translatedHalfPlanes": true,
+      "junctionThresholds": [
+        -6,
+        -4,
+        -2,
+        0,
+        2,
+        4,
+        6
+      ]
+    },
+    "selectedGlyphs": 256,
+    "selectedOrbits": 26,
+    "lockedGlyphs": 0,
+    "emptyAndFullSelectedByData": true,
+    "emptyIndex": 0,
+    "fullIndex": 15,
+    "initialChoice": "fresh-greedy",
+    "seedError": 0.031077590918769278,
+    "greedyError": 0.030241095018788938,
+    "optimizedError": 0.030055085368408372,
+    "improvement": 0.001022505550360906,
+    "relativeImprovement": 0.03290169926728024,
+    "sameSizeOrbitSwapLimit": 8,
+    "actualSwaps": 4,
+    "searchLimits": "Compare current font and fresh gain-per-slot greedy palette, then at most maxSwaps improving equal-size orbit replacements. This is not a global optimum.",
+    "orbitSizes": {
+      "2": 2,
+      "4": 1,
+      "8": 15,
+      "16": 8
+    },
+    "completeRotationsMirrorsInverses": true,
+    "maximumExcludedFragmentPixels": 2,
+    "allShapesMathematical": true,
+    "retainedShapes": 176,
+    "removedShapes": 80,
+    "newShapes": 80,
+    "removed": [
+      {
+        "rows": [
+          15,
+          63,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          63,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          15,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          240,
+          252,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          192,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          252,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          240,
+          192,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          63,
+          63,
+          127,
+          127,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          3,
+          3
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          127,
+          127,
+          63,
+          63
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          3,
+          3,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          252,
+          252,
+          254,
+          254,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          128,
+          128,
+          192,
+          192
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          254,
+          254,
+          252,
+          252
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          192,
+          192,
+          128,
+          128,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          1,
+          7,
+          31,
+          127,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          7,
+          31,
+          127
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          127,
+          31,
+          7,
+          1
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          127,
+          31,
+          7,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          128,
+          224,
+          248,
+          254,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          128,
+          224,
+          248,
+          254
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          254,
+          248,
+          224,
+          128
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          254,
+          248,
+          224,
+          128,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          15,
+          31,
+          31,
+          63,
+          63,
+          127,
+          127,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          0,
+          1,
+          1,
+          3,
+          3,
+          7,
+          7,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          127,
+          127,
+          63,
+          63,
+          31,
+          31,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          15,
+          7,
+          7,
+          3,
+          3,
+          1,
+          1,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          240,
+          248,
+          248,
+          252,
+          252,
+          254,
+          254,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          128,
+          128,
+          192,
+          192,
+          224,
+          224,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          254,
+          254,
+          252,
+          252,
+          248,
+          248,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          240,
+          224,
+          224,
+          192,
+          192,
+          128,
+          128,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          1,
+          7,
+          31,
+          127,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          1,
+          7,
+          31,
+          127,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          127,
+          31,
+          7,
+          1,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          255,
+          127,
+          31,
+          7,
+          1,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          0,
+          128,
+          224,
+          248,
+          254,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          128,
+          224,
+          248,
+          254,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          254,
+          248,
+          224,
+          128,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          254,
+          248,
+          224,
+          128,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          7,
+          15,
+          15,
+          31,
+          31,
+          63,
+          63,
+          127
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          1,
+          3,
+          3,
+          7,
+          7,
+          15,
+          15,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt höger"
+      },
+      {
+        "rows": [
+          127,
+          63,
+          63,
+          31,
+          31,
+          15,
+          15,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          31,
+          15,
+          15,
+          7,
+          7,
+          3,
+          3,
+          1
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt höger"
+      },
+      {
+        "rows": [
+          224,
+          240,
+          240,
+          248,
+          248,
+          252,
+          252,
+          254
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          128,
+          192,
+          192,
+          224,
+          224,
+          240,
+          240,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · nedåt vänster"
+      },
+      {
+        "rows": [
+          254,
+          252,
+          252,
+          248,
+          248,
+          240,
+          240,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          248,
+          240,
+          240,
+          224,
+          224,
+          192,
+          192,
+          128
+        ],
+        "kind": "diagonal",
+        "family": "1:2",
+        "label": "Diagonal 1:2 · uppåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          7,
+          63,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          248,
+          192,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          224,
+          252,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          31,
+          3,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt höger"
+      },
+      {
+        "rows": [
+          224,
+          224,
+          240,
+          240,
+          240,
+          248,
+          248,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt vänster"
+      },
+      {
+        "rows": [
+          31,
+          31,
+          15,
+          15,
+          15,
+          7,
+          7,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt höger"
+      },
+      {
+        "rows": [
+          7,
+          7,
+          15,
+          15,
+          15,
+          31,
+          31,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt höger"
+      },
+      {
+        "rows": [
+          248,
+          248,
+          240,
+          240,
+          240,
+          224,
+          224,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt vänster"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          252,
+          224,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt vänster"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          3,
+          31,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt höger"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          63,
+          7,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt höger"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          192,
+          248,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt vänster"
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          15,
+          15,
+          15,
+          7,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt höger"
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          240,
+          240,
+          240,
+          248,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt vänster"
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          240,
+          240,
+          240,
+          224,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · uppåt vänster"
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          15,
+          15,
+          15,
+          31,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "1:3",
+        "label": "Diagonal 1:3 · nedåt höger"
+      },
+      {
+        "rows": [
+          4,
+          12,
+          28,
+          60,
+          124,
+          252,
+          252,
+          252
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          251,
+          243,
+          227,
+          195,
+          131,
+          3,
+          3,
+          3
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          32,
+          48,
+          56,
+          60,
+          62,
+          63,
+          63,
+          63
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          223,
+          207,
+          199,
+          195,
+          193,
+          192,
+          192,
+          192
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          224,
+          240,
+          248,
+          252,
+          254,
+          255,
+          0,
+          0
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          31,
+          15,
+          7,
+          3,
+          1,
+          0,
+          255,
+          255
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          7,
+          15,
+          31,
+          63,
+          127,
+          255,
+          0,
+          0
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          248,
+          240,
+          224,
+          192,
+          128,
+          0,
+          255,
+          255
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          62,
+          60,
+          56,
+          48,
+          32
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          193,
+          195,
+          199,
+          207,
+          223
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          124,
+          60,
+          28,
+          12,
+          4
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          131,
+          195,
+          227,
+          243,
+          251
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          255,
+          127,
+          63,
+          31,
+          15,
+          7
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          0,
+          128,
+          192,
+          224,
+          240,
+          248
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          255,
+          254,
+          252,
+          248,
+          240,
+          224
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          0,
+          1,
+          3,
+          7,
+          15,
+          31
+        ],
+        "kind": "crossing",
+        "family": "junction",
+        "label": "Förskjuten schackkorsning"
+      }
+    ],
+    "added": [
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          254,
+          254,
+          254,
+          254
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          128,
+          128,
+          128,
+          128,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          254,
+          254,
+          254,
+          254,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          128,
+          128,
+          128,
+          128
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          240,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          240,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          15,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          15,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          127,
+          127,
+          127,
+          127
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          127,
+          127,
+          127,
+          127,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          252,
+          248,
+          248,
+          248,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          224,
+          192,
+          192,
+          192,
+          192
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          248,
+          252,
+          252,
+          252,
+          252
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          192,
+          224,
+          224,
+          224,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          240,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          240,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          240,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          240,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          15,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          15,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          15,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          15,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          63,
+          31,
+          31,
+          31,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          7,
+          3,
+          3,
+          3,
+          3
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          31,
+          63,
+          63,
+          63,
+          63
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          3,
+          7,
+          7,
+          7,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          254,
+          254,
+          254,
+          252,
+          252,
+          252,
+          248,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          224,
+          224,
+          192,
+          192,
+          192,
+          128,
+          128,
+          128
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          248,
+          248,
+          252,
+          252,
+          252,
+          254,
+          254,
+          254
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          128,
+          128,
+          128,
+          192,
+          192,
+          192,
+          224,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          252,
+          224,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          248,
+          192,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          224,
+          252,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          192,
+          248,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          255,
+          63,
+          7,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          31,
+          3,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          7,
+          63,
+          255,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3,
+          31,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          127,
+          127,
+          127,
+          63,
+          63,
+          63,
+          31,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          7,
+          7,
+          3,
+          3,
+          3,
+          1,
+          1,
+          1
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          31,
+          31,
+          63,
+          63,
+          63,
+          127,
+          127,
+          127
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          1,
+          1,
+          1,
+          3,
+          3,
+          3,
+          7,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          248,
+          248,
+          248,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          224,
+          224,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          240,
+          240,
+          240,
+          240,
+          240,
+          248,
+          248,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          224,
+          224,
+          224,
+          240,
+          240,
+          240,
+          240,
+          240
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          224,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          248,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          224,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          248,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          255,
+          7,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          31,
+          0,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          7,
+          255,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          0,
+          31,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          31,
+          31,
+          31,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          7,
+          7,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          15,
+          15,
+          15,
+          15,
+          15,
+          31,
+          31,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          7,
+          7,
+          7,
+          15,
+          15,
+          15,
+          15,
+          15
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          252,
+          252,
+          252,
+          248,
+          248,
+          240,
+          240,
+          224
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          248,
+          240,
+          240,
+          224,
+          224,
+          192,
+          192,
+          192
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          224,
+          240,
+          240,
+          248,
+          248,
+          252,
+          252,
+          252
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          192,
+          192,
+          192,
+          224,
+          224,
+          240,
+          240,
+          248
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          254,
+          248,
+          224,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          248,
+          224,
+          128,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          224,
+          248,
+          254,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          128,
+          224,
+          248,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          255,
+          127,
+          31,
+          7,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          255,
+          255,
+          31,
+          7,
+          1,
+          0,
+          0,
+          0
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          7,
+          31,
+          127,
+          255,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          0,
+          0,
+          0,
+          1,
+          7,
+          31,
+          255,
+          255
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          63,
+          63,
+          63,
+          31,
+          31,
+          15,
+          15,
+          7
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          31,
+          15,
+          15,
+          7,
+          7,
+          3,
+          3,
+          3
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          7,
+          15,
+          15,
+          31,
+          31,
+          63,
+          63,
+          63
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      },
+      {
+        "rows": [
+          3,
+          3,
+          3,
+          7,
+          7,
+          15,
+          15,
+          31
+        ],
+        "kind": "diagonal",
+        "family": "general-line",
+        "label": "Matematiskt rakt snitt"
+      }
+    ],
+    "kinds": {
+      "basic": 30,
+      "diagonal": 168,
+      "corner": 24,
+      "crossing": 34
+    },
+    "swaps": [
+      {
+        "step": 0,
+        "removedOrbit": "0,0,0,0,0,224,252,255",
+        "addedOrbit": "0,0,0,0,0,192,248,255",
+        "glyphs": 16,
+        "before": 0.030241095018788938,
+        "after": 0.030106580395754312
+      },
+      {
+        "step": 1,
+        "removedOrbit": "0,0,0,0,0,0,224,252",
+        "addedOrbit": "0,0,0,0,0,1,7,31",
+        "glyphs": 16,
+        "before": 0.030106580395754312,
+        "after": 0.030063621148752016
+      },
+      {
+        "step": 2,
+        "removedOrbit": "0,0,0,0,192,240,248,254",
+        "addedOrbit": "0,0,0,0,192,240,252,255",
+        "glyphs": 16,
+        "before": 0.030063621148752016,
+        "after": 0.030059606070987913
+      },
+      {
+        "step": 3,
+        "removedOrbit": "0,0,252,252,252,252,252,252",
+        "addedOrbit": "192,192,192,192,192,192,63,63",
+        "glyphs": 8,
+        "before": 0.030059606070987913,
+        "after": 0.030055085368408372
+      }
+    ],
+    "sha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+    "trainingSha256": "692fc005b111caeef26b3763fe119abf4d52c6a98102912a0d836797be2bb922",
+    "elapsedSeconds": 15.820300207999999,
+    "distanceMatrixBytes": 25805532,
+    "validationUsedForSelection": false
+  }
+}

@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fontens grundformer</title>
+<style>
+:root{color-scheme:dark;--bg:#151613;--panel:#1c1e19;--text:#eeeee8;--muted:#a5aa9d;--line:#3b4035;--accent:#d5e4b2}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}button{font:inherit;color:inherit;cursor:pointer}button:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button:disabled{cursor:default}.page{max-width:1220px;margin:auto;padding:32px 28px 40px}.eyebrow,.index,.counts,.selected-number{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.eyebrow{font-size:12px;letter-spacing:.12em;color:var(--accent)}header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;border-bottom:1px solid var(--line);padding-bottom:24px}h1{font-size:38px;line-height:1.1;letter-spacing:-.045em;font-weight:550;margin:10px 0 0}h2{font-size:19px;line-height:1.35;font-weight:500;margin:8px 0 16px}.counts{display:flex;gap:20px;font-size:12px;color:var(--muted);flex-wrap:wrap}.counts strong{color:var(--text);font-weight:500}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;margin:24px 0}.filters{display:flex;gap:6px;flex-wrap:wrap}.filter,.export{background:transparent;border:1px solid var(--line);border-radius:3px;padding:8px 12px;font-size:12px}.filter[aria-pressed=true]{background:var(--accent);border-color:var(--accent);color:#151613}.filter:hover,.export:hover{border-color:var(--muted)}.layout{display:grid;grid-template-columns:minmax(0,1fr) 282px;gap:36px;align-items:start}.atlas{display:grid;grid-template-columns:repeat(16,minmax(40px,1fr));gap:5px}.glyph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:transparent;border:1px solid transparent;border-radius:3px;padding:7px 2px 5px;min-width:0}.glyph:hover{background:var(--panel);border-color:var(--line)}.glyph[aria-pressed=true]{background:var(--panel);border-color:var(--accent)}.glyph canvas{width:32px;height:32px;image-rendering:pixelated;image-rendering:crisp-edges;display:block;background:#000}.glyph.reserved{opacity:.36}.index{font-size:12px;color:var(--muted);line-height:1.2}.glyph[aria-pressed=true] .index{color:var(--accent)}.detail{position:sticky;top:24px;border-left:1px solid var(--line);padding-left:25px}.selected-number{color:var(--accent);font-size:12px}.pixel-grid{width:256px;height:256px;display:grid;grid-template-columns:repeat(8,32px);grid-template-rows:repeat(8,32px);outline:1px solid #777;background:#000}.pixel{background:#000;box-shadow:inset -1px -1px #454545}.pixel.filled{background:#fff;box-shadow:inset -1px -1px #b5b5b5}.detail-meta{display:flex;justify-content:space-between;gap:12px;margin-top:15px;color:var(--muted);font-size:12px}.legend{display:flex;gap:16px;margin-top:20px;font-size:12px;color:var(--muted)}.legend span{display:flex;align-items:center;gap:7px}.swatch{width:11px;height:11px;background:#000;border:1px solid #777}.swatch.white{background:#fff}.notes{border-top:1px solid var(--line);margin-top:24px;padding-top:16px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted)}.empty{color:var(--muted);padding:24px 0}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:1080px){.layout{grid-template-columns:minmax(0,1fr)}.detail{position:static;order:-1;border-left:0;padding:0;display:grid;grid-template-columns:160px minmax(0,1fr);column-gap:24px}.detail-heading{grid-column:2;grid-row:1;align-self:start}.detail h2{margin-bottom:8px}.pixel-grid{grid-column:1;grid-row:1/4;width:160px;height:160px;grid-template-columns:repeat(8,20px);grid-template-rows:repeat(8,20px)}.detail-meta,.legend{grid-column:2;align-self:start;justify-content:flex-start;flex-wrap:wrap;margin-top:0}.detail-meta{gap:18px}.legend{margin-bottom:0}.layout{gap:24px}}
+@media(max-width:730px){.page{padding:24px 16px}header{display:block}h1{font-size:32px}.counts{margin-top:18px;gap:14px}.toolbar{align-items:flex-start;gap:12px}.filter,.export{padding:7px 9px}.atlas{grid-template-columns:repeat(8,minmax(32px,1fr));gap:4px}.glyph canvas{width:24px;height:24px}.glyph{gap:5px;padding:7px 2px}.detail{grid-template-columns:128px minmax(0,1fr);column-gap:18px}.pixel-grid{width:128px;height:128px;grid-template-columns:repeat(8,16px);grid-template-rows:repeat(8,16px)}.detail h2{font-size:16px;margin:5px 0 9px}.selected-number{font-size:12px}.detail-meta{display:block;font-size:12px}.detail-meta span{display:block}.legend{gap:10px;font-size:12px;margin-top:8px}.notes{font-size:12px}}
+@media(prefers-reduced-motion:no-preference){button{transition:background-color .12s,border-color .12s}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div><div class="eyebrow">8 × 8 / MATEMATISK FONT</div><h1>Fontens grundformer</h1></div>
+    <div class="counts" aria-label="Fontens innehåll">
+      <span><strong id="basic-count">30</strong> grundtecken</span>
+      <span><strong id="diagonal-count">200</strong> diagonaler</span>
+      <span><strong id="junction-count">26</strong> möten</span>
+      <span><strong id="reserved-count">0</strong> reserverade</span>
+    </div>
+  </header>
+  <div class="toolbar">
+    <div class="filters" role="group" aria-label="Visa tecken">
+      <button class="filter" type="button" data-filter="all" aria-pressed="true">Alla</button>
+      <button class="filter" type="button" data-filter="basic" aria-pressed="false">Grundtecken</button>
+      <button class="filter" type="button" data-filter="diagonal" aria-pressed="false">Diagonaler</button>
+      <button class="filter" type="button" data-filter="junction" aria-pressed="false">Möten</button>
+    </div>
+    <button id="export" class="export" type="button">Hämta font · 2 KB</button>
+  </div>
+  <div class="layout">
+    <div>
+      <div id="atlas" class="atlas" aria-label="Teckenkarta"></div>
+      <p id="empty" class="empty" hidden>Fontdata saknas.</p>
+    </div>
+    <aside class="detail" aria-label="Valt tecken">
+      <div class="detail-heading"><div id="selected-number" class="selected-number">#001</div><h2 id="selected-label">1 px tom kolumn vänster</h2></div>
+      <div id="pixel-grid" class="pixel-grid" role="img" aria-label="Förstoring av valt tecken"></div>
+      <div class="detail-meta"><span id="selected-family">Grundtecken</span><span id="selected-fill"></span></div>
+      <div class="legend" aria-label="Fyllning"><span><i class="swatch" aria-hidden="true"></i>Tomt</span><span><i class="swatch white" aria-hidden="true"></i>Fyllt</span></div>
+    </aside>
+  </div>
+  <footer class="notes"><span>Välj ett tecken för att se dess åtta rader och kolumner.</span><span id="font-size">256 platser · 2 048 byte</span></footer>
+  <div id="announcement" class="sr-only" aria-live="polite"></div>
+</main>
+<script>
+'use strict';
+const fontData = /*FONT_DATA*/null;
+const state = { selected: 1, filter: 'all' };
+const glyphs = fontData && Array.isArray(fontData.glyphs) ? fontData.glyphs : [];
+const atlas = document.getElementById('atlas');
+const pixels = document.getElementById('pixel-grid');
+const filters = Array.from(document.querySelectorAll('[data-filter]'));
+const buttons = new Map();
+const isJunction = glyph => glyph.kind === 'corner' || glyph.kind === 'crossing';
+const familyLabel = glyph => glyph.kind === 'basic' ? 'Grundtecken' : glyph.kind === 'reserved' ? 'Reserverad plats' : glyph.kind === 'corner' ? 'Möte · hörn' : glyph.kind === 'crossing' ? 'Möte · två motstående fält' : glyph.family === '45' ? 'Diagonal · 45°' : 'Diagonal · ' + glyph.family;
+const visibleGlyphs = () => glyphs.filter(glyph => state.filter === 'all' || (state.filter === 'junction' ? isJunction(glyph) : glyph.kind === state.filter));
+const bitAt = (glyph, x, y) => (glyph.rows[y] >>> (7 - x)) & 1;
+
+for (let i = 0; i < 64; i++) {
+  const pixel = document.createElement('div');
+  pixel.className = 'pixel';
+  pixel.setAttribute('aria-hidden', 'true');
+  pixels.appendChild(pixel);
+}
+
+function selectGlyph(index, focus = false) {
+  const glyph = glyphs.find(item => item.index === index);
+  if (!glyph) return;
+  state.selected = index;
+  for (const [number, button] of buttons) {
+    button.setAttribute('aria-pressed', String(number === index));
+    button.tabIndex = number === index ? 0 : -1;
+  }
+  document.getElementById('selected-number').textContent = '#' + String(index).padStart(3, '0');
+  document.getElementById('selected-label').textContent = glyph.label;
+  document.getElementById('selected-family').textContent = familyLabel(glyph);
+  let filled = 0;
+  for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) {
+    const bit = bitAt(glyph, x, y);
+    filled += bit;
+    pixels.children[y * 8 + x].classList.toggle('filled', Boolean(bit));
+  }
+  document.getElementById('selected-fill').textContent = filled + ' av 64 fyllda';
+  pixels.setAttribute('aria-label', glyph.label + ', ' + filled + ' av 64 pixlar fyllda');
+  document.getElementById('announcement').textContent = 'Tecken ' + index + ': ' + glyph.label;
+  if (focus && buttons.has(index)) buttons.get(index).focus();
+}
+
+function renderAtlas() {
+  const visible = visibleGlyphs();
+  if (!visible.some(glyph => glyph.index === state.selected) && visible.length) state.selected = visible[0].index;
+  atlas.replaceChildren();
+  buttons.clear();
+  for (const glyph of visible) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'glyph' + (glyph.kind === 'reserved' ? ' reserved' : '');
+    button.setAttribute('aria-label', 'Tecken ' + glyph.index + ': ' + glyph.label);
+    button.title = '#' + String(glyph.index).padStart(3, '0') + ' · ' + glyph.label;
+    const canvas = document.createElement('canvas');
+    canvas.width = canvas.height = 8;
+    canvas.setAttribute('aria-hidden', 'true');
+    const context = canvas.getContext('2d');
+    context.fillStyle = '#000';
+    context.fillRect(0, 0, 8, 8);
+    context.fillStyle = '#fff';
+    for (let y = 0; y < 8; y++) for (let x = 0; x < 8; x++) if (bitAt(glyph, x, y)) context.fillRect(x, y, 1, 1);
+    const label = document.createElement('span');
+    label.className = 'index';
+    label.textContent = String(glyph.index).padStart(3, '0');
+    button.append(canvas, label);
+    button.addEventListener('click', () => selectGlyph(glyph.index));
+    button.addEventListener('keydown', event => {
+      const position = visible.findIndex(item => item.index === glyph.index);
+      const columns = getComputedStyle(atlas).gridTemplateColumns.split(' ').length;
+      const movement = { ArrowLeft: -1, ArrowRight: 1, ArrowUp: -columns, ArrowDown: columns };
+      let next;
+      if (event.key in movement) next = Math.max(0, Math.min(visible.length - 1, position + movement[event.key]));
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = visible.length - 1;
+      if (next !== undefined) {
+        event.preventDefault();
+        selectGlyph(visible[next].index, true);
+      }
+    });
+    buttons.set(glyph.index, button);
+    atlas.appendChild(button);
+  }
+  for (const button of filters) button.setAttribute('aria-pressed', String(button.dataset.filter === state.filter));
+  selectGlyph(state.selected);
+}
+
+for (const button of filters) button.addEventListener('click', () => { state.filter = button.dataset.filter; renderAtlas(); });
+document.getElementById('export').addEventListener('click', () => {
+  const bytes = new Uint8Array(2048);
+  for (const glyph of glyphs) bytes.set(glyph.rows, glyph.index * 8);
+  const url = URL.createObjectURL(new Blob([bytes], { type: 'application/octet-stream' }));
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'sphere-font-v2.bin';
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+});
+for (const kind of ['basic', 'diagonal', 'reserved']) document.getElementById(kind + '-count').textContent = glyphs.filter(glyph => glyph.kind === kind).length;
+document.getElementById('junction-count').textContent = glyphs.filter(isJunction).length;
+document.getElementById('empty').hidden = Boolean(glyphs.length);
+document.getElementById('export').disabled = !glyphs.length;
+if (glyphs.length) renderAtlas();
+</script>
+</body>
+</html>

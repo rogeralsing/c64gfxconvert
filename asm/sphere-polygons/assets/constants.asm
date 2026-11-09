@@ -1,0 +1,3 @@
+.const CLIP_TILE_COUNT = 148;
+.const GLYPH_SOURCE_COUNT = 148;
+.const FACE_RECORD_SIZE = 12;

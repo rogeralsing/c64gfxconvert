@@ -1,0 +1,7495 @@
+{
+  "pass": true,
+  "program": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/front-delta/build/player.prg",
+  "program_sha256": "196d57512765fb2902009b2573ab5cf40ec3cdbedeb85f94a4ee6e3a12b31277",
+  "symbols_sha256": "2e81f2fc0136b252db51f8251d05c0dbd04a30c19ea89bec00b9e5efc281c8b1",
+  "source_sha256": {
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/front-delta/main.asm": "268bb3bf95ade743375e134b7e9ebb034e1eba3b3e721f1e1ad55dc50fd6bec2"
+  },
+  "asset": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/front-delta/build/native-source.bin",
+  "asset_bytes": 15423,
+  "asset_sha256": "cff2690a827a9a91e50976bd795a37ae029774cec740faf14e0f2be2de102d1c",
+  "asset_matches_program": true,
+  "font": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/build/assets/font.bin",
+  "font_sha256": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+  "reference": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/build/reference/checker-64-screen.bin",
+  "reference_sha256": "5d4b75fc49e0401709f230e7a6dd61cb1efb7f1c2d695ee8edba02b80029cbce",
+  "pal_clock_hz": 985248,
+  "pal_frame_cycles": 19656,
+  "speed_percent": 100,
+  "warp": false,
+  "single_screen": 1024,
+  "measurement": "Actual PAL VIC raster-buffer PNG on EVERY completed visible field, captured at frame_done in lower border before the next update. No screenshot latency fallback; no reconstructed-RAM image accepted as scanout.",
+  "scope": "Fixed source/font and 64-pose loop. Screen RAM, actual scanout, one-field cadence and immutable data are checked. This is not a guarantee for arbitrary movies, music or interrupt workloads.",
+  "cold_start": "Frame0 is decoded with display disabled; the first timed frame0 is a no-op followed by a complete visible field. Later frame0 updates are actual closing deltas.",
+  "monitor_forced_refresh_on_break": false,
+  "samples": [
+    {
+      "sequence": 0,
+      "frame": 0,
+      "counter": 1,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 15,
+        "clock": 3121791
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 256,
+        "raster_cycle": 30,
+        "clock": 3121806
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3141450
+      },
+      "render_cycles": 15,
+      "update_to_completed_field_cycles": 19659,
+      "screenshot": "field-000-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": true
+    },
+    {
+      "sequence": 1,
+      "frame": 1,
+      "counter": 2,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3141468
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 172,
+        "raster_cycle": 29,
+        "clock": 3155825
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3161110
+      },
+      "render_cycles": 14357,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-001-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 2,
+      "frame": 2,
+      "counter": 3,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 3161128
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 56,
+        "clock": 3175130
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3180766
+      },
+      "render_cycles": 14002,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-002-frame-02.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 3,
+      "frame": 3,
+      "counter": 4,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 3180784
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 184,
+        "raster_cycle": 32,
+        "clock": 3195896
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3200424
+      },
+      "render_cycles": 15112,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-003-frame-03.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 4,
+      "frame": 4,
+      "counter": 5,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3200442
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 137,
+        "raster_cycle": 19,
+        "clock": 3212578
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3220080
+      },
+      "render_cycles": 12136,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-004-frame-04.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 5,
+      "frame": 5,
+      "counter": 6,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3220098
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 156,
+        "raster_cycle": 6,
+        "clock": 3233418
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3239734
+      },
+      "render_cycles": 13320,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-005-frame-05.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19654
+    },
+    {
+      "sequence": 6,
+      "frame": 6,
+      "counter": 7,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 3239752
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 183,
+        "raster_cycle": 19,
+        "clock": 3254788
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3259386
+      },
+      "render_cycles": 15036,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-006-frame-06.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 7,
+      "frame": 7,
+      "counter": 8,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3259404
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 14,
+        "clock": 3272045
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3279042
+      },
+      "render_cycles": 12641,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-007-frame-07.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 8,
+      "frame": 8,
+      "counter": 9,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3279060
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 155,
+        "raster_cycle": 61,
+        "clock": 3292378
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3298701
+      },
+      "render_cycles": 13318,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-008-frame-08.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 9,
+      "frame": 9,
+      "counter": 10,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3298719
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 175,
+        "raster_cycle": 5,
+        "clock": 3313238
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3318355
+      },
+      "render_cycles": 14519,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-009-frame-09.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19654
+    },
+    {
+      "sequence": 10,
+      "frame": 10,
+      "counter": 11,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3318373
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 31,
+        "clock": 3330967
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3338013
+      },
+      "render_cycles": 12594,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-010-frame-10.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 11,
+      "frame": 11,
+      "counter": 12,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3338031
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 3352127
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3357672
+      },
+      "render_cycles": 14096,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-011-frame-11.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 12,
+      "frame": 12,
+      "counter": 13,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3357690
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 27,
+        "clock": 3371661
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3377325
+      },
+      "render_cycles": 13971,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-012-frame-12.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 13,
+      "frame": 13,
+      "counter": 14,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3377343
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 194,
+        "raster_cycle": 32,
+        "clock": 3393086
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3396983
+      },
+      "render_cycles": 15743,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-013-frame-13.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 14,
+      "frame": 14,
+      "counter": 15,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3397001
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 24,
+        "clock": 3408450
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3416639
+      },
+      "render_cycles": 11449,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-014-frame-14.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 15,
+      "frame": 15,
+      "counter": 16,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3416657
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 3430751
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3436296
+      },
+      "render_cycles": 14094,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-015-frame-15.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 16,
+      "frame": 16,
+      "counter": 17,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3436314
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 44,
+        "clock": 3449924
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3455946
+      },
+      "render_cycles": 13610,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-016-frame-16.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 17,
+      "frame": 17,
+      "counter": 18,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3455964
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 9,
+        "clock": 3469167
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3475603
+      },
+      "render_cycles": 13203,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-017-frame-17.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 18,
+      "frame": 18,
+      "counter": 19,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3475621
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 136,
+        "raster_cycle": 15,
+        "clock": 3487695
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 3495260
+      },
+      "render_cycles": 12074,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-018-frame-18.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 19,
+      "frame": 19,
+      "counter": 20,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 3495278
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 1,
+        "clock": 3509290
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3514919
+      },
+      "render_cycles": 14012,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-019-frame-19.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 20,
+      "frame": 20,
+      "counter": 21,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3514937
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 180,
+        "raster_cycle": 42,
+        "clock": 3529806
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 3534572
+      },
+      "render_cycles": 14869,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-020-frame-20.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 21,
+      "frame": 21,
+      "counter": 22,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 3534590
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 141,
+        "raster_cycle": 8,
+        "clock": 3546971
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3554227
+      },
+      "render_cycles": 12381,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-021-frame-21.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 22,
+      "frame": 22,
+      "counter": 23,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3554245
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 139,
+        "raster_cycle": 6,
+        "clock": 3566499
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3573882
+      },
+      "render_cycles": 12254,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-022-frame-22.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 23,
+      "frame": 23,
+      "counter": 24,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3573900
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 169,
+        "raster_cycle": 32,
+        "clock": 3588071
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3593539
+      },
+      "render_cycles": 14171,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-023-frame-23.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 24,
+      "frame": 24,
+      "counter": 25,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3593557
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 36,
+        "clock": 3607479
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3613199
+      },
+      "render_cycles": 13922,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-024-frame-24.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 25,
+      "frame": 25,
+      "counter": 26,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3613217
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 23,
+        "clock": 3626051
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3632851
+      },
+      "render_cycles": 12834,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-025-frame-25.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 26,
+      "frame": 26,
+      "counter": 27,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3632869
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 54,
+        "clock": 3646494
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3652509
+      },
+      "render_cycles": 13625,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-026-frame-26.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 27,
+      "frame": 27,
+      "counter": 28,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3652527
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 32,
+        "clock": 3667955
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3672167
+      },
+      "render_cycles": 15428,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-027-frame-27.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 28,
+      "frame": 28,
+      "counter": 29,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3672185
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 13,
+        "clock": 3685324
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3691823
+      },
+      "render_cycles": 13139,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-028-frame-28.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 29,
+      "frame": 29,
+      "counter": 30,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3691841
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 58,
+        "clock": 3705781
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3711480
+      },
+      "render_cycles": 13940,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-029-frame-29.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 30,
+      "frame": 30,
+      "counter": 31,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3711498
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 34,
+        "clock": 3724342
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3731135
+      },
+      "render_cycles": 12844,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-030-frame-30.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 31,
+      "frame": 31,
+      "counter": 32,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3731153
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 25,
+        "clock": 3745186
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3750787
+      },
+      "render_cycles": 14033,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-031-frame-31.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 32,
+      "frame": 32,
+      "counter": 33,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3750805
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 158,
+        "raster_cycle": 26,
+        "clock": 3764276
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3770445
+      },
+      "render_cycles": 13471,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-032-frame-32.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 33,
+      "frame": 33,
+      "counter": 34,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3770463
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 62,
+        "clock": 3784598
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3790101
+      },
+      "render_cycles": 14135,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-033-frame-33.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 34,
+      "frame": 34,
+      "counter": 35,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3790119
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 8,
+        "clock": 3804074
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3809759
+      },
+      "render_cycles": 13955,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-034-frame-34.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 35,
+      "frame": 35,
+      "counter": 36,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3809777
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 11,
+        "clock": 3823733
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3829411
+      },
+      "render_cycles": 13956,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-035-frame-35.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 36,
+      "frame": 36,
+      "counter": 37,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3829429
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 26,
+        "clock": 3842081
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3849071
+      },
+      "render_cycles": 12652,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-036-frame-36.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 37,
+      "frame": 37,
+      "counter": 38,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 3849089
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 42,
+        "clock": 3862068
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3868728
+      },
+      "render_cycles": 12979,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-037-frame-37.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 38,
+      "frame": 38,
+      "counter": 39,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3868746
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 173,
+        "raster_cycle": 32,
+        "clock": 3883163
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3888378
+      },
+      "render_cycles": 14417,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-038-frame-38.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 39,
+      "frame": 39,
+      "counter": 40,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3888396
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 7,
+        "clock": 3901345
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3908040
+      },
+      "render_cycles": 12949,
+      "update_to_completed_field_cycles": 19644,
+      "screenshot": "field-039-frame-39.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19662
+    },
+    {
+      "sequence": 40,
+      "frame": 40,
+      "counter": 41,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 3908058
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 18,
+        "clock": 3922020
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3927691
+      },
+      "render_cycles": 13962,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-040-frame-40.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 41,
+      "frame": 41,
+      "counter": 42,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 3927709
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 43,
+        "clock": 3940945
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3947346
+      },
+      "render_cycles": 13236,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-041-frame-41.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 42,
+      "frame": 42,
+      "counter": 43,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 3947364
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 10,
+        "clock": 3960568
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 3967004
+      },
+      "render_cycles": 13204,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-042-frame-42.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 43,
+      "frame": 43,
+      "counter": 44,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 3967022
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 201,
+        "raster_cycle": 24,
+        "clock": 3983199
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3986661
+      },
+      "render_cycles": 16177,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-043-frame-43.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 44,
+      "frame": 44,
+      "counter": 45,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 3986679
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 26,
+        "clock": 3999896
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4006318
+      },
+      "render_cycles": 13217,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-044-frame-44.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 45,
+      "frame": 45,
+      "counter": 46,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 4006336
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 178,
+        "raster_cycle": 11,
+        "clock": 4021049
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4025970
+      },
+      "render_cycles": 14713,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-045-frame-45.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 46,
+      "frame": 46,
+      "counter": 47,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4025988
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 37,
+        "clock": 4037455
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4045630
+      },
+      "render_cycles": 11467,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-046-frame-46.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 47,
+      "frame": 47,
+      "counter": 48,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 4045648
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 41,
+        "clock": 4059194
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4065286
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-047-frame-47.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 48,
+      "frame": 48,
+      "counter": 49,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 4065304
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 57,
+        "clock": 4078551
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4084938
+      },
+      "render_cycles": 13247,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-048-frame-48.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 49,
+      "frame": 49,
+      "counter": 50,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4084956
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 162,
+        "raster_cycle": 47,
+        "clock": 4098701
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4104597
+      },
+      "render_cycles": 13745,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-049-frame-49.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 50,
+      "frame": 50,
+      "counter": 51,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4104615
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 38,
+        "clock": 4117214
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4124253
+      },
+      "render_cycles": 12599,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-050-frame-50.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 51,
+      "frame": 51,
+      "counter": 52,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4124271
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 38,
+        "clock": 4138382
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4143906
+      },
+      "render_cycles": 14111,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-051-frame-51.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 52,
+      "frame": 52,
+      "counter": 53,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4143924
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 53,
+        "clock": 4158620
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4163562
+      },
+      "render_cycles": 14696,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-052-frame-52.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 53,
+      "frame": 53,
+      "counter": 54,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4163580
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 151,
+        "raster_cycle": 60,
+        "clock": 4176645
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4183221
+      },
+      "render_cycles": 13065,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-053-frame-53.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 54,
+      "frame": 54,
+      "counter": 55,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4183239
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 127,
+        "raster_cycle": 29,
+        "clock": 4194758
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4202877
+      },
+      "render_cycles": 11519,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-054-frame-54.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 55,
+      "frame": 55,
+      "counter": 56,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4202895
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 161,
+        "raster_cycle": 44,
+        "clock": 4216571
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4222530
+      },
+      "render_cycles": 13676,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-055-frame-55.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 56,
+      "frame": 56,
+      "counter": 57,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4222548
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 62,
+        "clock": 4238009
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4242186
+      },
+      "render_cycles": 15461,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-056-frame-56.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 57,
+      "frame": 57,
+      "counter": 58,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4242204
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 62,
+        "clock": 4255082
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4261847
+      },
+      "render_cycles": 12878,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-057-frame-57.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 58,
+      "frame": 58,
+      "counter": 59,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4261865
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 134,
+        "raster_cycle": 62,
+        "clock": 4273856
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4281498
+      },
+      "render_cycles": 11991,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-058-frame-58.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 59,
+      "frame": 59,
+      "counter": 60,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4281516
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 37,
+        "clock": 4295062
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4301154
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-059-frame-59.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 60,
+      "frame": 60,
+      "counter": 61,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4301172
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 57,
+        "clock": 4314360
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4320810
+      },
+      "render_cycles": 13188,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-060-frame-60.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 61,
+      "frame": 61,
+      "counter": 62,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4320828
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 23,
+        "clock": 4335494
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4340471
+      },
+      "render_cycles": 14666,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-061-frame-61.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 62,
+      "frame": 62,
+      "counter": 63,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4340489
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 22,
+        "clock": 4353322
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4360122
+      },
+      "render_cycles": 12833,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-062-frame-62.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 63,
+      "frame": 63,
+      "counter": 64,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4360140
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 188,
+        "raster_cycle": 27,
+        "clock": 4375503
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4379778
+      },
+      "render_cycles": 15363,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-063-frame-63.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 64,
+      "frame": 0,
+      "counter": 65,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4379801
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 6,
+        "clock": 4393752
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4399437
+      },
+      "render_cycles": 13951,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-064-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 65,
+      "frame": 1,
+      "counter": 66,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4399455
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 172,
+        "raster_cycle": 33,
+        "clock": 4413813
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4419091
+      },
+      "render_cycles": 14358,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-065-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19654
+    },
+    {
+      "sequence": 66,
+      "frame": 2,
+      "counter": 67,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4419109
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 54,
+        "clock": 4433112
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4438748
+      },
+      "render_cycles": 14003,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-066-frame-02.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 67,
+      "frame": 3,
+      "counter": 68,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 4438766
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 184,
+        "raster_cycle": 27,
+        "clock": 4453875
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4458403
+      },
+      "render_cycles": 15109,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-067-frame-03.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 68,
+      "frame": 4,
+      "counter": 69,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4458421
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 137,
+        "raster_cycle": 18,
+        "clock": 4470561
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4478063
+      },
+      "render_cycles": 12140,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-068-frame-04.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 69,
+      "frame": 5,
+      "counter": 70,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4478081
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 156,
+        "raster_cycle": 3,
+        "clock": 4491399
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4497715
+      },
+      "render_cycles": 13318,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-069-frame-05.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 70,
+      "frame": 6,
+      "counter": 71,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4497733
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 183,
+        "raster_cycle": 17,
+        "clock": 4512770
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4517375
+      },
+      "render_cycles": 15037,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-070-frame-06.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 71,
+      "frame": 7,
+      "counter": 72,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4517393
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 18,
+        "clock": 4530033
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4537030
+      },
+      "render_cycles": 12640,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-071-frame-07.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 72,
+      "frame": 8,
+      "counter": 73,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 4537048
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 156,
+        "raster_cycle": 6,
+        "clock": 4550370
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4556686
+      },
+      "render_cycles": 13322,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-072-frame-08.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 73,
+      "frame": 9,
+      "counter": 74,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 4556704
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 175,
+        "raster_cycle": 5,
+        "clock": 4571222
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4576339
+      },
+      "render_cycles": 14518,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-073-frame-09.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 74,
+      "frame": 10,
+      "counter": 75,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4576357
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 31,
+        "clock": 4588951
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4595997
+      },
+      "render_cycles": 12594,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-074-frame-10.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 75,
+      "frame": 11,
+      "counter": 76,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4596015
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 4610111
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4615656
+      },
+      "render_cycles": 14096,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-075-frame-11.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 76,
+      "frame": 12,
+      "counter": 77,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 4615674
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 27,
+        "clock": 4629645
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4635309
+      },
+      "render_cycles": 13971,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-076-frame-12.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 77,
+      "frame": 13,
+      "counter": 78,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4635327
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 194,
+        "raster_cycle": 32,
+        "clock": 4651070
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4654967
+      },
+      "render_cycles": 15743,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-077-frame-13.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 78,
+      "frame": 14,
+      "counter": 79,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4654985
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 24,
+        "clock": 4666434
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4674623
+      },
+      "render_cycles": 11449,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-078-frame-14.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 79,
+      "frame": 15,
+      "counter": 80,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4674641
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 4688735
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4694280
+      },
+      "render_cycles": 14094,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-079-frame-15.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 80,
+      "frame": 16,
+      "counter": 81,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 4694298
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 44,
+        "clock": 4707908
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4713930
+      },
+      "render_cycles": 13610,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-080-frame-16.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 81,
+      "frame": 17,
+      "counter": 82,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4713948
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 9,
+        "clock": 4727151
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4733587
+      },
+      "render_cycles": 13203,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-081-frame-17.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 82,
+      "frame": 18,
+      "counter": 83,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4733605
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 136,
+        "raster_cycle": 15,
+        "clock": 4745679
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4753244
+      },
+      "render_cycles": 12074,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-082-frame-18.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 83,
+      "frame": 19,
+      "counter": 84,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 4753262
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 1,
+        "clock": 4767274
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4772903
+      },
+      "render_cycles": 14012,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-083-frame-19.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 84,
+      "frame": 20,
+      "counter": 85,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4772921
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 180,
+        "raster_cycle": 42,
+        "clock": 4787790
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4792556
+      },
+      "render_cycles": 14869,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-084-frame-20.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 85,
+      "frame": 21,
+      "counter": 86,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 4792574
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 141,
+        "raster_cycle": 8,
+        "clock": 4804955
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4812211
+      },
+      "render_cycles": 12381,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-085-frame-21.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 86,
+      "frame": 22,
+      "counter": 87,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4812229
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 139,
+        "raster_cycle": 6,
+        "clock": 4824483
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4831866
+      },
+      "render_cycles": 12254,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-086-frame-22.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 87,
+      "frame": 23,
+      "counter": 88,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 4831884
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 169,
+        "raster_cycle": 32,
+        "clock": 4846055
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4851523
+      },
+      "render_cycles": 14171,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-087-frame-23.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 88,
+      "frame": 24,
+      "counter": 89,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4851541
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 36,
+        "clock": 4865463
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4871183
+      },
+      "render_cycles": 13922,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-088-frame-24.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 89,
+      "frame": 25,
+      "counter": 90,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4871201
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 23,
+        "clock": 4884035
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4890835
+      },
+      "render_cycles": 12834,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-089-frame-25.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 90,
+      "frame": 26,
+      "counter": 91,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 4890853
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 54,
+        "clock": 4904478
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4910493
+      },
+      "render_cycles": 13625,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-090-frame-26.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 91,
+      "frame": 27,
+      "counter": 92,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 4910511
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 32,
+        "clock": 4925939
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4930151
+      },
+      "render_cycles": 15428,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-091-frame-27.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 92,
+      "frame": 28,
+      "counter": 93,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4930169
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 13,
+        "clock": 4943308
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4949807
+      },
+      "render_cycles": 13139,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-092-frame-28.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 93,
+      "frame": 29,
+      "counter": 94,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4949825
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 58,
+        "clock": 4963765
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4969464
+      },
+      "render_cycles": 13940,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-093-frame-29.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 94,
+      "frame": 30,
+      "counter": 95,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 4969482
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 34,
+        "clock": 4982326
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4989119
+      },
+      "render_cycles": 12844,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-094-frame-30.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 95,
+      "frame": 31,
+      "counter": 96,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 4989137
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 25,
+        "clock": 5003170
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5008771
+      },
+      "render_cycles": 14033,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-095-frame-31.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 96,
+      "frame": 32,
+      "counter": 97,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5008789
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 158,
+        "raster_cycle": 26,
+        "clock": 5022260
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5028429
+      },
+      "render_cycles": 13471,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-096-frame-32.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 97,
+      "frame": 33,
+      "counter": 98,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5028447
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 62,
+        "clock": 5042582
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5048085
+      },
+      "render_cycles": 14135,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-097-frame-33.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 98,
+      "frame": 34,
+      "counter": 99,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5048103
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 8,
+        "clock": 5062058
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5067743
+      },
+      "render_cycles": 13955,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-098-frame-34.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 99,
+      "frame": 35,
+      "counter": 100,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5067761
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 11,
+        "clock": 5081717
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5087395
+      },
+      "render_cycles": 13956,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-099-frame-35.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 100,
+      "frame": 36,
+      "counter": 101,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5087413
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 26,
+        "clock": 5100065
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5107055
+      },
+      "render_cycles": 12652,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-100-frame-36.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 101,
+      "frame": 37,
+      "counter": 102,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5107073
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 42,
+        "clock": 5120052
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5126712
+      },
+      "render_cycles": 12979,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-101-frame-37.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 102,
+      "frame": 38,
+      "counter": 103,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 5126730
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 173,
+        "raster_cycle": 32,
+        "clock": 5141147
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5146362
+      },
+      "render_cycles": 14417,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-102-frame-38.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 103,
+      "frame": 39,
+      "counter": 104,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5146380
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 7,
+        "clock": 5159329
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5166024
+      },
+      "render_cycles": 12949,
+      "update_to_completed_field_cycles": 19644,
+      "screenshot": "field-103-frame-39.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19662
+    },
+    {
+      "sequence": 104,
+      "frame": 40,
+      "counter": 105,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 5166042
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 18,
+        "clock": 5180004
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5185675
+      },
+      "render_cycles": 13962,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-104-frame-40.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 105,
+      "frame": 41,
+      "counter": 106,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5185693
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 43,
+        "clock": 5198929
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5205330
+      },
+      "render_cycles": 13236,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-105-frame-41.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 106,
+      "frame": 42,
+      "counter": 107,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5205348
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 10,
+        "clock": 5218552
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5224988
+      },
+      "render_cycles": 13204,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-106-frame-42.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 107,
+      "frame": 43,
+      "counter": 108,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 5225006
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 201,
+        "raster_cycle": 24,
+        "clock": 5241183
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5244645
+      },
+      "render_cycles": 16177,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-107-frame-43.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 108,
+      "frame": 44,
+      "counter": 109,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5244663
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 26,
+        "clock": 5257880
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5264302
+      },
+      "render_cycles": 13217,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-108-frame-44.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 109,
+      "frame": 45,
+      "counter": 110,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 5264320
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 178,
+        "raster_cycle": 11,
+        "clock": 5279033
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5283954
+      },
+      "render_cycles": 14713,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-109-frame-45.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 110,
+      "frame": 46,
+      "counter": 111,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5283972
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 37,
+        "clock": 5295439
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5303614
+      },
+      "render_cycles": 11467,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-110-frame-46.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 111,
+      "frame": 47,
+      "counter": 112,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 5303632
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 41,
+        "clock": 5317178
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5323270
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-111-frame-47.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 112,
+      "frame": 48,
+      "counter": 113,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 5323288
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 57,
+        "clock": 5336535
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5342922
+      },
+      "render_cycles": 13247,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-112-frame-48.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 113,
+      "frame": 49,
+      "counter": 114,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5342940
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 162,
+        "raster_cycle": 47,
+        "clock": 5356685
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5362581
+      },
+      "render_cycles": 13745,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-113-frame-49.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 114,
+      "frame": 50,
+      "counter": 115,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5362599
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 38,
+        "clock": 5375198
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5382237
+      },
+      "render_cycles": 12599,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-114-frame-50.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 115,
+      "frame": 51,
+      "counter": 116,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5382255
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 38,
+        "clock": 5396366
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5401890
+      },
+      "render_cycles": 14111,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-115-frame-51.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 116,
+      "frame": 52,
+      "counter": 117,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5401908
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 53,
+        "clock": 5416604
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5421546
+      },
+      "render_cycles": 14696,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-116-frame-52.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 117,
+      "frame": 53,
+      "counter": 118,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5421564
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 151,
+        "raster_cycle": 60,
+        "clock": 5434629
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5441205
+      },
+      "render_cycles": 13065,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-117-frame-53.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 118,
+      "frame": 54,
+      "counter": 119,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5441223
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 127,
+        "raster_cycle": 29,
+        "clock": 5452742
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5460861
+      },
+      "render_cycles": 11519,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-118-frame-54.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 119,
+      "frame": 55,
+      "counter": 120,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5460879
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 161,
+        "raster_cycle": 44,
+        "clock": 5474555
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5480514
+      },
+      "render_cycles": 13676,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-119-frame-55.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 120,
+      "frame": 56,
+      "counter": 121,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5480532
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 62,
+        "clock": 5495993
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5500170
+      },
+      "render_cycles": 15461,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-120-frame-56.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 121,
+      "frame": 57,
+      "counter": 122,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5500188
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 62,
+        "clock": 5513066
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5519831
+      },
+      "render_cycles": 12878,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-121-frame-57.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 122,
+      "frame": 58,
+      "counter": 123,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5519849
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 134,
+        "raster_cycle": 62,
+        "clock": 5531840
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5539482
+      },
+      "render_cycles": 11991,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-122-frame-58.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 123,
+      "frame": 59,
+      "counter": 124,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5539500
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 37,
+        "clock": 5553046
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5559138
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-123-frame-59.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 124,
+      "frame": 60,
+      "counter": 125,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5559156
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 57,
+        "clock": 5572344
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5578794
+      },
+      "render_cycles": 13188,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-124-frame-60.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 125,
+      "frame": 61,
+      "counter": 126,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5578812
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 23,
+        "clock": 5593478
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5598455
+      },
+      "render_cycles": 14666,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-125-frame-61.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 126,
+      "frame": 62,
+      "counter": 127,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5598473
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 22,
+        "clock": 5611306
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5618106
+      },
+      "render_cycles": 12833,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-126-frame-62.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 127,
+      "frame": 63,
+      "counter": 128,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5618124
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 188,
+        "raster_cycle": 27,
+        "clock": 5633487
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5637762
+      },
+      "render_cycles": 15363,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-127-frame-63.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 128,
+      "frame": 0,
+      "counter": 129,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5637785
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 6,
+        "clock": 5651736
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5657421
+      },
+      "render_cycles": 13951,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-128-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 129,
+      "frame": 1,
+      "counter": 130,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5657439
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 172,
+        "raster_cycle": 33,
+        "clock": 5671797
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5677075
+      },
+      "render_cycles": 14358,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-129-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19654
+    },
+    {
+      "sequence": 130,
+      "frame": 2,
+      "counter": 131,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5677093
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 54,
+        "clock": 5691096
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5696732
+      },
+      "render_cycles": 14003,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-130-frame-02.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 131,
+      "frame": 3,
+      "counter": 132,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 5696750
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 184,
+        "raster_cycle": 27,
+        "clock": 5711859
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5716387
+      },
+      "render_cycles": 15109,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-131-frame-03.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 132,
+      "frame": 4,
+      "counter": 133,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5716405
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 137,
+        "raster_cycle": 18,
+        "clock": 5728545
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5736047
+      },
+      "render_cycles": 12140,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-132-frame-04.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 133,
+      "frame": 5,
+      "counter": 134,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5736065
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 156,
+        "raster_cycle": 3,
+        "clock": 5749383
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5755699
+      },
+      "render_cycles": 13318,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-133-frame-05.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 134,
+      "frame": 6,
+      "counter": 135,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5755717
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 183,
+        "raster_cycle": 17,
+        "clock": 5770754
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5775359
+      },
+      "render_cycles": 15037,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-134-frame-06.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 135,
+      "frame": 7,
+      "counter": 136,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5775377
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 18,
+        "clock": 5788017
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5795014
+      },
+      "render_cycles": 12640,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-135-frame-07.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 136,
+      "frame": 8,
+      "counter": 137,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 5795032
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 156,
+        "raster_cycle": 6,
+        "clock": 5808354
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5814670
+      },
+      "render_cycles": 13322,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-136-frame-08.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 137,
+      "frame": 9,
+      "counter": 138,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 5814688
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 175,
+        "raster_cycle": 5,
+        "clock": 5829206
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5834323
+      },
+      "render_cycles": 14518,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-137-frame-09.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 138,
+      "frame": 10,
+      "counter": 139,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5834341
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 31,
+        "clock": 5846935
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5853981
+      },
+      "render_cycles": 12594,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-138-frame-10.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 139,
+      "frame": 11,
+      "counter": 140,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5853999
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 5868095
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5873640
+      },
+      "render_cycles": 14096,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-139-frame-11.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 140,
+      "frame": 12,
+      "counter": 141,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 5873658
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 27,
+        "clock": 5887629
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5893293
+      },
+      "render_cycles": 13971,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-140-frame-12.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 141,
+      "frame": 13,
+      "counter": 142,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 5893311
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 194,
+        "raster_cycle": 32,
+        "clock": 5909054
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5912951
+      },
+      "render_cycles": 15743,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-141-frame-13.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 142,
+      "frame": 14,
+      "counter": 143,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5912969
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 24,
+        "clock": 5924418
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5932607
+      },
+      "render_cycles": 11449,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-142-frame-14.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 143,
+      "frame": 15,
+      "counter": 144,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 5932625
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 23,
+        "clock": 5946719
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5952264
+      },
+      "render_cycles": 14094,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-143-frame-15.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 144,
+      "frame": 16,
+      "counter": 145,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 5952282
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 44,
+        "clock": 5965892
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5971914
+      },
+      "render_cycles": 13610,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-144-frame-16.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 145,
+      "frame": 17,
+      "counter": 146,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 5971932
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 9,
+        "clock": 5985135
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5991571
+      },
+      "render_cycles": 13203,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-145-frame-17.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 146,
+      "frame": 18,
+      "counter": 147,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 5991589
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 136,
+        "raster_cycle": 15,
+        "clock": 6003663
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 6011228
+      },
+      "render_cycles": 12074,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-146-frame-18.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 147,
+      "frame": 19,
+      "counter": 148,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 6011246
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 1,
+        "clock": 6025258
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6030887
+      },
+      "render_cycles": 14012,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-147-frame-19.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 148,
+      "frame": 20,
+      "counter": 149,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6030905
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 180,
+        "raster_cycle": 42,
+        "clock": 6045774
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 6050540
+      },
+      "render_cycles": 14869,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-148-frame-20.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 149,
+      "frame": 21,
+      "counter": 150,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 6050558
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 141,
+        "raster_cycle": 8,
+        "clock": 6062939
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6070195
+      },
+      "render_cycles": 12381,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-149-frame-21.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 150,
+      "frame": 22,
+      "counter": 151,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6070213
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 139,
+        "raster_cycle": 6,
+        "clock": 6082467
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6089850
+      },
+      "render_cycles": 12254,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-150-frame-22.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 151,
+      "frame": 23,
+      "counter": 152,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6089868
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 169,
+        "raster_cycle": 32,
+        "clock": 6104039
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6109507
+      },
+      "render_cycles": 14171,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-151-frame-23.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 152,
+      "frame": 24,
+      "counter": 153,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6109525
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 36,
+        "clock": 6123447
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6129167
+      },
+      "render_cycles": 13922,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-152-frame-24.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 153,
+      "frame": 25,
+      "counter": 154,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6129185
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 23,
+        "clock": 6142019
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6148819
+      },
+      "render_cycles": 12834,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-153-frame-25.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 154,
+      "frame": 26,
+      "counter": 155,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6148837
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 160,
+        "raster_cycle": 54,
+        "clock": 6162462
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6168477
+      },
+      "render_cycles": 13625,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-154-frame-26.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 155,
+      "frame": 27,
+      "counter": 156,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6168495
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 32,
+        "clock": 6183923
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6188135
+      },
+      "render_cycles": 15428,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-155-frame-27.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 156,
+      "frame": 28,
+      "counter": 157,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6188153
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 13,
+        "clock": 6201292
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6207791
+      },
+      "render_cycles": 13139,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-156-frame-28.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 157,
+      "frame": 29,
+      "counter": 158,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6207809
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 165,
+        "raster_cycle": 58,
+        "clock": 6221749
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 6227448
+      },
+      "render_cycles": 13940,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-157-frame-29.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 158,
+      "frame": 30,
+      "counter": 159,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 6227466
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 34,
+        "clock": 6240310
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6247103
+      },
+      "render_cycles": 12844,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-158-frame-30.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 159,
+      "frame": 31,
+      "counter": 160,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6247121
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 167,
+        "raster_cycle": 25,
+        "clock": 6261154
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6266755
+      },
+      "render_cycles": 14033,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-159-frame-31.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 160,
+      "frame": 32,
+      "counter": 161,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6266773
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 158,
+        "raster_cycle": 26,
+        "clock": 6280244
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6286413
+      },
+      "render_cycles": 13471,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-160-frame-32.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 161,
+      "frame": 33,
+      "counter": 162,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6286431
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 62,
+        "clock": 6300566
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6306069
+      },
+      "render_cycles": 14135,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-161-frame-33.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 162,
+      "frame": 34,
+      "counter": 163,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6306087
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 8,
+        "clock": 6320042
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6325727
+      },
+      "render_cycles": 13955,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-162-frame-34.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 163,
+      "frame": 35,
+      "counter": 164,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6325745
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 11,
+        "clock": 6339701
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6345379
+      },
+      "render_cycles": 13956,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-163-frame-35.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 164,
+      "frame": 36,
+      "counter": 165,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6345397
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 145,
+        "raster_cycle": 26,
+        "clock": 6358049
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6365039
+      },
+      "render_cycles": 12652,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-164-frame-36.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 165,
+      "frame": 37,
+      "counter": 166,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6365057
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 42,
+        "clock": 6378036
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 6384696
+      },
+      "render_cycles": 12979,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-165-frame-37.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 166,
+      "frame": 38,
+      "counter": 167,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 6384714
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 173,
+        "raster_cycle": 32,
+        "clock": 6399131
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6404346
+      },
+      "render_cycles": 14417,
+      "update_to_completed_field_cycles": 19632,
+      "screenshot": "field-166-frame-38.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19650
+    },
+    {
+      "sequence": 167,
+      "frame": 39,
+      "counter": 168,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6404364
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 150,
+        "raster_cycle": 7,
+        "clock": 6417313
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 6424008
+      },
+      "render_cycles": 12949,
+      "update_to_completed_field_cycles": 19644,
+      "screenshot": "field-167-frame-39.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19662
+    },
+    {
+      "sequence": 168,
+      "frame": 40,
+      "counter": 169,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 42,
+        "clock": 6424026
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 18,
+        "clock": 6437988
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6443659
+      },
+      "render_cycles": 13962,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-168-frame-40.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 169,
+      "frame": 41,
+      "counter": 170,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 37,
+        "clock": 6443677
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 43,
+        "clock": 6456913
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6463314
+      },
+      "render_cycles": 13236,
+      "update_to_completed_field_cycles": 19637,
+      "screenshot": "field-169-frame-41.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19655
+    },
+    {
+      "sequence": 170,
+      "frame": 42,
+      "counter": 171,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6463332
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 10,
+        "clock": 6476536
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 6482972
+      },
+      "render_cycles": 13204,
+      "update_to_completed_field_cycles": 19640,
+      "screenshot": "field-170-frame-42.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19658
+    },
+    {
+      "sequence": 171,
+      "frame": 43,
+      "counter": 172,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 38,
+        "clock": 6482990
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 201,
+        "raster_cycle": 24,
+        "clock": 6499167
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6502629
+      },
+      "render_cycles": 16177,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-171-frame-43.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 172,
+      "frame": 44,
+      "counter": 173,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6502647
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 26,
+        "clock": 6515864
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 6522286
+      },
+      "render_cycles": 13217,
+      "update_to_completed_field_cycles": 19639,
+      "screenshot": "field-172-frame-44.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19657
+    },
+    {
+      "sequence": 173,
+      "frame": 45,
+      "counter": 174,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 6522304
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 178,
+        "raster_cycle": 11,
+        "clock": 6537017
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6541938
+      },
+      "render_cycles": 14713,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-173-frame-45.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 174,
+      "frame": 46,
+      "counter": 175,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6541956
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 126,
+        "raster_cycle": 37,
+        "clock": 6553423
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 6561598
+      },
+      "render_cycles": 11467,
+      "update_to_completed_field_cycles": 19642,
+      "screenshot": "field-174-frame-46.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19660
+    },
+    {
+      "sequence": 175,
+      "frame": 47,
+      "counter": 176,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 6561616
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 41,
+        "clock": 6575162
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 6581254
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-175-frame-47.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 176,
+      "frame": 48,
+      "counter": 177,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 40,
+        "clock": 6581272
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 154,
+        "raster_cycle": 57,
+        "clock": 6594519
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6600906
+      },
+      "render_cycles": 13247,
+      "update_to_completed_field_cycles": 19634,
+      "screenshot": "field-176-frame-48.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19652
+    },
+    {
+      "sequence": 177,
+      "frame": 49,
+      "counter": 178,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6600924
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 162,
+        "raster_cycle": 47,
+        "clock": 6614669
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6620565
+      },
+      "render_cycles": 13745,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-177-frame-49.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 178,
+      "frame": 50,
+      "counter": 179,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6620583
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 144,
+        "raster_cycle": 38,
+        "clock": 6633182
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6640221
+      },
+      "render_cycles": 12599,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-178-frame-50.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 179,
+      "frame": 51,
+      "counter": 180,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6640239
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 168,
+        "raster_cycle": 38,
+        "clock": 6654350
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6659874
+      },
+      "render_cycles": 14111,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-179-frame-51.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 180,
+      "frame": 52,
+      "counter": 181,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6659892
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 53,
+        "clock": 6674588
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6679530
+      },
+      "render_cycles": 14696,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-180-frame-52.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 181,
+      "frame": 53,
+      "counter": 182,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6679548
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 151,
+        "raster_cycle": 60,
+        "clock": 6692613
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6699189
+      },
+      "render_cycles": 13065,
+      "update_to_completed_field_cycles": 19641,
+      "screenshot": "field-181-frame-53.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 182,
+      "frame": 54,
+      "counter": 183,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6699207
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 127,
+        "raster_cycle": 29,
+        "clock": 6710726
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6718845
+      },
+      "render_cycles": 11519,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-182-frame-54.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 183,
+      "frame": 55,
+      "counter": 184,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6718863
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 161,
+        "raster_cycle": 44,
+        "clock": 6732539
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6738498
+      },
+      "render_cycles": 13676,
+      "update_to_completed_field_cycles": 19635,
+      "screenshot": "field-183-frame-55.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19653
+    },
+    {
+      "sequence": 184,
+      "frame": 56,
+      "counter": 185,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6738516
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 189,
+        "raster_cycle": 62,
+        "clock": 6753977
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6758154
+      },
+      "render_cycles": 15461,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-184-frame-56.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 185,
+      "frame": 57,
+      "counter": 186,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6758172
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 62,
+        "clock": 6771050
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6777815
+      },
+      "render_cycles": 12878,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-185-frame-57.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 186,
+      "frame": 58,
+      "counter": 187,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6777833
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 134,
+        "raster_cycle": 62,
+        "clock": 6789824
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6797466
+      },
+      "render_cycles": 11991,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-186-frame-58.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 187,
+      "frame": 59,
+      "counter": 188,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6797484
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 159,
+        "raster_cycle": 37,
+        "clock": 6811030
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6817122
+      },
+      "render_cycles": 13546,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-187-frame-59.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 188,
+      "frame": 60,
+      "counter": 189,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6817140
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 153,
+        "raster_cycle": 57,
+        "clock": 6830328
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6836778
+      },
+      "render_cycles": 13188,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-188-frame-60.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 189,
+      "frame": 61,
+      "counter": 190,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6836796
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 177,
+        "raster_cycle": 23,
+        "clock": 6851462
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 6856439
+      },
+      "render_cycles": 14666,
+      "update_to_completed_field_cycles": 19643,
+      "screenshot": "field-189-frame-61.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19661
+    },
+    {
+      "sequence": 190,
+      "frame": 62,
+      "counter": 191,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6856457
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 148,
+        "raster_cycle": 22,
+        "clock": 6869290
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6876090
+      },
+      "render_cycles": 12833,
+      "update_to_completed_field_cycles": 19633,
+      "screenshot": "field-190-frame-62.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19651
+    },
+    {
+      "sequence": 191,
+      "frame": 63,
+      "counter": 192,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 36,
+        "clock": 6876108
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 188,
+        "raster_cycle": 27,
+        "clock": 6891471
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 6895746
+      },
+      "render_cycles": 15363,
+      "update_to_completed_field_cycles": 19638,
+      "screenshot": "field-191-frame-63.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19656
+    },
+    {
+      "sequence": 192,
+      "frame": 0,
+      "counter": 193,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 41,
+        "clock": 6895769
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 166,
+        "raster_cycle": 6,
+        "clock": 6909720
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 6915405
+      },
+      "render_cycles": 13951,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-192-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19659
+    },
+    {
+      "sequence": 193,
+      "frame": 1,
+      "counter": 194,
+      "render_start": {
+        "pc": 12477,
+        "raster": 256,
+        "raster_cycle": 39,
+        "clock": 6915423
+      },
+      "render_end": {
+        "pc": 12550,
+        "raster": 172,
+        "raster_cycle": 33,
+        "clock": 6929781
+      },
+      "frame_done": {
+        "pc": 12561,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 6935059
+      },
+      "render_cycles": 14358,
+      "update_to_completed_field_cycles": 19636,
+      "screenshot": "field-193-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "scanout_match": true,
+      "screen_match": true,
+      "cold_start_noop": false,
+      "presentation_cycles": 19654
+    }
+  ],
+  "screenshot_backend_sources": [
+    "https://github.com/VICE-Team/svn-mirror/blob/main/vice/src/screenshot.c",
+    "https://github.com/VICE-Team/svn-mirror/blob/main/vice/src/raster/raster.c",
+    "https://github.com/VICE-Team/svn-mirror/blob/main/vice/src/viciisc/vicii.c"
+  ],
+  "motion": {
+    "kind": "fixed-axis-symmetry-loop",
+    "yawDegreesPerFrame": 0.9375,
+    "pitchDegrees": 22,
+    "rollDegrees": 12,
+    "symmetryPeriodDegrees": 60,
+    "frames": 64,
+    "fullRevolutionFrames": 384,
+    "fullRevolutionSecondsAt50Fps": 7.68,
+    "subByteAnglePrecision": true,
+    "loopEndpointMatches": true
+  },
+  "command": [
+    "/opt/homebrew/Cellar/vice/3.10/bin/x64sc",
+    "-default",
+    "+saveres",
+    "-minimized",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+autostart-warp",
+    "+confirmonexit",
+    "-sounddev",
+    "dummy",
+    "+refreshonbreak",
+    "+binarymonitor",
+    "-initbreak",
+    "reset",
+    "-autostartprgmode",
+    "1",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/front-delta/build/player.prg",
+    "-VICIIfilter",
+    "0",
+    "-VICIIextpal",
+    "-VICIIpalette",
+    "/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl",
+    "-VICIIsaturation",
+    "1000",
+    "-VICIIcontrast",
+    "1000",
+    "-VICIIbrightness",
+    "1000",
+    "-VICIIgamma",
+    "1000",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:56625"
+  ],
+  "owned_pid": 78884,
+  "frames_verified": 194,
+  "visible_fields_pixel_exact": 194,
+  "screen_bytes_checked": 194000,
+  "font_bytes_checked": 397312,
+  "scanout_pixels_checked": 12416000,
+  "screenshots": 194,
+  "one_field_per_update_verified": true,
+  "tear_free_observed_fields": true,
+  "loop_wraps_verified": 3,
+  "single_screen_verified": true,
+  "unused_second_screen_unchanged": true,
+  "movie_immutable": true,
+  "render_cycles": {
+    "samples": 194,
+    "min": 15,
+    "median": 13617.5,
+    "mean": 13547.809278350516,
+    "max": 16177
+  },
+  "steady_render_cycles": {
+    "samples": 193,
+    "min": 11449,
+    "median": 13625,
+    "mean": 13617.927461139896,
+    "max": 16177
+  },
+  "presentation_cycles": {
+    "samples": 193,
+    "min": 19650,
+    "median": 19656,
+    "mean": 19656.00518134715,
+    "max": 19662
+  },
+  "mean_fps": 50.12452891165115,
+  "median_fps": 50.124542124542124,
+  "screenshot_origin": [
+    32,
+    35
+  ],
+  "owned_process_exit_code": 0
+}

@@ -1,0 +1,22 @@
+{
+  "pass": false,
+  "rule": "Adopt R4 only if its equal-case control mean is <=R3+1e-12.",
+  "epsilon": 1e-12,
+  "r3Font": {
+    "count": 256,
+    "activeBytes": 2048,
+    "signature": "3928ecd5",
+    "sha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac"
+  },
+  "r4Font": {
+    "count": 256,
+    "activeBytes": 2048,
+    "signature": "0b2fa815",
+    "sha256": "ef3822e51d2fcd47c86a2f2c54646e3df98fb089f28549e839f235aab03a9142"
+  },
+  "r3Mean": 0.03145893269459746,
+  "r4Mean": 0.03156320211581626,
+  "delta": 0.00010426942121880001,
+  "decision": "Keep R3/e407; reject R4 for deployment.",
+  "finalTestEvaluated": false
+}

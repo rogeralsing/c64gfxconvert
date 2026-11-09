@@ -1,0 +1,7 @@
+{
+  "driverSha256": "e41c9f2cb999167268733d3c089d2567a9679d58a79e1876c6a4e5a9a3e43518",
+  "baselineRasterSha256": "f8583aa470b1b4e7c7beeade5c3c9b8bb3a1567cc92e0c8e33a3c4f89afa49bc",
+  "fillKernelSha256": "7c2fa7f0864360deb0c2b10479c0ee0a6663c56a573f1001f347b16382472a15",
+  "prgSha256": "5ebfa91747512764fea1359ed177e38ce68c69e95623eeca98486ff04121a229",
+  "change": "Only raster_fill_span..resolve_screen is replaced; the remainder is the baseline driver and exact edge/resolve renderer."
+}

@@ -1,0 +1,30 @@
+{
+  "pass": true,
+  "frames": 194,
+  "comparedScreenBytes": 194000,
+  "wraps": 3,
+  "measurement": "py65 instruction cycles; VIC stalls, raster wait and presentation excluded. Not FPS.",
+  "startupInstructionCycles": 102058,
+  "renderInstructionCycles": {
+    "min": 10588,
+    "mean": 23407.123711340206,
+    "max": 26051
+  },
+  "predictiveInstructionCycles": {
+    "min": 21675,
+    "mean": 23677,
+    "max": 26051
+  },
+  "cachedKeyInstructionCycles": {
+    "min": 10588,
+    "mean": 10588,
+    "max": 10588
+  },
+  "codeBytes": 898,
+  "hd64Bytes": 15169,
+  "fontBytes": 2048,
+  "keyCacheBytes": 1024,
+  "fillScratchBytes": 60,
+  "assetSha256": "02b30be1cfce012df591149371e357d5e1c1a3f948f5dd6f2b5f867c35dadc70",
+  "prgSha256": "e2ee27741a40e22adefff26f2cf4d6dc7e162dd9731cc574e8fdde8489ba6f8f"
+}

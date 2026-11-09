@@ -1,0 +1,23 @@
+{
+  "pass": true,
+  "format": "SA64 v1",
+  "frames": 64,
+  "whiteFaces": 36,
+  "headerBytes": 12,
+  "faceCountsBytes": 36,
+  "poolBytes": 20005,
+  "uniquePatterns": 1028,
+  "visibleFaceRecords": 1152,
+  "rawSpanBytes": 32332,
+  "movieBytes": 24981,
+  "frameRecordsBytes": 4928,
+  "meanFrameBytes": 77,
+  "sharedTableBytes": 12230,
+  "movieSha256": "127c8f6e14d44c76de7acc3ebf22a57f76e8067df3cc30bc98a1a29d5227c162",
+  "coverageBytesCompared": 64000,
+  "screenBytesCompared": 64000,
+  "sourceHashes": {
+    "generate.cjs": "027ca9a5055a04d7dc3bf63a9f27bb02d0972474f8f9d99baedbde67df83e688",
+    "fast-fill/kernel.asm": "7c2fa7f0864360deb0c2b10479c0ee0a6663c56a573f1001f347b16382472a15"
+  }
+}

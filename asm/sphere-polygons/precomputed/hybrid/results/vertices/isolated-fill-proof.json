@@ -1,0 +1,1000 @@
+{
+  "pass": true,
+  "scope": "Checker-only assembled NMOS 6502 replay. No VIC stalls, IRQs, presentation waiting, or native FPS claim.",
+  "frames": 56,
+  "coverageBytesCompared": 56000,
+  "screenBytesCompared": 56000,
+  "groups": {
+    "all": {
+      "frames": 56,
+      "baseline": {
+        "rasterCycles": 172557.48214285713,
+        "spanCycles": 53365.5,
+        "sampleSpans": 263.8392857142857,
+        "interiorCellVisits": 372.67857142857144
+      },
+      "candidate": {
+        "rasterCycles": 164793.5357142857,
+        "spanCycles": 45601.55357142857
+      },
+      "rasterChangePercent": -4.499339195355079,
+      "spanChangePercent": -14.548624914170071
+    },
+    "animation-0": {
+      "frames": 32,
+      "baseline": {
+        "rasterCycles": 176829.3125,
+        "spanCycles": 54456.5625,
+        "sampleSpans": 270.65625,
+        "interiorCellVisits": 376.5
+      },
+      "candidate": {
+        "rasterCycles": 169186.375,
+        "spanCycles": 46813.625
+      },
+      "rasterChangePercent": -4.322211850481517,
+      "spanChangePercent": -14.034924624557421
+    },
+    "jumps-pauses": {
+      "frames": 8,
+      "baseline": {
+        "rasterCycles": 159867.875,
+        "spanCycles": 50375.25,
+        "sampleSpans": 243.875,
+        "interiorCellVisits": 395
+      },
+      "candidate": {
+        "rasterCycles": 150799.375,
+        "spanCycles": 41306.75
+      },
+      "rasterChangePercent": -5.672496741449773,
+      "spanChangePercent": -18.001895772229414
+    },
+    "model-switch": {
+      "frames": 4,
+      "baseline": {
+        "rasterCycles": 168831,
+        "spanCycles": 52214,
+        "sampleSpans": 259,
+        "interiorCellVisits": 347
+      },
+      "candidate": {
+        "rasterCycles": 161509,
+        "spanCycles": 44892
+      },
+      "rasterChangePercent": -4.336881259958181,
+      "spanChangePercent": -14.023058949706979
+    },
+    "single-axis": {
+      "frames": 12,
+      "baseline": {
+        "rasterCycles": 170867.83333333334,
+        "spanCycles": 52833.333333333336,
+        "sampleSpans": 260.5833333333333,
+        "interiorCellVisits": 356.1666666666667
+      },
+      "candidate": {
+        "rasterCycles": 163503.58333333334,
+        "spanCycles": 45469.083333333336
+      },
+      "rasterChangePercent": -4.309910096204961,
+      "spanChangePercent": -13.93864353312303
+    }
+  },
+  "baselineProgramSha256": "1379a1c305d1ef6553aead15fd74da1f093538cb88a0c4d57b5c71f7bb34b25c",
+  "candidateProgramSha256": "512045bb3629b725d1cdc817f31c4e66683990d9b35256c0eb85fdea20824a5e",
+  "baselineRasterSha256": "45162a6d70d730444d1c70455ba57806d7e7c679599c3d20add22d496ac7a3ee",
+  "kernelSha256": "7c2fa7f0864360deb0c2b10479c0ee0a6663c56a573f1001f347b16382472a15",
+  "baselineSpanBytes": 148,
+  "candidateSpanBytesIncludingTable": 461,
+  "additionalZeroPageBytes": 0,
+  "startupCycles": 0,
+  "rows": [
+    {
+      "id": 0,
+      "group": "animation-0",
+      "rasterCycles": 164401,
+      "spanCycles": 43789,
+      "sampleSpans": 18,
+      "interiorCellVisits": 6,
+      "commonInteriorLengths": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 1,
+      "group": "animation-0",
+      "rasterCycles": 164355,
+      "spanCycles": 44214,
+      "sampleSpans": 18,
+      "interiorCellVisits": 4,
+      "commonInteriorLengths": [
+        0,
+        1,
+        2,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 2,
+      "group": "animation-0",
+      "rasterCycles": 183092,
+      "spanCycles": 50990,
+      "sampleSpans": 20,
+      "interiorCellVisits": 4,
+      "commonInteriorLengths": [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 3,
+      "group": "animation-0",
+      "rasterCycles": 180237,
+      "spanCycles": 48164,
+      "sampleSpans": 20,
+      "interiorCellVisits": 4,
+      "commonInteriorLengths": [
+        0,
+        0,
+        4,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 4,
+      "group": "animation-0",
+      "rasterCycles": 185277,
+      "spanCycles": 50524,
+      "sampleSpans": 20,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 5,
+      "group": "animation-0",
+      "rasterCycles": 188909,
+      "spanCycles": 51393,
+      "sampleSpans": 20,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 6,
+      "group": "animation-0",
+      "rasterCycles": 179096,
+      "spanCycles": 49577,
+      "sampleSpans": 19,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0
+      ]
+    },
+    {
+      "id": 7,
+      "group": "animation-0",
+      "rasterCycles": 180683,
+      "spanCycles": 49735,
+      "sampleSpans": 19,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 8,
+      "group": "animation-0",
+      "rasterCycles": 177809,
+      "spanCycles": 49518,
+      "sampleSpans": 18,
+      "interiorCellVisits": 2,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 9,
+      "group": "animation-0",
+      "rasterCycles": 178856,
+      "spanCycles": 49588,
+      "sampleSpans": 19,
+      "interiorCellVisits": 6,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 10,
+      "group": "animation-0",
+      "rasterCycles": 180311,
+      "spanCycles": 48698,
+      "sampleSpans": 19,
+      "interiorCellVisits": 8,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": 11,
+      "group": "animation-0",
+      "rasterCycles": 175613,
+      "spanCycles": 47746,
+      "sampleSpans": 18,
+      "interiorCellVisits": 4,
+      "commonInteriorLengths": [
+        0,
+        2,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 12,
+      "group": "animation-0",
+      "rasterCycles": 162031,
+      "spanCycles": 44864,
+      "sampleSpans": 17,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 13,
+      "group": "animation-0",
+      "rasterCycles": 161396,
+      "spanCycles": 44727,
+      "sampleSpans": 17,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 14,
+      "group": "animation-0",
+      "rasterCycles": 157773,
+      "spanCycles": 45050,
+      "sampleSpans": 17,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 15,
+      "group": "animation-0",
+      "rasterCycles": 157656,
+      "spanCycles": 45752,
+      "sampleSpans": 17,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 16,
+      "group": "animation-0",
+      "rasterCycles": 159861,
+      "spanCycles": 44246,
+      "sampleSpans": 17,
+      "interiorCellVisits": 5,
+      "commonInteriorLengths": [
+        2,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 17,
+      "group": "animation-0",
+      "rasterCycles": 159433,
+      "spanCycles": 45301,
+      "sampleSpans": 17,
+      "interiorCellVisits": 11,
+      "commonInteriorLengths": [
+        0,
+        0,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 18,
+      "group": "animation-0",
+      "rasterCycles": 163739,
+      "spanCycles": 46234,
+      "sampleSpans": 17,
+      "interiorCellVisits": 11,
+      "commonInteriorLengths": [
+        4,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 19,
+      "group": "animation-0",
+      "rasterCycles": 170852,
+      "spanCycles": 47429,
+      "sampleSpans": 18,
+      "interiorCellVisits": 4,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 20,
+      "group": "animation-0",
+      "rasterCycles": 170900,
+      "spanCycles": 47531,
+      "sampleSpans": 18,
+      "interiorCellVisits": 6,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        4,
+        0
+      ]
+    },
+    {
+      "id": 21,
+      "group": "animation-0",
+      "rasterCycles": 170556,
+      "spanCycles": 46784,
+      "sampleSpans": 18,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 22,
+      "group": "animation-0",
+      "rasterCycles": 169683,
+      "spanCycles": 47237,
+      "sampleSpans": 18,
+      "interiorCellVisits": 5,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 23,
+      "group": "animation-0",
+      "rasterCycles": 162110,
+      "spanCycles": 45436,
+      "sampleSpans": 17,
+      "interiorCellVisits": 3,
+      "commonInteriorLengths": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 24,
+      "group": "animation-0",
+      "rasterCycles": 159901,
+      "spanCycles": 43389,
+      "sampleSpans": 17,
+      "interiorCellVisits": 7,
+      "commonInteriorLengths": [
+        5,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 25,
+      "group": "animation-0",
+      "rasterCycles": 157832,
+      "spanCycles": 42501,
+      "sampleSpans": 17,
+      "interiorCellVisits": 6,
+      "commonInteriorLengths": [
+        5,
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": 26,
+      "group": "animation-0",
+      "rasterCycles": 158392,
+      "spanCycles": 43402,
+      "sampleSpans": 17,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 27,
+      "group": "animation-0",
+      "rasterCycles": 159345,
+      "spanCycles": 45254,
+      "sampleSpans": 17,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 28,
+      "group": "animation-0",
+      "rasterCycles": 161393,
+      "spanCycles": 46700,
+      "sampleSpans": 17,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 29,
+      "group": "animation-0",
+      "rasterCycles": 177043,
+      "spanCycles": 48798,
+      "sampleSpans": 19,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 30,
+      "group": "animation-0",
+      "rasterCycles": 167937,
+      "spanCycles": 46862,
+      "sampleSpans": 18,
+      "interiorCellVisits": 3,
+      "commonInteriorLengths": [
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 31,
+      "group": "animation-0",
+      "rasterCycles": 167492,
+      "spanCycles": 46603,
+      "sampleSpans": 18,
+      "interiorCellVisits": 7,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 64,
+      "group": "jumps-pauses",
+      "rasterCycles": 132220,
+      "spanCycles": 34876,
+      "sampleSpans": 18,
+      "interiorCellVisits": 29,
+      "commonInteriorLengths": []
+    },
+    {
+      "id": 65,
+      "group": "jumps-pauses",
+      "rasterCycles": 132220,
+      "spanCycles": 34876,
+      "sampleSpans": 18,
+      "interiorCellVisits": 29,
+      "commonInteriorLengths": []
+    },
+    {
+      "id": 66,
+      "group": "jumps-pauses",
+      "rasterCycles": 153274,
+      "spanCycles": 42728,
+      "sampleSpans": 18,
+      "interiorCellVisits": 8,
+      "commonInteriorLengths": []
+    },
+    {
+      "id": 67,
+      "group": "jumps-pauses",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 68,
+      "group": "jumps-pauses",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 69,
+      "group": "jumps-pauses",
+      "rasterCycles": 137093,
+      "spanCycles": 36688,
+      "sampleSpans": 18,
+      "interiorCellVisits": 20,
+      "commonInteriorLengths": [
+        0,
+        4,
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 70,
+      "group": "jumps-pauses",
+      "rasterCycles": 164169,
+      "spanCycles": 47713,
+      "sampleSpans": 18,
+      "interiorCellVisits": 9,
+      "commonInteriorLengths": []
+    },
+    {
+      "id": 71,
+      "group": "jumps-pauses",
+      "rasterCycles": 164401,
+      "spanCycles": 43789,
+      "sampleSpans": 18,
+      "interiorCellVisits": 6,
+      "commonInteriorLengths": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 72,
+      "group": "single-axis",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 73,
+      "group": "single-axis",
+      "rasterCycles": 166196,
+      "spanCycles": 46314,
+      "sampleSpans": 18,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 74,
+      "group": "single-axis",
+      "rasterCycles": 162246,
+      "spanCycles": 45211,
+      "sampleSpans": 18,
+      "interiorCellVisits": 0,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 75,
+      "group": "single-axis",
+      "rasterCycles": 167705,
+      "spanCycles": 47107,
+      "sampleSpans": 18,
+      "interiorCellVisits": 5,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 76,
+      "group": "single-axis",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 77,
+      "group": "single-axis",
+      "rasterCycles": 164770,
+      "spanCycles": 47441,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 78,
+      "group": "single-axis",
+      "rasterCycles": 162179,
+      "spanCycles": 44283,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 79,
+      "group": "single-axis",
+      "rasterCycles": 162611,
+      "spanCycles": 44416,
+      "sampleSpans": 18,
+      "interiorCellVisits": 3,
+      "commonInteriorLengths": [
+        0,
+        0,
+        3,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 80,
+      "group": "single-axis",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 81,
+      "group": "single-axis",
+      "rasterCycles": 164379,
+      "spanCycles": 45515,
+      "sampleSpans": 18,
+      "interiorCellVisits": 2,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 82,
+      "group": "single-axis",
+      "rasterCycles": 162535,
+      "spanCycles": 43955,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 83,
+      "group": "single-axis",
+      "rasterCycles": 164895,
+      "spanCycles": 46711,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 104,
+      "group": "model-switch",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 106,
+      "group": "model-switch",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 108,
+      "group": "model-switch",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": 110,
+      "group": "model-switch",
+      "rasterCycles": 161509,
+      "spanCycles": 44892,
+      "sampleSpans": 18,
+      "interiorCellVisits": 1,
+      "commonInteriorLengths": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "commonThreeSampleInterior": {
+    "completeRows": 2519,
+    "cells": 2888,
+    "histogram": {
+      "0": 1200,
+      "1": 508,
+      "2": 331,
+      "3": 252,
+      "4": 178,
+      "5": 50
+    },
+    "meanCellsPerCompleteRow": 1.146486701071854
+  }
+}
