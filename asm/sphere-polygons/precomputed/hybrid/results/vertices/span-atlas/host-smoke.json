@@ -1,0 +1,333 @@
+{
+  "pass": true,
+  "frames": 66,
+  "loopWraps": 1,
+  "screenBytesChecked": 66000,
+  "coverageBytesChecked": 66000,
+  "fontAndAllAssetsImmutable": true,
+  "visibleTriangleCalls": 396,
+  "visibleQuadCalls": 792,
+  "measurement": "Assembled NMOS6502 instruction cycles; no VIC stalls, raster waiting, presentation, projection, or runtime edge DDA. Not native FPS.",
+  "edgeStageMeaning": "Decode normalized per-face crossing samples into span_left/right arrays.",
+  "stages": {
+    "decode": {
+      "samples": 66,
+      "min": 215,
+      "mean": 215.27272727272728,
+      "max": 224
+    },
+    "clear": {
+      "samples": 66,
+      "min": 6403,
+      "mean": 6403,
+      "max": 6403
+    },
+    "face_edges": {
+      "samples": 1188,
+      "min": 400,
+      "mean": 1532.253367003367,
+      "max": 2488
+    },
+    "face_fill": {
+      "samples": 1188,
+      "min": 399,
+      "mean": 2423.0353535353534,
+      "max": 5289
+    },
+    "resolve": {
+      "samples": 66,
+      "min": 26494,
+      "mean": 26845.272727272728,
+      "max": 27208
+    },
+    "render": {
+      "samples": 66,
+      "min": 103038,
+      "mean": 106659.74242424243,
+      "max": 109357
+    }
+  },
+  "first64RenderCycles": {
+    "samples": 64,
+    "min": 103038,
+    "mean": 106670.9375,
+    "max": 109357
+  },
+  "codeBytes": 1192,
+  "sharedRasterTableBytes": 10182,
+  "fontBytes": 2048,
+  "movieBytes": 24981,
+  "assetAlignmentPaddingBytes": 88,
+  "prgBytes": 46684,
+  "prgSha256": "05dc7f549efb8ec3f58fe295fb4c1ce2d458a9003a64ad67e80a1f5ad515e19d",
+  "movieSha256": "127c8f6e14d44c76de7acc3ebf22a57f76e8067df3cc30bc98a1a29d5227c162",
+  "codeEnd": "0x34a8",
+  "assetsStart": "0x3500",
+  "endExclusive": "0xbe5b",
+  "frameRows": [
+    {
+      "frame": 0,
+      "renderCycles": 106196
+    },
+    {
+      "frame": 1,
+      "renderCycles": 106407
+    },
+    {
+      "frame": 2,
+      "renderCycles": 107854
+    },
+    {
+      "frame": 3,
+      "renderCycles": 107003
+    },
+    {
+      "frame": 4,
+      "renderCycles": 106032
+    },
+    {
+      "frame": 5,
+      "renderCycles": 106564
+    },
+    {
+      "frame": 6,
+      "renderCycles": 105416
+    },
+    {
+      "frame": 7,
+      "renderCycles": 104098
+    },
+    {
+      "frame": 8,
+      "renderCycles": 105151
+    },
+    {
+      "frame": 9,
+      "renderCycles": 103042
+    },
+    {
+      "frame": 10,
+      "renderCycles": 106351
+    },
+    {
+      "frame": 11,
+      "renderCycles": 106670
+    },
+    {
+      "frame": 12,
+      "renderCycles": 107104
+    },
+    {
+      "frame": 13,
+      "renderCycles": 106922
+    },
+    {
+      "frame": 14,
+      "renderCycles": 106683
+    },
+    {
+      "frame": 15,
+      "renderCycles": 107478
+    },
+    {
+      "frame": 16,
+      "renderCycles": 107423
+    },
+    {
+      "frame": 17,
+      "renderCycles": 109337
+    },
+    {
+      "frame": 18,
+      "renderCycles": 108539
+    },
+    {
+      "frame": 19,
+      "renderCycles": 106614
+    },
+    {
+      "frame": 20,
+      "renderCycles": 107207
+    },
+    {
+      "frame": 21,
+      "renderCycles": 108302
+    },
+    {
+      "frame": 22,
+      "renderCycles": 106335
+    },
+    {
+      "frame": 23,
+      "renderCycles": 103038
+    },
+    {
+      "frame": 24,
+      "renderCycles": 105741
+    },
+    {
+      "frame": 25,
+      "renderCycles": 106979
+    },
+    {
+      "frame": 26,
+      "renderCycles": 107037
+    },
+    {
+      "frame": 27,
+      "renderCycles": 108913
+    },
+    {
+      "frame": 28,
+      "renderCycles": 107940
+    },
+    {
+      "frame": 29,
+      "renderCycles": 108045
+    },
+    {
+      "frame": 30,
+      "renderCycles": 108567
+    },
+    {
+      "frame": 31,
+      "renderCycles": 108577
+    },
+    {
+      "frame": 32,
+      "renderCycles": 108646
+    },
+    {
+      "frame": 33,
+      "renderCycles": 108232
+    },
+    {
+      "frame": 34,
+      "renderCycles": 108462
+    },
+    {
+      "frame": 35,
+      "renderCycles": 107968
+    },
+    {
+      "frame": 36,
+      "renderCycles": 108638
+    },
+    {
+      "frame": 37,
+      "renderCycles": 108271
+    },
+    {
+      "frame": 38,
+      "renderCycles": 109026
+    },
+    {
+      "frame": 39,
+      "renderCycles": 107213
+    },
+    {
+      "frame": 40,
+      "renderCycles": 107505
+    },
+    {
+      "frame": 41,
+      "renderCycles": 109357
+    },
+    {
+      "frame": 42,
+      "renderCycles": 104505
+    },
+    {
+      "frame": 43,
+      "renderCycles": 105579
+    },
+    {
+      "frame": 44,
+      "renderCycles": 106047
+    },
+    {
+      "frame": 45,
+      "renderCycles": 104340
+    },
+    {
+      "frame": 46,
+      "renderCycles": 103513
+    },
+    {
+      "frame": 47,
+      "renderCycles": 103093
+    },
+    {
+      "frame": 48,
+      "renderCycles": 104543
+    },
+    {
+      "frame": 49,
+      "renderCycles": 104811
+    },
+    {
+      "frame": 50,
+      "renderCycles": 105083
+    },
+    {
+      "frame": 51,
+      "renderCycles": 104904
+    },
+    {
+      "frame": 52,
+      "renderCycles": 105253
+    },
+    {
+      "frame": 53,
+      "renderCycles": 105747
+    },
+    {
+      "frame": 54,
+      "renderCycles": 103238
+    },
+    {
+      "frame": 55,
+      "renderCycles": 108460
+    },
+    {
+      "frame": 56,
+      "renderCycles": 105179
+    },
+    {
+      "frame": 57,
+      "renderCycles": 106827
+    },
+    {
+      "frame": 58,
+      "renderCycles": 106445
+    },
+    {
+      "frame": 59,
+      "renderCycles": 108566
+    },
+    {
+      "frame": 60,
+      "renderCycles": 107605
+    },
+    {
+      "frame": 61,
+      "renderCycles": 107367
+    },
+    {
+      "frame": 62,
+      "renderCycles": 107564
+    },
+    {
+      "frame": 63,
+      "renderCycles": 107388
+    },
+    {
+      "frame": 0,
+      "renderCycles": 106196
+    },
+    {
+      "frame": 1,
+      "renderCycles": 106407
+    }
+  ]
+}

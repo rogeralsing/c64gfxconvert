@@ -18,6 +18,11 @@ The [mathematical line-drawing experiment](lines/README.md) adds a callable
 6502 direction/phase renderer and tests on/off fill with finite line commands.
 Its exact checker formats currently use more memory than character deltas.
 
+The [projected-vertex and edge-table benchmarks](vertices/README.md) measure
+actual C64 polygon filling. Vertex-delta data uses 2,607 bytes and renders at
+4.68 FPS. Precomputed span tables use 24,981 bytes and reach 8.35 FPS with the
+same image. The 25 FPS character-delta player remains the default.
+
 ## Two motion sequences
 
 The original packing experiments use the 256-image tumble from

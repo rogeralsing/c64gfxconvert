@@ -1,0 +1,77 @@
+{
+  "pass": true,
+  "faces": 72,
+  "measurement": "PAL100% with warp off; stage profiles64distinctposes; nativeimageverification66frames inclwrap, source/fontimmutable,3exactVICscreenshots each. Code/data/tables separate. SA edge stage is span decompression/preparation.",
+  "partialGlyphCells": {
+    "mean": 175.9375,
+    "min": 166,
+    "max": 187,
+    "circleCells": 475
+  },
+  "rows": [
+    {
+      "variant": "baseline",
+      "faces": 72,
+      "meanFps": 4.556777853706935,
+      "meanRenderMs": 210.16865804345707,
+      "quadFillMeanMs": 4.029579777545011,
+      "quadFillPerFrameMs": 48.354957330540124,
+      "allFillPerFrameMs": 56.159448560159476,
+      "edgeOrSpanPrepPerFrameMs": 110.57607767282958,
+      "movieAndAtlasBytes": 2607,
+      "codeBytes": 1338,
+      "fontRasterTableBytes": 20959,
+      "meaningfulLoadedBytes": 24917,
+      "prgBytes": 36144,
+      "programSha256": "2d8d0b551efdd9145c34c1a5469f80b406c16db03ff064ddeca649cfb48c9adc"
+    },
+    {
+      "variant": "fast",
+      "faces": 72,
+      "meanFps": 4.681171319102353,
+      "meanRenderMs": 200.90504814523854,
+      "quadFillMeanMs": 3.270199007001283,
+      "quadFillPerFrameMs": 39.242388084015396,
+      "allFillPerFrameMs": 46.72828884199714,
+      "edgeOrSpanPrepPerFrameMs": 110.87644620948228,
+      "movieAndAtlasBytes": 2607,
+      "codeBytes": 1651,
+      "fontRasterTableBytes": 20959,
+      "meaningfulLoadedBytes": 25230,
+      "prgBytes": 36144,
+      "programSha256": "5ebfa91747512764fea1359ed177e38ce68c69e95623eeca98486ff04121a229"
+    },
+    {
+      "variant": "edge-atlas",
+      "faces": 72,
+      "meanFps": 7.160648874934589,
+      "meanRenderMs": 131.16088538114263,
+      "quadFillMeanMs": 3.283943431416929,
+      "quadFillPerFrameMs": 39.40732117700315,
+      "allFillPerFrameMs": 46.8137368713258,
+      "edgeOrSpanPrepPerFrameMs": 40.86783543331222,
+      "movieAndAtlasBytes": 28847,
+      "codeBytes": 1425,
+      "fontRasterTableBytes": 12489,
+      "meaningfulLoadedBytes": 42774,
+      "prgBytes": 49840,
+      "programSha256": "b9ad5085060e8d3efce46b69fd1a19f105c251f2f1087fc83f9207c34e44f64f"
+    },
+    {
+      "variant": "span-atlas",
+      "faces": 72,
+      "meanFps": 8.354087084747235,
+      "meanRenderMs": 114.69689928322616,
+      "quadFillMeanMs": 3.2932063805255125,
+      "quadFillPerFrameMs": 39.51847656630615,
+      "allFillPerFrameMs": 46.801779222084186,
+      "edgeOrSpanPrepPerFrameMs": 29.58122599589139,
+      "movieAndAtlasBytes": 24981,
+      "codeBytes": 1192,
+      "fontRasterTableBytes": 12230,
+      "meaningfulLoadedBytes": 38416,
+      "prgBytes": 46684,
+      "programSha256": "05dc7f549efb8ec3f58fe295fb4c1ce2d458a9003a64ad67e80a1f5ad515e19d"
+    }
+  ]
+}

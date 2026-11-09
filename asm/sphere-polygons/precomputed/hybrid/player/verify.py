@@ -23,7 +23,11 @@ def symbols(path):
 def verify(args):
     variant=args.variant.resolve();program=variant/'build/player.prg';labels=symbols(variant/'build/main.sym')
     output=variant/'build/verification';output.mkdir(parents=True,exist_ok=True)
-    font=(HERE/'build/assets/font.bin').read_bytes();reference=(HERE/'build/reference/checker-64-screen.bin').read_bytes();assert len(reference)==64000
+    reference_path=args.reference.resolve() if args.reference else HERE/'build/reference/checker-64-screen.bin'
+    font_path=args.font.resolve() if args.font else HERE/'build/assets/font.bin'
+    font=font_path.read_bytes();reference=reference_path.read_bytes();assert len(reference)==64000
+    manifest_path=args.motion_manifest.resolve() if args.motion_manifest else HERE/'build/assets/data-layout.json'
+    motion=json.loads(manifest_path.read_text()).get('motion') if manifest_path.exists() else None
     asset=args.asset.resolve().read_bytes() if args.asset else None
     if asset is not None:
         assert 'animation' in labels and 'animation_end' in labels
@@ -31,7 +35,7 @@ def verify(args):
     assert args.frames>=66,'At least one full loop and two following images are required'
     with socket.socket() as reserve:reserve.bind(('127.0.0.1',0));port=reserve.getsockname()[1]
     command=[str(args.vice),'-default','+saveres','-minimized','-pal','-speed','100','+warp','+autostart-warp','+confirmonexit','-sounddev','dummy','+refreshonbreak','+binarymonitor','-initbreak','reset','-autostartprgmode','1','-autostart',str(program),'-VICIIfilter','0','-VICIIextpal','-VICIIpalette',str(BASE.parents[1]/'palettes/colodore.vpl'),'-VICIIsaturation','1000','-VICIIcontrast','1000','-VICIIbrightness','1000','-VICIIgamma','1000','-remotemonitor','-remotemonitoraddress',f'ip4://127.0.0.1:{port}']
-    report={'pass':False,'variant':variant.name,'motion':json.loads((HERE/'build/assets/data-layout.json').read_text()).get('motion'),'program_sha256':sha(program.read_bytes()),'font_sha256':sha(font),'reference_sha256':sha(reference),'pal_clock_hz':native.PAL_CLOCK,'pal_frame_cycles':native.PAL_FRAME_CYCLES,'speed_percent':100,'warp':False,'measurement':'Complete decoding and screen writes with VIC stalls; cadence includes raster wait. No music or IRQ workload.','samples':[],'command':command}
+    report={'pass':False,'variant':variant.name,'motion':motion,'program_sha256':sha(program.read_bytes()),'font_sha256':sha(font),'reference_sha256':sha(reference),'pal_clock_hz':native.PAL_CLOCK,'pal_frame_cycles':native.PAL_FRAME_CYCLES,'speed_percent':100,'warp':False,'measurement':'Complete decoding and screen writes with VIC stalls; cadence includes raster wait. No music or IRQ workload.','samples':[],'command':command}
     if asset is not None:report.update({'movie_bytes':len(asset),'movie_sha256':sha(asset)})
     process=connection=monitor=None;pending=None
     with (output/'vice.log').open('w') as log:
@@ -87,4 +91,4 @@ def verify(args):
         (output/'verification.json').write_text(json.dumps(report,indent=2)+'\n')
     print(json.dumps({key:value for key,value in report.items() if key not in ('samples','command')},indent=2))
 if __name__=='__main__':
-    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--variant',type=Path,required=True);parser.add_argument('--vice',type=Path,default=Path('/opt/homebrew/Cellar/vice/3.10/bin/x64sc'));parser.add_argument('--frames',type=int,default=66);parser.add_argument('--asset',type=Path);verify(parser.parse_args())
+    parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--variant',type=Path,required=True);parser.add_argument('--vice',type=Path,default=Path('/opt/homebrew/Cellar/vice/3.10/bin/x64sc'));parser.add_argument('--frames',type=int,default=66);parser.add_argument('--asset',type=Path);parser.add_argument('--reference',type=Path);parser.add_argument('--font',type=Path);parser.add_argument('--motion-manifest',type=Path);verify(parser.parse_args())
