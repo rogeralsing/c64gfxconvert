@@ -12,10 +12,17 @@ function prepareDelta(frames,directory){
  fs.mkdirSync(directory,{recursive:true});
  const filename='checker-64-smooth-delta1-lag1.hd64';
  fs.writeFileSync(path.join(directory,filename),packed.blob);
+ const closingPayload=patch.encode(frames[0],frames[frames.length-1]);
+ const closing=Buffer.concat([Buffer.from(wire.word(closingPayload.length)),Buffer.from(closingPayload)]);
+ fs.writeFileSync(path.join(directory,'checker-closing.delta'),closing);
+ const wrapped=patch.decode(closingPayload,frames[frames.length-1]);
+ require('node:assert/strict').deepEqual(wrapped,frames[0]);
  const metadata={format:'HD64 v1',file:filename,frames:frames.length,encodedBytes:packed.blob.length,
   keyFrames:packed.keyCount,patchFrames:packed.patchCount,codec:'delta-packets64',lag:1,
   firstFrameOffset:64,layoutBytes:50,checkedBytes,
-  sha256:crypto.createHash('sha256').update(packed.blob).digest('hex')};
+  sha256:crypto.createHash('sha256').update(packed.blob).digest('hex'),
+  closingFile:'checker-closing.delta',closingBytes:closing.length,
+  closingSha256:crypto.createHash('sha256').update(closing).digest('hex')};
  fs.writeFileSync(path.join(directory,'delta-layout.json'),JSON.stringify(metadata,null,2)+'\n');
  return metadata;
 }

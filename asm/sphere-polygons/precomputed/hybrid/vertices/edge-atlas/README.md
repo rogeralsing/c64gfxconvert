@@ -120,7 +120,8 @@ receipts are under [edge-atlas results](../../results/vertices/edge-atlas/).
 Measured presentation is **7.160649 FPS**, with seven PAL fields per image.
 Presentation intervals range from 137,586 to 137,599 clocks and average
 137,592. This improves on the PV64 fast-fill player's 4.68117 FPS, but does not
-reach 25 FPS. The character-delta player remains the normal 25 FPS option.
+reach 25 FPS. The [front-delta player](../../player/front-delta/README.md)
+remains the normal playback option at50.124529 FPS.
 
 The [complete 64-pose PAL profile](build/pal-profile/profile.json) includes
 VIC bus stalls and excludes startup and presentation waiting:

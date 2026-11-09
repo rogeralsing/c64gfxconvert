@@ -9,7 +9,7 @@ up to `resolve_screen:` is replaced.
 
 The resulting player measures **4.68117 FPS** on PAL, compared with 4.55678 FPS
 for the baseline. It does not reach 25 FPS. The ordinary playback launcher
-continues to use the [25 FPS HD64 delta player](../../player/README.md); this
+uses the [50.124529 FPS front-delta player](../../player/front-delta/README.md); this
 geometry renderer is an explicit benchmark. See the
 [geometry benchmark overview](../README.md) for the launcher and comparisons.
 

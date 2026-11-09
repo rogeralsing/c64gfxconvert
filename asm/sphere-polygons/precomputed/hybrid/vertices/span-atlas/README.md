@@ -11,8 +11,9 @@ The measured storage/speed tradeoff is deliberate: removing runtime edges costs
 a 24,981-byte span movie, compared with the 2,607-byte projected-vertex movie.
 The verified PAL player presents **8.3541 frames per second**. A separate
 64-frame PAL profile measures 113,005.516 clocks, or 114.70 ms, for rendering.
-This geometry benchmark does not reach 25 FPS. The separate character-delta
-player remains the standard 25 FPS playback choice.
+This geometry benchmark does not reach 25 FPS. The separate
+[front-delta player](../../player/front-delta/README.md) is the standard
+playback choice at50.124529 FPS.
 
 ## Build and reproduce
 

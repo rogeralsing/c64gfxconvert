@@ -13,8 +13,8 @@ those masks through the fixed glyph lookup. The same strict circular-limb remap
 as the original renderer removes glyph dots outside the sphere. The font and
 40×25 character output are unchanged.
 
-This is a benchmark baseline. The ordinary playback launcher still defaults to
-the [25 FPS HD64 delta player](../../player/README.md). The
+This is a benchmark baseline. The ordinary playback launcher defaults to
+the [50.124529 FPS front-delta player](../../player/front-delta/README.md). The
 [geometry benchmark overview](../README.md) compares this implementation with
 the isolated [fast-fill variant](../fast-player/README.md).
 

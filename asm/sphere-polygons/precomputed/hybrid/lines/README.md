@@ -2,7 +2,7 @@
 
 This experiment implements reusable line drawing through the existing fixed font. A line stores its direction, fractional start phase and filled side. A shared mathematical table supplies the eight coverage probes for each affected character. There are no captured per-frame glyph strings in this line table and no runtime pixel bitmap or nearest-glyph search.
 
-The default checker movie remains the [native HD64 delta player](../player/delta/README.md): it preserves the current image and presents at 25.062 FPS. The tested line formats do not beat its storage at the same fidelity.
+The default checker movie is the [single-screen front-delta player](../player/front-delta/README.md): it preserves the same 72-face checker images and presents at **50.124529 FPS**, verified on every visible field. The original HD64 plus its closing patch uses15,423 bytes. The older [double-buffered HD64 player](../player/delta/README.md) remains a25.062 FPS comparison. The tested line formats do not beat either character-delta source at the same fidelity.
 
 ## Callable C64 routine
 
@@ -33,7 +33,8 @@ The GL64 decoder reads the actual serialized lookup tables, face counts, row lay
 
 | Format for the same 64 frames | Bytes | Fidelity |
 | --- | ---: | --- |
-| HD64 character delta, current default | 15,169 | Exact |
+| Front-delta source, current default, including closing record | 15,423 | Exact |
+| Original HD64 character delta, legacy comparison | 15,169 | Exact |
 | HC64 independent characters | 19,096 | Exact |
 | GL64 Q8 on/off fill and finite lines | 36,814 | Exact, including exception patches |
 | GL64 Q16 on/off fill and finite lines | 36,061 | Exact, including exception patches |

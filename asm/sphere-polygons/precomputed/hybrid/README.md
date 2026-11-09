@@ -6,12 +6,16 @@ same fixed 2,048-byte font. Glyph 0 is empty, glyph 15 is solid, and the other
 glyphs describe boundaries. Compression preserves the character screens
 exactly; it does not improve or approximate their geometry.
 
-The default native player decodes the **HD64 lag-one keyframe/delta stream** at
-25.062 FPS measured on PAL. It passed 194 exact images and three loop wraps.
-The three independent HC64 players remain available as baselines. Native
+The default native player applies the **HD64 lag-one deltas directly to the
+visible `$0400` screen**, at **50.124529 FPS** measured on PAL. All194 actual
+VIC field images matched exactly, including three loop wraps. It uses the same
+72-face checker images and fixed font, with no full-screen synchronization copy
+or decoded-key cache. The legacy double-buffered delta player and three
+independent HC64 players remain available as baselines. Native
 playback, memory maps and PAL measurements are documented in the
 [player README](player/README.md), with implementation details in the
-[delta](player/delta/README.md), [compact](player/compact/README.md),
+[front-delta](player/front-delta/README.md),
+[legacy delta](player/delta/README.md), [compact](player/compact/README.md),
 [fused](player/fused/README.md) and [unrolled](player/unrolled/README.md) notes.
 
 The [mathematical line-drawing experiment](lines/README.md) adds a callable
@@ -21,7 +25,7 @@ Its exact checker formats currently use more memory than character deltas.
 The [projected-vertex and edge-table benchmarks](vertices/README.md) measure
 actual C64 polygon filling. Vertex-delta data uses 2,607 bytes and renders at
 4.68 FPS. Precomputed span tables use 24,981 bytes and reach 8.35 FPS with the
-same image. The 25 FPS character-delta player remains the default.
+same image. The single-screen50 FPS character-delta player remains the default.
 
 ## Two motion sequences
 
@@ -40,8 +44,8 @@ rotational symmetry period; its endpoint is checked to match the start exactly.
 Angles are evaluated with finer precision than the original 8-bit angle steps,
 then projected coordinates are quantized for the existing character renderer.
 This is an offline movie generator: no geometry runs during C64 playback.
-At the default player's measured two-field cadence, a physical 360° revolution
-takes about 15.32 seconds and the stored 60° symmetry period lasts 2.55 seconds.
+At the default player's measured one-field cadence, a physical360° revolution
+takes about7.66 seconds and the stored60° symmetry period lasts1.28 seconds.
 
 The smooth-motion delta report is
 [`player/build/motion-delta.json`](player/build/motion-delta.json), produced by
@@ -138,17 +142,21 @@ images plus patches. Its shared header is 14 bytes, followed by the same
 50-byte layout metadata. Each image has a 16-bit payload length with its high
 bit selecting key or delta. A key payload contains its fill length, fill bytes
 and edge bytes. The first one or two images are keys, depending on reference
-lag. The host decoder replays these key records when the loop restarts; the
-native player instead caches the decoded initial key once and times a copy
-from that cache at wrap. All reported stream sizes include the required keys
-and framing.
+lag. The host decoder replays these key records when the loop restarts. The
+legacy double-buffered native player caches and copies the decoded initial key
+at wrap. The default front-screen player instead stores a254-byte closing
+delta for `63 → 0`, so steady playback requires no key cache or screen copy.
+All reported stream sizes include the required keys and framing; the closing
+record is an additional explicitly counted source cost.
 
 Lag 1 references the immediately preceding decoded image, `t−1`. Lag 2
 references `t−2`, which is the existing content of the destination screen when
 two screens alternate. Lag 1 therefore needs a canonical previous image or
 additional screen synchronization in a double-buffered native player. The
 smaller lag-1 stream alone does not establish a faster or smaller complete
-player.
+player. On one visible screen, the existing image itself supplies `t−1`; the
+default player's speed improvement removes CPU synchronization work rather
+than changing to a `t−2` compression model.
 
 For the **original tumble**, the current hybrid-key results in
 `build/delta-study.json` are:
@@ -172,11 +180,24 @@ For the **new smooth motion**, `player/build/motion-delta.json` records:
 
 The roughly 21% lag-1 saving is specific to this smoother trajectory. Its mean
 change is about 91.7 cells between consecutive images, compared with 131.3
-cells across a lag of two. The default native player now decodes this
+cells across a lag of two. The legacy double-buffered native player decodes this
 15,169-byte lag-one stream. It supplies the reference by copying the entire
 1,024-byte front screen into the back screen before applying each patch.
 
-The [native PAL receipt](results/player-delta/delta/verification.json) verifies
+The default front-screen player imports the same original15,169-byte stream
+plus a254-byte closing record: **15,423 source bytes**. Its ascending packet
+writes start at PAL line256 and finish before the relevant row fetches. The
+[actual scanout receipt](results/front-delta/verification.json) verifies194
+pixel-exact fields,12,416,000 active pixels,194,000 screen bytes and three wraps
+at **50.124529 FPS**. The separate
+[store/deadline proof](results/front-delta/beam-report.json) traces31,082 stores
+and retains at least1,524 clocks of conservative fetch margin. These results
+cover the frozen movie and interrupt-free PAL workload. Code, font, source and
+BASIC startup occupy18,287 meaningful loaded bytes; the PRG is26,688 bytes.
+Runtime storage uses one1,024-byte screen,60 fill bytes and30 zero-page bytes,
+with no second screen or decoded-key cache.
+
+The [legacy native PAL receipt](results/player-delta/delta/verification.json) verifies
 194 images, 194,000 screen bytes and three loop wraps exactly, with immutable
 font/source checks and three exact VIC screenshots. The 898-byte decoder's
 mean render cost is 24,671 PAL clocks including synchronization, header parsing,
@@ -237,7 +258,7 @@ The original independent study reports 30,400 exact reconstructed images; the
 current hybrid-key delta study compares 15,360,000 character bytes, and the
 smooth-motion delta study compares 2,304,000 bytes across its tested policies
 and three-loop decodes. Those reports measure host correctness and serialized
-size. The separately verified native delta player is now the default; its
+size. The separately verified single-front-screen delta player is now the default; its
 actual PAL timing and immutable-source receipt are linked above.
 
 The main entry points are [study.cjs](study.cjs),

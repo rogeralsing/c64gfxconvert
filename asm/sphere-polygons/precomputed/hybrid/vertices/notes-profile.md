@@ -158,8 +158,9 @@ bytes, immutable PV64 data, the loop wrap and three screenshots. Its render
 mean is197,864.85 clocks; its presentation mean is210,470.40 clocks, giving
 **4.68117 displayed images/s**. Some frames now fit10 PAL fields while others
 still need11; median presentation FPS is4.55682. These whole-player figures
-are separate from the faster isolated quad-fill result. The default HD64
-character-delta player remains the verified25.062 FPS option.
+are separate from the faster isolated quad-fill result. The double-buffered
+HD64 comparison remains25.062 FPS; the current
+[front-delta default](../player/front-delta/README.md) is verified50.124529 FPS.
 
 ## Measured edge and span atlases
 
@@ -218,4 +219,5 @@ resident source representation, while omitting unused DDA tables.
 
 Receipts are archived under [edge-atlas results](../results/vertices/edge-atlas/)
 and [span-atlas results](../results/vertices/span-atlas/). These playable
-benchmarks do not replace the normal character-delta movie's25.062 FPS path.
+benchmarks do not replace the normal front-delta movie's verified50.124529 FPS
+path; the older double-buffered25.062 FPS result remains a separate comparison.

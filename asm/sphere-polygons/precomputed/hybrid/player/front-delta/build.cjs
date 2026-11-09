@@ -1,0 +1,10 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),crypto=require('node:crypto'),{spawnSync}=require('node:child_process');
+const here=__dirname,out=path.join(here,'build'),assets=path.join(here,'../build/assets');fs.mkdirSync(out,{recursive:true});
+const source=Buffer.concat(['checker-64-smooth-delta1-lag1.hd64','checker-closing.delta'].map(name=>fs.readFileSync(path.join(assets,name))));
+fs.writeFileSync(path.join(out,'native-source.bin'),source);
+const command=process.env.KICKASS||'/Users/rogerjohansson/.local/bin/kickass';
+const result=spawnSync('rtk',['proxy',command,'main.asm','-odir',out,'-o',path.join(out,'player.prg'),'-debugdump','-debug','-symbolfile','-vicesymbols'],{cwd:here,stdio:'inherit'});
+if(result.status!==0)process.exit(result.status||1);
+const sha=bytes=>crypto.createHash('sha256').update(bytes).digest('hex');
+fs.writeFileSync(path.join(out,'build.json'),JSON.stringify({sourceBytes:source.length,sourceSha256:sha(source),prgBytes:fs.statSync(path.join(out,'player.prg')).size,prgSha256:sha(fs.readFileSync(path.join(out,'player.prg')))},null,2)+'\n');

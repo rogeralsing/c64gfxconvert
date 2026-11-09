@@ -9,8 +9,9 @@ resolution now dominate the fastest version.
 All published comparisons retain the same 72-face checker mesh.
 
 This is a runnable geometry-storage benchmark, not the default animation
-player. The [HD64 character-delta player](../player/delta/README.md) remains the
-default and retains its verified25.062 FPS playback. `vertices/run.sh` launches
+player. The [front-delta character player](../player/front-delta/README.md) is
+the default, with verified50.124529 FPS playback on one visible screen. The
+legacy double-buffered delta comparison remains25.062 FPS. `vertices/run.sh` launches
 the span-atlas benchmark; it does not replace that normal animation player.
 
 ## What is stored and executed
