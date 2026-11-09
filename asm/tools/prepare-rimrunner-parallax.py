@@ -144,6 +144,19 @@ def prepare(captures, source_ram, output):
                      "mounted-offsets.bin": bytes(value for offset in TILE_OFFSETS for value in offset)})
     if len(packed_frames) != 4096:
         raise ValueError("Expected eight poses of eight 64-byte hardware sprite tiles.")
+    unique_tiles, tile_indices, tile_lookup = [], bytearray(), {}
+    for frame in range(8):
+        for slot in range(7):
+            start = (frame * 8 + slot) * 64
+            tile = bytes(packed_frames[start:start + 64])
+            if tile not in tile_lookup:
+                if len(unique_tiles) == 256:
+                    raise ValueError("Mounted tile indices must fit in one byte.")
+                tile_lookup[tile] = len(unique_tiles)
+                unique_tiles.append(tile)
+            tile_indices.append(tile_lookup[tile])
+    binaries.update({"mounted-unique.bin": b"".join(unique_tiles),
+                     "mounted-frame-map.bin": bytes(tile_indices)})
     protected = {path.resolve() for path in source_paths}
     if any((output / name).resolve() in protected for name in binaries):
         raise ValueError("Prepared assets must not overwrite capture inputs.")
@@ -176,6 +189,10 @@ def prepare(captures, source_ram, output):
         "mounted": {"width": 72, "height": 63, "frames": frame_records,
                     "slots_per_frame": 8, "bytes_per_slot": 64, "bytes_per_frame": 512,
                     "enabled_sprite_mask": "$7f", "multicolor_sprite_mask": "$7f",
+                    "deduplicated_tiles": {"file": "mounted-unique.bin", "count": len(unique_tiles),
+                                           "bytes_per_tile": 64, "frame_map_file": "mounted-frame-map.bin",
+                                           "frame_map_layout": "frame-major, seven slot indices per pose",
+                                           "ordering": "first occurrence across frames0..7 and slots0..6"},
                     "tile_offsets": TILE_OFFSETS, "palette_indices": [None, 0, 5, 13],
                     "mirrored_for_travel_direction": True,
                     "travel_direction": "right; world scrolls left",
@@ -194,7 +211,8 @@ def prepare(captures, source_ram, output):
     }
     (output / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n")
     print(json.dumps({"output": str(output), "world_columns": 40, "mounted_frames": 8,
-                      "mounted_tiles": 7, "mounted_frame_bytes": 512}, indent=2))
+                      "mounted_tiles": 7, "mounted_frame_bytes": 512,
+                      "mounted_unique_tiles": len(unique_tiles), "mounted_frame_map_bytes": len(tile_indices)}, indent=2))
 
 
 if __name__ == "__main__":

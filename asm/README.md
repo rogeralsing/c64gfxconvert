@@ -23,7 +23,7 @@ Tool paths are configured in `.vscode/settings.json`. KickAssembler lives in `~/
 ## Parallax experiment
 
 Run `./run-parallax.sh` for a native PAL C64 test combining a static 96-line MCI
-sky, the original Rimrunner scenery maps, and an animated mounted rider. See
+sky and road picture, with three parallax bands and an animated mounted rider. See
 [PARALLAX.md](PARALLAX.md) for the technique, local asset requirements, and source.
 
 ## Rimrunner graphics study

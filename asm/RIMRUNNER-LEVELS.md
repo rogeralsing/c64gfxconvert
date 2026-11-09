@@ -64,10 +64,10 @@ The output retains native character maps, tile-ID lists, tile definitions, and
 character sets, with a manifest and PNG previews. Original graphics and generated
 files remain local ignored build artifacts.
 
-The standalone [parallax demo](PARALLAX.md) uses scenery set 1. It reads the
-background map directly and expands incoming columns from the two native tile
-maps. Its faster scroll and mounted rider remain an experiment, rather than a
-replica of the original game's controls or gameplay.
+The earlier character-based parallax demo used scenery set 1, reading the
+background map directly and expanding incoming columns from the native tile maps.
+The current [parallax demo](PARALLAX.md) instead uses supplied MCI scenery. The
+extractor and native map data remain available for character-based experiments.
 
 ## Evidence and scope
 

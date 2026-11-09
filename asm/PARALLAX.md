@@ -1,17 +1,26 @@
-# Rimrunner PAL C64 parallax
+# Rimrunner MCI parallax for PAL C64
 
-This standalone C64 program combines a static MCI sky with the extracted
-Rimrunner scenery maps and a mounted rider. The sky uses the top 96 pixels of
-the supplied 320×200 True Paint image, without scaling or color conversion.
-The city scrolls at two pixels per PAL field, the middle tile band at four,
-and the near foreground at six. Eight running poses use seven multicolor
-hardware sprites. The rider faces right while the world moves left.
-Press **SPACE** to pause or resume. A gray border indicates pause.
+The demo combines two True Paint MCI images into one 320×200 picture and adds
+Rimrunner's mounted rider. Both image phases, screen attributes, and Color RAM
+are preserved without scaling or color fitting.
 
-Building requires Python 3 with Pillow and NumPy, Java, and a KickAssembler wrapper at
-`~/.local/bin/kickass`. The run script uses Homebrew VICE at
-`/opt/homebrew/bin/x64sc`. Install the Python dependencies in a virtual environment
-with `python3 -m pip install Pillow numpy`, then use that environment below.
+| Band | Picture lines | Source | Average movement per PAL field |
+| --- | --- | --- | --- |
+| Sky | 0–95 | Background image, lines 0–95 | Static |
+| Fence | 96–127 | Road image, lines 0–31 | 0.5 display pixels |
+| Road | 128–159 | Road image, lines 32–63 | 1 display pixel |
+| Front | 160–199 | Road image, lines 64–103 | 2 display pixels |
+
+The world moves left and the rider faces right. SPACE pauses world movement
+and the running animation; MCI phase switching continues. The program targets a
+stock PAL C64, without REU or another expansion.
+
+## Build and run
+
+Requirements: Python 3 with Pillow and NumPy, Java, a KickAssembler wrapper at
+`~/.local/bin/kickass`, and Homebrew VICE at `/opt/homebrew/bin/x64sc`.
+In a Python virtual environment, install dependencies with
+`python3 -m pip install Pillow numpy`.
 
 From the repository root:
 
@@ -20,99 +29,90 @@ rtk proxy ./asm/build-parallax.sh
 rtk proxy ./asm/run-parallax.sh
 ```
 
-The default sky source is `../c64demo/images/rimrunner-bg.mci`, relative to the
-repository root. Pass another source as the first argument to either script.
-The original MCI file remains unchanged. The build prepares the captured
-original graphics and the cropped sky, then writes
-`asm/build/parallax.prg` and debug symbols. It requires the local raw captures
-described in [RIMRUNNER.md](RIMRUNNER.md); those build artifacts are not bundled
-with a fresh source checkout. The resulting PRG runs on a stock PAL C64 or PAL
-VICE without an expansion unit.
+The default source images are `../c64demo/images/rimrunner-bg.mci` and
+`../c64demo/images/rimrunner-road2.mci`, relative to the repository root. The
+scripts accept custom background and road paths as their first two arguments.
+Use absolute paths for custom files. Original image files remain unchanged.
 
-## MCI sky and scrolling
+The mounted rider still requires the saved original-game capture described in
+[RIMRUNNER.md](RIMRUNNER.md). The source images, captures, and generated assets
+are local prerequisites, not part of a fresh source checkout.
 
-The top twelve character rows, 96 of the 200 picture lines, use multicolor bitmap
-mode. MCI alternates two bitmap phases every PAL video frame, with phase B shifted
-one hires pixel to the right. The scene itself remains static. Phase switching
-continues while SPACE pauses the scenery and mounted animation.
+The build writes `asm/build/parallax.prg`. The compositor also writes a complete
+`asm/build/rimrunner-mci-composite/composite.mci`, native BIN files, a source
+manifest, and decoded phase previews. The phase-average PNG approximates the
+combined colors; it does not simulate native temporal flicker.
 
-At the sky's lower edge, a raster interrupt switches VIC bank, screen, graphics
-mode, and fine scroll to the original character-based scenery. The sky and city
-occupy separate horizontal bands. The bitmap is not copied or scrolled each frame.
+## Bitmap scrolling
 
-Below the sky, the screen uses the original character sets and a 38-column
-viewport. `$d016` bits 0–2 move the picture by zero to seven hires pixels. When
-this counter wraps, the program shifts the band's character codes one column
-left and inserts a column from the original native map format.
+The moving bands use 38-column mode to hide fine-scroll edge bytes; the composite
+file retains all 40 columns. The entire picture stays in multicolor bitmap mode.
+MCI alternates phases every
+PAL field, with phase B displaced one display pixel to the right. World camera
+positions advance in two-pixel steps so both phases retain the same character
+alignment and shared Color RAM values.
 
-Raster IRQs change the scroll position, character set, and palette between
-regions. Each moving band has its own fine-scroll counter and map position.
-The main loop copies each band's character codes after the raster has drawn it.
-The visible character rows have constant Color RAM values across each row, so
-horizontal movement needs no Color RAM copy. The sky has its own static Color
-RAM values in rows 0–11.
+Each phase has two bitmap areas. The sky always uses the first. Each lower band
+independently chooses which bitmap contains its current visible data. The other
+bitmap prepares that band's next eight-pixel step in small work units. When it
+is ready, the program commits the matching attributes and switches the band's
+bitmap selection at its raster boundary. Columns wrap within each source band.
 
-The rider's seven sprite tiles form a 72 by 63 pixel figure with the rider
-seated on the animal. The preparation tool composes the original mounted
-renderer parts, preserves opaque black outlines, mirrors the figure to face
-right, and repacks it into seven hardware tiles. Eight poses advance every two
-PAL fields. The feet can pass behind foreground graphics through sprite priority.
+This prototype uses buffered bitmap copying rather than VSP. Work is weighted
+between bands to match their different speeds. There is no full-screen bitmap
+copy on every video frame.
 
-The demo uses original scenery set 1: an 80-column direct background map, a
-120-column map of 4×2-character tiles, and a 188-column map of 4×4-character
-tiles. New tile columns are expanded during execution. The road's two rows
-contain blank character zero, as in the original. The upper map rows hidden by
-the sky remain present in the native map data.
+Phase B's first bitmap crosses the CPU's I/O window. Copy bursts temporarily map
+physical RAM and remain interruptible. Each raster interrupt saves the CPU's
+memory mapping, enables I/O for its register writes, and restores the previous
+mapping before returning. Eight-column jobs avoid waiting for hidden-I/O copy
+windows, allowing all three bands to sustain their requested speeds.
+The phase's unused upper area in its second bitmap holds screen and sprite data.
 
-All three original scenery sets and their nine level assignments are exported;
-this demo displays set 1. See [RIMRUNNER-LEVELS.md](RIMRUNNER-LEVELS.md). This
-remains an automatic parallax experiment without movement controls or collision
-detection. Timing targets PAL.
+## Mounted rider
 
-Source: [src/parallax.asm](src/parallax.asm).
+Eight running poses use seven multicolor hardware sprites. The original sprite
+pixels are mirrored to face right and packed without losing opaque black.
+Deduplication retains 41 unique 64-byte tiles and a 56-byte pose-to-tile map.
+Both VIC banks contain the tiles, so phase changes do not require copying poses.
+The rider's base hardware Y position is 131, twenty display pixels above the
+previous position. Foreground priority can cover the actor's feet.
 
-Asset preparation: [tools/prepare-rimrunner-parallax.py](tools/prepare-rimrunner-parallax.py).
+## Memory and sources
 
-| Data | Address |
-| --- | --- |
-| Runtime | `$0801` |
-| Screen | `$4000` |
-| Original world character sets | `$4800`, `$5000` |
-| Header character set | `$5800` |
-| Eight mounted running poses | `$6000`–`$6fff` |
-| Native scenery maps, tile definitions, colors, and sprite offsets | `$8000`–`$8996` |
-| MCI phase A screen / bitmap | `$8c00` / `$a000` |
-| MCI phase B screen / bitmap | `$cc00` / `$e000` |
+| Data | Phase A | Phase B |
+| --- | --- | --- |
+| VIC bank / first bitmap | `$4000` | `$c000` |
+| Screen attributes | `$6000` | `$e000` |
+| Mounted sprite tiles | `$6400` | `$e400` |
+| Second bitmap, visible lower portion | `$6f00`–`$7f3f` | `$ef00`–`$ff3f` |
 
-## Local validation
+Runtime: [src/parallax.asm](src/parallax.asm).
+Asset imports: [src/rimrunner-parallax-assets.asm](src/rimrunner-parallax-assets.asm).
+Image composition: [tools/prepare-rimrunner-mci-composite.py](tools/prepare-rimrunner-mci-composite.py).
+Actor preparation: [tools/prepare-rimrunner-parallax.py](tools/prepare-rimrunner-parallax.py).
 
-Before adding the sky, PAL VICE at normal speed completed 385 consecutive
-checkpoints without missing a video frame. Across those checkpoints, 308,000
-character cells matched an independent reader of the original RAM maps. All
-three cameras wrapped their full map width. Eight mounted poses advanced every
-two fields, and loaded sprite bytes matched the prepared assets exactly.
-That receipt is in `build/rimrunner-native-levels-validation/`.
+The original character-map extraction remains documented in
+[RIMRUNNER-LEVELS.md](RIMRUNNER-LEVELS.md). The current bitmap demo uses the supplied
+MCI scenery instead of those character maps.
 
-An independent baseline screenshot comparison checked 65 captures and all eight
-poses: 70,300 opaque sprite pixels matched their prepared PNGs exactly, without
-palette fitting. The final foot rows were excluded because foreground graphics
-may cover them. That comparison is in `build/rimrunner-parallax-validation/`.
-The sky preparation receipt is `build/rimrunner-mci-sky/manifest.json`; its PNGs
-include decoded phases and a 50/50 phase-average preview. The average does not
-simulate temporal MCI flicker.
+## Validation
 
-With the MCI sky enabled, normal-speed PAL VICE also completed 385 consecutive
-checkpoints without a dropped video frame. Independent decoding of the supplied
-MCI file matched 3,764,736 captured sky pixels across both phases, with zero
-differences. This comparison covers all 96 sky lines and the inner 304 columns.
-All native sky payloads matched their source bytes in runtime RAM. The same run
-checked 308,000 scenery character cells, all map wraps, the mounted animation,
-and continued MCI phase switching while the world was paused. The receipt and
-captures are in `build/rimrunner-mci-sky-96-validation/`.
+Composition was checked over both phases: 64,000 logical multicolor pixels
+matched the two source crops exactly. Re-expanding all 56 deduplicated actor
+tiles also matched the original packed poses exactly. Build receipts and native
+emulator captures remain under the ignored `asm/build` directory.
 
-References:
+The faster road2 build completed 641 consecutive normal-speed PAL fields with
+no missed fields or stalled camera steps. Independent decoding of the two
+source MCI files matched 34,167,864 native background pixels, excluding the
+actor box and hardware borders, with zero differences. Measured travel over
+640 fields was 320, 640, and 1,280 pixels: exactly 0.5, 1, and 2 display pixels
+per PAL field. Each band wrapped at least once. The receipt and captures are in
+`build/rimrunner-road2-fast-validation/`.
 
-- Commodore's *Programmer's Reference Guide*: [smooth scrolling sequence and
-  38-column mode](https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_3/page_129.html),
-  [fine-scroll registers](https://www.devili.iki.fi/Computers/Commodore/C64/Programmers_Reference/Chapter_3/page_130.html).
-- Christian Bauer's [VIC-II technical reference](https://www.cebix.net/VIC-Article.txt).
+A separate runtime check compared 462 hardware sprite tile fetches across both
+VIC banks against the original packed poses. All eight poses appeared, and all
+seven hardware Y positions confirmed the rider's twenty-pixel upward move.
+Pause froze all cameras and the gait while MCI phases continued alternating;
+resume restarted all bands. See `build/rimrunner-road2-fast-actor-pause-validation/`.
