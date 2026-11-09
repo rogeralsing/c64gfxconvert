@@ -32,8 +32,10 @@ transparent, shared color 1, local color, shared color 2. PNG previews use
 Colodore RGB; the manifest retains native C64 indices. Character-sheet palettes
 are previews; actual colors depend on each screen cell and raster region.
 
-This is one captured viewport. Full level maps, every animation frame, and all
-other levels have not been extracted. The background preview is a static
+This asset pack is one captured viewport. The separate
+[scenery-map extractor](RIMRUNNER-LEVELS.md) recovers the original background and
+tile maps for three scenery sets reused across nine levels. The viewport pack
+does not contain every animation frame. Its background preview is a static
 reconstruction of observed raster regions, not a cycle-exact frame renderer.
 
 ## Reproduce from the saved captures

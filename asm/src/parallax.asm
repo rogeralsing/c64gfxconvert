@@ -3,9 +3,14 @@
 // Raster IRQs retain the world's palette/charset changes while those copies run.
 
 .const SCREEN = $4000
-.const MAP_COLUMNS = 40
+.const BACK_COLUMNS = 80
+.const MIDDLE_COLUMNS = 120
+.const NEAR_COLUMNS = 188
+.const TILE_POINTER = $fb
 .const RIDER_X = 112
 .const RIDER_Y = 151
+.const SKY_CELLS = 480
+.const SKY_BITMAP_BYTES = 3840
 
 BasicUpstart2(start)
 
@@ -57,7 +62,12 @@ start:
     sta $dd02
     lda $dd00
     and #$fc
+    sta skyBankValues+1
+    ora #1
+    sta skyBankValues
+    and #$fc
     ora #2
+    sta worldBankValue
     sta $dd00                       // VIC bank $4000-$7fff has no character-ROM hole.
 
     // The new test header uses ROM glyphs; the two world character sets stay intact.
@@ -91,9 +101,7 @@ clearScreen:
     ldx #0
 initializeLandscape:
     .for (var row = 5; row < 25; row++) {
-        lda worldMap + row * MAP_COLUMNS,x
-        sta SCREEN + row * 40,x
-        lda worldColors + row * MAP_COLUMNS,x
+        lda worldColors + row * 40,x
         and #15
         sta $d800 + row * 40,x
     }
@@ -102,6 +110,39 @@ initializeLandscape:
     beq landscapeReady
     jmp initializeLandscape
 landscapeReady:
+    lda #0
+    sta drawColumn
+initializeColumns:
+    lda drawColumn
+    jsr readBackColumn
+    ldx drawColumn
+    .for (var row = 0; row < 12; row++) {
+        lda columnData + row
+        sta SCREEN + (5 + row) * 40,x
+    }
+    lda drawColumn
+    jsr readMiddleColumn
+    ldx drawColumn
+    .for (var row = 0; row < 2; row++) {
+        lda columnData + row
+        sta SCREEN + (17 + row) * 40,x
+    }
+    lda #0
+    sta SCREEN + 19 * 40,x
+    sta SCREEN + 20 * 40,x
+    lda drawColumn
+    jsr readNearColumn
+    ldx drawColumn
+    .for (var row = 0; row < 4; row++) {
+        lda columnData + row
+        sta SCREEN + (21 + row) * 40,x
+    }
+    inc drawColumn
+    lda drawColumn
+    cmp #40
+    beq columnsReady
+    jmp initializeColumns
+columnsReady:
     ldx #0
 writeTitle:
     lda title,x
@@ -120,6 +161,31 @@ writeInstructions:
     inx
     cpx #instructionsEnd-instructions
     bne writeInstructions
+
+    // The bitmap sky owns Color RAM rows 0-11; the world retains rows 12-24.
+    ldx #0
+copySkyColors:
+    lda skyColors,x
+    sta $d800,x
+    inx
+    bne copySkyColors
+    ldx #0
+copySkyColorTail:
+    lda skyColors+$100,x
+    sta $d900,x
+    inx
+    cpx #SKY_CELLS-$100
+    bne copySkyColorTail
+
+    // Keep the loadable PRG below I/O. Only startup copies phase B to high RAM.
+    ldx #0
+copySkyBitmapB:
+    .for (var page = 0; page < SKY_BITMAP_BYTES / $100; page++) {
+        lda skyBitmapBStaged + page * $100,x
+        sta skyBitmapB + page * $100,x
+    }
+    inx
+    bne copySkyBitmapB
 
     lda #7
     sta fineBack
@@ -161,10 +227,11 @@ writeInstructions:
     sta $dc00
     lda #0
     sta $dc03
-    lda #$1b
+    lda #$0b
     sta $d011
     NextIRQ(40, irqHeader)
     lda #1
+    sta skyPhase
     sta $d01a
     cli
 
@@ -193,6 +260,7 @@ main:
     bne !noMotion+
     inc motionCounter
 !noMotion:
+mainComplete:
     jmp main
 
 irq:
@@ -207,16 +275,26 @@ irqDispatch:
     jmp irqHeader
 
 irqHeader:
-    lda #$06
+    // The static MCI sky keeps alternating even while world motion is paused.
+    lda skyPhase
+    eor #1
+    sta skyPhase
+    tax
+    lda skyBankValues,x
+    sta $dd00
+    lda #$38
     sta $d018
-    lda #$10
+    lda skyScrollValues,x
     sta $d016
-    lda #0
+    lda skyBackground
     sta $d021
+    lda #$3b
+    sta $d011
+    lda #0
     sta $d01b
     lda #14
     sta $d022
-    lda #6
+    lda #3
     sta $d023
     jsr readSpace
     // Eight original running poses advance every two PAL fields, including the rider.
@@ -240,64 +318,81 @@ irqHeader:
 !counted:
 frameComplete:
     // Fixed checkpoint inside IRQ40. Previous field's copies and current actor pose are ready.
-    NextIRQ(90, irqFar)
+    NextIRQ(146, irqFar)
     jmp irqReturn
 
 irqFar:
-    lda #$02
-    sta $d018
+    // Main is waiting on farDone here, so IRQ latency comes from its short polling loop.
+    // Preload values, then change banks after the last sky fetch and before badline 147.
     lda fineBack
     ora #$10
-    sta $d016
-    lda #0
-    sta $d021
-    lda #14
-    sta $d022
-    lda #3
-    sta $d023
+    tax
+    ldy #$1b
+    lda worldBankValue
+    .for (var delay = 0; delay < 5; delay++) {
+        nop
+    }
+skyWorldBankSwitch:
+    sta $dd00
+    lda #$02
+    sta $d018
+    stx $d016
+skyWorldModeSwitch:
+    sty $d011
+worldDisplayReady:
     NextIRQ(178, irqMiddle)
     jmp irqReturn
 
 irqMiddle:
-    // Finish palette/charset writes before the next badline stalls the CPU.
-    // Their setup places the final fine-scroll store in the preceding right border.
+    // The original transition masks the bottom of the 12-row background map.
+    // Its color mask also hides the charset/fine-scroll change at raster 186.
+    WaitPastRaster(180)
+    lda #1
+    sta $d023
+    WaitPastRaster(183)
+    lda #$04
+    sta $d021
+    sta $d022
+    sta $d023
+    WaitPastRaster(185)
     lda #$04
     sta $d018
-    lda #4
-    sta $d021
-    lda #11
-    sta $d023
     lda fineMiddle
     ora #$10
     sta $d016
+    WaitPastRaster(186)
+    lda #14
+    sta $d022
+    lda #11
+    sta $d023
     lda #1
     sta farDone
     NextIRQ(198, irqRoadPalette)
     jmp irqReturn
 
 irqRoadPalette:
+    WaitPastRaster(201)
     lda #11
     sta $d021
-    NextIRQ(210, irqNear)
+    WaitPastRaster(202)
+    lda #$10
+    sta $d016
+    lda #1
+    sta middleDone
+    NextIRQ(218, irqNear)
     jmp irqReturn
 
 irqNear:
-    BorderDelay()
     lda fineNear
     ora #$10
     sta $d016
-    lda #$7f
-    sta $d01b                       // The frontmost ground can cover the actor's feet.
-    lda #1
-    sta middleDone
-    NextIRQ(216, irqNearPalette)
-    jmp irqReturn
-
 irqNearPalette:
     lda #0
     sta $d022
     lda #3
     sta $d023
+    lda #$7f
+    sta $d01b                       // The frontmost ground can cover the actor's feet.
     NextIRQ(252, irqBottom)
     jmp irqReturn
 
@@ -318,7 +413,7 @@ updateBack:
     beq !advance+
     rts
 !advance:
-    AdvanceBand(5, 11, coarseBack, fineBack, 2)
+    AdvanceBand(5, 12, coarseBack, fineBack, 2, BACK_COLUMNS, readBackColumn)
     rts
 
 updateMiddle:
@@ -326,7 +421,7 @@ updateMiddle:
     beq !advance+
     rts
 !advance:
-    AdvanceBand(16, 4, coarseMiddle, fineMiddle, 4)
+    AdvanceBand(17, 2, coarseMiddle, fineMiddle, 4, MIDDLE_COLUMNS, readMiddleColumn)
     rts
 
 updateNear:
@@ -334,7 +429,23 @@ updateNear:
     beq !advance+
     rts
 !advance:
-    AdvanceBand(20, 5, coarseNear, fineNear, 6)
+    AdvanceBand(21, 4, coarseNear, fineNear, 6, NEAR_COLUMNS, readNearColumn)
+    rts
+
+readBackColumn:
+    tax
+    .for (var row = 0; row < 12; row++) {
+        lda nativeBackMap + row * BACK_COLUMNS,x
+        sta columnData + row
+    }
+    rts
+
+readMiddleColumn:
+    ExpandMetatileColumn(nativeMiddleIds, middleDefLow, middleDefHigh, 2)
+    rts
+
+readNearColumn:
+    ExpandMetatileColumn(nativeNearIds, nearDefLow, nearDefHigh, 4)
     rts
 
 readSpace:
@@ -372,6 +483,14 @@ motionCounter:
     .byte 0
 animationFrame:
     .byte 0
+skyPhase:
+    .byte 1
+skyBankValues:
+    .byte 1, 0
+skyScrollValues:
+    .byte $18, $19
+worldBankValue:
+    .byte 2
 paused:
     .byte 0
 spaceHeld:
@@ -394,6 +513,14 @@ coarseMiddle:
     .byte 0
 coarseNear:
     .byte 0
+drawColumn:
+    .byte 0
+sourceColumn:
+    .byte 0
+columnData:
+    .fill 12, 0
+worldColumnPeriods:
+    .byte BACK_COLUMNS, MIDDLE_COLUMNS, NEAR_COLUMNS
 
 title:
     .encoding "screencode_upper"
@@ -414,13 +541,14 @@ instructionsEnd:
     sta $d012
 }
 
-.macro BorderDelay() {
-    .for (var delay = 0; delay < 8; delay++) {
-        nop
-    }
+.macro WaitPastRaster(line) {
+    lda #line
+!wait:
+    cmp $d012
+    bcs !wait-
 }
 
-.macro AdvanceBand(firstRow, rows, coarse, fine, pixels) {
+.macro AdvanceBand(firstRow, rows, coarse, fine, pixels, columns, reader) {
     lda fine
     sec
     sbc #pixels
@@ -433,12 +561,12 @@ instructionsEnd:
     sta fine
     inc coarse
     lda coarse
-    cmp #MAP_COLUMNS
+    cmp #columns
     bcc !valid+
     lda #0
     sta coarse
 !valid:
-    // The complete 40-column source repeats; each coarse step reveals its next column.
+    // Shift only the visible codes; the new edge is decoded from the native map format.
     ldx #0
 !shift:
     .for (var row = 0; row < rows; row++) {
@@ -449,16 +577,48 @@ instructionsEnd:
     cpx #39
     bne !shift-
 
-    ldx coarse
-    dex
-    bpl !column+
-    ldx #39
+    lda coarse
+    clc
+    adc #39
+    cmp #columns
+    bcc !column+
+    sec
+    sbc #columns
 !column:
+    sta sourceColumn
+    jsr reader
     .for (var row = 0; row < rows; row++) {
-        lda worldMap + (firstRow + row) * MAP_COLUMNS,x
+        lda columnData + row
         sta SCREEN + (firstRow + row) * 40 + 39
     }
 !done:
+}
+
+.macro ExpandMetatileColumn(ids, definitionLow, definitionHigh, rows) {
+    // A character column selects one of four columns within the referenced metatile.
+    pha
+    and #3
+    tay
+    pla
+    lsr
+    lsr
+    tax
+    lda ids,x
+    tax
+    lda definitionLow,x
+    sta TILE_POINTER
+    lda definitionHigh,x
+    sta TILE_POINTER+1
+    .for (var row = 0; row < rows; row++) {
+        lda (TILE_POINTER),y
+        sta columnData + row
+        .if (row < rows - 1) {
+            iny
+            iny
+            iny
+            iny
+        }
+    }
 }
 
 #import "rimrunner-parallax-assets.asm"
