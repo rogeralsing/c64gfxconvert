@@ -1,0 +1,256 @@
+{
+  "pass": true,
+  "scope": "Bounded A/B generated-code size study; not a global macro optimum or live player",
+  "fontBytes": 2048,
+  "inputHashes": {
+    "native-model.cjs": "23e45d7189c9504fa5661832be87380f07a0282ee3c2022a8cbc226c8fb5d833",
+    "geometry.cjs": "df9fe363ddc73df6c10da50b20af63c16b1048151864e67eab152a10758d9677",
+    "raster.cjs": "b14ad895c8af9b79390974d7dd22306676e438ca0ece592c31a9c2e9dd10ea2b",
+    "meshes.cjs": "93b02372693545fb478be8f19e3f94fa058af8be9239aebb792efb8b384ec579",
+    "math-font.cjs": "6221e02853c5f7dead4d42de51c24b6fff796d291fca9f71b332d3d26a06a4b6",
+    "assets/font.bin": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+    "assets/glyph-lut.bin": "cf6f79d85e1cbc052bc20741dd33caa9527e93c4bed5cbc445fd96ce3054c5dc",
+    "assets/clip-records.bin": "d89640c7b108b1e362815bc75e0f539ad7c901e0a4d6b788ef530c1e5194c3da",
+    "assets/glyph-compact.bin": "07ce69065a1552780836763556a8edd56f45bf00439e00be75022a1a907ecccb",
+    "assets/limb-remap.bin": "061ff1a21cbb115ed9db906852e313aafb0bad0e32a37020637459bce5427fac"
+  },
+  "archiveHeaderBytes": 12,
+  "offsetBytesPerFrame": 3,
+  "helperBase": 10240,
+  "initializationBase": 10752,
+  "executionBase": 12288,
+  "decoders": [
+    {
+      "name": "compact",
+      "controlBytes": 620,
+      "sharedLayoutCodeBytes": 0,
+      "lookupBytes": 0,
+      "decoderBytes": 620,
+      "basicStubBytes": 13
+    },
+    {
+      "name": "fused",
+      "controlBytes": 427,
+      "sharedLayoutCodeBytes": 13912,
+      "lookupBytes": 2048,
+      "decoderBytes": 16387,
+      "basicStubBytes": 13
+    },
+    {
+      "name": "unrolled",
+      "controlBytes": 776,
+      "sharedLayoutCodeBytes": 16876,
+      "lookupBytes": 2048,
+      "decoderBytes": 19700,
+      "basicStubBytes": 13
+    }
+  ],
+  "results": [
+    {
+      "name": "grouped-direct-sta",
+      "frames": 64,
+      "step": 4,
+      "archiveBytes": 99052,
+      "frameCodeBytes": 98816,
+      "sharedHelperBytes": 0,
+      "sharedInitCodeBytes": 32,
+      "offsetTableBytes": 192,
+      "headerBytes": 12,
+      "minFrameCodeBytes": 1524,
+      "meanFrameCodeBytes": 1544,
+      "maxFrameCodeBytes": 1560,
+      "directStores": 30400,
+      "helperCalls": 0,
+      "hc64Bytes": 19773,
+      "sizeRelativeToHc64": 5.009457340818288,
+      "archiveSha256": "e238a7ba8596eae0e4554e8c611270e185d559fffc1e328f142234ed52075787",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/build/codegen-64-grouped-direct-sta.bin",
+      "hc64WithDecoder": [
+        {
+          "name": "compact",
+          "bytes": 20406,
+          "generatedCodeDifference": 78646
+        },
+        {
+          "name": "fused",
+          "bytes": 36173,
+          "generatedCodeDifference": 62879
+        },
+        {
+          "name": "unrolled",
+          "bytes": 39486,
+          "generatedCodeDifference": 59566
+        }
+      ]
+    },
+    {
+      "name": "shared-row-fill",
+      "frames": 64,
+      "step": 4,
+      "archiveBytes": 85047,
+      "frameCodeBytes": 84411,
+      "sharedHelperBytes": 400,
+      "sharedInitCodeBytes": 32,
+      "offsetTableBytes": 192,
+      "headerBytes": 12,
+      "minFrameCodeBytes": 1259,
+      "meanFrameCodeBytes": 1318.921875,
+      "maxFrameCodeBytes": 1393,
+      "directStores": 18337,
+      "helperCalls": 3112,
+      "hc64Bytes": 19773,
+      "sizeRelativeToHc64": 4.301168259748142,
+      "archiveSha256": "003cca58a30d9bdf22733b6f1ec141e5192c1f96cd639bf3de6493f7180af43d",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/build/codegen-64-shared-row-fill.bin",
+      "hc64WithDecoder": [
+        {
+          "name": "compact",
+          "bytes": 20406,
+          "generatedCodeDifference": 64641
+        },
+        {
+          "name": "fused",
+          "bytes": 36173,
+          "generatedCodeDifference": 48874
+        },
+        {
+          "name": "unrolled",
+          "bytes": 39486,
+          "generatedCodeDifference": 45561
+        }
+      ]
+    },
+    {
+      "name": "grouped-direct-sta",
+      "frames": 256,
+      "step": 1,
+      "archiveBytes": 396280,
+      "frameCodeBytes": 395468,
+      "sharedHelperBytes": 0,
+      "sharedInitCodeBytes": 32,
+      "offsetTableBytes": 768,
+      "headerBytes": 12,
+      "minFrameCodeBytes": 1522,
+      "meanFrameCodeBytes": 1544.796875,
+      "maxFrameCodeBytes": 1574,
+      "directStores": 121600,
+      "helperCalls": 0,
+      "hc64Bytes": 78700,
+      "sizeRelativeToHc64": 5.0353240152477765,
+      "archiveSha256": "19a28d43559b4e5166a3969751d50a215bc190fec64cf04d35a9392bef237a42",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/build/codegen-256-grouped-direct-sta.bin",
+      "hc64WithDecoder": [
+        {
+          "name": "compact",
+          "bytes": 79333,
+          "generatedCodeDifference": 316947
+        },
+        {
+          "name": "fused",
+          "bytes": 95100,
+          "generatedCodeDifference": 301180
+        },
+        {
+          "name": "unrolled",
+          "bytes": 98413,
+          "generatedCodeDifference": 297867
+        }
+      ]
+    },
+    {
+      "name": "shared-row-fill",
+      "frames": 256,
+      "step": 1,
+      "archiveBytes": 339332,
+      "frameCodeBytes": 338120,
+      "sharedHelperBytes": 400,
+      "sharedInitCodeBytes": 32,
+      "offsetTableBytes": 768,
+      "headerBytes": 12,
+      "minFrameCodeBytes": 1240,
+      "meanFrameCodeBytes": 1320.78125,
+      "maxFrameCodeBytes": 1405,
+      "directStores": 73357,
+      "helperCalls": 12483,
+      "hc64Bytes": 78700,
+      "sizeRelativeToHc64": 4.311715374841169,
+      "archiveSha256": "40fb04759dc4f5dd51701d518c3798b24ed4bf94be8b06842b7f7a5a29236516",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/build/codegen-256-shared-row-fill.bin",
+      "hc64WithDecoder": [
+        {
+          "name": "compact",
+          "bytes": 79333,
+          "generatedCodeDifference": 259999
+        },
+        {
+          "name": "fused",
+          "bytes": 95100,
+          "generatedCodeDifference": 244232
+        },
+        {
+          "name": "unrolled",
+          "bytes": 98413,
+          "generatedCodeDifference": 240919
+        }
+      ]
+    }
+  ],
+  "nativeInstructionProof": {
+    "pass": true,
+    "measurement": "Assembled instruction execution only; no code load/overlay, VIC stalls, IRQs or presentation. Not native FPS.",
+    "results": [
+      {
+        "name": "grouped-direct-sta-64",
+        "frames": 64,
+        "executions": 65,
+        "screenBytesChecked": 65000,
+        "wrapVerified": true,
+        "initializationCyclesOnce": 11529,
+        "cycles": {
+          "min": 2004,
+          "mean": 2024,
+          "max": 2040
+        }
+      },
+      {
+        "name": "shared-row-fill-64",
+        "frames": 64,
+        "executions": 65,
+        "screenBytesChecked": 65000,
+        "wrapVerified": true,
+        "initializationCyclesOnce": 11529,
+        "cycles": {
+          "min": 3889,
+          "mean": 4266.707692307692,
+          "max": 4717
+        }
+      },
+      {
+        "name": "grouped-direct-sta-256",
+        "frames": 256,
+        "executions": 257,
+        "screenBytesChecked": 257000,
+        "wrapVerified": true,
+        "initializationCyclesOnce": 11529,
+        "cycles": {
+          "min": 2002,
+          "mean": 2024.7937743190662,
+          "max": 2054
+        }
+      },
+      {
+        "name": "shared-row-fill-256",
+        "frames": 256,
+        "executions": 257,
+        "screenBytesChecked": 257000,
+        "wrapVerified": true,
+        "initializationCyclesOnce": 11529,
+        "cycles": {
+          "min": 3836,
+          "mean": 4265.186770428016,
+          "max": 4857
+        }
+      }
+    ]
+  }
+}

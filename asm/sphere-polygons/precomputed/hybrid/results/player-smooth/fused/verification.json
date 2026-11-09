@@ -1,0 +1,770 @@
+{
+  "pass": true,
+  "variant": "fused",
+  "motion": {
+    "kind": "fixed-axis-symmetry-loop",
+    "yawDegreesPerFrame": 0.9375,
+    "pitchDegrees": 22,
+    "rollDegrees": 12,
+    "symmetryPeriodDegrees": 60,
+    "frames": 64,
+    "fullRevolutionFrames": 384,
+    "fullRevolutionSecondsAt50Fps": 7.68,
+    "subByteAnglePrecision": true,
+    "loopEndpointMatches": true
+  },
+  "program_sha256": "25e5ad72e0bc0ebad7f71c52239d67f08e516b8616cd8530cc5f87b3083be2f2",
+  "font_sha256": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+  "reference_sha256": "5d4b75fc49e0401709f230e7a6dd61cb1efb7f1c2d695ee8edba02b80029cbce",
+  "pal_clock_hz": 985248,
+  "pal_frame_cycles": 19656,
+  "speed_percent": 100,
+  "warp": false,
+  "measurement": "Complete decoding and screen writes with VIC stalls; cadence includes raster wait. No music or IRQ workload.",
+  "samples": [
+    {
+      "index": 0,
+      "frame": 0,
+      "counter": 1,
+      "front": 3072,
+      "clock": 3125356,
+      "render_cycles": 12765,
+      "screen_match": true,
+      "screenshot": "frame-00-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 1,
+      "frame": 1,
+      "counter": 2,
+      "front": 1024,
+      "clock": 3145008,
+      "render_cycles": 13614,
+      "screen_match": true,
+      "presentation_cycles": 19652
+    },
+    {
+      "index": 2,
+      "frame": 2,
+      "counter": 3,
+      "front": 3072,
+      "clock": 3164667,
+      "render_cycles": 13430,
+      "screen_match": true,
+      "presentation_cycles": 19659
+    },
+    {
+      "index": 3,
+      "frame": 3,
+      "counter": 4,
+      "front": 1024,
+      "clock": 3184322,
+      "render_cycles": 13547,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 4,
+      "frame": 4,
+      "counter": 5,
+      "front": 3072,
+      "clock": 3203978,
+      "render_cycles": 13623,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 5,
+      "frame": 5,
+      "counter": 6,
+      "front": 1024,
+      "clock": 3223634,
+      "render_cycles": 13590,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 6,
+      "frame": 6,
+      "counter": 7,
+      "front": 3072,
+      "clock": 3243293,
+      "render_cycles": 13584,
+      "screen_match": true,
+      "presentation_cycles": 19659
+    },
+    {
+      "index": 7,
+      "frame": 7,
+      "counter": 8,
+      "front": 1024,
+      "clock": 3262946,
+      "render_cycles": 13573,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 8,
+      "frame": 8,
+      "counter": 9,
+      "front": 3072,
+      "clock": 3282604,
+      "render_cycles": 13436,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 9,
+      "frame": 9,
+      "counter": 10,
+      "front": 1024,
+      "clock": 3302254,
+      "render_cycles": 13486,
+      "screen_match": true,
+      "presentation_cycles": 19650
+    },
+    {
+      "index": 10,
+      "frame": 10,
+      "counter": 11,
+      "front": 3072,
+      "clock": 3321913,
+      "render_cycles": 13444,
+      "screen_match": true,
+      "presentation_cycles": 19659
+    },
+    {
+      "index": 11,
+      "frame": 11,
+      "counter": 12,
+      "front": 1024,
+      "clock": 3341570,
+      "render_cycles": 13584,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 12,
+      "frame": 12,
+      "counter": 13,
+      "front": 3072,
+      "clock": 3361226,
+      "render_cycles": 13651,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 13,
+      "frame": 13,
+      "counter": 14,
+      "front": 1024,
+      "clock": 3380879,
+      "render_cycles": 13678,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 14,
+      "frame": 14,
+      "counter": 15,
+      "front": 3072,
+      "clock": 3400539,
+      "render_cycles": 13557,
+      "screen_match": true,
+      "presentation_cycles": 19660
+    },
+    {
+      "index": 15,
+      "frame": 15,
+      "counter": 16,
+      "front": 1024,
+      "clock": 3420194,
+      "render_cycles": 13617,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 16,
+      "frame": 16,
+      "counter": 17,
+      "front": 3072,
+      "clock": 3439850,
+      "render_cycles": 13602,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 17,
+      "frame": 17,
+      "counter": 18,
+      "front": 1024,
+      "clock": 3459506,
+      "render_cycles": 13520,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 18,
+      "frame": 18,
+      "counter": 19,
+      "front": 3072,
+      "clock": 3479160,
+      "render_cycles": 13628,
+      "screen_match": true,
+      "presentation_cycles": 19654
+    },
+    {
+      "index": 19,
+      "frame": 19,
+      "counter": 20,
+      "front": 1024,
+      "clock": 3498820,
+      "render_cycles": 13664,
+      "screen_match": true,
+      "presentation_cycles": 19660
+    },
+    {
+      "index": 20,
+      "frame": 20,
+      "counter": 21,
+      "front": 3072,
+      "clock": 3518477,
+      "render_cycles": 13610,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 21,
+      "frame": 21,
+      "counter": 22,
+      "front": 1024,
+      "clock": 3538131,
+      "render_cycles": 13560,
+      "screen_match": true,
+      "presentation_cycles": 19654
+    },
+    {
+      "index": 22,
+      "frame": 22,
+      "counter": 23,
+      "front": 3072,
+      "clock": 3557788,
+      "render_cycles": 13603,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 23,
+      "frame": 23,
+      "counter": 24,
+      "front": 1024,
+      "clock": 3577440,
+      "render_cycles": 13586,
+      "screen_match": true,
+      "presentation_cycles": 19652
+    },
+    {
+      "index": 24,
+      "frame": 24,
+      "counter": 25,
+      "front": 3072,
+      "clock": 3597101,
+      "render_cycles": 13600,
+      "screen_match": true,
+      "presentation_cycles": 19661
+    },
+    {
+      "index": 25,
+      "frame": 25,
+      "counter": 26,
+      "front": 1024,
+      "clock": 3616750,
+      "render_cycles": 13485,
+      "screen_match": true,
+      "presentation_cycles": 19649
+    },
+    {
+      "index": 26,
+      "frame": 26,
+      "counter": 27,
+      "front": 3072,
+      "clock": 3636410,
+      "render_cycles": 13487,
+      "screen_match": true,
+      "presentation_cycles": 19660
+    },
+    {
+      "index": 27,
+      "frame": 27,
+      "counter": 28,
+      "front": 1024,
+      "clock": 3656066,
+      "render_cycles": 13394,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 28,
+      "frame": 28,
+      "counter": 29,
+      "front": 3072,
+      "clock": 3675721,
+      "render_cycles": 13419,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 29,
+      "frame": 29,
+      "counter": 30,
+      "front": 1024,
+      "clock": 3695374,
+      "render_cycles": 13503,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 30,
+      "frame": 30,
+      "counter": 31,
+      "front": 3072,
+      "clock": 3715033,
+      "render_cycles": 13563,
+      "screen_match": true,
+      "presentation_cycles": 19659
+    },
+    {
+      "index": 31,
+      "frame": 31,
+      "counter": 32,
+      "front": 1024,
+      "clock": 3734691,
+      "render_cycles": 13662,
+      "screen_match": true,
+      "presentation_cycles": 19658,
+      "screenshot": "frame-31-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 32,
+      "frame": 32,
+      "counter": 33,
+      "front": 3072,
+      "clock": 3754348,
+      "render_cycles": 13554,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 33,
+      "frame": 33,
+      "counter": 34,
+      "front": 1024,
+      "clock": 3774004,
+      "render_cycles": 13485,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 34,
+      "frame": 34,
+      "counter": 35,
+      "front": 3072,
+      "clock": 3793659,
+      "render_cycles": 13468,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 35,
+      "frame": 35,
+      "counter": 36,
+      "front": 1024,
+      "clock": 3813310,
+      "render_cycles": 13508,
+      "screen_match": true,
+      "presentation_cycles": 19651
+    },
+    {
+      "index": 36,
+      "frame": 36,
+      "counter": 37,
+      "front": 3072,
+      "clock": 3832971,
+      "render_cycles": 13579,
+      "screen_match": true,
+      "presentation_cycles": 19661
+    },
+    {
+      "index": 37,
+      "frame": 37,
+      "counter": 38,
+      "front": 1024,
+      "clock": 3852624,
+      "render_cycles": 13587,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 38,
+      "frame": 38,
+      "counter": 39,
+      "front": 3072,
+      "clock": 3872282,
+      "render_cycles": 13520,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 39,
+      "frame": 39,
+      "counter": 40,
+      "front": 1024,
+      "clock": 3891940,
+      "render_cycles": 13452,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 40,
+      "frame": 40,
+      "counter": 41,
+      "front": 3072,
+      "clock": 3911595,
+      "render_cycles": 13398,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 41,
+      "frame": 41,
+      "counter": 42,
+      "front": 1024,
+      "clock": 3931251,
+      "render_cycles": 13450,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 42,
+      "frame": 42,
+      "counter": 43,
+      "front": 3072,
+      "clock": 3950904,
+      "render_cycles": 13438,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 43,
+      "frame": 43,
+      "counter": 44,
+      "front": 1024,
+      "clock": 3970558,
+      "render_cycles": 13574,
+      "screen_match": true,
+      "presentation_cycles": 19654
+    },
+    {
+      "index": 44,
+      "frame": 44,
+      "counter": 45,
+      "front": 3072,
+      "clock": 3990216,
+      "render_cycles": 13590,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 45,
+      "frame": 45,
+      "counter": 46,
+      "front": 1024,
+      "clock": 4009876,
+      "render_cycles": 13419,
+      "screen_match": true,
+      "presentation_cycles": 19660
+    },
+    {
+      "index": 46,
+      "frame": 46,
+      "counter": 47,
+      "front": 3072,
+      "clock": 4029530,
+      "render_cycles": 13446,
+      "screen_match": true,
+      "presentation_cycles": 19654
+    },
+    {
+      "index": 47,
+      "frame": 47,
+      "counter": 48,
+      "front": 1024,
+      "clock": 4049188,
+      "render_cycles": 13389,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 48,
+      "frame": 48,
+      "counter": 49,
+      "front": 3072,
+      "clock": 4068846,
+      "render_cycles": 13457,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 49,
+      "frame": 49,
+      "counter": 50,
+      "front": 1024,
+      "clock": 4088496,
+      "render_cycles": 13458,
+      "screen_match": true,
+      "presentation_cycles": 19650
+    },
+    {
+      "index": 50,
+      "frame": 50,
+      "counter": 51,
+      "front": 3072,
+      "clock": 4108154,
+      "render_cycles": 13576,
+      "screen_match": true,
+      "presentation_cycles": 19658
+    },
+    {
+      "index": 51,
+      "frame": 51,
+      "counter": 52,
+      "front": 1024,
+      "clock": 4127806,
+      "render_cycles": 13621,
+      "screen_match": true,
+      "presentation_cycles": 19652
+    },
+    {
+      "index": 52,
+      "frame": 52,
+      "counter": 53,
+      "front": 3072,
+      "clock": 4147469,
+      "render_cycles": 13532,
+      "screen_match": true,
+      "presentation_cycles": 19663
+    },
+    {
+      "index": 53,
+      "frame": 53,
+      "counter": 54,
+      "front": 1024,
+      "clock": 4167123,
+      "render_cycles": 13455,
+      "screen_match": true,
+      "presentation_cycles": 19654
+    },
+    {
+      "index": 54,
+      "frame": 54,
+      "counter": 55,
+      "front": 3072,
+      "clock": 4186780,
+      "render_cycles": 13617,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 55,
+      "frame": 55,
+      "counter": 56,
+      "front": 1024,
+      "clock": 4206433,
+      "render_cycles": 13664,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 56,
+      "frame": 56,
+      "counter": 57,
+      "front": 3072,
+      "clock": 4226094,
+      "render_cycles": 13698,
+      "screen_match": true,
+      "presentation_cycles": 19661
+    },
+    {
+      "index": 57,
+      "frame": 57,
+      "counter": 58,
+      "front": 1024,
+      "clock": 4245747,
+      "render_cycles": 13692,
+      "screen_match": true,
+      "presentation_cycles": 19653
+    },
+    {
+      "index": 58,
+      "frame": 58,
+      "counter": 59,
+      "front": 3072,
+      "clock": 4265404,
+      "render_cycles": 13589,
+      "screen_match": true,
+      "presentation_cycles": 19657
+    },
+    {
+      "index": 59,
+      "frame": 59,
+      "counter": 60,
+      "front": 1024,
+      "clock": 4285059,
+      "render_cycles": 13505,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 60,
+      "frame": 60,
+      "counter": 61,
+      "front": 3072,
+      "clock": 4304715,
+      "render_cycles": 13525,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 61,
+      "frame": 61,
+      "counter": 62,
+      "front": 1024,
+      "clock": 4324371,
+      "render_cycles": 13576,
+      "screen_match": true,
+      "presentation_cycles": 19656
+    },
+    {
+      "index": 62,
+      "frame": 62,
+      "counter": 63,
+      "front": 3072,
+      "clock": 4344026,
+      "render_cycles": 13622,
+      "screen_match": true,
+      "presentation_cycles": 19655
+    },
+    {
+      "index": 63,
+      "frame": 63,
+      "counter": 64,
+      "front": 1024,
+      "clock": 4363679,
+      "render_cycles": 13706,
+      "screen_match": true,
+      "presentation_cycles": 19653,
+      "screenshot": "frame-63-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 64,
+      "frame": 0,
+      "counter": 65,
+      "front": 3072,
+      "clock": 4383340,
+      "render_cycles": 13660,
+      "screen_match": true,
+      "presentation_cycles": 19661
+    },
+    {
+      "index": 65,
+      "frame": 1,
+      "counter": 66,
+      "front": 1024,
+      "clock": 4402992,
+      "render_cycles": 13614,
+      "screen_match": true,
+      "presentation_cycles": 19652
+    }
+  ],
+  "command": [
+    "/opt/homebrew/Cellar/vice/3.10/bin/x64sc",
+    "-default",
+    "+saveres",
+    "-minimized",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+autostart-warp",
+    "+confirmonexit",
+    "-sounddev",
+    "dummy",
+    "+refreshonbreak",
+    "+binarymonitor",
+    "-initbreak",
+    "reset",
+    "-autostartprgmode",
+    "1",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/fused/build/player.prg",
+    "-VICIIfilter",
+    "0",
+    "-VICIIextpal",
+    "-VICIIpalette",
+    "/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl",
+    "-VICIIsaturation",
+    "1000",
+    "-VICIIcontrast",
+    "1000",
+    "-VICIIbrightness",
+    "1000",
+    "-VICIIgamma",
+    "1000",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:51086"
+  ],
+  "pid": 3314,
+  "frames_verified": 66,
+  "loop_wrap_verified": true,
+  "screen_bytes_checked": 66000,
+  "font_bytes_checked": 135168,
+  "screenshots": 3,
+  "render_cycles": {
+    "min": 12765,
+    "mean": 13537.712121212122,
+    "max": 13706
+  },
+  "presentation_cycles": {
+    "min": 19649,
+    "mean": 19655.938461538462,
+    "max": 19663
+  },
+  "median_fps": 50.124542124542124,
+  "mean_fps": 50.12469905356455,
+  "pal_fields_per_presentation": 0.9999968692276385,
+  "owned_process_exit_code": 0
+}

@@ -1,0 +1,417 @@
+{
+  "pass": true,
+  "scope": "Precomputed independent key images plus skip/render predictive packets. Host serialized round trips, no C64 timings.",
+  "headerBytes": 14,
+  "frameHeaderBytes": 2,
+  "layoutMetadataBytes": 50,
+  "fontBytes": 2048,
+  "inputHashes": {
+    "native-model.cjs": "23e45d7189c9504fa5661832be87380f07a0282ee3c2022a8cbc226c8fb5d833",
+    "geometry.cjs": "df9fe363ddc73df6c10da50b20af63c16b1048151864e67eab152a10758d9677",
+    "raster.cjs": "b14ad895c8af9b79390974d7dd22306676e438ca0ece592c31a9c2e9dd10ea2b",
+    "meshes.cjs": "93b02372693545fb478be8f19e3f94fa058af8be9239aebb792efb8b384ec579",
+    "math-font.cjs": "6221e02853c5f7dead4d42de51c24b6fff796d291fca9f71b332d3d26a06a4b6",
+    "assets/font.bin": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+    "assets/glyph-lut.bin": "cf6f79d85e1cbc052bc20741dd33caa9527e93c4bed5cbc445fd96ce3054c5dc",
+    "assets/clip-records.bin": "d89640c7b108b1e362815bc75e0f539ad7c901e0a4d6b788ef530c1e5194c3da",
+    "assets/glyph-compact.bin": "07ce69065a1552780836763556a8edd56f45bf00439e00be75022a1a907ecccb",
+    "assets/limb-remap.bin": "061ff1a21cbb115ed9db906852e313aafb0bad0e32a37020637459bce5427fac"
+  },
+  "lag1": "One persistent canonical previous-image buffer; alternating display screens require extra synchronization.",
+  "lag2": "The actual target of alternating two screen buffers.",
+  "models": {
+    "checker": {
+      "256frames": {
+        "frames": 256,
+        "best": {
+          "name": "delta-packets64",
+          "lag": 1,
+          "policy": "adaptive",
+          "fileBytes": 78631,
+          "meanFrameBytes": 307.15234375,
+          "keyFrames": 250,
+          "patchFrames": 6,
+          "frames": 256
+        },
+        "bestLag1": {
+          "name": "delta-packets64",
+          "lag": 1,
+          "policy": "adaptive",
+          "fileBytes": 78631,
+          "meanFrameBytes": 307.15234375,
+          "keyFrames": 250,
+          "patchFrames": 6,
+          "frames": 256
+        },
+        "bestLag2": {
+          "name": "delta-varint-pairs",
+          "lag": 2,
+          "policy": "adaptive",
+          "fileBytes": 78702,
+          "meanFrameBytes": 307.4296875,
+          "keyFrames": 256,
+          "patchFrames": 0,
+          "frames": 256
+        },
+        "rows": [
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "adaptive",
+            "fileBytes": 78631,
+            "meanFrameBytes": 307.15234375,
+            "keyFrames": 250,
+            "patchFrames": 6,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "adaptive",
+            "fileBytes": 78649,
+            "meanFrameBytes": 307.22265625,
+            "keyFrames": 252,
+            "patchFrames": 4,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "adaptive",
+            "fileBytes": 78702,
+            "meanFrameBytes": 307.4296875,
+            "keyFrames": 256,
+            "patchFrames": 0,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "adaptive",
+            "fileBytes": 78702,
+            "meanFrameBytes": 307.4296875,
+            "keyFrames": 256,
+            "patchFrames": 0,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "key16",
+            "fileBytes": 91713,
+            "meanFrameBytes": 358.25390625,
+            "keyFrames": 16,
+            "patchFrames": 240,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "key32",
+            "fileBytes": 92089,
+            "meanFrameBytes": 359.72265625,
+            "keyFrames": 8,
+            "patchFrames": 248,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "predictive",
+            "fileBytes": 92371,
+            "meanFrameBytes": 360.82421875,
+            "keyFrames": 1,
+            "patchFrames": 255,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "key16",
+            "fileBytes": 94225,
+            "meanFrameBytes": 368.06640625,
+            "keyFrames": 16,
+            "patchFrames": 240,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "key32",
+            "fileBytes": 94671,
+            "meanFrameBytes": 369.80859375,
+            "keyFrames": 8,
+            "patchFrames": 248,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "predictive",
+            "fileBytes": 95027,
+            "meanFrameBytes": 371.19921875,
+            "keyFrames": 1,
+            "patchFrames": 255,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "key16",
+            "fileBytes": 98273,
+            "meanFrameBytes": 383.87890625,
+            "keyFrames": 32,
+            "patchFrames": 224,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "key32",
+            "fileBytes": 99653,
+            "meanFrameBytes": 389.26953125,
+            "keyFrames": 16,
+            "patchFrames": 240,
+            "frames": 256
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "predictive",
+            "fileBytes": 100836,
+            "meanFrameBytes": 393.890625,
+            "keyFrames": 2,
+            "patchFrames": 254,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "key16",
+            "fileBytes": 102493,
+            "meanFrameBytes": 400.36328125,
+            "keyFrames": 32,
+            "patchFrames": 224,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "key32",
+            "fileBytes": 104140,
+            "meanFrameBytes": 406.796875,
+            "keyFrames": 16,
+            "patchFrames": 240,
+            "frames": 256
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "predictive",
+            "fileBytes": 105567,
+            "meanFrameBytes": 412.37109375,
+            "keyFrames": 2,
+            "patchFrames": 254,
+            "frames": 256
+          }
+        ]
+      },
+      "64frames": {
+        "frames": 64,
+        "best": {
+          "name": "delta-varint-pairs",
+          "lag": 1,
+          "policy": "adaptive",
+          "fileBytes": 19775,
+          "meanFrameBytes": 308.984375,
+          "keyFrames": 64,
+          "patchFrames": 0,
+          "frames": 64
+        },
+        "bestLag1": {
+          "name": "delta-varint-pairs",
+          "lag": 1,
+          "policy": "adaptive",
+          "fileBytes": 19775,
+          "meanFrameBytes": 308.984375,
+          "keyFrames": 64,
+          "patchFrames": 0,
+          "frames": 64
+        },
+        "bestLag2": {
+          "name": "delta-varint-pairs",
+          "lag": 2,
+          "policy": "adaptive",
+          "fileBytes": 19775,
+          "meanFrameBytes": 308.984375,
+          "keyFrames": 64,
+          "patchFrames": 0,
+          "frames": 64
+        },
+        "rows": [
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "adaptive",
+            "fileBytes": 19775,
+            "meanFrameBytes": 308.984375,
+            "keyFrames": 64,
+            "patchFrames": 0,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "adaptive",
+            "fileBytes": 19775,
+            "meanFrameBytes": 308.984375,
+            "keyFrames": 64,
+            "patchFrames": 0,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "adaptive",
+            "fileBytes": 19775,
+            "meanFrameBytes": 308.984375,
+            "keyFrames": 64,
+            "patchFrames": 0,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "adaptive",
+            "fileBytes": 19775,
+            "meanFrameBytes": 308.984375,
+            "keyFrames": 64,
+            "patchFrames": 0,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "key16",
+            "fileBytes": 26153,
+            "meanFrameBytes": 408.640625,
+            "keyFrames": 8,
+            "patchFrames": 56,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "key16",
+            "fileBytes": 26218,
+            "meanFrameBytes": 409.65625,
+            "keyFrames": 4,
+            "patchFrames": 60,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "key32",
+            "fileBytes": 26404,
+            "meanFrameBytes": 412.5625,
+            "keyFrames": 2,
+            "patchFrames": 62,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 1,
+            "policy": "predictive",
+            "fileBytes": 26514,
+            "meanFrameBytes": 414.28125,
+            "keyFrames": 1,
+            "patchFrames": 63,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "key32",
+            "fileBytes": 26568,
+            "meanFrameBytes": 415.125,
+            "keyFrames": 4,
+            "patchFrames": 60,
+            "frames": 64
+          },
+          {
+            "name": "delta-packets64",
+            "lag": 2,
+            "policy": "predictive",
+            "fileBytes": 26803,
+            "meanFrameBytes": 418.796875,
+            "keyFrames": 2,
+            "patchFrames": 62,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "key16",
+            "fileBytes": 28517,
+            "meanFrameBytes": 445.578125,
+            "keyFrames": 4,
+            "patchFrames": 60,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "key32",
+            "fileBytes": 28779,
+            "meanFrameBytes": 449.671875,
+            "keyFrames": 2,
+            "patchFrames": 62,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 1,
+            "policy": "predictive",
+            "fileBytes": 28942,
+            "meanFrameBytes": 452.21875,
+            "keyFrames": 1,
+            "patchFrames": 63,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "key16",
+            "fileBytes": 28976,
+            "meanFrameBytes": 452.75,
+            "keyFrames": 8,
+            "patchFrames": 56,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "key32",
+            "fileBytes": 29625,
+            "meanFrameBytes": 462.890625,
+            "keyFrames": 4,
+            "patchFrames": 60,
+            "frames": 64
+          },
+          {
+            "name": "delta-varint-pairs",
+            "lag": 2,
+            "policy": "predictive",
+            "fileBytes": 29968,
+            "meanFrameBytes": 468.25,
+            "keyFrames": 2,
+            "patchFrames": 62,
+            "frames": 64
+          }
+        ]
+      }
+    }
+  },
+  "comparedBytes": 15360000
+}
