@@ -34,7 +34,8 @@ function main(argv = process.argv.slice(2)) {
     assert.equal(scene.loop.startFrame + scene.loop.frameCount, scene.frames.length);
   }
   assert.equal(screens.length, scene.frames.length * 1000);
-  assert.equal(font.length, 1344);
+  assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0);
+  assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
   assert(screens.every(code => code < font.length / 8));
   assert(screens.subarray(0, 1000).every(code => code === 0), 'The first image must be empty');
   const scriptPath = path.resolve(options['--scene-source'] || metadata.sceneSource && path.resolve(here, metadata.sceneSource) || path.join(here, 'scenes/spiral.scene.cjs'));

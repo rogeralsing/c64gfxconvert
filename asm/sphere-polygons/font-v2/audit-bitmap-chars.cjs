@@ -6,7 +6,7 @@ const path = require('node:path');
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 
-const WIDTH = 320, HEIGHT = 200, FONT_SHA = '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59';
+const WIDTH = 320, HEIGHT = 200, BASE_FONT_SHA = '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59';
 const sha = data => crypto.createHash('sha256').update(data).digest('hex');
 const stats = values => values.length ? {min: Math.min(...values), mean: values.reduce((sum, value) => sum + value, 0) / values.length, max: Math.max(...values)} : null;
 
@@ -21,11 +21,13 @@ function audit({framesPath, metadataPath, charactersPath, maskPath}) {
   assert(width === 320 && height === 200 || width === 160 && height === 100);
   assert.equal(raw.length, inputCount * width * height / 8);
   assert.equal(screens.length, metadata.frameCount * 1000);
-  assert.equal(sha(font), FONT_SHA);
+  assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0);
+  assert.equal(sha(font.subarray(0, 1344)), BASE_FONT_SHA, 'The original168-glyph prefix must remain byte-identical.');
+  const glyphCount = font.length / 8;
   const prepend = metadata.bitmapSource.prependedBlankFrames || 0;
   assert.equal(metadata.frameCount, inputCount + prepend);
   const scale = WIDTH / width, stride = width / 8, frameBytes = width * height / 8;
-  const frames = [], histogram = Array(65).fill(0), nonuniformHistogram = Array(65).fill(0), activeUsage = Array(168).fill(0), uniformFailures = [];
+  const frames = [], histogram = Array(65).fill(0), nonuniformHistogram = Array(65).fill(0), activeUsage = Array(glyphCount).fill(0), uniformFailures = [];
   let fullErrors = 0, bboxErrors = 0, bboxArea = 0, falseWhite = 0, missedWhite = 0;
   let uniformEmpty = 0, uniformFilled = 0, nonuniform = 0, nonuniformErrors = 0, outsideBoundsErrors = 0;
   let activeUniformEmpty = 0, activeUniformFilled = 0;
@@ -40,7 +42,7 @@ function audit({framesPath, metadataPath, charactersPath, maskPath}) {
       target[y * WIDTH + x] = bit;
       if (objectMask) {objectMask[y * WIDTH + x] = sourceFrame < 0 ? 0 : (rawMask[sourceFrame * frameBytes + sy * stride + (sx >>> 3)] >>> (7 - (sx & 7))) & 1; objectPixels += objectMask[y * WIDTH + x];}
       const code = screens[frame * 1000 + Math.floor(y / 8) * 40 + Math.floor(x / 8)];
-      assert(code < 168);
+      assert(code < glyphCount);
       output[y * WIDTH + x] = (font[code * 8 + (y & 7)] >>> (7 - (x & 7))) & 1;
       if (objectMask && objectMask[y * WIDTH + x] === 0) {outputWhiteOutsideObject += output[y * WIDTH + x]; sourceWhiteOutsideObject += bit;}
       if (bit) {left = Math.min(left, x); top = Math.min(top, y); right = Math.max(right, x); bottom = Math.max(bottom, y); whites++;}
@@ -85,6 +87,7 @@ function audit({framesPath, metadataPath, charactersPath, maskPath}) {
       sourceWhitePixels: whites, nonuniformCells});
   }
   const result = {pass: uniformFailures.length === 0, name: metadata.name, frameCount: metadata.frameCount,
+    fontGlyphs: glyphCount, baseFontPrefixPreserved: true,
     scope: 'Independent source-bit and font-byte reconstruction. Active bounds are each source image\'s tight white-pixel bounding box, not a 3D object mask. Black space outside it is excluded from the active error denominator; outside errors are reported separately. An optional separately rendered object mask provides an additional object-only denominator.',
     hashes: {sourcePacked: sha(raw), screens: sha(screens), font: sha(font)},
     wholeImage: {mismatches: fullErrors, comparedPixels: metadata.frameCount * WIDTH * HEIGHT,

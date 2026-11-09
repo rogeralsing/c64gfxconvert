@@ -42,6 +42,7 @@ def verify_held_fields(build, verified):
         r"\.label\s+(\w+)\s*=\s*\$([0-9a-fA-F]+)", (build / "main.sym").read_text())}
     font = (build / "font.bin").read_bytes()
     movie = (build / "movie.bin").read_bytes()
+    source_regions = delta.movie_source_regions(build, manifest, labels, movie)
     raw = (build / "reference.frames").read_bytes()
     count = manifest["storedFrames"]
     loop = manifest.get("loop")
@@ -69,6 +70,8 @@ def verify_held_fields(build, verified):
     if program_sha != verified["program_sha256"]:
         raise AssertionError("Both field proofs must use the same immutable native program")
     report = {"pass": False, "program_sha256": program_sha,
+              "immutable_source_regions": delta.immutable_source_report(source_regions),
+              "immutable_source_bytes": sum(len(region["data"]) for region in source_regions),
               "method": "Unmodified native checkpoints. Every requested finite repetition and held field, including all closing deltas, uses actual VIC screenshots with forced refresh disabled. Infinite scripts use a bounded repetition sample.",
               "frames": [], "repeated_render_cycles": []}
     process = connection = monitor = None
@@ -101,8 +104,9 @@ def verify_held_fields(build, verified):
                     monitor.run("bank cpu")
                     if ram[0x400:0x7e8] != screen or ram[labels["frame_index"]] != pose:
                         raise AssertionError("Native loop screen or wrapped frame index differs")
-                    if ram[0x2000:0x2000 + len(font)] != font or ram[labels["animation"]:labels["animation_end"]] != movie:
-                        raise AssertionError("Immutable loop font or source changed")
+                    if ram[0x2000:0x2000 + len(font)] != font:
+                        raise AssertionError("Immutable loop font changed")
+                    delta.assert_movie_source(ram, source_regions)
                     expected_state = timeline[occurrence]
                     actual_plays = int.from_bytes(ram[labels["plays_left"]:labels["plays_left"] + 2], "little")
                     if actual_plays != expected_state["plays_left"] or ram[labels["images_left"]] != expected_state["images_left"] or ram[labels["script_cursor"]] != expected_state["script_cursor"]:
@@ -208,10 +212,11 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=HERE / "build/scene-native/spiral")
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/Cellar/vice/3.10/bin/x64sc"))
+    parser.add_argument("--variant", choices=("sparse-front", "literal-front"), default="sparse-front")
     args = parser.parse_args()
     root = args.root.resolve()
-    build = root / "sparse-front"
-    report = delta.verify("sparse-front", args.vice, root=root)
+    build = root / args.variant
+    report = delta.verify(args.variant, args.vice, root=root)
     count = report["manifest"]["storedFrames"]
     loop = report["manifest"].get("loop")
     if not report["pass"] or report["checked_frames"] != count or report["observed_fields_per_image"] != [2]:

@@ -46,6 +46,8 @@ export async function main(argv = process.argv.slice(2)) {
   assert(Number.isFinite(durationSeconds) && durationSeconds > 0);
   const frameCount = Math.round(fps * durationSeconds);
   assert(frameCount > 0 && Math.abs(frameCount - fps * durationSeconds) < 1e-8, 'Duration must span an integer number of frames.');
+  if (config.approvedPrefixFrames !== undefined) assert(Number.isInteger(config.approvedPrefixFrames) &&
+    config.approvedPrefixFrames >= 0 && config.approvedPrefixFrames <= frameCount, 'Approved prefix must fit inside the movie.');
   const name = config.name || path.basename(source, path.extname(source));
   const output = path.resolve(options['--output'] || path.join(here, '../build/three-scene', name));
   const mode = options['--quantize'] || 'threshold';
@@ -136,6 +138,7 @@ export async function main(argv = process.argv.slice(2)) {
       objectMaskFile: mask ? 'object-mask.frames' : null,
       objectMaskScope: mask ? 'Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.' : null,
       verification: {firstFrameBlack, deterministicSampleTimes: true, allFramesReadFromGPU: true},
+      ...(config.approvedPrefixFrames !== undefined ? {approvedPrefixFrames: config.approvedPrefixFrames} : {}),
       phaseLabels: config.phaseLabels ?? null, frames: frameMetadata,
       litPixels, hostRenderSeconds: (performance.now() - started) / 1000};
     fs.mkdirSync(output, {recursive: true});

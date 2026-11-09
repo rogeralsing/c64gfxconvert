@@ -25,6 +25,94 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
+def movie_source_regions(build, manifest, labels, movie):
+    """Validate all immutable payload bytes and their physical RAM locations."""
+    expected_hash = manifest.get("hashes", {}).get("movie")
+    if expected_hash is not None and sha(movie) != expected_hash:
+        raise AssertionError("Logical movie file does not match its build hash")
+    declared = manifest.get("sourceRegions")
+    if not declared:
+        if manifest.get("pooledPayload"):
+            raise AssertionError("Pooled movie is missing its source regions")
+        start, end = labels["animation"], labels["animation_end"]
+        if not 0 <= start < end <= 65536 or end - start != len(movie):
+            raise AssertionError("Contiguous movie source range differs from movie.bin")
+        return [{"start": start, "end": end, "file": "movie.bin",
+                 "sha256": sha(movie), "data": movie}]
+
+    if not expected_hash:
+        raise AssertionError("Segmented source needs the complete logical movie hash")
+    regions = []
+    for item in declared:
+        start, end = item["start"], item["end"]
+        if type(start) is not int or type(end) is not int or not 0 <= start < end <= 65536:
+            raise AssertionError("Invalid immutable source region bounds")
+        data = (build / item["file"]).read_bytes()
+        if len(data) != end - start or sha(data) != item["sha256"]:
+            raise AssertionError("Immutable region file/size/hash mismatch: " + item["file"])
+        regions.append({"start": start, "end": end, "file": item["file"],
+                        "sha256": item["sha256"], "data": data})
+    regions.sort(key=lambda item: item["start"])
+    for previous, current in zip(regions, regions[1:]):
+        if previous["end"] > current["start"]:
+            raise AssertionError("Immutable movie regions overlap in RAM")
+
+    patches = manifest.get("sourcePatches")
+    if not isinstance(patches, list) or not patches:
+        raise AssertionError("Segmented source is missing its logical patch mapping")
+    logical = []
+    physical = [[] for _ in regions]
+    reconstructed = bytearray(len(movie))
+    for item in patches:
+        offset, size, address = item["offset"], item["bytes"], item["address"]
+        if any(type(value) is not int for value in (offset, size, address)) or size <= 0:
+            raise AssertionError("Invalid source patch offset/length/address")
+        if not 0 <= offset < offset + size <= len(movie):
+            raise AssertionError("Source patch exceeds the logical movie")
+        owners = [index for index, region in enumerate(regions)
+                  if region["start"] <= address and address + size <= region["end"]]
+        if len(owners) != 1:
+            raise AssertionError("A source patch crosses or misses a physical region")
+        owner = owners[0]
+        region = regions[owner]
+        local = address - region["start"]
+        data = region["data"][local:local + size]
+        if data != movie[offset:offset + size]:
+            raise AssertionError("Relocated source patch differs from the logical movie")
+        reconstructed[offset:offset + size] = data
+        logical.append((offset, offset + size))
+        physical[owner].append((address, address + size))
+
+    def exact_cover(intervals, start, end, label):
+        cursor = start
+        for left, right in sorted(intervals):
+            if left != cursor:
+                raise AssertionError(label + " has omitted or overlapping bytes")
+            cursor = right
+        if cursor != end:
+            raise AssertionError(label + " does not cover all source bytes")
+
+    exact_cover(logical, 0, len(movie), "Logical patch mapping")
+    for region, intervals in zip(regions, physical):
+        exact_cover(intervals, region["start"], region["end"], "Physical pool " + region["file"])
+    if bytes(reconstructed) != movie or sha(reconstructed) != expected_hash:
+        raise AssertionError("All physical pools do not reconstruct the exact logical movie")
+    if sum(len(region["data"]) for region in regions) != len(movie):
+        raise AssertionError("Physical/logical movie byte totals differ")
+    return regions
+
+
+def immutable_source_report(regions):
+    return [{key: value for key, value in region.items() if key != "data"} for region in regions]
+
+
+def assert_movie_source(ram, regions):
+    for region in regions:
+        if ram[region["start"]:region["end"]] != region["data"]:
+            raise AssertionError(f"Immutable movie source changed in {region['file']} "
+                                 f"[${region['start']:04x},${region['end']:04x})")
+
+
 def stats(values):
     return {"min": min(values), "mean": statistics.mean(values), "max": max(values)} if values else None
 
@@ -111,6 +199,7 @@ def verify(name, vice, root=None):
         raise ValueError("Timing labels alias")
     font = (build / "font.bin").read_bytes()
     movie = (build / "movie.bin").read_bytes()
+    source_regions = movie_source_regions(build, manifest, labels, movie)
     reference = (build / "reference.frames").read_bytes()
     count = manifest["storedFrames"]
     expected = [reference[i * 1000:(i + 1) * 1000] for i in range(count)]
@@ -118,6 +207,8 @@ def verify(name, vice, root=None):
     report = {"pass": False, "variant": name, "manifest": manifest,
               "program_sha256": sha(program.read_bytes()), "font_sha256": sha(font),
               "reference_sha256": sha(reference), "movie_sha256": sha(movie),
+              "immutable_source_regions": immutable_source_report(source_regions),
+              "immutable_source_bytes": sum(len(region["data"]) for region in source_regions),
               "pal_clock_hz": native.PAL_CLOCK, "pal_field_cycles": native.PAL_FRAME_CYCLES,
               "speed_percent": 100, "warp": False,
               "monitor_forced_refresh_on_break": False,
@@ -223,8 +314,7 @@ def verify(name, vice, root=None):
                         raise AssertionError("Native pose index mismatch")
                     if ram[0x2000:0x2000 + len(font)] != font:
                         raise AssertionError("Immutable font changed")
-                    if ram[labels["animation"]:labels["animation_end"]] != movie:
-                        raise AssertionError("Immutable movie source changed")
+                    assert_movie_source(ram, source_regions)
                     if (vic[0x18] >> 4) != 1 or (vic[0x18] & 14) * 0x400 != 0x2000 or cia & 3 != 3:
                         raise AssertionError("VIC screen, charset or bank mismatch")
                     if vic[0x11] & 0x7f != 0x1b or vic[0x16] & 0x1f != 8 or vic[0x15] != 0:

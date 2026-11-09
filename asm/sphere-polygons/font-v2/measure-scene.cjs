@@ -8,12 +8,14 @@ const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
 const {encodeSparse, decodeSparse} = require('./large-benchmark/delta-study.cjs');
 const {encodeGroups, decodeGroups} = require('./large-benchmark/codegen-study.cjs');
+const {encodePairs, decodePairs} = require('../precomputed/hybrid/delta.cjs');
 
 const here = __dirname;
 const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const statistics = values => values.length ? {min: Math.min(...values), mean: values.reduce((sum, value) => sum + value, 0) / values.length, max: Math.max(...values)} : null;
 const codecs = {
   sparse: {encode: (previous, target) => encodeSparse(target, previous), decode: (bytes, previous) => decodeSparse(bytes, previous)},
+  literal: {encode: (previous, target) => encodePairs(target, previous), decode: (bytes, previous) => decodePairs(bytes, previous)},
   groups: {encode: (previous, target) => encodeGroups(previous, target, false), decode: (bytes, previous) => decodeGroups(bytes, previous, false)},
   hybrid: {encode: (previous, target) => encodeGroups(previous, target, true), decode: (bytes, previous) => decodeGroups(bytes, previous, true)}
 };
@@ -22,13 +24,16 @@ function main(argv = process.argv.slice(2)) {
   const option = (name, fallback) => argv.find(value => value.startsWith(`--${name}=`))?.slice(name.length + 3) || fallback;
   const input = path.resolve(option('input', path.join(here, 'build/scenes/spiral')));
   const output = path.resolve(option('output', path.join(here, 'build/scene-storage/spiral')));
+  const selectedCodec = option('codec', 'all');
+  assert(selectedCodec === 'all' || Object.hasOwn(codecs, selectedCodec), 'Unknown scene codec.');
+  const selected = Object.entries(codecs).filter(([name]) => selectedCodec === 'all' || name === selectedCodec);
   const metadata = JSON.parse(fs.readFileSync(path.join(input, 'metadata.json')));
   const scene = JSON.parse(fs.readFileSync(path.join(input, 'scene.json')));
   const raw = fs.readFileSync(path.join(input, 'reference.frames'));
   const font = fs.readFileSync(path.join(input, 'font.bin'));
   assert.equal(raw.length % 1000, 0);
-  assert.equal(font.length, 1344);
-  assert.equal(sha(font), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
+  assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0);
+  assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
   const frameCount = raw.length / 1000;
   const poses = Array.isArray(scene) ? scene : scene.frames;
   assert.equal(poses.length, frameCount);
@@ -59,7 +64,7 @@ function main(argv = process.argv.slice(2)) {
     phases.push(frame.phase || ((frame.time ?? frame.t ?? targetPose / fps) < 3 ? 'grow' : 'hold'));
   }
   const formats = {};
-  for (const [name, codec] of Object.entries(codecs)) {
+  for (const [name, codec] of selected) {
     const chunks = [], index = [];
     let cursor = 0;
     let actual = Buffer.alloc(1000);
