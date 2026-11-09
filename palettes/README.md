@@ -1,15 +1,23 @@
-# Colodore PAL
+# C64 PAL palettes
 
-The converter uses the 16 Colodore PAL RGB values distributed with VICE, in
-standard C64 color-index order. The source palette is
-[VICE's colodore.vpl](https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl).
+The converter offers **Colodore (PAL)** and **Pepto (PAL)** in the Image panel,
+below the graphics format. Both use the 16 RGB values distributed with VICE,
+in standard C64 color-index order:
+
+- [Colodore](https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl), the existing default.
+- [Pepto](https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/pepto-pal.vpl), the darker PAL reference.
+
 The [Colodore color model](https://www.pepto.de/projects/colorvic/) documents
 the underlying measurements and analog display assumptions. It is a PAL
 reference, rather than a universal RGB palette for every physical C64 and TV.
 
-`index.html` uses these values for palette controls, source mapping, and all
-graphics modes. Brightness bands and virtual-color mixtures are calculated
-from the palette when the page loads.
+`palettes.js` supplies these values to palette controls, source mapping, and all
+graphics modes. Switching palettes recalculates brightness bands and virtual
+colors, updates controls, and renders all layers again. Color selections,
+virtual-color exclusions, and brightness limits retain their C64 indices.
+Project JSON stores `image.paletteId` as `colodore` or `pepto`; older projects
+without this field use Colodore. Native C64 exports contain hardware color
+indices, so their displayed RGB colors depend on the computer or emulator palette.
 
 In virtual modes, **Darkest level** and **Lightest level** clamp the C64 Palette
 view to the existing 17 virtual brightness rows, numbered 0–16. Row 0 is black,

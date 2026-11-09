@@ -3,7 +3,7 @@
 [Open the converter](https://rogeralsing.github.io/c64gfxconvert/)
 
 A browser-based Commodore 64 image converter with FLI, IFLI, MCI, AFLI, HIRES,
-Multicolor Bitmap, standalone Sprites and NUFLI modes, optional virtual colors, sprite
+Multicolor Bitmap, Charset, standalone Sprites and NUFLI modes, optional virtual colors, sprite
 overlays, and native exports. Image processing stays in your browser.
 
 <img src="assets/images/c64-studio-layers.png" alt="C64 Studio showing a layered FLI conversion and per-layer image settings" width="960">
@@ -11,6 +11,11 @@ overlays, and native exports. Image processing stays in your browser.
 ## Run locally
 
 Open `index.html` in a modern browser. No build step or server is required.
+
+Choose **Colodore (PAL)** or **Pepto (PAL)** in **Image → C64 palette**, below
+the graphics format. Colodore remains the default. Switching updates conversion,
+previews, color swatches, and virtual colors across all layers. Projects save
+the chosen palette; older projects use Colodore. See [palette sources](palettes/README.md).
 
 ## Graphics formats
 
@@ -23,11 +28,57 @@ Open `index.html` in a modern browser. No build step or server is required.
 | **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
 | **HIRES · 2 colors** | 320 × 200, square pixels | One user-selected shadow/highlight pair for the entire image. Source brightness drives the pattern; no automatic palette matching. |
 | **Multicolor Bitmap** | 160 × 200, double-width pixels | Three colors per 4 × 8 tile, plus one background color shared by the whole image. |
+| **Charset · Hires + Multicolor** | 40 × 25 cells covering 320 × 200 pixels | Up to 256 unique patterns. Shared background and two shared multicolors; each cell chooses hires or multicolor with an individual foreground from colors 0–7. |
 | **Multicolor Sprites** | 12 × 21 double-width pixels per sprite | One shared background, two shared multicolors, and one individual color per sprite. Configurable grid, up to eight sprites. |
 | **Multicolor + Hires Sprites** | 24 × 21 display pixels per cell | A multicolor sprite beneath a hires sprite with its own color. Up to four cells, using eight hardware sprites. |
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+Select **Charset · Hires + Multicolor** to convert a full screen into one C64
+character set. Choose a background and two shared multicolors from all 16 colors.
+The converter scores each cell in hires and multicolor with every legal
+foreground color. It compares rendered colors in Oklab, so close shades can
+collapse to one foreground when that preserves more detail. Pattern reuse also
+reconsiders the cell's foreground and resolution, rather than comparing glyph
+bytes alone.
+
+**Tile similarity** controls how much difference is allowed when merging nearby
+patterns, even when the screen already fits within 256 glyphs. The default is
+35%. At 0%, only identical patterns share a slot unless the hardware limit
+forces approximation. Higher values allow more shape and shade differences.
+Perceptual error limits protect contrast and dithering at moderate settings.
+If the screen still needs more than 256 patterns, the converter retains
+representative patterns by rendered similarity and refits the remaining cells.
+
+The result includes both the charset and its 40 × 25 placement map. Merged cells
+reference the same glyph index while retaining their own color and mode. The
+preview always shows the actual exported result. The summary reports pattern
+reduction, approximated cells, and how many cells use each mode; the generated
+charset appears below.
+
+In this mixed character mode, Color RAM bit 3 selects the cell's resolution:
+
+| Color RAM | Cell mode | Foreground |
+| --- | --- | --- |
+| 0–7 | Hires, 8 × 8 pixels | The selected color 0–7 |
+| 8–15 | Multicolor, 4 × 8 double-width pixels | The value AND 7, still color 0–7 |
+
+For example, Color RAM value 9 means multicolor with a white foreground, not
+brown. The background and both shared multicolors can still use colors 8–15.
+This restriction applies to mixed multicolor character mode; pure hires text
+mode can use all 16 foreground colors. All 256 glyphs are available in either
+cell mode. Color RAM belongs to each screen position, not to a glyph definition.
+See the [Commodore Programmer's Reference](https://www.commodore.ca/manuals/c64_programmers_reference/c64-programmers_reference_guide-03-programming_graphics.pdf), pages 115–117.
+
+**Save charset** downloads a ZIP with a 2,048-byte `charset.bin`, 1,000-byte
+`screen.bin`, 1,000-byte `color-ram.bin`, and a manifest containing shared colors
+and VIC mode settings. It contains raw data without load addresses or a player.
+Projects preserve shared colors, tile similarity, source layers, and conversion
+settings. `screen.bin` places the glyphs in row-major order, and `color-ram.bin`
+stores each position's foreground and hires/multicolor flag.
+Source adjustments and per-layer dithering remain available; virtual colors and
+line-end dithering do not apply to charset conversion.
 
 For standalone sprites, choose **Multicolor Sprites** or **Multicolor + Hires
 Sprites**. Set **Sprite grid · columns × rows** to a layout such as 1 × 1,

@@ -139,6 +139,9 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .preview[data-can-pan="false"] #canvas { cursor: default; }
 .mode-select { width: 100%; min-height: 30px; padding: 5px 9px; border: 1px solid #5b5b5b; border-radius: 4px; background: #363636; font-size: 12px; }
 #sprite-grid-settings :is(.control-label, legend, .background-value, .mode-select) { font-size: 14px; }
+#charset-settings :is(legend, .background-value, .control-label, output) { font-size: 14px; }
+#charset-atlas { aspect-ratio: 1; max-width: 512px; height: auto; margin: 0 auto; }
+#charset-view :is(h3, figcaption) { font-size: 14px; }
 .inspector-panel { border-bottom: 1px solid #151515; scroll-margin-top: 37px; }
 .inspector-panel > summary { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 8px 14px; list-style: none; cursor: pointer; background: #303030; }
 .inspector-panel > summary::-webkit-details-marker { display: none; }

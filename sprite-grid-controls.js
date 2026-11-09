@@ -22,6 +22,7 @@ function createC64SpriteGridControls({ root, palette, onChange }) {
     });
     return {
       setValue(index) { picker.setValue(index); updateLabel(index); },
+      refreshPalette: picker.refreshPalette,
       setEnabled: picker.setEnabled
     };
   }
@@ -79,6 +80,10 @@ function createC64SpriteGridControls({ root, palette, onChange }) {
   });
   render();
   return {
+    refreshPalette() {
+      [...shared, individual, hires].forEach(picker => picker.refreshPalette());
+      renderColors();
+    },
     getState: () => ({ ...state, multicolorIndices: [...state.multicolorIndices],
       spriteColorIndices: [...state.spriteColorIndices], overlayColorIndices: [...state.overlayColorIndices] }),
     setState(value) {

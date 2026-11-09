@@ -97,6 +97,29 @@ function compositeC64LayerPixels(images, width, height) {
   return result;
 }
 
+/** Compose dither strength with the same visible-layer coverage as source colors. */
+function compositeC64LayerDither(images, strengths, width, height) {
+  if (images.length !== strengths.length || !Number.isInteger(width) || width <= 0 ||
+      !Number.isInteger(height) || height <= 0 ||
+      strengths.some(value => !Number.isFinite(value) || value < 0 || value > 1) ||
+      images.some(image => image.width !== width || image.height !== height || image.data?.length !== width * height * 4)) {
+    throw new Error('Layer dither requires matching images and strengths between 0 and 1.');
+  }
+  const result = new Float32Array(width * height);
+  const opacity = new Float32Array(width * height);
+  images.forEach((image, index) => {
+    for (let pixel = 0; pixel < opacity.length; pixel += 1) {
+      const alpha = image.data[pixel * 4 + 3] / 255;
+      if (!alpha) continue;
+      const below = opacity[pixel] * (1 - alpha);
+      const combined = alpha + below;
+      result[pixel] = (strengths[index] * alpha + result[pixel] * below) / combined;
+      opacity[pixel] = combined;
+    }
+  });
+  return result;
+}
+
 /** A foreground bitmap occludes sprites belonging to lower image layers too. */
 function compositeC64LayerSprites(layers, colorIndex, rgb) {
   const spriteMask = new Uint8Array(64000);
