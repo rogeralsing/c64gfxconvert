@@ -1,0 +1,223 @@
+{
+  "pass": true,
+  "scope": "Semantic visibility after immutable-font matching; PAL decoder equivalence is checked separately.",
+  "model": "Facetterad glasdiamant med kretsande boll",
+  "shape": {
+    "type": "BufferGeometry",
+    "name": "cut-glass-diamond-orbit",
+    "title": "Facetterad glasdiamant med kretsande boll",
+    "kind": "cut-diamond",
+    "mesh": {
+      "triangles": 48,
+      "distinctSpatialVertices": 26,
+      "planarNormalDirections": 25,
+      "edges": 72,
+      "nonManifoldEdges": 0,
+      "weldToleranceLogical": 1e-05,
+      "signedVolume": 33788.39111960934,
+      "bounds": {
+        "min": [
+          -22.17310905456543,
+          -29,
+          -22.17310905456543
+        ],
+        "max": [
+          22.17310905456543,
+          22,
+          22.17310905456543
+        ]
+      },
+      "annotations": {
+        "cut": "flat table, sloped crown, narrow girdle, pointed pavilion",
+        "sectors": 8,
+        "triangleCounts": {
+          "table": 8,
+          "crown": 16,
+          "girdle": 16,
+          "pavilion": 8,
+          "total": 48
+        },
+        "polygonCounts": {
+          "table": 1,
+          "crown": 8,
+          "girdle": 8,
+          "pavilion": 8
+        },
+        "expectedWeldedVertices": 26,
+        "ringDimensions": {
+          "sectors": 8,
+          "tableRadius": 9,
+          "tableY": 22,
+          "girdleRadius": 24,
+          "crownBottomY": 8,
+          "girdleBottomY": 6,
+          "pointY": -29
+        },
+        "flatFaceNormals": true
+      }
+    }
+  },
+  "fontModified": false,
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "characterMovieSha256": "13cadcd8de5e9520429542cc44dea8c1467bc9a825e89035356be925b7d9beab",
+  "bitmapSha256": "4ee29f7eeaf4b3426e9c061fb7c90e266267959388c6c58a7c5e70fdbcfc8e3f",
+  "sceneSha256": "ca7a50db71b5e459763e7a33af657f33c4beaeb2c3a70e4c43c4b2745e64519c",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+      "sha256": "af49ee20e64ca5464739eb3f4f1ec6c347e6b37ff1c5abb676ac2299cd0783e4"
+    }
+  ],
+  "independentMatcher": "Python 64-bit minimum Hamming distance, lowest-code tie, all 256 fixed glyphs; each full/hidden control uses its independently rendered per-pose opaque object mask.",
+  "behindBallSurvivesCharacterConversion": true,
+  "behindRefractionSurvivesCharacterConversion": true,
+  "behindSofteningSurvivesCharacterConversion": false,
+  "behindRefractionAndSofteningSurviveCharacterConversion": false,
+  "movingCubeSurvivesCharacterConversion": true,
+  "allSelectedActualScreensEqualIndependentMatching": true,
+  "controls": [
+    {
+      "frame": 41,
+      "side": "front",
+      "ballRoiPixels": 2780,
+      "sourceChangedPixelsInBallRoi": 716,
+      "characterChangedPixelsInBallRoi": 720,
+      "changedPixelsSharedWithSourceBall": 640,
+      "characterWhitePixelsInBallRoi": 1324,
+      "hiddenControlWhitePixelsInBallRoi": 916,
+      "netWhitePixelIncreaseInBallRoi": 408,
+      "changedCharacterCount": 40,
+      "changedCharacterPositions": [
+        259,
+        296,
+        297,
+        298,
+        299,
+        300,
+        301,
+        336,
+        337,
+        338,
+        339,
+        340,
+        341,
+        342,
+        376,
+        377,
+        378,
+        379,
+        380,
+        382,
+        383,
+        384,
+        417,
+        418,
+        419,
+        420,
+        421,
+        422,
+        424,
+        456,
+        457,
+        458,
+        459,
+        461,
+        462,
+        463,
+        497,
+        498,
+        499,
+        500
+      ],
+      "fullCharacterMatchEqualsActualMovie": true,
+      "independentMaskEqualsActualGpuSilhouette": true,
+      "refractedContributionDifferenceFromNoRefractionPixels": 148,
+      "softenedContributionDifferenceFromSharpPixels": 8,
+      "directRefractionDifferencePixels": 148,
+      "directSofteningDifferencePixels": 8,
+      "outline": {
+        "ringPhysicalPixels": 256,
+        "actualRingWhitePixels": 0,
+        "noOutlineRingWhitePixels": 96,
+        "ringWhitesRemoved": 96
+      },
+      "sourceRgbaSha256": "6451846975b144c83acb23f85532c4c4a70ea148ec2e4a15e34ba4b542c917f2",
+      "hiddenRgbaSha256": "d0608a03510faa71c8a98ef2a364a6cded8f884fad24da559656213f91851992",
+      "actualScreenSha256": "846e2263dbd31f9c812719f1801636be376a67c8a252f7f2ed948c6ccc37e4af",
+      "hiddenScreenSha256": "4f633b9519867d71336ec0276b716713bc27c8cc432f32d8bfc0112ae9a4562c"
+    },
+    {
+      "frame": 121,
+      "side": "behind",
+      "ballRoiPixels": 1860,
+      "sourceChangedPixelsInBallRoi": 712,
+      "characterChangedPixelsInBallRoi": 756,
+      "changedPixelsSharedWithSourceBall": 660,
+      "characterWhitePixelsInBallRoi": 1172,
+      "hiddenControlWhitePixelsInBallRoi": 416,
+      "netWhitePixelIncreaseInBallRoi": 756,
+      "changedCharacterCount": 31,
+      "changedCharacterPositions": [
+        538,
+        539,
+        540,
+        541,
+        542,
+        577,
+        578,
+        579,
+        580,
+        581,
+        582,
+        583,
+        616,
+        617,
+        618,
+        619,
+        620,
+        621,
+        622,
+        657,
+        658,
+        659,
+        660,
+        661,
+        662,
+        697,
+        698,
+        699,
+        700,
+        701,
+        739
+      ],
+      "fullCharacterMatchEqualsActualMovie": true,
+      "independentMaskEqualsActualGpuSilhouette": true,
+      "refractedContributionDifferenceFromNoRefractionPixels": 236,
+      "softenedContributionDifferenceFromSharpPixels": 0,
+      "directRefractionDifferencePixels": 236,
+      "directSofteningDifferencePixels": 0,
+      "outline": {
+        "ringPhysicalPixels": 0,
+        "actualRingWhitePixels": 0,
+        "noOutlineRingWhitePixels": 0,
+        "ringWhitesRemoved": 0
+      },
+      "sourceRgbaSha256": "5d23f8d93b284f7310aec207ae81dc6e134c8a1cf1aa5d98bf6001adb87c805a",
+      "hiddenRgbaSha256": "7c02e7cff0f82f2179c35ce7e4eddf3ebe8eda8b27c610590af734a6a8a5a7c0",
+      "actualScreenSha256": "a9a2f5a0014cdcaf5fd8ca83b9374178ea26f468ab1f878bb60ad560c6ea6818",
+      "hiddenScreenSha256": "bbf58d063c389f61056e1d7f65583680b8391f7666ac9d5e9210621b16fed892"
+    }
+  ],
+  "outline": {
+    "everyFrameRingWhitePixels": 0,
+    "unchangedBehindCharacterFrames": 80,
+    "actualOpaqueRingMasksUsed": true,
+    "behindComparison": "80 identical same-shape GPU no-outline targets and masks, deterministic immutable-font matching"
+  },
+  "previews": [
+    "bitmap-vs-characters-front-back.png",
+    "characters-transparency-control.png",
+    "characters-optics-controls.png",
+    "characters-outline-control.png"
+  ]
+}

@@ -1,0 +1,129 @@
+{
+  "pass": true,
+  "stage": "Three.js grayscale to dithered bitmap only",
+  "characterConversionRun": false,
+  "width": 160,
+  "height": 100,
+  "physicalPreviewPixels": [
+    320,
+    200
+  ],
+  "fps": 25,
+  "frameCount": 161,
+  "startupBlankFrames": 1,
+  "loopSeconds": 6.4,
+  "sourceSha256": "a7a37cf978aa2bb59a16ebf5817c619c4a0a8750cf5677ff887a2a103846f4d6",
+  "bitmapSha256": "7d740f3c99f40fa44fd6b6e84c2feb28d1a74886337c97fbe7023cd533a00f10",
+  "rgbaSha256": "36982212a0b231b2013ca293233efdcb79d7d947fac8148b43de846ef7173839",
+  "objectMaskSha256": "7cf992c606e45cd9a0ceb2deb4878d730654d02ba728a43501318c23ef4523ff",
+  "sourceFile": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+  "input": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/build/three-scene-glass/render",
+  "loop": {
+    "startFrame": 1,
+    "frameCount": 160,
+    "endpointFrame": 161,
+    "unwrappedEndpointFrame": 321,
+    "endpointMatchesStart": true,
+    "unwrappedPeriodMatchesStart": true,
+    "rgbaSha256": "f08b502b986e81e48495b6467b5b41ed9e711bbfd98f833f09f9f6a0e06840eb",
+    "bitmapSha256": "257618dac9bac216283507081106c5cd52c7a69121293b7558a8c4ca3ab29687"
+  },
+  "controls": [
+    {
+      "frame": 41,
+      "time": 1.64,
+      "side": "front",
+      "actualBallPosition": [
+        2.7554552980815448e-15,
+        13,
+        45
+      ],
+      "overlappingPixels": 112,
+      "grayChangedInsideCube": 112,
+      "binaryChangedInsideCube": 37,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 84.99107142857143,
+      "ballDistinctGrayLevels": 79,
+      "cubeDistinctGrayLevels": 130,
+      "cubeBoundsLogical": [
+        53,
+        27,
+        107,
+        73
+      ],
+      "ballBoundsLogical": [
+        74,
+        31,
+        86,
+        43
+      ],
+      "cubePhysicalSize": [
+        108,
+        92
+      ],
+      "ballPhysicalSize": [
+        24,
+        24
+      ],
+      "fullSha256": "d3e69aa8ef3b1dd45ffcba66811d87ded15f5e38fbc0e9a95915e578cc09b8bd",
+      "hiddenSha256": "cf605d2d640764f0232815ec9ad4b23f5fabab332650f14bc1abac9f77753f68",
+      "ballOnlySha256": "ebb8e5b34d7504bb14035ceab4a5b37244d5b0a8200e06c173115a2c0776dee7"
+    },
+    {
+      "frame": 121,
+      "time": 4.84,
+      "side": "behind",
+      "actualBallPosition": [
+        -8.266365894244634e-15,
+        -13,
+        -45
+      ],
+      "overlappingPixels": 112,
+      "grayChangedInsideCube": 112,
+      "binaryChangedInsideCube": 25,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 58.267857142857146,
+      "ballDistinctGrayLevels": 79,
+      "cubeDistinctGrayLevels": 130,
+      "cubeBoundsLogical": [
+        53,
+        27,
+        107,
+        73
+      ],
+      "ballBoundsLogical": [
+        74,
+        57,
+        86,
+        69
+      ],
+      "cubePhysicalSize": [
+        108,
+        92
+      ],
+      "ballPhysicalSize": [
+        24,
+        24
+      ],
+      "fullSha256": "507412d4e9074ac8159a8ed77a177419698eaebd0c91969f17ac87c962bebce9",
+      "hiddenSha256": "cf605d2d640764f0232815ec9ad4b23f5fabab332650f14bc1abac9f77753f68",
+      "ballOnlySha256": "de2d3384c78b1d9f7c5d75a4a1de89587dbc2f0f7199de602496e8f468f5aa10"
+    }
+  ],
+  "quantization": {
+    "screenAnchored": true,
+    "matrix": "4x4 Bayer",
+    "pixelsCompared": 2576000,
+    "wrongBits": 0,
+    "nonGrayscale": 0,
+    "nonOpaque": 0,
+    "whiteOutsideMask": 0,
+    "distinctSourceGrayLevels": 226
+  },
+  "previews": {
+    "frontBack": "bitmap-front-back.png",
+    "controls": "transparency-control.png",
+    "loop": "bitmap-loop.gif",
+    "decodedGifFramesAnd40msTimingVerified": true
+  }
+}

@@ -1,0 +1,270 @@
+{
+  "pass": true,
+  "stage": "Three.js grayscale to dithered bitmap only",
+  "characterConversionRun": false,
+  "width": 160,
+  "height": 100,
+  "physicalPreviewPixels": [
+    320,
+    200
+  ],
+  "fps": 25,
+  "frameCount": 161,
+  "startupBlankFrames": 1,
+  "loopSeconds": 6.4,
+  "sourceSha256": "540c7417ffa26f8258f169019b63a2939236899fb7a8c1f1a7be318f369b4aa9",
+  "bitmapSha256": "57d193f8e9654ca50c18a77b155566c42ee2649a41e32429ee20a939647fb4da",
+  "rgbaSha256": "4acfeed9949e98cd49953bed7ee5606eade1f301b7954e1142bac70c56629893",
+  "objectMaskSha256": "30cb6088affa557af4a1eac51958f9f0a2a4fdeb07db5657c3700d89e3a3d4cf",
+  "sourceFile": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+  "input": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/build/three-scene-glass-refraction/render",
+  "loop": {
+    "startFrame": 1,
+    "frameCount": 160,
+    "endpointFrame": 161,
+    "unwrappedEndpointFrame": 321,
+    "endpointMatchesStart": true,
+    "unwrappedPeriodMatchesStart": true,
+    "rgbaSha256": "30176dbb8987994cc0abad927d6c25fabdc9f4545ba25cd276899dfa896bdb65",
+    "bitmapSha256": "126257cb3147a06b4227bb920181341115b1356a86ae7439d4bc0c5848356566"
+  },
+  "cubeMotion": {
+    "matrixDifference": 0.5867410906789271,
+    "changedBitmapPixels": 470,
+    "matrices": [
+      [
+        0.5857790661879713,
+        0.06593894564779594,
+        -0.8077839693029354,
+        0,
+        -0.3070458818552517,
+        0.9404458595912478,
+        -0.14589178048611878,
+        0,
+        0.7500571391911948,
+        0.33348709214081446,
+        0.5711397791467381,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0.9730324255935507,
+        0.0659389456477959,
+        -0.22104287862400826,
+        0,
+        -0.13464004926872303,
+        0.9404458595912478,
+        -0.3121436244913467,
+        0,
+        0.18729643850443836,
+        0.3334870921408144,
+        0.9239623387882306,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "controls": [
+    {
+      "frame": 41,
+      "time": 1.64,
+      "side": "front",
+      "actualBallPosition": [
+        2.7554552980815448e-15,
+        13,
+        45
+      ],
+      "overlappingPixels": 340,
+      "grayChangedInsideCube": 340,
+      "binaryChangedInsideCube": 165,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 123.93235294117648,
+      "ballDistinctGrayLevels": 175,
+      "cubeDistinctGrayLevels": 6,
+      "cubeBoundsLogical": [
+        52,
+        27,
+        108,
+        73
+      ],
+      "ballBoundsLogical": [
+        69,
+        26,
+        91,
+        48
+      ],
+      "cubePhysicalSize": [
+        112,
+        92
+      ],
+      "ballPhysicalSize": [
+        44,
+        44
+      ],
+      "fullSha256": "c958165dd64e76ce41d3ed4d2f25428be0d9701c14692ca4b5d7923892ccd787",
+      "hiddenSha256": "e3933bf5bf914b0a5cc4952ce6b9797a66ec54adae240e6abccde3123a95dd09",
+      "ballOnlySha256": "30cac224e6e671a6a6032377550a62b9988273539521801926d566ae07180ba5",
+      "noRefractionSha256": "d2d8b05a69841e4d1233819571576a8488f25639837b4735dde9fbc49031d288",
+      "noRefractionHiddenSha256": "e3933bf5bf914b0a5cc4952ce6b9797a66ec54adae240e6abccde3123a95dd09",
+      "sharpSha256": "6f263d4d25ed8da27e2360f43c792638b31bddcafdde948e1075eee0c27922c1",
+      "sharpHiddenSha256": "5130be38007c7b0aca2120e0f17d54d780d313abad0905cef6bcd697a94735d2",
+      "fullMaskSha256": "3af9d965592773b3416baeece583a3c2faa02c01047d3fe313586dffb6dc275e",
+      "hiddenMaskSha256": "a34496d019caaea1e2608e0ba397762b5e0de438362b6c788a9cbb1d0e92082d",
+      "affectedMaskSha256": "d4d73eaf5b8bd2c1ce67cf443fee502f03df873a249aba2cb6834fa7bbaa848c",
+      "optics": {
+        "centroidShiftLogical": 0.7888471733796775,
+        "effectPixelsOutsideOriginalBall": 349,
+        "actualSignal": {
+          "mass": 69721,
+          "centroid": [
+            78.64749501584889,
+            35.63424219388706
+          ],
+          "supportPixels": 706,
+          "normalizedGradient": 0.7246597151503851
+        },
+        "noRefractionSignal": {
+          "mass": 53127,
+          "centroid": [
+            77.94722081051066,
+            35.27106744216688
+          ],
+          "supportPixels": 560,
+          "normalizedGradient": 0.7467013006569164
+        },
+        "sharpSignal": {
+          "mass": 67183,
+          "centroid": [
+            78.81845109625947,
+            35.3150201687927
+          ],
+          "supportPixels": 606,
+          "normalizedGradient": 0.7424794963011476
+        },
+        "refractionDifference": {
+          "grayPixels": 339,
+          "binaryPixels": 68,
+          "absoluteGrayDifference": 16964
+        },
+        "softeningDifference": {
+          "grayPixels": 295,
+          "binaryPixels": 14,
+          "absoluteGrayDifference": 4245
+        },
+        "softenedGradientRatio": 0.9759996319904639
+      }
+    },
+    {
+      "frame": 121,
+      "time": 4.84,
+      "side": "behind",
+      "actualBallPosition": [
+        -8.266365894244634e-15,
+        -13,
+        -45
+      ],
+      "overlappingPixels": 360,
+      "grayChangedInsideCube": 352,
+      "binaryChangedInsideCube": 133,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 101.17777777777778,
+      "ballDistinctGrayLevels": 175,
+      "cubeDistinctGrayLevels": 6,
+      "cubeBoundsLogical": [
+        58,
+        27,
+        102,
+        73
+      ],
+      "ballBoundsLogical": [
+        69,
+        52,
+        91,
+        74
+      ],
+      "cubePhysicalSize": [
+        88,
+        92
+      ],
+      "ballPhysicalSize": [
+        44,
+        44
+      ],
+      "fullSha256": "701f8c91aac9a8912b297a3f8810edd4dff8778177d7fcd2e19a28bac0ea24eb",
+      "hiddenSha256": "038ff9f53a40ab2cef969e0a1effcc59515516df9b3d47ff84d53ae55c119f70",
+      "ballOnlySha256": "f596764e3de196358674015d9e7801406511ff6668d1161d4a7957eb4f917c2b",
+      "noRefractionSha256": "ced2646ad1880e9c7988ad025e5010bbafeb99f6c5a32eb726c8fcde68cd0387",
+      "noRefractionHiddenSha256": "038ff9f53a40ab2cef969e0a1effcc59515516df9b3d47ff84d53ae55c119f70",
+      "sharpSha256": "64a973c9be7b59f4ed0cc05121c6119748a2f6ea84cf96fe7bc7707421321139",
+      "sharpHiddenSha256": "b107e8c639a8f2d0fe4910757f7a6b10d0a9b2dc1fbdcf9777571ead5cd77a55",
+      "fullMaskSha256": "db95d6c360c3fffc0b68d6434e529f4a2954fe52f2026684f67d93dc08a13412",
+      "hiddenMaskSha256": "e18dad3c20df9190cdc76d1b6e575d815a9f5ed9d508ed75f0e8d05f36b19f68",
+      "affectedMaskSha256": "e7a31ebb5dbeeebd4eeb1f91f2dfe5ccb3a2ffaa949d1ef173fb3163595aa1b9",
+      "optics": {
+        "centroidShiftLogical": 1.2765355538418997,
+        "effectPixelsOutsideOriginalBall": 395,
+        "actualSignal": {
+          "mass": 61356,
+          "centroid": [
+            76.85602060108221,
+            58.087473107764524
+          ],
+          "supportPixels": 748,
+          "normalizedGradient": 0.4072299367625008
+        },
+        "noRefractionSignal": {
+          "mass": 45156,
+          "centroid": [
+            77.99838338205332,
+            58.65716626804854
+          ],
+          "supportPixels": 629,
+          "normalizedGradient": 0.4152272123305873
+        },
+        "sharpSignal": {
+          "mass": 56011,
+          "centroid": [
+            76.94067236792773,
+            58.53701951402403
+          ],
+          "supportPixels": 583,
+          "normalizedGradient": 0.44198461016586027
+        },
+        "refractionDifference": {
+          "grayPixels": 738,
+          "binaryPixels": 138,
+          "absoluteGrayDifference": 34028
+        },
+        "softeningDifference": {
+          "grayPixels": 697,
+          "binaryPixels": 38,
+          "absoluteGrayDifference": 9513
+        },
+        "softenedGradientRatio": 0.9213667792860087
+      }
+    }
+  ],
+  "quantization": {
+    "screenAnchored": true,
+    "matrix": "4x4 Bayer",
+    "pixelsCompared": 2576000,
+    "wrongBits": 0,
+    "nonGrayscale": 0,
+    "nonOpaque": 0,
+    "whiteOutsideMask": 0,
+    "distinctSourceGrayLevels": 256
+  },
+  "previews": {
+    "frontBack": "bitmap-front-back.png",
+    "controls": "transparency-control.png",
+    "loop": "bitmap-loop.gif",
+    "optics": "optics-controls.png",
+    "decodedGifFramesAnd40msTimingVerified": true
+  }
+}

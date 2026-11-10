@@ -39,6 +39,13 @@ export async function main(argv = process.argv.slice(2)) {
   const sceneModule = await import(pathToFileURL(source).href);
   const {config, createScene} = sceneModule;
   assert(config && typeof createScene === 'function', 'Scene module must export config and createScene(THREE).');
+  const dependencyFiles = config.sourceDependencies ?? [];
+  assert(Array.isArray(dependencyFiles), 'Scene sourceDependencies must be an array of file paths.');
+  const sourceDependencies = dependencyFiles.map(file => {
+    assert(typeof file === 'string' && file.length > 0, 'Scene dependency paths must be nonempty strings.');
+    const dependency = path.resolve(path.dirname(source), file);
+    return {source: dependency, sha256: sha(fs.readFileSync(dependency))};
+  });
   const {width, height, fps, durationSeconds} = config;
   assert(Number.isInteger(width) && width > 0 && width % 8 === 0);
   assert(Number.isInteger(height) && height > 0);
@@ -133,6 +140,7 @@ export async function main(argv = process.argv.slice(2)) {
         nativeWebGPU: 'webgpu 0.6.2 (Dawn)', backend: 'metal',
         canvasContextRequests, browserUsed: false, targetColorSpace: 'srgb', antialias: false},
       source: path.relative(here, source), sceneSource: source, sourceSha256: sha(fs.readFileSync(source)),
+      ...(sourceDependencies.length ? {sourceDependencies} : {}),
       hashes: {frames: sha(movie), rgba: raw ? sha(raw) : null, objectMask: mask ? sha(mask) : null},
       rgbaFile: raw ? 'color.rgba' : null,
       objectMaskFile: mask ? 'object-mask.frames' : null,

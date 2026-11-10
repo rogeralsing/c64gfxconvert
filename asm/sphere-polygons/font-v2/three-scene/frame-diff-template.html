@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Två C64-bilder · Teckendiff</title>
+<style>
+:root{color-scheme:dark;--bg:#11140f;--panel:#1a1e17;--line:#383f30;--text:#e9eddf;--muted:#a4ad97;--accent:#d8f58c;--amber:#ffc76b;--red:#fa8596;--cyan:#75dfdf}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif}button,input,select{font:inherit}button,select{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:6px;padding:8px 12px}button{cursor:pointer}button:hover{border-color:var(--muted)}button:focus-visible,input:focus-visible,select:focus-visible,canvas:focus-visible{outline:2px solid var(--accent);outline-offset:3px}button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#17210b}button:disabled{opacity:.4;cursor:default}h1,h2,p{margin:0}h1{font-size:clamp(25px,3vw,36px);font-weight:650;line-height:1.2}h2{font-size:17px;font-weight:650}main{max-width:1570px;margin:auto;padding:28px}header{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;margin-bottom:22px}.subtitle{color:var(--muted);margin-top:8px}.summary{font:500 15px ui-monospace,monospace;color:var(--accent);white-space:nowrap}.toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;border-block:1px solid var(--line);padding:14px 0;margin-bottom:20px}.views,.options{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.options{gap:18px}.options label{display:flex;gap:7px;align-items:center;color:var(--muted);font-size:13px}input[type="checkbox"]{accent-color:var(--accent);width:16px;height:16px}.layout{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px}.screen-panel{min-width:0}.caption{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:12px}.caption span{font:12px ui-monospace,monospace;color:var(--muted)}.viewport{overflow:auto;background:#080a07;border:1px solid var(--line);border-radius:6px;padding:16px;max-height:75vh}.picture{display:block;image-rendering:pixelated;cursor:crosshair}.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:12px;margin-top:12px}.legend span{display:flex;align-items:center;gap:6px}.swatch{width:10px;height:10px;display:inline-block;border-radius:2px}.note{font-size:13px;color:var(--muted);margin-top:12px}.inspector{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:18px;align-self:start}.inspector .muted{font-size:12px;color:var(--muted);margin-top:4px}.glyphs{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:20px}.glyph-label{font-size:12px;color:var(--muted);margin-bottom:6px}.glyphs canvas{display:block;width:100%;aspect-ratio:1;background:#000;image-rendering:pixelated;border:1px solid var(--line)}.code{font:600 21px ui-monospace,monospace;margin-top:7px}.code small{font-size:12px;color:var(--muted);font-weight:400}.cell-report{font-size:14px;line-height:1.6;margin-top:16px;min-height:66px}.nav{display:flex;gap:8px;margin-top:16px}.nav button{flex:1;font-size:13px}.copy{width:100%;margin-top:9px;font-size:13px}.stat-list{display:grid;grid-template-columns:1fr auto;gap:7px 16px;font-size:13px;border-top:1px solid var(--line);padding-top:16px;margin-top:18px}.stat-list span:nth-child(odd){color:var(--muted)}.stat-list strong{font-family:ui-monospace,monospace;font-weight:500}details{margin-top:22px;border-top:1px solid var(--line);padding-top:14px}summary{cursor:pointer;color:var(--muted);font-size:13px}.matrix-scroll{overflow:auto;margin-top:12px;max-height:500px}.matrix{border-collapse:collapse;font:11px ui-monospace,monospace}.matrix td{border:1px solid var(--line);padding:5px;min-width:47px;text-align:center;cursor:pointer}.matrix td.changed{color:var(--amber);background:#3b2c17}.matrix td.selected{outline:2px solid var(--accent);outline-offset:-2px}.matrix th{color:var(--muted);font-weight:400;padding:5px;position:sticky;left:0;background:var(--bg)}footer{color:var(--muted);font-size:12px;margin-top:22px}footer code{font:12px ui-monospace,monospace;color:var(--text)}@media(max-width:1000px){main{padding:18px}.layout{grid-template-columns:minmax(0,1fr)}.inspector{display:grid;grid-template-columns:1fr 1fr;gap:0 28px}.inspector>h2,.inspector>.muted{grid-column:1/-1}.glyphs{grid-row:3/7;max-width:320px}.stat-list{grid-column:1/-1}.cell-report{margin-top:20px}.nav{align-self:end}header{align-items:flex-start;flex-direction:column;gap:12px}.viewport{max-height:none}}@media(max-width:540px){.inspector{display:block}.glyphs{max-width:none}.summary{font-size:13px}.options{gap:12px}.views button{font-size:13px;padding:7px 9px}}
+</style>
+</head>
+<body>
+<main>
+<header><div><h1>Två bilder. Varje tecken.</h1><p class="subtitle" id="subtitle"></p></div><p class="summary" id="summary"></p></header>
+<section class="toolbar" aria-label="Visningsalternativ">
+ <div class="views" role="group" aria-label="Bildläge">
+  <button type="button" data-mode="first" aria-pressed="false">Frame 1</button>
+  <button type="button" data-mode="second" aria-pressed="false">Frame 2</button>
+  <button type="button" data-mode="cells" aria-pressed="true">Sammanlagt · celler</button>
+  <button type="button" data-mode="pixels" aria-pressed="false">Pixeldiff</button>
+ </div>
+ <div class="options">
+  <label><input id="grid" type="checkbox" checked>Rutnät</label>
+  <label><input id="codes" type="checkbox">Teckenkoder</label>
+  <label><input id="only" type="checkbox">Bara ändrade</label>
+  <label>Zoom <select id="zoom"><option value="auto">Anpassa</option><option value="2">2×</option><option value="3">3×</option><option value="4">4×</option><option value="6">6×</option><option value="8">8×</option></select></label>
+ </div>
+</section>
+<div class="layout">
+ <section class="screen-panel" aria-label="Teckenskärm">
+  <div class="caption"><h2 id="view-title">Ändrade teckenceller</h2><span>40 × 25 celler · 8 × 8 pixlar</span></div>
+  <div class="viewport" id="viewport"><canvas id="screen" class="picture" tabindex="0" role="img" aria-label="C64-bild med 1000 teckenceller. Klicka en cell för att inspektera den." aria-describedby="instructions"></canvas></div>
+  <div class="legend" id="legend"></div>
+  <p class="note" id="instructions">Klicka på en cell. Piltangenter flyttar markeringen; 1, 2, 3 och 4 byter bildläge.</p>
+  <details id="matrix-details"><summary>Alla 1 000 teckenkoder som tabell</summary><p class="note">Nollbaserade koordinater. I jämförelseläget visas gammalt → nytt för ändrade celler.</p><div class="matrix-scroll"><table class="matrix" id="matrix" aria-label="Alla teckenkoder"></table></div></details>
+ </section>
+ <aside class="inspector" aria-label="Vald teckencell">
+  <h2 id="cell-title">Vald cell</h2><p class="muted" id="cell-address"></p>
+  <div class="glyphs">
+   <div><div class="glyph-label" id="before-label">Frame 1</div><canvas id="glyph-first" width="96" height="96" aria-label="Tecken i första bilden"></canvas><div class="code" id="code-first"></div></div>
+   <div><div class="glyph-label" id="after-label">Frame 2</div><canvas id="glyph-second" width="96" height="96" aria-label="Tecken i andra bilden"></canvas><div class="code" id="code-second"></div></div>
+  </div>
+  <p class="cell-report" id="cell-report"></p>
+  <div class="nav"><button id="previous" type="button">← Förra ändring</button><button id="next" type="button">Nästa ändring →</button></div>
+  <button type="button" class="copy" id="copy">Kopiera cellrapport</button>
+  <div class="stat-list" id="statistics"></div>
+ </aside>
+</div>
+<footer>Riktiga skärmbytes och font från den dithrade C64-stjärnan. Alla 1 000 celler ritas med sina faktiska 8 × 8-glyfer. Ingen ny teckenmatchning görs här.</footer>
+</main>
+<script id="frame-data" type="application/json">__FRAME_DIFF_DATA__</script>
+<script>
+'use strict';
+const data = JSON.parse(document.getElementById('frame-data').textContent);
+const $ = id => document.getElementById(id);
+const changed = new Set(data.changed.map(cell => cell.position));
+const state = {mode:'cells', grid:true, codes:false, only:false, zoom:'auto', selected:data.changed[0]?.position ?? 0};
+const palette = {white:'#f7f8ed', red:'#fa8596', cyan:'#75dfdf', amber:'#ffc76b', selected:'#d8f58c'};
+const frameImages = data.frames.map(frame => {
+ const canvas = document.createElement('canvas');canvas.width=320;canvas.height=200;
+ const context=canvas.getContext('2d'), image=context.createImageData(320,200);
+ for(let position=0;position<1000;position++)for(let y=0;y<8;y++)for(let x=0;x<8;x++){
+  const index=((Math.floor(position/40)*8+y)*320+(position%40)*8+x)*4;
+  const value=data.font[frame[position]*8+y]&(128>>x)?255:0;
+  image.data.set([value,value,value,255],index);
+ }
+ context.putImageData(image,0,0);return canvas;
+});
+function bit(code,x,y){return (data.font[code*8+y]>>(7-x))&1;}
+function pixelDifference(position){const a=data.frames[0][position],b=data.frames[1][position];let count=0;for(let y=0;y<8;y++)for(let x=0;x<8;x++)count+=bit(a,x,y)!==bit(b,x,y);return count;}
+function drawGlyph(canvas,code){const c=canvas.getContext('2d'),scale=canvas.width/8;c.fillStyle='#000';c.fillRect(0,0,canvas.width,canvas.height);c.fillStyle='#fff';for(let y=0;y<8;y++)for(let x=0;x<8;x++)if(bit(code,x,y))c.fillRect(x*scale,y*scale,scale,scale);c.strokeStyle='#34392f';c.lineWidth=1;for(let i=1;i<8;i++){c.beginPath();c.moveTo(i*scale+.5,0);c.lineTo(i*scale+.5,canvas.height);c.stroke();c.beginPath();c.moveTo(0,i*scale+.5);c.lineTo(canvas.width,i*scale+.5);c.stroke();}}
+function renderScreen(){
+ const canvas=$('screen'),available=$('viewport').clientWidth-34;
+ const scale=state.zoom==='auto'?Math.max(1,Math.floor(available/320)):Number(state.zoom),cell=8*scale;
+ canvas.width=320*scale;canvas.height=200*scale;canvas.style.width=canvas.width+'px';canvas.style.height=canvas.height+'px';
+ const c=canvas.getContext('2d');c.imageSmoothingEnabled=false;c.fillStyle='#000';c.fillRect(0,0,canvas.width,canvas.height);
+ const frameIndex=state.mode==='first'?0:1;c.drawImage(frameImages[frameIndex],0,0,canvas.width,canvas.height);
+ for(let position=0;position<1000;position++){
+  const x=position%40*cell,y=Math.floor(position/40)*cell,isChanged=changed.has(position);
+  if(state.only&&!isChanged){c.fillStyle='#000';c.fillRect(x,y,cell,cell);continue;}
+  if(state.mode==='pixels'&&isChanged){
+   c.fillStyle='#000';c.fillRect(x,y,cell,cell);
+   const a=data.frames[0][position],b=data.frames[1][position];
+   for(let py=0;py<8;py++)for(let px=0;px<8;px++){
+    const before=bit(a,px,py),after=bit(b,px,py);if(!before&&!after)continue;
+    c.fillStyle=before&&after?'#fff':before?palette.red:palette.cyan;c.fillRect(x+px*scale,y+py*scale,scale,scale);
+   }
+  }
+  if(state.mode==='cells'&&isChanged){c.fillStyle='rgba(255,199,107,.14)';c.fillRect(x,y,cell,cell);c.strokeStyle=palette.amber;c.lineWidth=1;c.strokeRect(x+.5,y+.5,cell-1,cell-1);}
+  if(state.codes){
+   const code=data.frames[frameIndex][position],fontSize=Math.max(8,Math.min(12,Math.floor(cell*.3)));c.font=fontSize+'px ui-monospace,monospace';c.textBaseline='bottom';
+   const label=String(code),width=c.measureText(label).width;c.fillStyle='rgba(0,0,0,.82)';c.fillRect(x+cell-width-3,y+cell-fontSize-2,width+3,fontSize+2);
+   c.fillStyle=isChanged&&['cells','pixels'].includes(state.mode)?palette.amber:code===0?'#68715c':'#d8f58c';c.fillText(label,x+cell-width-1,y+cell-1);
+  }
+ }
+ if(state.grid){c.strokeStyle='rgba(155,170,132,.19)';c.lineWidth=1;for(let x=0;x<=40;x++){c.beginPath();c.moveTo(Math.min(canvas.width-.5,x*cell+.5),0);c.lineTo(Math.min(canvas.width-.5,x*cell+.5),canvas.height);c.stroke();}for(let y=0;y<=25;y++){c.beginPath();c.moveTo(0,Math.min(canvas.height-.5,y*cell+.5));c.lineTo(canvas.width,Math.min(canvas.height-.5,y*cell+.5));c.stroke();}}
+ const sx=state.selected%40*cell,sy=Math.floor(state.selected/40)*cell;c.strokeStyle=palette.selected;c.lineWidth=2;c.strokeRect(sx+1,sy+1,cell-2,cell-2);
+ canvas.dataset.cellSize=String(cell);canvas.dataset.mode=state.mode;canvas.dataset.renderedCells='1000';
+}
+function report(){const p=state.selected,a=data.frames[0][p],b=data.frames[1][p];return `Dithrad C64-stjärna, frame ${data.frameIndices[0]} → ${data.frameIndices[1]}. Cell (${p%40}, ${Math.floor(p/40)}), position ${p}: tecken ${a} → ${b}. ${pixelDifference(p)} av 64 pixlar ändras.`;}
+function renderInspector(){
+ const p=state.selected,a=data.frames[0][p],b=data.frames[1][p];$('cell-title').textContent=`Cell (${p%40}, ${Math.floor(p/40)})`;
+ $('cell-address').textContent=`Position ${p} · skärmadress $${(1024+p).toString(16).toUpperCase().padStart(4,'0')}`;
+ drawGlyph($('glyph-first'),a);drawGlyph($('glyph-second'),b);
+ $('code-first').textContent='#'+a;$('code-second').textContent='#'+b;
+ $('cell-report').textContent=(a===b?'Samma tecken i båda bilderna.':`Tecken ${a} byts mot ${b}.`)+` ${pixelDifference(p)} av 64 pixlar skiljer sig.`;
+ $('copy').textContent='Kopiera cellrapport';
+}
+function renderMatrix(){
+ if(!$('matrix-details').open)return;
+ const table=$('matrix');table.replaceChildren();const head=document.createElement('tr');head.appendChild(document.createElement('th'));
+ for(let x=0;x<40;x++){const th=document.createElement('th');th.textContent=x;head.appendChild(th);}table.appendChild(head);
+ for(let y=0;y<25;y++){const tr=document.createElement('tr'),label=document.createElement('th');label.textContent=y;tr.appendChild(label);
+  for(let x=0;x<40;x++){const p=y*40+x,td=document.createElement('td'),a=data.frames[0][p],b=data.frames[1][p];td.dataset.position=p;
+   td.textContent=state.mode==='first'?a:state.mode==='second'?b:a===b?a:`${a}→${b}`;td.classList.toggle('changed',a!==b);td.classList.toggle('selected',p===state.selected);td.title=`Cell (${x}, ${y}), position ${p}`;tr.appendChild(td);}
+  table.appendChild(tr);
+ }
+}
+function updateAll(){
+ document.querySelectorAll('[data-mode]').forEach(button=>{if(button.tagName==='BUTTON')button.setAttribute('aria-pressed',String(button.dataset.mode===state.mode));});
+ const names={first:`Frame ${data.frameIndices[0]}`,second:`Frame ${data.frameIndices[1]}`,cells:`Ändrade teckenceller · frame ${data.frameIndices[1]} som grund`,pixels:'Sammanslagen pixeldiff'};$('view-title').textContent=names[state.mode];
+ const items=state.mode==='pixels'?[[palette.red,`Bara frame ${data.frameIndices[0]}`],[palette.cyan,`Bara frame ${data.frameIndices[1]}`],['#fff','Gemensamma vita pixlar']]:state.mode==='cells'?[[palette.amber,'Ändrad teckencell'],['#fff',`Frame ${data.frameIndices[1]}`]]:[['#fff','Faktiska fontglyfer']];
+ $('legend').replaceChildren(...items.map(([color,label])=>{const span=document.createElement('span'),swatch=document.createElement('i');swatch.className='swatch';swatch.style.background=color;span.append(swatch,document.createTextNode(label));return span;}));
+ renderScreen();renderInspector();renderMatrix();
+}
+function select(position){state.selected=Math.max(0,Math.min(999,position));updateAll();}
+function nextChange(direction){const positions=data.changed.map(cell=>cell.position);if(!positions.length)return;const p=direction>0?positions.find(value=>value>state.selected):positions.findLast(value=>value<state.selected);select(p??positions[direction>0?0:positions.length-1]);}
+document.querySelectorAll('button[data-mode]').forEach(button=>button.addEventListener('click',()=>{state.mode=button.dataset.mode;updateAll();}));
+for(const id of ['grid','codes','only'])$(id).addEventListener('change',event=>{state[id]=event.target.checked;updateAll();});
+$('zoom').addEventListener('change',event=>{state.zoom=event.target.value;updateAll();});
+$('screen').addEventListener('click',event=>{const bounds=event.target.getBoundingClientRect(),x=Math.floor((event.clientX-bounds.left)/bounds.width*40),y=Math.floor((event.clientY-bounds.top)/bounds.height*25);select(y*40+x);});
+$('screen').addEventListener('keydown',event=>{const moves={ArrowLeft:-1,ArrowRight:1,ArrowUp:-40,ArrowDown:40};if(event.key in moves){event.preventDefault();select(state.selected+moves[event.key]);}});
+document.addEventListener('keydown',event=>{if(['INPUT','SELECT','TEXTAREA'].includes(event.target.tagName))return;const modes=['first','second','cells','pixels'];if(/^[1-4]$/.test(event.key)){state.mode=modes[Number(event.key)-1];updateAll();}});
+$('previous').addEventListener('click',()=>nextChange(-1));$('next').addEventListener('click',()=>nextChange(1));
+$('matrix').addEventListener('click',event=>{const cell=event.target.closest('[data-position]');if(cell)select(Number(cell.dataset.position));});
+$('matrix-details').addEventListener('toggle',renderMatrix);
+$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report());$('copy').textContent='Kopierad';}catch{$('copy').textContent='Markera rapporten för att kopiera';$('cell-report').textContent=report();}});
+new ResizeObserver(()=>renderScreen()).observe($('viewport'));
+$('subtitle').textContent=`Dithrad stjärna · frame ${data.frameIndices[0]} och ${data.frameIndices[1]} · ${1000/data.fps} ms mellan bilderna.`+(data.frameIndices[0]===1?' Den tomma startbilden är överhoppad.':'');
+document.querySelector('button[data-mode="first"]').textContent=`Frame ${data.frameIndices[0]}`;document.querySelector('button[data-mode="second"]').textContent=`Frame ${data.frameIndices[1]}`;
+$('summary').textContent=`${data.statistics.changed} ändrade · ${data.statistics.unchanged} oförändrade`;
+$('before-label').textContent=`Frame ${data.frameIndices[0]}`;$('after-label').textContent=`Frame ${data.frameIndices[1]}`;
+const stats=[['Ändrade celler',data.statistics.changed],['Oförändrade celler',data.statistics.unchanged],['Tillkomna från tomt',data.statistics.added],['Tömda celler',data.statistics.cleared],['Bytta tecken',data.statistics.replaced],['Ändrade bildpixlar',data.statistics.changedPixels.toLocaleString('sv-SE')]];
+for(const [label,value]of stats){const span=document.createElement('span'),strong=document.createElement('strong');span.textContent=label;strong.textContent=value;$('statistics').append(span,strong);}
+updateAll();
+</script>
+</body>
+</html>

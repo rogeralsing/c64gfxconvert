@@ -8,6 +8,250 @@ Calibration currently certifies the black/white checker reference. It rejects
 gray or colored GPU output rather than guessing how to quantize new lighting
 or shading. Those materials need their own reference checks before conversion.
 
+## Glass cube and orbiting ball
+
+`demo-glass.mjs` contains a cube moving cyclically in three axes and a shaded
+44-pixel ball orbiting in front of and behind it. A closed physical glass mesh
+uses Three.js transmission, IOR 1.55, nonzero thickness and roughness. The rear
+ball is spatially refracted and softened; the foreground ball remains sharp.
+Grayscale studio reflections change with the cube's orientation. These optical
+effects are rendered offline into the film; the C64 player is unchanged.
+
+A depth-writing black inverted hull gives the foreground ball a two-pixel
+outline. Its width grows smoothly with foreground depth, and it is disabled
+behind the cube. The ball's shaded core remains unchanged. Actual GPU matte
+controls check the dark annulus independently of the glass optics.
+The builder also excludes that measured annulus from the allowed-white matching
+mask, preventing approximate glyph selection from placing white pixels in the
+black border. The raw bitmap, shared font and native decoder remain unchanged.
+The [outlined C64 program and actual preview](results/glass-outline/README.md)
+run at a verified 25.0623 fps. The outline adds 85 bytes to the movie, bringing
+the payload to 14,058 bytes; all rear-half character images remain unchanged.
+
+The scene exports one blank startup frame followed by a seamless 160-frame
+orbit at 25 fps. Each 160 x 100 logical pixel occupies 2 x 2 C64 display pixels.
+Screen-fixed Bayer dithering is applied after grayscale GPU rendering. The
+native playback script repeats the 6.4-second orbit forever, with no blank
+frame inside the loop.
+
+Build and inspect the calibrated bitmap before converting it:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy python3 asm/sphere-polygons/font-v2/three-scene/verify-glass-chars.py \
+  --input asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-outline/native \
+  --variant literal-front
+```
+
+`verify-glass.mjs` independently checks all Bayer decisions, rerenders two loop
+endpoints, and compares actual GPU ball-visible, ball-hidden and ball-only
+controls. Neutral-thickness and zero-roughness controls distinguish spatial
+refraction and softening from simple transparency. Ray intersections prove the
+rear ball's depth. `verify-glass-chars.py` independently matches the controls to
+the fixed font and checks that the optical differences survive. Actual GPU
+override masks account for the moving cube and displaced image. The existing
+native verifier checks both PAL fields and real loop transitions.
+
+The existing 256-glyph font and literal-delta decoder are unchanged. Outputs are
+in `../build/three-scene-glass-outline/`; the HTML and finite two-orbit GIF
+previews are in its `preview/` directory. The native program uses the endless
+playback script. The earlier stationary, alpha-only version remains available
+as a [separate comparison](results/glass/README.md), with its original receipts.
+The [refractive version before the foreground outline](results/glass-refraction/README.md)
+also retains its measured C64 preview and receipts.
+
+## Triangular glass prism
+
+`demo-prism.mjs` reuses the orbit, physical glass, motion and foreground outline
+from the glass scene. It replaces the closed volume and edge geometry with a
+triangular prism: two parallel triangular ends and three rectangular sides.
+The camera, 44-pixel ball, static font and native player remain unchanged.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-prism.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-prism.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy python3 asm/sphere-polygons/font-v2/three-scene/verify-glass-chars.py \
+  --input asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-prism/native \
+  --variant literal-front
+```
+
+The exporter records hashes for the scene entry and its declared imported
+source dependencies. Both the bitmap proof and character gate check those
+hashes. Prism controls use the same prism with its outline disabled, rather
+than comparing new geometry with the earlier cube movie. The optical proof
+records centroid displacement and also measures image-shape changes: opposing
+refracted lobes can partially cancel in the centroid.
+
+The C64 receives character deltas, not the mesh. Geometry detail therefore
+affects offline rendering; screen changes determine playback data and decoder
+work. The current fixed font can lose fragments of thin prism edges, as it
+does for the cube. Bitmap and character comparisons retain that visible limit.
+
+The [measured prism program and C64 preview](results/glass-prism/README.md)
+retain 25.0623 fps over 962 exact visible fields and two real loop wraps. Its
+12,992-byte movie is 1,066 bytes smaller than the outlined cube film; total
+meaningful loaded code, state and data is 16,411 bytes.
+
+## Cut-glass diamond
+
+`demo-diamond.mjs` replaces the volume with a closed eight-sector cut gem:
+flat table, sloping crown, wide girdle and pointed pavilion. Broad grayscale
+facet tones preserve the silhouette in the fixed font; secondary wire edges
+are deliberately faint. Physical transmission and polished roughness 0.10
+retain rear refraction without the stronger frosted look of the cube.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-diamond
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-diamond
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-diamond/native \
+  --variant literal-front
+```
+
+The geometry audit checks welded edges, outward winding, convexity and volume.
+The shape and broad facets also pass a visual character-preview gate before
+native playback verification. The polished default differs from perfectly
+sharp rendering by only one bitmap pixel in the rear control; that difference
+vanishes after font matching. The receipts report this, while preserving the
+measured spatial refraction and black foreground outline.
+
+The [measured diamond program and actual C64 preview](results/glass-diamond/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps.
+The movie occupies 12,196 bytes; loaded code, state and data total 15,615 bytes.
+
+## Six-tip glass star
+
+`demo-star.mjs` starts with eight cube corners and replaces each square face
+with four triangles meeting at an outward pyramid tip. The six tips lie on
+the positive and negative X, Y and Z axes. The closed surface is nonconvex;
+its physical materials write depth so the nearest visible facet wins. A view
+near a cube diagonal keeps all six projected rays separated.
+
+Build with `build-glass.cjs --scene` pointing to `demo-star.mjs` and
+`--output asm/sphere-polygons/font-v2/build/three-scene-glass-star`, first for
+bitmap inspection, then with `--characters`. Verify native playback with
+`verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-glass-star/native --variant literal-front`.
+The diamond source snapshot and PRG remain [saved separately](results/glass-diamond/README.md).
+
+The [measured star program and actual C64 preview](results/glass-star/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps. The
+movie uses 11,181 bytes; loaded code, state and data total 14,600 bytes.
+
+## Dithered three-axis star
+
+`demo-dithered-star.mjs` keeps the long-arm geometry and full three-axis loop,
+but gives every facet continuous grayscale lighting. A world-space key light,
+fill light and rim light act on the rotated face normals. An ambient floor
+keeps shadowed arms visible against the black background.
+
+Actual GPU output contains 159 object-gray levels, ranging from 59 to 229 on
+the 0–255 sRGB scale. The exporter applies its fixed screen-aligned 4 × 4
+Bayer matrix to that grayscale image. All 17 uniform Bayer densities already
+exist in the shared font; the charset and native decoder stay unchanged.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dithered-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dithered-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-dithered-star/native \
+  --variant literal-front
+```
+
+`verify-dithered-star.mjs` checks actual opaque grayscale GPU pixels and
+independently reconstructs every ordered-dither bit. It reuses the geometry,
+screen-fit, full-rotation and loop proofs while also measuring changing facet
+colors. The binary scene verifier retains its strict 0/255 source checks.
+Both imported scene sources are frozen through dependency hashes.
+
+`build-frame-diff.cjs` produces a self-contained HTML comparison of two
+consecutive character screens using the actual fixed font. By default it
+compares frames 1 and 2, skipping the blank startup image; `--frame N` selects
+N and N+1. Individual frames, changed-cell overlays, pixel differences and a
+clickable table of all 1,000 character codes share the same source bytes.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-frame-diff.cjs
+```
+
+The [measured dithered-star program and actual C64 preview](results/dithered-star/README.md)
+run at 25.0623 fps over 1,442 exact visible fields and two real loop wraps.
+The movie uses 31,959 bytes, leaving 9,001 bytes in the current data arena;
+loaded code, font, tables and state total 35,538 bytes.
+
+## Full three-axis star rotation
+
+`demo-tumbling-star.mjs` reuses the long-arm opaque geometry and adds a full
+compound rotation: 360 degrees around X, 720 around Y and 360 around Z over
+240 frames. At the nominal 25 fps, the loop lasts 9.6 seconds. The initial
+blank frame plays once; the rotating section repeats indefinitely.
+
+Paint stays attached to the object: six antipodal facets are black and the
+remaining eighteen are white. Rear views and natural arm overlaps are part
+of the rotation. The old small-motion scene remains available separately.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-tumbling-star.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-tumbling-star
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-tumbling-star.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-tumbling-star --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-tumbling-star/native \
+  --variant literal-front
+```
+
+The bitmap verifier reconstructs the compound orientation independently,
+checks front and rear coverage for all three local axes, and verifies both
+orientation and angular velocity at the seam. Actual GPU pixels repeat
+exactly at the first and second period endpoints. Source dependency hashes
+freeze the imported geometry alongside the new scene.
+
+## Opaque star with longer arms
+
+`demo-solid-star.mjs` is a standalone scene containing one opaque star. There
+is no ball, glass material, wireframe or intermediate gray. Entire facets are
+black or white. Each arm has one fixed broad visible white facet, avoiding
+binary lighting flashes while the object moves.
+
+Cube half-extent decreases from 10 to 8.5 and tip distance increases from 30
+to 40. Each pyramid therefore extends 31.5 units beyond its base, compared
+with 20 previously. All six tips remain separated and the full loop fits the
+viewport.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-solid-star/native \
+  --variant literal-front
+```
+
+`verify-solid-star.mjs` independently checks opaque binary GPU pixels, packed
+threshold bits, mesh topology, longer arms, screen bounds and loop endpoints.
+The character audit preserves all 3,014 entirely filled tiles and 146,660 empty
+tiles exactly, without interior stippling. Only mixed edge tiles require font
+approximation. Existing glass scenes, font and native player remain unchanged.
+
+The [measured opaque-star PRG and actual C64 preview](results/solid-star/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps. Movie
+data occupies 12,971 bytes; loaded code, state and data total 16,390 bytes.
+
 ## Gray sides and bitmap dithering
 
 Run the separate bitmap-only experiment:
