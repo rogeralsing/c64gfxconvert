@@ -7,6 +7,18 @@ in standard C64 color-index order:
 - [Colodore](https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/colodore.vpl), the existing default.
 - [Pepto](https://github.com/VICE-Team/svn-mirror/blob/main/vice/data/C64/pepto-pal.vpl), the darker PAL reference.
 
+**PEPTOette_a** is also available, using the 16 values published by the
+[C64GFX palette catalogue](https://c64gfx.com/api/palettes.json). These values
+matched the supplied Talent artwork captures. `peptoette-a.vpl` preserves that
+reference in standard C64 index order.
+
+The image-wide **Virtual color mode** is separate from the C64 palette choice.
+Computed retains the existing generated pairs. Talent uses the 76 two-color
+pairs occurring at least 500 times in the deduplicated captures, plus all 16
+solid colors. `talent-palette.js` stores pair indices and compact provenance;
+it contains no images or local paths. Talent's virtual RGB values are recomputed
+as 50/50 mixtures in linear sRGB whenever the selected C64 palette changes.
+
 The [Colodore color model](https://www.pepto.de/projects/colorvic/) documents
 the underlying measurements and analog display assumptions. It is a PAL
 reference, rather than a universal RGB palette for every physical C64 and TV.
