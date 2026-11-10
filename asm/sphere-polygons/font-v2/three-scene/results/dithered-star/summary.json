@@ -1,0 +1,63 @@
+{
+  "pass": true,
+  "geometry": "closed opaque six-pyramid star",
+  "ballPresent": false,
+  "glassPresent": false,
+  "sourceRGB": "Continuous opaque grayscale",
+  "sourceSRGBRange": [
+    59,
+    229
+  ],
+  "sourceGrayLevels": 159,
+  "cubeHalfExtent": 8.5,
+  "tipDistance": 40,
+  "armLengthBeyondBase": 31.5,
+  "rotationOrder": "XYZ",
+  "turnsPerLoop": [
+    1,
+    2,
+    1
+  ],
+  "nativeFps": 25.062271062271062,
+  "nominalFps": 25,
+  "nominalLoopSeconds": 9.6,
+  "measuredLoopSeconds": 9.576147325343467,
+  "storedFrames": 241,
+  "loopFrames": 240,
+  "payloadBytes": 31959,
+  "fontBytes": 2048,
+  "meaningfulLoadedBytes": 35538,
+  "ordinaryMainRamBytes": 36571,
+  "separateColorRamCells": 1024,
+  "programBytes": 42200,
+  "currentDataArenaBytes": 40960,
+  "unusedCurrentDataArenaBytes": 9001,
+  "maximumPooledPayloadBytes": 47104,
+  "pooledPayloadHeadroomUpperBoundBytes": 15145,
+  "maximumStoredFrames": 255,
+  "remainingStoredFrameSlots": 14,
+  "actualVisibleFieldsVerified": 1442,
+  "displayedImagesVerified": 721,
+  "loopWrapsVerified": 2,
+  "emptyTilesExactlyPreserved": 210933,
+  "activeBoundsPixelErrorFraction": 0.016889106795052015,
+  "outputWhiteOutsideObject": 0,
+  "programSha256": "679cb91a855c705c4f972782d59c6ee02af6272b1f280346128a4aee3973e28b",
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "sourceSha256": "ba19456ecccb3c7bcf4dfb36e1ee10df7fc62e3130b2aebfe3553b1472096b6d",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-tumbling-star.mjs",
+      "sha256": "5ce3270307c1864a0718fba293fd43727ec47e9aa9c005a0890e26383bd596f4"
+    },
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-solid-star.mjs",
+      "sha256": "3e6d1e4e5f5708b23e7c2a00b90d6350e0e3b2df5e33c93c125fbff9a44b3903"
+    }
+  ],
+  "nativeFontAndPlayerUnchanged": true,
+  "gifSource": "Actual verified PAL VICE screenshots",
+  "gifFrames": 240,
+  "gifFrameDurationMs": 40,
+  "gifDecodedPixelsVerified": true
+}

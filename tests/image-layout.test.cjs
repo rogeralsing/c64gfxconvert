@@ -45,8 +45,8 @@ test('FLI modes center tall images inside their remaining display areas', () => 
   }
 });
 
-test('bitmap, hires and NUFLI images retain the entire 320 by 200 display area', () => {
-  for (const mode of ['bitmap', 'hires', 'hires-2color', 'nufli']) {
+test('bitmap, MCI, hires and NUFLI images retain the entire 320 by 200 display area', () => {
+  for (const mode of ['bitmap', 'mci', 'hires', 'hires-2color', 'nufli']) {
     assert.equal(getC64ImageLeftInset(mode), 0, mode);
     assert.deepEqual({ ...getC64ImagePlacement(1000, 500, mode) }, {
       x: 0, y: 20, width: 320, height: 160,
@@ -127,5 +127,21 @@ test('rejects nonpositive scales and nonfinite or nonnumeric transform values', 
   for (const invalid of [NaN, Infinity, -Infinity, null, '1', true]) {
     assert.throws(() => getC64ImagePlacement(320, 200, 'ifli', { offsetX: invalid }), /offsets.*finite/);
     assert.throws(() => getC64ImagePlacement(320, 200, 'ifli', { offsetY: invalid }), /offsets.*finite/);
+  }
+});
+
+test('sprite grids fit and pan sources in their native display dimensions', () => {
+  for (const [width, height, expected] of [
+    [24, 168, { x: 0, y: 73.5, width: 24, height: 21 }],
+    [192, 21, { x: 84, y: 0, width: 24, height: 21 }],
+    [48, 42, { x: 0, y: 0, width: 48, height: 42 }]
+  ]) {
+    const placement = getC64ImagePlacement(48, 42, 'sprites', {}, { width, height });
+    assert.deepEqual({ ...placement }, { ...expected, leftInset: 0,
+      availableWidth: width, canvasWidth: width, canvasHeight: height });
+    const moved = getC64ImagePlacement(48, 42, 'sprites-hires',
+      { offsetX: 3, offsetY: -2 }, { width, height });
+    assert.equal(moved.x, expected.x + 3);
+    assert.equal(moved.y, expected.y - 2);
   }
 });

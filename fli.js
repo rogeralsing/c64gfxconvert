@@ -26,6 +26,106 @@ function optimizeIfliImages(first, second, palette, brightnessBands, backgroundC
 }
 
 /**
+ * Exact MCI fit: both standard multicolor bitmap phases share Color RAM, while
+ * each phase has its own two screen colors fixed throughout every 4 × 8 tile.
+ * The shared tile color minimizes summed brightness-band SSE, then chroma SSE.
+ * rowColors repeats each screen pair over eight rows for the common frame API.
+ */
+function optimizeMciImages(first, second, palette, brightnessBands, backgroundColorIndex) {
+  const { width, height, brightnessError, chromaError, frameTargets } = prepareC64FittingTargets(
+    [first, second], palette, brightnessBands, backgroundColorIndex
+  );
+  const epsilon = 1e-12;
+  const isBetter = (primary, secondary, bestPrimary, bestSecondary) =>
+    primary < bestPrimary - epsilon ||
+    (Math.abs(primary - bestPrimary) <= epsilon && secondary < bestSecondary - epsilon);
+  const { triples, mappings, primaryCosts, secondaryCosts } = prepareMulticolorBitmapAllocations(
+    brightnessError, chromaError, backgroundColorIndex
+  );
+  const columns = width / 4;
+  const tileCount = columns * height / 8;
+  const tileColors = new Uint8Array(tileCount);
+  const frames = frameTargets.map(() => ({
+    pixels: new ImageData(width, height),
+    rowColors: new Uint8Array(tileCount * 16)
+  }));
+  const histogram = new Uint8Array(16);
+  const bestPrimary = new Float64Array(32);
+  const bestSecondary = new Float64Array(32);
+  const bestTriples = new Uint16Array(32);
+
+  for (let tileY = 0; tileY < height; tileY += 8) {
+    for (let tileX = 0; tileX < width; tileX += 4) {
+      bestPrimary.fill(Infinity);
+      bestSecondary.fill(Infinity);
+      for (let phase = 0; phase < 2; phase += 1) {
+        histogram.fill(0);
+        const targets = frameTargets[phase];
+        for (let row = 0; row < 8; row += 1) {
+          const offset = (tileY + row) * width + tileX;
+          for (let column = 0; column < 4; column += 1) histogram[targets[offset + column]] += 1;
+        }
+        for (let triple = 0; triple < triples.length; triple += 1) {
+          let primary = 0;
+          let secondary = 0;
+          const offset = triple * 16;
+          for (let target = 0; target < 16; target += 1) {
+            const count = histogram[target];
+            if (count === 0) continue;
+            primary += count * primaryCosts[offset + target];
+            secondary += count * secondaryCosts[offset + target];
+          }
+          // Each member can occupy the shared Color RAM slot. Conditioning on
+          // that slot lets both phases choose their own exact best screen pair.
+          for (const shared of triples[triple]) {
+            const candidate = phase * 16 + shared;
+            if (isBetter(primary, secondary, bestPrimary[candidate], bestSecondary[candidate])) {
+              bestPrimary[candidate] = primary;
+              bestSecondary[candidate] = secondary;
+              bestTriples[candidate] = triple;
+            }
+          }
+        }
+      }
+
+      let tileColor = 0;
+      let minimumPrimary = Infinity;
+      let minimumSecondary = Infinity;
+      for (let shared = 0; shared < 16; shared += 1) {
+        if (shared === backgroundColorIndex) continue;
+        const primary = bestPrimary[shared] + bestPrimary[16 + shared];
+        const secondary = bestSecondary[shared] + bestSecondary[16 + shared];
+        if (isBetter(primary, secondary, minimumPrimary, minimumSecondary)) {
+          tileColor = shared;
+          minimumPrimary = primary;
+          minimumSecondary = secondary;
+        }
+      }
+      // A background-valued Color RAM slot needs at most two non-background
+      // colors per phase. An unused common non-background filler represents
+      // that case too, so the search above still covers every legal fit.
+      const tileIndex = tileY / 8 * columns + tileX / 4;
+      tileColors[tileIndex] = tileColor;
+      for (let phase = 0; phase < 2; phase += 1) {
+        const triple = bestTriples[phase * 16 + tileColor];
+        const screenColors = triples[triple].filter(color => color !== tileColor);
+        const { pixels, rowColors } = frames[phase];
+        for (let row = 0; row < 8; row += 1) {
+          rowColors.set(screenColors, tileIndex * 16 + row * 2);
+          for (let column = 0; column < 4; column += 1) {
+            const pixel = (tileY + row) * width + tileX + column;
+            const color = mappings[triple * 16 + frameTargets[phase][pixel]];
+            pixels.data.set(palette[color].rgb, pixel * 4);
+            pixels.data[pixel * 4 + 3] = 255;
+          }
+        }
+      }
+    }
+  }
+  return { frames, backgroundColorIndex, tileColors };
+}
+
+/**
  * Exact multicolor bitmap fit: each 4 × 8 tile has the image background and
  * three colors fixed for all 32 pixels. Brightness-band SSE takes priority over
  * Oklab chroma SSE. tileColors stores three indices per tile in row-major order.
@@ -38,34 +138,9 @@ function optimizeMulticolorBitmapImage(source, palette, brightnessBands, backgro
   const isBetter = (primary, secondary, bestPrimary, bestSecondary) =>
     primary < bestPrimary - epsilon ||
     (Math.abs(primary - bestPrimary) <= epsilon && secondary < bestSecondary - epsilon);
-  const triples = [];
-  for (let first = 0; first < 16; first += 1) {
-    if (first === backgroundColorIndex) continue;
-    for (let second = first + 1; second < 16; second += 1) {
-      if (second === backgroundColorIndex) continue;
-      for (let third = second + 1; third < 16; third += 1) {
-        if (third !== backgroundColorIndex) triples.push([first, second, third]);
-      }
-    }
-  }
-
-  const mappings = new Uint8Array(triples.length * 16);
-  const primaryCosts = new Float64Array(mappings.length);
-  const secondaryCosts = new Float64Array(mappings.length);
-  for (let triple = 0; triple < triples.length; triple += 1) {
-    for (let target = 0; target < 16; target += 1) {
-      const errorOffset = target * 16;
-      let best = backgroundColorIndex;
-      for (const candidate of triples[triple]) {
-        if (isBetter(brightnessError[errorOffset + candidate], chromaError[errorOffset + candidate],
-          brightnessError[errorOffset + best], chromaError[errorOffset + best])) best = candidate;
-      }
-      const offset = triple * 16 + target;
-      mappings[offset] = best;
-      primaryCosts[offset] = brightnessError[errorOffset + best];
-      secondaryCosts[offset] = chromaError[errorOffset + best];
-    }
-  }
+  const { triples, mappings, primaryCosts, secondaryCosts } = prepareMulticolorBitmapAllocations(
+    brightnessError, chromaError, backgroundColorIndex
+  );
 
   const columns = width / 4;
   const tileColors = new Uint8Array(columns * height / 8 * 3);
@@ -116,6 +191,42 @@ function optimizeMulticolorBitmapImage(source, palette, brightnessBands, backgro
     }
   }
   return { pixels, backgroundColorIndex, tileColors };
+}
+
+/** Exhaustive standard bitmap palettes and their exact per-target costs. */
+function prepareMulticolorBitmapAllocations(brightnessError, chromaError, backgroundColorIndex) {
+  const epsilon = 1e-12;
+  const isBetter = (primary, secondary, bestPrimary, bestSecondary) =>
+    primary < bestPrimary - epsilon ||
+    (Math.abs(primary - bestPrimary) <= epsilon && secondary < bestSecondary - epsilon);
+  const triples = [];
+  for (let first = 0; first < 16; first += 1) {
+    if (first === backgroundColorIndex) continue;
+    for (let second = first + 1; second < 16; second += 1) {
+      if (second === backgroundColorIndex) continue;
+      for (let third = second + 1; third < 16; third += 1) {
+        if (third !== backgroundColorIndex) triples.push([first, second, third]);
+      }
+    }
+  }
+  const mappings = new Uint8Array(triples.length * 16);
+  const primaryCosts = new Float64Array(mappings.length);
+  const secondaryCosts = new Float64Array(mappings.length);
+  for (let triple = 0; triple < triples.length; triple += 1) {
+    for (let target = 0; target < 16; target += 1) {
+      const errorOffset = target * 16;
+      let best = backgroundColorIndex;
+      for (const candidate of triples[triple]) {
+        if (isBetter(brightnessError[errorOffset + candidate], chromaError[errorOffset + candidate],
+          brightnessError[errorOffset + best], chromaError[errorOffset + best])) best = candidate;
+      }
+      const offset = triple * 16 + target;
+      mappings[offset] = best;
+      primaryCosts[offset] = brightnessError[errorOffset + best];
+      secondaryCosts[offset] = chromaError[errorOffset + best];
+    }
+  }
+  return { triples, mappings, primaryCosts, secondaryCosts };
 }
 
 /**

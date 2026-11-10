@@ -1,0 +1,257 @@
+{
+  "pass": true,
+  "strategy": "edge-cache",
+  "measurement": "Assembled NMOS 6502 replay; excludes VIC stalls, IRQs, geometry and presentation waiting.",
+  "trace_sha256": "83d0832fe35721001538e5dd616b5e810eddb153d8b8567fd60f4bb79a8b17c0",
+  "inputs": {
+    "main.asm": "2e4dfa1e7c00cb848293ec14d53add6691d5742f8babf2cbec3830e79df95141",
+    "raster.asm": "45162a6d70d730444d1c70455ba57806d7e7c679599c3d20add22d496ac7a3ee",
+    "geometry.asm": "e83fe12def4c82eab723ec30ab6bec89b70b45b86058607abeed0c5ede3166de",
+    "geometry.cjs": "df9fe363ddc73df6c10da50b20af63c16b1048151864e67eab152a10758d9677",
+    "native-model.cjs": "23e45d7189c9504fa5661832be87380f07a0282ee3c2022a8cbc226c8fb5d833",
+    "assets/font.bin": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+    "assets/glyph-lut.bin": "cf6f79d85e1cbc052bc20741dd33caa9527e93c4bed5cbc445fd96ce3054c5dc"
+  },
+  "baseline_program_sha256": "1379a1c305d1ef6553aead15fd74da1f093538cb88a0c4d57b5c71f7bb34b25c",
+  "candidate_program_sha256": "7aa0b1a0eac7d28147ea651edb551dbb93149865d3b3e68702fe884944addf46",
+  "init_cycles": 2575,
+  "frames": 112,
+  "coverage_bytes_checked": 112000,
+  "screen_bytes_checked": 112000,
+  "groups": {
+    "all": {
+      "frames": 112,
+      "baseline": {
+        "raster_cycles": {
+          "min": 123354,
+          "mean": 159415.5,
+          "max": 198339
+        },
+        "resolve_cycles": {
+          "min": 26127,
+          "mean": 26575.875,
+          "max": 27723
+        },
+        "combined_cycles": {
+          "min": 149691,
+          "mean": 185991.375,
+          "max": 226020
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 100432,
+          "mean": 164904.0625,
+          "max": 218310
+        },
+        "resolve_cycles": {
+          "min": 25980,
+          "mean": 26428.875,
+          "max": 27576
+        },
+        "combined_cycles": {
+          "min": 126622,
+          "mean": 191332.9375,
+          "max": 245844
+        }
+      },
+      "raster_change_percent": 3.4429290125489675,
+      "combined_change_percent": 2.871940970381015
+    },
+    "animation-0": {
+      "frames": 32,
+      "baseline": {
+        "raster_cycles": {
+          "min": 163632,
+          "mean": 176829.3125,
+          "max": 198339
+        },
+        "resolve_cycles": {
+          "min": 26211,
+          "mean": 26772.75,
+          "max": 27723
+        },
+        "combined_cycles": {
+          "min": 190137,
+          "mean": 203602.0625,
+          "max": 226020
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 177583,
+          "mean": 192673.875,
+          "max": 218310
+        },
+        "resolve_cycles": {
+          "min": 26064,
+          "mean": 26625.75,
+          "max": 27576
+        },
+        "combined_cycles": {
+          "min": 203815,
+          "mean": 219299.625,
+          "max": 245844
+        }
+      },
+      "raster_change_percent": 8.960371035769299,
+      "combined_change_percent": 7.709923125164808
+    },
+    "animation-1": {
+      "frames": 32,
+      "baseline": {
+        "raster_cycles": {
+          "min": 134874,
+          "mean": 147232.125,
+          "max": 152756
+        },
+        "resolve_cycles": {
+          "min": 26127,
+          "mean": 26552.25,
+          "max": 26925
+        },
+        "combined_cycles": {
+          "min": 161421,
+          "mean": 173784.375,
+          "max": 179309
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 138201,
+          "mean": 149853.625,
+          "max": 156196
+        },
+        "resolve_cycles": {
+          "min": 25980,
+          "mean": 26405.25,
+          "max": 26778
+        },
+        "combined_cycles": {
+          "min": 164601,
+          "mean": 176258.875,
+          "max": 182428
+        }
+      },
+      "raster_change_percent": 1.7805217441505983,
+      "combined_change_percent": 1.4238909568250913
+    },
+    "jumps-pauses": {
+      "frames": 16,
+      "baseline": {
+        "raster_cycles": {
+          "min": 123354,
+          "mean": 148902.1875,
+          "max": 173786
+        },
+        "resolve_cycles": {
+          "min": 26253,
+          "mean": 26680.875,
+          "max": 27261
+        },
+        "combined_cycles": {
+          "min": 149691,
+          "mean": 175583.0625,
+          "max": 200711
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 100432,
+          "mean": 144774.375,
+          "max": 191442
+        },
+        "resolve_cycles": {
+          "min": 26106,
+          "mean": 26533.875,
+          "max": 27114
+        },
+        "combined_cycles": {
+          "min": 126622,
+          "mean": 171308.25,
+          "max": 218220
+        }
+      },
+      "raster_change_percent": -2.7721637736181637,
+      "combined_change_percent": -2.4346383068697186
+    },
+    "single-axis": {
+      "frames": 24,
+      "baseline": {
+        "raster_cycles": {
+          "min": 138110,
+          "mean": 159819.125,
+          "max": 175722
+        },
+        "resolve_cycles": {
+          "min": 26253,
+          "mean": 26368.5,
+          "max": 27135
+        },
+        "combined_cycles": {
+          "min": 164363,
+          "mean": 186187.625,
+          "max": 202857
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 111613,
+          "mean": 163260.08333333334,
+          "max": 193617
+        },
+        "resolve_cycles": {
+          "min": 26106,
+          "mean": 26221.5,
+          "max": 26988
+        },
+        "combined_cycles": {
+          "min": 137719,
+          "mean": 189481.58333333334,
+          "max": 220605
+        }
+      },
+      "raster_change_percent": 2.15303289473856,
+      "combined_change_percent": 1.7691607234010975
+    },
+    "model-switch": {
+      "frames": 8,
+      "baseline": {
+        "raster_cycles": {
+          "min": 147788,
+          "mean": 158309.5,
+          "max": 168831
+        },
+        "resolve_cycles": {
+          "min": 26253,
+          "mean": 26295,
+          "max": 26337
+        },
+        "combined_cycles": {
+          "min": 174041,
+          "mean": 184604.5,
+          "max": 195168
+        }
+      },
+      "candidate": {
+        "raster_cycles": {
+          "min": 144810,
+          "mean": 159217.875,
+          "max": 186036
+        },
+        "resolve_cycles": {
+          "min": 26106,
+          "mean": 26148,
+          "max": 26190
+        },
+        "combined_cycles": {
+          "min": 170916,
+          "mean": 185365.875,
+          "max": 212226
+        }
+      },
+      "raster_change_percent": 0.5737968978488439,
+      "combined_change_percent": 0.4124357748592322
+    }
+  }
+}

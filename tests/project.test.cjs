@@ -7,7 +7,7 @@ const vm = require('node:vm');
 const context = vm.createContext({});
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../project.js'), 'utf8'), context);
 const codec = context.createC64ProjectCodec({
-  modeIds: ['fli', 'afli-sprites', 'hires-2color'],
+  modeIds: ['fli', 'afli-sprites', 'hires-2color', 'sprites', 'sprites-hires', 'charset'],
   controls: [
     { id: 'brightness', type: 'range', min: -100, max: 300, step: 1 },
     { id: 'levels-black', type: 'range', min: 0, max: 254, step: 1 },
@@ -66,8 +66,14 @@ test('project import rejects unsupported documents and unusable settings before 
     project => { project.version = 2; },
     project => { project.image.graphicsMode = 'unknown'; },
     project => { project.image.spriteColorIndex = 16; },
+    ...[null, '', 'unknown', 'Pepto', 0, false, [], {}].map(paletteId =>
+      project => { project.image.paletteId = paletteId; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(twoColorIndices =>
       project => { project.image.twoColorIndices = twoColorIndices; }),
+    ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(charsetMulticolorIndices =>
+      project => { project.image.charsetMulticolorIndices = charsetMulticolorIndices; }),
+    ...[null, -1, 101, 0.5, '35', false].map(charsetSimilarityThreshold =>
+      project => { project.image.charsetSimilarityThreshold = charsetSimilarityThreshold; }),
     project => { project.layers = []; },
     project => { project.activeLayer = 2; },
     project => { project.layers[0].visible = 'false'; },
@@ -88,6 +94,16 @@ test('project import rejects unsupported documents and unusable settings before 
   }
 });
 
+test('projects preserve the selected C64 palette while accepting legacy projects without a palette', () => {
+  for (const paletteId of ['colodore', 'pepto']) {
+    const project = fixture();
+    project.image.paletteId = paletteId;
+    const loaded = codec.parse(codec.stringify(project));
+    assert.equal(loaded.image.paletteId, paletteId);
+  }
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.paletteId, undefined);
+});
+
 test('two-color projects preserve the chosen shadow and highlight without changing legacy projects', () => {
   const project = fixture();
   project.image.graphicsMode = 'hires-2color';
@@ -96,4 +112,67 @@ test('two-color projects preserve the chosen shadow and highlight without changi
   assert.equal(loaded.image.graphicsMode, 'hires-2color');
   assert.deepEqual(Array.from(loaded.image.twoColorIndices), [14, 5]);
   assert.equal(codec.parse(JSON.stringify(fixture())).image.twoColorIndices, undefined);
+});
+
+test('character projects preserve both shared multicolors without changing legacy projects', () => {
+  const project = fixture();
+  project.image.graphicsMode = 'charset';
+  project.image.charsetMulticolorIndices = [15, 12];
+  const saved = JSON.parse(codec.stringify(project));
+  assert.deepEqual(saved.image, project.image);
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.charsetMulticolorIndices, undefined);
+});
+
+test('character projects preserve disabled and maximum similarity thresholds', () => {
+  for (const charsetSimilarityThreshold of [0, 100]) {
+    const project = fixture();
+    project.image.graphicsMode = 'charset';
+    project.image.charsetSimilarityThreshold = charsetSimilarityThreshold;
+    const loaded = codec.parse(codec.stringify(project));
+    assert.equal(loaded.image.charsetSimilarityThreshold, charsetSimilarityThreshold);
+  }
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.charsetSimilarityThreshold, undefined);
+});
+
+test('sprite projects preserve grid geometry and independent shared, sprite, and overlay colors', () => {
+  for (const [mode, columns, rows] of [['sprites', 1, 8], ['sprites-hires', 2, 2]]) {
+    const project = fixture();
+    project.image.graphicsMode = mode;
+    project.image.spriteConfig = {
+      columns, rows, multicolorIndices: [5, 7],
+      spriteColorIndices: [1, 2, 3, 4, 5, 6, 7, 8],
+      overlayColorIndices: [15, 14, 13, 12, 11, 10, 9, 8]
+    };
+    const saved = JSON.parse(codec.stringify(project));
+    assert.deepEqual(saved.image, project.image);
+  }
+  assert.equal(codec.parse(JSON.stringify(fixture())).image.spriteConfig, undefined);
+});
+
+test('sprite project import rejects invalid colors, dimensions, and hardware sprite budgets', () => {
+  for (const change of [
+    config => { config.columns = 0; },
+    config => { config.rows = 1.5; },
+    config => { config.columns = 9; },
+    config => { config.columns = 3; config.rows = 3; },
+    config => { config.multicolorIndices = [0]; },
+    config => { config.spriteColorIndices[7] = 16; },
+    config => { config.overlayColorIndices[0] = '1'; },
+    config => { config.overlayColorIndices = []; }
+  ]) {
+    const project = fixture();
+    project.image.spriteConfig = {
+      columns: 2, rows: 2, multicolorIndices: [5, 7],
+      spriteColorIndices: Array(8).fill(1), overlayColorIndices: Array(8).fill(0)
+    };
+    change(project.image.spriteConfig);
+    assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project: sprite grids/);
+  }
+  const project = fixture();
+  project.image.graphicsMode = 'sprites-hires';
+  project.image.spriteConfig = {
+    columns: 1, rows: 8, multicolorIndices: [5, 7],
+    spriteColorIndices: Array(8).fill(1), overlayColorIndices: Array(8).fill(0)
+  };
+  assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project: sprite grids/);
 });

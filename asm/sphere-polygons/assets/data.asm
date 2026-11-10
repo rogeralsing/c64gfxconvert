@@ -1,0 +1,255 @@
+.align $100
+product_pages: .import binary "assets/products.bin"
+.align $100
+sin_table: .import binary "assets/sin.bin"
+checker_vertices:
+    .byte >(product_pages+22*$100),>(product_pages+44*$100),>(product_pages+22*$100)
+    .byte >(product_pages+22*$100),>(product_pages+40*$100),>(product_pages+31*$100)
+    .byte >(product_pages+25*$100),>(product_pages+40*$100),>(product_pages+30*$100)
+    .byte >(product_pages+30*$100),>(product_pages+40*$100),>(product_pages+25*$100)
+    .byte >(product_pages+31*$100),>(product_pages+40*$100),>(product_pages+22*$100)
+    .byte >(product_pages+30*$100),>(product_pages+40*$100),>(product_pages+19*$100)
+    .byte >(product_pages+25*$100),>(product_pages+40*$100),>(product_pages+14*$100)
+    .byte >(product_pages+22*$100),>(product_pages+40*$100),>(product_pages+13*$100)
+    .byte >(product_pages+19*$100),>(product_pages+40*$100),>(product_pages+14*$100)
+    .byte >(product_pages+14*$100),>(product_pages+40*$100),>(product_pages+19*$100)
+    .byte >(product_pages+13*$100),>(product_pages+40*$100),>(product_pages+22*$100)
+    .byte >(product_pages+14*$100),>(product_pages+40*$100),>(product_pages+25*$100)
+    .byte >(product_pages+19*$100),>(product_pages+40*$100),>(product_pages+30*$100)
+    .byte >(product_pages+22*$100),>(product_pages+31*$100),>(product_pages+40*$100)
+    .byte >(product_pages+30*$100),>(product_pages+31*$100),>(product_pages+38*$100)
+    .byte >(product_pages+38*$100),>(product_pages+31*$100),>(product_pages+30*$100)
+    .byte >(product_pages+40*$100),>(product_pages+31*$100),>(product_pages+22*$100)
+    .byte >(product_pages+38*$100),>(product_pages+31*$100),>(product_pages+14*$100)
+    .byte >(product_pages+30*$100),>(product_pages+31*$100),>(product_pages+6*$100)
+    .byte >(product_pages+22*$100),>(product_pages+31*$100),>(product_pages+4*$100)
+    .byte >(product_pages+14*$100),>(product_pages+31*$100),>(product_pages+6*$100)
+    .byte >(product_pages+6*$100),>(product_pages+31*$100),>(product_pages+14*$100)
+    .byte >(product_pages+4*$100),>(product_pages+31*$100),>(product_pages+22*$100)
+    .byte >(product_pages+6*$100),>(product_pages+31*$100),>(product_pages+30*$100)
+    .byte >(product_pages+14*$100),>(product_pages+31*$100),>(product_pages+38*$100)
+    .byte >(product_pages+22*$100),>(product_pages+22*$100),>(product_pages+44*$100)
+    .byte >(product_pages+31*$100),>(product_pages+22*$100),>(product_pages+40*$100)
+    .byte >(product_pages+40*$100),>(product_pages+22*$100),>(product_pages+31*$100)
+    .byte >(product_pages+44*$100),>(product_pages+22*$100),>(product_pages+22*$100)
+    .byte >(product_pages+40*$100),>(product_pages+22*$100),>(product_pages+13*$100)
+    .byte >(product_pages+31*$100),>(product_pages+22*$100),>(product_pages+4*$100)
+    .byte >(product_pages+22*$100),>(product_pages+22*$100),>(product_pages+0*$100)
+    .byte >(product_pages+13*$100),>(product_pages+22*$100),>(product_pages+4*$100)
+    .byte >(product_pages+4*$100),>(product_pages+22*$100),>(product_pages+13*$100)
+    .byte >(product_pages+0*$100),>(product_pages+22*$100),>(product_pages+22*$100)
+    .byte >(product_pages+4*$100),>(product_pages+22*$100),>(product_pages+31*$100)
+    .byte >(product_pages+13*$100),>(product_pages+22*$100),>(product_pages+40*$100)
+    .byte >(product_pages+22*$100),>(product_pages+13*$100),>(product_pages+40*$100)
+    .byte >(product_pages+30*$100),>(product_pages+13*$100),>(product_pages+38*$100)
+    .byte >(product_pages+38*$100),>(product_pages+13*$100),>(product_pages+30*$100)
+    .byte >(product_pages+40*$100),>(product_pages+13*$100),>(product_pages+22*$100)
+    .byte >(product_pages+38*$100),>(product_pages+13*$100),>(product_pages+14*$100)
+    .byte >(product_pages+30*$100),>(product_pages+13*$100),>(product_pages+6*$100)
+    .byte >(product_pages+22*$100),>(product_pages+13*$100),>(product_pages+4*$100)
+    .byte >(product_pages+14*$100),>(product_pages+13*$100),>(product_pages+6*$100)
+    .byte >(product_pages+6*$100),>(product_pages+13*$100),>(product_pages+14*$100)
+    .byte >(product_pages+4*$100),>(product_pages+13*$100),>(product_pages+22*$100)
+    .byte >(product_pages+6*$100),>(product_pages+13*$100),>(product_pages+30*$100)
+    .byte >(product_pages+14*$100),>(product_pages+13*$100),>(product_pages+38*$100)
+    .byte >(product_pages+22*$100),>(product_pages+4*$100),>(product_pages+31*$100)
+    .byte >(product_pages+25*$100),>(product_pages+4*$100),>(product_pages+30*$100)
+    .byte >(product_pages+30*$100),>(product_pages+4*$100),>(product_pages+25*$100)
+    .byte >(product_pages+31*$100),>(product_pages+4*$100),>(product_pages+22*$100)
+    .byte >(product_pages+30*$100),>(product_pages+4*$100),>(product_pages+19*$100)
+    .byte >(product_pages+25*$100),>(product_pages+4*$100),>(product_pages+14*$100)
+    .byte >(product_pages+22*$100),>(product_pages+4*$100),>(product_pages+13*$100)
+    .byte >(product_pages+19*$100),>(product_pages+4*$100),>(product_pages+14*$100)
+    .byte >(product_pages+14*$100),>(product_pages+4*$100),>(product_pages+19*$100)
+    .byte >(product_pages+13*$100),>(product_pages+4*$100),>(product_pages+22*$100)
+    .byte >(product_pages+14*$100),>(product_pages+4*$100),>(product_pages+25*$100)
+    .byte >(product_pages+19*$100),>(product_pages+4*$100),>(product_pages+30*$100)
+    .byte >(product_pages+22*$100),>(product_pages+0*$100),>(product_pages+22*$100)
+checker_faces:
+    .byte 3,0,>(product_pages+23*$100),>(product_pages+42*$100),>(product_pages+26*$100),0,1,2,0,0,0,0
+    .byte 3,1,>(product_pages+24*$100),>(product_pages+42*$100),>(product_pages+24*$100),0,2,3,0,0,0,0
+    .byte 3,0,>(product_pages+26*$100),>(product_pages+42*$100),>(product_pages+23*$100),0,3,4,0,0,0,0
+    .byte 3,1,>(product_pages+26*$100),>(product_pages+42*$100),>(product_pages+21*$100),0,4,5,0,0,0,0
+    .byte 3,0,>(product_pages+24*$100),>(product_pages+42*$100),>(product_pages+20*$100),0,5,6,0,0,0,0
+    .byte 3,1,>(product_pages+23*$100),>(product_pages+42*$100),>(product_pages+18*$100),0,6,7,0,0,0,0
+    .byte 3,0,>(product_pages+21*$100),>(product_pages+42*$100),>(product_pages+18*$100),0,7,8,0,0,0,0
+    .byte 3,1,>(product_pages+20*$100),>(product_pages+42*$100),>(product_pages+20*$100),0,8,9,0,0,0,0
+    .byte 3,0,>(product_pages+18*$100),>(product_pages+42*$100),>(product_pages+21*$100),0,9,10,0,0,0,0
+    .byte 3,1,>(product_pages+18*$100),>(product_pages+42*$100),>(product_pages+23*$100),0,10,11,0,0,0,0
+    .byte 3,0,>(product_pages+20*$100),>(product_pages+42*$100),>(product_pages+24*$100),0,11,12,0,0,0,0
+    .byte 3,1,>(product_pages+21*$100),>(product_pages+42*$100),>(product_pages+26*$100),0,12,1,0,0,0,0
+    .byte 4,1,>(product_pages+24*$100),>(product_pages+36*$100),>(product_pages+36*$100),1,13,14,2,0,0,0
+    .byte 4,0,>(product_pages+32*$100),>(product_pages+36*$100),>(product_pages+32*$100),2,14,15,3,0,0,0
+    .byte 4,1,>(product_pages+36*$100),>(product_pages+36*$100),>(product_pages+24*$100),3,15,16,4,0,0,0
+    .byte 4,0,>(product_pages+36*$100),>(product_pages+36*$100),>(product_pages+20*$100),4,16,17,5,0,0,0
+    .byte 4,1,>(product_pages+32*$100),>(product_pages+36*$100),>(product_pages+12*$100),5,17,18,6,0,0,0
+    .byte 4,0,>(product_pages+24*$100),>(product_pages+36*$100),>(product_pages+8*$100),6,18,19,7,0,0,0
+    .byte 4,1,>(product_pages+20*$100),>(product_pages+36*$100),>(product_pages+8*$100),7,19,20,8,0,0,0
+    .byte 4,0,>(product_pages+12*$100),>(product_pages+36*$100),>(product_pages+12*$100),8,20,21,9,0,0,0
+    .byte 4,1,>(product_pages+8*$100),>(product_pages+36*$100),>(product_pages+20*$100),9,21,22,10,0,0,0
+    .byte 4,0,>(product_pages+8*$100),>(product_pages+36*$100),>(product_pages+24*$100),10,22,23,11,0,0,0
+    .byte 4,1,>(product_pages+12*$100),>(product_pages+36*$100),>(product_pages+32*$100),11,23,24,12,0,0,0
+    .byte 4,0,>(product_pages+20*$100),>(product_pages+36*$100),>(product_pages+36*$100),12,24,13,1,0,0,0
+    .byte 4,0,>(product_pages+25*$100),>(product_pages+25*$100),>(product_pages+41*$100),13,25,26,14,0,0,0
+    .byte 4,1,>(product_pages+36*$100),>(product_pages+25*$100),>(product_pages+36*$100),14,26,27,15,0,0,0
+    .byte 4,0,>(product_pages+41*$100),>(product_pages+25*$100),>(product_pages+25*$100),15,27,28,16,0,0,0
+    .byte 4,1,>(product_pages+41*$100),>(product_pages+25*$100),>(product_pages+19*$100),16,28,29,17,0,0,0
+    .byte 4,0,>(product_pages+36*$100),>(product_pages+25*$100),>(product_pages+8*$100),17,29,30,18,0,0,0
+    .byte 4,1,>(product_pages+25*$100),>(product_pages+25*$100),>(product_pages+3*$100),18,30,31,19,0,0,0
+    .byte 4,0,>(product_pages+19*$100),>(product_pages+25*$100),>(product_pages+3*$100),19,31,32,20,0,0,0
+    .byte 4,1,>(product_pages+8*$100),>(product_pages+25*$100),>(product_pages+8*$100),20,32,33,21,0,0,0
+    .byte 4,0,>(product_pages+3*$100),>(product_pages+25*$100),>(product_pages+19*$100),21,33,34,22,0,0,0
+    .byte 4,1,>(product_pages+3*$100),>(product_pages+25*$100),>(product_pages+25*$100),22,34,35,23,0,0,0
+    .byte 4,0,>(product_pages+8*$100),>(product_pages+25*$100),>(product_pages+36*$100),23,35,36,24,0,0,0
+    .byte 4,1,>(product_pages+19*$100),>(product_pages+25*$100),>(product_pages+41*$100),24,36,25,13,0,0,0
+    .byte 4,1,>(product_pages+25*$100),>(product_pages+19*$100),>(product_pages+41*$100),25,37,38,26,0,0,0
+    .byte 4,0,>(product_pages+36*$100),>(product_pages+19*$100),>(product_pages+36*$100),26,38,39,27,0,0,0
+    .byte 4,1,>(product_pages+41*$100),>(product_pages+19*$100),>(product_pages+25*$100),27,39,40,28,0,0,0
+    .byte 4,0,>(product_pages+41*$100),>(product_pages+19*$100),>(product_pages+19*$100),28,40,41,29,0,0,0
+    .byte 4,1,>(product_pages+36*$100),>(product_pages+19*$100),>(product_pages+8*$100),29,41,42,30,0,0,0
+    .byte 4,0,>(product_pages+25*$100),>(product_pages+19*$100),>(product_pages+3*$100),30,42,43,31,0,0,0
+    .byte 4,1,>(product_pages+19*$100),>(product_pages+19*$100),>(product_pages+3*$100),31,43,44,32,0,0,0
+    .byte 4,0,>(product_pages+8*$100),>(product_pages+19*$100),>(product_pages+8*$100),32,44,45,33,0,0,0
+    .byte 4,1,>(product_pages+3*$100),>(product_pages+19*$100),>(product_pages+19*$100),33,45,46,34,0,0,0
+    .byte 4,0,>(product_pages+3*$100),>(product_pages+19*$100),>(product_pages+25*$100),34,46,47,35,0,0,0
+    .byte 4,1,>(product_pages+8*$100),>(product_pages+19*$100),>(product_pages+36*$100),35,47,48,36,0,0,0
+    .byte 4,0,>(product_pages+19*$100),>(product_pages+19*$100),>(product_pages+41*$100),36,48,37,25,0,0,0
+    .byte 4,0,>(product_pages+24*$100),>(product_pages+8*$100),>(product_pages+36*$100),37,49,50,38,0,0,0
+    .byte 4,1,>(product_pages+32*$100),>(product_pages+8*$100),>(product_pages+32*$100),38,50,51,39,0,0,0
+    .byte 4,0,>(product_pages+36*$100),>(product_pages+8*$100),>(product_pages+24*$100),39,51,52,40,0,0,0
+    .byte 4,1,>(product_pages+36*$100),>(product_pages+8*$100),>(product_pages+20*$100),40,52,53,41,0,0,0
+    .byte 4,0,>(product_pages+32*$100),>(product_pages+8*$100),>(product_pages+12*$100),41,53,54,42,0,0,0
+    .byte 4,1,>(product_pages+24*$100),>(product_pages+8*$100),>(product_pages+8*$100),42,54,55,43,0,0,0
+    .byte 4,0,>(product_pages+20*$100),>(product_pages+8*$100),>(product_pages+8*$100),43,55,56,44,0,0,0
+    .byte 4,1,>(product_pages+12*$100),>(product_pages+8*$100),>(product_pages+12*$100),44,56,57,45,0,0,0
+    .byte 4,0,>(product_pages+8*$100),>(product_pages+8*$100),>(product_pages+20*$100),45,57,58,46,0,0,0
+    .byte 4,1,>(product_pages+8*$100),>(product_pages+8*$100),>(product_pages+24*$100),46,58,59,47,0,0,0
+    .byte 4,0,>(product_pages+12*$100),>(product_pages+8*$100),>(product_pages+32*$100),47,59,60,48,0,0,0
+    .byte 4,1,>(product_pages+20*$100),>(product_pages+8*$100),>(product_pages+36*$100),48,60,49,37,0,0,0
+    .byte 3,1,>(product_pages+23*$100),>(product_pages+2*$100),>(product_pages+26*$100),49,61,50,0,0,0,0
+    .byte 3,0,>(product_pages+24*$100),>(product_pages+2*$100),>(product_pages+24*$100),50,61,51,0,0,0,0
+    .byte 3,1,>(product_pages+26*$100),>(product_pages+2*$100),>(product_pages+23*$100),51,61,52,0,0,0,0
+    .byte 3,0,>(product_pages+26*$100),>(product_pages+2*$100),>(product_pages+21*$100),52,61,53,0,0,0,0
+    .byte 3,1,>(product_pages+24*$100),>(product_pages+2*$100),>(product_pages+20*$100),53,61,54,0,0,0,0
+    .byte 3,0,>(product_pages+23*$100),>(product_pages+2*$100),>(product_pages+18*$100),54,61,55,0,0,0,0
+    .byte 3,1,>(product_pages+21*$100),>(product_pages+2*$100),>(product_pages+18*$100),55,61,56,0,0,0,0
+    .byte 3,0,>(product_pages+20*$100),>(product_pages+2*$100),>(product_pages+20*$100),56,61,57,0,0,0,0
+    .byte 3,1,>(product_pages+18*$100),>(product_pages+2*$100),>(product_pages+21*$100),57,61,58,0,0,0,0
+    .byte 3,0,>(product_pages+18*$100),>(product_pages+2*$100),>(product_pages+23*$100),58,61,59,0,0,0,0
+    .byte 3,1,>(product_pages+20*$100),>(product_pages+2*$100),>(product_pages+24*$100),59,61,60,0,0,0,0
+    .byte 3,0,>(product_pages+21*$100),>(product_pages+2*$100),>(product_pages+26*$100),60,61,49,0,0,0,0
+football_vertices:
+    .byte >(product_pages+22*$100),>(product_pages+20*$100),>(product_pages+1*$100)
+    .byte >(product_pages+22*$100),>(product_pages+24*$100),>(product_pages+1*$100)
+    .byte >(product_pages+17*$100),>(product_pages+29*$100),>(product_pages+5*$100)
+    .byte >(product_pages+9*$100),>(product_pages+24*$100),>(product_pages+7*$100)
+    .byte >(product_pages+9*$100),>(product_pages+20*$100),>(product_pages+7*$100)
+    .byte >(product_pages+17*$100),>(product_pages+15*$100),>(product_pages+5*$100)
+    .byte >(product_pages+27*$100),>(product_pages+29*$100),>(product_pages+5*$100)
+    .byte >(product_pages+35*$100),>(product_pages+24*$100),>(product_pages+7*$100)
+    .byte >(product_pages+35*$100),>(product_pages+20*$100),>(product_pages+7*$100)
+    .byte >(product_pages+27*$100),>(product_pages+15*$100),>(product_pages+5*$100)
+    .byte >(product_pages+20*$100),>(product_pages+7*$100),>(product_pages+9*$100)
+    .byte >(product_pages+15*$100),>(product_pages+5*$100),>(product_pages+17*$100)
+    .byte >(product_pages+20*$100),>(product_pages+1*$100),>(product_pages+22*$100)
+    .byte >(product_pages+24*$100),>(product_pages+1*$100),>(product_pages+22*$100)
+    .byte >(product_pages+29*$100),>(product_pages+5*$100),>(product_pages+17*$100)
+    .byte >(product_pages+24*$100),>(product_pages+7*$100),>(product_pages+9*$100)
+    .byte >(product_pages+7*$100),>(product_pages+9*$100),>(product_pages+20*$100)
+    .byte >(product_pages+5*$100),>(product_pages+17*$100),>(product_pages+15*$100)
+    .byte >(product_pages+37*$100),>(product_pages+9*$100),>(product_pages+20*$100)
+    .byte >(product_pages+39*$100),>(product_pages+17*$100),>(product_pages+15*$100)
+    .byte >(product_pages+22*$100),>(product_pages+20*$100),>(product_pages+43*$100)
+    .byte >(product_pages+22*$100),>(product_pages+24*$100),>(product_pages+43*$100)
+    .byte >(product_pages+17*$100),>(product_pages+29*$100),>(product_pages+39*$100)
+    .byte >(product_pages+9*$100),>(product_pages+24*$100),>(product_pages+37*$100)
+    .byte >(product_pages+9*$100),>(product_pages+20*$100),>(product_pages+37*$100)
+    .byte >(product_pages+17*$100),>(product_pages+15*$100),>(product_pages+39*$100)
+    .byte >(product_pages+27*$100),>(product_pages+29*$100),>(product_pages+39*$100)
+    .byte >(product_pages+35*$100),>(product_pages+24*$100),>(product_pages+37*$100)
+    .byte >(product_pages+35*$100),>(product_pages+20*$100),>(product_pages+37*$100)
+    .byte >(product_pages+27*$100),>(product_pages+15*$100),>(product_pages+39*$100)
+    .byte >(product_pages+20*$100),>(product_pages+7*$100),>(product_pages+35*$100)
+    .byte >(product_pages+15*$100),>(product_pages+5*$100),>(product_pages+27*$100)
+    .byte >(product_pages+29*$100),>(product_pages+5*$100),>(product_pages+27*$100)
+    .byte >(product_pages+24*$100),>(product_pages+7*$100),>(product_pages+35*$100)
+    .byte >(product_pages+7*$100),>(product_pages+9*$100),>(product_pages+24*$100)
+    .byte >(product_pages+5*$100),>(product_pages+17*$100),>(product_pages+29*$100)
+    .byte >(product_pages+37*$100),>(product_pages+9*$100),>(product_pages+24*$100)
+    .byte >(product_pages+39*$100),>(product_pages+17*$100),>(product_pages+29*$100)
+    .byte >(product_pages+20*$100),>(product_pages+37*$100),>(product_pages+9*$100)
+    .byte >(product_pages+15*$100),>(product_pages+39*$100),>(product_pages+17*$100)
+    .byte >(product_pages+20*$100),>(product_pages+43*$100),>(product_pages+22*$100)
+    .byte >(product_pages+24*$100),>(product_pages+43*$100),>(product_pages+22*$100)
+    .byte >(product_pages+29*$100),>(product_pages+39*$100),>(product_pages+17*$100)
+    .byte >(product_pages+24*$100),>(product_pages+37*$100),>(product_pages+9*$100)
+    .byte >(product_pages+7*$100),>(product_pages+35*$100),>(product_pages+20*$100)
+    .byte >(product_pages+5*$100),>(product_pages+27*$100),>(product_pages+15*$100)
+    .byte >(product_pages+37*$100),>(product_pages+35*$100),>(product_pages+20*$100)
+    .byte >(product_pages+39*$100),>(product_pages+27*$100),>(product_pages+15*$100)
+    .byte >(product_pages+20*$100),>(product_pages+37*$100),>(product_pages+35*$100)
+    .byte >(product_pages+15*$100),>(product_pages+39*$100),>(product_pages+27*$100)
+    .byte >(product_pages+29*$100),>(product_pages+39*$100),>(product_pages+27*$100)
+    .byte >(product_pages+24*$100),>(product_pages+37*$100),>(product_pages+35*$100)
+    .byte >(product_pages+7*$100),>(product_pages+35*$100),>(product_pages+24*$100)
+    .byte >(product_pages+5*$100),>(product_pages+27*$100),>(product_pages+29*$100)
+    .byte >(product_pages+37*$100),>(product_pages+35*$100),>(product_pages+24*$100)
+    .byte >(product_pages+39*$100),>(product_pages+27*$100),>(product_pages+29*$100)
+    .byte >(product_pages+1*$100),>(product_pages+22*$100),>(product_pages+20*$100)
+    .byte >(product_pages+1*$100),>(product_pages+22*$100),>(product_pages+24*$100)
+    .byte >(product_pages+43*$100),>(product_pages+22*$100),>(product_pages+20*$100)
+    .byte >(product_pages+43*$100),>(product_pages+22*$100),>(product_pages+24*$100)
+football_faces:
+    .byte 6,1,>(product_pages+16*$100),>(product_pages+22*$100),>(product_pages+3*$100),0,5,4,3,2,1,0
+    .byte 6,1,>(product_pages+28*$100),>(product_pages+22*$100),>(product_pages+3*$100),0,1,6,7,8,9,0
+    .byte 6,1,>(product_pages+22*$100),>(product_pages+3*$100),>(product_pages+16*$100),10,15,14,13,12,11,0
+    .byte 6,1,>(product_pages+10*$100),>(product_pages+10*$100),>(product_pages+10*$100),10,11,16,17,4,5,0
+    .byte 6,1,>(product_pages+34*$100),>(product_pages+10*$100),>(product_pages+10*$100),15,9,8,19,18,14,0
+    .byte 6,1,>(product_pages+16*$100),>(product_pages+22*$100),>(product_pages+41*$100),20,21,22,23,24,25,0
+    .byte 6,1,>(product_pages+28*$100),>(product_pages+22*$100),>(product_pages+41*$100),20,29,28,27,26,21,0
+    .byte 6,1,>(product_pages+22*$100),>(product_pages+3*$100),>(product_pages+28*$100),30,31,12,13,32,33,0
+    .byte 6,1,>(product_pages+10*$100),>(product_pages+10*$100),>(product_pages+34*$100),30,25,24,35,34,31,0
+    .byte 6,1,>(product_pages+34*$100),>(product_pages+10*$100),>(product_pages+34*$100),33,32,36,37,28,29,0
+    .byte 6,1,>(product_pages+22*$100),>(product_pages+41*$100),>(product_pages+16*$100),38,39,40,41,42,43,0
+    .byte 6,1,>(product_pages+10*$100),>(product_pages+34*$100),>(product_pages+10*$100),38,2,3,45,44,39,0
+    .byte 6,1,>(product_pages+34*$100),>(product_pages+34*$100),>(product_pages+10*$100),43,42,46,47,7,6,0
+    .byte 6,1,>(product_pages+22*$100),>(product_pages+41*$100),>(product_pages+28*$100),48,51,50,41,40,49,0
+    .byte 6,1,>(product_pages+10*$100),>(product_pages+34*$100),>(product_pages+34*$100),48,49,52,53,23,22,0
+    .byte 6,1,>(product_pages+34*$100),>(product_pages+34*$100),>(product_pages+34*$100),51,26,27,55,54,50,0
+    .byte 6,1,>(product_pages+3*$100),>(product_pages+16*$100),>(product_pages+22*$100),16,34,35,57,56,17,0
+    .byte 6,1,>(product_pages+3*$100),>(product_pages+28*$100),>(product_pages+22*$100),44,45,56,57,53,52,0
+    .byte 6,1,>(product_pages+41*$100),>(product_pages+16*$100),>(product_pages+22*$100),18,19,58,59,37,36,0
+    .byte 6,1,>(product_pages+41*$100),>(product_pages+28*$100),>(product_pages+22*$100),46,54,55,59,58,47,0
+    .byte 5,0,>(product_pages+22*$100),>(product_pages+11*$100),>(product_pages+5*$100),0,9,15,10,5,0,0
+    .byte 5,0,>(product_pages+22*$100),>(product_pages+33*$100),>(product_pages+5*$100),1,2,38,43,6,0,0
+    .byte 5,0,>(product_pages+5*$100),>(product_pages+22*$100),>(product_pages+11*$100),3,4,17,56,45,0,0
+    .byte 5,0,>(product_pages+39*$100),>(product_pages+22*$100),>(product_pages+11*$100),7,47,58,19,8,0,0
+    .byte 5,0,>(product_pages+11*$100),>(product_pages+5*$100),>(product_pages+22*$100),11,12,31,34,16,0,0
+    .byte 5,0,>(product_pages+33*$100),>(product_pages+5*$100),>(product_pages+22*$100),13,14,18,36,32,0,0
+    .byte 5,0,>(product_pages+22*$100),>(product_pages+11*$100),>(product_pages+39*$100),20,25,30,33,29,0,0
+    .byte 5,0,>(product_pages+22*$100),>(product_pages+33*$100),>(product_pages+39*$100),21,26,51,48,22,0,0
+    .byte 5,0,>(product_pages+5*$100),>(product_pages+22*$100),>(product_pages+33*$100),23,53,57,35,24,0,0
+    .byte 5,0,>(product_pages+39*$100),>(product_pages+22*$100),>(product_pages+33*$100),27,28,37,59,55,0,0
+    .byte 5,0,>(product_pages+11*$100),>(product_pages+39*$100),>(product_pages+22*$100),39,44,52,49,40,0,0
+    .byte 5,0,>(product_pages+33*$100),>(product_pages+39*$100),>(product_pages+22*$100),41,50,54,46,42,0,0
+.align $100
+ratio_q: .import binary "assets/ratio-q.bin"
+.align $100
+ratio_r: .import binary "assets/ratio-r.bin"
+ratio_row_lo: .import binary "assets/ratio-row-lo.bin"
+ratio_row_hi: .import binary "assets/ratio-row-hi.bin"
+sample_y: .import binary "assets/sample-y.bin"
+sample_gap: .import binary "assets/sample-gap.bin"
+first_sample: .import binary "assets/first-sample.bin"
+sample_row_lo: .import binary "assets/sample-row-lo.bin"
+sample_row_hi: .import binary "assets/sample-row-hi.bin"
+left_masks: .import binary "assets/left-masks.bin"
+right_masks: .import binary "assets/right-masks.bin"
+full_masks: .import binary "assets/full-masks.bin"
+.align $100
+glyph_lut: .import binary "assets/glyph-lut.bin"
+.align $100
+glyph_compact: .import binary "assets/glyph-compact.bin"
+clip_records: .import binary "assets/clip-records.bin"
+.align $100
+limb_remap: .import binary "assets/limb-remap.bin"

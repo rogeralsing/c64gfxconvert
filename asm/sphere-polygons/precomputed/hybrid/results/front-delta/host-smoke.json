@@ -1,0 +1,37 @@
+{
+  "frames": 194,
+  "wraps": 3,
+  "screenBytesCompared": 194000,
+  "oneScreenOnly": true,
+  "timedWritesStrictlyAscending": true,
+  "fontAndSourceImmutable": true,
+  "startupInstructionCycles": 86873,
+  "updateInstructionCycles": {
+    "min": 11019,
+    "mean": 13010.927461139896,
+    "max": 15365
+  },
+  "closingInstructionCycles": {
+    "min": 13306,
+    "mean": 13306,
+    "max": 13306
+  },
+  "characterWritesPerUpdate": {
+    "min": 111,
+    "mean": 161.04663212435233,
+    "max": 228
+  },
+  "codeBytes": 803,
+  "sourceBytes": 15423,
+  "originalHd64Bytes": 15169,
+  "closingRecordBytes": 254,
+  "fontBytes": 2048,
+  "fillScratchBytes": 60,
+  "zeroPageBytes": 30,
+  "screenBytes": 1024,
+  "prgBytes": 26688,
+  "prgSha256": "196d57512765fb2902009b2573ab5cf40ec3cdbedeb85f94a4ee6e3a12b31277",
+  "sourceSha256": "cff2690a827a9a91e50976bd795a37ae029774cec740faf14e0f2be2de102d1c",
+  "measurement": "Assembled6502 instruction cycles and stores; raster waits/VIC stalls bypassed. No nativeFPS or beam safety claim.",
+  "pass": true
+}

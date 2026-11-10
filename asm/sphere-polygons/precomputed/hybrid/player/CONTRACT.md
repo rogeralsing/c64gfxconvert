@@ -1,0 +1,25 @@
+# PAL playback measurement
+
+All players show the same 64-frame loop of the unchanged 72-face checker. The default front-delta player reads HD64 plus the closing patch and updates the visible `$0400` screen at one PAL field per image. The legacy double-buffered delta player reads the original HD64; independent-frame comparisons read HC64. The font remains the original 2,048-byte mathematical font. These movie players contain no runtime geometry calculation.
+
+Run `node prepare-assets.cjs` from this directory once. Shared immutable assets are in `build/assets/`: checker-64.hc64, checker-64-raw.hc64, checker-64-smooth-delta1-lag1.hd64, checker-closing.delta, font.bin and their layout metadata. The separate `build/reference/` is verifier input only and must never be imported into a player.
+
+HD64 uses a 14-byte header followed by 50 row-layout bytes. Each frame has a 16-bit payload length with bit15 marking a key. The original 15,169-byte movie contains one HC64-style initial key and 63 predictive records. Predictive packets use the top two opcode bits for skip/literal/repeat and the low six bits for length minus one. They cover exactly 1,000 character positions. Both native delta players use `t−1`; neither uses a lag-two compression gain.
+
+The default front-delta player decodes key0 with DEN disabled, then leaves that first image to scan for a complete field. All subsequent updates, including `63 → 0`, apply ascending-address predictive packets directly to `$0400`. The separate closing record is lengthLE16 plus a 252-byte patch, adding 254 bytes to the unchanged HD64: 15,423 combined source bytes. No 1,024-byte synchronization copy, second screen or decoded-key cache is used.
+
+The legacy double-buffered player supplies `t−1` by copying the real front screen to the back screen before applying each predictive record. It caches the decoded initial key once and times a copy of that cache at each wrap. This remains a separate 25.062 FPS comparison.
+
+HC64 global header is12bytes, followed by50bytes of row spans. First frame begins at offset62. Each frame has fillLengthLE16, edgeLengthLE16, fill payload, edge payload. The compact fill is PackBits expanding to60bytes. The edge payload begins with60raw presence-map bytes, then exact glyph codes in ascending screen order. Iterate475 selected cells in row-span order. The tail padding bits are ignored. Fill bits select glyph0 or15; edge presence overrides that value with the next glyph. The maximum edge-glyph count is below256, so an8-bit glyph index is valid.
+
+Prefer the compact file for comparable size measurements. The raw-fill file is provided for a separately reported speed/space tradeoff. A static destination layout or offset table may be generated from the serialized metadata, but its bytes count toward the player footprint. Do not generate or embed per-frame character screens in code.
+
+Required labels: render_start, render_end, frame_done, frame_index, frame_counter, front_screen_hi, back_screen_hi. frame_counter is16bit. At frame_done, frame_index identifies the reported image; advance the index afterward. Frame0 is first and the loop contains no duplicate endpoint. After the closing update, the front-delta player restores the original stream pointer to predictive image1.
+
+Use bank0 hires text, white character color, black background and font$2000. The default uses only `$0400`, with front_screen_hi and back_screen_hi both4 for ABI compatibility. `render_start` is at lower-border line256 before any update store; `render_end` follows packet writes. The player waits for the next line256 before `frame_done`, so the image has already completed its visible scan. The first timed frame0 is a no-op; later frame0 updates are real closing deltas. Every update must fit its row-fetch deadlines and one-field cadence. Its dedicated verifier captures the actual VIC pixel buffer on every field.
+
+Legacy and independent-frame players initialize and alternate screens `$0400/$0c00`, swapping only at a raster wrap after decoding. Their `frame_done` identifies the newly selected screen, before that image's next complete visible scan. Independent HC64 players use their natural wait cadence; the legacy delta comparison uses two PAL fields, adding one wait for its cheaper cached frame0.
+
+For every variant, per-frame parsing, synchronization if used, and writes occur between render_start and render_end. Startup-only key decoding is described separately. No music or IRQ workload is included; adding work requires renewed timing/scanout verification.
+
+Each variant builds its own build/player.prg and build/main.sym. Code and emitted load data stay outside I/O and hardware vectors. `front-delta/verify-pal.py` checks every completed visible field, exact screen/font/source bytes, fixed VIC setup and loop wrap. `front-delta/beam-trace.py` separately bounds every store's row-fetch deadline. The legacy `verify.py` checks alternating-buffer players and selected screenshots. Each verifier owns and closes only its own VICE process. PAL render clocks include VIC stalls; presentation clocks include raster waiting.

@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "coordinateUnit": "Q3 characters (1/8 character)",
+  "screenChars": [
+    40,
+    25
+  ],
+  "centerChars": [
+    20,
+    12.5
+  ],
+  "radiusChars": 11.75,
+  "dotCenterOffset": 0,
+  "projection": "live orthographic yaw, pitch and roll",
+  "fontSignature": "828db7b1",
+  "fontGlyphs": 256,
+  "coverageBits": 8,
+  "probePoints": [
+    [
+      1,
+      1
+    ],
+    [
+      4,
+      1
+    ],
+    [
+      6,
+      1
+    ],
+    [
+      1,
+      4
+    ],
+    [
+      6,
+      4
+    ],
+    [
+      1,
+      6
+    ],
+    [
+      4,
+      6
+    ],
+    [
+      6,
+      6
+    ]
+  ],
+  "models": {
+    "checker": {
+      "vertices": 62,
+      "faces": 72,
+      "whiteFaces": 36,
+      "kinds": {
+        "triangle": 24,
+        "quad": 48
+      }
+    },
+    "football": {
+      "vertices": 60,
+      "faces": 32,
+      "whiteFaces": 20,
+      "kinds": {
+        "hexagon": 20,
+        "pentagon": 12
+      }
+    }
+  },
+  "productCoordinateValues": [
+    -64,
+    -63,
+    -62,
+    -60,
+    -55,
+    -54,
+    -48,
+    -45,
+    -44,
+    -42,
+    -37,
+    -34,
+    -33,
+    -32,
+    -28,
+    -24,
+    -23,
+    -21,
+    -17,
+    -16,
+    -12,
+    -4,
+    0,
+    4,
+    12,
+    16,
+    17,
+    21,
+    23,
+    24,
+    28,
+    32,
+    33,
+    34,
+    37,
+    42,
+    44,
+    45,
+    48,
+    54,
+    55,
+    60,
+    62,
+    63,
+    64
+  ],
+  "productPages": 45,
+  "edgeRatioLimit": 63,
+  "clip": {
+    "outerRadiusQ3": 101,
+    "tileCount": 148,
+    "classes": 60,
+    "sourceGlyphs": 148,
+    "tableBytes": 9136
+  },
+  "bytes": {
+    "font.bin": 2048,
+    "products.bin": 11520,
+    "sin.bin": 256,
+    "ratio-q.bin": 4096,
+    "ratio-r.bin": 4096,
+    "ratio-row-lo.bin": 64,
+    "ratio-row-hi.bin": 64,
+    "sample-y.bin": 75,
+    "sample-gap.bin": 75,
+    "first-sample.bin": 256,
+    "sample-row-lo.bin": 75,
+    "sample-row-hi.bin": 75,
+    "left-masks.bin": 24,
+    "right-masks.bin": 24,
+    "full-masks.bin": 3,
+    "glyph-lut.bin": 256,
+    "glyph-compact.bin": 256,
+    "limb-remap.bin": 8880,
+    "clip-records.bin": 592
+  },
+  "totalBinaryBytes": 32735
+}

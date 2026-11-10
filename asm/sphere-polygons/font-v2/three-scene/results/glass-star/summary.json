@@ -1,0 +1,35 @@
+{
+  "pass": true,
+  "geometry": "closed nonconvex six-pyramid stellated cube",
+  "vertices": 14,
+  "edges": 36,
+  "triangles": 24,
+  "axisTips": 6,
+  "nativeFps": 25.062279031300566,
+  "storedFrames": 161,
+  "orbitFrames": 160,
+  "nominalOrbitSeconds": 6.4,
+  "measuredOrbitSeconds": 6.384097709409205,
+  "payloadBytes": 11181,
+  "meaningfulLoadedBytes": 14600,
+  "actualVisibleFieldsVerified": 962,
+  "loopWrapsVerified": 2,
+  "programSha256": "92f67883d15d0df98a16fce6c77054b3e8fee6a4fbbe4ae6267a481a1a0988ca",
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "sourceSha256": "6f07d3661f125b91db997180cc1a52a65ea5ec93f5b7411e2f7f1eb913829522",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs",
+      "sha256": "ca7a50db71b5e459763e7a33af657f33c4beaeb2c3a70e4c43c4b2745e64519c"
+    },
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+      "sha256": "af49ee20e64ca5464739eb3f4f1ec6c347e6b37ff1c5abb676ac2299cd0783e4"
+    }
+  ],
+  "nativeFontAndPlayerUnchanged": true,
+  "gifSource": "Actual verified PAL VICE screenshots",
+  "gifFrames": 160,
+  "gifFrameDurationMs": 40,
+  "gifDecodedPixelsVerified": true
+}

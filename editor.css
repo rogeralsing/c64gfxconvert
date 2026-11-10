@@ -91,7 +91,7 @@ main { display: flex; flex: 1; min-height: 0; }
 .grid-toggle input { width: 13px; height: 13px; margin: 0; accent-color: #4a94e3; }
 .preview-panel { display: grid; grid-template-rows: minmax(0, 1fr) auto; flex: 1; min-height: 0; min-width: 0; outline: none; }
 .screen-border { display: grid; place-items: center; min-height: 0; padding: 40px; container-type: size; }
-.screen { position: relative; width: min(100cqw, 160cqh); aspect-ratio: 8 / 5; overflow: hidden; }
+.screen { position: relative; width: min(100cqw, var(--screen-fit-width, 160cqh)); aspect-ratio: var(--screen-aspect, 8 / 5); overflow: hidden; }
 .preview.has-image .screen { box-shadow: 0 0 0 1px #080808, 0 5px 24px #0006; }
 canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; background-color: #303030; background-image: conic-gradient(#3b3b3b 25%, transparent 0 50%, #3b3b3b 0 75%, transparent 0); background-size: 16px 16px; }
 .preview.has-image #canvas { cursor: grab; touch-action: none; }
@@ -138,6 +138,10 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .layer-rename { align-self: center; min-width: 0; width: calc(100% - 48px); margin: 8px; padding: 6px 8px; border: 1px solid var(--accent); border-radius: 3px; background: #222; color: #fff; font-size: 11px; }
 .preview[data-can-pan="false"] #canvas { cursor: default; }
 .mode-select { width: 100%; min-height: 30px; padding: 5px 9px; border: 1px solid #5b5b5b; border-radius: 4px; background: #363636; font-size: 12px; }
+#sprite-grid-settings :is(.control-label, legend, .background-value, .mode-select) { font-size: 14px; }
+#charset-settings :is(legend, .background-value, .control-label, output) { font-size: 14px; }
+#charset-atlas { aspect-ratio: 1; max-width: 512px; height: auto; margin: 0 auto; }
+#charset-view :is(h3, figcaption) { font-size: 14px; }
 .inspector-panel { border-bottom: 1px solid #151515; scroll-margin-top: 37px; }
 .inspector-panel > summary { display: flex; align-items: center; gap: 8px; min-height: 36px; padding: 8px 14px; list-style: none; cursor: pointer; background: #303030; }
 .inspector-panel > summary::-webkit-details-marker { display: none; }

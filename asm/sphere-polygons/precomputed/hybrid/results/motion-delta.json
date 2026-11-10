@@ -1,0 +1,159 @@
+{
+  "pass": true,
+  "motion": {
+    "kind": "fixed-axis-symmetry-loop",
+    "yawDegreesPerFrame": 0.9375,
+    "pitchDegrees": 22,
+    "rollDegrees": 12,
+    "symmetryPeriodDegrees": 60,
+    "frames": 64,
+    "fullRevolutionFrames": 384,
+    "fullRevolutionSecondsAt50Fps": 7.68,
+    "subByteAnglePrecision": true,
+    "loopEndpointMatches": true
+  },
+  "independentBytes": 19096,
+  "comparedBytes": 2304000,
+  "bestLag1": {
+    "codec": "delta-packets64",
+    "lag": 1,
+    "policy": "predictive",
+    "bytes": 15169,
+    "meanFrameBytes": 237.015625,
+    "keyFrames": 1,
+    "patchFrames": 63,
+    "meanChangedCells": 91.73015873015873
+  },
+  "bestLag2": {
+    "codec": "delta-packets64",
+    "lag": 2,
+    "policy": "adaptive",
+    "bytes": 19067,
+    "meanFrameBytes": 297.921875,
+    "keyFrames": 56,
+    "patchFrames": 8,
+    "meanChangedCells": 131.25806451612902
+  },
+  "rows": [
+    {
+      "codec": "delta-packets64",
+      "lag": 1,
+      "policy": "predictive",
+      "bytes": 15169,
+      "meanFrameBytes": 237.015625,
+      "keyFrames": 1,
+      "patchFrames": 63,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-packets64",
+      "lag": 1,
+      "policy": "adaptive",
+      "bytes": 15169,
+      "meanFrameBytes": 237.015625,
+      "keyFrames": 1,
+      "patchFrames": 63,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-packets64",
+      "lag": 1,
+      "policy": "key32",
+      "bytes": 15227,
+      "meanFrameBytes": 237.921875,
+      "keyFrames": 2,
+      "patchFrames": 62,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 1,
+      "policy": "predictive",
+      "bytes": 15533,
+      "meanFrameBytes": 242.703125,
+      "keyFrames": 1,
+      "patchFrames": 63,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 1,
+      "policy": "adaptive",
+      "bytes": 15533,
+      "meanFrameBytes": 242.703125,
+      "keyFrames": 1,
+      "patchFrames": 63,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 1,
+      "policy": "key32",
+      "bytes": 15586,
+      "meanFrameBytes": 243.53125,
+      "keyFrames": 2,
+      "patchFrames": 62,
+      "meanChangedCells": 91.73015873015873
+    },
+    {
+      "codec": "delta-packets64",
+      "lag": 2,
+      "policy": "adaptive",
+      "bytes": 19067,
+      "meanFrameBytes": 297.921875,
+      "keyFrames": 56,
+      "patchFrames": 8,
+      "meanChangedCells": 131.25806451612902
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 2,
+      "policy": "adaptive",
+      "bytes": 19090,
+      "meanFrameBytes": 298.28125,
+      "keyFrames": 63,
+      "patchFrames": 1,
+      "meanChangedCells": 131.25806451612902
+    },
+    {
+      "codec": "delta-packets64",
+      "lag": 2,
+      "policy": "key32",
+      "bytes": 19980,
+      "meanFrameBytes": 312.1875,
+      "keyFrames": 4,
+      "patchFrames": 60,
+      "meanChangedCells": 131.25806451612902
+    },
+    {
+      "codec": "delta-packets64",
+      "lag": 2,
+      "policy": "predictive",
+      "bytes": 20010,
+      "meanFrameBytes": 312.65625,
+      "keyFrames": 2,
+      "patchFrames": 62,
+      "meanChangedCells": 131.25806451612902
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 2,
+      "policy": "key32",
+      "bytes": 20612,
+      "meanFrameBytes": 322.0625,
+      "keyFrames": 4,
+      "patchFrames": 60,
+      "meanChangedCells": 131.25806451612902
+    },
+    {
+      "codec": "delta-varint-pairs",
+      "lag": 2,
+      "policy": "predictive",
+      "bytes": 20665,
+      "meanFrameBytes": 322.890625,
+      "keyFrames": 2,
+      "patchFrames": 62,
+      "meanChangedCells": 131.25806451612902
+    }
+  ]
+}

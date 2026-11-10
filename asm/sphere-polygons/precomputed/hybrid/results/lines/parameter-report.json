@@ -1,0 +1,55 @@
+{
+  "pass": true,
+  "scope": "Host-only serialized parameter deltas, including shared mathematical line tables. Full polygon half-plane baseline; not the edge-only renderer. No native timing or code size claim.",
+  "fontBytesSeparate": 2048,
+  "rows": [
+    {
+      "name": "q8-polygon-approx",
+      "storedFill": false,
+      "exact": false,
+      "bytes": 10937,
+      "keys": 2,
+      "patches": 62,
+      "workspaceBytes": 1000,
+      "sharedLookupBytes": 1888,
+      "comparedBytes": 384000,
+      "loops": 3
+    },
+    {
+      "name": "q8-polygon-exact",
+      "storedFill": false,
+      "exact": true,
+      "bytes": 24433,
+      "keys": 4,
+      "patches": 60,
+      "workspaceBytes": 1000,
+      "sharedLookupBytes": 1888,
+      "comparedBytes": 384000,
+      "loops": 3
+    },
+    {
+      "name": "q8-fill-approx",
+      "storedFill": true,
+      "exact": false,
+      "bytes": 15197,
+      "keys": 5,
+      "patches": 59,
+      "workspaceBytes": 1000,
+      "sharedLookupBytes": 1888,
+      "comparedBytes": 384000,
+      "loops": 3
+    },
+    {
+      "name": "q8-fill-exact",
+      "storedFill": true,
+      "exact": true,
+      "bytes": 28722,
+      "keys": 9,
+      "patches": 55,
+      "workspaceBytes": 1000,
+      "sharedLookupBytes": 1888,
+      "comparedBytes": 384000,
+      "loops": 3
+    }
+  ]
+}

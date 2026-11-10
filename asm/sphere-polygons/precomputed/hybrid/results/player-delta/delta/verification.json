@@ -1,0 +1,2054 @@
+{
+  "pass": true,
+  "variant": "delta",
+  "motion": {
+    "kind": "fixed-axis-symmetry-loop",
+    "yawDegreesPerFrame": 0.9375,
+    "pitchDegrees": 22,
+    "rollDegrees": 12,
+    "symmetryPeriodDegrees": 60,
+    "frames": 64,
+    "fullRevolutionFrames": 384,
+    "fullRevolutionSecondsAt50Fps": 7.68,
+    "subByteAnglePrecision": true,
+    "loopEndpointMatches": true
+  },
+  "program_sha256": "e2ee27741a40e22adefff26f2cf4d6dc7e162dd9731cc574e8fdde8489ba6f8f",
+  "font_sha256": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+  "reference_sha256": "5d4b75fc49e0401709f230e7a6dd61cb1efb7f1c2d695ee8edba02b80029cbce",
+  "pal_clock_hz": 985248,
+  "pal_frame_cycles": 19656,
+  "speed_percent": 100,
+  "warp": false,
+  "measurement": "Complete decoding and screen writes with VIC stalls; cadence includes raster wait. No music or IRQ workload.",
+  "samples": [
+    {
+      "index": 0,
+      "frame": 0,
+      "counter": 1,
+      "front": 3072,
+      "clock": 3203979,
+      "render_cycles": 11400,
+      "screen_match": true,
+      "screenshot": "frame-00-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 1,
+      "frame": 1,
+      "counter": 2,
+      "front": 1024,
+      "clock": 3243294,
+      "render_cycles": 25673,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 2,
+      "frame": 2,
+      "counter": 3,
+      "front": 3072,
+      "clock": 3282612,
+      "render_cycles": 25323,
+      "screen_match": true,
+      "presentation_cycles": 39318
+    },
+    {
+      "index": 3,
+      "frame": 3,
+      "counter": 4,
+      "front": 1024,
+      "clock": 3321917,
+      "render_cycles": 26470,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 4,
+      "frame": 4,
+      "counter": 5,
+      "front": 3072,
+      "clock": 3361234,
+      "render_cycles": 23485,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 5,
+      "frame": 5,
+      "counter": 6,
+      "front": 1024,
+      "clock": 3400544,
+      "render_cycles": 24630,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 6,
+      "frame": 6,
+      "counter": 7,
+      "front": 3072,
+      "clock": 3439856,
+      "render_cycles": 26405,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 7,
+      "frame": 7,
+      "counter": 8,
+      "front": 1024,
+      "clock": 3479166,
+      "render_cycles": 23992,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 8,
+      "frame": 8,
+      "counter": 9,
+      "front": 3072,
+      "clock": 3518483,
+      "render_cycles": 24635,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 9,
+      "frame": 9,
+      "counter": 10,
+      "front": 1024,
+      "clock": 3557793,
+      "render_cycles": 25872,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 10,
+      "frame": 10,
+      "counter": 11,
+      "front": 3072,
+      "clock": 3597105,
+      "render_cycles": 23950,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 11,
+      "frame": 11,
+      "counter": 12,
+      "front": 1024,
+      "clock": 3636418,
+      "render_cycles": 25461,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 12,
+      "frame": 12,
+      "counter": 13,
+      "front": 3072,
+      "clock": 3675732,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 13,
+      "frame": 13,
+      "counter": 14,
+      "front": 1024,
+      "clock": 3715042,
+      "render_cycles": 27113,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 14,
+      "frame": 14,
+      "counter": 15,
+      "front": 3072,
+      "clock": 3754351,
+      "render_cycles": 22747,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 15,
+      "frame": 15,
+      "counter": 16,
+      "front": 1024,
+      "clock": 3793664,
+      "render_cycles": 25454,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 16,
+      "frame": 16,
+      "counter": 17,
+      "front": 3072,
+      "clock": 3832980,
+      "render_cycles": 24971,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 17,
+      "frame": 17,
+      "counter": 18,
+      "front": 1024,
+      "clock": 3872289,
+      "render_cycles": 24552,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 18,
+      "frame": 18,
+      "counter": 19,
+      "front": 3072,
+      "clock": 3911603,
+      "render_cycles": 23426,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 19,
+      "frame": 19,
+      "counter": 20,
+      "front": 1024,
+      "clock": 3950915,
+      "render_cycles": 25369,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 20,
+      "frame": 20,
+      "counter": 21,
+      "front": 3072,
+      "clock": 3990225,
+      "render_cycles": 26199,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 21,
+      "frame": 21,
+      "counter": 22,
+      "front": 1024,
+      "clock": 4029533,
+      "render_cycles": 23688,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 22,
+      "frame": 22,
+      "counter": 23,
+      "front": 3072,
+      "clock": 4068853,
+      "render_cycles": 23600,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    },
+    {
+      "index": 23,
+      "frame": 23,
+      "counter": 24,
+      "front": 1024,
+      "clock": 4108159,
+      "render_cycles": 25524,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 24,
+      "frame": 24,
+      "counter": 25,
+      "front": 3072,
+      "clock": 4147477,
+      "render_cycles": 25239,
+      "screen_match": true,
+      "presentation_cycles": 39318
+    },
+    {
+      "index": 25,
+      "frame": 25,
+      "counter": 26,
+      "front": 1024,
+      "clock": 4186782,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 26,
+      "frame": 26,
+      "counter": 27,
+      "front": 3072,
+      "clock": 4226099,
+      "render_cycles": 24979,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 27,
+      "frame": 27,
+      "counter": 28,
+      "front": 1024,
+      "clock": 4265408,
+      "render_cycles": 26754,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 28,
+      "frame": 28,
+      "counter": 29,
+      "front": 3072,
+      "clock": 4304719,
+      "render_cycles": 24496,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 29,
+      "frame": 29,
+      "counter": 30,
+      "front": 1024,
+      "clock": 4344032,
+      "render_cycles": 25264,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 30,
+      "frame": 30,
+      "counter": 31,
+      "front": 3072,
+      "clock": 4383343,
+      "render_cycles": 24159,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 31,
+      "frame": 31,
+      "counter": 32,
+      "front": 1024,
+      "clock": 4422655,
+      "render_cycles": 25397,
+      "screen_match": true,
+      "presentation_cycles": 39312,
+      "screenshot": "frame-31-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 32,
+      "frame": 32,
+      "counter": 33,
+      "front": 3072,
+      "clock": 4461970,
+      "render_cycles": 24787,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 33,
+      "frame": 33,
+      "counter": 34,
+      "front": 1024,
+      "clock": 4501280,
+      "render_cycles": 25486,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 34,
+      "frame": 34,
+      "counter": 35,
+      "front": 3072,
+      "clock": 4540594,
+      "render_cycles": 25270,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 35,
+      "frame": 35,
+      "counter": 36,
+      "front": 1024,
+      "clock": 4579903,
+      "render_cycles": 25274,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 36,
+      "frame": 36,
+      "counter": 37,
+      "front": 3072,
+      "clock": 4619216,
+      "render_cycles": 24007,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 37,
+      "frame": 37,
+      "counter": 38,
+      "front": 1024,
+      "clock": 4658526,
+      "render_cycles": 24286,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 38,
+      "frame": 38,
+      "counter": 39,
+      "front": 3072,
+      "clock": 4697845,
+      "render_cycles": 25745,
+      "screen_match": true,
+      "presentation_cycles": 39319
+    },
+    {
+      "index": 39,
+      "frame": 39,
+      "counter": 40,
+      "front": 1024,
+      "clock": 4737154,
+      "render_cycles": 24257,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 40,
+      "frame": 40,
+      "counter": 41,
+      "front": 3072,
+      "clock": 4776468,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 41,
+      "frame": 41,
+      "counter": 42,
+      "front": 1024,
+      "clock": 4815776,
+      "render_cycles": 24586,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 42,
+      "frame": 42,
+      "counter": 43,
+      "front": 3072,
+      "clock": 4855092,
+      "render_cycles": 24557,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 43,
+      "frame": 43,
+      "counter": 44,
+      "front": 1024,
+      "clock": 4894403,
+      "render_cycles": 27549,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 44,
+      "frame": 44,
+      "counter": 45,
+      "front": 3072,
+      "clock": 4933714,
+      "render_cycles": 24566,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 45,
+      "frame": 45,
+      "counter": 46,
+      "front": 1024,
+      "clock": 4973026,
+      "render_cycles": 26084,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 46,
+      "frame": 46,
+      "counter": 47,
+      "front": 3072,
+      "clock": 5012341,
+      "render_cycles": 22767,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 47,
+      "frame": 47,
+      "counter": 48,
+      "front": 1024,
+      "clock": 5051648,
+      "render_cycles": 24901,
+      "screen_match": true,
+      "presentation_cycles": 39307
+    },
+    {
+      "index": 48,
+      "frame": 48,
+      "counter": 49,
+      "front": 3072,
+      "clock": 5090964,
+      "render_cycles": 24599,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 49,
+      "frame": 49,
+      "counter": 50,
+      "front": 1024,
+      "clock": 5130273,
+      "render_cycles": 25099,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 50,
+      "frame": 50,
+      "counter": 51,
+      "front": 3072,
+      "clock": 5169588,
+      "render_cycles": 23953,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 51,
+      "frame": 51,
+      "counter": 52,
+      "front": 1024,
+      "clock": 5208894,
+      "render_cycles": 25475,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 52,
+      "frame": 52,
+      "counter": 53,
+      "front": 3072,
+      "clock": 5248208,
+      "render_cycles": 26056,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 53,
+      "frame": 53,
+      "counter": 54,
+      "front": 1024,
+      "clock": 5287521,
+      "render_cycles": 24416,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 54,
+      "frame": 54,
+      "counter": 55,
+      "front": 3072,
+      "clock": 5326832,
+      "render_cycles": 22862,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 55,
+      "frame": 55,
+      "counter": 56,
+      "front": 1024,
+      "clock": 5366145,
+      "render_cycles": 25033,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 56,
+      "frame": 56,
+      "counter": 57,
+      "front": 3072,
+      "clock": 5405460,
+      "render_cycles": 26786,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 57,
+      "frame": 57,
+      "counter": 58,
+      "front": 1024,
+      "clock": 5444766,
+      "render_cycles": 24177,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 58,
+      "frame": 58,
+      "counter": 59,
+      "front": 3072,
+      "clock": 5484080,
+      "render_cycles": 23292,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 59,
+      "frame": 59,
+      "counter": 60,
+      "front": 1024,
+      "clock": 5523393,
+      "render_cycles": 24907,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 60,
+      "frame": 60,
+      "counter": 61,
+      "front": 3072,
+      "clock": 5562709,
+      "render_cycles": 24543,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 61,
+      "frame": 61,
+      "counter": 62,
+      "front": 1024,
+      "clock": 5602013,
+      "render_cycles": 26041,
+      "screen_match": true,
+      "presentation_cycles": 39304
+    },
+    {
+      "index": 62,
+      "frame": 62,
+      "counter": 63,
+      "front": 3072,
+      "clock": 5641327,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 63,
+      "frame": 63,
+      "counter": 64,
+      "front": 1024,
+      "clock": 5680643,
+      "render_cycles": 26691,
+      "screen_match": true,
+      "presentation_cycles": 39316,
+      "screenshot": "frame-63-vice.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      }
+    },
+    {
+      "index": 64,
+      "frame": 0,
+      "counter": 65,
+      "front": 3072,
+      "clock": 5719945,
+      "render_cycles": 11315,
+      "screen_match": true,
+      "presentation_cycles": 39302
+    },
+    {
+      "index": 65,
+      "frame": 1,
+      "counter": 66,
+      "front": 1024,
+      "clock": 5759265,
+      "render_cycles": 25671,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    },
+    {
+      "index": 66,
+      "frame": 2,
+      "counter": 67,
+      "front": 3072,
+      "clock": 5798580,
+      "render_cycles": 25322,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 67,
+      "frame": 3,
+      "counter": 68,
+      "front": 1024,
+      "clock": 5837885,
+      "render_cycles": 26470,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 68,
+      "frame": 4,
+      "counter": 69,
+      "front": 3072,
+      "clock": 5877202,
+      "render_cycles": 23485,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 69,
+      "frame": 5,
+      "counter": 70,
+      "front": 1024,
+      "clock": 5916512,
+      "render_cycles": 24630,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 70,
+      "frame": 6,
+      "counter": 71,
+      "front": 3072,
+      "clock": 5955824,
+      "render_cycles": 26405,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 71,
+      "frame": 7,
+      "counter": 72,
+      "front": 1024,
+      "clock": 5995134,
+      "render_cycles": 23992,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 72,
+      "frame": 8,
+      "counter": 73,
+      "front": 3072,
+      "clock": 6034451,
+      "render_cycles": 24635,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 73,
+      "frame": 9,
+      "counter": 74,
+      "front": 1024,
+      "clock": 6073761,
+      "render_cycles": 25872,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 74,
+      "frame": 10,
+      "counter": 75,
+      "front": 3072,
+      "clock": 6113073,
+      "render_cycles": 23950,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 75,
+      "frame": 11,
+      "counter": 76,
+      "front": 1024,
+      "clock": 6152386,
+      "render_cycles": 25461,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 76,
+      "frame": 12,
+      "counter": 77,
+      "front": 3072,
+      "clock": 6191700,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 77,
+      "frame": 13,
+      "counter": 78,
+      "front": 1024,
+      "clock": 6231010,
+      "render_cycles": 27113,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 78,
+      "frame": 14,
+      "counter": 79,
+      "front": 3072,
+      "clock": 6270319,
+      "render_cycles": 22747,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 79,
+      "frame": 15,
+      "counter": 80,
+      "front": 1024,
+      "clock": 6309632,
+      "render_cycles": 25454,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 80,
+      "frame": 16,
+      "counter": 81,
+      "front": 3072,
+      "clock": 6348948,
+      "render_cycles": 24971,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 81,
+      "frame": 17,
+      "counter": 82,
+      "front": 1024,
+      "clock": 6388257,
+      "render_cycles": 24552,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 82,
+      "frame": 18,
+      "counter": 83,
+      "front": 3072,
+      "clock": 6427571,
+      "render_cycles": 23426,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 83,
+      "frame": 19,
+      "counter": 84,
+      "front": 1024,
+      "clock": 6466883,
+      "render_cycles": 25369,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 84,
+      "frame": 20,
+      "counter": 85,
+      "front": 3072,
+      "clock": 6506193,
+      "render_cycles": 26199,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 85,
+      "frame": 21,
+      "counter": 86,
+      "front": 1024,
+      "clock": 6545501,
+      "render_cycles": 23688,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 86,
+      "frame": 22,
+      "counter": 87,
+      "front": 3072,
+      "clock": 6584821,
+      "render_cycles": 23600,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    },
+    {
+      "index": 87,
+      "frame": 23,
+      "counter": 88,
+      "front": 1024,
+      "clock": 6624127,
+      "render_cycles": 25524,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 88,
+      "frame": 24,
+      "counter": 89,
+      "front": 3072,
+      "clock": 6663445,
+      "render_cycles": 25239,
+      "screen_match": true,
+      "presentation_cycles": 39318
+    },
+    {
+      "index": 89,
+      "frame": 25,
+      "counter": 90,
+      "front": 1024,
+      "clock": 6702750,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 90,
+      "frame": 26,
+      "counter": 91,
+      "front": 3072,
+      "clock": 6742067,
+      "render_cycles": 24979,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 91,
+      "frame": 27,
+      "counter": 92,
+      "front": 1024,
+      "clock": 6781376,
+      "render_cycles": 26754,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 92,
+      "frame": 28,
+      "counter": 93,
+      "front": 3072,
+      "clock": 6820687,
+      "render_cycles": 24496,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 93,
+      "frame": 29,
+      "counter": 94,
+      "front": 1024,
+      "clock": 6860000,
+      "render_cycles": 25264,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 94,
+      "frame": 30,
+      "counter": 95,
+      "front": 3072,
+      "clock": 6899311,
+      "render_cycles": 24159,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 95,
+      "frame": 31,
+      "counter": 96,
+      "front": 1024,
+      "clock": 6938623,
+      "render_cycles": 25397,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 96,
+      "frame": 32,
+      "counter": 97,
+      "front": 3072,
+      "clock": 6977938,
+      "render_cycles": 24787,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 97,
+      "frame": 33,
+      "counter": 98,
+      "front": 1024,
+      "clock": 7017248,
+      "render_cycles": 25486,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 98,
+      "frame": 34,
+      "counter": 99,
+      "front": 3072,
+      "clock": 7056562,
+      "render_cycles": 25270,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 99,
+      "frame": 35,
+      "counter": 100,
+      "front": 1024,
+      "clock": 7095871,
+      "render_cycles": 25274,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 100,
+      "frame": 36,
+      "counter": 101,
+      "front": 3072,
+      "clock": 7135184,
+      "render_cycles": 24007,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 101,
+      "frame": 37,
+      "counter": 102,
+      "front": 1024,
+      "clock": 7174494,
+      "render_cycles": 24286,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 102,
+      "frame": 38,
+      "counter": 103,
+      "front": 3072,
+      "clock": 7213813,
+      "render_cycles": 25745,
+      "screen_match": true,
+      "presentation_cycles": 39319
+    },
+    {
+      "index": 103,
+      "frame": 39,
+      "counter": 104,
+      "front": 1024,
+      "clock": 7253122,
+      "render_cycles": 24257,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 104,
+      "frame": 40,
+      "counter": 105,
+      "front": 3072,
+      "clock": 7292436,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 105,
+      "frame": 41,
+      "counter": 106,
+      "front": 1024,
+      "clock": 7331744,
+      "render_cycles": 24586,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 106,
+      "frame": 42,
+      "counter": 107,
+      "front": 3072,
+      "clock": 7371060,
+      "render_cycles": 24557,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 107,
+      "frame": 43,
+      "counter": 108,
+      "front": 1024,
+      "clock": 7410371,
+      "render_cycles": 27549,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 108,
+      "frame": 44,
+      "counter": 109,
+      "front": 3072,
+      "clock": 7449682,
+      "render_cycles": 24566,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 109,
+      "frame": 45,
+      "counter": 110,
+      "front": 1024,
+      "clock": 7488994,
+      "render_cycles": 26084,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 110,
+      "frame": 46,
+      "counter": 111,
+      "front": 3072,
+      "clock": 7528309,
+      "render_cycles": 22767,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 111,
+      "frame": 47,
+      "counter": 112,
+      "front": 1024,
+      "clock": 7567616,
+      "render_cycles": 24901,
+      "screen_match": true,
+      "presentation_cycles": 39307
+    },
+    {
+      "index": 112,
+      "frame": 48,
+      "counter": 113,
+      "front": 3072,
+      "clock": 7606932,
+      "render_cycles": 24599,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 113,
+      "frame": 49,
+      "counter": 114,
+      "front": 1024,
+      "clock": 7646241,
+      "render_cycles": 25099,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 114,
+      "frame": 50,
+      "counter": 115,
+      "front": 3072,
+      "clock": 7685556,
+      "render_cycles": 23953,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 115,
+      "frame": 51,
+      "counter": 116,
+      "front": 1024,
+      "clock": 7724862,
+      "render_cycles": 25475,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 116,
+      "frame": 52,
+      "counter": 117,
+      "front": 3072,
+      "clock": 7764176,
+      "render_cycles": 26056,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 117,
+      "frame": 53,
+      "counter": 118,
+      "front": 1024,
+      "clock": 7803489,
+      "render_cycles": 24416,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 118,
+      "frame": 54,
+      "counter": 119,
+      "front": 3072,
+      "clock": 7842800,
+      "render_cycles": 22862,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 119,
+      "frame": 55,
+      "counter": 120,
+      "front": 1024,
+      "clock": 7882113,
+      "render_cycles": 25033,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 120,
+      "frame": 56,
+      "counter": 121,
+      "front": 3072,
+      "clock": 7921428,
+      "render_cycles": 26786,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 121,
+      "frame": 57,
+      "counter": 122,
+      "front": 1024,
+      "clock": 7960734,
+      "render_cycles": 24177,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 122,
+      "frame": 58,
+      "counter": 123,
+      "front": 3072,
+      "clock": 8000048,
+      "render_cycles": 23292,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 123,
+      "frame": 59,
+      "counter": 124,
+      "front": 1024,
+      "clock": 8039361,
+      "render_cycles": 24907,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 124,
+      "frame": 60,
+      "counter": 125,
+      "front": 3072,
+      "clock": 8078677,
+      "render_cycles": 24543,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 125,
+      "frame": 61,
+      "counter": 126,
+      "front": 1024,
+      "clock": 8117981,
+      "render_cycles": 26041,
+      "screen_match": true,
+      "presentation_cycles": 39304
+    },
+    {
+      "index": 126,
+      "frame": 62,
+      "counter": 127,
+      "front": 3072,
+      "clock": 8157295,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 127,
+      "frame": 63,
+      "counter": 128,
+      "front": 1024,
+      "clock": 8196611,
+      "render_cycles": 26691,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 128,
+      "frame": 0,
+      "counter": 129,
+      "front": 3072,
+      "clock": 8235913,
+      "render_cycles": 11315,
+      "screen_match": true,
+      "presentation_cycles": 39302
+    },
+    {
+      "index": 129,
+      "frame": 1,
+      "counter": 130,
+      "front": 1024,
+      "clock": 8275233,
+      "render_cycles": 25671,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    },
+    {
+      "index": 130,
+      "frame": 2,
+      "counter": 131,
+      "front": 3072,
+      "clock": 8314548,
+      "render_cycles": 25322,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 131,
+      "frame": 3,
+      "counter": 132,
+      "front": 1024,
+      "clock": 8353853,
+      "render_cycles": 26470,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 132,
+      "frame": 4,
+      "counter": 133,
+      "front": 3072,
+      "clock": 8393170,
+      "render_cycles": 23485,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 133,
+      "frame": 5,
+      "counter": 134,
+      "front": 1024,
+      "clock": 8432480,
+      "render_cycles": 24630,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 134,
+      "frame": 6,
+      "counter": 135,
+      "front": 3072,
+      "clock": 8471792,
+      "render_cycles": 26405,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 135,
+      "frame": 7,
+      "counter": 136,
+      "front": 1024,
+      "clock": 8511102,
+      "render_cycles": 23992,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 136,
+      "frame": 8,
+      "counter": 137,
+      "front": 3072,
+      "clock": 8550419,
+      "render_cycles": 24635,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 137,
+      "frame": 9,
+      "counter": 138,
+      "front": 1024,
+      "clock": 8589729,
+      "render_cycles": 25872,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 138,
+      "frame": 10,
+      "counter": 139,
+      "front": 3072,
+      "clock": 8629041,
+      "render_cycles": 23950,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 139,
+      "frame": 11,
+      "counter": 140,
+      "front": 1024,
+      "clock": 8668354,
+      "render_cycles": 25461,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 140,
+      "frame": 12,
+      "counter": 141,
+      "front": 3072,
+      "clock": 8707668,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 141,
+      "frame": 13,
+      "counter": 142,
+      "front": 1024,
+      "clock": 8746978,
+      "render_cycles": 27113,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 142,
+      "frame": 14,
+      "counter": 143,
+      "front": 3072,
+      "clock": 8786287,
+      "render_cycles": 22747,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 143,
+      "frame": 15,
+      "counter": 144,
+      "front": 1024,
+      "clock": 8825600,
+      "render_cycles": 25454,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 144,
+      "frame": 16,
+      "counter": 145,
+      "front": 3072,
+      "clock": 8864916,
+      "render_cycles": 24971,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 145,
+      "frame": 17,
+      "counter": 146,
+      "front": 1024,
+      "clock": 8904225,
+      "render_cycles": 24552,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 146,
+      "frame": 18,
+      "counter": 147,
+      "front": 3072,
+      "clock": 8943539,
+      "render_cycles": 23426,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 147,
+      "frame": 19,
+      "counter": 148,
+      "front": 1024,
+      "clock": 8982851,
+      "render_cycles": 25369,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 148,
+      "frame": 20,
+      "counter": 149,
+      "front": 3072,
+      "clock": 9022161,
+      "render_cycles": 26199,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 149,
+      "frame": 21,
+      "counter": 150,
+      "front": 1024,
+      "clock": 9061469,
+      "render_cycles": 23688,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 150,
+      "frame": 22,
+      "counter": 151,
+      "front": 3072,
+      "clock": 9100789,
+      "render_cycles": 23600,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    },
+    {
+      "index": 151,
+      "frame": 23,
+      "counter": 152,
+      "front": 1024,
+      "clock": 9140095,
+      "render_cycles": 25524,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 152,
+      "frame": 24,
+      "counter": 153,
+      "front": 3072,
+      "clock": 9179413,
+      "render_cycles": 25239,
+      "screen_match": true,
+      "presentation_cycles": 39318
+    },
+    {
+      "index": 153,
+      "frame": 25,
+      "counter": 154,
+      "front": 1024,
+      "clock": 9218718,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39305
+    },
+    {
+      "index": 154,
+      "frame": 26,
+      "counter": 155,
+      "front": 3072,
+      "clock": 9258035,
+      "render_cycles": 24979,
+      "screen_match": true,
+      "presentation_cycles": 39317
+    },
+    {
+      "index": 155,
+      "frame": 27,
+      "counter": 156,
+      "front": 1024,
+      "clock": 9297344,
+      "render_cycles": 26754,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 156,
+      "frame": 28,
+      "counter": 157,
+      "front": 3072,
+      "clock": 9336655,
+      "render_cycles": 24496,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 157,
+      "frame": 29,
+      "counter": 158,
+      "front": 1024,
+      "clock": 9375968,
+      "render_cycles": 25264,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 158,
+      "frame": 30,
+      "counter": 159,
+      "front": 3072,
+      "clock": 9415279,
+      "render_cycles": 24159,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 159,
+      "frame": 31,
+      "counter": 160,
+      "front": 1024,
+      "clock": 9454591,
+      "render_cycles": 25397,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 160,
+      "frame": 32,
+      "counter": 161,
+      "front": 3072,
+      "clock": 9493906,
+      "render_cycles": 24787,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 161,
+      "frame": 33,
+      "counter": 162,
+      "front": 1024,
+      "clock": 9533216,
+      "render_cycles": 25486,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 162,
+      "frame": 34,
+      "counter": 163,
+      "front": 3072,
+      "clock": 9572530,
+      "render_cycles": 25270,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 163,
+      "frame": 35,
+      "counter": 164,
+      "front": 1024,
+      "clock": 9611839,
+      "render_cycles": 25274,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 164,
+      "frame": 36,
+      "counter": 165,
+      "front": 3072,
+      "clock": 9651152,
+      "render_cycles": 24007,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 165,
+      "frame": 37,
+      "counter": 166,
+      "front": 1024,
+      "clock": 9690462,
+      "render_cycles": 24286,
+      "screen_match": true,
+      "presentation_cycles": 39310
+    },
+    {
+      "index": 166,
+      "frame": 38,
+      "counter": 167,
+      "front": 3072,
+      "clock": 9729781,
+      "render_cycles": 25745,
+      "screen_match": true,
+      "presentation_cycles": 39319
+    },
+    {
+      "index": 167,
+      "frame": 39,
+      "counter": 168,
+      "front": 1024,
+      "clock": 9769090,
+      "render_cycles": 24257,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 168,
+      "frame": 40,
+      "counter": 169,
+      "front": 3072,
+      "clock": 9808404,
+      "render_cycles": 25284,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 169,
+      "frame": 41,
+      "counter": 170,
+      "front": 1024,
+      "clock": 9847712,
+      "render_cycles": 24586,
+      "screen_match": true,
+      "presentation_cycles": 39308
+    },
+    {
+      "index": 170,
+      "frame": 42,
+      "counter": 171,
+      "front": 3072,
+      "clock": 9887028,
+      "render_cycles": 24557,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 171,
+      "frame": 43,
+      "counter": 172,
+      "front": 1024,
+      "clock": 9926339,
+      "render_cycles": 27549,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 172,
+      "frame": 44,
+      "counter": 173,
+      "front": 3072,
+      "clock": 9965650,
+      "render_cycles": 24566,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 173,
+      "frame": 45,
+      "counter": 174,
+      "front": 1024,
+      "clock": 10004962,
+      "render_cycles": 26084,
+      "screen_match": true,
+      "presentation_cycles": 39312
+    },
+    {
+      "index": 174,
+      "frame": 46,
+      "counter": 175,
+      "front": 3072,
+      "clock": 10044277,
+      "render_cycles": 22767,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 175,
+      "frame": 47,
+      "counter": 176,
+      "front": 1024,
+      "clock": 10083584,
+      "render_cycles": 24901,
+      "screen_match": true,
+      "presentation_cycles": 39307
+    },
+    {
+      "index": 176,
+      "frame": 48,
+      "counter": 177,
+      "front": 3072,
+      "clock": 10122900,
+      "render_cycles": 24599,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 177,
+      "frame": 49,
+      "counter": 178,
+      "front": 1024,
+      "clock": 10162209,
+      "render_cycles": 25099,
+      "screen_match": true,
+      "presentation_cycles": 39309
+    },
+    {
+      "index": 178,
+      "frame": 50,
+      "counter": 179,
+      "front": 3072,
+      "clock": 10201524,
+      "render_cycles": 23953,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 179,
+      "frame": 51,
+      "counter": 180,
+      "front": 1024,
+      "clock": 10240830,
+      "render_cycles": 25475,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 180,
+      "frame": 52,
+      "counter": 181,
+      "front": 3072,
+      "clock": 10280144,
+      "render_cycles": 26056,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 181,
+      "frame": 53,
+      "counter": 182,
+      "front": 1024,
+      "clock": 10319457,
+      "render_cycles": 24416,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 182,
+      "frame": 54,
+      "counter": 183,
+      "front": 3072,
+      "clock": 10358768,
+      "render_cycles": 22862,
+      "screen_match": true,
+      "presentation_cycles": 39311
+    },
+    {
+      "index": 183,
+      "frame": 55,
+      "counter": 184,
+      "front": 1024,
+      "clock": 10398081,
+      "render_cycles": 25033,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 184,
+      "frame": 56,
+      "counter": 185,
+      "front": 3072,
+      "clock": 10437396,
+      "render_cycles": 26786,
+      "screen_match": true,
+      "presentation_cycles": 39315
+    },
+    {
+      "index": 185,
+      "frame": 57,
+      "counter": 186,
+      "front": 1024,
+      "clock": 10476702,
+      "render_cycles": 24177,
+      "screen_match": true,
+      "presentation_cycles": 39306
+    },
+    {
+      "index": 186,
+      "frame": 58,
+      "counter": 187,
+      "front": 3072,
+      "clock": 10516016,
+      "render_cycles": 23292,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 187,
+      "frame": 59,
+      "counter": 188,
+      "front": 1024,
+      "clock": 10555329,
+      "render_cycles": 24907,
+      "screen_match": true,
+      "presentation_cycles": 39313
+    },
+    {
+      "index": 188,
+      "frame": 60,
+      "counter": 189,
+      "front": 3072,
+      "clock": 10594645,
+      "render_cycles": 24543,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 189,
+      "frame": 61,
+      "counter": 190,
+      "front": 1024,
+      "clock": 10633949,
+      "render_cycles": 26041,
+      "screen_match": true,
+      "presentation_cycles": 39304
+    },
+    {
+      "index": 190,
+      "frame": 62,
+      "counter": 191,
+      "front": 3072,
+      "clock": 10673263,
+      "render_cycles": 24141,
+      "screen_match": true,
+      "presentation_cycles": 39314
+    },
+    {
+      "index": 191,
+      "frame": 63,
+      "counter": 192,
+      "front": 1024,
+      "clock": 10712579,
+      "render_cycles": 26691,
+      "screen_match": true,
+      "presentation_cycles": 39316
+    },
+    {
+      "index": 192,
+      "frame": 0,
+      "counter": 193,
+      "front": 3072,
+      "clock": 10751881,
+      "render_cycles": 11315,
+      "screen_match": true,
+      "presentation_cycles": 39302
+    },
+    {
+      "index": 193,
+      "frame": 1,
+      "counter": 194,
+      "front": 1024,
+      "clock": 10791201,
+      "render_cycles": 25671,
+      "screen_match": true,
+      "presentation_cycles": 39320
+    }
+  ],
+  "command": [
+    "/opt/homebrew/Cellar/vice/3.10/bin/x64sc",
+    "-default",
+    "+saveres",
+    "-minimized",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+autostart-warp",
+    "+confirmonexit",
+    "-sounddev",
+    "dummy",
+    "+refreshonbreak",
+    "+binarymonitor",
+    "-initbreak",
+    "reset",
+    "-autostartprgmode",
+    "1",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/player/delta/build/player.prg",
+    "-VICIIfilter",
+    "0",
+    "-VICIIextpal",
+    "-VICIIpalette",
+    "/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl",
+    "-VICIIsaturation",
+    "1000",
+    "-VICIIcontrast",
+    "1000",
+    "-VICIIbrightness",
+    "1000",
+    "-VICIIgamma",
+    "1000",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:53261"
+  ],
+  "movie_bytes": 15169,
+  "movie_sha256": "02b30be1cfce012df591149371e357d5e1c1a3f948f5dd6f2b5f867c35dadc70",
+  "pid": 17692,
+  "frames_verified": 194,
+  "loop_wrap_verified": true,
+  "loop_wraps_verified": 3,
+  "screen_bytes_checked": 194000,
+  "font_bytes_checked": 397312,
+  "movie_immutable": true,
+  "screenshots": 3,
+  "render_cycles": {
+    "min": 11315,
+    "mean": 24671.118556701033,
+    "max": 27549
+  },
+  "presentation_cycles": {
+    "min": 39302,
+    "mean": 39312.0310880829,
+    "max": 39320
+  },
+  "median_fps": 25.062271062271062,
+  "mean_fps": 25.06225124294505,
+  "pal_fields_per_presentation": 2.000001581607799,
+  "owned_process_exit_code": 0
+}

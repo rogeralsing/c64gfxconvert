@@ -1,0 +1,77 @@
+{
+  "pass": true,
+  "scope": "Semantic visibility after immutable-font matching; PAL decoder equivalence is checked separately.",
+  "model": "glass cube with orbiting grayscale ball",
+  "fontModified": false,
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "characterMovieSha256": "fb6ecfdd5e0666152bbfdcfeaf4033a12cbff702ce2f4b020c3fdef7c9a277f5",
+  "bitmapSha256": "7d740f3c99f40fa44fd6b6e84c2feb28d1a74886337c97fbe7023cd533a00f10",
+  "sceneSha256": "a7a37cf978aa2bb59a16ebf5817c619c4a0a8750cf5677ff887a2a103846f4d6",
+  "independentMatcher": "Python 64-bit minimum Hamming distance, lowest-code tie, all 256 fixed glyphs; every white pixel constrained to the GPU cube silhouette.",
+  "behindBallSurvivesCharacterConversion": true,
+  "allSelectedActualScreensEqualIndependentMatching": true,
+  "controls": [
+    {
+      "frame": 41,
+      "side": "front",
+      "ballRoiPixels": 448,
+      "sourceChangedPixelsInBallRoi": 148,
+      "characterChangedPixelsInBallRoi": 136,
+      "changedPixelsSharedWithSourceBall": 128,
+      "characterWhitePixelsInBallRoi": 276,
+      "hiddenControlWhitePixelsInBallRoi": 172,
+      "netWhitePixelIncreaseInBallRoi": 104,
+      "changedCharacterCount": 9,
+      "changedCharacterPositions": [
+        300,
+        338,
+        339,
+        340,
+        378,
+        379,
+        380,
+        381,
+        420
+      ],
+      "fullCharacterMatchEqualsActualMovie": true,
+      "cubeControlMaskEqualsActualGpuSilhouette": true,
+      "sourceRgbaSha256": "d3e69aa8ef3b1dd45ffcba66811d87ded15f5e38fbc0e9a95915e578cc09b8bd",
+      "hiddenRgbaSha256": "cf605d2d640764f0232815ec9ad4b23f5fabab332650f14bc1abac9f77753f68",
+      "actualScreenSha256": "f07e1b09eacf39aa3fc7e1365033d190e1354d169a0a1fcd5f33ecb2de21af1d",
+      "hiddenScreenSha256": "68900f2c1d244cfa1be9628d4631457b3e559b612ff573e206da77d6e7677a53"
+    },
+    {
+      "frame": 121,
+      "side": "behind",
+      "ballRoiPixels": 448,
+      "sourceChangedPixelsInBallRoi": 100,
+      "characterChangedPixelsInBallRoi": 104,
+      "changedPixelsSharedWithSourceBall": 84,
+      "characterWhitePixelsInBallRoi": 260,
+      "hiddenControlWhitePixelsInBallRoi": 156,
+      "netWhitePixelIncreaseInBallRoi": 104,
+      "changedCharacterCount": 9,
+      "changedCharacterPositions": [
+        579,
+        580,
+        618,
+        619,
+        620,
+        621,
+        658,
+        659,
+        660
+      ],
+      "fullCharacterMatchEqualsActualMovie": true,
+      "cubeControlMaskEqualsActualGpuSilhouette": true,
+      "sourceRgbaSha256": "507412d4e9074ac8159a8ed77a177419698eaebd0c91969f17ac87c962bebce9",
+      "hiddenRgbaSha256": "cf605d2d640764f0232815ec9ad4b23f5fabab332650f14bc1abac9f77753f68",
+      "actualScreenSha256": "a5c58963e864b99dfc833ecd8b3ec4486ead4232f383f96cb01c4664e131118b",
+      "hiddenScreenSha256": "68900f2c1d244cfa1be9628d4631457b3e559b612ff573e206da77d6e7677a53"
+    }
+  ],
+  "previews": [
+    "bitmap-vs-characters-front-back.png",
+    "characters-transparency-control.png"
+  ]
+}

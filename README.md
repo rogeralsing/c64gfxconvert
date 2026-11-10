@@ -2,8 +2,8 @@
 
 [Open the converter](https://rogeralsing.github.io/c64gfxconvert/)
 
-A browser-based Commodore 64 image converter with FLI, IFLI, AFLI, HIRES,
-Multicolor Bitmap and NUFLI modes, optional virtual colors, sprite
+A browser-based Commodore 64 image converter with FLI, IFLI, MCI, AFLI, HIRES,
+Multicolor Bitmap, Charset, standalone Sprites and NUFLI modes, optional virtual colors, sprite
 overlays, and native exports. Image processing stays in your browser.
 
 <img src="assets/images/c64-studio-layers.png" alt="C64 Studio showing a layered FLI conversion and per-layer image settings" width="960">
@@ -12,19 +12,93 @@ overlays, and native exports. Image processing stays in your browser.
 
 Open `index.html` in a modern browser. No build step or server is required.
 
+Choose **Colodore (PAL)** or **Pepto (PAL)** in **Image → C64 palette**, below
+the graphics format. Colodore remains the default. Switching updates conversion,
+previews, color swatches, and virtual colors across all layers. Projects save
+the chosen palette; older projects use Colodore. See [palette sources](palettes/README.md).
+
 ## Graphics formats
 
 | Format | Logical pixels | Color allocation |
 | --- | --- | --- |
 | **FLI** | 160 × 200, double-width pixels | One shared background, one color per 4 × 8 tile, and two additional colors per scanline within each tile. |
 | **IFLI** | Two 160 × 200 frames, double-width pixels | Alternates two FLI frames one hires pixel apart. Both frames share the background and tile color; scanline colors may differ. |
+| **MCI** | Two 160 × 200 frames, double-width pixels | Alternates two standard multicolor frames one hires pixel apart. Both frames share the background and one tile color; each frame has two additional colors fixed throughout each 4 × 8 tile. The full image width is available. |
 | **AFLI** | 320 × 200, square pixels | Two freely chosen colors per 8 × 1 scanline strip, with no shared background color. |
 | **HIRES** | 320 × 200, square pixels | Two freely chosen colors per 8 × 8 tile, with no shared background color. |
 | **HIRES · 2 colors** | 320 × 200, square pixels | One user-selected shadow/highlight pair for the entire image. Source brightness drives the pattern; no automatic palette matching. |
 | **Multicolor Bitmap** | 160 × 200, double-width pixels | Three colors per 4 × 8 tile, plus one background color shared by the whole image. |
+| **Charset · Hires + Multicolor** | 40 × 25 cells covering 320 × 200 pixels | Up to 256 unique patterns. Shared background and two shared multicolors; each cell chooses hires or multicolor with an individual foreground from colors 0–7. |
+| **Multicolor Sprites** | 12 × 21 double-width pixels per sprite | One shared background, two shared multicolors, and one individual color per sprite. Configurable grid, up to eight sprites. |
+| **Multicolor + Hires Sprites** | 24 × 21 display pixels per cell | A multicolor sprite beneath a hires sprite with its own color. Up to four cells, using eight hardware sprites. |
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+Select **Charset · Hires + Multicolor** to convert a full screen into one C64
+character set. Choose a background and two shared multicolors from all 16 colors.
+The converter scores each cell in hires and multicolor with every legal
+foreground color. It compares rendered colors in Oklab, so close shades can
+collapse to one foreground when that preserves more detail. Pattern reuse also
+reconsiders the cell's foreground and resolution, rather than comparing glyph
+bytes alone.
+
+**Tile similarity** controls how much difference is allowed when merging nearby
+patterns, even when the screen already fits within 256 glyphs. The default is
+35%. At 0%, only identical patterns share a slot unless the hardware limit
+forces approximation. Higher values allow more shape and shade differences.
+Perceptual error limits protect contrast and dithering at moderate settings.
+If the screen still needs more than 256 patterns, the converter retains
+representative patterns by rendered similarity and refits the remaining cells.
+
+The result includes both the charset and its 40 × 25 placement map. Merged cells
+reference the same glyph index while retaining their own color and mode. The
+preview always shows the actual exported result. The summary reports pattern
+reduction, approximated cells, and how many cells use each mode; the generated
+charset appears below.
+
+In this mixed character mode, Color RAM bit 3 selects the cell's resolution:
+
+| Color RAM | Cell mode | Foreground |
+| --- | --- | --- |
+| 0–7 | Hires, 8 × 8 pixels | The selected color 0–7 |
+| 8–15 | Multicolor, 4 × 8 double-width pixels | The value AND 7, still color 0–7 |
+
+For example, Color RAM value 9 means multicolor with a white foreground, not
+brown. The background and both shared multicolors can still use colors 8–15.
+This restriction applies to mixed multicolor character mode; pure hires text
+mode can use all 16 foreground colors. All 256 glyphs are available in either
+cell mode. Color RAM belongs to each screen position, not to a glyph definition.
+See the [Commodore Programmer's Reference](https://www.commodore.ca/manuals/c64_programmers_reference/c64-programmers_reference_guide-03-programming_graphics.pdf), pages 115–117.
+
+**Save charset** downloads a ZIP with a 2,048-byte `charset.bin`, 1,000-byte
+`screen.bin`, 1,000-byte `color-ram.bin`, and a manifest containing shared colors
+and VIC mode settings. It contains raw data without load addresses or a player.
+Projects preserve shared colors, tile similarity, source layers, and conversion
+settings. `screen.bin` places the glyphs in row-major order, and `color-ram.bin`
+stores each position's foreground and hires/multicolor flag.
+Source adjustments and per-layer dithering remain available; virtual colors and
+line-end dithering do not apply to charset conversion.
+
+For standalone sprites, choose **Multicolor Sprites** or **Multicolor + Hires
+Sprites**. Set **Sprite grid · columns × rows** to a layout such as 1 × 1,
+1 × 8, or 2 × 2. Every cell covers 24 × 21 display pixels. The overlay mode
+uses two hardware sprites per cell, so 2 × 2 uses four multicolor sprites and
+four hires overlays. Switching to overlays reduces an oversized grid to 2 × 2.
+
+Choose the background and two shared multicolors, then use **Edit sprite colors**
+to choose each cell's multicolor sprite color and optional hires overlay color.
+The restricted preview fits only these colors. Source framing, adjustments,
+layers, and per-layer dithering remain available. Virtual colors and line-end
+dithering do not apply to standalone sprites. Overlay mode also shows the
+multicolor and hires layers separately.
+
+**Save sprites** downloads a ZIP containing `sprites.bin` and `manifest.json`.
+The binary contains one native 64-byte frame per hardware sprite: 63 image
+bytes and one zero padding byte. The manifest records colors, relative grid
+positions, hardware slots, and VIC enable/multicolor masks. Hires overlays occupy
+lower-numbered slots so they appear in front. The ZIP does not include a player.
+Saved projects preserve the sprite grid and every chosen color.
 
 For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
 and **Highlight color** from the normal C64 palette. Adjust **Brightness**,
@@ -44,7 +118,13 @@ mode. The 10,003-byte file contains a `$6000` load address, bitmap, screen color
 color RAM, and the selected background color. Export uses the fitted composition
 from all visible layers, regardless of the selected preview tab.
 
-The IFLI preview alternates the two frames and shows them individually below
+**Save MCI** downloads a native True Paint `.mci` image containing both fitted
+bitmaps, their separate screen colors, shared color RAM, and background color.
+The 19,434-byte file loads at `$9C00`. Like other exports, it uses the fitted
+composition regardless of the selected preview tab. MCI uses standard multicolor
+cells without FLI's per-scanline color changes or reserved left columns.
+
+The IFLI and MCI previews alternate the two frames and show them individually below
 the simulation:
 
 <img src="assets/images/c64-studio-ifli.png" alt="IFLI simulation with its two constituent frames shown underneath" width="960">
@@ -62,7 +142,7 @@ show each layer on its own:
 | <img src="assets/images/c64-studio-background-layer.png" alt="Scenery layer visible with the figures layer hidden" width="480"> | <img src="assets/images/c64-studio-foreground-layer.png" alt="Figures layer visible with the scenery layer hidden" width="480"> |
 
 **Image** settings apply to the whole composition: graphics format, background
-color where the format supports it, and the hardware sprite color in sprite
+color where the format supports it, and hardware sprite colors in sprite
 modes. All layers use the same graphics format.
 
 Select a layer in **Layers** to edit its source image, position, scale,

@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SFÄR — grovpixlig font med 168 tecken</title>
+<style>
+:root{color-scheme:dark;--bg:#141613;--panel:#1d201b;--line:#373c32;--text:#e6e8da;--muted:#a5ad98;--accent:#d9f18a;--orange:#ed9671}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;font-size:14px;line-height:1.5}button,input,select{font:inherit}button,select{color:var(--text);background:transparent;border:1px solid var(--line);border-radius:3px}button{padding:8px 13px;cursor:pointer}button:hover,select:hover{border-color:var(--muted)}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button.active,button[aria-pressed=true]{color:var(--bg);background:var(--accent);border-color:var(--accent)}button:disabled{opacity:.4;cursor:default}select{width:100%;padding:9px 10px}input[type=range]{width:100%;accent-color:var(--accent);margin:12px 0 0}input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}.mono,output,.tag,.eyebrow,.stat strong{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.page{max-width:1480px;margin:auto;padding:28px 36px 24px}header{display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:25px;border-bottom:1px solid var(--line);gap:25px}h1{font-size:clamp(42px,6vw,72px);letter-spacing:-.065em;line-height:1;margin:10px 0 0;font-weight:650}h1 span{color:var(--muted);font-weight:350}header p{max-width:400px;color:var(--muted);margin:0 0 4px;font-size:14px}.layout{display:grid;grid-template-columns:238px minmax(0,1fr);gap:32px;margin-top:26px}aside{border-right:1px solid var(--line);padding-right:25px}.control{margin-bottom:23px}.control label,.section-label{display:flex;align-items:center;justify-content:space-between;font-size:12px;font-weight:650;letter-spacing:.02em;margin:0 0 8px}.control output{font-size:12px;color:var(--accent);font-weight:400}.help{font-size:11px;line-height:1.55;color:var(--muted);margin:7px 0 0}.presets{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:25px}.presets button{font-size:11px;padding:6px 9px}.check{display:flex;gap:9px;align-items:center;font-size:12px;cursor:pointer;margin-top:10px}.check input{margin:0}.divider{border-top:1px solid var(--line);margin:22px 0}.font-top{display:flex;justify-content:space-between;align-items:center;margin:0 0 10px}.font-top span{font-size:11px;color:var(--muted)}#atlas{width:100%;height:auto;display:block;image-rendering:pixelated;border:1px solid var(--line);background:#10110e}.atlas-note{min-height:37px}.font-exports{display:flex;gap:6px;margin-top:12px}.font-exports button{font-size:11px;flex:1;padding:6px 4px}.stage-bar{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}.tabs{display:flex;gap:3px}.tabs button{font-size:12px;padding:7px 13px}.tag{font-size:10px;color:var(--muted);white-space:nowrap}.screen-wrap{position:relative;background:#000;aspect-ratio:8/5;border:1px solid #464c3c;overflow:hidden;touch-action:none}.screen-wrap canvas{display:block;width:100%;height:100%;image-rendering:pixelated;cursor:grab}.screen-wrap canvas:active{cursor:grabbing}.screen-caption{position:absolute;left:13px;top:11px;color:#b4b8a9;background:#000b;font:10px ui-monospace,monospace;letter-spacing:.05em;padding:4px 6px;pointer-events:none}.screen-caption.right{left:auto;right:13px}.screen-bottom{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 0 15px;color:var(--muted);font-size:11px}.play{min-width:91px;font-size:12px;padding:6px 10px}.play span{display:inline-block;width:14px}.stats{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.stat{padding:16px 12px 17px 0}.stat+.stat{padding-left:20px;border-left:1px solid var(--line)}.stat strong{display:block;font-size:26px;letter-spacing:-.055em;font-weight:450;color:var(--accent);line-height:1.3}.stat span{display:block;font-size:11px;color:var(--muted);margin-top:3px}.explanation{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:19px}.explanation p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}.explanation b{color:var(--text);font-weight:550}.formula{margin-top:17px;padding:13px 15px;background:var(--panel);border-left:2px solid var(--accent);font:11px ui-monospace,monospace;color:var(--muted)}.formula span{color:var(--accent)}.recipe{margin-top:26px;padding-top:17px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center}.recipe p{margin:5px 0 0;font-size:12px;color:var(--muted);max-width:830px}.recipe button{font-size:12px}footer{margin-top:21px;display:flex;justify-content:space-between;font-size:10px;color:var(--muted);gap:20px}.error-key{color:var(--orange)}
+@media(min-width:1300px){.layout{grid-template-columns:252px minmax(0,1fr);gap:38px}aside{padding-right:30px}}@media(max-width:850px){.page{padding:22px}.layout{grid-template-columns:195px minmax(0,1fr);gap:20px}aside{padding-right:19px}.stage-bar{align-items:flex-start;flex-direction:column}.stat strong{font-size:21px}.stat+.stat{padding-left:10px}.explanation{grid-template-columns:1fr;gap:10px}header p{max-width:300px;font-size:12px}.tag{font-size:9px}.tabs button{padding:6px 9px}}
+@media(max-width:620px){.page{padding:19px 15px}header{align-items:flex-start;flex-direction:column;gap:15px;padding-bottom:20px}h1{font-size:52px}header p{max-width:100%}.layout{display:flex;flex-direction:column-reverse;gap:25px;margin-top:20px}aside{border-right:0;padding-right:0;display:grid;grid-template-columns:1fr 1fr;gap:0 22px;border-top:1px solid var(--line);padding-top:22px}.presets{grid-column:1/-1;margin-bottom:20px}.font-section{grid-column:2;grid-row:2/7}#atlas{max-width:230px}.control{margin-bottom:19px}.divider{display:none}.stats{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0;border-top:1px solid var(--line);padding-left:0}.stat:nth-child(4){border-top:1px solid var(--line)}.screen-bottom{font-size:10px}.recipe{grid-template-columns:1fr;gap:12px}.recipe button{justify-self:start}.formula{font-size:10px;overflow-wrap:anywhere}footer{flex-direction:column;gap:5px}.stage-bar{flex-direction:row;align-items:center}.tag{font-size:8px}.screen-caption{font-size:8px;top:5px;left:5px}.screen-caption.right{right:5px}.help{font-size:10px}}
+.control label.check{justify-content:flex-start;font-weight:400;letter-spacing:0}.bench{margin-top:20px;border-top:1px solid var(--line);padding-top:15px}.bench summary{cursor:pointer;font-size:12px;color:var(--accent)}.bench table{border-collapse:collapse;width:100%;margin-top:12px;font-size:11px}.bench th,.bench td{text-align:right;border-bottom:1px solid var(--line);padding:8px 5px}.bench th:first-child,.bench td:first-child{text-align:left}.bench th{color:var(--muted);font-weight:400}.bench .help{margin-top:10px}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div><div class="eyebrow">C64 / matematiskt fontexperiment / 01</div><h1>SFÄR <span>/ 168</span></h1></div>
+    <p>Befintliga tecken med grövre pixlar. Varje punkt är 2 × 2 pixlar. Dubletterna är borttagna.</p>
+  </header>
+  <div class="layout">
+    <aside aria-label="Inställningar">
+      <div class="presets" aria-label="Förinställningar">
+        <button type="button" data-preset="coarse">Grov 4 × 4</button><button type="button" data-preset="fine">Original 8 × 8</button><button type="button" data-preset="hard">Svåra kanter</button>
+      </div>
+      <div class="control"><label for="method">Välj tecken med</label><select id="method"><option value="conics" selected>Kurvor · analytiska gränser</option><option value="gradient">Lutning · lokala derivator</option><option value="probes3">9 prov · liten tabell</option><option value="probes4">16 prov · stor tabell</option><option value="matching">Pixelmatchning · jämförelse</option></select><p class="help" id="methodNote"></p></div>
+      <div class="control"><label for="fontSize">Fontens storlek <output id="fontValue">168 tecken</output></label><select id="fontSize"><option value="168" selected>168 · grov 4 × 4, deduplicerad</option><option value="256">256 · original 8 × 8</option><option value="30">30 · mindre urval, 8 × 8</option><option value="64">64 · mindre urval, 8 × 8</option><option value="128">128 · mindre urval, 8 × 8</option></select><p class="help" id="fontHelp">Samma font återanvänds i alla bildrutor.</p></div>
+      <div class="control"><label for="checks">Schackrutor <output id="checksValue"></output></label><input id="checks" type="range" min="4" max="32" step="2" value="12"><p class="help">Fler rutor ger svårare korsningar.</p></div>
+      <div class="control"><label for="radius">Storlek <output id="radiusValue"></output></label><input id="radius" type="range" min="55" max="145" step="1" value="94"></div>
+      <div class="control"><label for="tilt">Axelns lutning <output id="tiltValue"></output></label><input id="tilt" type="range" min="-65" max="65" step="1" value="22"></div>
+      <div class="control"><label class="check"><input type="checkbox" id="grid"> Visa 8 × 8-rutnät</label><label class="check"><input type="checkbox" id="solid"> Testa bara silhuetten</label><label class="check"><input type="checkbox" id="measure"> Mät mot pixelreferens</label></div>
+      <div class="font-section">
+        <div class="divider"></div><div class="font-top"><label class="section-label" for="atlas" style="margin:0">Den fasta fonten</label><span id="fontCount"></span></div>
+        <canvas id="atlas" width="208" height="208" aria-label="Alla matematiskt genererade tecken"></canvas>
+        <p class="help atlas-note" id="atlasNote">Peka på ett tecken för att se dess formtyp.</p>
+        <p class="help mono" id="fontSignature"></p>
+        <div class="font-exports"><button id="saveFont" type="button">Spara font .bin</button><button id="saveScreen" type="button">Spara karta .bin</button></div>
+      </div>
+    </aside>
+    <main>
+      <div class="stage-bar"><div class="tabs" aria-label="Visningsläge"><button data-view="font" class="active" aria-pressed="true">Tecken</button><button data-view="reference" aria-pressed="false">Referens</button><button data-view="difference" aria-pressed="false">Skillnad</button></div><span class="tag">320 × 200 PX · 40 × 25 TECKEN</span></div>
+      <div class="screen-wrap" id="screenWrap"><canvas id="screen" width="320" height="200" aria-label="Roterande schackrutig 3D-sfär byggd av tecken"></canvas><span class="screen-caption" id="viewLabel">FAST FONT / 256 TECKEN</span><span class="screen-caption right" id="viewLegend">8 × 8 PX PER TECKEN</span></div>
+      <div class="screen-bottom"><button class="play" id="play" type="button"><span>Ⅱ</span> Pausa</button><span>Dra sfären för att rotera · mellanslag pausar</span><span class="mono" id="angleValue"></span></div>
+      <div class="stats" aria-live="off">
+        <div class="stat"><strong id="errorValue">—</strong><span>pixelfel relativt sfärens area</span></div>
+        <div class="stat"><strong id="usedValue">—</strong><span>unika tecken i denna bild</span></div>
+        <div class="stat"><strong id="exactValue">—</strong><span>ytprov per bildruta</span></div>
+        <div class="stat"><strong id="tableValue">—</strong><span>teckenval + säker kontur</span></div>
+      </div>
+      <div class="explanation"><p><b>Fonten skapas först, helt matematiskt.</b> Raka snitt får olika vinklar och lägen. Två snitt bildar hörn och korsningar. Inga tecken hämtas från sfärens bild.</p><p id="methodExplanation"></p></div>
+      <div class="formula"><span>form(x, y)</span> = cos(θ) · (x − 3.5) + sin(θ) · (y − 3.5) ≥ d <br>En riktning θ och en förskjutning d bestämmer ett fyllt snitt.</div>
+      <details class="bench"><summary>Mätning över 12 rotationslägen per fall</summary><table><thead><tr><th>Metod</th><th>Normal</th><th>Tätare</th><th>Tabeller</th></tr></thead><tbody id="benchRows"></tbody></table><p class="help">Samma fasta font med 256 tecken. Konturtabeller väljer endast tecken vars tända pixlar ligger inom sfären. Tabellen visar minnet för teckenval och säker kontur vid normal storlek. Fel mäts relativt sfärens area. Geometri och kod tillkommer. Små rutor nära polerna ger större fel för samtliga metoder.</p></details>
+    </main>
+  </div>
+  <div class="recipe"><div><div class="eyebrow">Spara en variant att arbeta vidare med</div><p id="recipeText"></p></div><button id="copy" type="button">Kopiera beskrivning</button></div>
+  <footer><span>Visuellt metodprov, inte C64-bildfrekvens. Font: <span id="fontBytes">1 344 B</span>. Skärmkarta: 1 000 B. Geometri och kod tillkommer utöver teckentabellen.</span><span>Två färger · ingen kantutjämning · fasta tecken</span></footer>
+</div>
+<script>
+/* FONT_MATH */
+/* SPHERE_MATH */
+/* DIRECT_METHODS */
+/* BENCHMARK_DATA */
+
+(function () {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const DEFAULTS = { fontSize:168, checks:20, radius:145, tilt:65, grid:false, solid:false, measure:false, method:'matching', angle:0.38, view:'font', playing:!matchMedia('(prefers-reduced-motion: reduce)').matches };
+  const state = { ...DEFAULTS };
+  const renderer = new SphereMath.SphereRenderer();
+  const canvas = $('screen'), ctx = canvas.getContext('2d', { alpha:false });
+  const atlas = $('atlas'), actx = atlas.getContext('2d', { alpha:false });
+  const image = ctx.createImageData(320, 200);
+  let font, stats, last = 0, lastRender = 0, needsRender = true, frameCount = 0;
+  let displayPixels, referencePixels, lastScreen, lastOps={}, lastMethod;
+  const descriptions={
+    conics:['Testar schackgränsernas kurvor mot varje tile.','<b>Kurvor testas direkt mot teckenrutorna.</b> Gränsernas lokala tangenter väljer en kant eller korsning via en fast tabell.'],
+    gradient:['En lokal modell av hur schackmönstret lutar.','<b>En lokal lutning väljer tecknet.</b> Schackkoordinaternas derivator anger riktning och avstånd till närmaste gränser. En fast tabell ger teckenkoden.'],
+    probes3:['9 analytiska punkttester. 512 byte teckentabell.','<b>Nio glest placerade punkter klassificerar varje tile.</b> Deras svarta och vita värden bildar ett 9-bitars index. En förberäknad tabell ger tecknet. Smala former kan missas.'],
+    probes4:['16 analytiska punkttester. 64 KiB teckentabell.','<b>Sexton punkter ger ett finare fingeravtryck.</b> Ett 16-bitars index väljer tecken direkt. Den okomprimerade tabellen är för stor för en praktisk C64-version.'],
+    matching:['Ursprungligt kvalitetsprov med full pixelbild.','<b>Jämförelsemetoden skapar en full pixelbild.</b> Varje 8 × 8-block jämförs med fonten. Detta ger en kvalitetsreferens för de direkta metoderna.']
+  };
+  const LABELS = { quadrant:'fyra kvadranter', edge:'rakt snitt', crossing:'två korsande snitt', corner:'hörn' };
+  const presets = {
+    fine:{ ...DEFAULTS, fontSize:256 },
+    coarse:{ ...DEFAULTS },
+    hard:{ ...DEFAULTS, checks:24, radius:115, tilt:37 }
+  };
+
+  function setFont() {
+    font = state.fontSize === 168 ? GlyphMath.generateCoarsenedFont() : GlyphMath.generateFont(state.fontSize);
+    DirectCore.prepareSilhouette(font.sourceFont || font,state.radius);
+    renderer.resetFont();
+    $('fontCount').textContent = font.count + (font.coarsened ? ' · 4 × 4' : ' · 8 × 8');
+    $('fontSignature').textContent = 'FONT-ID ' + font.signature;
+    document.querySelector('h1 span').textContent = '/ ' + font.count;
+    drawAtlas();
+  }
+
+  function drawAtlas() {
+    actx.fillStyle = '#10110e'; actx.fillRect(0,0,208,208);
+    for (let index = 0; index < font.count; index++) {
+      const glyph = font.glyphs[index];
+      const ox = (index % 16) * 13 + 2, oy = Math.floor(index / 16) * 13 + 2;
+      actx.fillStyle = '#24291e'; actx.fillRect(ox-1,oy-1,10,10);
+      actx.fillStyle = '#d9f18a';
+      for (let y=0; y<8; y++) for (let x=0; x<8; x++) {
+        const bits = y<4 ? glyph.lo : glyph.hi;
+        if ((bits >>> ((y&3)*8+x))&1) actx.fillRect(ox+x,oy+y,1,1);
+      }
+    }
+  }
+
+  function updateUI() {
+    for (const id of ['fontSize','checks','radius','tilt','method']) $(id).value = state[id];
+    $('grid').checked = state.grid; $('solid').checked = state.solid; $('measure').checked=state.measure;
+    $('methodNote').textContent=descriptions[state.method][0];
+    $('methodExplanation').innerHTML=descriptions[state.method][1];
+    $('fontValue').textContent = font.count + ' tecken';
+    $('fontHelp').textContent = font.coarsened ? '256 befintliga tecken gjorda grovpixliga och deduplicerade. Varje punkt är 2 × 2 pixlar.' : 'Originalfont med 8 × 8 pixlar per tecken.';
+    $('fontBytes').textContent = (font.count * 8).toLocaleString('sv-SE') + ' B';
+    $('checksValue').textContent = state.solid ? 'avstängt' : state.checks + ' × ' + state.checks/2;
+    $('checks').disabled = state.solid;
+    $('radiusValue').textContent = state.radius*2 + ' px Ø';
+    $('tiltValue').textContent = state.tilt + '°';
+    $('play').innerHTML = state.playing ? '<span>Ⅱ</span> Pausa' : '<span>▶</span> Rotera';
+    $('play').setAttribute('aria-label', state.playing ? 'Pausa rotationen' : 'Starta rotationen');
+    for (const button of document.querySelectorAll('[data-view]')) {
+      const active = button.dataset.view === state.view;
+      button.classList.toggle('active',active); button.setAttribute('aria-pressed',String(active));
+    }
+    for (const button of document.querySelectorAll('[data-preset]')) {
+      const preset = presets[button.dataset.preset];
+      button.classList.toggle('active',['fontSize','checks','radius','tilt','solid'].every(key=>preset[key]===state[key]));
+    }
+    const parts = [];
+    if (state.checks !== DEFAULTS.checks) parts.push(state.checks + ' × ' + state.checks/2 + ' schackrutor');
+    if (state.radius !== DEFAULTS.radius) parts.push('diametern ' + state.radius*2 + ' pixlar');
+    if (state.tilt !== DEFAULTS.tilt) parts.push(state.tilt + ' graders axellutning');
+    if (state.solid) parts.push('en helt fylld silhuett i stället för schackmönstret');
+    $('recipeText').textContent = 'Bygg en roterande sfär i 320 × 200 med en fast font på ' + font.count + ' tecken. ' + (font.coarsened ? 'Befintliga 8 × 8-tecken är omvandlade till 4 × 4 punkter, varje punkt 2 × 2 pixlar, och deduplicerade. ' : 'Varje tecken har 8 × 8 pixlar. ') + 'Välj tecken med metoden ' + descriptions[state.method][0] + ' Använd 40 × 25 teckenceller och två färger' + (parts.length ? ', med ' + parts.join(', ') : '') + '.';
+    needsRender = true;
+  }
+
+  function paint() {
+    const source = referencePixels || displayPixels, output = displayPixels;
+    for (let i=0; i<64000; i++) {
+      const p=i*4;
+      if (state.view === 'difference') {
+        const error=source[i]!==output[i];
+        image.data[p]=error ? 237 : output[i] ? 58 : 0;
+        image.data[p+1]=error ? 150 : output[i] ? 63 : 0;
+        image.data[p+2]=error ? 113 : output[i] ? 50 : 0;
+      } else {
+        const value=(state.view === 'reference' ? source[i] : output[i])*255;
+        image.data[p]=value; image.data[p+1]=value; image.data[p+2]=value;
+      }
+      image.data[p+3]=255;
+    }
+    ctx.putImageData(image,0,0);
+    if (state.grid) {
+      ctx.strokeStyle='rgba(217,241,138,0.28)'; ctx.lineWidth=.3; ctx.beginPath();
+      for(let x=8;x<320;x+=8){ctx.moveTo(x,0);ctx.lineTo(x,200)}
+      for(let y=8;y<200;y+=8){ctx.moveTo(0,y);ctx.lineTo(320,y)}
+      ctx.stroke();
+    }
+    $('viewLabel').textContent = state.view === 'reference' ? 'MATEMATISK PIXELREFERENS' : state.view === 'difference' ? 'SKILLNAD / FONT MOT REFERENS' : 'FAST FONT / ' + font.count + ' TECKEN';
+    $('viewLegend').textContent = state.view === 'difference' ? 'ORANGE = FELPIXEL' : state.view === 'reference' ? (font.coarsened ? '160 × 100 PUNKTER · 2 × 2 PX' : '320 × 200 PUNKTER') : font.coarsened ? '4 × 4 PUNKTER · 2 × 2 PX' : '8 × 8 PX PER TECKEN';
+    $('viewLegend').classList.toggle('error-key',state.view === 'difference');
+  }
+
+  function render() {
+    const measuring=state.measure || state.view!=='font' || state.method==='matching';
+    if(state.method==='matching') {
+      stats=font.coarsened ? GlyphMath.renderCoarsened(renderer,state,font) : renderer.render(state,font);
+      displayPixels=renderer.output;referencePixels=font.coarsened ? renderer.displayReference : renderer.source;lastScreen=renderer.screen;
+      const silhouette=stats.silhouette;
+      lastOps={samples:64000,glyphComparisons:'sökning',silhouetteLookups:silhouette.lookups,silhouetteChanges:silhouette.changes,silhouetteTableBytes:silhouette.tableBytes,silhouetteIndexBytes:silhouette.indexBytes};lastMethod={tableBytes:0};
+    } else {
+      lastMethod=DirectMethods[state.method].create(font.sourceFont || font);
+      const frame=lastMethod.render(state);lastScreen=font.coarsened ? GlyphMath.mapCoarsenedScreen(frame.screen,font) : frame.screen;lastOps=frame.ops;
+      displayPixels=DirectCore.reconstruct(lastScreen,font);referencePixels=null;
+      stats={usedCount:new Set(lastScreen).size,normalizedError:null};
+      if(measuring){const fineRef=DirectCore.reference(state),ref=font.coarsened ? {...fineRef,pixels:GlyphMath.coarsenReferencePixels(fineRef.pixels)} : fineRef,comparison=DirectCore.compare(lastScreen,font,ref);referencePixels=ref.pixels;stats.normalizedError=comparison.error;stats.mismatches=comparison.errors;stats.surfacePixels=ref.area;}
+    }
+    paint(); frameCount++;
+    $('errorValue').textContent=stats.normalizedError===null?'av':(stats.normalizedError*100).toLocaleString('sv-SE',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
+    $('errorValue').title = measuring ? stats.mismatches + ' felpixlar / ' + stats.surfacePixels + ' sfärpixlar. Fel utanför silhuetten ingår också.' : 'Aktivera Mät mot pixelreferens för att jämföra. Teckenvalet fungerar utan referensbild.';
+    $('usedValue').textContent=stats.usedCount+' / '+font.count;
+    $('exactValue').textContent=(lastOps.rayQueries??lastOps.samples??0).toLocaleString('sv-SE');
+    $('exactValue').title=JSON.stringify(lastOps);
+    const totalTableBytes=lastMethod.tableBytes+(lastOps.silhouetteTableBytes||0)+(lastOps.silhouetteIndexBytes||0);
+    $('tableValue').textContent=totalTableBytes>=1024?(totalTableBytes/1024).toLocaleString('sv-SE',{maximumFractionDigits:1})+' KiB':totalTableBytes+' B';
+    $('tableValue').title=lastMethod.tableBytes+' B teckenval + '+(lastOps.silhouetteTableBytes||0)+' B konturtabeller + '+(lastOps.silhouetteIndexBytes||0)+' B tileindex. Geometri och kod tillkommer.';
+    const degrees=((state.angle*180/Math.PI)%360+360)%360;
+    $('angleValue').textContent=Math.round(degrees)+'°';
+    needsRender=false;
+  }
+
+  function tick(time) {
+    const elapsed=last ? Math.min((time-last)/1000,.1) : 0; last=time;
+    if (state.playing && !document.hidden) { state.angle+=elapsed*.32; needsRender=true; }
+    if (needsRender && time-lastRender>=40) { render(); lastRender=time; }
+    requestAnimationFrame(tick);
+  }
+
+  for (const id of ['fontSize','checks','radius','tilt','method']) $(id).addEventListener('input',()=>{
+    state[id]=id==='method'?$(id).value:Number($(id).value);
+    if(id==='fontSize') setFont();
+    if(id==='radius') DirectCore.prepareSilhouette(font.sourceFont || font,state.radius);
+    updateUI(); render();
+  });
+  for (const id of ['grid','solid','measure']) $(id).addEventListener('change',()=>{state[id]=$(id).checked;if(id==='measure'&&!state.measure)state.view='font';updateUI();render()});
+  for (const button of document.querySelectorAll('[data-view]')) button.addEventListener('click',()=>{state.view=button.dataset.view;if(state.view!=='font')state.measure=true;updateUI();render()});
+  for (const button of document.querySelectorAll('[data-preset]')) button.addEventListener('click',()=>{Object.assign(state,presets[button.dataset.preset]);setFont();updateUI();render()});
+  function togglePlay() {state.playing=!state.playing;updateUI();}
+  $('play').addEventListener('click',togglePlay);
+  addEventListener('keydown',event=>{if(event.code==='Space' && !/INPUT|SELECT|BUTTON|TEXTAREA/.test(event.target.tagName)){event.preventDefault();togglePlay()}});
+  let drag=null;
+  canvas.addEventListener('pointerdown',event=>{drag={x:event.clientX,y:event.clientY,angle:state.angle,tilt:state.tilt};state.playing=false;canvas.setPointerCapture(event.pointerId);updateUI()});
+  canvas.addEventListener('pointermove',event=>{if(!drag)return;state.angle=drag.angle+(event.clientX-drag.x)*.012;state.tilt=Math.max(-65,Math.min(65,Math.round(drag.tilt+(event.clientY-drag.y)*.25)));updateUI();render()});
+  function endDrag(){drag=null}
+  canvas.addEventListener('pointerup',endDrag);canvas.addEventListener('pointercancel',endDrag);
+  atlas.addEventListener('pointermove',event=>{const box=atlas.getBoundingClientRect();const x=(event.clientX-box.left)*208/box.width,y=(event.clientY-box.top)*208/box.height;const index=Math.floor(y/13)*16+Math.floor(x/13);if(index<font.count){const glyph=font.glyphs[index];$('atlasNote').textContent='#'+String(index).padStart(3,'0')+' · '+LABELS[glyph.kind]+' · '+Math.round(glyph.coverage*100)+' % fyllt'}});
+  atlas.addEventListener('pointerleave',()=>{$('atlasNote').textContent='Peka på ett tecken för att se dess formtyp.'});
+  function download(bytes,name){const url=URL.createObjectURL(new Blob([bytes],{type:'application/octet-stream'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
+  $('saveFont').addEventListener('click',()=>{const bytes=new Uint8Array(font.count*8);font.glyphs.forEach((glyph,index)=>bytes.set(glyph.rows,index*8));download(bytes,'sphere-font-'+font.count+'.bin')});
+  $('saveScreen').addEventListener('click',()=>download(lastScreen.slice(),'sphere-screen-40x25.bin'));
+  $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('recipeText').textContent);$('copy').textContent='Kopierat';setTimeout(()=>{$('copy').textContent='Kopiera beskrivning'},1600)}catch{const range=document.createRange();range.selectNodeContents($('recipeText'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);$('copy').textContent='Texten markerad'}});
+
+  // Exposed for inspecting the visual experiment, not used by the renderer.
+  window.sphereLab = { state, renderer, get font(){return font}, get stats(){return stats}, get ops(){return lastOps}, get screen(){return lastScreen}, get method(){return lastMethod}, get frameCount(){return frameCount}, render, setFont, updateUI };
+  if(window.BENCHMARK){const names={probes3:'9 prov',probes4:'16 prov',gradient:'Lokal lutning',conics:'Analytiska kurvor',matching:'Pixelmatchning'};for(const key of ['conics','gradient','probes3','probes4','matching']){const normal=BENCHMARK.scenarios.normal.methods[key],dense=BENCHMARK.scenarios.dense.methods[key],row=document.createElement('tr');const memory=normal.tableBytes+(normal.ops.silhouetteTableBytes||0)+(normal.ops.silhouetteIndexBytes||0);const values=[names[key],(normal.meanError*100).toFixed(2)+' %',(dense.meanError*100).toFixed(2)+' %',memory.toLocaleString('sv-SE')+' B'];for(const value of values){const cell=document.createElement('td');cell.textContent=value;row.append(cell)}$('benchRows').append(row)}}
+  setFont();updateUI();render();requestAnimationFrame(tick);
+})();
+</script>
+</body>
+</html>

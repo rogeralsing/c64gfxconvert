@@ -35,16 +35,17 @@
   const scale = document.getElementById('view-scale');
   const syncScale = () => {
     scale.textContent = document.getElementById('preview').classList.contains('has-image')
-      ? `${Math.round(screen.getBoundingClientRect().width / 320 * 100)}%` : 'Fit';
+      ? `${Math.round(screen.getBoundingClientRect().width / Number(screen.dataset.displayWidth || 320) * 100)}%` : 'Fit';
   };
   new MutationObserver(syncScale).observe(document.getElementById('preview'), { attributes: true, attributeFilter: ['class'] });
   syncScale();
 
   new ResizeObserver(syncScale).observe(screen);
+  new MutationObserver(syncScale).observe(screen, { attributes: true, attributeFilter: ['data-display-width'] });
 
   const reference = document.getElementById('palette-reference');
   const swatches = reference.querySelector('.palette-reference-swatches');
-  for (const color of C64_PALETTE) {
+  const referenceSwatches = C64_PALETTE.map(color => {
     const swatch = document.createElement('span');
     swatch.className = 'palette-reference-swatch';
     swatch.style.backgroundColor = color.hex;
@@ -52,7 +53,15 @@
     swatch.setAttribute('role', 'listitem');
     swatch.setAttribute('aria-label', swatch.title);
     swatches.append(swatch);
-  }
+    return { color, swatch };
+  });
+  document.addEventListener('c64palettechange', () => {
+    for (const { color, swatch } of referenceSwatches) {
+      swatch.style.backgroundColor = color.hex;
+      swatch.title = `${color.index} · ${color.name} · ${color.hex}`;
+      swatch.setAttribute('aria-label', swatch.title);
+    }
+  });
   const syncPaletteReference = () => {
     reference.hidden = !document.getElementById('background-settings').hidden ||
       !document.getElementById('sprite-settings').hidden || !document.getElementById('virtual-palette').hidden;

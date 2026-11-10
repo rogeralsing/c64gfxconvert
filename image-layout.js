@@ -4,7 +4,7 @@ function getC64ImageLeftInset(mode) {
 }
 
 /** Fit, scale, and pan the source in display pixels without changing its aspect ratio. */
-function getC64ImagePlacement(sourceWidth, sourceHeight, mode, transform = {}) {
+function getC64ImagePlacement(sourceWidth, sourceHeight, mode, transform = {}, displaySize = { width: 320, height: 200 }) {
   if (!Number.isFinite(sourceWidth) || sourceWidth <= 0 ||
       !Number.isFinite(sourceHeight) || sourceHeight <= 0) {
     throw new Error('Source image dimensions must be positive finite numbers.');
@@ -16,8 +16,11 @@ function getC64ImagePlacement(sourceWidth, sourceHeight, mode, transform = {}) {
   if (!Number.isFinite(offsetX) || !Number.isFinite(offsetY)) {
     throw new Error('Image offsets must be finite numbers.');
   }
-  const canvasWidth = 320;
-  const canvasHeight = 200;
+  const { width: canvasWidth, height: canvasHeight } = displaySize;
+  if (!Number.isInteger(canvasWidth) || canvasWidth <= 0 ||
+      !Number.isInteger(canvasHeight) || canvasHeight <= 0) {
+    throw new Error('Display dimensions must be positive integers.');
+  }
   const leftInset = getC64ImageLeftInset(mode);
   const availableWidth = canvasWidth - leftInset;
   const aspectRatio = sourceWidth / sourceHeight;

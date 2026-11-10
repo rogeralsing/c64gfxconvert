@@ -1,0 +1,59 @@
+{
+  "pass": true,
+  "frames": 66,
+  "loopWraps": 1,
+  "screenBytesChecked": 66000,
+  "coverageBytesChecked": 66000,
+  "coordinateBytesChecked": 8184,
+  "fontAndAllRasterAssetsImmutable": true,
+  "visibleTriangleCalls": 396,
+  "visibleQuadCalls": 792,
+  "measurement": "py65 instruction cycles, including actual decoding/raster work; excludes VIC stalls, raster wait and presentation. Not native FPS.",
+  "stages": {
+    "decode": {
+      "samples": 66,
+      "min": 4664,
+      "mean": 4829.393939393939,
+      "max": 4838
+    },
+    "clear": {
+      "samples": 66,
+      "min": 6403,
+      "mean": 6403,
+      "max": 6403
+    },
+    "face_edges": {
+      "samples": 1188,
+      "min": 694,
+      "mean": 2121.1372053872055,
+      "max": 3286
+    },
+    "face_fill": {
+      "samples": 1188,
+      "min": 402,
+      "mean": 2426.0353535353534,
+      "max": 5292
+    },
+    "resolve": {
+      "samples": 66,
+      "min": 26490,
+      "mean": 26841.272727272728,
+      "max": 27204
+    },
+    "render": {
+      "samples": 66,
+      "min": 117651,
+      "mean": 122069.77272727272,
+      "max": 125502
+    }
+  },
+  "codeBytes": 1425,
+  "rasterAndFontAssetBytes": 12489,
+  "movieBytes": 28847,
+  "atlasBytes": 26240,
+  "pv64Bytes": 2607,
+  "expandedTopologyBytes": 432,
+  "prgBytes": 49840,
+  "prgSha256": "b9ad5085060e8d3efce46b69fd1a19f105c251f2f1087fc83f9207c34e44f64f",
+  "movieSha256": "1d7fbf835ef706067b45d05f46d3d565b08c2160e5e441d2c4acfec6903ecb94"
+}

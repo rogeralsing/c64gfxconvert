@@ -18,9 +18,29 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         !colorIndex(image.backgroundColorIndex) || !colorIndex(image.spriteColorIndex)) {
       invalid('unsupported image settings');
     }
+    if (image.paletteId !== undefined && !['colodore', 'pepto'].includes(image.paletteId)) {
+      invalid('unsupported C64 palette');
+    }
     if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
+    }
+    if (image.charsetMulticolorIndices !== undefined && (!Array.isArray(image.charsetMulticolorIndices) ||
+        image.charsetMulticolorIndices.length !== 2 || image.charsetMulticolorIndices.some(value => !colorIndex(value)))) {
+      invalid('character mode requires two shared C64 palette colors');
+    }
+    if (image.charsetSimilarityThreshold !== undefined && !integer(image.charsetSimilarityThreshold, 0, 100)) {
+      invalid('character similarity threshold must be an integer from 0 to 100');
+    }
+    const spriteConfig = image.spriteConfig;
+    if (spriteConfig !== undefined) {
+      const colors = (value, count) => Array.isArray(value) && value.length === count && value.every(colorIndex);
+      if (!object(spriteConfig) || !integer(spriteConfig.columns, 1, 8) || !integer(spriteConfig.rows, 1, 8) ||
+          spriteConfig.columns * spriteConfig.rows > (image.graphicsMode === 'sprites-hires' ? 4 : 8) ||
+          !colors(spriteConfig.multicolorIndices, 2) || !colors(spriteConfig.spriteColorIndices, 8) ||
+          !colors(spriteConfig.overlayColorIndices, 8)) {
+        invalid('sprite grids require at most eight sprites and valid C64 colors');
+      }
     }
     if (!object(view) || !['unrestricted', 'palette', 'restricted'].includes(view.previewMode) ||
         typeof view.grid !== 'boolean' || typeof view.paused !== 'boolean') {
@@ -68,7 +88,20 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
       app: 'c64gfxconvert', version: 1,
       image: { graphicsMode: image.graphicsMode, backgroundColorIndex: image.backgroundColorIndex,
         spriteColorIndex: image.spriteColorIndex,
-        ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }) },
+        ...(image.paletteId === undefined ? {} : { paletteId: image.paletteId }),
+        ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
+        ...(image.charsetMulticolorIndices === undefined ? {} : {
+          charsetMulticolorIndices: [...image.charsetMulticolorIndices]
+        }),
+        ...(image.charsetSimilarityThreshold === undefined ? {} : {
+          charsetSimilarityThreshold: image.charsetSimilarityThreshold
+        }),
+        ...(spriteConfig === undefined ? {} : { spriteConfig: {
+          columns: spriteConfig.columns, rows: spriteConfig.rows,
+          multicolorIndices: [...spriteConfig.multicolorIndices],
+          spriteColorIndices: [...spriteConfig.spriteColorIndices],
+          overlayColorIndices: [...spriteConfig.overlayColorIndices]
+        } }) },
       view: { previewMode: view.previewMode, grid: view.grid, paused: view.paused },
       activeLayer, layers: restored
     };
