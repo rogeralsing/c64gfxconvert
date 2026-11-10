@@ -1,0 +1,224 @@
+{
+  "schema_version": 1,
+  "purpose": "Real acoustic recordings for inverse-SID synthesis; no SID-generated target audio",
+  "license": "CC0-1.0",
+  "sample_rate": 22050,
+  "samples": [
+    {
+      "id": "kick",
+      "description": "Recorded acoustic bass drum; used as the kick target",
+      "file": "kick.wav",
+      "role": "fit",
+      "sample_rate": 22050,
+      "channels": 1,
+      "frames": 17640,
+      "duration_seconds": 0.8,
+      "root_hz": null,
+      "nominal_note": null,
+      "nominal_root_hz": null,
+      "pitch_measurement": null,
+      "license": "CC0-1.0",
+      "source_url": "https://raw.githubusercontent.com/sgossner/VCSL/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Membranophones/Struck%20Membranophones/Bass%20Drum%201/BDrumNew_hit_v2_rr1_Sum.wav",
+      "license_source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/README.md",
+      "original_file": "originals/vcsl/BDrumNew_hit_v2_rr1_Sum.wav",
+      "original_sha256": "56827fe9b55f282a0db851e242bc24660d339a0e358b182966aea047240c1136",
+      "original_sample_rate": 44100,
+      "original_channels": 2,
+      "original_duration_seconds": 1.5962131519274376,
+      "sha256": "57ac353a4d33ab56af13237bc83548330b6a4c0a84716ce5783f51a2bd05fb91",
+      "processing": {
+        "mono": "Arithmetic mean of source channels",
+        "resampling": "scipy.signal.resample_poly, default polyphase low-pass filter",
+        "removed_dc": 5.13810023724233e-06,
+        "onset_threshold_relative_to_peak": 0.02,
+        "preroll_seconds": 0.002,
+        "start_frame_at_22050_hz": 0,
+        "tail_fade_seconds": 0.008,
+        "tail_fade": "Cosine squared, ending at zero",
+        "peak_normalization": 0.95,
+        "gain": 12.358709121947246,
+        "max_seconds": 0.8,
+        "padding": "Zero padding when source remainder is shorter than 0.8 seconds",
+        "output_subtype": "PCM_16",
+        "pitch_shifted": false
+      },
+      "repository_commit": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+      "repository_path": "Membranophones/Struck Membranophones/Bass Drum 1/BDrumNew_hit_v2_rr1_Sum.wav"
+    },
+    {
+      "id": "snare",
+      "description": "Recorded modern acoustic snare drum, snares engaged",
+      "file": "snare.wav",
+      "role": "fit",
+      "sample_rate": 22050,
+      "channels": 1,
+      "frames": 17640,
+      "duration_seconds": 0.8,
+      "root_hz": null,
+      "nominal_note": null,
+      "nominal_root_hz": null,
+      "pitch_measurement": null,
+      "license": "CC0-1.0",
+      "source_url": "https://raw.githubusercontent.com/sgossner/VCSL/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/Membranophones/Struck%20Membranophones/Snare%20Drum%2C%20Modern%202/Snare3M_HitSN_v2_rr1_Mid.wav",
+      "license_source": "https://github.com/sgossner/VCSL/blob/c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e/README.md",
+      "original_file": "originals/vcsl/Snare3M_HitSN_v2_rr1_Mid.wav",
+      "original_sha256": "db5a241f5758dc5e3d2fb953e495226f2b43b6453eefe6889014c32d82a5d15e",
+      "original_sample_rate": 44100,
+      "original_channels": 2,
+      "original_duration_seconds": 0.8766666666666667,
+      "sha256": "f9a8817c74d3f55acd6f89c3d6a717fc2ba02228163a3e2657d385f384ec77d9",
+      "processing": {
+        "mono": "Arithmetic mean of source channels",
+        "resampling": "scipy.signal.resample_poly, default polyphase low-pass filter",
+        "removed_dc": 3.383900394529608e-06,
+        "onset_threshold_relative_to_peak": 0.02,
+        "preroll_seconds": 0.002,
+        "start_frame_at_22050_hz": 142,
+        "tail_fade_seconds": 0.008,
+        "tail_fade": "Cosine squared, ending at zero",
+        "peak_normalization": 0.95,
+        "gain": 15.845285651368465,
+        "max_seconds": 0.8,
+        "padding": "Zero padding when source remainder is shorter than 0.8 seconds",
+        "output_subtype": "PCM_16",
+        "pitch_shifted": false
+      },
+      "repository_commit": "c1ea7bcc3c7309650ab0da9d15c9cd1fbc4a4c7e",
+      "repository_path": "Membranophones/Struck Membranophones/Snare Drum, Modern 2/Snare3M_HitSN_v2_rr1_Mid.wav"
+    },
+    {
+      "id": "guitar",
+      "description": "Recorded Spanish nylon-string guitar, nominal A3, MIDI 57",
+      "file": "guitar.wav",
+      "role": "fit",
+      "sample_rate": 22050,
+      "channels": 1,
+      "frames": 17640,
+      "duration_seconds": 0.8,
+      "root_hz": 221.47644388774796,
+      "nominal_note": "A3",
+      "nominal_root_hz": 220.0,
+      "pitch_measurement": {
+        "root_hz": 221.47644388774796,
+        "method": "Median of four 150 ms autocorrelation windows with parabolic peak interpolation; search within +/-6% of the SFZ key's nominal pitch",
+        "windows": [
+          {
+            "start_seconds": 0.05,
+            "frequency_hz": 222.28262780126192,
+            "normalized_autocorrelation": 0.9578219921383828
+          },
+          {
+            "start_seconds": 0.15,
+            "frequency_hz": 221.6035548030675,
+            "normalized_autocorrelation": 0.96861655460238
+          },
+          {
+            "start_seconds": 0.25,
+            "frequency_hz": 221.34933297242839,
+            "normalized_autocorrelation": 0.9554462535482036
+          },
+          {
+            "start_seconds": 0.35,
+            "frequency_hz": 221.1567108926012,
+            "normalized_autocorrelation": 0.9700000604178165
+          }
+        ]
+      },
+      "license": "CC0-1.0",
+      "source_url": "https://freepats.zenvoid.org/Guitar/SpanishClassicalGuitar/SpanishClassicalGuitar-SFZ+FLAC-20190618.7z",
+      "license_source": "https://freepats.zenvoid.org/Guitar/acoustic-guitar.html",
+      "original_file": "originals/freepats/A3.flac",
+      "original_sha256": "08d2e90e80839bdb77342d7dcc8a73e0ec8849607d1a750ce433f9e7f0789e06",
+      "original_sample_rate": 44100,
+      "original_channels": 1,
+      "original_duration_seconds": 2.525374149659864,
+      "sha256": "c66f579d02bf0d44bfc9bba7b1d3f08f843aaf963cf7921790f2255952528220",
+      "processing": {
+        "mono": "Arithmetic mean of source channels",
+        "resampling": "scipy.signal.resample_poly, default polyphase low-pass filter",
+        "removed_dc": 2.7279724230652347e-06,
+        "onset_threshold_relative_to_peak": 0.02,
+        "preroll_seconds": 0.002,
+        "start_frame_at_22050_hz": 49,
+        "tail_fade_seconds": 0.008,
+        "tail_fade": "Cosine squared, ending at zero",
+        "peak_normalization": 0.95,
+        "gain": 0.9613346850505295,
+        "max_seconds": 0.8,
+        "padding": "Zero padding when source remainder is shorter than 0.8 seconds",
+        "output_subtype": "PCM_16",
+        "pitch_shifted": false
+      },
+      "archive_member": "SpanishClassicalGuitar-SFZ+FLAC-20190618/samples/A3.flac",
+      "archive_sha256": "903916921a21662d2237ade7f0e98e55de93cb7b86da219e4e10f4ad385b8f5e",
+      "midi_note": 57
+    },
+    {
+      "id": "guitar-holdout",
+      "description": "Independent recorded Spanish nylon-string guitar note, nominal C4, MIDI 60",
+      "file": "guitar-holdout.wav",
+      "role": "holdout",
+      "sample_rate": 22050,
+      "channels": 1,
+      "frames": 17640,
+      "duration_seconds": 0.8,
+      "root_hz": 262.96943378152696,
+      "nominal_note": "C4",
+      "nominal_root_hz": 261.6255653005986,
+      "pitch_measurement": {
+        "root_hz": 262.96943378152696,
+        "method": "Median of four 150 ms autocorrelation windows with parabolic peak interpolation; search within +/-6% of the SFZ key's nominal pitch",
+        "windows": [
+          {
+            "start_seconds": 0.05,
+            "frequency_hz": 263.10560326102797,
+            "normalized_autocorrelation": 0.9578163669311606
+          },
+          {
+            "start_seconds": 0.15,
+            "frequency_hz": 262.80814062489526,
+            "normalized_autocorrelation": 0.9682550120641981
+          },
+          {
+            "start_seconds": 0.25,
+            "frequency_hz": 262.94270997370626,
+            "normalized_autocorrelation": 0.9681581666812854
+          },
+          {
+            "start_seconds": 0.35,
+            "frequency_hz": 262.99615758934766,
+            "normalized_autocorrelation": 0.9717984421729705
+          }
+        ]
+      },
+      "license": "CC0-1.0",
+      "source_url": "https://freepats.zenvoid.org/Guitar/SpanishClassicalGuitar/SpanishClassicalGuitar-SFZ+FLAC-20190618.7z",
+      "license_source": "https://freepats.zenvoid.org/Guitar/acoustic-guitar.html",
+      "original_file": "originals/freepats/C4.flac",
+      "original_sha256": "e8fcd63c262ebef3e84d1f24242918cc578f8b0db54049ad109815b01d1226f0",
+      "original_sample_rate": 44100,
+      "original_channels": 1,
+      "original_duration_seconds": 2.417845804988662,
+      "sha256": "8ae76442a831b6d61d9b8761ffa2a1fdb9fac0e9dbc602acd643c010448c388b",
+      "processing": {
+        "mono": "Arithmetic mean of source channels",
+        "resampling": "scipy.signal.resample_poly, default polyphase low-pass filter",
+        "removed_dc": 4.427438374908435e-05,
+        "onset_threshold_relative_to_peak": 0.02,
+        "preroll_seconds": 0.002,
+        "start_frame_at_22050_hz": 341,
+        "tail_fade_seconds": 0.008,
+        "tail_fade": "Cosine squared, ending at zero",
+        "peak_normalization": 0.95,
+        "gain": 0.9663237151701473,
+        "max_seconds": 0.8,
+        "padding": "Zero padding when source remainder is shorter than 0.8 seconds",
+        "output_subtype": "PCM_16",
+        "pitch_shifted": false
+      },
+      "archive_member": "SpanishClassicalGuitar-SFZ+FLAC-20190618/samples/C4.flac",
+      "archive_sha256": "903916921a21662d2237ade7f0e98e55de93cb7b86da219e4e10f4ad385b8f5e",
+      "midi_note": 60
+    }
+  ]
+}

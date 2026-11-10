@@ -1,0 +1,104 @@
+{
+  "status": "actual_C64_execution_pass_listening_not_accepted",
+  "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/c64/stardust.prg",
+  "program_sha256": "8c68ace46d7693277b85a61f1111a1dd711466f9178ec2615c59c272a388efbd",
+  "program_bytes": 29861,
+  "saved_bytes_vs_accepted_test": 1190,
+  "runtime": {
+    "registers": {
+      "played_tick_count": 2500,
+      "underrun_counter": 0
+    },
+    "audio": {
+      "played_tick_count": 2500,
+      "underrun_counter": 0
+    }
+  },
+  "trace": {
+    "d418_writes": 192435,
+    "sample_writes": 192432,
+    "expected_sample_writes": 192431,
+    "sample_count_error": 1,
+    "first_sample_cycle": 2145647,
+    "last_sample_cycle": 51407940,
+    "sample_stream_duration_s": 50.00015123095911,
+    "sample_interval_min_cycles": 197,
+    "sample_interval_max_cycles": 352,
+    "sample_interval_median_cycles": 256.0,
+    "gaps_over_384_cycles": 0,
+    "score_clock_end_error_cycles": 1,
+    "score_clock_phase_range_cycles": 152,
+    "sid_frequency_or_control_writes": [],
+    "scope": "Actual emulated SID bus writes; interval jitter includes IRQ entry latency. Score-to-voice correctness is checked separately."
+  },
+  "dac_bytes_compared": 192431,
+  "dac_mismatches": 0,
+  "clipped_output_samples_first50": 164,
+  "changed_instruments": [
+    1,
+    8
+  ],
+  "actual_30_50_incremental_loss": {
+    "loss": 0.00453477717279824,
+    "spectral": 0.012548987132807573,
+    "harmonic_shape": 0.0005317563191056252,
+    "absolute_register": 0.0014389774657320655,
+    "carrier_pitch": 0.003925849623666252,
+    "envelope": 0.0014439310180023313,
+    "onset": 0.008856791071593761,
+    "offset": 0.0053343153558671474,
+    "length_error": 0.0,
+    "silence_penalty": 0.0,
+    "global_gain": 1.0000022649765015,
+    "analysis_rate": 11025,
+    "pitch_distance_unit": "octaves on an absolute frequency axis; no pitch-class folding"
+  },
+  "actual_30_50_original_baseline": {
+    "loss": 0.6799355990430873,
+    "spectral": 0.5191260973612467,
+    "harmonic_shape": 0.09035368015368779,
+    "absolute_register": 0.605021358621076,
+    "carrier_pitch": 2.3136711809444925,
+    "envelope": 0.10749650746583939,
+    "onset": 0.47524750232696533,
+    "offset": 0.4953169822692871,
+    "length_error": 0.0,
+    "silence_penalty": 0.0,
+    "global_gain": 2.5893726348876953,
+    "analysis_rate": 11025,
+    "pitch_distance_unit": "octaves on an absolute frequency axis; no pitch-class folding"
+  },
+  "actual_30_50_original_candidate": {
+    "loss": 0.6796702951609492,
+    "spectral": 0.5193661650021871,
+    "harmonic_shape": 0.09047495822111766,
+    "absolute_register": 0.6050347680171602,
+    "carrier_pitch": 2.312052434742008,
+    "envelope": 0.107295460999012,
+    "onset": 0.47431716322898865,
+    "offset": 0.49542468786239624,
+    "length_error": 0.0,
+    "silence_penalty": 0.0,
+    "global_gain": 2.5891189575195312,
+    "analysis_rate": 11025,
+    "pitch_distance_unit": "octaves on an absolute frequency axis; no pitch-class folding"
+  },
+  "actual_original_loss_delta": -0.0002653038821380793,
+  "standalone_outputs": [
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/hyperbased-original-30-40s.wav",
+      "sha256": "f1190b1ab3355add098e3705e06f6d9d6875725460e8283ee9be792a20b22630",
+      "constant_gain": 1.4921436811497801
+    },
+    {
+      "file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/hyperbased-loop-optimized-c64-30-40s.wav",
+      "sha256": "6c09ec29af70eb829250649f237bd8994809f19db5522a6159d4751333314b2f",
+      "constant_gain": 3.976597249761041
+    }
+  ],
+  "matched_rms": 0.1347397178435843,
+  "source_actual_capture": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/vice/stardust-vice.wav",
+  "source_actual_capture_sha256": "2fd7925b756d5a89acb42d031a0a1eb3ed59c851e0f853dcf9d7addae3b2e6b3",
+  "raw_vice_sha256": "5fbea56ce9a28551ba79e6e81179bab4a51749d411b0ace39da425a7fc8afdbd",
+  "processing": "Separate new actual C64 and independent-original10s files only; fixed30\u201340s crops,DC removal,constantRMSmatching. No alternating old version,EQ,limiter,timewarp or pitchshift."
+}

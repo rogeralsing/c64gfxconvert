@@ -1,0 +1,14 @@
+{
+  "trace_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/madness-full/vice/registers.txt",
+  "trace_sha256": "ef35bde3de8f0ce5af1b3d08a8845988948b8845fd64122fd5cf8c4a3b3a14a7",
+  "anchor_cycle": 2145941,
+  "bytes_compared": 1566544,
+  "mismatched_bytes": 0,
+  "all_dac_bytes_match": true,
+  "sample_interval_min_cycles": 197,
+  "sample_interval_max_cycles": 356,
+  "sample_interval_median_cycles": 256.0,
+  "examples": [],
+  "alignment": "Only the externally supplied first sample-clock D418 write. No DAC-value matching, local shifting, time warping or audio correlation.",
+  "capture_program_sha256": "059aef9a27053a977b9abd7c8ab77aac5a7cb24bd3ea7c4506523065e1b13b0f"
+}

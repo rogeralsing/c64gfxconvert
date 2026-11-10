@@ -1,0 +1,32 @@
+{
+  "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/madness-full/c64/stardust.prg",
+  "program_bytes": 42966,
+  "program_sha256": "059aef9a27053a977b9abd7c8ab77aac5a7cb24bd3ea7c4506523065e1b13b0f",
+  "model": "PAL MOS6581",
+  "sample_rate": 22050,
+  "score_duration_s": 407.04,
+  "sid_voices": 0,
+  "runtime": {
+    "registers": {
+      "played_tick_count": 20352,
+      "underrun_counter": 0
+    }
+  },
+  "trace": {
+    "d418_writes": 1566548,
+    "sample_writes": 1566545,
+    "expected_sample_writes": 1566544,
+    "sample_count_error": 1,
+    "first_sample_cycle": 2145941,
+    "last_sample_cycle": 403181163,
+    "sample_stream_duration_s": 407.040134057618,
+    "sample_interval_min_cycles": 197,
+    "sample_interval_max_cycles": 356,
+    "sample_interval_median_cycles": 256.0,
+    "gaps_over_384_cycles": 0,
+    "score_clock_end_error_cycles": 1,
+    "score_clock_phase_range_cycles": 186,
+    "sid_frequency_or_control_writes": [],
+    "scope": "Actual emulated SID bus writes; interval jitter includes IRQ entry latency. Score-to-voice correctness is checked separately."
+  }
+}

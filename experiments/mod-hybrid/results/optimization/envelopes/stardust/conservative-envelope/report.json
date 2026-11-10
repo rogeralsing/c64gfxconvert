@@ -1,0 +1,587 @@
+{
+  "name": "conservative-envelope",
+  "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/envelopes/stardust/conservative-envelope/arrangement.json",
+  "fit_samples": [
+    {
+      "id": 6,
+      "attack": 554,
+      "period": 212,
+      "anchor": 554,
+      "mode": "envelope",
+      "loss": 0.425509412794596,
+      "metrics": {
+        "multires_spectral_error": 0.3555130364521985,
+        "spectral_errors": [
+          0.3522789938078743,
+          0.3502689091195266,
+          0.3639912064291945
+        ],
+        "envelope_normalized_rmse": 0.2333212544746582,
+        "envelope_correlation": 0.7475890719422582,
+        "rms_ratio": 0.9442642003816729,
+        "dominant_peak_original_hz": 0.09491268033409264,
+        "dominant_peak_candidate_hz": 0.09415337889141989,
+        "dominant_peak_error_cents": -13.905569130254408
+      },
+      "eligibility": {
+        "eligible": true,
+        "spectral_flatness": 0.028648018571129984,
+        "best_periodicity": 0.7578233450224365,
+        "period_candidates": [
+          {
+            "period": 21,
+            "correlation": 0.7578233450224365
+          },
+          {
+            "period": 32,
+            "correlation": 0.4069875456245388
+          },
+          {
+            "period": 42,
+            "correlation": 0.6547441101426794
+          },
+          {
+            "period": 53,
+            "correlation": 0.4923808510771427
+          },
+          {
+            "period": 63,
+            "correlation": 0.6927092188593456
+          },
+          {
+            "period": 85,
+            "correlation": 0.7285009496919894
+          },
+          {
+            "period": 106,
+            "correlation": 0.676153987614554
+          },
+          {
+            "period": 127,
+            "correlation": 0.5284966614343513
+          },
+          {
+            "period": 148,
+            "correlation": 0.5017704810827084
+          },
+          {
+            "period": 169,
+            "correlation": 0.4566398712944217
+          },
+          {
+            "period": 191,
+            "correlation": 0.40975105636663656
+          },
+          {
+            "period": 212,
+            "correlation": 0.34059842712973853
+          }
+        ]
+      },
+      "old_loop_start": 554,
+      "old_loop_length": 763,
+      "old_end": 1317
+    },
+    {
+      "id": 8,
+      "attack": 844,
+      "period": 255,
+      "anchor": 1099,
+      "mode": "envelope",
+      "loss": 0.4517390877349362,
+      "metrics": {
+        "multires_spectral_error": 0.37727392739736887,
+        "spectral_errors": [
+          0.3589980855720373,
+          0.3488386249370242,
+          0.4239850716830452
+        ],
+        "envelope_normalized_rmse": 0.24821720112522444,
+        "envelope_correlation": 0.6051444145879339,
+        "rms_ratio": 0.9285220362480366,
+        "dominant_peak_original_hz": 0.039235412474849095,
+        "dominant_peak_candidate_hz": 0.039235412474849095,
+        "dominant_peak_error_cents": 0.0
+      },
+      "eligibility": {
+        "eligible": true,
+        "spectral_flatness": 0.025370700958427528,
+        "best_periodicity": 0.8843466332517148,
+        "period_candidates": [
+          {
+            "period": 6,
+            "correlation": 0.19314343417027158
+          },
+          {
+            "period": 12,
+            "correlation": 0.17128102077545387
+          },
+          {
+            "period": 25,
+            "correlation": 0.6336774060820138
+          },
+          {
+            "period": 51,
+            "correlation": 0.8843466332517148
+          },
+          {
+            "period": 76,
+            "correlation": 0.6017860892582825
+          },
+          {
+            "period": 102,
+            "correlation": 0.6909114094718151
+          },
+          {
+            "period": 127,
+            "correlation": 0.5046084127247961
+          },
+          {
+            "period": 152,
+            "correlation": 0.5397056737043837
+          },
+          {
+            "period": 178,
+            "correlation": 0.41814210343737024
+          },
+          {
+            "period": 204,
+            "correlation": 0.41779339047932434
+          },
+          {
+            "period": 229,
+            "correlation": 0.36886191265752355
+          },
+          {
+            "period": 255,
+            "correlation": 0.3848850699765413
+          }
+        ]
+      },
+      "old_loop_start": 844,
+      "old_loop_length": 1144,
+      "old_end": 1988
+    },
+    {
+      "id": 9,
+      "attack": 854,
+      "period": 255,
+      "anchor": 1109,
+      "mode": "envelope",
+      "loss": 0.4297956721502921,
+      "metrics": {
+        "multires_spectral_error": 0.36981106533059444,
+        "spectral_errors": [
+          0.34817498109172945,
+          0.33165765516967277,
+          0.429600559730381
+        ],
+        "envelope_normalized_rmse": 0.1999486893989922,
+        "envelope_correlation": 0.7284236830543027,
+        "rms_ratio": 0.9832155914392058,
+        "dominant_peak_original_hz": 0.07827395885599599,
+        "dominant_peak_candidate_hz": 0.039136979427997994,
+        "dominant_peak_error_cents": -1200.0
+      },
+      "eligibility": {
+        "eligible": true,
+        "spectral_flatness": 0.023507258474559815,
+        "best_periodicity": 0.9002564975835174,
+        "period_candidates": [
+          {
+            "period": 25,
+            "correlation": 0.9002564975835174
+          },
+          {
+            "period": 30,
+            "correlation": 0.15299122817030356
+          },
+          {
+            "period": 51,
+            "correlation": 0.8077706457523395
+          },
+          {
+            "period": 76,
+            "correlation": 0.79200423474458
+          },
+          {
+            "period": 101,
+            "correlation": 0.6939422273963973
+          },
+          {
+            "period": 126,
+            "correlation": 0.5843326569000437
+          },
+          {
+            "period": 152,
+            "correlation": 0.5558007385830778
+          },
+          {
+            "period": 177,
+            "correlation": 0.5228103910137724
+          },
+          {
+            "period": 202,
+            "correlation": 0.48103058836492024
+          },
+          {
+            "period": 228,
+            "correlation": 0.45358077354436077
+          },
+          {
+            "period": 253,
+            "correlation": 0.47147858636499645
+          },
+          {
+            "period": 255,
+            "correlation": 0.3574143338723105
+          }
+        ]
+      },
+      "old_loop_start": 854,
+      "old_loop_length": 1139,
+      "old_end": 1993
+    },
+    {
+      "id": 11,
+      "attack": 1032,
+      "period": 106,
+      "anchor": 3682,
+      "mode": "envelope",
+      "loss": 0.5112457897304827,
+      "metrics": {
+        "multires_spectral_error": 0.4497038679733569,
+        "spectral_errors": [
+          0.40413833093414914,
+          0.4436501735094455,
+          0.5013230994764758
+        ],
+        "envelope_normalized_rmse": 0.20513973919041945,
+        "envelope_correlation": 0.7899065351681903,
+        "rms_ratio": 0.9582552091977353,
+        "dominant_peak_original_hz": 0.0947265625,
+        "dominant_peak_candidate_hz": 0.09423828125,
+        "dominant_peak_error_cents": -8.94696590285668
+      },
+      "eligibility": {
+        "eligible": true,
+        "spectral_flatness": 0.008288087293443514,
+        "best_periodicity": 0.9763750896916471,
+        "period_candidates": [
+          {
+            "period": 21,
+            "correlation": 0.9763750896916471
+          },
+          {
+            "period": 42,
+            "correlation": 0.9356340257863062
+          },
+          {
+            "period": 63,
+            "correlation": 0.8740114688261936
+          },
+          {
+            "period": 85,
+            "correlation": 0.8730807703487842
+          },
+          {
+            "period": 106,
+            "correlation": 0.8761719796879763
+          },
+          {
+            "period": 127,
+            "correlation": 0.8552825795824894
+          },
+          {
+            "period": 148,
+            "correlation": 0.8146065897522073
+          },
+          {
+            "period": 169,
+            "correlation": 0.7598781612147917
+          },
+          {
+            "period": 190,
+            "correlation": 0.7000872795404908
+          },
+          {
+            "period": 212,
+            "correlation": 0.6754795648282358
+          },
+          {
+            "period": 233,
+            "correlation": 0.6527025861889424
+          },
+          {
+            "period": 254,
+            "correlation": 0.6175257809714333
+          }
+        ]
+      },
+      "old_loop_start": 1032,
+      "old_loop_length": 6221,
+      "old_end": 7253
+    }
+  ],
+  "baseline_bank_bytes_including_loop_expansion_and_markers": 21715,
+  "candidate_bank_bytes_including_loop_expansion_and_markers": 14210,
+  "sample_ram_saved": 7505,
+  "baseline_compressed_score_bytes": 21784,
+  "candidate_compressed_score_bytes": 22168,
+  "added_compressed_score_bytes": 384,
+  "score_grouping": "48",
+  "net_ram_saved": 7121,
+  "metrics_against_baseline_30_50s": {
+    "multires_spectral_error": 0.2455016601177645,
+    "spectral_errors": [
+      0.2580730830326056,
+      0.24115710993587147,
+      0.23727478738481633
+    ],
+    "envelope_normalized_rmse": 0.08359554117362294,
+    "envelope_correlation": 0.9754568086803266,
+    "rms_ratio": 0.9886866543766795,
+    "dominant_peak_original_hz": 75.3662109375,
+    "dominant_peak_candidate_hz": 75.3662109375,
+    "dominant_peak_error_cents": 0.0
+  },
+  "metrics_against_independent_original_30_50s": {
+    "multires_spectral_error": 0.42680211885093966,
+    "spectral_errors": [
+      0.43171130321590173,
+      0.4241537238975615,
+      0.42454132943935563
+    ],
+    "envelope_normalized_rmse": 0.11654067055296795,
+    "envelope_correlation": 0.9513555793826213,
+    "rms_ratio": 0.9891014656016185,
+    "dominant_peak_original_hz": 75.3662109375,
+    "dominant_peak_candidate_hz": 75.3662109375,
+    "dominant_peak_error_cents": 0.0
+  },
+  "active_sample_contexts": [
+    {
+      "sample_id": 11,
+      "kind": "first_active_note",
+      "start_tick": 0,
+      "end_tick": 360,
+      "start_s": 0.0,
+      "end_s": 7.2,
+      "complete_note_duration_s": 7.2,
+      "voice": 2,
+      "baseline_linear_rms": 0.07620831760348698,
+      "candidate_linear_rms": 0.07177557262572751,
+      "metrics": {
+        "multires_spectral_error": 0.3927750988670294,
+        "spectral_errors": [
+          0.3943601911274292,
+          0.39162398013905164,
+          0.3923411253346073
+        ],
+        "envelope_normalized_rmse": 0.17059567972693127,
+        "envelope_correlation": 0.953770124582209,
+        "rms_ratio": 0.9418648152599278,
+        "dominant_peak_original_hz": 77.98727416992186,
+        "dominant_peak_candidate_hz": 77.98727416992186,
+        "dominant_peak_error_cents": 0.0
+      }
+    },
+    {
+      "sample_id": 11,
+      "kind": "longest_held_note",
+      "start_tick": 0,
+      "end_tick": 360,
+      "start_s": 0.0,
+      "end_s": 7.2,
+      "complete_note_duration_s": 7.2,
+      "voice": 2,
+      "baseline_linear_rms": 0.07620831760348698,
+      "candidate_linear_rms": 0.07177557262572751,
+      "metrics": {
+        "multires_spectral_error": 0.3927750988670294,
+        "spectral_errors": [
+          0.3943601911274292,
+          0.39162398013905164,
+          0.3923411253346073
+        ],
+        "envelope_normalized_rmse": 0.17059567972693127,
+        "envelope_correlation": 0.953770124582209,
+        "rms_ratio": 0.9418648152599278,
+        "dominant_peak_original_hz": 77.98727416992186,
+        "dominant_peak_candidate_hz": 77.98727416992186,
+        "dominant_peak_error_cents": 0.0
+      }
+    },
+    {
+      "sample_id": 9,
+      "kind": "first_active_note",
+      "start_tick": 1260,
+      "end_tick": 1344,
+      "start_s": 25.2,
+      "end_s": 26.88,
+      "complete_note_duration_s": 1.68,
+      "voice": 3,
+      "baseline_linear_rms": 0.06401556466331244,
+      "candidate_linear_rms": 0.06296952668866433,
+      "metrics": {
+        "multires_spectral_error": 0.4404459134925796,
+        "spectral_errors": [
+          0.4465459606383021,
+          0.4301916293411519,
+          0.4446001504982847
+        ],
+        "envelope_normalized_rmse": 0.10637323266476721,
+        "envelope_correlation": 0.8947340923352695,
+        "rms_ratio": 0.9836565243763414,
+        "dominant_peak_original_hz": 93.02096557617186,
+        "dominant_peak_candidate_hz": 92.08135986328124,
+        "dominant_peak_error_cents": -17.576131157281605
+      }
+    },
+    {
+      "sample_id": 9,
+      "kind": "longest_held_note",
+      "start_tick": 2196,
+      "end_tick": 2304,
+      "start_s": 43.92,
+      "end_s": 46.08,
+      "complete_note_duration_s": 2.16,
+      "voice": 3,
+      "baseline_linear_rms": 0.06857004400062987,
+      "candidate_linear_rms": 0.06706174070944575,
+      "metrics": {
+        "multires_spectral_error": 0.41815105020347215,
+        "spectral_errors": [
+          0.42886558871223535,
+          0.4101285851364898,
+          0.4154589767616912
+        ],
+        "envelope_normalized_rmse": 0.0970662914892107,
+        "envelope_correlation": 0.757609780147002,
+        "rms_ratio": 0.9780087699145777,
+        "dominant_peak_original_hz": 69.53082275390624,
+        "dominant_peak_candidate_hz": 68.59121704101561,
+        "dominant_peak_error_cents": -23.554568098719013
+      }
+    },
+    {
+      "sample_id": 8,
+      "kind": "first_active_note",
+      "start_tick": 1152,
+      "end_tick": 1164,
+      "start_s": 23.04,
+      "end_s": 23.28,
+      "complete_note_duration_s": 0.24,
+      "voice": 3,
+      "baseline_linear_rms": 0.042869480223330286,
+      "candidate_linear_rms": 0.042869480223330286,
+      "metrics": {
+        "multires_spectral_error": 0.0,
+        "spectral_errors": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "envelope_normalized_rmse": 0.0,
+        "envelope_correlation": 1.0,
+        "rms_ratio": 1.0,
+        "dominant_peak_original_hz": 620.6116071428571,
+        "dominant_peak_candidate_hz": 620.6116071428571,
+        "dominant_peak_error_cents": 0.0
+      }
+    },
+    {
+      "sample_id": 8,
+      "kind": "longest_held_note",
+      "start_tick": 8736,
+      "end_tick": 8928,
+      "start_s": 174.72,
+      "end_s": 178.56,
+      "complete_note_duration_s": 3.84,
+      "voice": 1,
+      "baseline_linear_rms": 0.027375488788947744,
+      "candidate_linear_rms": 0.02476098470381898,
+      "metrics": {
+        "multires_spectral_error": 0.48134093155187435,
+        "spectral_errors": [
+          0.4967708236225787,
+          0.4724378858412281,
+          0.4748140851918161
+        ],
+        "envelope_normalized_rmse": 0.19565836874254336,
+        "envelope_correlation": 0.6049297946667123,
+        "rms_ratio": 0.9044552483358108,
+        "dominant_peak_original_hz": 69.53082275390624,
+        "dominant_peak_candidate_hz": 68.59121704101561,
+        "dominant_peak_error_cents": -23.554568098719013
+      }
+    },
+    {
+      "sample_id": 6,
+      "kind": "first_active_note",
+      "start_tick": 1164,
+      "end_tick": 1248,
+      "start_s": 23.28,
+      "end_s": 24.96,
+      "complete_note_duration_s": 1.68,
+      "voice": 3,
+      "baseline_linear_rms": 0.06898198670125028,
+      "candidate_linear_rms": 0.06329182049860414,
+      "metrics": {
+        "multires_spectral_error": 0.4246981351303763,
+        "spectral_errors": [
+          0.43992279257676997,
+          0.4174371716909327,
+          0.4167344411234262
+        ],
+        "envelope_normalized_rmse": 0.1819407450606936,
+        "envelope_correlation": 0.8325354224970043,
+        "rms_ratio": 0.9175031580046696,
+        "dominant_peak_original_hz": 310.0698852539062,
+        "dominant_peak_candidate_hz": 310.0698852539062,
+        "dominant_peak_error_cents": 0.0
+      }
+    },
+    {
+      "sample_id": 6,
+      "kind": "longest_held_note",
+      "start_tick": 1164,
+      "end_tick": 1248,
+      "start_s": 23.28,
+      "end_s": 24.96,
+      "complete_note_duration_s": 1.68,
+      "voice": 3,
+      "baseline_linear_rms": 0.06898198670125028,
+      "candidate_linear_rms": 0.06329182049860414,
+      "metrics": {
+        "multires_spectral_error": 0.4246981351303763,
+        "spectral_errors": [
+          0.43992279257676997,
+          0.4174371716909327,
+          0.4167344411234262
+        ],
+        "envelope_normalized_rmse": 0.1819407450606936,
+        "envelope_correlation": 0.8325354224970043,
+        "rms_ratio": 0.9175031580046696,
+        "dominant_peak_original_hz": 310.0698852539062,
+        "dominant_peak_candidate_hz": 310.0698852539062,
+        "dominant_peak_error_cents": 0.0
+      }
+    }
+  ],
+  "envelope": {
+    "changed_volume_fields": 4324,
+    "volume_fields_capped": 0,
+    "extra_runtime_envelope_bytes": 0,
+    "method": "Existing 50 Hz tick volume fields; midpoint source cursor lookup, quantized to the existing 16 volume levels"
+  },
+  "dac_clipped_output_frames_first50s": 0,
+  "preserved": [
+    "sample assignment",
+    "note triggers",
+    "pitch steps",
+    "tick timing",
+    "four-track routing"
+  ],
+  "limits": "Sustain timbre is approximated; envelopes update only at 50 Hz and 16 volume levels. One fixed level calibration to original is inherited from baseline. Offline output is not VICE audio."
+}

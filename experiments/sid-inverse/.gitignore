@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+.cache/
+
+# Search histories and rendered trial audio are reproducible local outputs.
+results/
