@@ -89,3 +89,70 @@ Run the extractor's focused checks:
 python3 -m unittest discover -s tests -p 'test_*palette.py'
 python3 -m unittest discover -s tests -p 'test_multicolor_extractor.py'
 ```
+
+## Dither pairs and neighboring tones
+
+Analyze the palette-snapped PNGs to count vertical color pairs and their spatial
+neighbors. Use the extractor manifest to select artwork only, excluding preview
+sheets and palette illustrations:
+
+```sh
+python3 tools/analyze-dither-pairs.py \
+  --manifest /path/to/snapped/manifest.json -o pair-analysis
+```
+
+The script also accepts individual PNG paths. It requires opaque images with
+identical horizontal pixel pairs and exact colors from the specified palette.
+`--palette` defaults to `palettes/peptoette-a.vpl`. It does not resize or recolor
+the inputs. Identical decoded images are counted once, with aliases recorded.
+
+Each 2 × 1 multicolor pixel is counted once. Every vertical neighbor is sampled:
+rows 0–1, 1–2, 2–3, and so on. Both row phases contribute, with separate phase
+counts in the JSON output. Reversed pairs share one identity and their counts
+are added together. The darker color goes first, using CIE L* derived from
+linear sRGB luminance. Colors within 1 L* are ordered by C64 index instead.
+Original orientation counts are retained.
+
+Horizontal neighbors are one logical pixel apart. Vertical neighbors start two
+rows apart, so the two pairs do not share a pixel. Each right/down contact is
+counted once, separately by direction. Same-pair contacts describe continued
+texture and are stored separately from transitions between different pairs.
+Filtering never creates a new edge across a removed rare pair.
+
+The default graph keeps pairs with at least **500 occurrences**, then links
+with at least **50 contacts** between retained pairs. Override those values with
+`--min-count` and `--min-edge-count`. Full counts remain available regardless of
+these display thresholds. Solid same-color pairs are included in the data so
+they can serve as endpoints in tone ramps. These same-color pairs are shown by
+default in the same list, matrix, and neighbor view as two-color pairs. They use
+the same frequency threshold; the report can hide them with a checkbox.
+
+Each pair also includes its virtual 50/50 color. The RGB channels are decoded to
+linear sRGB, averaged, then encoded back to 8-bit sRGB for display. The report
+shows this solid color beside the original pair, together with relative
+luminance Y as a percentage. Perceptual lightness L* remains a separate measure.
+JSON includes `virtual_rgb`, `virtual_hex`, and `luminance`; CSV includes the hex
+color and luminance. Exported Y uses the 0–1 scale and is calculated before RGB
+byte rounding. For example, black plus white gives `#BCBCBC`, Y = 0.5.
+
+Outputs:
+
+- `analysis.json`: full per-image and aggregate counts, orientations, phases,
+  contacts, source indices, thresholds, and duplicate-image aliases.
+- `pairs.csv`: all observed pair frequencies and their retention flags.
+- `neighbors.csv`: all different-pair contacts and their retention flags.
+- `report.html`: a self-contained interactive report with frequency filters,
+  pair previews, neighbor counts, a contact matrix, source-position highlights,
+  and candidate tone chains. The sibling `dither-pairs-report.html` template is
+  required to generate this report. Fonts are optional network resources.
+
+The supplied dataset contains ten unique images and 120 observed two-color
+pair types. At the default threshold, 76 remain and cover 97.32% of two-color
+occurrences. Image borders and raster stripes contribute to the statistics;
+use the image filter to inspect their influence. Contacts also occur at object
+boundaries. A chain of observed links is a candidate ramp, not proof that one
+continuous or intentional gradient appears in the artwork.
+
+```sh
+python3 -m unittest discover -s tests -p 'test_dither_pairs.py'
+```
