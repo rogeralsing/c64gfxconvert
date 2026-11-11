@@ -13,6 +13,29 @@ import time
 from PIL import Image
 
 
+def receive_monitor_response(monitor, timeout=30.0, require_registers=False):
+    """Wait for command completion, including across gaps in socket traffic."""
+    prompt = re.compile(rb"\((?:C|8|9|10|11):\$[0-9a-fA-F]{4}\) $")
+    deadline = time.monotonic() + timeout
+    response = bytearray()
+    while True:
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            raise TimeoutError("Timed out waiting for a complete VICE monitor prompt.")
+        monitor.settimeout(remaining)
+        try:
+            chunk = monitor.recv(65536)
+        except socket.timeout:
+            continue
+        except OSError as error:
+            raise ConnectionError(f"VICE monitor connection failed: {error}") from error
+        if not chunk:
+            raise ConnectionError("VICE monitor closed before a complete prompt.")
+        response.extend(chunk)
+        if prompt.search(response) and (not require_registers or re.search(rb"^\.;", response, re.M)):
+            return response.decode(errors="replace")
+
+
 def verify(program, expected_file, palette_file, output, startup_seconds):
     expected = expected_file.read_bytes()
     if len(expected) != 64000 or max(expected) > 15:
@@ -43,29 +66,17 @@ def verify(program, expected_file, palette_file, output, startup_seconds):
             raise RuntimeError("VICE exited before startup; see vice.log.")
         for sample in range(3):
             with socket.create_connection(("127.0.0.1", port), timeout=5) as monitor:
-                monitor.settimeout(0.15)
-
-                def receive():
-                    chunks = []
-                    while True:
-                        try:
-                            chunk = monitor.recv(65536)
-                        except socket.timeout:
-                            break
-                        if not chunk:
-                            break
-                        chunks.append(chunk)
-                    return b"".join(chunks).decode(errors="replace")
-
                 def run(text):
                     monitor.sendall((text + "\n").encode())
-                    response = receive()
+                    response = receive_monitor_response(monitor, require_registers=text.strip().lower() in ("r", "registers"))
                     transcript.append(text + "\n" + response)
                     if re.search(r"ERROR|Unknown resource|Unknown command", response):
                         raise RuntimeError(response)
                     return response
 
-                receive()
+                # A connection may send an initial prompt before this reply.
+                # Require actual register data to align the command stream.
+                run("r")
                 if sample == 0:
                     for resource, value in [("InitialWarpMode", 0), ("Speed", 100),
                                             ("AutostartWarp", 0), ("VICIIVSync", 1),

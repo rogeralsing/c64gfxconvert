@@ -1,0 +1,15 @@
+{
+  "song": "stardust",
+  "status": "byte_identical_current_source_reproduction",
+  "original_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/stardust-dictionary8/c64/build.json",
+  "original_program_sha256": "ee0b7514369a9e1d55a4523500d21c87d901a76b92a65c3d18b988b379e0e29b",
+  "reproduced_program_sha256": "ee0b7514369a9e1d55a4523500d21c87d901a76b92a65c3d18b988b379e0e29b",
+  "program_bytes": 37170,
+  "all_named_labels_identical": true,
+  "current_source_sha256": {
+    "pcm4_build.py": "dd500df0f699924d1c1d78bd090bdb2a1d42e9593efd74cd9048d5222cabb0eb",
+    "pcm4_player.asm": "b54351e7f8387ba75756688dddab1dd9829077f6edcd41fe9be9f8f5fa003278",
+    "score_dictionary.py": "c1aa83e7d822f34db70d0bf4b1f81fed5d5474fece54dda7e7cf3bb0a69615ef"
+  },
+  "reproduced_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/reproducibility/stardust/c64/build.json"
+}

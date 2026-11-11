@@ -1,0 +1,408 @@
+{
+  "method": "offline sample-loop window search",
+  "status": "bounded_study_complete_candidates_not_listening_accepted",
+  "evaluated_candidates": 269,
+  "cases": [
+    {
+      "case": "stardust",
+      "profile": "conservative",
+      "saved_bytes": 538,
+      "incremental_loss": 0.025550932509284707,
+      "independent_original_loss_delta": -0.0018495464435034914,
+      "changed_instruments": [
+        5,
+        14
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/stardust/conservative/arrangement.json",
+      "arrangement_sha256": "4f0d95f5f0986483da55d723266b2aee53583073d6d9a040089be7ff759dd5ac"
+    },
+    {
+      "case": "stardust",
+      "profile": "balanced",
+      "saved_bytes": 584,
+      "incremental_loss": 0.04033300940264835,
+      "independent_original_loss_delta": 0.0029518751506281693,
+      "changed_instruments": [
+        5,
+        14
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/stardust/balanced/arrangement.json",
+      "arrangement_sha256": "55a8cc247c5b181b4a9ff9f7b026f3357e930c32701bc134e6da6f620685e63f"
+    },
+    {
+      "case": "stardust",
+      "profile": "aggressive",
+      "saved_bytes": 598,
+      "incremental_loss": 0.045080752118503715,
+      "independent_original_loss_delta": 0.0019528863525452578,
+      "changed_instruments": [
+        5,
+        14
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/stardust/aggressive/arrangement.json",
+      "arrangement_sha256": "8dc4403338cf5a427d12274c6108021e707b4cf47ba909fec4628f9c44d90ae9"
+    },
+    {
+      "case": "hyperbased",
+      "profile": "conservative",
+      "saved_bytes": 1190,
+      "incremental_loss": 0.002915386248541883,
+      "independent_original_loss_delta": -0.0010853649770560247,
+      "changed_instruments": [
+        1,
+        8
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/arrangement.json",
+      "arrangement_sha256": "136b6b93f0fe9733490f74dd6bfa9b772701e7747a78d4f3f08452d44625382d"
+    },
+    {
+      "case": "hyperbased",
+      "profile": "balanced",
+      "saved_bytes": 1190,
+      "incremental_loss": 0.002915386248541883,
+      "independent_original_loss_delta": -0.0010853649770560247,
+      "changed_instruments": [
+        1,
+        8
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/balanced/arrangement.json",
+      "arrangement_sha256": "0afcf83ae0b7b20b4a3c45dda4639346c195e8ac4f0a05345e29253d2305a165"
+    },
+    {
+      "case": "hyperbased",
+      "profile": "aggressive",
+      "saved_bytes": 1760,
+      "incremental_loss": 0.00538492643741154,
+      "independent_original_loss_delta": -0.0008485509637782274,
+      "changed_instruments": [
+        1,
+        8
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/aggressive/arrangement.json",
+      "arrangement_sha256": "a93ef08d95bda7ccce5ab6f78cf1119c2be9507db8856c0d22897cd1a4060efc"
+    },
+    {
+      "case": "madness",
+      "profile": "conservative",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness/conservative/arrangement.json",
+      "arrangement_sha256": "4e8d784c4053ef16e08fa3329aa92163a9984cd765c1303a0673dbc61ff2b8e0"
+    },
+    {
+      "case": "madness",
+      "profile": "balanced",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness/balanced/arrangement.json",
+      "arrangement_sha256": "87049986fc5bb1f5a3349627e348fdcb0365b57bc10c0036a25d960d1d9e8c62"
+    },
+    {
+      "case": "madness",
+      "profile": "aggressive",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness/aggressive/arrangement.json",
+      "arrangement_sha256": "30f4c0ad01185a059ba1bd214dd6fe52223913f3ffa2ea64c83af6ec042bb69b"
+    },
+    {
+      "case": "hyperbased-full",
+      "profile": "conservative",
+      "saved_bytes": 267,
+      "incremental_loss": 0.0006656387964060125,
+      "independent_original_loss_delta": 0.00042425175666993553,
+      "changed_instruments": [
+        1
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased-full/conservative/arrangement.json",
+      "arrangement_sha256": "3322790de7265cd77afd9246b9a70c28be95a0babd9dc559a0859b779c8544fb"
+    },
+    {
+      "case": "hyperbased-full",
+      "profile": "balanced",
+      "saved_bytes": 888,
+      "incremental_loss": 0.002915386248541883,
+      "independent_original_loss_delta": -0.0010853649770560247,
+      "changed_instruments": [
+        1
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased-full/balanced/arrangement.json",
+      "arrangement_sha256": "9d9fc5ab352c16f75dae099d2e989e71e23d750e9303d7d9c30ffacbe7c81932"
+    },
+    {
+      "case": "hyperbased-full",
+      "profile": "aggressive",
+      "saved_bytes": 2364,
+      "incremental_loss": 0.005121163854451873,
+      "independent_original_loss_delta": 0.0007001310568386376,
+      "changed_instruments": [
+        1,
+        8,
+        23
+      ],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased-full/aggressive/arrangement.json",
+      "arrangement_sha256": "b4d383c921abcbf1bbd2fc95c90120a734606824ef24f3ea05f99b3fdf151b3f"
+    },
+    {
+      "case": "madness-full",
+      "profile": "conservative",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness-full/conservative/arrangement.json",
+      "arrangement_sha256": "11da590eb5d7f32c0fbfd5bc0e71c2ddf1d9dc28abf2c8fb1b0026e52e1f93e6"
+    },
+    {
+      "case": "madness-full",
+      "profile": "balanced",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness-full/balanced/arrangement.json",
+      "arrangement_sha256": "599f7d157ee717165740d0f3a5bfcc1c27fd8f4e290843ea7f2241e8d93ca410"
+    },
+    {
+      "case": "madness-full",
+      "profile": "aggressive",
+      "saved_bytes": 0,
+      "incremental_loss": 0.0,
+      "independent_original_loss_delta": 0.0,
+      "changed_instruments": [],
+      "arrangement": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/madness-full/aggressive/arrangement.json",
+      "arrangement_sha256": "f76f4af8107942e9504ec8454990d2095f46a2aac45f2d647d4ac45277433101"
+    }
+  ],
+  "negative_controls": [
+    {
+      "case": "stardust",
+      "instrument": 5,
+      "identity": 0.0,
+      "silence": 6.717653965346335,
+      "octave_up": 0.6384375179503878
+    },
+    {
+      "case": "stardust",
+      "instrument": 6,
+      "identity": 0.0,
+      "silence": 6.88903150576163,
+      "octave_up": 0.598779355288634
+    },
+    {
+      "case": "stardust",
+      "instrument": 8,
+      "identity": 0.0,
+      "silence": 6.9186864798845935,
+      "octave_up": 0.5562168102493509
+    },
+    {
+      "case": "stardust",
+      "instrument": 9,
+      "identity": 0.0,
+      "silence": 6.904671553353106,
+      "octave_up": 0.663038130224352
+    },
+    {
+      "case": "stardust",
+      "instrument": 11,
+      "identity": 0.0,
+      "silence": 6.860385504458763,
+      "octave_up": 0.5698848044966904
+    },
+    {
+      "case": "stardust",
+      "instrument": 14,
+      "identity": 0.0,
+      "silence": 6.911024556913574,
+      "octave_up": 0.5835844775982022
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 1,
+      "identity": 0.0,
+      "silence": 7.039468847117433,
+      "octave_up": 0.48048792259695383
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 7,
+      "identity": 0.0,
+      "silence": 6.860229074149782,
+      "octave_up": 0.7123339685123231
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 8,
+      "identity": 0.0,
+      "silence": 6.807609266962999,
+      "octave_up": 0.5542295991019149
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 12,
+      "identity": 0.0,
+      "silence": 6.9023849310503325,
+      "octave_up": 0.5457497826729161
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 13,
+      "identity": 0.0,
+      "silence": 6.8435243561679835,
+      "octave_up": 0.578721399428223
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 15,
+      "identity": 0.0,
+      "silence": 6.796892402602065,
+      "octave_up": 0.676918577001313
+    },
+    {
+      "case": "hyperbased",
+      "instrument": 16,
+      "identity": 0.0,
+      "silence": 6.873623806748345,
+      "octave_up": 0.5581015809057941
+    },
+    {
+      "case": "madness",
+      "instrument": 2,
+      "identity": 0.0,
+      "silence": 6.999913974275143,
+      "octave_up": 0.4773620346118824
+    },
+    {
+      "case": "madness",
+      "instrument": 3,
+      "identity": 0.0,
+      "silence": 6.880561229721699,
+      "octave_up": 0.5828850042868983
+    },
+    {
+      "case": "madness",
+      "instrument": 4,
+      "identity": 0.0,
+      "silence": 6.891891786926227,
+      "octave_up": 0.5999768273219315
+    },
+    {
+      "case": "madness",
+      "instrument": 8,
+      "identity": 0.0,
+      "silence": 6.940804402772821,
+      "octave_up": 0.4623659859564734
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 1,
+      "identity": 0.0,
+      "silence": 7.039468847117433,
+      "octave_up": 0.48048792259695383
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 7,
+      "identity": 0.0,
+      "silence": 6.860229074149782,
+      "octave_up": 0.7123339685123231
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 8,
+      "identity": 0.0,
+      "silence": 6.807609266962999,
+      "octave_up": 0.5542295991019149
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 12,
+      "identity": 0.0,
+      "silence": 6.9023849310503325,
+      "octave_up": 0.5457497826729161
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 13,
+      "identity": 0.0,
+      "silence": 6.8435243561679835,
+      "octave_up": 0.578721399428223
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 15,
+      "identity": 0.0,
+      "silence": 6.796892402602065,
+      "octave_up": 0.676918577001313
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 16,
+      "identity": 0.0,
+      "silence": 6.873623806748345,
+      "octave_up": 0.5581015809057941
+    },
+    {
+      "case": "hyperbased-full",
+      "instrument": 23,
+      "identity": 0.0,
+      "silence": 6.886968644152814,
+      "octave_up": 0.5729895160650676
+    },
+    {
+      "case": "madness-full",
+      "instrument": 2,
+      "identity": 0.0,
+      "silence": 6.999913974275143,
+      "octave_up": 0.4773620346118824
+    },
+    {
+      "case": "madness-full",
+      "instrument": 3,
+      "identity": 0.0,
+      "silence": 6.880561229721699,
+      "octave_up": 0.5828850042868983
+    },
+    {
+      "case": "madness-full",
+      "instrument": 4,
+      "identity": 0.0,
+      "silence": 6.891891786926227,
+      "octave_up": 0.5999768273219315
+    },
+    {
+      "case": "madness-full",
+      "instrument": 8,
+      "identity": 0.0,
+      "silence": 6.956999820691712,
+      "octave_up": 0.545107376239983
+    },
+    {
+      "case": "madness-full",
+      "instrument": 16,
+      "identity": 0.0,
+      "silence": 6.906413107761093,
+      "octave_up": 0.7529109266105187
+    }
+  ],
+  "negative_control_checks_pass": true,
+  "guard": "Per-instrument actual-note30\u201350s or longest-held activecontext, plus additional longest-held context where different; whole30\u201350mix regression. Absolute pitch, no octave folding. Later-only instruments are measured in actual activecontexts, not assigned zero loss.",
+  "script": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/sample_loop_search.py",
+  "script_sha256": "e921a4b1424c96d899924f1639e6d77fde07057605b5415e35c987958969e1b7",
+  "report_sha256": {
+    "stardust": "b9ea4584d6cbb3f1801994de126d7d2815a8d808d40a91fd98ed8e1738e9196b",
+    "hyperbased": "278e3f471e10934b826933de198b367eb3c966925d22b6c92e1037f12d537846",
+    "madness": "ed657c9946f7c28743564c23fc0f31fb5191719cb98fc0aaaf3e9d542d16de4f",
+    "hyperbased-full": "4dda672bb525ed8641d8ef1693a4cb81428028b437e2ab3d4a9a85064e87dec4",
+    "madness-full": "6b4b074a484b1b5a83353af8c662095fba93b2646351a5ab18bf62b5a7a9d951"
+  },
+  "actual_c64_evaluation": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/actual-c64-evaluation.json",
+  "actual_c64_evaluation_sha256": "6974bfc58644a3868a5a6a667f0dd2a625787f2060eb5336d836539cdd237196"
+}

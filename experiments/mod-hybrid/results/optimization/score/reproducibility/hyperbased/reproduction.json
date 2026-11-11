@@ -1,0 +1,15 @@
+{
+  "song": "hyperbased",
+  "status": "byte_identical_current_source_reproduction",
+  "original_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/hyperbased-full-gain3/c64/build.json",
+  "original_program_sha256": "0434f8171b94a1c6f44d9923b2143fc91b8688443061f5db3b49090297a4a980",
+  "reproduced_program_sha256": "0434f8171b94a1c6f44d9923b2143fc91b8688443061f5db3b49090297a4a980",
+  "program_bytes": 50429,
+  "all_named_labels_identical": true,
+  "current_source_sha256": {
+    "pcm4_build.py": "dd500df0f699924d1c1d78bd090bdb2a1d42e9593efd74cd9048d5222cabb0eb",
+    "pcm4_player.asm": "b54351e7f8387ba75756688dddab1dd9829077f6edcd41fe9be9f8f5fa003278",
+    "score_dictionary.py": "c1aa83e7d822f34db70d0bf4b1f81fed5d5474fece54dda7e7cf3bb0a69615ef"
+  },
+  "reproduced_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/reproducibility/hyperbased/c64/build.json"
+}

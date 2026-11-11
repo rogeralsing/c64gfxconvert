@@ -10,6 +10,13 @@ empty pixels are excluded.
 230-shape palette and the first 256-shape junction palette for comparisons.
 The C64 playback and storage experiments are separate from this HTML study.
 
+The default HTML preview converts those existing glyphs to 4 × 4 logical dots,
+each covering 2 × 2 screen pixels, then removes duplicates. The result contains
+168 glyphs and occupies 1,344 bytes. It preserves the original glyph selection
+and remaps its character codes. The original 8 × 8 palette remains available
+in the preview's font selector. See [the scripted checker sphere](scenes/README.md)
+for the current C64 animation and playback script.
+
 From this directory:
 
 ```sh
@@ -35,6 +42,20 @@ Without positional paths it reads the published snapshots in `results/`.
 
 The portable inputs are checked in under `preview/` and `legacy/`; the latter
 preserves the original reference and matcher bytes used by older receipts.
+
+To reproduce the coarsened-font proofs, first regenerate the 384-frame reference
+and its deduplicated font, then build all three HTML variants:
+
+```sh
+rtk proxy node c64-preview/generate.cjs
+rtk proxy node font4-dedupe.cjs
+rtk proxy node build-preview.cjs
+rtk proxy node verify-browser-font4.cjs
+rtk proxy node verify-preview4.cjs
+```
+
+These checks compare all 256 glyph conversions and remapped character codes,
+the 168-glyph browser/native font bytes, and the HTML controls and pixel views.
 
 ## Measurement and search
 

@@ -1,0 +1,282 @@
+{
+  "sample_rate_hz": 3848.625,
+  "sample_timer_cycles": 256,
+  "samples": 923670,
+  "duration_s": 240.0,
+  "music_ticks": 12000,
+  "triggers_per_track": [
+    1869,
+    694,
+    1096,
+    212
+  ],
+  "total_triggers": 3871,
+  "valid_sample_reads_per_track": [
+    602791,
+    868405,
+    911922,
+    923189
+  ],
+  "volume_level_frame_counts": [
+    {
+      "4": 1385,
+      "5": 194437,
+      "6": 220752,
+      "8": 29093,
+      "9": 462,
+      "11": 4619,
+      "15": 472922
+    },
+    {
+      "0": 36873,
+      "1": 26400,
+      "2": 9157,
+      "3": 5852,
+      "4": 46334,
+      "5": 39721,
+      "6": 11620,
+      "7": 7158,
+      "8": 27943,
+      "9": 65506,
+      "10": 9160,
+      "11": 80828,
+      "12": 309120,
+      "13": 3848,
+      "14": 3848,
+      "15": 240302
+    },
+    {
+      "0": 71511,
+      "1": 16629,
+      "2": 3693,
+      "3": 2153,
+      "4": 172807,
+      "5": 4619,
+      "6": 2693,
+      "7": 9617,
+      "8": 19703,
+      "9": 25935,
+      "10": 11779,
+      "11": 39797,
+      "12": 10543,
+      "13": 11854,
+      "14": 923,
+      "15": 519414
+    },
+    {
+      "0": 63582,
+      "1": 36946,
+      "2": 12777,
+      "3": 21784,
+      "4": 53108,
+      "5": 12854,
+      "6": 18085,
+      "7": 40028,
+      "8": 43414,
+      "9": 20322,
+      "10": 12701,
+      "11": 15550,
+      "12": 20169,
+      "13": 13161,
+      "14": 770,
+      "15": 538419
+    }
+  ],
+  "step_min_max_per_track": [
+    [
+      47,
+      236
+    ],
+    [
+      0,
+      250
+    ],
+    [
+      41,
+      250
+    ],
+    [
+      55,
+      246
+    ]
+  ],
+  "tick_sample_counts": {
+    "76": 330,
+    "77": 11670
+  },
+  "initial_dac": 8,
+  "initial_residual": 0,
+  "mixing_mode": "nearest",
+  "output_gain": 1.0,
+  "residual_feedback_enabled": false,
+  "final_residual_after_last_computed_sample": 0,
+  "last_computed_but_not_emitted_dac": 8,
+  "dac_min": 3,
+  "dac_max": 13,
+  "dac_code_counts": {
+    "3": 188,
+    "4": 2822,
+    "5": 13133,
+    "6": 59485,
+    "7": 164772,
+    "8": 466369,
+    "9": 151771,
+    "10": 53213,
+    "11": 10257,
+    "12": 1560,
+    "13": 100
+  },
+  "clipped_accumulator_samples": 0,
+  "clipped_output_samples": 0,
+  "lookup": "32 + round((sample_nibble - 8) * volume_level / 4), ties to even",
+  "mix": "Sum all four lookup values; round8+(sum-128)*output_gain/16 to nearest, ties to even, then clamp0..15. No residual feedback.",
+  "quantization_tradeoff": "Nearest rounding reduces residual-driven high-frequency error but increases correlated quantization distortion and can round quiet material to silence. Neither mode is noise-free or an exact analog reconstruction.",
+  "pipeline": "Initial nextDAC8 is emitted at first IRQ. Each IRQ computes the next DAC from current cursor samples, then advances cursors. Prefetched voice0/1/2/3 states commit before mixing with4/3/2/1samples left in the current tick. Audible note offsets are -3/-2/-1/0sample periods relative to the ideal tick boundary.",
+  "tick_rounding": "cuts[n]=(n*30789+200)//400: exact nearest-sample Bresenham with ties rounded upward",
+  "bank": [
+    {
+      "id": 1,
+      "bytes": 1475,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 7,
+      "sha256": "5829f6de60d0b50c9f2f03e47ce5ee58a55f331982fbfcd0fd35f525167b850c"
+    },
+    {
+      "id": 2,
+      "bytes": 1024,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 7,
+      "sha256": "b3dc0e1672628c7fc2dae72ca19c386db77f78670870488a7764c592f684d44f"
+    },
+    {
+      "id": 3,
+      "bytes": 403,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 6,
+      "sha256": "9cd3e863216dd648149faf59b5aada853a176a568038ebbd5cecbbdf4e8625a0"
+    },
+    {
+      "id": 4,
+      "bytes": 270,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 6,
+      "sha256": "be2d7ac796acb768831c320bb7876e041c8fcf657b4255d1c7bf55757e2f0df9"
+    },
+    {
+      "id": 5,
+      "bytes": 517,
+      "loop_start": 396,
+      "loop_length": 121,
+      "base_divisor": 7,
+      "sha256": "0b5466bc2a42fd9ae981890041ea56bd050e3f0d90559f465848ad4ce31d303c"
+    },
+    {
+      "id": 6,
+      "bytes": 1318,
+      "loop_start": 554,
+      "loop_length": 763,
+      "base_divisor": 6,
+      "sha256": "c4dab1899b05abc1e79f6aa6098bb71d5335c6dd6ea20a34cbd5347103cc3b50"
+    },
+    {
+      "id": 7,
+      "bytes": 314,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 7,
+      "sha256": "98cbc8b6db32bf3dea943aac87efa8a185a7beb37bd660c74917de5087e82a40"
+    },
+    {
+      "id": 8,
+      "bytes": 1988,
+      "loop_start": 844,
+      "loop_length": 1144,
+      "base_divisor": 5,
+      "sha256": "9584d5942a3ff405ef601c06fb4d9afd526f83e75bd17ae7143826cacfd21b87"
+    },
+    {
+      "id": 9,
+      "bytes": 1994,
+      "loop_start": 854,
+      "loop_length": 1139,
+      "base_divisor": 5,
+      "sha256": "d828ce72c13ef7285ca23a47cc670714d174e6fe870b110bbb1667db1930cbe7"
+    },
+    {
+      "id": 10,
+      "bytes": 360,
+      "loop_start": 76,
+      "loop_length": 284,
+      "base_divisor": 6,
+      "sha256": "a7755f27e47e04a291e9588959a6b2aa31fd4ebd59cdd96c3bfa0a3ce0b65d32"
+    },
+    {
+      "id": 11,
+      "bytes": 7254,
+      "loop_start": 1032,
+      "loop_length": 6221,
+      "base_divisor": 6,
+      "sha256": "0683ad4086bae9f2a5ae58d9b3e9a65d538d312d1e609765ad49099db4beafa1"
+    },
+    {
+      "id": 12,
+      "bytes": 184,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 6,
+      "sha256": "f747a0af5e28eb3cd6efb434ff8c9d271d83c8c4b13e042fdfbfda00d3af4a55"
+    },
+    {
+      "id": 13,
+      "bytes": 1520,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 7,
+      "sha256": "f02006f3b35c94a32f9909ec49e286e16b697d4780aa1454696d93e0d25ea300"
+    },
+    {
+      "id": 14,
+      "bytes": 1109,
+      "loop_start": 362,
+      "loop_length": 747,
+      "base_divisor": 7,
+      "sha256": "5f0fd3390dda41af74369c51775c2084afbd3456421441d83128268d4384a842"
+    },
+    {
+      "id": 15,
+      "bytes": 288,
+      "loop_start": 0,
+      "loop_length": 0,
+      "base_divisor": 8,
+      "sha256": "10cc89548dbcadf669db41cacb3cfc91bf32a2e390a03d14b3ecf72905fc24dc"
+    },
+    {
+      "id": 16,
+      "bytes": 1186,
+      "loop_start": 1170,
+      "loop_length": 16,
+      "base_divisor": 8,
+      "sha256": "f9ced245161c715691eb84c512669bcb95a0f7152dd4c9d327e85726cd629fcf"
+    }
+  ],
+  "scope": "Exact digital arithmetic and cursor model. Repeated copies of a bank loop are equivalent to one original loop; no analog SID or DAC nonlinearity is modeled.",
+  "trace_check": {
+    "trace_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/stardust-full/vice/registers.txt",
+    "trace_sha256": "032358bcd58770904151bd5d69e8969f8f941b62ff239a5390c773ddb617dbfe",
+    "anchor_cycle": 2146257,
+    "bytes_compared": 923670,
+    "mismatched_bytes": 0,
+    "all_dac_bytes_match": true,
+    "sample_interval_min_cycles": 197,
+    "sample_interval_max_cycles": 331,
+    "sample_interval_median_cycles": 256.0,
+    "examples": [],
+    "alignment": "Only the externally supplied first sample-clock D418 write. No DAC-value matching, local shifting, time warping or audio correlation.",
+    "capture_program_sha256": "1add8d1c74878eb3c4638c40a748754fdbdafd3f6ad0e493d24573343816d462"
+  },
+  "arrangement_sha256": "d149281aa56cff755a92437c8392d5c1b350cc9e501653b34e0b2871d225cd1b"
+}

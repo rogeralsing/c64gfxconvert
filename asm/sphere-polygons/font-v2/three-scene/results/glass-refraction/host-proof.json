@@ -1,0 +1,1306 @@
+{
+  "pass": true,
+  "engine": "py65 NMOS6502",
+  "programSha256": "06da4fe30eea77aa4e4d9e7a911f319fa73ee467f5d8bed9dddb7bfcafe5a136",
+  "scope": "Actual assembled render_start to render_end, excluding VIC steals, raster waits and scanout. Not native FPS.",
+  "transitionsVerified": 161,
+  "closingTransitionsVerified": 1,
+  "screenBytesCompared": 161000,
+  "fontAndMovieUnchanged": true,
+  "noScreenOverrun": true,
+  "renderInstructionCycles": {
+    "min": 1844,
+    "mean": 2773.7577639751553,
+    "max": 4918
+  },
+  "frames": [
+    {
+      "fromPose": 0,
+      "targetPose": 1,
+      "closing": false,
+      "payloadBytes": 181,
+      "instructionCycles": 4918,
+      "instructions": 1603
+    },
+    {
+      "fromPose": 1,
+      "targetPose": 2,
+      "closing": false,
+      "payloadBytes": 89,
+      "instructionCycles": 2934,
+      "instructions": 998
+    },
+    {
+      "fromPose": 2,
+      "targetPose": 3,
+      "closing": false,
+      "payloadBytes": 106,
+      "instructionCycles": 3442,
+      "instructions": 1169
+    },
+    {
+      "fromPose": 3,
+      "targetPose": 4,
+      "closing": false,
+      "payloadBytes": 88,
+      "instructionCycles": 2845,
+      "instructions": 964
+    },
+    {
+      "fromPose": 4,
+      "targetPose": 5,
+      "closing": false,
+      "payloadBytes": 104,
+      "instructionCycles": 3273,
+      "instructions": 1103
+    },
+    {
+      "fromPose": 5,
+      "targetPose": 6,
+      "closing": false,
+      "payloadBytes": 95,
+      "instructionCycles": 3155,
+      "instructions": 1076
+    },
+    {
+      "fromPose": 6,
+      "targetPose": 7,
+      "closing": false,
+      "payloadBytes": 96,
+      "instructionCycles": 3168,
+      "instructions": 1079
+    },
+    {
+      "fromPose": 7,
+      "targetPose": 8,
+      "closing": false,
+      "payloadBytes": 99,
+      "instructionCycles": 3208,
+      "instructions": 1088
+    },
+    {
+      "fromPose": 8,
+      "targetPose": 9,
+      "closing": false,
+      "payloadBytes": 108,
+      "instructionCycles": 3321,
+      "instructions": 1114
+    },
+    {
+      "fromPose": 9,
+      "targetPose": 10,
+      "closing": false,
+      "payloadBytes": 95,
+      "instructionCycles": 3012,
+      "instructions": 1016
+    },
+    {
+      "fromPose": 10,
+      "targetPose": 11,
+      "closing": false,
+      "payloadBytes": 95,
+      "instructionCycles": 3080,
+      "instructions": 1045
+    },
+    {
+      "fromPose": 11,
+      "targetPose": 12,
+      "closing": false,
+      "payloadBytes": 96,
+      "instructionCycles": 3021,
+      "instructions": 1018
+    },
+    {
+      "fromPose": 12,
+      "targetPose": 13,
+      "closing": false,
+      "payloadBytes": 91,
+      "instructionCycles": 3034,
+      "instructions": 1034
+    },
+    {
+      "fromPose": 13,
+      "targetPose": 14,
+      "closing": false,
+      "payloadBytes": 104,
+      "instructionCycles": 3557,
+      "instructions": 1222
+    },
+    {
+      "fromPose": 14,
+      "targetPose": 15,
+      "closing": false,
+      "payloadBytes": 88,
+      "instructionCycles": 2848,
+      "instructions": 965
+    },
+    {
+      "fromPose": 15,
+      "targetPose": 16,
+      "closing": false,
+      "payloadBytes": 87,
+      "instructionCycles": 2908,
+      "instructions": 992
+    },
+    {
+      "fromPose": 16,
+      "targetPose": 17,
+      "closing": false,
+      "payloadBytes": 81,
+      "instructionCycles": 2757,
+      "instructions": 944
+    },
+    {
+      "fromPose": 17,
+      "targetPose": 18,
+      "closing": false,
+      "payloadBytes": 90,
+      "instructionCycles": 2947,
+      "instructions": 1001
+    },
+    {
+      "fromPose": 18,
+      "targetPose": 19,
+      "closing": false,
+      "payloadBytes": 103,
+      "instructionCycles": 3403,
+      "instructions": 1160
+    },
+    {
+      "fromPose": 19,
+      "targetPose": 20,
+      "closing": false,
+      "payloadBytes": 83,
+      "instructionCycles": 2783,
+      "instructions": 950
+    },
+    {
+      "fromPose": 20,
+      "targetPose": 21,
+      "closing": false,
+      "payloadBytes": 81,
+      "instructionCycles": 2617,
+      "instructions": 885
+    },
+    {
+      "fromPose": 21,
+      "targetPose": 22,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2731,
+      "instructions": 938
+    },
+    {
+      "fromPose": 22,
+      "targetPose": 23,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2502,
+      "instructions": 845
+    },
+    {
+      "fromPose": 23,
+      "targetPose": 24,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2149,
+      "instructions": 710
+    },
+    {
+      "fromPose": 24,
+      "targetPose": 25,
+      "closing": false,
+      "payloadBytes": 87,
+      "instructionCycles": 2767,
+      "instructions": 933
+    },
+    {
+      "fromPose": 25,
+      "targetPose": 26,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2443,
+      "instructions": 818
+    },
+    {
+      "fromPose": 26,
+      "targetPose": 27,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2489,
+      "instructions": 842
+    },
+    {
+      "fromPose": 27,
+      "targetPose": 28,
+      "closing": false,
+      "payloadBytes": 87,
+      "instructionCycles": 2623,
+      "instructions": 873
+    },
+    {
+      "fromPose": 28,
+      "targetPose": 29,
+      "closing": false,
+      "payloadBytes": 87,
+      "instructionCycles": 2547,
+      "instructions": 842
+    },
+    {
+      "fromPose": 29,
+      "targetPose": 30,
+      "closing": false,
+      "payloadBytes": 83,
+      "instructionCycles": 2783,
+      "instructions": 950
+    },
+    {
+      "fromPose": 30,
+      "targetPose": 31,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2238,
+      "instructions": 744
+    },
+    {
+      "fromPose": 31,
+      "targetPose": 32,
+      "closing": false,
+      "payloadBytes": 92,
+      "instructionCycles": 2468,
+      "instructions": 797
+    },
+    {
+      "fromPose": 32,
+      "targetPose": 33,
+      "closing": false,
+      "payloadBytes": 82,
+      "instructionCycles": 2266,
+      "instructions": 737
+    },
+    {
+      "fromPose": 33,
+      "targetPose": 34,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2440,
+      "instructions": 804
+    },
+    {
+      "fromPose": 34,
+      "targetPose": 35,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2129,
+      "instructions": 692
+    },
+    {
+      "fromPose": 35,
+      "targetPose": 36,
+      "closing": false,
+      "payloadBytes": 70,
+      "instructionCycles": 2038,
+      "instructions": 671
+    },
+    {
+      "fromPose": 36,
+      "targetPose": 37,
+      "closing": false,
+      "payloadBytes": 82,
+      "instructionCycles": 2559,
+      "instructions": 858
+    },
+    {
+      "fromPose": 37,
+      "targetPose": 38,
+      "closing": false,
+      "payloadBytes": 75,
+      "instructionCycles": 2031,
+      "instructions": 656
+    },
+    {
+      "fromPose": 38,
+      "targetPose": 39,
+      "closing": false,
+      "payloadBytes": 81,
+      "instructionCycles": 2325,
+      "instructions": 764
+    },
+    {
+      "fromPose": 39,
+      "targetPose": 40,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2205,
+      "instructions": 723
+    },
+    {
+      "fromPose": 40,
+      "targetPose": 41,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2151,
+      "instructions": 702
+    },
+    {
+      "fromPose": 41,
+      "targetPose": 42,
+      "closing": false,
+      "payloadBytes": 88,
+      "instructionCycles": 2632,
+      "instructions": 875
+    },
+    {
+      "fromPose": 42,
+      "targetPose": 43,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2090,
+      "instructions": 683
+    },
+    {
+      "fromPose": 43,
+      "targetPose": 44,
+      "closing": false,
+      "payloadBytes": 72,
+      "instructionCycles": 2140,
+      "instructions": 708
+    },
+    {
+      "fromPose": 44,
+      "targetPose": 45,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2593,
+      "instructions": 866
+    },
+    {
+      "fromPose": 45,
+      "targetPose": 46,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2018,
+      "instructions": 653
+    },
+    {
+      "fromPose": 46,
+      "targetPose": 47,
+      "closing": false,
+      "payloadBytes": 102,
+      "instructionCycles": 2676,
+      "instructions": 858
+    },
+    {
+      "fromPose": 47,
+      "targetPose": 48,
+      "closing": false,
+      "payloadBytes": 75,
+      "instructionCycles": 2130,
+      "instructions": 698
+    },
+    {
+      "fromPose": 48,
+      "targetPose": 49,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2171,
+      "instructions": 720
+    },
+    {
+      "fromPose": 49,
+      "targetPose": 50,
+      "closing": false,
+      "payloadBytes": 69,
+      "instructionCycles": 1888,
+      "instructions": 609
+    },
+    {
+      "fromPose": 50,
+      "targetPose": 51,
+      "closing": false,
+      "payloadBytes": 98,
+      "instructionCycles": 2695,
+      "instructions": 877
+    },
+    {
+      "fromPose": 51,
+      "targetPose": 52,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2502,
+      "instructions": 845
+    },
+    {
+      "fromPose": 52,
+      "targetPose": 53,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2230,
+      "instructions": 743
+    },
+    {
+      "fromPose": 53,
+      "targetPose": 54,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2529,
+      "instructions": 839
+    },
+    {
+      "fromPose": 54,
+      "targetPose": 55,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2430,
+      "instructions": 815
+    },
+    {
+      "fromPose": 55,
+      "targetPose": 56,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2489,
+      "instructions": 842
+    },
+    {
+      "fromPose": 56,
+      "targetPose": 57,
+      "closing": false,
+      "payloadBytes": 102,
+      "instructionCycles": 2746,
+      "instructions": 888
+    },
+    {
+      "fromPose": 57,
+      "targetPose": 58,
+      "closing": false,
+      "payloadBytes": 93,
+      "instructionCycles": 3057,
+      "instructions": 1040
+    },
+    {
+      "fromPose": 58,
+      "targetPose": 59,
+      "closing": false,
+      "payloadBytes": 83,
+      "instructionCycles": 2789,
+      "instructions": 951
+    },
+    {
+      "fromPose": 59,
+      "targetPose": 60,
+      "closing": false,
+      "payloadBytes": 63,
+      "instructionCycles": 2020,
+      "instructions": 681
+    },
+    {
+      "fromPose": 60,
+      "targetPose": 61,
+      "closing": false,
+      "payloadBytes": 96,
+      "instructionCycles": 3024,
+      "instructions": 1019
+    },
+    {
+      "fromPose": 61,
+      "targetPose": 62,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2637,
+      "instructions": 903
+    },
+    {
+      "fromPose": 62,
+      "targetPose": 63,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2652,
+      "instructions": 893
+    },
+    {
+      "fromPose": 63,
+      "targetPose": 64,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2587,
+      "instructions": 878
+    },
+    {
+      "fromPose": 64,
+      "targetPose": 65,
+      "closing": false,
+      "payloadBytes": 98,
+      "instructionCycles": 3414,
+      "instructions": 1176
+    },
+    {
+      "fromPose": 65,
+      "targetPose": 66,
+      "closing": false,
+      "payloadBytes": 93,
+      "instructionCycles": 2841,
+      "instructions": 950
+    },
+    {
+      "fromPose": 66,
+      "targetPose": 67,
+      "closing": false,
+      "payloadBytes": 80,
+      "instructionCycles": 2672,
+      "instructions": 911
+    },
+    {
+      "fromPose": 67,
+      "targetPose": 68,
+      "closing": false,
+      "payloadBytes": 83,
+      "instructionCycles": 2787,
+      "instructions": 951
+    },
+    {
+      "fromPose": 68,
+      "targetPose": 69,
+      "closing": false,
+      "payloadBytes": 91,
+      "instructionCycles": 2959,
+      "instructions": 1004
+    },
+    {
+      "fromPose": 69,
+      "targetPose": 70,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2731,
+      "instructions": 938
+    },
+    {
+      "fromPose": 70,
+      "targetPose": 71,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2958,
+      "instructions": 1017
+    },
+    {
+      "fromPose": 71,
+      "targetPose": 72,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2953,
+      "instructions": 1016
+    },
+    {
+      "fromPose": 72,
+      "targetPose": 73,
+      "closing": false,
+      "payloadBytes": 72,
+      "instructionCycles": 2424,
+      "instructions": 827
+    },
+    {
+      "fromPose": 73,
+      "targetPose": 74,
+      "closing": false,
+      "payloadBytes": 80,
+      "instructionCycles": 2816,
+      "instructions": 971
+    },
+    {
+      "fromPose": 74,
+      "targetPose": 75,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2670,
+      "instructions": 924
+    },
+    {
+      "fromPose": 75,
+      "targetPose": 76,
+      "closing": false,
+      "payloadBytes": 72,
+      "instructionCycles": 2568,
+      "instructions": 887
+    },
+    {
+      "fromPose": 76,
+      "targetPose": 77,
+      "closing": false,
+      "payloadBytes": 68,
+      "instructionCycles": 2300,
+      "instructions": 785
+    },
+    {
+      "fromPose": 77,
+      "targetPose": 78,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2526,
+      "instructions": 864
+    },
+    {
+      "fromPose": 78,
+      "targetPose": 79,
+      "closing": false,
+      "payloadBytes": 70,
+      "instructionCycles": 2470,
+      "instructions": 851
+    },
+    {
+      "fromPose": 79,
+      "targetPose": 80,
+      "closing": false,
+      "payloadBytes": 59,
+      "instructionCycles": 2039,
+      "instructions": 698
+    },
+    {
+      "fromPose": 80,
+      "targetPose": 81,
+      "closing": false,
+      "payloadBytes": 96,
+      "instructionCycles": 3384,
+      "instructions": 1169
+    },
+    {
+      "fromPose": 81,
+      "targetPose": 82,
+      "closing": false,
+      "payloadBytes": 92,
+      "instructionCycles": 3192,
+      "instructions": 1098
+    },
+    {
+      "fromPose": 82,
+      "targetPose": 83,
+      "closing": false,
+      "payloadBytes": 90,
+      "instructionCycles": 3090,
+      "instructions": 1061
+    },
+    {
+      "fromPose": 83,
+      "targetPose": 84,
+      "closing": false,
+      "payloadBytes": 89,
+      "instructionCycles": 2937,
+      "instructions": 999
+    },
+    {
+      "fromPose": 84,
+      "targetPose": 85,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2940,
+      "instructions": 1013
+    },
+    {
+      "fromPose": 85,
+      "targetPose": 86,
+      "closing": false,
+      "payloadBytes": 88,
+      "instructionCycles": 3064,
+      "instructions": 1055
+    },
+    {
+      "fromPose": 86,
+      "targetPose": 87,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2803,
+      "instructions": 968
+    },
+    {
+      "fromPose": 87,
+      "targetPose": 88,
+      "closing": false,
+      "payloadBytes": 113,
+      "instructionCycles": 3825,
+      "instructions": 1311
+    },
+    {
+      "fromPose": 88,
+      "targetPose": 89,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2881,
+      "instructions": 986
+    },
+    {
+      "fromPose": 89,
+      "targetPose": 90,
+      "closing": false,
+      "payloadBytes": 107,
+      "instructionCycles": 3675,
+      "instructions": 1263
+    },
+    {
+      "fromPose": 90,
+      "targetPose": 91,
+      "closing": false,
+      "payloadBytes": 75,
+      "instructionCycles": 2463,
+      "instructions": 836
+    },
+    {
+      "fromPose": 91,
+      "targetPose": 92,
+      "closing": false,
+      "payloadBytes": 93,
+      "instructionCycles": 3057,
+      "instructions": 1040
+    },
+    {
+      "fromPose": 92,
+      "targetPose": 93,
+      "closing": false,
+      "payloadBytes": 93,
+      "instructionCycles": 3134,
+      "instructions": 1071
+    },
+    {
+      "fromPose": 93,
+      "targetPose": 94,
+      "closing": false,
+      "payloadBytes": 89,
+      "instructionCycles": 3077,
+      "instructions": 1058
+    },
+    {
+      "fromPose": 94,
+      "targetPose": 95,
+      "closing": false,
+      "payloadBytes": 89,
+      "instructionCycles": 2718,
+      "instructions": 908
+    },
+    {
+      "fromPose": 95,
+      "targetPose": 96,
+      "closing": false,
+      "payloadBytes": 97,
+      "instructionCycles": 3114,
+      "instructions": 1053
+    },
+    {
+      "fromPose": 96,
+      "targetPose": 97,
+      "closing": false,
+      "payloadBytes": 97,
+      "instructionCycles": 3254,
+      "instructions": 1112
+    },
+    {
+      "fromPose": 97,
+      "targetPose": 98,
+      "closing": false,
+      "payloadBytes": 87,
+      "instructionCycles": 2980,
+      "instructions": 1022
+    },
+    {
+      "fromPose": 98,
+      "targetPose": 99,
+      "closing": false,
+      "payloadBytes": 111,
+      "instructionCycles": 3584,
+      "instructions": 1215
+    },
+    {
+      "fromPose": 99,
+      "targetPose": 100,
+      "closing": false,
+      "payloadBytes": 67,
+      "instructionCycles": 2288,
+      "instructions": 782
+    },
+    {
+      "fromPose": 100,
+      "targetPose": 101,
+      "closing": false,
+      "payloadBytes": 102,
+      "instructionCycles": 3254,
+      "instructions": 1098
+    },
+    {
+      "fromPose": 101,
+      "targetPose": 102,
+      "closing": false,
+      "payloadBytes": 94,
+      "instructionCycles": 2855,
+      "instructions": 953
+    },
+    {
+      "fromPose": 102,
+      "targetPose": 103,
+      "closing": false,
+      "payloadBytes": 107,
+      "instructionCycles": 3456,
+      "instructions": 1172
+    },
+    {
+      "fromPose": 103,
+      "targetPose": 104,
+      "closing": false,
+      "payloadBytes": 94,
+      "instructionCycles": 3075,
+      "instructions": 1044
+    },
+    {
+      "fromPose": 104,
+      "targetPose": 105,
+      "closing": false,
+      "payloadBytes": 110,
+      "instructionCycles": 3279,
+      "instructions": 1091
+    },
+    {
+      "fromPose": 105,
+      "targetPose": 106,
+      "closing": false,
+      "payloadBytes": 103,
+      "instructionCycles": 3480,
+      "instructions": 1191
+    },
+    {
+      "fromPose": 106,
+      "targetPose": 107,
+      "closing": false,
+      "payloadBytes": 96,
+      "instructionCycles": 2881,
+      "instructions": 959
+    },
+    {
+      "fromPose": 107,
+      "targetPose": 108,
+      "closing": false,
+      "payloadBytes": 79,
+      "instructionCycles": 2588,
+      "instructions": 878
+    },
+    {
+      "fromPose": 108,
+      "targetPose": 109,
+      "closing": false,
+      "payloadBytes": 113,
+      "instructionCycles": 3466,
+      "instructions": 1161
+    },
+    {
+      "fromPose": 109,
+      "targetPose": 110,
+      "closing": false,
+      "payloadBytes": 125,
+      "instructionCycles": 3402,
+      "instructions": 1106
+    },
+    {
+      "fromPose": 110,
+      "targetPose": 111,
+      "closing": false,
+      "payloadBytes": 55,
+      "instructionCycles": 1844,
+      "instructions": 626
+    },
+    {
+      "fromPose": 111,
+      "targetPose": 112,
+      "closing": false,
+      "payloadBytes": 94,
+      "instructionCycles": 3003,
+      "instructions": 1014
+    },
+    {
+      "fromPose": 112,
+      "targetPose": 113,
+      "closing": false,
+      "payloadBytes": 86,
+      "instructionCycles": 2420,
+      "instructions": 791
+    },
+    {
+      "fromPose": 113,
+      "targetPose": 114,
+      "closing": false,
+      "payloadBytes": 112,
+      "instructionCycles": 3381,
+      "instructions": 1128
+    },
+    {
+      "fromPose": 114,
+      "targetPose": 115,
+      "closing": false,
+      "payloadBytes": 82,
+      "instructionCycles": 2411,
+      "instructions": 797
+    },
+    {
+      "fromPose": 115,
+      "targetPose": 116,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2431,
+      "instructions": 815
+    },
+    {
+      "fromPose": 116,
+      "targetPose": 117,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2581,
+      "instructions": 863
+    },
+    {
+      "fromPose": 117,
+      "targetPose": 118,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2494,
+      "instructions": 843
+    },
+    {
+      "fromPose": 118,
+      "targetPose": 119,
+      "closing": false,
+      "payloadBytes": 99,
+      "instructionCycles": 3136,
+      "instructions": 1058
+    },
+    {
+      "fromPose": 119,
+      "targetPose": 120,
+      "closing": false,
+      "payloadBytes": 101,
+      "instructionCycles": 3095,
+      "instructions": 1035
+    },
+    {
+      "fromPose": 120,
+      "targetPose": 121,
+      "closing": false,
+      "payloadBytes": 81,
+      "instructionCycles": 2398,
+      "instructions": 794
+    },
+    {
+      "fromPose": 121,
+      "targetPose": 122,
+      "closing": false,
+      "payloadBytes": 82,
+      "instructionCycles": 2627,
+      "instructions": 887
+    },
+    {
+      "fromPose": 122,
+      "targetPose": 123,
+      "closing": false,
+      "payloadBytes": 86,
+      "instructionCycles": 2323,
+      "instructions": 750
+    },
+    {
+      "fromPose": 123,
+      "targetPose": 124,
+      "closing": false,
+      "payloadBytes": 86,
+      "instructionCycles": 2679,
+      "instructions": 899
+    },
+    {
+      "fromPose": 124,
+      "targetPose": 125,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2634,
+      "instructions": 902
+    },
+    {
+      "fromPose": 125,
+      "targetPose": 126,
+      "closing": false,
+      "payloadBytes": 93,
+      "instructionCycles": 2920,
+      "instructions": 981
+    },
+    {
+      "fromPose": 126,
+      "targetPose": 127,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2379,
+      "instructions": 803
+    },
+    {
+      "fromPose": 127,
+      "targetPose": 128,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2504,
+      "instructions": 846
+    },
+    {
+      "fromPose": 128,
+      "targetPose": 129,
+      "closing": false,
+      "payloadBytes": 76,
+      "instructionCycles": 2477,
+      "instructions": 839
+    },
+    {
+      "fromPose": 129,
+      "targetPose": 130,
+      "closing": false,
+      "payloadBytes": 98,
+      "instructionCycles": 3056,
+      "instructions": 1026
+    },
+    {
+      "fromPose": 130,
+      "targetPose": 131,
+      "closing": false,
+      "payloadBytes": 76,
+      "instructionCycles": 2406,
+      "instructions": 810
+    },
+    {
+      "fromPose": 131,
+      "targetPose": 132,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2294,
+      "instructions": 770
+    },
+    {
+      "fromPose": 132,
+      "targetPose": 133,
+      "closing": false,
+      "payloadBytes": 85,
+      "instructionCycles": 2312,
+      "instructions": 748
+    },
+    {
+      "fromPose": 133,
+      "targetPose": 134,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2144,
+      "instructions": 696
+    },
+    {
+      "fromPose": 134,
+      "targetPose": 135,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2294,
+      "instructions": 770
+    },
+    {
+      "fromPose": 135,
+      "targetPose": 136,
+      "closing": false,
+      "payloadBytes": 90,
+      "instructionCycles": 3023,
+      "instructions": 1032
+    },
+    {
+      "fromPose": 136,
+      "targetPose": 137,
+      "closing": false,
+      "payloadBytes": 71,
+      "instructionCycles": 2268,
+      "instructions": 764
+    },
+    {
+      "fromPose": 137,
+      "targetPose": 138,
+      "closing": false,
+      "payloadBytes": 61,
+      "instructionCycles": 2066,
+      "instructions": 704
+    },
+    {
+      "fromPose": 138,
+      "targetPose": 139,
+      "closing": false,
+      "payloadBytes": 73,
+      "instructionCycles": 2366,
+      "instructions": 800
+    },
+    {
+      "fromPose": 139,
+      "targetPose": 140,
+      "closing": false,
+      "payloadBytes": 103,
+      "instructionCycles": 3264,
+      "instructions": 1101
+    },
+    {
+      "fromPose": 140,
+      "targetPose": 141,
+      "closing": false,
+      "payloadBytes": 76,
+      "instructionCycles": 2549,
+      "instructions": 869
+    },
+    {
+      "fromPose": 141,
+      "targetPose": 142,
+      "closing": false,
+      "payloadBytes": 65,
+      "instructionCycles": 2334,
+      "instructions": 806
+    },
+    {
+      "fromPose": 142,
+      "targetPose": 143,
+      "closing": false,
+      "payloadBytes": 95,
+      "instructionCycles": 2944,
+      "instructions": 987
+    },
+    {
+      "fromPose": 143,
+      "targetPose": 144,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2797,
+      "instructions": 953
+    },
+    {
+      "fromPose": 144,
+      "targetPose": 145,
+      "closing": false,
+      "payloadBytes": 89,
+      "instructionCycles": 3147,
+      "instructions": 1087
+    },
+    {
+      "fromPose": 145,
+      "targetPose": 146,
+      "closing": false,
+      "payloadBytes": 105,
+      "instructionCycles": 3434,
+      "instructions": 1167
+    },
+    {
+      "fromPose": 146,
+      "targetPose": 147,
+      "closing": false,
+      "payloadBytes": 84,
+      "instructionCycles": 2938,
+      "instructions": 1012
+    },
+    {
+      "fromPose": 147,
+      "targetPose": 148,
+      "closing": false,
+      "payloadBytes": 92,
+      "instructionCycles": 3118,
+      "instructions": 1067
+    },
+    {
+      "fromPose": 148,
+      "targetPose": 149,
+      "closing": false,
+      "payloadBytes": 75,
+      "instructionCycles": 2605,
+      "instructions": 895
+    },
+    {
+      "fromPose": 149,
+      "targetPose": 150,
+      "closing": false,
+      "payloadBytes": 75,
+      "instructionCycles": 2608,
+      "instructions": 896
+    },
+    {
+      "fromPose": 150,
+      "targetPose": 151,
+      "closing": false,
+      "payloadBytes": 83,
+      "instructionCycles": 2853,
+      "instructions": 979
+    },
+    {
+      "fromPose": 151,
+      "targetPose": 152,
+      "closing": false,
+      "payloadBytes": 76,
+      "instructionCycles": 2694,
+      "instructions": 929
+    },
+    {
+      "fromPose": 152,
+      "targetPose": 153,
+      "closing": false,
+      "payloadBytes": 77,
+      "instructionCycles": 2706,
+      "instructions": 932
+    },
+    {
+      "fromPose": 153,
+      "targetPose": 154,
+      "closing": false,
+      "payloadBytes": 88,
+      "instructionCycles": 2993,
+      "instructions": 1025
+    },
+    {
+      "fromPose": 154,
+      "targetPose": 155,
+      "closing": false,
+      "payloadBytes": 97,
+      "instructionCycles": 3260,
+      "instructions": 1113
+    },
+    {
+      "fromPose": 155,
+      "targetPose": 156,
+      "closing": false,
+      "payloadBytes": 102,
+      "instructionCycles": 3463,
+      "instructions": 1187
+    },
+    {
+      "fromPose": 156,
+      "targetPose": 157,
+      "closing": false,
+      "payloadBytes": 131,
+      "instructionCycles": 3631,
+      "instructions": 1185
+    },
+    {
+      "fromPose": 157,
+      "targetPose": 158,
+      "closing": false,
+      "payloadBytes": 92,
+      "instructionCycles": 3333,
+      "instructions": 1157
+    },
+    {
+      "fromPose": 158,
+      "targetPose": 159,
+      "closing": false,
+      "payloadBytes": 78,
+      "instructionCycles": 2719,
+      "instructions": 935
+    },
+    {
+      "fromPose": 159,
+      "targetPose": 160,
+      "closing": false,
+      "payloadBytes": 74,
+      "instructionCycles": 2527,
+      "instructions": 864
+    },
+    {
+      "fromPose": 160,
+      "targetPose": 1,
+      "closing": true,
+      "payloadBytes": 107,
+      "instructionCycles": 3528,
+      "instructions": 1202
+    }
+  ]
+}

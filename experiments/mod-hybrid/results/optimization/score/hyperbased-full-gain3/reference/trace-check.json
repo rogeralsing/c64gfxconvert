@@ -1,0 +1,14 @@
+{
+  "trace_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/hyperbased-full-gain3/vice/registers.txt",
+  "trace_sha256": "dc2215a5da776a4a3588d4f53a238ec801813813b4402b2a799c9e20b438d74b",
+  "anchor_cycle": 2146258,
+  "bytes_compared": 1284825,
+  "mismatched_bytes": 0,
+  "all_dac_bytes_match": true,
+  "sample_interval_min_cycles": 197,
+  "sample_interval_max_cycles": 353,
+  "sample_interval_median_cycles": 256.0,
+  "examples": [],
+  "alignment": "Only the externally supplied first sample-clock D418 write. No DAC-value matching, local shifting, time warping or audio correlation.",
+  "capture_program_sha256": "0434f8171b94a1c6f44d9923b2143fc91b8688443061f5db3b49090297a4a980"
+}

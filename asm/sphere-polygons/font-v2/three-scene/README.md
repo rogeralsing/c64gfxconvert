@@ -1,0 +1,540 @@
+# Three.js to C64 character film
+
+The first checkpoint is Three.js scene → RGBA frames → calibrated 1-bit film.
+Inspect this film before converting anything to characters. The build stops at
+that checkpoint by default.
+
+Calibration currently certifies the black/white checker reference. It rejects
+gray or colored GPU output rather than guessing how to quantize new lighting
+or shading. Those materials need their own reference checks before conversion.
+
+## Glass cube and orbiting ball
+
+`demo-glass.mjs` contains a cube moving cyclically in three axes and a shaded
+44-pixel ball orbiting in front of and behind it. A closed physical glass mesh
+uses Three.js transmission, IOR 1.55, nonzero thickness and roughness. The rear
+ball is spatially refracted and softened; the foreground ball remains sharp.
+Grayscale studio reflections change with the cube's orientation. These optical
+effects are rendered offline into the film; the C64 player is unchanged.
+
+A depth-writing black inverted hull gives the foreground ball a two-pixel
+outline. Its width grows smoothly with foreground depth, and it is disabled
+behind the cube. The ball's shaded core remains unchanged. Actual GPU matte
+controls check the dark annulus independently of the glass optics.
+The builder also excludes that measured annulus from the allowed-white matching
+mask, preventing approximate glyph selection from placing white pixels in the
+black border. The raw bitmap, shared font and native decoder remain unchanged.
+The [outlined C64 program and actual preview](results/glass-outline/README.md)
+run at a verified 25.0623 fps. The outline adds 85 bytes to the movie, bringing
+the payload to 14,058 bytes; all rear-half character images remain unchanged.
+
+The scene exports one blank startup frame followed by a seamless 160-frame
+orbit at 25 fps. Each 160 x 100 logical pixel occupies 2 x 2 C64 display pixels.
+Screen-fixed Bayer dithering is applied after grayscale GPU rendering. The
+native playback script repeats the 6.4-second orbit forever, with no blank
+frame inside the loop.
+
+Build and inspect the calibrated bitmap before converting it:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy python3 asm/sphere-polygons/font-v2/three-scene/verify-glass-chars.py \
+  --input asm/sphere-polygons/font-v2/build/three-scene-glass-outline
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-outline/native \
+  --variant literal-front
+```
+
+`verify-glass.mjs` independently checks all Bayer decisions, rerenders two loop
+endpoints, and compares actual GPU ball-visible, ball-hidden and ball-only
+controls. Neutral-thickness and zero-roughness controls distinguish spatial
+refraction and softening from simple transparency. Ray intersections prove the
+rear ball's depth. `verify-glass-chars.py` independently matches the controls to
+the fixed font and checks that the optical differences survive. Actual GPU
+override masks account for the moving cube and displaced image. The existing
+native verifier checks both PAL fields and real loop transitions.
+
+The existing 256-glyph font and literal-delta decoder are unchanged. Outputs are
+in `../build/three-scene-glass-outline/`; the HTML and finite two-orbit GIF
+previews are in its `preview/` directory. The native program uses the endless
+playback script. The earlier stationary, alpha-only version remains available
+as a [separate comparison](results/glass/README.md), with its original receipts.
+The [refractive version before the foreground outline](results/glass-refraction/README.md)
+also retains its measured C64 preview and receipts.
+
+## Triangular glass prism
+
+`demo-prism.mjs` reuses the orbit, physical glass, motion and foreground outline
+from the glass scene. It replaces the closed volume and edge geometry with a
+triangular prism: two parallel triangular ends and three rectangular sides.
+The camera, 44-pixel ball, static font and native player remain unchanged.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-prism.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-prism.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy python3 asm/sphere-polygons/font-v2/three-scene/verify-glass-chars.py \
+  --input asm/sphere-polygons/font-v2/build/three-scene-glass-prism
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-prism/native \
+  --variant literal-front
+```
+
+The exporter records hashes for the scene entry and its declared imported
+source dependencies. Both the bitmap proof and character gate check those
+hashes. Prism controls use the same prism with its outline disabled, rather
+than comparing new geometry with the earlier cube movie. The optical proof
+records centroid displacement and also measures image-shape changes: opposing
+refracted lobes can partially cancel in the centroid.
+
+The C64 receives character deltas, not the mesh. Geometry detail therefore
+affects offline rendering; screen changes determine playback data and decoder
+work. The current fixed font can lose fragments of thin prism edges, as it
+does for the cube. Bitmap and character comparisons retain that visible limit.
+
+The [measured prism program and C64 preview](results/glass-prism/README.md)
+retain 25.0623 fps over 962 exact visible fields and two real loop wraps. Its
+12,992-byte movie is 1,066 bytes smaller than the outlined cube film; total
+meaningful loaded code, state and data is 16,411 bytes.
+
+## Cut-glass diamond
+
+`demo-diamond.mjs` replaces the volume with a closed eight-sector cut gem:
+flat table, sloping crown, wide girdle and pointed pavilion. Broad grayscale
+facet tones preserve the silhouette in the fixed font; secondary wire edges
+are deliberately faint. Physical transmission and polished roughness 0.10
+retain rear refraction without the stronger frosted look of the cube.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-diamond
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-glass.cjs --characters \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-glass-diamond
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-glass-diamond/native \
+  --variant literal-front
+```
+
+The geometry audit checks welded edges, outward winding, convexity and volume.
+The shape and broad facets also pass a visual character-preview gate before
+native playback verification. The polished default differs from perfectly
+sharp rendering by only one bitmap pixel in the rear control; that difference
+vanishes after font matching. The receipts report this, while preserving the
+measured spatial refraction and black foreground outline.
+
+The [measured diamond program and actual C64 preview](results/glass-diamond/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps.
+The movie occupies 12,196 bytes; loaded code, state and data total 15,615 bytes.
+
+## Six-tip glass star
+
+`demo-star.mjs` starts with eight cube corners and replaces each square face
+with four triangles meeting at an outward pyramid tip. The six tips lie on
+the positive and negative X, Y and Z axes. The closed surface is nonconvex;
+its physical materials write depth so the nearest visible facet wins. A view
+near a cube diagonal keeps all six projected rays separated.
+
+Build with `build-glass.cjs --scene` pointing to `demo-star.mjs` and
+`--output asm/sphere-polygons/font-v2/build/three-scene-glass-star`, first for
+bitmap inspection, then with `--characters`. Verify native playback with
+`verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-glass-star/native --variant literal-front`.
+The diamond source snapshot and PRG remain [saved separately](results/glass-diamond/README.md).
+
+The [measured star program and actual C64 preview](results/glass-star/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps. The
+movie uses 11,181 bytes; loaded code, state and data total 14,600 bytes.
+
+## Dithered three-axis star
+
+`demo-dithered-star.mjs` keeps the long-arm geometry and full three-axis loop,
+but gives every facet continuous grayscale lighting. A world-space key light,
+fill light and rim light act on the rotated face normals. An ambient floor
+keeps shadowed arms visible against the black background.
+
+Actual GPU output contains 159 object-gray levels, ranging from 59 to 229 on
+the 0–255 sRGB scale. The exporter applies its fixed screen-aligned 4 × 4
+Bayer matrix to that grayscale image. All 17 uniform Bayer densities already
+exist in the shared font; the charset and native decoder stay unchanged.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dithered-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dithered-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-dithered-star/native \
+  --variant literal-front
+```
+
+`verify-dithered-star.mjs` checks actual opaque grayscale GPU pixels and
+independently reconstructs every ordered-dither bit. It reuses the geometry,
+screen-fit, full-rotation and loop proofs while also measuring changing facet
+colors. The binary scene verifier retains its strict 0/255 source checks.
+Both imported scene sources are frozen through dependency hashes.
+
+`build-frame-diff.cjs` produces a self-contained HTML comparison of two
+consecutive character screens using the actual fixed font. By default it
+compares frames 1 and 2, skipping the blank startup image; `--frame N` selects
+N and N+1. Individual frames, changed-cell overlays, pixel differences and a
+clickable table of all 1,000 character codes share the same source bytes.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-frame-diff.cjs
+```
+
+The [measured dithered-star program and actual C64 preview](results/dithered-star/README.md)
+run at 25.0623 fps over 1,442 exact visible fields and two real loop wraps.
+The movie uses 31,959 bytes, leaving 9,001 bytes in the current data arena;
+loaded code, font, tables and state total 35,538 bytes.
+
+## Full three-axis star rotation
+
+`demo-tumbling-star.mjs` reuses the long-arm opaque geometry and adds a full
+compound rotation: 360 degrees around X, 720 around Y and 360 around Z over
+240 frames. At the nominal 25 fps, the loop lasts 9.6 seconds. The initial
+blank frame plays once; the rotating section repeats indefinitely.
+
+Paint stays attached to the object: six antipodal facets are black and the
+remaining eighteen are white. Rear views and natural arm overlaps are part
+of the rotation. The old small-motion scene remains available separately.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-tumbling-star.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-tumbling-star
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs \
+  --scene asm/sphere-polygons/font-v2/three-scene/demo-tumbling-star.mjs \
+  --output asm/sphere-polygons/font-v2/build/three-scene-tumbling-star --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-tumbling-star/native \
+  --variant literal-front
+```
+
+The bitmap verifier reconstructs the compound orientation independently,
+checks front and rear coverage for all three local axes, and verifies both
+orientation and angular velocity at the seam. Actual GPU pixels repeat
+exactly at the first and second period endpoints. Source dependency hashes
+freeze the imported geometry alongside the new scene.
+
+## Opaque star with longer arms
+
+`demo-solid-star.mjs` is a standalone scene containing one opaque star. There
+is no ball, glass material, wireframe or intermediate gray. Entire facets are
+black or white. Each arm has one fixed broad visible white facet, avoiding
+binary lighting flashes while the object moves.
+
+Cube half-extent decreases from 10 to 8.5 and tip distance increases from 30
+to 40. Each pyramid therefore extends 31.5 units beyond its base, compared
+with 20 previously. All six tips remain separated and the full loop fits the
+viewport.
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-solid-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-solid-star/native \
+  --variant literal-front
+```
+
+`verify-solid-star.mjs` independently checks opaque binary GPU pixels, packed
+threshold bits, mesh topology, longer arms, screen bounds and loop endpoints.
+The character audit preserves all 3,014 entirely filled tiles and 146,660 empty
+tiles exactly, without interior stippling. Only mixed edge tiles require font
+approximation. Existing glass scenes, font and native player remain unchanged.
+
+The [measured opaque-star PRG and actual C64 preview](results/solid-star/README.md)
+run at 25.0623 fps over 962 exact visible fields and two real loop wraps. Movie
+data occupies 12,971 bytes; loaded code, state and data total 16,390 bytes.
+
+## Gray sides and bitmap dithering
+
+Run the separate bitmap-only experiment:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dither.cjs
+```
+
+`demo-dither.mjs` reuses the approved first five seconds exactly. From five to
+six seconds, the cube's checker pattern fades into continuous gray gradients
+within each side. Interpolated vertex colors make the tone vary across a side;
+the sides no longer have one flat gray value each. It keeps rotating until
+eight seconds. `grayContrast: 1.15` increases contrast around the sRGB midpoint
+before the endpoints are converted to linear light. Three.js renders ordinary
+gray pixels; the exporter then applies
+its fixed screen-aligned 4 × 4 Bayer matrix to produce the 1-bit film.
+
+The verifier checks the approved 125-frame prefix, actual tone variation within
+individual faces, and every exported bit independently. A known 64/128/192
+gray ramp checks the Bayer matrix's 4/8/12 white-pixel coverage per 4 × 4 block;
+the cube itself contains continuous gradients. The preview GIF is decoded and
+compared against all 200 packed frames, covering exactly eight seconds. No
+character conversion runs in this experiment.
+
+Outputs are in ignored `../build/three-scene-dither/`: `render/` holds RGBA,
+packed bitmap and mask data; `verification.json` records the checks; `preview/`
+contains `bitmap.gif`, a side-by-side `comparison.gif`, and a contact sheet.
+`bitmap-detail.gif` enlarges the final two seconds with nearest-neighbor pixels;
+its crop is recorded in `media.json`.
+
+After inspecting that bitmap, build its C64 version:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-dither-player.cjs
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-gradient-c64/native
+```
+
+The original 168-glyph palette cannot reproduce most Bayer tones. The builder
+first appends the 13 missing exact tone patterns. `optimize-dither-font.cjs`
+then measures actual target tiles across the film and appends up to 75 more
+patterns, producing one shared 256-glyph font (2,048 bytes). Each greedy step
+chooses the observed pattern with the largest frequency-weighted reduction in
+pixel error, subject to the silhouette mask. Existing glyph bytes stay unchanged.
+All new glyphs are eligible from frame zero; the approved first 125 bitmap
+frames stay unchanged, while their character approximation can improve.
+`--glyph-limit 181`, `224`, or `240` builds smaller comparison fonts.
+
+On the contrast-adjusted film, gradient-section object error falls from 4.836%
+with 181 glyphs to 2.214%, 2.084%, and 1.915% with 224, 240, and 256 glyphs.
+Every uniformly empty or filled interior tile remains exact, with zero white
+pixels outside the silhouette. The independent audit reconstructs all target
+contexts, checks every candidate at every greedy step, and compares all 200
+production screens against its own 16-bit matcher.
+
+Measured 256-glyph native playback is 25.0623 fps over 200 images and 400 actual
+PAL VICE fields. The player uses 23,364 meaningful loaded bytes, including
+20,424 bytes of delta, plus 1 KiB of screen RAM and 5 zero-page bytes. The
+contrast/font comparison and native receipts are in
+`../build/three-scene-contrast-font/`. Default build outputs remain in
+`../build/three-scene-gradient-c64/`.
+
+## Rubik's cube layer turns
+
+`demo-rubik.mjs` keeps the first three seconds of the checkerball entrance.
+The sphere then zooms to 270 physical pixels across, extending beyond the
+200-pixel-high viewport. It keeps its spherical shape throughout the zoom in.
+During the zoom out it morphs into a cube at the original scale. The checker surface
+gradually blends into six grayscale sticker identities while the cubie gaps
+open, with one fixed pose throughout the transition:
+
+- 3–4 seconds: the sphere zooms in and centers on the screen.
+- 4–5.4 seconds: it zooms out and morphs into a cube.
+- 5.4–6.2 seconds: the cube becomes a 3 × 3 × 3 Rubik's cube without a cut.
+- 6.3–7.1 seconds: the top layer turns 90° clockwise, viewed from above.
+- 7.35–9.1 seconds: the left layer turns 180° counterclockwise, viewed from its left side.
+- 9.1–10 seconds: the final cube holds still.
+
+The second move selects the left layer after the first move's permutation.
+All 27 cubies retain their sticker identities and orientations. Sampling the
+scene at any time reconstructs the same pose without depending on frame order.
+
+Build and inspect the bitmap first, then convert that verified export:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-rubik.cjs --output asm/sphere-polygons/font-v2/build/three-scene-rubik-raw
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-rubik.cjs --output asm/sphere-polygons/font-v2/build/three-scene-rubik-raw --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-rubik-raw/c64/native --variant literal-front
+```
+
+Outputs are in `../build/three-scene-rubik-raw/`. The first command stops at the
+bitmap checkpoint. `--characters` consumes that export, checks its source and
+data hashes, revalidates it, and fits a shared 256-glyph font before building
+the delta player. The clip has 250 source frames at 25 fps. Export
+metadata declares the unchanged 75-frame entrance explicitly, so the font
+studies and receipts do not claim that the old five-second sequence survived
+the requested zoom and morph changes.
+
+Rubik builds now default to `--codec literal`. Each delta repeats a skip count,
+a literal length, and that many raw character bytes, in screen order, until
+the cursor reaches 1,000 cells. Counts use unsigned LEB128; values above 127
+take two bytes. Runs can cross screen pages. A fully unchanged frame is
+`$E8,$07,$00`: skip 1,000 cells, write zero. The first blank screen remains
+implicit. All 256 character codes are valid literal data.
+
+The existing `precomputed/hybrid/delta.cjs` dynamic-programming encoder chooses
+the runs and may include short unchanged gaps when that saves record headers.
+The frozen film needs 35,118 bytes, versus 46,672 for sparse pairs, with the
+same font and all 250 character screens unchanged. `--codec sparse` retains
+the previous player for comparisons. The native builder itself still defaults
+to sparse for compatibility with older callers. Measurement can use
+`--codec=literal` to avoid imposing sparse's 255-changes-per-page limit on
+legal literal runs.
+
+The native literal player uses 38,710 meaningful loaded bytes, plus 1 KiB of
+screen RAM, 1 KiB of color RAM, and 9 zero-page bytes. Its 35,118-byte movie
+fits the original 40 KiB data arena with 5,842 bytes remaining. PAL VICE
+verification matches all 250 images in both fields (500 actual fields total)
+at 25.0623 fps, including the final hold and script counters. Mean render cost
+is 3,503.84 cycles and the maximum is 18,669, compared with 3,425.61 and 18,477
+for sparse. This is a storage reduction, with about 2.3% more mean decoder CPU
+on this clip; playback still takes exactly two fields per image.
+The published [raw-chunk player and receipts](results/rubik-raw/README.md)
+include the PRG, actual native GIF, shared font and bitmap/native audits.
+
+The previous sparse zoom clip needs 46,672 bytes. Larger films place whole
+frame patches in unused RAM at `$0900`, `$1400`, and `$2800`, as well as the
+original `$3000`–`$CFFF` arena. The existing frame-pointer table selects those
+patches; the sparse format and scanout order stay unchanged. Pooled builds align
+the source pointer and start Y at its former low byte, avoiding indexed-read
+page penalties during the dense zoom. Total data capacity is
+47,872 bytes, leaving 1,200 bytes. `sourceRegions` in the native manifest lists
+every occupied range and its hash. Smaller films retain their original layout.
+That sparse player, font, pointers and film use 49,716 meaningful loaded bytes,
+plus 1 KiB of screen RAM, 1 KiB of color RAM, and 5 zero-page bytes.
+Its aligned decoder is verified in PAL VICE at 25.0623 fps: all 250 images
+match in both actual video fields (500 fields total), with a maximum render
+cost of 18,477 cycles and the correct final hold. The earlier unaligned build
+left previous-frame pixels in the bottom rows at frame 104; its failed proof
+is retained separately in `../build/three-scene-rubik-zoom/c64/native-failed-scanout/`.
+
+Edit `demo.mjs`. It exports `config` and `createScene(THREE)`, which returns a
+normal Three.js scene, camera, and deterministic `update(time)` function.
+The example starts with our black/white 14 × 7 checker sphere and its accepted
+growing corkscrew entrance. It then morphs into a checker cube. The reference
+material uses pure black and white without lighting or dithering. Positions,
+lights, materials, and textures are ordinary Three.js objects.
+
+From the repository root:
+
+```sh
+rtk proxy npm ci --prefix asm/sphere-polygons/font-v2/three-scene
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build.cjs
+```
+
+The exporter uses Three.js WebGPURenderer and Dawn directly in Node, with a
+Metal GPU backend on macOS. It renders to an offscreen texture and reads the
+pixels back; no browser or local web server is involved. Three.js and Dawn
+versions are pinned in the package lock. Building the PRG also requires
+KickAssembler (`KICKASS` can override the executable path). GIF export requires
+Python 3 and Pillow.
+
+Outputs are in ignored `../build/three-scene-calibrated/`:
+
+- `render/`: actual GPU RGBA frames, silhouette mask, and source metadata.
+- `calibration/`: selected packed 1-bit film, threshold measurements, metadata,
+  and bitmap-only previews.
+- `pipeline.json`: confirms that character conversion has not run.
+
+The default export is 160 × 100 logical pixels, each displayed as 2 × 2 C64
+pixels. Each source frame is 2,000 bytes: rows run top to bottom, with the
+leftmost pixel in bit 7 of each byte. Metadata declares dimensions, frame count,
+and frame rate. Calibration tests all 256 thresholds against the actual GPU
+pixels and selects the middle of a measured stable interval. The bitmap
+checkpoint uses no dithering. RGBA and packed bitmap film are host assets;
+neither is included in C64 playback memory.
+
+After the bitmap checkpoint has been inspected, `build.cjs --characters` also
+runs the existing character converter, delta measurement, native builder, and
+character preview. Those later outputs are in `characters/`, `storage/`,
+`native/`, and `preview/`. The C64 receives only the font, character deltas, and
+playback commands. This flag is deliberately not part of the first-check command.
+
+`bitmap-to-chars.cjs` is independent of Three.js. It also accepts 320 × 200
+packed films (8,000 bytes per frame). It picks the existing glyph with the fewest
+wrong pixels for each tile, recording every tile's error. It does not change the
+font or impose a sphere silhouette. This makes loss from bitmap conversion
+measurable separately from 1-bit quantization.
+
+When metadata supplies `objectMaskFile`, the converter requires every white
+glyph pixel to lie inside that packed silhouette mask. The Three exporter
+provides this mask. This prevents partial edge characters from sticking out of
+the object. A film without a mask retains unconstrained nearest-glyph matching;
+silhouette diagnostics are then reported as unknown.
+
+To convert a film from another renderer:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/bitmap-to-chars.cjs --frames /absolute/movie.frames --metadata /absolute/metadata.json --output /absolute/characters
+```
+
+For the current native player, use 25 fps, 2–255 unique frames, and a blank
+first frame. The converter's `--prepend-blank` option can add that startup image
+explicitly. The native build rejects a film exceeding its delta memory arena.
+Frame complexity determines storage and playback cost; this pipeline does not
+guarantee 25 fps for every source film.
+
+The later character stage has its own focused checks:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/bitmap-to-chars.cjs --self-test
+rtk proxy node asm/sphere-polygons/font-v2/verify-scene-preview.cjs asm/sphere-polygons/font-v2/build/three-scene-calibrated/characters asm/sphere-polygons/font-v2/build/three-scene-calibrated/preview/three-scene.html asm/sphere-polygons/font-v2/build/three-scene-calibrated/characters/playback.json
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-calibrated/native
+```
+
+Native verification requires VICE and Pillow. Use `--vice /absolute/x64sc` to
+override the workstation default. It compares both actual VIC fields for every
+displayed image, including the final hold.
+
+## Verified C64 result
+
+The published [player.prg](results/player.prg) plays the five-second animation
+at 25.0623 fps in PAL VICE. All 125 images and 250 actual video fields match
+their character references, including the final hold. The [native receipt](results/native-verification.json)
+records timing and hashes; [c64.gif](results/c64.gif) is captured from VICE.
+
+Delta data occupies 14,042 bytes. Font, pointers, playback commands, player code
+and data together use 16,128 meaningful loaded bytes, plus 1 KiB of screen RAM
+and 5 zero-page bytes. PRG address gaps are reported separately.
+
+The [bitmap calibration](results/bitmap-calibration.json) verifies zero bit
+errors from the GPU image to the [1-bit film](results/bitmap.gif). Font fitting
+is a separate approximation: the [character audit](results/character-audit.json)
+measures 7.233% pixel error within the actual object mask, with zero white pixels
+outside it. Every uniformly empty or filled interior tile is exact. The
+[bitmap/C64 comparison](results/bitmap-vs-c64.png) shows the remaining edge and
+junction differences. The existing 168-glyph font is unchanged.
+
+Primary API references: [Three.js WebGPURenderer](https://threejs.org/manual/pages/webgpurenderer),
+[Dawn for Node](https://github.com/dawn-gpu/node-webgpu).
+
+
+
+## Flagship star: very large, lit, endless rotation
+
+`demo-flagship-star.mjs` renders a 276-pixel-wide six-tip stellated-cube star
+spinning continuously about its own three-fold symmetry axis. Each facet is
+flat-shaded by the declared fixed world light into six exact gray levels
+(0, 51, 102, 153, 204, 255), recomputed every frame; the exporter converts the
+film through the screen-aligned 4x4 Bayer matrix, so interior tiles are pure
+tone patterns that stay constant while the star rotates. One symmetry turn
+(120 degrees) per 96-frame loop makes the loop endpoints pixel-identical: the
+film plays forever seamlessly and a full visible revolution takes 288 frames
+(11.52 seconds). The projection uses a screen-space anamorphic camera (square
++-50 frustum on the 320x200 raster, 1.6x horizontal), which widens the star at
+every rotation angle without rotating wide tips into the border.
+
+The film runs on the fixed universal 256-glyph font (`font-v2/universal`,
+191 parametric drawing slots + 65 once-optimized content slots, d12 stride 3)
+via `bitmap-to-chars.cjs --fixed-font`. The content census now spans nine
+corpora and still holds only 271 unique tiles; every uniform tile stays exact
+and remaining error (1.63% of the whole frame, 2.74% inside the active bounds)
+is confined to mask-constrained silhouette tiles, exactly like the binary
+films.
+
+Build and verify from the repository root:
+
+    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs
+    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs --characters
+    rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-flagship-star/native --variant literal-front
+
+Native PAL receipt (`native/literal-front/pal-proof/verification.json`): all 97
+stored frames match in both PAL fields, 578 visible fields verified, two loop
+wraps checked with 192 repeated update fields and 289 held fields, 25.06224
+fps mean (min 25.059), render mean 4418 cycles (max 8491 of 19656). The
+literal movie is 13,337 bytes - smaller than the unshaded variant, because
+screen-aligned dither interiors do not change while the star rotates - inside
+the 40,960-byte arena with 27,623 bytes unused; meaningful loaded bytes 16,628
+including the 2,048-byte universal font. The player loops forever by playback
+bytecode (`repeat`: `forever`, 11 bytes). The verifier adds an ordered-Bayer
+quantization contract (every rendered gray must be one of the six declared
+levels, every bitmap bit must equal the Bayer rule) and a shading contract
+(every facet's color must equal the declared light rule at sampled frames).
+
+The [published flagship package](results/flagship-star/README.md) contains the
+PRG, actual PAL VICE capture, compact verification receipts and source
+comparison.

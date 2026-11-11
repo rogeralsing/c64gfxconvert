@@ -1,0 +1,53 @@
+{
+  "pass": true,
+  "geometry": "closed opaque six-pyramid star",
+  "ballPresent": false,
+  "glassPresent": false,
+  "sourceRGBLevels": [
+    0,
+    255
+  ],
+  "cubeHalfExtent": 8.5,
+  "tipDistance": 40,
+  "armLengthBeyondBase": 31.5,
+  "rotationOrder": "XYZ",
+  "turnsPerLoop": [
+    1,
+    2,
+    1
+  ],
+  "fixedWhiteFacetCount": 18,
+  "fixedBlackFacetCount": 6,
+  "nativeFps": 25.062279031300566,
+  "nominalFps": 25,
+  "nominalLoopSeconds": 9.6,
+  "measuredLoopSeconds": 9.576145295397707,
+  "storedFrames": 241,
+  "loopFrames": 240,
+  "payloadBytes": 31804,
+  "fontBytes": 2048,
+  "meaningfulLoadedBytes": 35383,
+  "ordinaryMainRamBytes": 36416,
+  "separateColorRamCells": 1024,
+  "programBytes": 42045,
+  "actualVisibleFieldsVerified": 1442,
+  "displayedImagesVerified": 721,
+  "loopWrapsVerified": 2,
+  "filledTilesExactlyPreserved": 9683,
+  "emptyTilesExactlyPreserved": 215457,
+  "activeBoundsPixelErrorFraction": 0.005344996162620772,
+  "programSha256": "98720fe7e8e8adad0e43a89b5b278c51494f2d9dd3d9873bcd35d6e2e5c916cc",
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "sourceSha256": "7adb51d426b0e3f6ecda2c6c93b1d247bee9512f7a0b21c6d7226ecb1b660d33",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-solid-star.mjs",
+      "sha256": "3e6d1e4e5f5708b23e7c2a00b90d6350e0e3b2df5e33c93c125fbff9a44b3903"
+    }
+  ],
+  "nativeFontAndPlayerUnchanged": true,
+  "gifSource": "Actual verified PAL VICE screenshots",
+  "gifFrames": 240,
+  "gifFrameDurationMs": 40,
+  "gifDecodedPixelsVerified": true
+}
