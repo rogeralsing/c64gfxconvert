@@ -74,6 +74,12 @@ work. Increasing it makes quiet material survive quantization but can clip
 louder peaks. The reference reports clipped sample counts. It is not enabled
 globally: the original Stardust build remains byte-identical at gain 1.
 
+`pcm4_build.py --dc-boost` is a separate experimental option. It initializes
+all three SID voices with test, gate and pulse bits and full sustain as
+constant-DC references for the volume DAC. It changes the PRG and is disabled
+by default. The three release programs retain their original initialization;
+the option has assembly validation, not real-chip loudness or quality proof.
+
 The earlier player in `results/pcm4/` used residual error feedback. That
 reduced low-frequency quantization error but pushed substantial error into
 the audible 1.5–2kHz band at this low DAC clock. The user reported an
@@ -146,3 +152,23 @@ rtk proxy experiments/sid-inverse/.venv/bin/python experiments/mod-hybrid/pcm4_r
 The exact original MOD download and authorship are recorded in
 `sources/stardust-memories.source.json`. Earlier SID approximations and the
 approved single-channel PCM control are preserved under their original paths.
+
+## Experimental captured SID passages
+
+`sidtrace_extract.py` builds a short resident replay from VICE sound-device
+`dump` output (`delta register value` decimal lines). It extracts D418 volume
+nibbles and timestamped voice/filter writes; it does not read a SID file or
+convert an arbitrary tune. The current input contract requires D418 mode
+nibble `$3` throughout the chosen passage.
+
+```sh
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/mod-hybrid/sidtrace_extract.py --dump /absolute/registers.txt --window 1 13 --out experiments/mod-hybrid/results/sidtrace-poc
+```
+
+The default tick is 256 PAL CPU cycles. `--tick-cycles 154` selects the faster
+experimental clock. The passage must fit a 16-bit sample count and end below
+`$CF00`; dense register writes can exceed an IRQ's time budget. Diagnostic
+options include `--boost-voice3`, `--all-boost`, `--digi-only`,
+`--channels-only` and `--no-filter`. These variants are not release programs.
+Synthetic PAL VICE checks cover event values and due-tick replay across the
+low-byte wrap; they do not establish fidelity or timing for a whole SID tune.

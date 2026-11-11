@@ -123,7 +123,8 @@ def bytes_asm(data: bytes) -> str:
                      for i in range(0, len(data), 24))
 
 
-def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
+def build(input_path: Path, out: Path, score_codec: str = "legacy",
+          digi_dc_boost: bool = False) -> dict:
     if score_codec not in ("legacy", "dictionary", "dictionary8"):
         raise ValueError("score_codec must be legacy, dictionary or dictionary8")
     arrangement = json.loads(input_path.read_text())
@@ -236,6 +237,7 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
     wrapper = out / "pcm4.asm"
     wrapper.write_text(('#define SCORE_DICTIONARY\n' if dictionary else '')
                        + ('#define SCORE_DICTIONARY_8\n' if score_codec == "dictionary8" else '')
+                       + ('#define DIGI_DC_BOOST\n' if digi_dc_boost else '')
                        + f'.const QUANTIZER_NEAREST = {int(mode == "nearest")}\n'
                        f'#import "{(HERE / "pcm4_player.asm").resolve()}"\n#import "{(out / "data.asm").resolve()}"\n')
     prg = out / "stardust.prg"
@@ -268,6 +270,7 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
                          "semantics": "Write previous DAC; commit staged voice at tick_samples4/3/2/1; resolve marker, mix current cursors, advance8bit fractional steps. EOF skips stagger and stops at final boundary."},
                "source_sha256": {name: sha(HERE / name) for name in ("pcm4_build.py", "pcm4_player.asm")}}
     receipt["compression"]["codec"] = score_codec
+    receipt["digi_dc_boost"] = digi_dc_boost
     if dictionary:
         receipt["compression"].update({
             "stream_bytes": min(item[0] for item in dictionary_choices),
@@ -290,8 +293,11 @@ def main():
     parser.add_argument("--input", type=Path, default=HERE / "results/pcm4-clean/arrangement.json")
     parser.add_argument("--out", type=Path, default=HERE / "results/pcm4-clean/c64")
     parser.add_argument("--score-codec", choices=("legacy", "dictionary", "dictionary8"), default="legacy")
+    parser.add_argument("--dc-boost", action="store_true",
+                        help="Configure all three SID voices as constant-DC references "
+                             "for volume-DAC experiments")
     args = parser.parse_args()
-    result = build(args.input, args.out, args.score_codec)
+    result = build(args.input, args.out, args.score_codec, digi_dc_boost=args.dc_boost)
     print(json.dumps({key: result[key] for key in ("program", "symbols", "program_bytes", "program_end", "compression")}))
 
 
