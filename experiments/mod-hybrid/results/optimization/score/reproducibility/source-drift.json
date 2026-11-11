@@ -1,0 +1,16 @@
+{
+  "status": "verified_documentation_only_drift",
+  "previous_score_dictionary_sha256": "491ebfaf7db188c4b11e75460cec5274ebc8816f070a45ac5e3413ee1c543e9f",
+  "current_score_dictionary_sha256": "c1aa83e7d822f34db70d0bf4b1f81fed5d5474fece54dda7e7cf3bb0a69615ef",
+  "all_bytes_after_leading_docstring_identical": true,
+  "executable_ast_after_module_docstring_identical": true,
+  "change": "Leading module docstring now documents dictionary8 wire format. argparse help description also reflects that docstring. No codec or player behavior changed.",
+  "previous_source_snapshot": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/reproducibility/sources/score_dictionary-before-doc-update.py",
+  "current_source_snapshot": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/reproducibility/sources/score_dictionary-current.py",
+  "source_snapshots_sha256": {
+    "score_dictionary-current.py": "c1aa83e7d822f34db70d0bf4b1f81fed5d5474fece54dda7e7cf3bb0a69615ef",
+    "pcm4_player.asm": "b54351e7f8387ba75756688dddab1dd9829077f6edcd41fe9be9f8f5fa003278",
+    "score_dictionary-before-doc-update.py": "491ebfaf7db188c4b11e75460cec5274ebc8816f070a45ac5e3413ee1c543e9f",
+    "pcm4_build.py": "dd500df0f699924d1c1d78bd090bdb2a1d42e9593efd74cd9048d5222cabb0eb"
+  }
+}

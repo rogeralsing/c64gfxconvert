@@ -1,0 +1,207 @@
+{
+  "source": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/more-mods/hyperbased/full/arrangement.json",
+  "source_sha256": "af44f850d1198a9fd85b4aa5fc0a958f9ed38f7ccf94acdb41036066f7fb7875",
+  "candidate": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/reachability/hyperbased-full/arrangement.json",
+  "duration_s": 333.84,
+  "stored_bank_and_marker_bytes_before": 24156,
+  "stored_bank_and_marker_bytes_after": 24110,
+  "bytes_saved": 46,
+  "dac_bytes_compared": 1284825,
+  "dac_mismatches": 0,
+  "dac_sha256": "c3e3d9e7a33e1b111cf6e3db595f18e155c1bc720c665ba2ec958fc1cc2e1e1b",
+  "samples": [
+    {
+      "id": 1,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 3441,
+      "original_effective_end": 3441,
+      "before_stored_with_markers": 3444,
+      "after_stored_with_markers": 3444
+    },
+    {
+      "id": 2,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 369,
+      "original_effective_end": 369,
+      "before_stored_with_markers": 370,
+      "after_stored_with_markers": 370
+    },
+    {
+      "id": 3,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 710,
+      "original_effective_end": 710,
+      "before_stored_with_markers": 711,
+      "after_stored_with_markers": 711
+    },
+    {
+      "id": 4,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 98,
+      "original_effective_end": 98,
+      "before_stored_with_markers": 99,
+      "after_stored_with_markers": 99
+    },
+    {
+      "id": 5,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 207,
+      "original_effective_end": 207,
+      "before_stored_with_markers": 208,
+      "after_stored_with_markers": 208
+    },
+    {
+      "id": 6,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 172,
+      "original_effective_end": 172,
+      "before_stored_with_markers": 173,
+      "after_stored_with_markers": 173
+    },
+    {
+      "id": 7,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 2902,
+      "original_effective_end": 2902,
+      "before_stored_with_markers": 2905,
+      "after_stored_with_markers": 2905
+    },
+    {
+      "id": 8,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 618,
+      "original_effective_end": 618,
+      "before_stored_with_markers": 867,
+      "after_stored_with_markers": 867
+    },
+    {
+      "id": 9,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 730,
+      "original_effective_end": 730,
+      "before_stored_with_markers": 731,
+      "after_stored_with_markers": 731
+    },
+    {
+      "id": 10,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 547,
+      "original_effective_end": 547,
+      "before_stored_with_markers": 548,
+      "after_stored_with_markers": 548
+    },
+    {
+      "id": 11,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1383,
+      "original_effective_end": 1383,
+      "before_stored_with_markers": 1384,
+      "after_stored_with_markers": 1384
+    },
+    {
+      "id": 12,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1020,
+      "original_effective_end": 1020,
+      "before_stored_with_markers": 1023,
+      "after_stored_with_markers": 1023
+    },
+    {
+      "id": 13,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1393,
+      "original_effective_end": 1393,
+      "before_stored_with_markers": 1396,
+      "after_stored_with_markers": 1396
+    },
+    {
+      "id": 14,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1356,
+      "original_effective_end": 1356,
+      "before_stored_with_markers": 1611,
+      "after_stored_with_markers": 1611
+    },
+    {
+      "id": 15,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 962,
+      "original_effective_end": 962,
+      "before_stored_with_markers": 965,
+      "after_stored_with_markers": 965
+    },
+    {
+      "id": 16,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 986,
+      "original_effective_end": 986,
+      "before_stored_with_markers": 989,
+      "after_stored_with_markers": 989
+    },
+    {
+      "id": 17,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 822,
+      "original_effective_end": 822,
+      "before_stored_with_markers": 823,
+      "after_stored_with_markers": 823
+    },
+    {
+      "id": 18,
+      "action": "unreachable_tail",
+      "maximum_read_index_plus_one": 659,
+      "original_effective_end": 705,
+      "before_stored_with_markers": 706,
+      "after_stored_with_markers": 660
+    },
+    {
+      "id": 19,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 177,
+      "original_effective_end": 177,
+      "before_stored_with_markers": 178,
+      "after_stored_with_markers": 178
+    },
+    {
+      "id": 20,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 597,
+      "original_effective_end": 597,
+      "before_stored_with_markers": 598,
+      "after_stored_with_markers": 598
+    },
+    {
+      "id": 21,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1646,
+      "original_effective_end": 1646,
+      "before_stored_with_markers": 1647,
+      "after_stored_with_markers": 1647
+    },
+    {
+      "id": 22,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 229,
+      "original_effective_end": 229,
+      "before_stored_with_markers": 230,
+      "after_stored_with_markers": 230
+    },
+    {
+      "id": 23,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1633,
+      "original_effective_end": 1633,
+      "before_stored_with_markers": 1636,
+      "after_stored_with_markers": 1636
+    },
+    {
+      "id": 24,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 913,
+      "original_effective_end": 913,
+      "before_stored_with_markers": 914,
+      "after_stored_with_markers": 914
+    }
+  ],
+  "scope": "Exact digital equality for the complete input score, including muted reads. Actual C64 execution is a separate verification."
+}
