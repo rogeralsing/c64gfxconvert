@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "fresh_default_program_byte_identical": true,
+  "fresh_default_pcm_byte_identical": true,
+  "fresh_default_sid_states_identical": true,
+  "program_sha256": "8c25f91a807b4d5c0f74203fa9ea75ddd6317710d2ca5151e26467386e06cf5a",
+  "voice_settings_from_copied_library_change_program": true,
+  "changed_program_bytes": 3,
+  "scope": "Fresh host preparation and assembly, plus a real JSON setting mutation in a temporary copied library. No second full-song audio run or mutated listening file."
+}

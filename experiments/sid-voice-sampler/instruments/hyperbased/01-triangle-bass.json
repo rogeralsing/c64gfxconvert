@@ -1,0 +1,21 @@
+{
+  "source_instrument": 1,
+  "name": "Triangle bass",
+  "kind": "sid",
+  "program": "triangle",
+  "control": 17,
+  "sustain": 1,
+  "rest_control": 25,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "sample_count": 8192,
+    "upsample": 8,
+    "period_band_samples": [
+      145,
+      175
+    ],
+    "minimum_autocorrelation": 0.85,
+    "region": "attack"
+  },
+  "description": "Quiet monophonic SID approximation. Source-period analysis determines the root and source RMS gates the tail; source timbre and continuous amplitude envelope are not reproduced."
+}

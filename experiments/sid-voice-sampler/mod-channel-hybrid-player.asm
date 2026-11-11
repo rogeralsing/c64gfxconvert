@@ -74,9 +74,9 @@ start:
     sta $d402
     lda #>SID1_PULSE
     sta $d403
-    lda #0
+    lda #<SID2_PULSE
     sta $d409
-    lda #8
+    lda #>SID2_PULSE
     sta $d40a
     lda #$19
     sta $d404

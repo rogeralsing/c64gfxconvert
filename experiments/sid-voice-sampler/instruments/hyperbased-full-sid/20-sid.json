@@ -1,0 +1,19 @@
+{
+  "program": "pulse",
+  "control": 65,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "region": "attack",
+    "sample_count": 8192,
+    "upsample": 8,
+    "period_band_samples": [
+      120,
+      135
+    ],
+    "minimum_autocorrelation": 0.8
+  },
+  "source_instrument": 20,
+  "name": "Hyperbased SID instrument 20",
+  "rest_control": 25,
+  "description": "Measured monophonic SID approximation; recorded timbre and continuous amplitude curves differ."
+}

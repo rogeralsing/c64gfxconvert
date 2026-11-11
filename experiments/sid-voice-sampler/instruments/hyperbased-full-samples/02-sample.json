@@ -1,0 +1,23 @@
+{
+  "source_instrument": 2,
+  "name": "Hyperbased instrument 2",
+  "kind": "sample_gain_variants",
+  "volume_quantization_step": 16,
+  "canonical_divisor": 2,
+  "divisor": 2,
+  "real_end": 1024,
+  "loop_start": null,
+  "original_bytes": 1844,
+  "original_loop_start": 0,
+  "original_loop_length": 2,
+  "variants": [
+    {
+      "id": 0,
+      "gain": 64,
+      "stored_bytes": 1024,
+      "max_read_index": 1023,
+      "sha256": "406161c4fa21ceec186d9f4c5c2857ee2834d39b14f578abe0e4f4fc71649fc0",
+      "asm_path": "02-gain-64.asm"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "source_instrument": 21,
+  "name": "Hyperbased instrument 21",
+  "kind": "sample_gain_variants",
+  "volume_quantization_step": 16,
+  "canonical_divisor": 3,
+  "divisor": 9,
+  "real_end": 1280,
+  "loop_start": null,
+  "original_bytes": 11518,
+  "original_loop_start": 0,
+  "original_loop_length": 2,
+  "variants": [
+    {
+      "id": 23,
+      "gain": 16,
+      "stored_bytes": 1280,
+      "max_read_index": 1279,
+      "sha256": "2080ff43db8e11cf7b7e12955269bcbce10023c86c331e7728647297384baf63",
+      "asm_path": "21-gain-16.asm"
+    },
+    {
+      "id": 24,
+      "gain": 32,
+      "stored_bytes": 1280,
+      "max_read_index": 1279,
+      "sha256": "6078ecb8dc2abfd30ab34797654274bc15d86d7b1d7cf8abe2e6ac39d64dbd22",
+      "asm_path": "21-gain-32.asm"
+    }
+  ]
+}

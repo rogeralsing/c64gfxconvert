@@ -18,13 +18,13 @@ import numpy as np
 from scipy.signal import correlate, resample_poly
 import soundfile as sf
 
+from instrument_library import DEFAULT_LIBRARY, load_library, receipt as library_receipt
+
 HERE = Path(__file__).resolve().parent
 spec = importlib.util.spec_from_file_location("accepted_mod_channel", HERE / "build_mod_channel.py")
 base = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(base)
 CLOCK, PERIOD, RATE = base.CLOCK, base.PERIOD, base.RATE
-SID1_SUSTAIN, SID2_SUSTAIN, SID1_PULSE = 1, 1, 1966
-REST = 0x19  # Known triangle-zero level, TEST and gate; no full attack on notes.
 
 
 def accepted_identity() -> dict:
@@ -43,33 +43,40 @@ def accepted_identity() -> dict:
     return {"source": wanted, "artifacts": artifacts}
 
 
-def melody_pitch(mod: dict) -> dict:
-    sample = mod["samples"][9]
+def melody_pitch(mod: dict, instrument: dict) -> dict:
+    sample = mod["samples"][instrument["source_instrument"] - 1]
+    analysis = instrument["pitch_analysis"]
+    count, upsample = analysis["sample_count"], analysis["upsample"]
+    low, high = analysis["period_band_samples"]
     raw = np.frombuffer(sample["data"], np.int8).astype(float) / 128
-    if sample["loop_length"] > 2:
+    if sample["loop_length"] > 2 and analysis.get("region", "loop_if_present") != "attack":
         loop = raw[sample["loop_start"]:sample["loop_start"] + sample["loop_length"]]
-        segment = np.tile(loop, math.ceil(8192 / len(loop)))[:8192]
+        segment = np.tile(loop, math.ceil(count / len(loop)))[:count]
     else:
-        segment = raw[:8192]
-    high = resample_poly(segment - segment.mean(), 8, 1)
-    acf = correlate(high, high, mode="full", method="fft")[len(high) - 1:]
+        segment = raw[:count]
+    interpolated = resample_poly(segment - segment.mean(), upsample, 1)
+    acf = correlate(interpolated, interpolated, mode="full", method="fft")[len(interpolated) - 1:]
     acf /= acf[0]
-    peak = 28 * 8 + int(np.argmax(acf[28 * 8:36 * 8]))
+    peak = low * upsample + int(np.argmax(acf[low * upsample:high * upsample]))
     adjustment = .5 * (acf[peak - 1] - acf[peak + 1]) / (
         acf[peak - 1] - 2 * acf[peak] + acf[peak + 1])
-    period = (peak + adjustment) / 8
-    if acf[peak] < .9:
+    period = (peak + adjustment) / upsample
+    if acf[peak] < analysis["minimum_autocorrelation"]:
         raise ValueError("Melody instrument has no sufficiently stable measured root")
-    return {"instrument": 10, "source_period_samples": period,
+    return {"instrument": instrument["source_instrument"], "source_period_samples": period,
             "cycles_per_source_sample": 1 / period, "autocorrelation": float(acf[peak]),
-            "pulse_width": SID1_PULSE,
-            "method": "Original instrument's first 8192 samples (or repeating loop), eightfold interpolation, autocorrelation peak in the independently identified 28–36 sample period band; parabolic refinement.",
-            "scope": "A monophonic pulse approximation. The original recorded instrument has some pitch drift and a different envelope."}
+            "pulse_width": instrument.get("pulse_width", 2048),
+            "method": f"Original instrument's first {count} samples (or repeating loop), {upsample}-fold interpolation, autocorrelation peak in the configured {low}–{high} sample period band; parabolic refinement.",
+            "region": analysis.get("region", "loop_if_present"),
+            "scope": f'A monophonic {instrument["program"]} approximation. The recorded source has a different envelope and may have pitch drift.'}
 
 
-def synth_score(context: dict) -> tuple[list[list[int]], dict]:
+def synth_score(context: dict, library: dict) -> tuple[list[list[int]], dict]:
     mod, ticks = context["mod"], context["ticks"]
-    pitch = melody_pitch(mod)
+    instruments = library["instruments"]
+    pulse = instruments[10]
+    rest = pulse["rest_control"]  # Known triangle-zero level, TEST and gate; no full attack on notes.
+    pitch = melody_pitch(mod, pulse)
     rows, drum_triggers = [], []
     all_ticks = base.build_timeline(mod)["ticks"]
     onset, position, current = -100.0, 0.0, 0
@@ -83,7 +90,6 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
     melody_position, melody_current = 0.0, 0
     # These are deliberately short SID percussion envelopes, not copied drum
     # recordings. Actual source triggers and source pitch determine their timing.
-    duration_caps = {1: .10, 2: .10, 3: .06, 4: .08, 5: .06, 6: .04}
     for tick in all_ticks:
         if tick["time_s"] >= base.END - 1e-7:
             break
@@ -96,7 +102,7 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
             indices = (melody_position + np.arange(max(1, round(advance)))).astype(int)
             valid = indices < len(melody_raw)
             block = np.zeros(len(indices)); block[valid] = melody_raw[indices[valid]]
-            melody_active = melody["volume"] > 0 and float(np.sqrt(np.mean(block * block))) > melody_peak * .08
+            melody_active = melody["volume"] > 0 and float(np.sqrt(np.mean(block * block))) > melody_peak * pulse["rms_gate_ratio"]
             melody_position += advance
         drum = tick["channels"][3]
         instrument = drum["playing_sample"]
@@ -104,8 +110,9 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
             if instrument not in raw or drum.get("offset", 0):
                 raise ValueError("Unexpected percussion instrument or offset")
             onset, position, current = tick["time_s"], 0.0, instrument
-        drum_frequency, drum_control = 0.0, REST
+        drum_frequency, drum_control = 0.0, rest
         if current and drum["period"]:
+            preset = instruments[current]
             source_rate = base.PAULA / drum["period"]
             advance = source_rate * tick["duration_s"]
             indices = (position + np.arange(max(1, round(advance)))).astype(int)
@@ -113,17 +120,20 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
             block = np.zeros(len(indices)); block[valid] = raw[current][indices[valid]]
             rms = float(np.sqrt(np.mean(block * block)))
             age = tick["time_s"] - onset
-            active = (drum["volume"] > 0 and age < duration_caps[current] - 1e-8
-                      and (rms > peaks[current] * .1 or drum["trigger"]))
+            active = (drum["volume"] > 0 and age < preset["duration_s"] - 1e-8
+                      and (rms > peaks[current] * preset["rms_gate_ratio"] or drum["trigger"]))
             if active:
-                if current in (1, 2) and not (current == 2 and age < .02 - 1e-8):
-                    body = (55 * 302 if current == 1 else 50 * 202) / drum["period"]
-                    drum_frequency = body * (1 + 3 * math.exp(-age / .018))
-                    drum_control = 0x11
+                if (preset["program"] == "triangle-sweep" or
+                        (preset["program"] == "noise-then-triangle-sweep"
+                         and not age < preset["noise_duration_s"] - 1e-8)):
+                    body = preset["base_hz"] * preset["reference_period"] / drum["period"]
+                    drum_frequency = body * (1 + preset["sweep_depth"] * math.exp(-age / preset["sweep_decay_s"]))
+                    drum_control = preset["triangle_control"]
                 else:
                     # Noise LFSR advances on accumulator bit19 rising: sixteen
                     # shifts per oscillator cycle. Match its clock to Paula.
-                    drum_frequency, drum_control = source_rate / 16, 0x81
+                    drum_frequency = source_rate / preset["noise_divisor"]
+                    drum_control = preset["noise_control"]
             position += advance
         if tick["time_s"] < base.START - 1e-7:
             continue
@@ -134,7 +144,7 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
         words = [round(hz * 2**24 / CLOCK) for hz in (melodic_hz, drum_frequency)]
         if any(not 0 <= word <= 65535 for word in words):
             raise ValueError("Synth frequency exceeds its SID register")
-        rows.append([words[0] & 255, words[0] >> 8, 0x41 if melodic_hz else REST,
+        rows.append([words[0] & 255, words[0] >> 8, pulse["control"] if melodic_hz else rest,
                      words[1] & 255, words[1] >> 8, drum_control])
         drum_triggers.append(bool(drum["trigger"]))
     if len(rows) != len(ticks):
@@ -143,26 +153,51 @@ def synth_score(context: dict) -> tuple[list[list[int]], dict]:
     # distinct even where the original longer samples overlap the next trigger.
     for index in range(1, len(rows)):
         if drum_triggers[index] and not drum_triggers[index - 1]:
-            rows[index - 1][3:] = [0, 0, REST]
-    if any(rows[i][5] == REST for i, trigger in enumerate(drum_triggers) if trigger):
+            rows[index - 1][3:] = [0, 0, rest]
+    if any(rows[i][5] == rest for i, trigger in enumerate(drum_triggers) if trigger):
         raise ValueError("A source percussion trigger was lost")
     metadata = {"melody": pitch, "melody_source_channel": 3,
                 "percussion_source_channel": 4, "percussion_source_triggers": sum(drum_triggers),
                 "source_melody_triggers": sum(t["channels"][2]["trigger"] for t in ticks),
                 "source_melody_volumes": sorted({t["channels"][2]["volume"] for t in ticks}),
-                "sid_sustain_levels": [SID1_SUSTAIN, SID2_SUSTAIN],
+                "sid_sustain_levels": [pulse["sustain"], instruments[1]["sustain"]],
+                "instrument_library": library_receipt(library),
                 "control_counts": [dict(Counter(row[column] for row in rows)) for column in (2, 5)],
                 "scope": "Actual MOD note/hit timing. Pulse melody and handcrafted triangle/noise percussion are timbral approximations with quiet fixed sustain, not original sampled envelopes. MOD channel 1 chords are omitted."}
     return rows, metadata
 
 
-def prepare(out: Path) -> tuple[dict, dict, list[list[int]]]:
+def prepare(out: Path, library_directory: Path = DEFAULT_LIBRARY) -> tuple[dict, dict, list[list[int]]]:
+    library = load_library(library_directory)
+    instruments = library["instruments"]
+    if (set(instruments) != set(range(1, 11)) or
+            any(instruments[i]["kind"] != "sample" for i in (7, 8, 9)) or
+            instruments[10].get("program") != "pulse" or
+            any(instruments[i].get("program") not in {"triangle-sweep", "noise-then-triangle-sweep", "noise"}
+                for i in range(1, 7))):
+        raise ValueError("This arrangement requires Cream of the Earth's ten selected instruments")
+    if len({instruments[i]["sustain"] for i in range(1, 7)}) != 1:
+        raise ValueError("The percussion voice needs one shared prewarmed sustain level")
     pcm, context = base.prepare(out)
+    if library["source"]["sha256"] != pcm["source"]["sha256"]:
+        raise ValueError("Instrument library belongs to a different source MOD")
     expected_solo = HERE / "results/mod-channel/expected-input.bin"
     if (out / "expected-input.bin").read_bytes() != expected_solo.read_bytes():
         raise ValueError("Sampled channel differs from the accepted solo")
-    rows, metadata = synth_score(context)
+    rows, metadata = synth_score(context, library)
     data = (out / "data.asm").read_text()
+    for bank in pcm["banks"]:
+        instrument = library["instruments"][bank["id"]]
+        generated_bank = out / f'sample-{bank["id"]:02d}.bin'
+        if (instrument["data"] != generated_bank.read_bytes()
+                or instrument["volume"] != bank["volume"] or instrument["decimation"] != bank["divisor"]):
+            raise ValueError(f'Instrument {bank["id"]} differs from the accepted reusable bank')
+        old = f'.import binary "{generated_bank.resolve()}"'
+        if data.count(old) != 1:
+            raise ValueError(f'Expected one bank include for instrument {bank["id"]}')
+        # The library include contains data only. Labels and alignment stay in
+        # the arrangement, preserving bank addresses and the fast C64 cursor.
+        data = data.replace(old, f'.import source "{instrument["asm_path"]}"')
     before, after = data.split("score:\n", 1)
     lines, index = [], 0
     for line in after.splitlines():
@@ -171,9 +206,10 @@ def prepare(out: Path) -> tuple[dict, dict, list[list[int]]]:
         lines.append(line)
     if index != pcm["frames"]:
         raise ValueError("Unexpected base score format")
-    constants = (f".label SID1_SUSTAIN = {SID1_SUSTAIN}\n"
-                 f".label SID2_SUSTAIN = {SID2_SUSTAIN}\n"
-                 f".label SID1_PULSE = {SID1_PULSE}\n")
+    constants = (f'.label SID1_SUSTAIN = {library["instruments"][10]["sustain"]}\n'
+                 f'.label SID2_SUSTAIN = {library["instruments"][1]["sustain"]}\n'
+                 f'.label SID1_PULSE = {library["instruments"][10]["pulse_width"]}\n'
+                 '.label SID2_PULSE = 2048\n')
     (out / "data.asm").write_text(constants + before + "score:\n" + "\n".join(lines) + "\n")
     base.save(out / "expected-synth.json", {"frames": rows, "register_order": [0, 1, 4, 7, 8, 11]})
     base.save(out / "synth-input.json", metadata)
@@ -258,11 +294,13 @@ def audio(receipt: dict, proof: dict, pcm: dict, out: Path) -> dict:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", type=Path, default=HERE / "results/mod-channel-hybrid")
+    parser.add_argument("--instruments", type=Path, default=DEFAULT_LIBRARY,
+                        help="Directory of instrument definitions for this arrangement")
     parser.add_argument("--capture", action="store_true")
     parser.add_argument("--budget", action="store_true")
     args = parser.parse_args(); out = args.out.resolve(); out.mkdir(parents=True, exist_ok=True)
     accepted = accepted_identity()
-    pcm, synth, rows = prepare(out)
+    pcm, synth, rows = prepare(out, args.instruments)
     compiled = base.reference.assemble("mod-channel-hybrid-player", out)
     (out / "player.prg").write_bytes(Path(compiled["program"]).read_bytes())
     capture = base.reference.capture(compiled, out / "player", pcm["duration_s"])
@@ -284,7 +322,7 @@ def main() -> None:
         raise ValueError("Accepted reference changed during hybrid build")
     report["accepted_reference_preserved"] = accepted
     report["source_sha256"] = {name: base.reference.digest(HERE / name) for name in
-                                ("build_mod_hybrid.py", "mod-channel-hybrid-player.asm")}
+                                ("build_mod_hybrid.py", "mod-channel-hybrid-player.asm", "instrument_library.py")}
     base.save(out / "verification.json", report)
     print(json.dumps({"seconds": pcm["duration_s"], "samples": pcm["input_codes"],
                       "program_bytes": compiled["bytes"], "proof": proof,

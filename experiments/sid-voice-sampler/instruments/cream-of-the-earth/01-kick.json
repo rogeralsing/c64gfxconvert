@@ -1,0 +1,16 @@
+{
+  "source_instrument": 1,
+  "name": "st-01:BuffBD",
+  "kind": "sid",
+  "sustain": 1,
+  "rest_control": 25,
+  "rms_gate_ratio": 0.1,
+  "duration_s": 0.1,
+  "program": "triangle-sweep",
+  "base_hz": 55,
+  "reference_period": 302,
+  "sweep_depth": 3,
+  "sweep_decay_s": 0.018,
+  "triangle_control": 17,
+  "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+}

@@ -1,0 +1,19 @@
+{
+  "program": "triangle",
+  "control": 17,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "region": "attack",
+    "sample_count": 8192,
+    "upsample": 8,
+    "period_band_samples": [
+      145,
+      175
+    ],
+    "minimum_autocorrelation": 0.85
+  },
+  "source_instrument": 1,
+  "name": "Hyperbased SID instrument 1",
+  "rest_control": 25,
+  "description": "Measured monophonic SID approximation; recorded timbre and continuous amplitude curves differ."
+}

@@ -59,6 +59,10 @@ Gate remains set across notes. Triangle plus TEST (`$19`) establishes their
 resting level. This avoids full-volume envelope attacks beside the sampled
 voice. The melody pulse width is 1,966 out of 4,096, approximately 48%.
 
+The instrument recipes and banks now live in separate files. See
+[INSTRUMENTS.md](INSTRUMENTS.md) for their format and editing limits. The default
+library reproduces the accepted binary and the measurements below.
+
 ## Clock, CPU and RAM
 
 Voice 3 still receives **7,819.428571 values/s**, one every **126 PAL cycles**.
