@@ -1,0 +1,1403 @@
+{
+  "pass": true,
+  "beamBoundPass": false,
+  "scope": "Exact assembled6502 geometry-mask XOR playback, dirty-only fixed-font resolution; CPU trace plus conservativePAL bound, no realVIC FPS claim.",
+  "frames": 194,
+  "loopWraps": 3,
+  "coverageBytesCompared": 194000,
+  "screenBytesCompared": 194000,
+  "fontAndAllAssetsImmutable": true,
+  "allScreenWritesStrictlyAscending": true,
+  "predictiveCpuCycles": {
+    "min": 16756,
+    "mean": 20344.61139896373,
+    "max": 23561
+  },
+  "dirtyStoresPerUpdate": {
+    "min": 70,
+    "mean": 93.50259067357513,
+    "max": 111
+  },
+  "worstBeamSlackClocks": -6799,
+  "worstWrite": {
+    "sequence": 13,
+    "frame": 13,
+    "address": 1891,
+    "row": 21,
+    "column": 27,
+    "cpuCompleteOffset": 22986,
+    "completionUpperBound": 24124,
+    "deadline": 17325,
+    "slack": -6799
+  },
+  "stallBudgetPerField": 1075,
+  "startJitterBudget": 63,
+  "maximumUpdateClocksBound": 24699,
+  "codeBytes": 1128,
+  "fontBytes": 2048,
+  "fixedLookupBytes": 10816,
+  "movieBytes": 16100,
+  "prgBytes": 38437,
+  "endExclusive": "0x9e24",
+  "programSha256": "de1814fefdff2ec0e306f39b9212de4dc9151a1b80d16c1d1e583a1ec05234f5",
+  "framesDetail": [
+    {
+      "sequence": 0,
+      "frame": 0,
+      "stores": 0,
+      "worstSlack": null,
+      "cpuCycles": 15
+    },
+    {
+      "sequence": 1,
+      "frame": 1,
+      "stores": 103,
+      "worstSlack": -4246,
+      "cpuCycles": 21725
+    },
+    {
+      "sequence": 2,
+      "frame": 2,
+      "stores": 97,
+      "worstSlack": -3486,
+      "cpuCycles": 20886
+    },
+    {
+      "sequence": 3,
+      "frame": 3,
+      "stores": 108,
+      "worstSlack": -4801,
+      "cpuCycles": 22096
+    },
+    {
+      "sequence": 4,
+      "frame": 4,
+      "stores": 86,
+      "worstSlack": -876,
+      "cpuCycles": 18672
+    },
+    {
+      "sequence": 5,
+      "frame": 5,
+      "stores": 99,
+      "worstSlack": -3899,
+      "cpuCycles": 20884
+    },
+    {
+      "sequence": 6,
+      "frame": 6,
+      "stores": 111,
+      "worstSlack": -5423,
+      "cpuCycles": 22394
+    },
+    {
+      "sequence": 7,
+      "frame": 7,
+      "stores": 85,
+      "worstSlack": -1250,
+      "cpuCycles": 18966
+    },
+    {
+      "sequence": 8,
+      "frame": 8,
+      "stores": 81,
+      "worstSlack": -1783,
+      "cpuCycles": 19380
+    },
+    {
+      "sequence": 9,
+      "frame": 9,
+      "stores": 106,
+      "worstSlack": -3930,
+      "cpuCycles": 21330
+    },
+    {
+      "sequence": 10,
+      "frame": 10,
+      "stores": 87,
+      "worstSlack": -2268,
+      "cpuCycles": 19037
+    },
+    {
+      "sequence": 11,
+      "frame": 11,
+      "stores": 93,
+      "worstSlack": -3336,
+      "cpuCycles": 20613
+    },
+    {
+      "sequence": 12,
+      "frame": 12,
+      "stores": 78,
+      "worstSlack": -1740,
+      "cpuCycles": 18903
+    },
+    {
+      "sequence": 13,
+      "frame": 13,
+      "stores": 107,
+      "worstSlack": -6799,
+      "cpuCycles": 23561
+    },
+    {
+      "sequence": 14,
+      "frame": 14,
+      "stores": 70,
+      "worstSlack": -356,
+      "cpuCycles": 16756
+    },
+    {
+      "sequence": 15,
+      "frame": 15,
+      "stores": 99,
+      "worstSlack": -4254,
+      "cpuCycles": 21239
+    },
+    {
+      "sequence": 16,
+      "frame": 16,
+      "stores": 90,
+      "worstSlack": -3530,
+      "cpuCycles": 20501
+    },
+    {
+      "sequence": 17,
+      "frame": 17,
+      "stores": 92,
+      "worstSlack": -2475,
+      "cpuCycles": 19549
+    },
+    {
+      "sequence": 18,
+      "frame": 18,
+      "stores": 86,
+      "worstSlack": -1522,
+      "cpuCycles": 18922
+    },
+    {
+      "sequence": 19,
+      "frame": 19,
+      "stores": 101,
+      "worstSlack": -4340,
+      "cpuCycles": 21325
+    },
+    {
+      "sequence": 20,
+      "frame": 20,
+      "stores": 102,
+      "worstSlack": -5299,
+      "cpuCycles": 22614
+    },
+    {
+      "sequence": 21,
+      "frame": 21,
+      "stores": 83,
+      "worstSlack": -2186,
+      "cpuCycles": 19082
+    },
+    {
+      "sequence": 22,
+      "frame": 22,
+      "stores": 86,
+      "worstSlack": -1006,
+      "cpuCycles": 18218
+    },
+    {
+      "sequence": 23,
+      "frame": 23,
+      "stores": 90,
+      "worstSlack": -2987,
+      "cpuCycles": 20293
+    },
+    {
+      "sequence": 24,
+      "frame": 24,
+      "stores": 87,
+      "worstSlack": -2433,
+      "cpuCycles": 19819
+    },
+    {
+      "sequence": 25,
+      "frame": 25,
+      "stores": 92,
+      "worstSlack": -2757,
+      "cpuCycles": 20033
+    },
+    {
+      "sequence": 26,
+      "frame": 26,
+      "stores": 91,
+      "worstSlack": -1864,
+      "cpuCycles": 19663
+    },
+    {
+      "sequence": 27,
+      "frame": 27,
+      "stores": 97,
+      "worstSlack": -4188,
+      "cpuCycles": 21904
+    },
+    {
+      "sequence": 28,
+      "frame": 28,
+      "stores": 97,
+      "worstSlack": -3289,
+      "cpuCycles": 20274
+    },
+    {
+      "sequence": 29,
+      "frame": 29,
+      "stores": 90,
+      "worstSlack": -3498,
+      "cpuCycles": 21200
+    },
+    {
+      "sequence": 30,
+      "frame": 30,
+      "stores": 87,
+      "worstSlack": -2470,
+      "cpuCycles": 19651
+    },
+    {
+      "sequence": 31,
+      "frame": 31,
+      "stores": 101,
+      "worstSlack": -4622,
+      "cpuCycles": 21593
+    },
+    {
+      "sequence": 32,
+      "frame": 32,
+      "stores": 99,
+      "worstSlack": -2936,
+      "cpuCycles": 20211
+    },
+    {
+      "sequence": 33,
+      "frame": 33,
+      "stores": 95,
+      "worstSlack": -3138,
+      "cpuCycles": 20408
+    },
+    {
+      "sequence": 34,
+      "frame": 34,
+      "stores": 94,
+      "worstSlack": -2590,
+      "cpuCycles": 19990
+    },
+    {
+      "sequence": 35,
+      "frame": 35,
+      "stores": 104,
+      "worstSlack": -4545,
+      "cpuCycles": 21516
+    },
+    {
+      "sequence": 36,
+      "frame": 36,
+      "stores": 83,
+      "worstSlack": -1198,
+      "cpuCycles": 18756
+    },
+    {
+      "sequence": 37,
+      "frame": 37,
+      "stores": 97,
+      "worstSlack": -2635,
+      "cpuCycles": 19812
+    },
+    {
+      "sequence": 38,
+      "frame": 38,
+      "stores": 105,
+      "worstSlack": -4706,
+      "cpuCycles": 21677
+    },
+    {
+      "sequence": 39,
+      "frame": 39,
+      "stores": 84,
+      "worstSlack": -1549,
+      "cpuCycles": 19251
+    },
+    {
+      "sequence": 40,
+      "frame": 40,
+      "stores": 83,
+      "worstSlack": -2386,
+      "cpuCycles": 19914
+    },
+    {
+      "sequence": 41,
+      "frame": 41,
+      "stores": 104,
+      "worstSlack": -3570,
+      "cpuCycles": 20747
+    },
+    {
+      "sequence": 42,
+      "frame": 42,
+      "stores": 87,
+      "worstSlack": -1868,
+      "cpuCycles": 19031
+    },
+    {
+      "sequence": 43,
+      "frame": 43,
+      "stores": 105,
+      "worstSlack": -5401,
+      "cpuCycles": 22801
+    },
+    {
+      "sequence": 44,
+      "frame": 44,
+      "stores": 77,
+      "worstSlack": -1587,
+      "cpuCycles": 18764
+    },
+    {
+      "sequence": 45,
+      "frame": 45,
+      "stores": 107,
+      "worstSlack": -5576,
+      "cpuCycles": 22530
+    },
+    {
+      "sequence": 46,
+      "frame": 46,
+      "stores": 77,
+      "worstSlack": -743,
+      "cpuCycles": 18034
+    },
+    {
+      "sequence": 47,
+      "frame": 47,
+      "stores": 95,
+      "worstSlack": -3427,
+      "cpuCycles": 20412
+    },
+    {
+      "sequence": 48,
+      "frame": 48,
+      "stores": 90,
+      "worstSlack": -2542,
+      "cpuCycles": 19928
+    },
+    {
+      "sequence": 49,
+      "frame": 49,
+      "stores": 89,
+      "worstSlack": -2378,
+      "cpuCycles": 19357
+    },
+    {
+      "sequence": 50,
+      "frame": 50,
+      "stores": 88,
+      "worstSlack": -1900,
+      "cpuCycles": 19300
+    },
+    {
+      "sequence": 51,
+      "frame": 51,
+      "stores": 98,
+      "worstSlack": -4089,
+      "cpuCycles": 21074
+    },
+    {
+      "sequence": 52,
+      "frame": 52,
+      "stores": 95,
+      "worstSlack": -3624,
+      "cpuCycles": 20797
+    },
+    {
+      "sequence": 53,
+      "frame": 53,
+      "stores": 85,
+      "worstSlack": -1678,
+      "cpuCycles": 19078
+    },
+    {
+      "sequence": 54,
+      "frame": 54,
+      "stores": 89,
+      "worstSlack": -949,
+      "cpuCycles": 18335
+    },
+    {
+      "sequence": 55,
+      "frame": 55,
+      "stores": 93,
+      "worstSlack": -3329,
+      "cpuCycles": 20397
+    },
+    {
+      "sequence": 56,
+      "frame": 56,
+      "stores": 98,
+      "worstSlack": -4571,
+      "cpuCycles": 21734
+    },
+    {
+      "sequence": 57,
+      "frame": 57,
+      "stores": 91,
+      "worstSlack": -1679,
+      "cpuCycles": 19079
+    },
+    {
+      "sequence": 58,
+      "frame": 58,
+      "stores": 90,
+      "worstSlack": -1243,
+      "cpuCycles": 18907
+    },
+    {
+      "sequence": 59,
+      "frame": 59,
+      "stores": 96,
+      "worstSlack": -3622,
+      "cpuCycles": 21339
+    },
+    {
+      "sequence": 60,
+      "frame": 60,
+      "stores": 99,
+      "worstSlack": -3496,
+      "cpuCycles": 20481
+    },
+    {
+      "sequence": 61,
+      "frame": 61,
+      "stores": 96,
+      "worstSlack": -4560,
+      "cpuCycles": 22276
+    },
+    {
+      "sequence": 62,
+      "frame": 62,
+      "stores": 90,
+      "worstSlack": -2482,
+      "cpuCycles": 19882
+    },
+    {
+      "sequence": 63,
+      "frame": 63,
+      "stores": 107,
+      "worstSlack": -5672,
+      "cpuCycles": 23058
+    },
+    {
+      "sequence": 64,
+      "frame": 0,
+      "stores": 109,
+      "worstSlack": -4112,
+      "cpuCycles": 21636
+    },
+    {
+      "sequence": 65,
+      "frame": 1,
+      "stores": 103,
+      "worstSlack": -4246,
+      "cpuCycles": 21725
+    },
+    {
+      "sequence": 66,
+      "frame": 2,
+      "stores": 97,
+      "worstSlack": -3486,
+      "cpuCycles": 20886
+    },
+    {
+      "sequence": 67,
+      "frame": 3,
+      "stores": 108,
+      "worstSlack": -4801,
+      "cpuCycles": 22096
+    },
+    {
+      "sequence": 68,
+      "frame": 4,
+      "stores": 86,
+      "worstSlack": -876,
+      "cpuCycles": 18672
+    },
+    {
+      "sequence": 69,
+      "frame": 5,
+      "stores": 99,
+      "worstSlack": -3899,
+      "cpuCycles": 20884
+    },
+    {
+      "sequence": 70,
+      "frame": 6,
+      "stores": 111,
+      "worstSlack": -5423,
+      "cpuCycles": 22394
+    },
+    {
+      "sequence": 71,
+      "frame": 7,
+      "stores": 85,
+      "worstSlack": -1250,
+      "cpuCycles": 18966
+    },
+    {
+      "sequence": 72,
+      "frame": 8,
+      "stores": 81,
+      "worstSlack": -1783,
+      "cpuCycles": 19380
+    },
+    {
+      "sequence": 73,
+      "frame": 9,
+      "stores": 106,
+      "worstSlack": -3930,
+      "cpuCycles": 21330
+    },
+    {
+      "sequence": 74,
+      "frame": 10,
+      "stores": 87,
+      "worstSlack": -2268,
+      "cpuCycles": 19037
+    },
+    {
+      "sequence": 75,
+      "frame": 11,
+      "stores": 93,
+      "worstSlack": -3336,
+      "cpuCycles": 20613
+    },
+    {
+      "sequence": 76,
+      "frame": 12,
+      "stores": 78,
+      "worstSlack": -1740,
+      "cpuCycles": 18903
+    },
+    {
+      "sequence": 77,
+      "frame": 13,
+      "stores": 107,
+      "worstSlack": -6799,
+      "cpuCycles": 23561
+    },
+    {
+      "sequence": 78,
+      "frame": 14,
+      "stores": 70,
+      "worstSlack": -356,
+      "cpuCycles": 16756
+    },
+    {
+      "sequence": 79,
+      "frame": 15,
+      "stores": 99,
+      "worstSlack": -4254,
+      "cpuCycles": 21239
+    },
+    {
+      "sequence": 80,
+      "frame": 16,
+      "stores": 90,
+      "worstSlack": -3530,
+      "cpuCycles": 20501
+    },
+    {
+      "sequence": 81,
+      "frame": 17,
+      "stores": 92,
+      "worstSlack": -2475,
+      "cpuCycles": 19549
+    },
+    {
+      "sequence": 82,
+      "frame": 18,
+      "stores": 86,
+      "worstSlack": -1522,
+      "cpuCycles": 18922
+    },
+    {
+      "sequence": 83,
+      "frame": 19,
+      "stores": 101,
+      "worstSlack": -4340,
+      "cpuCycles": 21325
+    },
+    {
+      "sequence": 84,
+      "frame": 20,
+      "stores": 102,
+      "worstSlack": -5299,
+      "cpuCycles": 22614
+    },
+    {
+      "sequence": 85,
+      "frame": 21,
+      "stores": 83,
+      "worstSlack": -2186,
+      "cpuCycles": 19082
+    },
+    {
+      "sequence": 86,
+      "frame": 22,
+      "stores": 86,
+      "worstSlack": -1006,
+      "cpuCycles": 18218
+    },
+    {
+      "sequence": 87,
+      "frame": 23,
+      "stores": 90,
+      "worstSlack": -2987,
+      "cpuCycles": 20293
+    },
+    {
+      "sequence": 88,
+      "frame": 24,
+      "stores": 87,
+      "worstSlack": -2433,
+      "cpuCycles": 19819
+    },
+    {
+      "sequence": 89,
+      "frame": 25,
+      "stores": 92,
+      "worstSlack": -2757,
+      "cpuCycles": 20033
+    },
+    {
+      "sequence": 90,
+      "frame": 26,
+      "stores": 91,
+      "worstSlack": -1864,
+      "cpuCycles": 19663
+    },
+    {
+      "sequence": 91,
+      "frame": 27,
+      "stores": 97,
+      "worstSlack": -4188,
+      "cpuCycles": 21904
+    },
+    {
+      "sequence": 92,
+      "frame": 28,
+      "stores": 97,
+      "worstSlack": -3289,
+      "cpuCycles": 20274
+    },
+    {
+      "sequence": 93,
+      "frame": 29,
+      "stores": 90,
+      "worstSlack": -3498,
+      "cpuCycles": 21200
+    },
+    {
+      "sequence": 94,
+      "frame": 30,
+      "stores": 87,
+      "worstSlack": -2470,
+      "cpuCycles": 19651
+    },
+    {
+      "sequence": 95,
+      "frame": 31,
+      "stores": 101,
+      "worstSlack": -4622,
+      "cpuCycles": 21593
+    },
+    {
+      "sequence": 96,
+      "frame": 32,
+      "stores": 99,
+      "worstSlack": -2936,
+      "cpuCycles": 20211
+    },
+    {
+      "sequence": 97,
+      "frame": 33,
+      "stores": 95,
+      "worstSlack": -3138,
+      "cpuCycles": 20408
+    },
+    {
+      "sequence": 98,
+      "frame": 34,
+      "stores": 94,
+      "worstSlack": -2590,
+      "cpuCycles": 19990
+    },
+    {
+      "sequence": 99,
+      "frame": 35,
+      "stores": 104,
+      "worstSlack": -4545,
+      "cpuCycles": 21516
+    },
+    {
+      "sequence": 100,
+      "frame": 36,
+      "stores": 83,
+      "worstSlack": -1198,
+      "cpuCycles": 18756
+    },
+    {
+      "sequence": 101,
+      "frame": 37,
+      "stores": 97,
+      "worstSlack": -2635,
+      "cpuCycles": 19812
+    },
+    {
+      "sequence": 102,
+      "frame": 38,
+      "stores": 105,
+      "worstSlack": -4706,
+      "cpuCycles": 21677
+    },
+    {
+      "sequence": 103,
+      "frame": 39,
+      "stores": 84,
+      "worstSlack": -1549,
+      "cpuCycles": 19251
+    },
+    {
+      "sequence": 104,
+      "frame": 40,
+      "stores": 83,
+      "worstSlack": -2386,
+      "cpuCycles": 19914
+    },
+    {
+      "sequence": 105,
+      "frame": 41,
+      "stores": 104,
+      "worstSlack": -3570,
+      "cpuCycles": 20747
+    },
+    {
+      "sequence": 106,
+      "frame": 42,
+      "stores": 87,
+      "worstSlack": -1868,
+      "cpuCycles": 19031
+    },
+    {
+      "sequence": 107,
+      "frame": 43,
+      "stores": 105,
+      "worstSlack": -5401,
+      "cpuCycles": 22801
+    },
+    {
+      "sequence": 108,
+      "frame": 44,
+      "stores": 77,
+      "worstSlack": -1587,
+      "cpuCycles": 18764
+    },
+    {
+      "sequence": 109,
+      "frame": 45,
+      "stores": 107,
+      "worstSlack": -5576,
+      "cpuCycles": 22530
+    },
+    {
+      "sequence": 110,
+      "frame": 46,
+      "stores": 77,
+      "worstSlack": -743,
+      "cpuCycles": 18034
+    },
+    {
+      "sequence": 111,
+      "frame": 47,
+      "stores": 95,
+      "worstSlack": -3427,
+      "cpuCycles": 20412
+    },
+    {
+      "sequence": 112,
+      "frame": 48,
+      "stores": 90,
+      "worstSlack": -2542,
+      "cpuCycles": 19928
+    },
+    {
+      "sequence": 113,
+      "frame": 49,
+      "stores": 89,
+      "worstSlack": -2378,
+      "cpuCycles": 19357
+    },
+    {
+      "sequence": 114,
+      "frame": 50,
+      "stores": 88,
+      "worstSlack": -1900,
+      "cpuCycles": 19300
+    },
+    {
+      "sequence": 115,
+      "frame": 51,
+      "stores": 98,
+      "worstSlack": -4089,
+      "cpuCycles": 21074
+    },
+    {
+      "sequence": 116,
+      "frame": 52,
+      "stores": 95,
+      "worstSlack": -3624,
+      "cpuCycles": 20797
+    },
+    {
+      "sequence": 117,
+      "frame": 53,
+      "stores": 85,
+      "worstSlack": -1678,
+      "cpuCycles": 19078
+    },
+    {
+      "sequence": 118,
+      "frame": 54,
+      "stores": 89,
+      "worstSlack": -949,
+      "cpuCycles": 18335
+    },
+    {
+      "sequence": 119,
+      "frame": 55,
+      "stores": 93,
+      "worstSlack": -3329,
+      "cpuCycles": 20397
+    },
+    {
+      "sequence": 120,
+      "frame": 56,
+      "stores": 98,
+      "worstSlack": -4571,
+      "cpuCycles": 21734
+    },
+    {
+      "sequence": 121,
+      "frame": 57,
+      "stores": 91,
+      "worstSlack": -1679,
+      "cpuCycles": 19079
+    },
+    {
+      "sequence": 122,
+      "frame": 58,
+      "stores": 90,
+      "worstSlack": -1243,
+      "cpuCycles": 18907
+    },
+    {
+      "sequence": 123,
+      "frame": 59,
+      "stores": 96,
+      "worstSlack": -3622,
+      "cpuCycles": 21339
+    },
+    {
+      "sequence": 124,
+      "frame": 60,
+      "stores": 99,
+      "worstSlack": -3496,
+      "cpuCycles": 20481
+    },
+    {
+      "sequence": 125,
+      "frame": 61,
+      "stores": 96,
+      "worstSlack": -4560,
+      "cpuCycles": 22276
+    },
+    {
+      "sequence": 126,
+      "frame": 62,
+      "stores": 90,
+      "worstSlack": -2482,
+      "cpuCycles": 19882
+    },
+    {
+      "sequence": 127,
+      "frame": 63,
+      "stores": 107,
+      "worstSlack": -5672,
+      "cpuCycles": 23058
+    },
+    {
+      "sequence": 128,
+      "frame": 0,
+      "stores": 109,
+      "worstSlack": -4112,
+      "cpuCycles": 21636
+    },
+    {
+      "sequence": 129,
+      "frame": 1,
+      "stores": 103,
+      "worstSlack": -4246,
+      "cpuCycles": 21725
+    },
+    {
+      "sequence": 130,
+      "frame": 2,
+      "stores": 97,
+      "worstSlack": -3486,
+      "cpuCycles": 20886
+    },
+    {
+      "sequence": 131,
+      "frame": 3,
+      "stores": 108,
+      "worstSlack": -4801,
+      "cpuCycles": 22096
+    },
+    {
+      "sequence": 132,
+      "frame": 4,
+      "stores": 86,
+      "worstSlack": -876,
+      "cpuCycles": 18672
+    },
+    {
+      "sequence": 133,
+      "frame": 5,
+      "stores": 99,
+      "worstSlack": -3899,
+      "cpuCycles": 20884
+    },
+    {
+      "sequence": 134,
+      "frame": 6,
+      "stores": 111,
+      "worstSlack": -5423,
+      "cpuCycles": 22394
+    },
+    {
+      "sequence": 135,
+      "frame": 7,
+      "stores": 85,
+      "worstSlack": -1250,
+      "cpuCycles": 18966
+    },
+    {
+      "sequence": 136,
+      "frame": 8,
+      "stores": 81,
+      "worstSlack": -1783,
+      "cpuCycles": 19380
+    },
+    {
+      "sequence": 137,
+      "frame": 9,
+      "stores": 106,
+      "worstSlack": -3930,
+      "cpuCycles": 21330
+    },
+    {
+      "sequence": 138,
+      "frame": 10,
+      "stores": 87,
+      "worstSlack": -2268,
+      "cpuCycles": 19037
+    },
+    {
+      "sequence": 139,
+      "frame": 11,
+      "stores": 93,
+      "worstSlack": -3336,
+      "cpuCycles": 20613
+    },
+    {
+      "sequence": 140,
+      "frame": 12,
+      "stores": 78,
+      "worstSlack": -1740,
+      "cpuCycles": 18903
+    },
+    {
+      "sequence": 141,
+      "frame": 13,
+      "stores": 107,
+      "worstSlack": -6799,
+      "cpuCycles": 23561
+    },
+    {
+      "sequence": 142,
+      "frame": 14,
+      "stores": 70,
+      "worstSlack": -356,
+      "cpuCycles": 16756
+    },
+    {
+      "sequence": 143,
+      "frame": 15,
+      "stores": 99,
+      "worstSlack": -4254,
+      "cpuCycles": 21239
+    },
+    {
+      "sequence": 144,
+      "frame": 16,
+      "stores": 90,
+      "worstSlack": -3530,
+      "cpuCycles": 20501
+    },
+    {
+      "sequence": 145,
+      "frame": 17,
+      "stores": 92,
+      "worstSlack": -2475,
+      "cpuCycles": 19549
+    },
+    {
+      "sequence": 146,
+      "frame": 18,
+      "stores": 86,
+      "worstSlack": -1522,
+      "cpuCycles": 18922
+    },
+    {
+      "sequence": 147,
+      "frame": 19,
+      "stores": 101,
+      "worstSlack": -4340,
+      "cpuCycles": 21325
+    },
+    {
+      "sequence": 148,
+      "frame": 20,
+      "stores": 102,
+      "worstSlack": -5299,
+      "cpuCycles": 22614
+    },
+    {
+      "sequence": 149,
+      "frame": 21,
+      "stores": 83,
+      "worstSlack": -2186,
+      "cpuCycles": 19082
+    },
+    {
+      "sequence": 150,
+      "frame": 22,
+      "stores": 86,
+      "worstSlack": -1006,
+      "cpuCycles": 18218
+    },
+    {
+      "sequence": 151,
+      "frame": 23,
+      "stores": 90,
+      "worstSlack": -2987,
+      "cpuCycles": 20293
+    },
+    {
+      "sequence": 152,
+      "frame": 24,
+      "stores": 87,
+      "worstSlack": -2433,
+      "cpuCycles": 19819
+    },
+    {
+      "sequence": 153,
+      "frame": 25,
+      "stores": 92,
+      "worstSlack": -2757,
+      "cpuCycles": 20033
+    },
+    {
+      "sequence": 154,
+      "frame": 26,
+      "stores": 91,
+      "worstSlack": -1864,
+      "cpuCycles": 19663
+    },
+    {
+      "sequence": 155,
+      "frame": 27,
+      "stores": 97,
+      "worstSlack": -4188,
+      "cpuCycles": 21904
+    },
+    {
+      "sequence": 156,
+      "frame": 28,
+      "stores": 97,
+      "worstSlack": -3289,
+      "cpuCycles": 20274
+    },
+    {
+      "sequence": 157,
+      "frame": 29,
+      "stores": 90,
+      "worstSlack": -3498,
+      "cpuCycles": 21200
+    },
+    {
+      "sequence": 158,
+      "frame": 30,
+      "stores": 87,
+      "worstSlack": -2470,
+      "cpuCycles": 19651
+    },
+    {
+      "sequence": 159,
+      "frame": 31,
+      "stores": 101,
+      "worstSlack": -4622,
+      "cpuCycles": 21593
+    },
+    {
+      "sequence": 160,
+      "frame": 32,
+      "stores": 99,
+      "worstSlack": -2936,
+      "cpuCycles": 20211
+    },
+    {
+      "sequence": 161,
+      "frame": 33,
+      "stores": 95,
+      "worstSlack": -3138,
+      "cpuCycles": 20408
+    },
+    {
+      "sequence": 162,
+      "frame": 34,
+      "stores": 94,
+      "worstSlack": -2590,
+      "cpuCycles": 19990
+    },
+    {
+      "sequence": 163,
+      "frame": 35,
+      "stores": 104,
+      "worstSlack": -4545,
+      "cpuCycles": 21516
+    },
+    {
+      "sequence": 164,
+      "frame": 36,
+      "stores": 83,
+      "worstSlack": -1198,
+      "cpuCycles": 18756
+    },
+    {
+      "sequence": 165,
+      "frame": 37,
+      "stores": 97,
+      "worstSlack": -2635,
+      "cpuCycles": 19812
+    },
+    {
+      "sequence": 166,
+      "frame": 38,
+      "stores": 105,
+      "worstSlack": -4706,
+      "cpuCycles": 21677
+    },
+    {
+      "sequence": 167,
+      "frame": 39,
+      "stores": 84,
+      "worstSlack": -1549,
+      "cpuCycles": 19251
+    },
+    {
+      "sequence": 168,
+      "frame": 40,
+      "stores": 83,
+      "worstSlack": -2386,
+      "cpuCycles": 19914
+    },
+    {
+      "sequence": 169,
+      "frame": 41,
+      "stores": 104,
+      "worstSlack": -3570,
+      "cpuCycles": 20747
+    },
+    {
+      "sequence": 170,
+      "frame": 42,
+      "stores": 87,
+      "worstSlack": -1868,
+      "cpuCycles": 19031
+    },
+    {
+      "sequence": 171,
+      "frame": 43,
+      "stores": 105,
+      "worstSlack": -5401,
+      "cpuCycles": 22801
+    },
+    {
+      "sequence": 172,
+      "frame": 44,
+      "stores": 77,
+      "worstSlack": -1587,
+      "cpuCycles": 18764
+    },
+    {
+      "sequence": 173,
+      "frame": 45,
+      "stores": 107,
+      "worstSlack": -5576,
+      "cpuCycles": 22530
+    },
+    {
+      "sequence": 174,
+      "frame": 46,
+      "stores": 77,
+      "worstSlack": -743,
+      "cpuCycles": 18034
+    },
+    {
+      "sequence": 175,
+      "frame": 47,
+      "stores": 95,
+      "worstSlack": -3427,
+      "cpuCycles": 20412
+    },
+    {
+      "sequence": 176,
+      "frame": 48,
+      "stores": 90,
+      "worstSlack": -2542,
+      "cpuCycles": 19928
+    },
+    {
+      "sequence": 177,
+      "frame": 49,
+      "stores": 89,
+      "worstSlack": -2378,
+      "cpuCycles": 19357
+    },
+    {
+      "sequence": 178,
+      "frame": 50,
+      "stores": 88,
+      "worstSlack": -1900,
+      "cpuCycles": 19300
+    },
+    {
+      "sequence": 179,
+      "frame": 51,
+      "stores": 98,
+      "worstSlack": -4089,
+      "cpuCycles": 21074
+    },
+    {
+      "sequence": 180,
+      "frame": 52,
+      "stores": 95,
+      "worstSlack": -3624,
+      "cpuCycles": 20797
+    },
+    {
+      "sequence": 181,
+      "frame": 53,
+      "stores": 85,
+      "worstSlack": -1678,
+      "cpuCycles": 19078
+    },
+    {
+      "sequence": 182,
+      "frame": 54,
+      "stores": 89,
+      "worstSlack": -949,
+      "cpuCycles": 18335
+    },
+    {
+      "sequence": 183,
+      "frame": 55,
+      "stores": 93,
+      "worstSlack": -3329,
+      "cpuCycles": 20397
+    },
+    {
+      "sequence": 184,
+      "frame": 56,
+      "stores": 98,
+      "worstSlack": -4571,
+      "cpuCycles": 21734
+    },
+    {
+      "sequence": 185,
+      "frame": 57,
+      "stores": 91,
+      "worstSlack": -1679,
+      "cpuCycles": 19079
+    },
+    {
+      "sequence": 186,
+      "frame": 58,
+      "stores": 90,
+      "worstSlack": -1243,
+      "cpuCycles": 18907
+    },
+    {
+      "sequence": 187,
+      "frame": 59,
+      "stores": 96,
+      "worstSlack": -3622,
+      "cpuCycles": 21339
+    },
+    {
+      "sequence": 188,
+      "frame": 60,
+      "stores": 99,
+      "worstSlack": -3496,
+      "cpuCycles": 20481
+    },
+    {
+      "sequence": 189,
+      "frame": 61,
+      "stores": 96,
+      "worstSlack": -4560,
+      "cpuCycles": 22276
+    },
+    {
+      "sequence": 190,
+      "frame": 62,
+      "stores": 90,
+      "worstSlack": -2482,
+      "cpuCycles": 19882
+    },
+    {
+      "sequence": 191,
+      "frame": 63,
+      "stores": 107,
+      "worstSlack": -5672,
+      "cpuCycles": 23058
+    },
+    {
+      "sequence": 192,
+      "frame": 0,
+      "stores": 109,
+      "worstSlack": -4112,
+      "cpuCycles": 21636
+    },
+    {
+      "sequence": 193,
+      "frame": 1,
+      "stores": 103,
+      "worstSlack": -4246,
+      "cpuCycles": 21725
+    }
+  ]
+}
