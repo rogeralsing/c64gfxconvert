@@ -1,174 +1,102 @@
-# Four-channel sampled playback on C64
+# Four-channel sampled playback
 
-The [optimization study](results/optimization/README.md) adds lossless score
-compression and verified complete Hyperbased (5:33.84) and Madness (6:47.04)
-programs. Stardust shrinks from 45,616 to 37,170 bytes with unchanged sample
-banks. Use `pcm4_build.py --score-codec dictionary8`; the default remains the
-byte-compatible legacy format documented below.
+The supported path is `build_release.py` followed by `run_vice.py` for playback
+or capture. VICE uses one fixed profile: **PAL, reSID, MOS8580 + digiboost**,
+resampling method 2, mono output at 22,050 Hz. Digiboost is the emulator setting;
+the PRG does not reprogram SID voices as additional DC references.
 
-Additional verified 50-second tests of Cream of the Earth, A Final Hyperbase
-(Enigma), and 4-Mat's Madness are in [results/more-mods/README.md](results/more-mods/README.md).
-Those full songs exceed the current resident memory layout; the linked test
-programs and actual VICE comparison recordings are complete for their 50s scope.
+## Instruments and notes
 
-The current player runs the complete four-minute **Stardust Memories** by
-Jester / Sanity as four independent sampled MOD tracks. Every instrument is a
-short reusable sample. The program does not store a full-song recording.
+`mod_reader.py` and `timeline.py` preserve the four source tracks, note triggers,
+pitch, sample selection, loops, volume and supported effects. Unsupported formats
+and effects fail explicitly. The supported inputs are sample-based, four-channel
+MODs; external synthesized instruments require separate support.
 
-- Program: `results/pcm4-clean/c64/stardust.prg`, **45,616 bytes**.
-- Instruments: **16**, occupying **21,683 bytes** after loop expansion.
-- Compressed score: **21,784 bytes**, representing all **12,000 ticks**.
-- Note triggers per original track: **1869, 694, 1096, 212**.
-- Target: PAL C64, MOS6581, graphics disabled.
-- Output: mono, four-bit volume DAC at **3,848.625 updates/s**.
-- Corrected actual VICE recording, first 50s: `results/pcm4-clean/short/vice/stardust-listening.wav`.
-- Level-matched before/after audition: `results/pcm4-clean/audition/`.
+`pcm4_prepare.py` low-pass resamples the original eight-bit instruments and
+quantizes them to four bits, stored one value per byte for fast lookup. A sample
+is reused at different playback rates for different notes. An eight-bit
+fractional cursor supplies the pitch step. Loop boundaries follow the bank's
+resampling divisor; short loops repeat to at least 256 stored bytes.
 
-The load image ends at `$BA2F`, below I/O at `$D000`. No REU, streaming or
-additional SID chips are required. SID oscillators remain muted; playback
-uses the volume-register DAC at `$D418`.
+The default bank scope is the complete song. Score-specific banks are used by
+the established Madness build to preserve its approved opening and accommodate
+higher notes later. `contextual_banks.py` selects the bank for a complete note
+segment, preserving retriggers and the accepted opening.
 
-## Sample and score preparation
+## Extended tracker support
 
-`pcm4_prepare.py` retains the original four-channel note and effect timeline.
-The independently checked MOD reader handles the effects used by this song.
-Unsupported effects and nonzero instrument finetune fail explicitly; this is
-not yet an unrestricted MOD player.
+Candidate builds retain ProTracker finetune, sample-offset memory (`9xx`),
+tremolo (`7xy`), fine slides, pattern loops, retrigger, note cut, delayed notes,
+pattern delay and tempo changes. Effects still outside the supported set fail
+explicitly. Sample-based StarTrekker `FLT4` modules are accepted; external synth
+instruments require separate support.
 
-Original eight-bit instrument waveforms are low-pass resampled and quantized
-to four-bit values, stored one per byte for fast lookup. The divisor is chosen
-per instrument from its highest actual playback rate in the whole song.
-Divisors are 5–8, retaining at least the pre-DAC bandwidth of the approved
-single-channel divisor-8 control. Playback uses an eight-bit fractional sample
-cursor; its step never exceeds 250. Loop boundaries are scaled to the bank.
-Short loops are repeated to at least 256 stored bytes to reduce boundary work,
-without changing the repeating waveform's period.
+The MOD's CIA or VBlank timing is a source-format property. When the file does
+not encode that choice, a hash-bound source receipt can record the independently
+verified timing mode. This does not select another C64 playback profile.
 
-The optional `--bank-scope score` chooses divisors from only the selected score,
-instead of the complete source song. This preserves more usable bandwidth in
-short test passages when much higher notes occur later in the source. Such
-banks and fractional steps must be rebuilt before using another score.
-The default remains `song`, preserving previous builds. In `score` mode,
-short source loops are repeated to a length divisible by the resampling
-divisor before filtering, preserving their original repeating pitch.
+Candidate preparation uses `protracker_loops=True`: an instrument-only or
+portamento row can change the next loop without restarting the current sample.
+Connected instruments share a resampling divisor, and the foreground decoder
+stages loop-target changes independently of note triggers. Sample offsets keep
+both the bank index and its fractional phase. Tiny exceptional initial DMA
+segments can share an existing loop without duplicating the full instrument.
 
-Each source track retains its own sample selection, pitch, trigger, loop and
-volume state. Equal original note triggers are not replaced by audio excerpts.
+Variable source ticks are rounded cumulatively to DAC samples and split when a
+record would exceed the byte-sized counter. The IRQ remains at 256 PAL cycles.
+Tick lengths and extended fields are decoded in foreground code. The three
+pinned full-song rebuilds retain their original preparation and PRG bytes.
 
-## Mixing and scheduling
+## Mixer and scheduling
 
-The mixer first looks up each voice's volume-scaled contribution at greater
-precision than the final four-bit DAC. It sums all four contributions and
-rounds once to the nearest four-bit DAC code, with ties to even. It does not
-separately round each channel into a small per-voice DAC range.
+The canonical release uses nearest rounding: sum the four volume-scaled
+contributions at higher precision, then quantize once to the four-bit DAC.
+An arrangement's `mixing.output_gain` is applied through the lookup table;
+no extra IRQ mixing work is required. The formula is
+`clamp(round(8 + (fine_sum - 128) * gain / 16), 0, 15)`.
 
-The safe numeric range of the fine sum is 8–232; the byte accumulator cannot
-overflow. The corrected complete digital reference uses DAC values 3–13 with
-no digital clipping. Four voices share the final four-bit output, so quiet
-material can still be rounded away and effective resolution depends on the mix.
+Guitar Slinger uses gain 3 before this rounding. At gain 1, quiet guitar phrases
+round to the silent midpoint; increasing the recorded WAV's level cannot
+recover them. This is a song-specific mixer level within the same digiboost
+profile. The three pinned full-song programs retain their established gains.
 
-Arrangements may explicitly set `mixing.output_gain` for nearest rounding.
-The default is 1; the formula is `clamp(round(8+(fine_sum-128)*gain/16),0,15)`.
-The gain is applied before quantization through a lookup table, adding no IRQ
-work. Increasing it makes quiet material survive quantization but can clip
-louder peaks. The reference reports clipped sample counts. It is not enabled
-globally: the original Stardust build remains byte-identical at gain 1.
+The CIA sample interval is 256 PAL CPU cycles: 985,248 / 256 = 3,848.625 Hz.
+Foreground code decodes the next tracker tick while the IRQ plays the current
+tick. The pinned release programs commit voice changes across the last four
+sample slots. Extended candidate programs commit at 8/6/4/2 samples remaining,
+leaving a recovery IRQ between heavy updates. Their audible offsets are
+−7/−5/−3/−1 DAC samples (at most about 1.8 ms early). The source tempo and
+256-cycle DAC clock stay unchanged. The independent reference models each
+format's stagger and the one-sample output pipeline explicitly.
 
-`pcm4_build.py --dc-boost` is a separate experimental option. It initializes
-all three SID voices with test, gate and pulse bits and full sustain as
-constant-DC references for the volume DAC. It changes the PRG and is disabled
-by default. The three release programs retain their original initialization;
-the option has assembly validation, not real-chip loudness or quality proof.
+`pcm4_build.py` assembles `pcm4_player.asm`. The release explicitly selects
+`dictionary8`, lossless score compression; its decoder runs in foreground code.
+The low-level builder retains older score formats for existing research inputs.
+Those formats are not alternative release profiles.
 
-The earlier player in `results/pcm4/` used residual error feedback. That
-reduced low-frequency quantization error but pushed substantial error into
-the audible 1.5–2kHz band at this low DAC clock. The user reported an
-applause-like noise. Controlled arithmetic and native-SID probes found this
-excess even with perfectly uniform sample timing, identifying quantization
-as the main cause. The current default removes that feedback. All original
-sample banks, note states, pitch, loop and volume data are unchanged.
-Missing `mixing.mode` in old arrangements preserves their legacy feedback
-algorithm; explicit `nearest` selects the correction. Unknown modes fail.
-Old binaries and recordings remain available as diagnostic evidence.
+The screen is disabled. Each program fits below `$D000` with no REU, streaming
+or additional SID chips. The build checks memory limits.
 
-The assembly uses self-modifying sample addresses, fractional steps and volume
-operands. Foreground code decodes the next tick while the current tick plays.
-Changes are committed one voice at a time across the final four sample slots.
-With the one-sample output pipeline, voices begin their next state 3, 2, 1 and
-0 sample periods before the nominal tick boundary. The largest deliberate
-stagger is under 0.8ms; the reference models it explicitly.
+## Validation
 
-The IRQ preserves A and may use Y. Foreground indexed reads protect Y briefly
-with saved interrupt state; descriptor reads use X, which the IRQ leaves
-untouched. This optimization removed the first version's late prefetches and
-cumulative clock drift. Failed builds and captures remain under `attempt-1`.
+`pcm4_reference.py` supplies the independent integer mixer/cursor model.
+Register captures check the actual `$D418` sequence, timing, completed tick count
+and prefetch underruns. These checks establish digital playback correctness;
+they do not establish perceived sound quality.
 
-## Verification
+Arithmetic receipts also report final-quantizer signal-to-error ratio and the
+fraction of prepared musical energy rounded to the midpoint. These catch lost
+quiet notes even when every C64 DAC byte matches the model. They do not measure
+loss already introduced by sample preparation or replace listening feedback.
 
-The final full PRG completed all 12,000 ticks with zero prefetch underruns.
-An independent integer mixer, cursor and scheduler model generated 923,670
-expected DAC bytes. Every actual D418 byte in VICE matched, with **zero
-mismatches**, anchored to the capture clock without alignment search.
+The [reproduction guide](REPRODUCE.md) pins complete PRG hashes. Those PRGs were
+originally verified under PAL/6581; the old recordings and receipts remain
+historical evidence under `results/optimization/`. New captures identify the
+fixed digiboost profile explicitly and do not reuse evidence from another model.
 
-Observed DAC intervals are **196–331 CPU cycles**, median 256. The cumulative
-clock-phase range is 185 cycles and the endpoint differs by only +1 cycle.
-There is no detected accumulated timing drift across the four-minute score.
-This does not claim that every individual IRQ completes within 256 cycles;
-occasional delayed interrupts recover without losing the verified stream.
+Audio captures use VICE's WAV device with warp disabled. A matching register run
+anchors the crop. Listening output may remove DC and apply one constant gain.
+Keep original audio and C64 audio in separate files.
 
-Evidence:
-
-- `results/pcm4-clean/c64/build.json`: binary, memory, bank and source hashes.
-- `results/pcm4-clean/vice/capture.json`: whole-song actual execution and timing.
-- `results/pcm4-clean/short/vice/capture.json`: first-50s actual WAV capture.
-- `results/pcm4-clean/reference/actual-trace-check.json`: complete DAC comparison.
-- `results/pcm4-clean/reference/reference.json`: independent digital model.
-- `results/pcm4-clean/audition/`: actual before/after comparison and audit.
-- `results/pcm4/noise-diagnosis-model/`: quantization-error ablation.
-- `results/pcm4/noise-diagnosis-core/`: uniform-clock versus actual-clock probe.
-- `results/pcm4/noise-diagnosis-mix/`: original, approved solo and mix evidence.
-
-The corrected whole four-minute PRG is verified through its full register
-stream. Only its first 50 seconds have a new actual WAV capture so far; the
-earlier four-minute WAV under `results/pcm4/` contains the noisy algorithm.
-
-This validation targets the installed PAL/6581 VICE configuration. Real-chip
-DAC variation and 8580 playback have not been measured. Listening files use
-only DC removal and constant level adjustment; there is no host-side mixing
-of the four instrument tracks in the actual VICE recording.
-
-## Build and capture
-
-Run from the repository root with the existing Python environment,
-KickAssembler and VICE:
-
-```sh
-rtk proxy experiments/sid-inverse/.venv/bin/python experiments/mod-hybrid/pcm4_prepare.py
-rtk proxy experiments/sid-inverse/.venv/bin/python experiments/mod-hybrid/pcm4_build.py
-rtk proxy experiments/sid-inverse/.venv/bin/python experiments/mod-hybrid/run_vice.py --prg experiments/mod-hybrid/results/pcm4-clean/c64/stardust.prg --symbols experiments/mod-hybrid/results/pcm4-clean/c64/pcm4.sym --out experiments/mod-hybrid/results/pcm4-clean/vice --duration 240
-rtk proxy experiments/sid-inverse/.venv/bin/python experiments/mod-hybrid/pcm4_reference.py --input experiments/mod-hybrid/results/pcm4-clean/arrangement.json --out experiments/mod-hybrid/results/pcm4-clean/reference --trace experiments/mod-hybrid/results/pcm4-clean/vice/registers.txt --capture experiments/mod-hybrid/results/pcm4-clean/vice/capture.json
-```
-
-The exact original MOD download and authorship are recorded in
-`sources/stardust-memories.source.json`. Earlier SID approximations and the
-approved single-channel PCM control are preserved under their original paths.
-
-## Experimental captured SID passages
-
-`sidtrace_extract.py` builds a short resident replay from VICE sound-device
-`dump` output (`delta register value` decimal lines). It extracts D418 volume
-nibbles and timestamped voice/filter writes; it does not read a SID file or
-convert an arbitrary tune. The current input contract requires D418 mode
-nibble `$3` throughout the chosen passage.
-
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/mod-hybrid/sidtrace_extract.py --dump /absolute/registers.txt --window 1 13 --out experiments/mod-hybrid/results/sidtrace-poc
-```
-
-The default tick is 256 PAL CPU cycles. `--tick-cycles 154` selects the faster
-experimental clock. The passage must fit a 16-bit sample count and end below
-`$CF00`; dense register writes can exceed an IRQ's time budget. Diagnostic
-options include `--boost-voice3`, `--all-boost`, `--digi-only`,
-`--channels-only` and `--no-filter`. These variants are not release programs.
-Synthetic PAL VICE checks cover event values and due-tick replay across the
-low-byte wrap; they do not establish fidelity or timing for a whole SID tune.
+Earlier fitting, hybrid players and the captured-SID passage tool are research
+utilities, outside the release workflow. Their history is in [HISTORY.md](HISTORY.md).

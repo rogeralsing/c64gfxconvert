@@ -1,7 +1,8 @@
-"""Read the four-channel, 31-instrument ProTracker MOD used by this experiment."""
+"""Read sample-based four-channel ProTracker and Startrekker MODs."""
 from __future__ import annotations
 
 import hashlib
+import json
 from pathlib import Path
 
 
@@ -14,8 +15,9 @@ def load_mod(path: Path | str) -> dict:
     """
     path = Path(path)
     data = path.read_bytes()
-    if len(data) < 1084 or data[1080:1084] not in (b"M.K.", b"M!K!", b"4CHN"):
+    if len(data) < 1084 or data[1080:1084] not in (b"M.K.", b"M!K!", b"4CHN", b"FLT4"):
         raise ValueError("Expected a four-channel, 31-instrument ProTracker MOD")
+    startrekker = data[1080:1084] == b"FLT4"
     length = data[950]
     if not 1 <= length <= 128:
         raise ValueError("Invalid order count")
@@ -63,9 +65,34 @@ def load_mod(path: Path | str) -> dict:
                                  "effect": c & 15, "param": d})
             rows.append(channels)
         patterns.append(rows)
-    return {
+    if startrekker:
+        # FLT4 uses the same 31-sample layout, but can also reference AM/FM
+        # synthesis kept in a companion file. Accept only self-contained PCM:
+        # every explicitly selected instrument must have actual sample data.
+        # OpenMPT's Load_mod.cpp detects missing AM data through empty samples.
+        selected = {n["sample"] for p in patterns for r in p for n in r if n["sample"]}
+        if any(not samples[index - 1]["length"] for index in selected):
+            raise ValueError("FLT4 references an empty instrument; external AM/FM synthesis is unsupported")
+    digest = hashlib.sha256(data).hexdigest()
+    timing_mode = None
+    receipt_path = path.with_suffix(".source.json")
+    if receipt_path.exists():
+        receipt = json.loads(receipt_path.read_text())
+        if "timing_mode" in receipt:
+            if receipt["sha256"] != digest:
+                raise ValueError("MOD timing receipt does not identify this source")
+            timing_mode = receipt["timing_mode"]
+            if timing_mode not in ("cia", "vblank"):
+                raise ValueError(f"Unsupported MOD timing mode {timing_mode!r}")
+            if startrekker and timing_mode != "vblank":
+                raise ValueError("FLT4 requires VBlank timing")
+    result = {
         "title": data[:20].split(b"\0")[0].decode("latin1"),
-        "source_path": str(path.resolve()), "sha256": hashlib.sha256(data).hexdigest(),
+        "source_path": str(path.resolve()), "sha256": digest,
         "channels": 4, "orders": orders, "patterns": patterns, "samples": samples,
         "bytes": len(data),
+        "format": "Startrekker FLT4" if startrekker else "ProTracker MOD",
     }
+    if timing_mode is not None:
+        result["timing_mode"] = timing_mode
+    return result

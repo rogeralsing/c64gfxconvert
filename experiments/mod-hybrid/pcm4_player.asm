@@ -1,5 +1,16 @@
-// Four 8-bit fractional PCM cursors through the 6581 volume DAC.
+// Four 8-bit fractional PCM cursors through the SID volume DAC.
 // Four lookups retain sub-nibble precision; the selected quantizer runs once.
+#if SAMPLE_OFFSETS
+#define EXTENDED_READS
+#else
+#if VARIABLE_TICKS
+#define EXTENDED_READS
+#else
+#if LOOP_TARGETS
+#define EXTENDED_READS
+#endif
+#endif
+#endif
 .label SID=$d400
 .label fraction=$20
 .label current_loop_lo=$24
@@ -32,25 +43,84 @@
 .label phrase_ptr=$70
 .label phrase_remaining=$72
 #endif
+#if SAMPLE_OFFSETS
+.label shadow_offset_lo=$74
+.label shadow_offset_hi=$78
+.label shadow_offset_fraction=$7c
+#endif
+#if LOOP_TARGETS
+.label shadow_loop_id=$80
+.label stopped=$3a
+#endif
 
 BasicUpstart2(start)
 
+.macro ReadExtendedStreamByte() {
+    ldx #0
+    lda (stream_ptr,x)
+    inc stream_ptr
+    bne !read+
+    inc stream_ptr+1
+!read:
+}
+
 .macro Commit(i, source, volume, step) {
+#if LOOP_TARGETS
+    // A finished one-shot remains on the silent DAC value until a later
+    // Paula loop-pointer update resumes it; preserve the fractional phase.
+    lda stopped+i
+    beq !running+
+    lda shadow_reset+i
+    bne !resume_trigger+
+    lda shadow_loop_lo+i
+    cmp #<silence_sample
+    bne !new_loop+
+    lda shadow_loop_hi+i
+    cmp #>silence_sample
+    bne !new_loop+
+    lda #0
+    jmp !step_ready+
+!new_loop:
+    lda shadow_loop_lo+i
+    sta source+1
+    lda shadow_loop_hi+i
+    sta source+2
+!resume_trigger:
+    lda #0
+    sta stopped+i
+!running:
+#endif
     lda shadow_step+i
+#if LOOP_TARGETS
+!step_ready:
+#endif
     sta step+1
     lda shadow_volume+i
     sta volume+1
+#if LOOP_TARGETS
+    lda shadow_loop_lo+i
+    sta current_loop_lo+i
+    lda shadow_loop_hi+i
+    sta current_loop_hi+i
+#endif
     lda shadow_reset+i
     beq !kept+
     lda shadow_start_lo+i
     sta source+1
     lda shadow_start_hi+i
     sta source+2
+#if LOOP_TARGETS
+#else
     lda shadow_loop_lo+i
     sta current_loop_lo+i
     lda shadow_loop_hi+i
     sta current_loop_hi+i
+#endif
+#if SAMPLE_OFFSETS
+    lda shadow_offset_fraction+i
+#else
     lda #0
+#endif
     sta fraction+i
 !kept:
 }
@@ -92,25 +162,6 @@ start:
     lda #8
     sta next_dac
     sta SID+24
-#if DIGI_DC_BOOST
-    // Constant-DC reference on every voice: test + gate + pulse with pulse
-    // width 0 and full sustain. The ADSR DAC then supplies a large fixed
-    // voltage for the volume register to modulate, instead of the chip's
-    // small natural offset. The voices stay untouched afterwards; the D418
-    // sample stream and all SID oscillator playback states are unchanged.
-    lda #$49
-    sta SID+4
-    sta SID+11
-    sta SID+18
-    lda #$01
-    sta SID+5
-    sta SID+12
-    sta SID+19
-    lda #$ff
-    sta SID+6
-    sta SID+13
-    sta SID+20
-#endif
     lda #<irq
     sta $fffe
     lda #>irq
@@ -127,6 +178,11 @@ start:
     :Commit(3,read3,vol3,step3)
     lda #1
     sta played_tick_count
+#if VARIABLE_TICKS
+    lda next_tick_samples
+    sta tick_samples
+    jsr decode_pending
+#else
     lda #200
     sta tick_error
     lda #0
@@ -136,6 +192,7 @@ start:
     sta tick_samples
     jsr prepare_tick_length
     jsr decode_pending
+#endif
     lda #$ff
     sta $dc04
     lda #0
@@ -150,7 +207,10 @@ song_started:
     lda decode_request
     beq !wait-
     dec decode_request
+#if VARIABLE_TICKS
+#else
     jsr prepare_tick_length
+#endif
     jsr decode_pending
     jmp !wait-
 
@@ -165,6 +225,8 @@ done:
 !halt:
     jmp !halt-
 
+#if VARIABLE_TICKS
+#else
 prepare_tick_length:
     clc
     lda tick_error
@@ -194,6 +256,7 @@ prepare_tick_length:
     lda #76
     sta next_tick_samples
     rts
+#endif
 
 get_byte:
 #if SCORE_DICTIONARY
@@ -202,11 +265,17 @@ get_byte:
     lda phrase_remaining
     beq !stream+
     dec phrase_remaining
+#if EXTENDED_READS
+    // The IRQ never touches X. This complete indirect read needs no IRQ mask.
+    ldx #0
+    lda (phrase_ptr,x)
+#else
     php
     sei
     ldy #0
     lda (phrase_ptr),y
     plp
+#endif
     inc phrase_ptr
     bne !ready+
     inc phrase_ptr+1
@@ -214,7 +283,13 @@ get_byte:
     ora #0
     rts
 !stream:
+#if EXTENDED_READS
+    // Keep literal/control reads inline in the extended foreground decoder.
+    // CMP below restores flags after pointer increments, so no extra ORA is needed.
+    :ReadExtendedStreamByte()
+#else
     jsr get_stream_byte
+#endif
 #if SCORE_DICTIONARY_8
     cmp #$c0
     bcc !literal+
@@ -248,6 +323,10 @@ get_byte:
 get_stream_byte:
 #endif
     // IRQ owns Y. Protect only the indexed read; it never touches X.
+#if EXTENDED_READS
+    // The IRQ never touches X. This complete indirect read needs no IRQ mask.
+    :ReadExtendedStreamByte()
+#else
     php
     sei
     ldy #0
@@ -257,6 +336,7 @@ get_stream_byte:
     bne !ready+
     inc stream_ptr+1
 !ready:
+#endif
     ora #0
     rts
 
@@ -309,6 +389,37 @@ next_block:
     asl
     sta shadow_volume+i
 !volume_done:
+#if SAMPLE_OFFSETS
+    lda #0
+    sta shadow_offset_lo+i
+    sta shadow_offset_hi+i
+    sta shadow_offset_fraction+i
+    lda field_flags
+    and #16
+    beq !offset_done+
+    jsr get_byte
+    sta shadow_offset_lo+i
+    jsr get_byte
+    sta shadow_offset_hi+i
+    jsr get_byte
+    sta shadow_offset_fraction+i
+!offset_done:
+#endif
+#if LOOP_TARGETS
+    lda field_flags
+    and #32
+    beq !loop_id_done+
+    jsr get_byte
+    sta shadow_loop_id+i
+    // Cache the descriptor only when its ID changes. Volume/step updates
+    // and retriggers of the same instrument retain these prepared pointers.
+    tax
+    lda bank_loop_lo,x
+    sta shadow_loop_lo+i
+    lda bank_loop_hi,x
+    sta shadow_loop_hi+i
+!loop_id_done:
+#endif
     lda field_flags
     and #8
     bne !reset+
@@ -323,14 +434,25 @@ next_block:
     sta shadow_step+i
 !active:
     lda bank_start_lo,x
+#if SAMPLE_OFFSETS
+    clc
+    adc shadow_offset_lo+i
+#endif
     sta shadow_start_lo+i
     lda bank_start_hi,x
+#if SAMPLE_OFFSETS
+    adc shadow_offset_hi+i
+#endif
     sta shadow_start_hi+i
+#if LOOP_TARGETS
+!done:
+#else
     lda bank_loop_lo,x
     sta shadow_loop_lo+i
     lda bank_loop_hi,x
     sta shadow_loop_hi+i
 !done:
+#endif
 }
 
 decode_pending:
@@ -360,23 +482,55 @@ decode_pending:
     jmp !ready+
 !packet:
     sta voice_mask
+#if VARIABLE_TICKS
+    and #16
+    beq !duration_done+
+    jsr get_byte
+    sta next_tick_samples
+!duration_done:
+    lda voice_mask
+#endif
     and #1
+#if SAMPLE_OFFSETS
+    bne !decode0+
+    jmp !v0+
+!decode0:
+#else
     beq !v0+
+#endif
     :DecodeVoice(0)
 !v0:
     lda voice_mask
     and #2
+#if SAMPLE_OFFSETS
+    bne !decode1+
+    jmp !v1+
+!decode1:
+#else
     beq !v1+
+#endif
     :DecodeVoice(1)
 !v1:
     lda voice_mask
     and #4
+#if SAMPLE_OFFSETS
+    bne !decode2+
+    jmp !v2+
+!decode2:
+#else
     beq !v2+
+#endif
     :DecodeVoice(2)
 !v2:
     lda voice_mask
     and #8
+#if SAMPLE_OFFSETS
+    bne !decode3+
+    jmp !v3+
+!decode3:
+#else
     beq !v3+
+#endif
     :DecodeVoice(3)
 !v3:
 !ready:
@@ -391,9 +545,20 @@ irq:
     sta SID+24
     // Deterministic one-voice commit, staged before the end of each tick.
     lda tick_samples
+#if LOOP_TARGETS
+    // Extended commits are separated by recovery IRQs. Four adjacent heavy
+    // commits can otherwise coalesce CIA timer events even with ready data.
+    cmp #9
+    bcs !ordinary+
+    lsr
+    bcc !stagger+
+!ordinary:
+    jmp mixer_begin
+#else
     cmp #5
     bcc !stagger+
     jmp mixer_begin
+#endif
 !stagger:
     lda pending_ready
     bne !ready+
@@ -408,18 +573,39 @@ irq:
     jmp mixer_begin
 !commit:
     lda tick_samples
+#if LOOP_TARGETS
+    lsr
+#endif
     cmp #4
+#if LOOP_TARGETS
+    beq !commit0+
+    jmp !check1+
+!commit0:
+#else
     bne !check1+
+#endif
     :Commit(0,read0,vol0,step0)
     jmp mixer_begin
 !check1:
     cmp #3
+#if LOOP_TARGETS
+    beq !commit1+
+    jmp !check2+
+!commit1:
+#else
     bne !check2+
+#endif
     :Commit(1,read1,vol1,step1)
     jmp mixer_begin
 !check2:
     cmp #2
+#if LOOP_TARGETS
+    beq !commit2+
+    jmp !check3+
+!commit2:
+#else
     bne !check3+
+#endif
     :Commit(2,read2,vol2,step2)
     jmp mixer_begin
 !check3:
@@ -429,8 +615,21 @@ mixer_begin:
 read0:
     lda silence_sample
     bpl sample0
+#if LOOP_TARGETS
+    // End markers choose the current next-loop descriptor. A source bank's
+    // non-loop marker must not stop a newly selected real loop.
+    lda current_loop_lo+0
+    cmp #<silence_sample
+    bne loop0
+    lda current_loop_hi+0
+    cmp #>silence_sample
+    bne loop0
+    lda #1
+    sta stopped+0
+#else
     cmp #$81
     bne loop0
+#endif
     lda #0
     sta step0+1
 loop0:
@@ -459,8 +658,21 @@ advance_done0:
 read1:
     lda silence_sample
     bpl sample1
+#if LOOP_TARGETS
+    // End markers choose the current next-loop descriptor. A source bank's
+    // non-loop marker must not stop a newly selected real loop.
+    lda current_loop_lo+1
+    cmp #<silence_sample
+    bne loop1
+    lda current_loop_hi+1
+    cmp #>silence_sample
+    bne loop1
+    lda #1
+    sta stopped+1
+#else
     cmp #$81
     bne loop1
+#endif
     lda #0
     sta step1+1
 loop1:
@@ -489,8 +701,21 @@ advance_done1:
 read2:
     lda silence_sample
     bpl sample2
+#if LOOP_TARGETS
+    // End markers choose the current next-loop descriptor. A source bank's
+    // non-loop marker must not stop a newly selected real loop.
+    lda current_loop_lo+2
+    cmp #<silence_sample
+    bne loop2
+    lda current_loop_hi+2
+    cmp #>silence_sample
+    bne loop2
+    lda #1
+    sta stopped+2
+#else
     cmp #$81
     bne loop2
+#endif
     lda #0
     sta step2+1
 loop2:
@@ -519,8 +744,21 @@ advance_done2:
 read3:
     lda silence_sample
     bpl sample3
+#if LOOP_TARGETS
+    // End markers choose the current next-loop descriptor. A source bank's
+    // non-loop marker must not stop a newly selected real loop.
+    lda current_loop_lo+3
+    cmp #<silence_sample
+    bne loop3
+    lda current_loop_hi+3
+    cmp #>silence_sample
+    bne loop3
+    lda #1
+    sta stopped+3
+#else
     cmp #$81
     bne loop3
+#endif
     lda #0
     sta step3+1
 loop3:

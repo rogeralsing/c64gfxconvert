@@ -1,4 +1,4 @@
-"""Run the built PAL/6581 program and capture its actual SID output in VICE.
+"""Play or capture a program using the fixed PAL/8580 + digiboost profile.
 
 Register timing and PCM use separate runs. VICE's dump device bypasses PCM;
 its WAV device requires warp disabled. Neither run substitutes a host mixer.
@@ -15,8 +15,7 @@ from pathlib import Path
 import numpy as np
 import soundfile as sf
 
-PAL_CLOCK = 985248
-RATE = 22050
+from vice_profile import MODEL, PAL_CLOCK, PROFILE, RATE, vice_command
 
 
 def symbols(path: Path) -> dict[str, int]:
@@ -28,21 +27,22 @@ def trace_receipt(path: Path, duration: float, sid_voices: int = 2) -> dict:
     clock = 0
     volume_cycles = []
     voice_writes = [0] * sid_voices
-    for line in path.open():
-        fields = line.split()
-        if len(fields) != 3:
-            continue
-        try:
-            delta, register, value = map(int, fields)
-        except ValueError:
-            continue
-        clock += delta
-        register &= 31
-        if register == 24:
-            volume_cycles.append(clock)
-        for voice in range(sid_voices):
-            if register in (voice * 7, voice * 7 + 1, voice * 7 + 4):
-                voice_writes[voice] += 1
+    with path.open() as stream:
+        for line in stream:
+            fields = line.split()
+            if len(fields) != 3:
+                continue
+            try:
+                delta, register, value = map(int, fields)
+            except ValueError:
+                continue
+            clock += delta
+            register &= 31
+            if register == 24:
+                volume_cycles.append(clock)
+            for voice in range(sid_voices):
+                if register in (voice * 7, voice * 7 + 1, voice * 7 + 4):
+                    voice_writes[voice] += 1
     cycles = np.asarray(volume_cycles, dtype=np.int64)
     if len(cycles) < 100:
         raise ValueError("No sustained D418 sample stream in VICE register dump")
@@ -104,15 +104,14 @@ def capture(prg: Path, sym: Path, out: Path, duration: float, mode: str) -> dict
                        'quit\n')
     dump = out / "registers.txt"
     wav = out / "vice-raw.wav"
-    command = ["/opt/homebrew/bin/x64sc", "-default", "-console", "-pal", "-seed", "1",
-               "-sidmodel", "0", "-residsamp", "2", "-soundrate", str(RATE),
-               "-soundoutput", "1", "-soundvolume", "100", "-initbreak", "ready",
+    command = vice_command() + ["-console", "-seed", "1", "-initbreak", "ready",
                "-moncommands", str(monitor.resolve()),
                "-limitcycles", str(round((duration + 15) * PAL_CLOCK))]
     modes = ("registers", "audio") if mode == "both" else (mode,)
     receipt = {"program": str(prg.resolve()), "program_bytes": prg.stat().st_size,
                "program_sha256": hashlib.sha256(prg.read_bytes()).hexdigest(),
-               "model": "PAL MOS6581", "sample_rate": RATE, "score_duration_s": duration}
+               "model": MODEL, "profile": dict(PROFILE),
+               "sample_rate": RATE, "score_duration_s": duration}
     build_path = sym.parent / "build.json"
     if build_path.exists():
         build = json.loads(build_path.read_text())
@@ -121,11 +120,26 @@ def capture(prg: Path, sym: Path, out: Path, duration: float, mode: str) -> dict
         receipt["sid_voices"] = build.get("sid_voices", 2)
     else:
         receipt["sid_voices"] = 2
+    expected_ticks = int(build["ticks"]) if build_path.exists() else round(duration * 50)
+    receipt["expected_ticks"] = expected_ticks
     receipt_path = out / "capture.json"
-    if receipt_path.exists():
+    if mode == "audio" and receipt_path.exists():
         old = json.loads(receipt_path.read_text())
-        if old.get("program_sha256") == receipt["program_sha256"]:
-            receipt.update(old)
+        identity = ("program_sha256", "profile", "sample_rate", "score_duration_s", "sid_voices", "expected_ticks")
+        if (all(old.get(key) == receipt[key] for key in identity)
+                and "trace" in old and dump.exists()
+                and old.get("trace_sha256") == hashlib.sha256(dump.read_bytes()).hexdigest()
+                and old.get("runtime", {}).get("registers") == {
+                    "played_tick_count": expected_ticks, "underrun_counter": 0}):
+            receipt["trace"] = old["trace"]
+            receipt["trace_sha256"] = old["trace_sha256"]
+            receipt["runtime"] = {"registers": old["runtime"]["registers"]}
+    if mode == "audio" and "trace" not in receipt:
+        raise ValueError("Run register capture first with this program and the current digiboost profile")
+    # A fresh capture invalidates old WAVs and audio metadata, including when
+    # a register-only run replaces the timing anchor used by a prior WAV.
+    for name in ("vice-raw.wav", "stardust-vice.wav", "stardust-listening.wav", "stardust-preview.wav"):
+        (out / name).unlink(missing_ok=True)
     receipt_path.write_text(json.dumps(receipt, indent=2) + "\n")
     for current_mode in modes:
         options = (["-sounddev", "dump", "-soundarg", str(dump.resolve()), "-warp"]
@@ -145,15 +159,12 @@ def capture(prg: Path, sym: Path, out: Path, duration: float, mode: str) -> dict
             raise ValueError("Incomplete C64 runtime counter dump")
         receipt.setdefault("runtime", {})[current_mode] = values
         receipt_path.write_text(json.dumps(receipt, indent=2) + "\n")
-        if values["played_tick_count"] != round(duration * 50) or values["underrun_counter"]:
+        if values["played_tick_count"] != expected_ticks or values["underrun_counter"]:
             raise ValueError(f"C64 sequencer did not complete all ticks without backlog: {values}")
         if current_mode == "registers":
             receipt["trace"] = trace_receipt(dump, duration, receipt["sid_voices"])
+            receipt["trace_sha256"] = hashlib.sha256(dump.read_bytes()).hexdigest()
         else:
-            if "trace" not in receipt:
-                if not dump.exists():
-                    raise ValueError("Run register capture first to anchor PCM cropping")
-                receipt["trace"] = trace_receipt(dump, duration, receipt["sid_voices"])
             pcm, rate = sf.read(wav, dtype="float64", always_2d=True)
             if rate != RATE or pcm.shape[1] != 1:
                 raise ValueError("Expected mono VICE output at 22050 Hz")
@@ -171,12 +182,15 @@ def capture(prg: Path, sym: Path, out: Path, duration: float, mode: str) -> dict
             gain = min(8.0, 0.92 / peak)
             listening = full * gain
             sf.write(out / "stardust-listening.wav", listening, rate, subtype="PCM_16")
-            sf.write(out / "stardust-preview.wav", listening[30 * rate:50 * rate], rate, subtype="PCM_16")
+            preview = listening[30 * rate:50 * rate]
+            if len(preview):
+                sf.write(out / "stardust-preview.wav", preview, rate, subtype="PCM_16")
             receipt["audio"] = {"frames": len(full), "duration_s": len(full) / rate,
                                 "crop_start_frame": anchor, "raw_peak": peak,
                                 "raw_rms": float(np.sqrt(np.mean(full * full))),
-                                "listening_gain": gain, "preview_start_s": 30,
-                                "preview_duration_s": 20, "warp": False,
+                                "listening_gain": gain,
+                                "preview_start_s": 30 if len(preview) else None,
+                                "preview_duration_s": len(preview) / rate, "warp": False,
                                 "twenty_second_rms": [float(np.sqrt(np.mean(full[i:i + 20 * rate] ** 2)))
                                                       for i in range(0, len(full), 20 * rate)],
                                 "note": "Audio generated by the C64 program inside VICE; DC removed and a constant listening gain applied. No host-side SID/PCM mixing."}
@@ -185,15 +199,28 @@ def capture(prg: Path, sym: Path, out: Path, duration: float, mode: str) -> dict
     return receipt
 
 
+def play(prg: Path) -> None:
+    if not prg.is_file():
+        raise ValueError(f"Program does not exist: {prg}")
+    subprocess.run(vice_command() + ["+warp", "-speed", "100", "-autostartprgmode", "1",
+                                    "-autostart", str(prg.resolve())], check=True)
+
+
 def main() -> None:
     here = Path(__file__).resolve().parent
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--prg", type=Path, required=True)
-    parser.add_argument("--symbols", type=Path, required=True)
+    parser.add_argument("--play", action="store_true", help="Open VICE and play the PRG interactively")
+    parser.add_argument("--symbols", type=Path)
     parser.add_argument("--out", type=Path, default=here / "results/vice")
     parser.add_argument("--duration", type=float, default=240)
     parser.add_argument("--mode", choices=("both", "registers", "audio"), default="both")
     args = parser.parse_args()
+    if args.play:
+        play(args.prg)
+        return
+    if args.symbols is None:
+        parser.error("--symbols is required for capture; use --play for interactive playback")
     print(json.dumps(capture(args.prg, args.symbols, args.out, args.duration, args.mode), indent=2))
 
 

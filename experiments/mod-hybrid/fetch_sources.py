@@ -1,4 +1,4 @@
-"""Fetch the three release MOD sources and verify their recorded identities."""
+"""Fetch selected MOD sources and verify their recorded identities."""
 from __future__ import annotations
 
 import hashlib
@@ -9,11 +9,17 @@ import urllib.request
 
 HERE = Path(__file__).resolve().parent
 SONGS = ("stardust-memories", "hyperbased", "4mats-madness")
+CANDIDATES = ("global-trash-3", "madness-took-me", "rink-a-dink", "elysium",
+              "global-trash", "mobyle", "livin-insanity", "elektrik-funk",
+              "desert-dream-1", "guitar-slinger", "klisje-paa-klisje",
+              "physical-presence", "condom-corruption")
 
 
-def fetch_sources(directory: Path = HERE / "sources") -> list[dict]:
+def fetch_sources(directory: Path = HERE / "sources", songs: tuple[str, ...] = SONGS) -> list[dict]:
     results = []
-    for name in SONGS:
+    for name in songs:
+        if name not in SONGS + CANDIDATES:
+            raise ValueError(f"Unknown MOD source: {name}")
         receipt = json.loads((directory / f"{name}.source.json").read_text())
         target = directory / f"{name}.mod"
         expected_size = int(receipt["bytes"])

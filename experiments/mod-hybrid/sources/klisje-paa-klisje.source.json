@@ -1,0 +1,18 @@
+{
+  "title": "Klisje Paa Klisje",
+  "author": "Walkman / Cryptoburners",
+  "source_page": "https://demozoo.org/music/38729/",
+  "download_url": "https://media.demozoo.org/music/1b/21/klisje.MOD",
+  "bytes": 225280,
+  "sha256": "c1419dfa7abeb2bd055338bc33085415eaf158ea1a49c89536fb3003a8f8dfda",
+  "rights": "Original authorship and copyright retained; module is not a CC0 laboratory recording.",
+  "timing_mode": "vblank",
+  "timing_evidence": {
+    "detector": "Independent libopenmpt module metadata",
+    "reported_tracker": "ProTracker (VBlank)",
+    "observed_command": "F30 selects speed 48 while tempo remains 125 BPM",
+    "format_ambiguity": "M.K. does not distinguish CIA and VBlank replay; bind this explicit dialect to the exact source hash.",
+    "primary_loader_source": "https://github.com/OpenMPT/openmpt/blob/master/soundlib/Load_mod.cpp",
+    "checked_source_sha256": "c1419dfa7abeb2bd055338bc33085415eaf158ea1a49c89536fb3003a8f8dfda"
+  }
+}

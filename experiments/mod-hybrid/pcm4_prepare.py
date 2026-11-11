@@ -7,6 +7,7 @@ per DAC update. All four original note/effect tracks remain independent.
 from __future__ import annotations
 
 import argparse
+from fractions import Fraction
 import hashlib
 import json
 import math
@@ -24,7 +25,8 @@ PCM_RATE = PAL_CLOCK / 256
 PAULA_CLOCK = 3546894.6
 
 
-def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: str = "song") -> dict:
+def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: str = "song",
+            protracker_loops: bool = False) -> dict:
     if bank_scope not in ("song", "score"):
         raise ValueError("bank_scope must be song or score")
     mod = load_mod(source)
@@ -44,11 +46,36 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
     divisors = {}
     for instrument in range(1, 32):
         periods = [state["period"] for tick in divisor_ticks for state in tick["channels"]
-                   if state["playing_sample"] == instrument and state["period"] > 0]
+                   if (state["playing_sample"] == instrument or
+                       protracker_loops and state.get("loop_sample") == instrument)
+                   and state["period"] > 0]
         if periods:
             divisor = max(1, math.ceil(PAULA_CLOCK / min(periods) / PCM_RATE * 256 / 255))
             divisors[instrument] = divisor
-    used = sorted({s["playing_sample"] for t in ticks for s in t["channels"] if s["playing_sample"]})
+    if protracker_loops:
+        # A Paula loop pointer can change instrument without restarting its
+        # current DMA segment. Those linked banks must share a divisor because
+        # the C64 fractional step continues unchanged across the transition.
+        parent = {instrument: instrument for instrument in divisors}
+        def component(instrument):
+            while parent[instrument] != instrument:
+                parent[instrument] = parent[parent[instrument]]
+                instrument = parent[instrument]
+            return instrument
+        for tick in divisor_ticks:
+            for state in tick["channels"]:
+                current, target = state["playing_sample"], state.get("loop_sample", 0)
+                if current in parent and target in parent and mod["samples"][target - 1]["loop_length"] > 2:
+                    parent[component(target)] = component(current)
+        maxima = {}
+        for instrument, divisor in divisors.items():
+            group = component(instrument)
+            maxima[group] = max(maxima.get(group, 1), divisor)
+        divisors = {instrument: maxima[component(instrument)] for instrument in divisors}
+    used = sorted({s["playing_sample"] for t in ticks for s in t["channels"] if s["playing_sample"]}
+                  | {s["loop_sample"] for t in ticks for s in t["channels"]
+                     if protracker_loops and s.get("loop_sample") and
+                     mod["samples"][s["loop_sample"] - 1]["loop_length"] > 2})
     bank = []
     for instrument in used:
         sample = mod["samples"][instrument - 1]
@@ -81,6 +108,9 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
             bank[-1]["source_loop_copies_before_resampling"] = loop_copies
     arranged = []
     maximum_step = 0
+    by_id = {entry["id"]: entry for entry in bank}
+    segment_aliases = {}
+    variable_ticks = any(abs(tick["duration_s"] - 0.02) > 1e-8 for tick in ticks)
     for tick in ticks:
         pcm = []
         for state in tick["channels"]:
@@ -89,10 +119,66 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
             if not 0 <= step <= 255:
                 raise ValueError(f"Sample {instrument} exceeds fractional-cursor range: {step}")
             maximum_step = max(maximum_step, step)
-            pcm.append({"sample": instrument, "step": step, "volume": state["volume"],
-                        "trigger": state["trigger"]})
-        arranged.append({key: tick[key] for key in ("time_s", "duration_s", "order", "pattern", "row", "tick")} | {"pcm": pcm})
-    duration = len(arranged) / 50
+            voice = {"sample": instrument, "step": step, "volume": state["volume"],
+                     "trigger": state["trigger"]}
+            if protracker_loops and "loop_sample" in state:
+                target = state["loop_sample"]
+                voice["loop_sample"] = target if target and mod["samples"][target - 1]["loop_length"] > 2 else 0
+            if instrument and state["trigger"] and state.get("offset", 0):
+                entry = by_id[instrument]
+                # Keep the fractional part of the source offset after bank
+                # resampling. A 9xx start must not allocate a duplicate sample.
+                divisor = divisors[instrument]
+                phase = (int(state["offset"]) * 256 + divisor // 2) // divisor
+                end = (entry["loop_start"] + entry["loop_length"]
+                       if entry["loop_length"] else entry["bytes"])
+                phase = min(phase, end * 256)
+                voice["offset"], voice["offset_fraction"] = phase >> 8, phase & 255
+            if instrument and state["trigger"] and "first_segment_bytes" in state:
+                # ProTracker's out-of-range 9xx rule can play a two-byte
+                # initial DMA segment before returning to the normal loop.
+                # Share that loop with a tiny prefix descriptor instead of
+                # cloning an entire instrument for every offset.
+                source_offset = int(state.get("offset", 0))
+                segment_bytes = int(state["first_segment_bytes"])
+                if segment_bytes <= 0:
+                    raise ValueError("Initial sample segment must contain bytes")
+                key = (instrument, source_offset, segment_bytes)
+                if key not in segment_aliases:
+                    alias_id = max(by_id) + 1
+                    if alias_id > 255:
+                        raise ValueError("Sample segment aliases exceed the PCM ID range")
+                    original_entry = by_id[instrument]
+                    divisor = divisors[instrument]
+                    data = Path(original_entry["data_file"]).read_bytes()
+                    start = min(source_offset // divisor, len(data) - 1)
+                    end = max(start + 1, min(math.ceil((source_offset + segment_bytes) / divisor), len(data)))
+                    prefix = data[start:end]
+                    alias_path = bank_dir / f"sample-{alias_id:02d}.bin"
+                    alias_path.write_bytes(prefix)
+                    alias = {"id": alias_id, "data_file": str(alias_path.resolve()), "bytes": len(prefix),
+                             "loop_start": 0, "loop_length": 0, "base_divisor": divisor,
+                             "original_bytes": segment_bytes, "original_instrument": instrument,
+                             "first_segment_source_offset": source_offset,
+                             "sha256": hashlib.sha256(prefix).hexdigest(),
+                             "processing": "Tiny initial DMA prefix; normal instrument loop remains shared"}
+                    if original_entry["loop_length"]:
+                        alias["loop_target_id"] = instrument
+                    bank.append(alias)
+                    by_id[alias_id] = alias
+                    segment_aliases[key] = alias_id
+                voice["sample"] = segment_aliases[key]
+                voice["offset"] = 0
+                voice["offset_fraction"] = ((source_offset * 256 + divisors[instrument] // 2)
+                                            // divisors[instrument]) & 255
+            pcm.append(voice)
+        record = {key: tick[key] for key in ("time_s", "duration_s", "order", "pattern", "row", "tick")} | {"pcm": pcm}
+        if variable_ticks and "bpm" in tick:
+            record["bpm"] = tick["bpm"]
+        arranged.append(record)
+    duration = (float(sum((Fraction(5, 2 * int(tick["bpm"])) if "bpm" in tick
+                           else Fraction(str(tick["duration_s"]))) for tick in arranged))
+                if variable_ticks else len(arranged) / 50)
     result = {"title": f"{mod['title']}: four original PCM tracks", "source": str(source.resolve()),
               "source_sha256": mod["sha256"], "duration_s": duration,
               "pal_clock_hz": PAL_CLOCK, "pcm_rate_hz": PCM_RATE,
@@ -102,7 +188,7 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
                          "lookup": "32+round((nibble-8)*quantized_volume/4)",
                          "quantization": "Sum four fine-grained contributions, then round once to the nearest DAC code; ties to even. No residual feedback.",
                          "initial_dac": 8, "initial_residual": 0},
-              "scope": "PAL6581 sample-only resident playback; no SID oscillator approximation and no full-song audio recording stored in RAM."}
+              "scope": "PAL sample-only resident playback, MOS8580 + digiboost in VICE; no SID oscillator approximation and no full-song audio recording stored in RAM."}
     if bank_scope == "score":
         result["sample_bank_strategy"] = "Selected-score highest pitch only; bank and fractional steps must be prepared again for a different score"
         result["bank_scope"] = bank_scope

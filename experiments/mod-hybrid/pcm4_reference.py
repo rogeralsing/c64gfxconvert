@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import argparse
 from collections import Counter
+from fractions import Fraction
 import hashlib
 import json
 import math
@@ -37,8 +38,6 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
         raise ValueError("Expected exactly four PCM voices in every tick")
     if abs(arrangement["pcm_rate_hz"] - PCM_RATE) > 1e-7:
         raise ValueError("Expected PAL 256-cycle sample clock")
-    if any(abs(tick["duration_s"] - 0.02) > 1e-8 for tick in ticks):
-        raise ValueError("This score requires 50 Hz music ticks")
     mode = arrangement.get("mixing", {}).get("mode", "feedback")
     if mode not in ("feedback", "nearest"):
         raise ValueError(f"Unsupported four-PCM mixing mode: {mode}")
@@ -61,20 +60,40 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
         if length and not 0 <= start < start + length <= len(data):
             raise ValueError("Bank loop exceeds sample data")
         end = start + length if length else len(data)
-        banks[int(entry["id"])] = {"data": data, "start": start, "length": length, "end": end}
+        banks[int(entry["id"])] = {"data": data, "start": start, "length": length, "end": end,
+                                    "loop_target": int(entry.get("loop_target_id", entry["id"] if length else 0))}
         bank_receipt.append({"id": entry["id"], "bytes": len(data), "loop_start": start,
                              "loop_length": length, "base_divisor": entry.get("base_divisor"),
                              "sha256": hashlib.sha256(raw).hexdigest()})
     # Exact midpoint Bresenham rounding, including half-sample ties. Integer
     # 30789/400 avoids floating-point and banker's-rounding differences.
-    cuts = (np.arange(len(ticks) + 1, dtype=np.int64) * 30789 + 200) // 400
+    fixed_ticks = all(abs(tick["duration_s"] - 0.02) <= 1e-8 for tick in ticks)
+    if fixed_ticks:
+        cuts = (np.arange(len(ticks) + 1, dtype=np.int64) * 30789 + 200) // 400
+    else:
+        # Independent score-time integration: the model does not import the
+        # packer's subdivision or timing implementation.
+        elapsed, boundaries = Fraction(0), [0]
+        for tick in ticks:
+            seconds = (Fraction(5, 2 * int(tick["bpm"])) if "bpm" in tick
+                       else Fraction(str(tick["duration_s"])))
+            if seconds <= 0 or abs(float(seconds) - tick["duration_s"]) > 1e-8:
+                raise ValueError("Tracker tick duration and BPM disagree")
+            elapsed += seconds * Fraction(PAL_CLOCK, 256)
+            boundaries.append(math.floor(elapsed + Fraction(1, 2)))
+        cuts = np.asarray(boundaries, dtype=np.int64)
+        if np.any(np.diff(cuts) < 5):
+            raise ValueError("Tracker ticks cannot fit four staged voice commits")
     frame_count = int(cuts[-1])
     mixed = np.zeros(frame_count, dtype=np.int16)
     table = np.array([[32 + round((sample - 8) * level / 4) for sample in range(16)]
                       for level in range(16)], dtype=np.int16)
+    extended_loops = any("loop_sample" in state for tick in ticks for state in tick["pcm"])
+    commit_lead = [8, 6, 4, 2] if extended_loops else [4, 3, 2, 1]
     positions = [0, 0, 0, 0]
     active = [False] * 4
     loaded_ids = [0] * 4
+    loop_targets = [0] * 4
     triggers = [0] * 4
     levels = [Counter() for _ in range(4)]
     reads = [0] * 4
@@ -82,13 +101,15 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
     for index, tick in enumerate(ticks):
         for voice, state in enumerate(tick["pcm"]):
             # The foreground prefetches the next tick. The IRQ commits voice0
-            # with four samples left, then voices1/2/3 with three/two/one left,
-            # before mixing that IRQ's next DAC value. The one-sample output
-            # pipeline makes the audible offsets -3/-2/-1/0 sample periods.
+            # with four samples left, then voices1/2/3 with three/two/one left
+            # in the legacy format. Extended loop-pointer scores commit at
+            # eight/six/four/two left so ordinary IRQs recover between commits.
+            # The one-sample pipeline makes audible offsets -3/-2/-1/0 in the
+            # legacy case and -7/-5/-3/-1 in the extended case.
             # Initial states are all committed before starting the timer;
             # the final state continues through the final output sample.
-            start = 0 if index == 0 else int(cuts[index]) - 4 + voice
-            end = frame_count if index == len(ticks) - 1 else int(cuts[index + 1]) - 4 + voice
+            start = 0 if index == 0 else int(cuts[index]) - commit_lead[voice]
+            end = frame_count if index == len(ticks) - 1 else int(cuts[index + 1]) - commit_lead[voice]
             count = end - start
             instrument, step = int(state["sample"]), int(state["step"])
             if not 0 <= step < 256:
@@ -99,33 +120,59 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
             if state["trigger"]:
                 triggers[voice] += 1
                 loaded_ids[voice] = instrument
-                positions[voice] = 0
+                positions[voice] = (int(state.get("offset", 0)) << 8) | int(state.get("offset_fraction", 0))
                 active[voice] = bool(instrument)
+                loop_targets[voice] = banks[instrument]["loop_target"] if instrument else 0
+            if "loop_sample" in state:
+                loop_targets[voice] = int(state["loop_sample"])
+            if not active[voice] and loaded_ids[voice] and "loop_sample" in state:
+                # Paula keeps repeating its silent first word after a one-shot
+                # ends. A later loop-pointer update can resume that channel
+                # without a new note trigger.
+                target_id = loop_targets[voice]
+                target = banks.get(target_id)
+                if target and target["loop_target"] != target_id:
+                    target_id = target["loop_target"]
+                    target = banks.get(target_id)
+                if target and target["length"]:
+                    loaded_ids[voice] = target_id
+                    positions[voice] = (target["start"] << 8) | (positions[voice] & 255)
+                    active[voice] = True
             if instrument == 0:
                 active[voice] = False
             if not active[voice]:
                 mixed[start:end] += 32
                 continue
-            bank = banks[loaded_ids[voice]]
-            phase = positions[voice] + np.arange(count, dtype=np.int64) * step
-            sample_index = phase >> 8
-            if bank["length"]:
-                wrapped = sample_index >= bank["end"]
-                sample_index[wrapped] = bank["start"] + (sample_index[wrapped] - bank["start"]) % bank["length"]
-            valid = sample_index < bank["end"]
-            codes = np.full(count, 8, dtype=np.uint8)
-            codes[valid] = bank["data"][sample_index[valid]]
-            reads[voice] += int(valid.sum())
-            mixed[start:end] += table[level, codes]
-            positions[voice] += count * step
-            pointer = positions[voice] >> 8
-            if pointer >= bank["end"]:
-                if bank["length"]:
-                    fraction = positions[voice] & 255
-                    pointer = bank["start"] + (pointer - bank["start"]) % bank["length"]
-                    positions[voice] = (pointer << 8) | fraction
-                else:
+            # Keep the current DMA segment and the next loop descriptor
+            # independent. A sample-only/portamento row may replace the latter
+            # while the former still plays its previous instrument.
+            remaining, output_start = count, start
+            while remaining:
+                bank = banks[loaded_ids[voice]]
+                phase = positions[voice] + np.arange(remaining, dtype=np.int64) * step
+                sample_index = phase >> 8
+                crossing = np.flatnonzero(sample_index >= bank["end"])
+                prefix = int(crossing[0]) if len(crossing) else remaining
+                if prefix:
+                    codes = bank["data"][sample_index[:prefix]]
+                    mixed[output_start:output_start + prefix] += table[level, codes]
+                    reads[voice] += prefix
+                    positions[voice] += prefix * step
+                    remaining -= prefix
+                    output_start += prefix
+                if not remaining:
+                    break
+                target_id = loop_targets[voice]
+                target = banks.get(target_id)
+                if target and target["loop_target"] != target_id:
+                    target_id = target["loop_target"]
+                    target = banks.get(target_id)
+                if not target or not target["length"]:
                     active[voice] = False
+                    mixed[output_start:output_start + remaining] += 32
+                    break
+                loaded_ids[voice] = target_id
+                positions[voice] = (target["start"] << 8) | (positions[voice] & 255)
     if mode == "nearest":
         with np.errstate(over="ignore"):
             rounded = np.rint(8 + (mixed.astype(np.float64) - 128) * output_gain / 16)
@@ -150,6 +197,26 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
     clipping = int(np.sum((accumulator < 0) | (accumulator > 255)))
     if clipping or np.any((quantized < 0) | (quantized > 15)):
         raise ValueError("Four-voice mixture exceeds the eight-bit error-feedback accumulator")
+    # A byte-exact player can still erase quiet music in its final rounding.
+    # Measure that loss before the output pipeline and independently of any
+    # listening gain applied to the recorded analog SID output.
+    ideal = (mixed.astype(np.float64) - 128) / 16
+    restored = (quantized.astype(np.float64) - 8) / output_gain
+    centered = ideal - ideal.mean()
+    error = restored - ideal
+    error -= error.mean()
+    signal_power = float(np.mean(centered * centered))
+    error_power = float(np.mean(error * error))
+    erased_power = float(np.mean(np.where(quantized == 8, centered * centered, 0)))
+    quantization = {
+        "snr_db": (10 * math.log10(signal_power / error_power)
+                   if signal_power > 0 and error_power > 0 else None),
+        "musical_energy_erased_fraction": erased_power / signal_power if signal_power else 0.0,
+        "neutral_fraction": float(np.mean(quantized == 8)),
+        "ideal_rms_dac_units": math.sqrt(signal_power),
+        "error_rms_dac_units": math.sqrt(error_power),
+        "scope": "Final DAC quantization only, against the prepared prequantized mixture. Signal and error have their means removed; constant configured output gain is undone for analysis. Does not measure sample-bank loss, SID output or perceived quality.",
+    }
     dac = np.empty(frame_count, dtype=np.uint8)
     dac[0] = 8
     dac[1:] = quantized[:-1]
@@ -170,11 +237,14 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
                "dac_code_counts": dict(sorted(Counter(map(int, dac)).items())),
                "clipped_accumulator_samples": clipping,
                "clipped_output_samples": clipped_output,
+               "quantization": quantization,
                "lookup": "32 + round((sample_nibble - 8) * volume_level / 4), ties to even",
                "mix": mix_description,
                "quantization_tradeoff": "Nearest rounding reduces residual-driven high-frequency error but increases correlated quantization distortion and can round quiet material to silence. Neither mode is noise-free or an exact analog reconstruction.",
-               "pipeline": "Initial nextDAC8 is emitted at first IRQ. Each IRQ computes the next DAC from current cursor samples, then advances cursors. Prefetched voice0/1/2/3 states commit before mixing with4/3/2/1samples left in the current tick. Audible note offsets are -3/-2/-1/0sample periods relative to the ideal tick boundary.",
-               "tick_rounding": "cuts[n]=(n*30789+200)//400: exact nearest-sample Bresenham with ties rounded upward",
+               "pipeline": ("Initial nextDAC8 is emitted at first IRQ. Each IRQ computes the next DAC from current cursor samples, then advances cursors. Extended states commit at8/6/4/2samples left with intervening recovery IRQs. Audible note offsets are -7/-5/-3/-1sample periods relative to the ideal tick boundary."
+                            if extended_loops else "Initial nextDAC8 is emitted at first IRQ. Each IRQ computes the next DAC from current cursor samples, then advances cursors. Prefetched voice0/1/2/3 states commit before mixing with4/3/2/1samples left in the current tick. Audible note offsets are -3/-2/-1/0sample periods relative to the ideal tick boundary."),
+               "tick_rounding": ("cuts[n]=(n*30789+200)//400: exact nearest-sample Bresenham with ties rounded upward"
+                                 if fixed_ticks else "Nearest cumulative source tick duration at the fixed DAC clock; ties upward"),
                "bank": bank_receipt,
                "scope": "Exact digital arithmetic and cursor model. Repeated copies of a bank loop are equivalent to one original loop; no analog SID or DAC nonlinearity is modeled."}
     return dac, receipt
@@ -188,15 +258,16 @@ def verify_trace(dac: np.ndarray, trace_path: Path, first_cycle: int) -> dict:
     """
     clock = 0
     cycles, values = [], []
-    for line in trace_path.open():
-        fields = line.split()
-        if len(fields) != 3:
-            continue
-        delta, address, value = map(int, fields)
-        clock += delta
-        if address & 31 == 24 and clock >= first_cycle and len(values) < len(dac):
-            cycles.append(clock)
-            values.append(value)
+    with trace_path.open() as stream:
+        for line in stream:
+            fields = line.split()
+            if len(fields) != 3:
+                continue
+            delta, address, value = map(int, fields)
+            clock += delta
+            if address & 31 == 24 and clock >= first_cycle and len(values) < len(dac):
+                cycles.append(clock)
+                values.append(value)
     if not cycles or cycles[0] != first_cycle:
         raise ValueError("Requested clock anchor is not an observed D418 write")
     if len(values) != len(dac):
@@ -237,7 +308,7 @@ def main() -> None:
     audio = resample_poly((dac.astype(np.float64) - 8) / 8,
                           OUTPUT_RATE * 8 // common, 30789 // common)
     raw_resampled_frames = len(audio)
-    score_frames = round(len(arrangement["ticks"]) * 0.02 * OUTPUT_RATE)
+    score_frames = round(arrangement["duration_s"] * OUTPUT_RATE)
     # A short score can end between DAC sample clocks. Only the listening WAV
     # receives an endpoint hold of at most two output samples to express the
     # requested score duration; the exact DAC binary stays untouched.
