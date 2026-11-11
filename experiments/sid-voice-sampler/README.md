@@ -88,6 +88,30 @@ player, and fitting a short synthesized instrument program are separate work.
 The guitar here remains sampled data; the new mechanism changes how SID emits
 that data and leaves two oscillator voices available for synthesis.
 
+## Next experiment: a real MOD channel
+
+The next experiment plays a complete real MOD channel for 26.88 seconds, with
+three reusable banks and exact 50-Hz tracker timing over 156/157-value buffers.
+See [MOD-CHANNEL.md](MOD-CHANNEL.md) for the separate build, runnable PRG,
+actual VICE audio and full CPU/memory measurements. The original reference
+above remains unchanged.
+
+```sh
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_channel.py --capture --budget
+```
+
+## MOD channel with synthesized accompaniment
+
+The separate hybrid experiment keeps that accepted sampled channel unchanged
+and adds a pulse melody and triangle/noise percussion on voices 1 and 2. It
+follows three source MOD channels; the chord channel remains outside this test.
+See [MOD-HYBRID.md](MOD-HYBRID.md) for the arrangement, runnable PRG, actual
+VICE audio, measured balance and CPU/memory limits.
+
+```sh
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_hybrid.py --capture --budget
+```
+
 ## Further reading
 
 - [Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php):

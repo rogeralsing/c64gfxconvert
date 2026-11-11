@@ -1,0 +1,64 @@
+{
+  "passed": true,
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "source_range_s": [
+    17.92,
+    44.8
+  ],
+  "duration_s": 26.879954648526077,
+  "sample_rate": 22050,
+  "first_latch_cycle": 2190576,
+  "clock_anchored_crop_start_frame": 49025,
+  "no_time_alignment_applied": true,
+  "identical_native_event_timestamps_and_register_addresses": true,
+  "native_events_compared": 1059044,
+  "only_control_values_changed": 1494,
+  "binary_diff": {
+    "main_program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "diagnostic_program_sha256": "c4193139dfc532954501e3038ff42620d8389b08b77dad6740020da5a0b7ca7d",
+    "program_bytes": 24001,
+    "changed_bytes": 1494,
+    "all_changes_only_sid_control_columns_7_and_10": true,
+    "replacement_control_hex": "19",
+    "replacement_control_decimal": 25,
+    "identical_instruction_bytes": true,
+    "identical_pcm_banks_and_score_fields": true,
+    "scope": "Binary diff against actual main PRG; no code, timing, frequency, PCM or envelope bytes changed."
+  },
+  "rms": {
+    "full": 0.027343743412238865,
+    "pcm_only": 0.026691136887793433,
+    "sid_difference": 0.006662614813678649
+  },
+  "sid_over_pcm_db": -12.054447330409966,
+  "full_peak": 0.08892739471602319,
+  "pcm_peak": 0.07412577138573066,
+  "sid_difference_peak": 0.027374865517792533,
+  "integer_full_scale_samples": {
+    "full_raw_file": 0,
+    "pcm_raw_file": 0
+  },
+  "headroom_db_to_full_scale": 21.01928861832831,
+  "main_program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+  "main_listening_audio_sha256": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+  "main_raw_audio_sha256": "e88eb3dbaf9fbf546b74233123f2dd852d6ee6c02850551c0f8bc99be82ec0be",
+  "diagnostic_program_sha256": "c4193139dfc532954501e3038ff42620d8389b08b77dad6740020da5a0b7ca7d",
+  "diagnostic_raw_audio_sha256": "b59df118f5954f3eda9e7dce8e99074e8e56d05c61f42ec5d215fba6d44511db",
+  "main_trace_sha256": "e77a40e8d7f72ddea0996e5d6526ad45b33feba0c791410ad913d67a42a00e2e",
+  "diagnostic_trace_sha256": "a044270ebe53aede60a9b9d9306ed04b8a23feb6fe3816fd2f2cbbd442813638",
+  "runtime": {
+    "frames": 1344,
+    "samples": 210186,
+    "underruns_registers": 0,
+    "underruns_audio": 0
+  },
+  "method": "Two actual VICE runs of byte-identical instruction streams, banks and sample score; only ordinary-voice control fields differ. Diagnostic control0x19 holds those two triangle outputs at known constant phase with TEST while preserving gate/envelope. Both raw recordings use their identical first latch cycle and identical crop frames. Means removed independently; numerical SID component is main minus PCM-only. No gain, EQ, filtering, correlation alignment or derived listening file.",
+  "limits": "Subtraction is an analysis of emulator mixer components, not a third hardware recording. It assumes the unfiltered fixed-master-volume mixer is approximately additive; output integer rounding and external-filter state can leave a small residual. Peak headroom and identical native bus timing are checked, but no physical SID balance or perceptual approval is established."
+}

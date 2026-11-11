@@ -1,0 +1,75 @@
+{
+  "source": {
+    "title_slug": "cream-of-the-earth",
+    "author": "Romeo Knight / Red Sector Inc.",
+    "source_page": "https://demozoo.org/music/21557/",
+    "download_url": "https://modland.ziphoid.com/pub/modules/Protracker/Romeo%20Knight/cream%20of%20the%20earth.mod",
+    "bytes": 130382,
+    "sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572"
+  },
+  "source_channel": 2,
+  "source_range_s": [
+    17.92,
+    44.8
+  ],
+  "source_duration_s": 26.879999999999995,
+  "duration_s": 26.87996930722011,
+  "duration_error_us": -30.69277988387853,
+  "frames": 1344,
+  "source_ticks_hz": 50,
+  "sample_rate_hz": 7819.428571428572,
+  "sample_period_cycles": 126,
+  "frame_sample_counts": {
+    "156": 822,
+    "157": 522
+  },
+  "input_codes": 210186,
+  "triggers": 152,
+  "distinct_source_periods": [
+    190,
+    214,
+    254,
+    285,
+    320,
+    381,
+    678
+  ],
+  "fractional_pitch_error_cents": [
+    -4.443433519132082,
+    7.35438676270912
+  ],
+  "banks": [
+    {
+      "id": 7,
+      "volume": 41,
+      "divisor": 2,
+      "original_bytes": 1058,
+      "resampled_bytes": 529,
+      "stored_bytes": 768,
+      "sha256": "cfe83b3fd6e9498cd1b7c6a535caf3ef58875dbedaf0bfe594f21034fb5d9ee0"
+    },
+    {
+      "id": 8,
+      "volume": 48,
+      "divisor": 3,
+      "original_bytes": 2468,
+      "resampled_bytes": 823,
+      "stored_bytes": 1024,
+      "sha256": "90fd15d969e3c864d2ad0938b6f65db2051c0372d1b6e7a3cca6641596a9199b"
+    },
+    {
+      "id": 9,
+      "volume": 28,
+      "divisor": 3,
+      "original_bytes": 2892,
+      "resampled_bytes": 964,
+      "stored_bytes": 1024,
+      "sha256": "0f9aa6c1d5fc1011b058fb5e26683392a8acaa62dc04afd11fcaedd36d606557"
+    }
+  ],
+  "bank_bytes": 2816,
+  "score_bytes": 6720,
+  "expected_input_sha256": "58b77dd50daa3f899e83d865cb7961bfa591a44a3c089ccac3c2700cc0b7482e",
+  "processing": "Per-instrument polyphase low-pass decimation, constant source MOD volume, unsigned eight-bit quantization; one stored reusable bank per instrument, neutral page padding. Pitch, position and retriggers execute on C64.",
+  "scope": "Single real MOD channel over three complete patterns. No loops, offsets, active volume changes or channel mixing are silently discarded; this input is chosen to require none. SID voices1/2 stay silent."
+}

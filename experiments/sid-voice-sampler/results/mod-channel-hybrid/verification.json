@@ -1,0 +1,483 @@
+{
+  "scope": "One unchanged sampled MOD channel plus two ordinary SID approximations over the same 26.88 s. Three source channels; chord channel 1 omitted. Not full MOD or physical-chip validation.",
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "pcm_input": {
+    "source": {
+      "title_slug": "cream-of-the-earth",
+      "author": "Romeo Knight / Red Sector Inc.",
+      "source_page": "https://demozoo.org/music/21557/",
+      "download_url": "https://modland.ziphoid.com/pub/modules/Protracker/Romeo%20Knight/cream%20of%20the%20earth.mod",
+      "bytes": 130382,
+      "sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572"
+    },
+    "source_channel": 2,
+    "source_range_s": [
+      17.92,
+      44.8
+    ],
+    "source_duration_s": 26.879999999999995,
+    "duration_s": 26.87996930722011,
+    "duration_error_us": -30.69277988387853,
+    "frames": 1344,
+    "source_ticks_hz": 50,
+    "sample_rate_hz": 7819.428571428572,
+    "sample_period_cycles": 126,
+    "frame_sample_counts": {
+      "156": 822,
+      "157": 522
+    },
+    "input_codes": 210186,
+    "triggers": 152,
+    "distinct_source_periods": [
+      190,
+      214,
+      254,
+      285,
+      320,
+      381,
+      678
+    ],
+    "fractional_pitch_error_cents": [
+      -4.443433519132082,
+      7.35438676270912
+    ],
+    "banks": [
+      {
+        "id": 7,
+        "volume": 41,
+        "divisor": 2,
+        "original_bytes": 1058,
+        "resampled_bytes": 529,
+        "stored_bytes": 768,
+        "sha256": "cfe83b3fd6e9498cd1b7c6a535caf3ef58875dbedaf0bfe594f21034fb5d9ee0"
+      },
+      {
+        "id": 8,
+        "volume": 48,
+        "divisor": 3,
+        "original_bytes": 2468,
+        "resampled_bytes": 823,
+        "stored_bytes": 1024,
+        "sha256": "90fd15d969e3c864d2ad0938b6f65db2051c0372d1b6e7a3cca6641596a9199b"
+      },
+      {
+        "id": 9,
+        "volume": 28,
+        "divisor": 3,
+        "original_bytes": 2892,
+        "resampled_bytes": 964,
+        "stored_bytes": 1024,
+        "sha256": "0f9aa6c1d5fc1011b058fb5e26683392a8acaa62dc04afd11fcaedd36d606557"
+      }
+    ],
+    "bank_bytes": 2816,
+    "score_bytes": 6720,
+    "expected_input_sha256": "58b77dd50daa3f899e83d865cb7961bfa591a44a3c089ccac3c2700cc0b7482e",
+    "processing": "Per-instrument polyphase low-pass decimation, constant source MOD volume, unsigned eight-bit quantization; one stored reusable bank per instrument, neutral page padding. Pitch, position and retriggers execute on C64.",
+    "scope": "Unchanged sampled MOD channel 2 over three complete patterns. No loops, offsets, active volume changes or channel mixing are silently discarded; this input is chosen to require none. The separate synth_input describes SID voices 1/2."
+  },
+  "synth_input": {
+    "melody": {
+      "instrument": 10,
+      "source_period_samples": 32.38196556895995,
+      "cycles_per_source_sample": 0.030881386674024503,
+      "autocorrelation": 0.9568205063116401,
+      "pulse_width": 1966,
+      "method": "Original instrument's first 8192 samples (or repeating loop), eightfold interpolation, autocorrelation peak in the independently identified 28\u201336 sample period band; parabolic refinement.",
+      "scope": "A monophonic pulse approximation. The original recorded instrument has some pitch drift and a different envelope."
+    },
+    "melody_source_channel": 3,
+    "percussion_source_channel": 4,
+    "percussion_source_triggers": 165,
+    "source_melody_triggers": 17,
+    "source_melody_volumes": [
+      0,
+      1,
+      4,
+      6,
+      8,
+      11,
+      12,
+      14,
+      16,
+      17,
+      20,
+      23,
+      24,
+      26,
+      28,
+      30,
+      31,
+      32,
+      34,
+      36,
+      38,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      50,
+      51,
+      53,
+      56
+    ],
+    "sid_sustain_levels": [
+      1,
+      1
+    ],
+    "control_counts": [
+      {
+        "65": 888,
+        "25": 456
+      },
+      {
+        "17": 246,
+        "25": 738,
+        "129": 360
+      }
+    ],
+    "scope": "Actual MOD note/hit timing. Pulse melody and handcrafted triangle/noise percussion are timbral approximations with quiet fixed sustain, not original sampled envelopes. MOD channel 1 chords are omitted."
+  },
+  "build": {
+    "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/mod-channel-hybrid/mod-channel-hybrid-player.prg",
+    "symbols": {
+      "frame_boundary": 205,
+      "fill_end": 2553,
+      "score": 11264,
+      "pitch": 2511,
+      "boundary_count": 6,
+      "SID1_PULSE": 1966,
+      "SID2_SUSTAIN": 1,
+      "sample_end_7": 8960,
+      "sample_end_8": 9984,
+      "sample_7": 8192,
+      "sample_8": 8960,
+      "sample_9": 9984,
+      "next_buffer": 12,
+      "finished": 2585,
+      "score_ptr": 4,
+      "nmi_image": 2816,
+      "done": 2623,
+      "fill_frame_rts": 2553,
+      "jitter_slide": 142,
+      "jitter_branch": 140,
+      "stop_requested": 9,
+      "nmi_end": 220,
+      "silence_page": 11008,
+      "pending_sid": 14,
+      "fill_begin": 2421,
+      "destination": 2505,
+      "source_read": 2502,
+      "pointer_commit": 2393,
+      "bank_end_compare": 2533,
+      "nmi_return": 214,
+      "nmi_rti": 219,
+      "fill_frame": 2421,
+      "buffer_read": 190,
+      "sample_latch": 175,
+      "FRAME_COUNT": 1344,
+      "sample_end_9": 11008,
+      "song_started": 2351,
+      "program_end": 26048,
+      "SID1_SUSTAIN": 1,
+      "buffer_b": 768,
+      "buffer_a": 512,
+      "generated_frames": 10,
+      "start": 2062,
+      "nmi_entry": 128,
+      "sample_index": 3,
+      "underruns": 8,
+      "fraction": 2,
+      "boundary_before": 7,
+      "commit_sid": 2554,
+      "restore_a": 217,
+      "pending_start_low": 13,
+      "pointer_swap_begin": 2387,
+      "next_frame": 2358,
+      "wait_start": 2382
+    },
+    "bytes": 24001,
+    "program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "source_sha256": "fe7e4c22131faeccc84e8d729f8738b6f80ef33ae0a27c6c531cd9803b1aee08"
+  },
+  "native_playback": {
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "trace_sha256": "e77a40e8d7f72ddea0996e5d6526ad45b33feba0c791410ad913d67a42a00e2e",
+    "expected_samples": 210186,
+    "observed_latches": 210186,
+    "input_codes_written": 210186,
+    "all_sample_inputs_match_accepted_solo": true,
+    "sample_gap_counts": {
+      "126": 210185
+    },
+    "first_latch_cycle": 2190576,
+    "last_latch_cycle": 28673886,
+    "generated_frames": 1344,
+    "underruns": 0,
+    "ordinary_sid_writes_checked": 8064,
+    "ordinary_sid_sequence_matches": true,
+    "synth_frame_timing_errors": 0,
+    "synth_commit_offset_cycles_after_boundary_latch": [
+      176,
+      305
+    ],
+    "d418_writes_during_music": [],
+    "scope": "Every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not prove original timbre, physical SID fidelity or perceived balance.",
+    "passed": true
+  },
+  "audio": {
+    "frames": 592703,
+    "duration_s": 26.879954648526077,
+    "sample_rate": 22050,
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "generated_frames": 1344,
+    "underruns": 0,
+    "raw_peak": 0.08892739471602319,
+    "raw_rms": 0.027343743412238865,
+    "listening_gain": 8.0,
+    "output_sha256": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "processing": "Actual VICE WAV, clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, alignment, time stretching or dynamics."
+  },
+  "cpu_budget": {
+    "passed": true,
+    "program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "command": [
+      "/opt/homebrew/bin/x64sc",
+      "-default",
+      "-pal",
+      "-sidengine",
+      "1",
+      "-sidmodel",
+      "2",
+      "-residsamp",
+      "2",
+      "-soundrate",
+      "22050",
+      "-soundoutput",
+      "1",
+      "-soundvolume",
+      "100",
+      "-console",
+      "-seed",
+      "1",
+      "-initbreak",
+      "ready",
+      "-moncommands",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/mod-channel-hybrid/budget/cpu.mon",
+      "-sounddev",
+      "dump",
+      "-soundarg",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/mod-channel-hybrid/budget/registers.txt",
+      "-warp",
+      "-limitcycles",
+      "41262156"
+    ],
+    "frames": 1344,
+    "samples": 210186,
+    "sample_period_cycles": 126,
+    "duration_s": 26.87996930722011,
+    "buffer_sample_counts": {
+      "156": 822,
+      "157": 522
+    },
+    "nmi_full_cycles_regular": {
+      "87": 108,
+      "88": 96,
+      "89": 1413,
+      "90": 17803,
+      "91": 66415,
+      "92": 75286,
+      "93": 47721
+    },
+    "nmi_full_cycles_boundary": {
+      "101": 1343
+    },
+    "nmi_cpu_fraction": 0.7283698299041925,
+    "available_foreground_cycles_per_buffer": {
+      "156": 5339.162623403193,
+      "157": 5373.388024835264
+    },
+    "fill_wall_cycles_range_before_rts": [
+      16607,
+      18144
+    ],
+    "fill_foreground_cycles_range_before_rts": [
+      4540,
+      4893
+    ],
+    "minimum_deadline_slack_wall_cycles": 1102,
+    "minimum_deadline_slack_foreground_cycles": 295,
+    "pointer_swap_cycles_range": [
+      8,
+      8
+    ],
+    "pointer_swaps_interrupted": 0,
+    "minimum_pointer_commit_margin_cycles": 6,
+    "sample_gap_counts": {
+      "126": 210185
+    },
+    "monitor_log_sha256": "68f63be76cc13866857b46464bdd7b2f6ef6b0ee22497b0a87c5c515e5c9c3e9",
+    "register_dump_sha256": "e77a40e8d7f72ddea0996e5d6526ad45b33feba0c791410ad913d67a42a00e2e",
+    "scope": "Unmodified native program; monitor instruction tracepoints only. Hardware-entry/RTI costs included, final non-returning NMI excluded from average. Fill timing ends at the RTS instruction; six cycles are included in deadline readiness. Variable-frame deadlines come from actual boundary NMIs. Every profiler-run latch still has a 126-cycle interval. No audio or physical SID quality claim."
+  },
+  "memory": {
+    "program_end": 26048,
+    "prg_bytes": 24001,
+    "bank_bytes": 2816,
+    "score_bytes": 14784,
+    "unused_before_d000_bytes": 27200
+  },
+  "accepted_reference_preserved": {
+    "source": {
+      "build_mod_channel.py": "fc9c6e890ed6630731e3af52a6835015da8a8d2c51cb869547e7f477a4d94dfe",
+      "mod-channel-player.asm": "cd910c612ad6b55e9a98c6829f3922e46afaa260086a14c0046da70937b6136e"
+    },
+    "artifacts": {
+      "player.prg": "9e63777cce4c1fb143b5c4d8ad2cc256595436b1abc917b10c12961e0a962048",
+      "mod-channel.wav": "3b48ccf1ba10d6d147c7de9a1e4fc6ae8e5bcffb354d1a202bf56261bf3a34a2",
+      "expected-input.bin": "58b77dd50daa3f899e83d865cb7961bfa591a44a3c089ccac3c2700cc0b7482e"
+    }
+  },
+  "source_sha256": {
+    "build_mod_hybrid.py": "011a423437c49b44b3234f7bd24347572a58de312de6179264b764c2c4b773d4",
+    "mod-channel-hybrid-player.asm": "fe7e4c22131faeccc84e8d729f8738b6f80ef33ae0a27c6c531cd9803b1aee08"
+  },
+  "metadata_correction": {
+    "captured_source_sha256": {
+      "build_mod_hybrid.py": "219bfd9ba4de626a572744f92fec36cab9d71c5fae861ecb50b0428b43947d75",
+      "mod-channel-hybrid-player.asm": "fe7e4c22131faeccc84e8d729f8738b6f80ef33ae0a27c6c531cd9803b1aee08"
+    },
+    "current_source_sha256": {
+      "build_mod_hybrid.py": "011a423437c49b44b3234f7bd24347572a58de312de6179264b764c2c4b773d4",
+      "mod-channel-hybrid-player.asm": "fe7e4c22131faeccc84e8d729f8738b6f80ef33ae0a27c6c531cd9803b1aee08"
+    },
+    "fresh_prepare_and_assembly_match_captured_program": true,
+    "generated_asm_identical_except_output_directory": true,
+    "pcm_and_synth_inputs_unchanged": true,
+    "scope": "Only explanatory metadata and error-message wording changed after capture. Fresh preparation and assembly preserve every captured program byte."
+  },
+  "reproducibility": {
+    "passed": true,
+    "artifacts": {
+      "player.prg": {
+        "sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+        "byte_identical": true
+      },
+      "hybrid.wav": {
+        "sha256": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+        "byte_identical": true
+      },
+      "expected-input.bin": {
+        "sha256": "58b77dd50daa3f899e83d865cb7961bfa591a44a3c089ccac3c2700cc0b7482e",
+        "byte_identical": true
+      }
+    },
+    "scope": "Clean preparation/assembly, native register verification and fresh actual VICE audio in a separate output directory. Byte comparison before metadata-only correction."
+  },
+  "negative_control": {
+    "passed": true,
+    "changed_one_expected_sid_frequency_byte": true,
+    "unchanged_pcm_still_passes": true,
+    "wrong_synth_sequence_rejected": true,
+    "scope": "Verification sensitivity only; player and listening audio are untouched."
+  },
+  "component_balance": {
+    "passed": true,
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "source_range_s": [
+      17.92,
+      44.8
+    ],
+    "duration_s": 26.879954648526077,
+    "sample_rate": 22050,
+    "first_latch_cycle": 2190576,
+    "clock_anchored_crop_start_frame": 49025,
+    "no_time_alignment_applied": true,
+    "identical_native_event_timestamps_and_register_addresses": true,
+    "native_events_compared": 1059044,
+    "only_control_values_changed": 1494,
+    "binary_diff": {
+      "main_program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+      "diagnostic_program_sha256": "c4193139dfc532954501e3038ff42620d8389b08b77dad6740020da5a0b7ca7d",
+      "program_bytes": 24001,
+      "changed_bytes": 1494,
+      "all_changes_only_sid_control_columns_7_and_10": true,
+      "replacement_control_hex": "19",
+      "replacement_control_decimal": 25,
+      "identical_instruction_bytes": true,
+      "identical_pcm_banks_and_score_fields": true,
+      "scope": "Binary diff against actual main PRG; no code, timing, frequency, PCM or envelope bytes changed."
+    },
+    "rms": {
+      "full": 0.027343743412238865,
+      "pcm_only": 0.026691136887793433,
+      "sid_difference": 0.006662614813678649
+    },
+    "sid_over_pcm_db": -12.054447330409966,
+    "full_peak": 0.08892739471602319,
+    "pcm_peak": 0.07412577138573066,
+    "sid_difference_peak": 0.027374865517792533,
+    "integer_full_scale_samples": {
+      "full_raw_file": 0,
+      "pcm_raw_file": 0
+    },
+    "headroom_db_to_full_scale": 21.01928861832831,
+    "main_program_sha256": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "main_listening_audio_sha256": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "main_raw_audio_sha256": "e88eb3dbaf9fbf546b74233123f2dd852d6ee6c02850551c0f8bc99be82ec0be",
+    "diagnostic_program_sha256": "c4193139dfc532954501e3038ff42620d8389b08b77dad6740020da5a0b7ca7d",
+    "diagnostic_raw_audio_sha256": "b59df118f5954f3eda9e7dce8e99074e8e56d05c61f42ec5d215fba6d44511db",
+    "main_trace_sha256": "e77a40e8d7f72ddea0996e5d6526ad45b33feba0c791410ad913d67a42a00e2e",
+    "diagnostic_trace_sha256": "a044270ebe53aede60a9b9d9306ed04b8a23feb6fe3816fd2f2cbbd442813638",
+    "runtime": {
+      "frames": 1344,
+      "samples": 210186,
+      "underruns_registers": 0,
+      "underruns_audio": 0
+    },
+    "method": "Two actual VICE runs of byte-identical instruction streams, banks and sample score; only ordinary-voice control fields differ. Diagnostic control0x19 holds those two triangle outputs at known constant phase with TEST while preserving gate/envelope. Both raw recordings use their identical first latch cycle and identical crop frames. Means removed independently; numerical SID component is main minus PCM-only. No gain, EQ, filtering, correlation alignment or derived listening file.",
+    "limits": "Subtraction is an analysis of emulator mixer components, not a third hardware recording. It assumes the unfiltered fixed-master-volume mixer is approximately additive; output integer rounding and external-filter state can leave a small residual. Peak headroom and identical native bus timing are checked, but no physical SID balance or perceptual approval is established."
+  }
+}
