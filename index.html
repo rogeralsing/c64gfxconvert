@@ -146,6 +146,14 @@
                 <h3 id="c64-palette-heading">C64 palette</h3>
                 <select id="c64-palette-options" class="mode-select" aria-labelledby="c64-palette-heading"></select>
               </div>
+              <div class="image-control">
+                <h3 id="virtual-color-mode-heading">Virtual color mode</h3>
+                <select id="virtual-color-mode-options" class="mode-select" aria-labelledby="virtual-color-mode-heading" aria-describedby="virtual-color-mode-help">
+                  <option value="computed">Computed</option>
+                  <option value="talent">Talent</option>
+                </select>
+                <p id="virtual-color-mode-help" class="background-value">Computed pairs, shared by all layers with virtual colors enabled.</p>
+              </div>
               <div id="two-color-settings" hidden>
                 <fieldset class="background-control image-control">
                   <legend>Shadow color</legend>
@@ -373,7 +381,8 @@
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
   <script src="./ifli.js?v=palette-exclusions"></script>
-  <script src="./palettes.js?v=1"></script>
+  <script src="./talent-palette.js?v=1"></script>
+  <script src="./palettes.js?v=talent"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
@@ -397,12 +406,12 @@
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=palette-switch"></script>
+  <script src="./converter-controls.js?v=virtual-color-modes"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=charset-dither"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=palette-switch"></script>
+  <script src="./project.js?v=virtual-color-modes"></script>
   <script>
     const paletteState = createC64PaletteState();
     const C64_PALETTE = paletteState.palette;
@@ -438,6 +447,7 @@
     const tabs = Array.from(document.querySelectorAll('.preview-tab'));
     const graphicsModeSelect = document.getElementById('graphics-mode-options');
     const c64PaletteSelect = document.getElementById('c64-palette-options');
+    const virtualColorModeSelect = document.getElementById('virtual-color-mode-options');
     for (const preset of C64_PALETTES) {
       const option = document.createElement('option');
       option.value = preset.id;
@@ -600,7 +610,8 @@
         return { id, type: control.type, min: Number(control.min), max: Number(control.max),
           step: Number(control.step) || 1, options: control.options && [...control.options].map(option => option.value) };
       }),
-      virtualPalette: IFLI_VIRTUAL_PALETTE
+      virtualPalette: IFLI_VIRTUAL_PALETTE,
+      virtualPalettes: paletteState.virtualPalettes
     });
 
     function setBackgroundColor(index) {
@@ -628,6 +639,30 @@
       layerStack.invalidate();
       document.dispatchEvent(new Event('c64palettechange'));
       return preset;
+    }
+
+    function setVirtualColorMode(mode) {
+      paletteState.setVirtualColorMode(mode);
+      virtualColorModeSelect.value = mode;
+      document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
+        ? 'Talent’s observed pairs, mixed with the selected C64 palette. Shared by all layers.'
+        : 'Computed pairs, shared by all layers with virtual colors enabled.';
+      virtualPaletteView.refreshPalette();
+      layerStack.invalidate();
+    }
+
+    function reconcileLayerVirtualPalettes() {
+      for (const layer of layerStack.layers) {
+        const settings = layer.settings.palette;
+        const excluded = new Set(settings.excludedIndices);
+        const available = IFLI_VIRTUAL_PALETTE.filter(color => {
+          const level = color.brightnessBands[0] + color.brightnessBands[1];
+          return level >= settings.minLevel && level <= settings.maxLevel;
+        });
+        if (!available.some(color => !excluded.has(color.index))) {
+          settings.excludedIndices = settings.excludedIndices.filter(index => index !== available[0].index);
+        }
+      }
     }
 
     function syncLoadingState() {
@@ -660,7 +695,8 @@
         finishSourcePan();
         layerStack.updateSettings(readLayerSettings());
         const json = projectCodec.stringify({
-          image: { graphicsMode, paletteId: paletteState.id, backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
+          image: { graphicsMode, paletteId: paletteState.id, virtualColorMode: paletteState.virtualColorMode,
+            backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
             twoColorIndices, spriteConfig: spriteGridControls.getState(),
             charsetMulticolorIndices: charsetControls.getState(),
             charsetSimilarityThreshold: charsetControls.getSimilarityThreshold() },
@@ -711,6 +747,7 @@
         graphicsMode = project.image.graphicsMode;
         graphicsModeSelect.value = graphicsMode;
         setC64Palette(project.image.paletteId || 'colodore');
+        setVirtualColorMode(project.image.virtualColorMode || 'computed');
         spriteGridControls.setState(project.image.spriteConfig);
         spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
         charsetControls.setState(project.image.charsetMulticolorIndices);
@@ -1625,7 +1662,7 @@
       const singleSettings = visibleLayers[0]?.settings || layerStack.active().settings;
       const virtualImagePalette = !directColorFit && !twoColor && singleSettings.values['virtual-colors'] !== 'off';
       const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
-        ? `${IFLI_VIRTUAL_PALETTE.length - singleSettings.palette.excludedIndices.length} virtual colors` : '16 C64 colors';
+        ? `${IFLI_VIRTUAL_PALETTE.filter(color => !singleSettings.palette.excludedIndices.includes(color.index)).length} virtual colors` : '16 C64 colors';
       const widePixels = !directColorFit && !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
       const resolution = standaloneSprites ? `${display.width} × ${display.height}` : usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
@@ -1880,6 +1917,17 @@
       const preset = setC64Palette(c64PaletteSelect.value);
       rebuildLayerComposite();
       announcement.textContent = `${preset.label} palette selected.`;
+    });
+
+    virtualColorModeSelect.addEventListener('change', () => {
+      finishSourcePan();
+      stopIfliAnimation();
+      layerStack.updateSettings(readLayerSettings());
+      setVirtualColorMode(virtualColorModeSelect.value);
+      reconcileLayerVirtualPalettes();
+      virtualPaletteView.setSettings(layerStack.active().settings.palette);
+      rebuildLayerComposite();
+      announcement.textContent = `${virtualColorModeSelect.selectedOptions[0].textContent} virtual color mode selected for all layers.`;
     });
 
     virtualColorsSelect.addEventListener('change', () => {

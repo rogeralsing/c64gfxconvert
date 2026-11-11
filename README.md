@@ -12,7 +12,7 @@ overlays, and native exports. Image processing stays in your browser.
 
 Open `index.html` in a modern browser. No build step or server is required.
 
-Choose **Colodore (PAL)** or **Pepto (PAL)** in **Image → C64 palette**, below
+Choose **Colodore (PAL)**, **Pepto (PAL)**, or **PEPTOette_a** in **Image → C64 palette**, below
 the graphics format. Colodore remains the default. Switching updates conversion,
 previews, color swatches, and virtual colors across all layers. Projects save
 the chosen palette; older projects use Colodore. See [palette sources](palettes/README.md).
@@ -34,6 +34,16 @@ the chosen palette; older projects use Colodore. See [palette sources](palettes/
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+
+**Image → Virtual color mode** selects the virtual palette for the whole image:
+**Computed** keeps the existing generated color pairs, while **Talent** uses
+76 common pairs observed in Talent's artwork, plus all 16 solid C64 colors.
+Talent mixes those 92 entries in linear light using the selected C64 palette.
+Choose **PEPTOette_a** to reproduce the sampled palette's RGB values. The mode
+applies to every layer with virtual colors enabled and is saved in projects.
+Older projects default to Computed. Each layer retains its own pattern,
+brightness limits, and color exclusions. A mode switch keeps at least one
+available color enabled within each layer's selected brightness range.
 
 Select **Charset · Hires + Multicolor** to convert a full screen into one C64
 character set. Choose a background and two shared multicolors from all 16 colors.

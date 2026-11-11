@@ -1,10 +1,14 @@
 /** Versioned JSON projects contain source images and settings, never render caches. */
-function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
+function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalettes }) {
   const invalid = detail => { throw new Error(`Invalid C64 project: ${detail}.`); };
   const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
   const integer = (value, min, max) => Number.isInteger(value) && value >= min && value <= max;
   const colorIndex = value => integer(value, 0, 15);
-  const virtualIndices = new Set(virtualPalette.map(color => color.index));
+  const catalogs = {
+    computed: virtualPalettes?.computed ?? virtualPalette,
+    talent: virtualPalettes?.talent ?? virtualPalette
+  };
+  const virtualIndices = new Set(Object.values(catalogs).flat().map(color => color.index));
 
   function parse(text) {
     let project;
@@ -18,9 +22,13 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
         !colorIndex(image.backgroundColorIndex) || !colorIndex(image.spriteColorIndex)) {
       invalid('unsupported image settings');
     }
-    if (image.paletteId !== undefined && !['colodore', 'pepto'].includes(image.paletteId)) {
+    if (image.paletteId !== undefined && !['colodore', 'pepto', 'peptoette-a'].includes(image.paletteId)) {
       invalid('unsupported C64 palette');
     }
+    if (image.virtualColorMode !== undefined && !['computed', 'talent'].includes(image.virtualColorMode)) {
+      invalid('unsupported virtual color mode');
+    }
+    const requestedVirtualPalette = catalogs[image.virtualColorMode ?? 'computed'];
     if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
@@ -74,7 +82,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
       if (!integer(minLevel, 0, 16) || !integer(maxLevel, minLevel, 16) || !Array.isArray(excludedIndices) ||
           excludedIndices.some(value => !virtualIndices.has(value))) invalid(`${label} palette`);
       const excluded = new Set(excludedIndices);
-      if (!virtualPalette.some(color => {
+      if (!requestedVirtualPalette.some(color => {
         const level = color.brightnessBands[0] + color.brightnessBands[1];
         return level >= minLevel && level <= maxLevel && !excluded.has(color.index);
       })) invalid(`${label} has no enabled palette colors`);
@@ -89,6 +97,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette }) {
       image: { graphicsMode: image.graphicsMode, backgroundColorIndex: image.backgroundColorIndex,
         spriteColorIndex: image.spriteColorIndex,
         ...(image.paletteId === undefined ? {} : { paletteId: image.paletteId }),
+        ...(image.virtualColorMode === undefined ? {} : { virtualColorMode: image.virtualColorMode }),
         ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
         ...(image.charsetMulticolorIndices === undefined ? {} : {
           charsetMulticolorIndices: [...image.charsetMulticolorIndices]

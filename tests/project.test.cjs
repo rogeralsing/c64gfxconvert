@@ -3,10 +3,11 @@ const fs = require('node:fs');
 const path = require('node:path');
 const test = require('node:test');
 const vm = require('node:vm');
+const { createContext } = require('./fixtures/sprite-images.cjs');
 
 const context = vm.createContext({});
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../project.js'), 'utf8'), context);
-const codec = context.createC64ProjectCodec({
+const codecOptions = {
   modeIds: ['fli', 'afli-sprites', 'hires-2color', 'sprites', 'sprites-hires', 'charset'],
   controls: [
     { id: 'brightness', type: 'range', min: -100, max: 300, step: 1 },
@@ -20,7 +21,8 @@ const codec = context.createC64ProjectCodec({
     { index: 1, brightnessBands: [0, 1] },
     { index: 2, brightnessBands: [1, 1] }
   ]
-});
+};
+const codec = context.createC64ProjectCodec(codecOptions);
 const source = { fileName: 'cutout.png', dataUrl: 'data:image/png;base64,iVBORw0KGgo=' };
 const fixture = () => ({
   app: 'c64gfxconvert', version: 1,
@@ -68,6 +70,8 @@ test('project import rejects unsupported documents and unusable settings before 
     project => { project.image.spriteColorIndex = 16; },
     ...[null, '', 'unknown', 'Pepto', 0, false, [], {}].map(paletteId =>
       project => { project.image.paletteId = paletteId; }),
+    ...[null, '', 'unknown', 'Talent', 0, false, [], {}].map(virtualColorMode =>
+      project => { project.image.virtualColorMode = virtualColorMode; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(twoColorIndices =>
       project => { project.image.twoColorIndices = twoColorIndices; }),
     ...[null, [], [0], [0, 1, 2], [0, 16], [-1, 1], [0, 1.5], ['0', 1]].map(charsetMulticolorIndices =>
@@ -94,14 +98,48 @@ test('project import rejects unsupported documents and unusable settings before 
   }
 });
 
-test('projects preserve the selected C64 palette while accepting legacy projects without a palette', () => {
-  for (const paletteId of ['colodore', 'pepto']) {
-    const project = fixture();
-    project.image.paletteId = paletteId;
-    const loaded = codec.parse(codec.stringify(project));
-    assert.equal(loaded.image.paletteId, paletteId);
+test('projects preserve C64 palettes and virtual color modes while accepting legacy image settings', () => {
+  for (const paletteId of ['colodore', 'pepto', 'peptoette-a']) {
+    for (const virtualColorMode of ['computed', 'talent']) {
+      const project = fixture();
+      Object.assign(project.image, { paletteId, virtualColorMode });
+      const loaded = codec.parse(codec.stringify(project));
+      assert.equal(loaded.image.paletteId, paletteId);
+      assert.equal(loaded.image.virtualColorMode, virtualColorMode);
+    }
   }
-  assert.equal(codec.parse(JSON.stringify(fixture())).image.paletteId, undefined);
+  const legacy = JSON.parse(codec.stringify(fixture()));
+  assert.equal(Object.hasOwn(legacy.image, 'paletteId'), false);
+  assert.equal(Object.hasOwn(legacy.image, 'virtualColorMode'), false);
+});
+
+test('project validation uses the requested virtual catalog and retains exclusions from inactive catalogs', () => {
+  const runtime = createContext(['ifli.js', 'talent-palette.js', 'palettes.js', 'project.js']);
+  const state = runtime.createC64PaletteState();
+  const catalogCodec = runtime.createC64ProjectCodec({
+    ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes
+  });
+  const exclusions = mode => Array.from(state.virtualPalettes[mode], color => color.index);
+  for (const [current, requested] of [['computed', 'talent'], ['talent', 'computed']]) {
+    state.setVirtualColorMode(current);
+    const before = JSON.stringify(state.virtualPalette);
+    const project = fixture();
+    Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: requested });
+    for (const layer of project.layers) {
+      layer.settings.palette = { minLevel: 0, maxLevel: 16, excludedIndices: exclusions(current) };
+    }
+
+    const loaded = catalogCodec.parse(catalogCodec.stringify(project));
+
+    assert.deepEqual(Array.from(loaded.layers[0].settings.palette.excludedIndices), exclusions(current));
+    assert.equal(loaded.image.virtualColorMode, requested);
+    assert.equal(state.virtualColorMode, current, 'parsing must not select the document catalog in the live UI');
+    assert.equal(JSON.stringify(state.virtualPalette), before);
+    project.image.virtualColorMode = current;
+    assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/);
+    assert.equal(state.virtualColorMode, current);
+    assert.equal(JSON.stringify(state.virtualPalette), before);
+  }
 });
 
 test('two-color projects preserve the chosen shadow and highlight without changing legacy projects', () => {

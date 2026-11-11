@@ -130,44 +130,48 @@ globalThis.C64ConverterControls = (() => {
     const baseColors = new Map(basePalette.map(color => [color.index, color]));
     const excludedIndices = new Set();
     const buttons = new Map();
-    const sorted = [...palette].sort((first, second) =>
-      first.brightnessBands[0] + first.brightnessBands[1] - second.brightnessBands[0] - second.brightnessBands[1]
-      || first.index - second.index);
-    let row;
-    let previousBrightness = -1;
-    for (const color of sorted) {
-      const brightness = color.brightnessBands[0] + color.brightnessBands[1];
-      if (brightness !== previousBrightness) {
-        row = document.createElement('div');
-        row.className = 'virtual-palette-row';
-        row.setAttribute('role', 'presentation');
-        row.dataset.brightness = String(brightness);
-        const level = document.createElement('span');
-        level.className = 'virtual-palette-level';
-        level.textContent = String(brightness);
-        level.setAttribute('aria-hidden', 'true');
-        row.append(level);
-        swatches.append(row);
-        previousBrightness = brightness;
+    function renderSwatches() {
+      swatches.replaceChildren();
+      buttons.clear();
+      const sorted = [...palette].sort((first, second) =>
+        first.brightnessBands[0] + first.brightnessBands[1] - second.brightnessBands[0] - second.brightnessBands[1]
+        || first.index - second.index);
+      let row;
+      let previousBrightness = -1;
+      for (const color of sorted) {
+        const brightness = color.brightnessBands[0] + color.brightnessBands[1];
+        if (brightness !== previousBrightness) {
+          row = document.createElement('div');
+          row.className = 'virtual-palette-row';
+          row.setAttribute('role', 'presentation');
+          row.dataset.brightness = String(brightness);
+          const level = document.createElement('span');
+          level.className = 'virtual-palette-level';
+          level.textContent = String(brightness);
+          level.setAttribute('aria-hidden', 'true');
+          row.append(level);
+          swatches.append(row);
+          previousBrightness = brightness;
+        }
+        const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
+        const label = `${color.index} · ${names} · ${color.hex}`;
+        const swatch = document.createElement('button');
+        swatch.type = 'button';
+        swatch.className = 'virtual-palette-swatch';
+        swatch.style.backgroundColor = color.hex;
+        swatch.dataset.virtualColor = color.id;
+        swatch.title = label;
+        swatch.setAttribute('aria-label', `Level ${brightness} · ${label}`);
+        swatch.addEventListener('click', () => {
+          if (swatch.getAttribute('aria-disabled') === 'true') return;
+          if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
+          else excludedIndices.add(color.index);
+          updateLimits();
+          onChange?.(getSettings());
+        });
+        buttons.set(color.index, { swatch, label });
+        row.append(swatch);
       }
-      const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
-      const label = `${color.index} · ${names} · ${color.hex}`;
-      const swatch = document.createElement('button');
-      swatch.type = 'button';
-      swatch.className = 'virtual-palette-swatch';
-      swatch.style.backgroundColor = color.hex;
-      swatch.dataset.virtualColor = color.id;
-      swatch.title = label;
-      swatch.setAttribute('aria-label', `Level ${brightness} · ${label}`);
-      swatch.addEventListener('click', () => {
-        if (swatch.getAttribute('aria-disabled') === 'true') return;
-        if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
-        else excludedIndices.add(color.index);
-        updateLimits();
-        onChange?.(getSettings());
-      });
-      buttons.set(color.index, { swatch, label });
-      row.append(swatch);
     }
 
     function getLimits() {
@@ -188,8 +192,8 @@ globalThis.C64ConverterControls = (() => {
     function updateLimits() {
       const { minLevel, maxLevel } = getLimits();
       const enabled = enabledInRange();
-      const count = palette.length - excludedIndices.size;
-      root.querySelector('.virtual-palette-count').textContent = excludedIndices.size ? `${count} / ${palette.length}` : count;
+      const count = palette.filter(color => !excludedIndices.has(color.index)).length;
+      root.querySelector('.virtual-palette-count').textContent = count < palette.length ? `${count} / ${palette.length}` : count;
       root.querySelector('#palette-darkest-value').value = String(minLevel);
       root.querySelector('#palette-lightest-value').value = String(maxLevel);
       darkest.setAttribute('aria-valuetext', `Virtual brightness level ${minLevel} of 16`);
@@ -227,17 +231,12 @@ globalThis.C64ConverterControls = (() => {
         onChange?.(getSettings());
       });
     }
+    renderSwatches();
     updateLimits();
     return {
       getSettings,
       refreshPalette() {
-        for (const color of palette) {
-          const entry = buttons.get(color.index);
-          const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
-          entry.label = `${color.index} · ${names} · ${color.hex}`;
-          entry.swatch.style.backgroundColor = color.hex;
-          entry.swatch.setAttribute('aria-label', `Level ${color.brightnessBands[0] + color.brightnessBands[1]} · ${entry.label}`);
-        }
+        renderSwatches();
         updateLimits();
       },
       setSettings({ minLevel, maxLevel, excludedIndices: excluded = [] }) {
