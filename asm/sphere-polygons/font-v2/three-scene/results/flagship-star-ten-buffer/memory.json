@@ -1,0 +1,28 @@
+{
+  "ordinaryMainRamBytes": 29092,
+  "meaningfulLoadedBytes": 18843,
+  "tenScreenAllocationsBytes": 10240,
+  "extraScreensComparedWithOneBufferBytes": 9216,
+  "zeroPageBytes": 9,
+  "separateColorRamFourBitCells": 1024,
+  "moviePayloadBytes": 15272,
+  "lockedFontBytes": 2048,
+  "unusedMovieArenaBytes": 5208,
+  "screenAddresses": [
+    18432,
+    19456,
+    20480,
+    21504,
+    22528,
+    23552,
+    24576,
+    25600,
+    26624,
+    27648
+  ],
+  "fontAddress": 16384,
+  "movieAddress": 32768,
+  "movieEndExclusive": 48040,
+  "meaningfulLoadedAccounting": "Includes BASIC12, code/state1306, frame pointers194, playback11, font2048 and movie15272. PRG zero-filled address gaps excluded.",
+  "mainRamAccounting": "meaningfulLoaded18843 + screenRAM10240 + zeroPage9 =29092; colorRAM is a separate1024 four-bit cells."
+}

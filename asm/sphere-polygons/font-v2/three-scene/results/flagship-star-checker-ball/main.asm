@@ -1,0 +1,10 @@
+.var lowMovieData=LoadBinary("movie-low.bin")
+.var highMovieData=LoadBinary("movie-high.bin")
+.var absoluteIndexData=LoadBinary("frame-pointers-absolute.bin")
+.var waveData=LoadBinary("wave-ages.bin")
+.var fontData=LoadBinary("font.bin")
+.var hData=LoadBinary("h-lut.bin")
+.var vData=LoadBinary("v-lut.bin")
+.var zoomData=LoadBinary("star-learned.lut")
+.var ballZoomData=LoadBinary("ball-learned.lut")
+.import source "sources/asm/sphere-polygons/font-v2/span-star-ball-player.asm"

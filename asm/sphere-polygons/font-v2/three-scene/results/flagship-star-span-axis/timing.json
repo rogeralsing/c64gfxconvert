@@ -1,0 +1,47 @@
+{
+  "modes": [
+    {
+      "mode": 0,
+      "name": "V only: top/bottom",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "images": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "sourceRows": 12,
+      "yScroll": 7,
+      "pixelOffsetY": 4
+    },
+    {
+      "mode": 1,
+      "name": "H only: left/right",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "images": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "sourceRows": 25,
+      "yScroll": 3,
+      "pixelOffsetY": 0
+    }
+  ],
+  "cycleSeconds": 19.990207541654488,
+  "actualFieldsVerifiedIncludingRepeat": 1003,
+  "repeatBoundaryActualScanoutVerified": true,
+  "imagesPresentedIncludingRepeat": 499,
+  "maximumHeldVisibleFields": 5,
+  "maximumHoldSeconds": 0.09975153463899444,
+  "residenceHistogram": {
+    "1": 1,
+    "2": 496,
+    "5": 2
+  },
+  "clearNativeWallCycles": {
+    "min": 11751,
+    "mean": 11778.298597194389,
+    "max": 11802
+  },
+  "renderNativeWallCycles": {
+    "min": 6746,
+    "mean": 9431.336673346694,
+    "max": 12763
+  }
+}

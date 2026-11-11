@@ -1,0 +1,772 @@
+{
+  "name": "span-star-ball-flash",
+  "objects": [
+    {
+      "id": 0,
+      "name": "star",
+      "rowsFile": "star-rows.bin",
+      "frameOffsetsFile": "star-frame-offsets16.bin",
+      "referenceFile": "star-reference.frames",
+      "zoomLutFile": "star-learned.lut",
+      "storedFrames": 49,
+      "animatedPoses": 48,
+      "originalPoseMap": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        37,
+        39,
+        41,
+        43,
+        45,
+        47,
+        49,
+        51,
+        53,
+        55,
+        57,
+        59,
+        61,
+        63,
+        65,
+        67,
+        69,
+        71,
+        73,
+        75,
+        77,
+        79,
+        81,
+        83,
+        85,
+        87,
+        89,
+        91,
+        93,
+        95
+      ],
+      "sourceStart": 20480,
+      "sourceEnd": 31939,
+      "frameAddresses": [
+        20480,
+        20530,
+        20772,
+        21022,
+        21257,
+        21496,
+        21734,
+        21969,
+        22207,
+        22432,
+        22658,
+        22888,
+        23119,
+        23342,
+        23566,
+        23792,
+        24007,
+        24223,
+        24448,
+        24670,
+        24881,
+        25093,
+        25314,
+        25534,
+        25756,
+        25977,
+        26204,
+        26435,
+        26670,
+        26898,
+        27134,
+        27368,
+        27602,
+        27843,
+        28078,
+        28326,
+        28566,
+        28804,
+        29063,
+        29323,
+        29588,
+        29856,
+        30120,
+        30380,
+        30657,
+        30917,
+        31179,
+        31425,
+        31682
+      ],
+      "segments": [
+        {
+          "start": 20480,
+          "end": 31939,
+          "logicalStart": 0,
+          "logicalEnd": 11459
+        }
+      ],
+      "hashes": {
+        "rows": "42beeb1f3fc57265402e18bbc83ba54a453718698f1ab36f7b6fffe76cb50683",
+        "offsets": "161f9658ad5555b68d193836c3e02735b30971406fbec3b09293054bc00dade9",
+        "reference": "620d205ae5f1b6c7c1772fa5f5cf1a37fd3032cbec0ffc5e0a1a87c4a64a0b17",
+        "zoom": "37efc20a89731ff3a6b745bfb5e4083947649774b2fe63b56f0c2a4340b2dc21",
+        "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1"
+      }
+    },
+    {
+      "id": 1,
+      "name": "ball",
+      "rowsFile": "ball-rows.bin",
+      "frameOffsetsFile": "ball-frame-offsets16.bin",
+      "referenceFile": "ball-reference.frames",
+      "zoomLutFile": "ball-learned.lut",
+      "storedFrames": 49,
+      "animatedPoses": 48,
+      "originalPoseMap": [
+        0,
+        1,
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        15,
+        17,
+        19,
+        21,
+        23,
+        25,
+        27,
+        29,
+        31,
+        33,
+        35,
+        37,
+        39,
+        41,
+        43,
+        45,
+        47,
+        49,
+        51,
+        53,
+        55,
+        57,
+        59,
+        61,
+        63,
+        65,
+        67,
+        69,
+        71,
+        73,
+        75,
+        77,
+        79,
+        81,
+        83,
+        85,
+        87,
+        89,
+        91,
+        93,
+        95
+      ],
+      "sourceStart": 31939,
+      "sourceEnd": 59241,
+      "frameAddresses": [
+        31939,
+        31989,
+        32768,
+        33245,
+        33724,
+        34190,
+        34658,
+        35137,
+        35623,
+        36096,
+        36570,
+        37045,
+        37520,
+        38002,
+        38477,
+        38952,
+        39429,
+        39901,
+        40368,
+        40839,
+        41312,
+        41789,
+        42261,
+        42735,
+        43211,
+        43685,
+        44160,
+        44634,
+        45095,
+        45564,
+        46038,
+        46503,
+        46968,
+        47441,
+        47919,
+        48393,
+        48863,
+        49344,
+        49819,
+        50289,
+        50767,
+        51247,
+        51715,
+        52189,
+        52668,
+        57344,
+        57817,
+        58293,
+        58768
+      ],
+      "segments": [
+        {
+          "start": 31939,
+          "end": 32464,
+          "logicalStart": 0,
+          "logicalEnd": 525
+        },
+        {
+          "start": 32768,
+          "end": 53139,
+          "logicalStart": 525,
+          "logicalEnd": 20896
+        },
+        {
+          "start": 57344,
+          "end": 59241,
+          "logicalStart": 20896,
+          "logicalEnd": 22793
+        }
+      ],
+      "hashes": {
+        "rows": "40ea14723a5de4d97388bc2350f48902ec6164cb18504f5b842ec9d69bc10b34",
+        "offsets": "8dfff8c0f90e8acfe13fa730205aa2e699ad2afc0df46492def52ed089f02cf8",
+        "reference": "29ea385b669783f0776c870eb9d3bd40f416287836d3a8f88ccbb56949d3ba8c",
+        "zoom": "6701ffee0ef8d438814211732436a4c79c144864d909380220832323e0f37fb3",
+        "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1"
+      }
+    }
+  ],
+  "storedFrames": 98,
+  "animatedPosesPerObject": 48,
+  "nominalFps": 25,
+  "nativeFps": null,
+  "minimumFieldsPerImage": 2,
+  "startObject": 0,
+  "startMode": 0,
+  "startStep": 0,
+  "modes": [
+    "normal",
+    "wave",
+    "checkerboard",
+    "vertical",
+    "horizontal",
+    "both",
+    "zoom"
+  ],
+  "phaseScript": [
+    {
+      "step": 0,
+      "object": 0,
+      "mode": 0,
+      "fields": 501,
+      "palette": 0,
+      "sourceStep": 1
+    },
+    {
+      "step": 1,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 1,
+      "sourceStep": 2
+    },
+    {
+      "step": 2,
+      "object": 0,
+      "mode": 1,
+      "fields": 501,
+      "palette": 2,
+      "sourceStep": 1
+    },
+    {
+      "step": 3,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 0,
+      "sourceStep": 2
+    },
+    {
+      "step": 4,
+      "object": 0,
+      "mode": 2,
+      "fields": 501,
+      "palette": 1,
+      "sourceStep": 1
+    },
+    {
+      "step": 5,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 2,
+      "sourceStep": 2
+    },
+    {
+      "step": 6,
+      "object": 0,
+      "mode": 3,
+      "fields": 501,
+      "palette": 0,
+      "sourceStep": 1
+    },
+    {
+      "step": 7,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 1,
+      "sourceStep": 2
+    },
+    {
+      "step": 8,
+      "object": 0,
+      "mode": 4,
+      "fields": 501,
+      "palette": 2,
+      "sourceStep": 1
+    },
+    {
+      "step": 9,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 0,
+      "sourceStep": 2
+    },
+    {
+      "step": 10,
+      "object": 0,
+      "mode": 5,
+      "fields": 501,
+      "palette": 1,
+      "sourceStep": 1
+    },
+    {
+      "step": 11,
+      "object": 0,
+      "mode": 6,
+      "fields": 25,
+      "palette": 2,
+      "sourceStep": 2
+    },
+    {
+      "step": 12,
+      "object": 1,
+      "mode": 0,
+      "fields": 501,
+      "palette": 0,
+      "sourceStep": 1
+    },
+    {
+      "step": 13,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 1,
+      "sourceStep": 2
+    },
+    {
+      "step": 14,
+      "object": 1,
+      "mode": 1,
+      "fields": 501,
+      "palette": 2,
+      "sourceStep": 1
+    },
+    {
+      "step": 15,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 0,
+      "sourceStep": 2
+    },
+    {
+      "step": 16,
+      "object": 1,
+      "mode": 2,
+      "fields": 501,
+      "palette": 1,
+      "sourceStep": 1
+    },
+    {
+      "step": 17,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 2,
+      "sourceStep": 2
+    },
+    {
+      "step": 18,
+      "object": 1,
+      "mode": 3,
+      "fields": 501,
+      "palette": 0,
+      "sourceStep": 1
+    },
+    {
+      "step": 19,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 1,
+      "sourceStep": 2
+    },
+    {
+      "step": 20,
+      "object": 1,
+      "mode": 4,
+      "fields": 501,
+      "palette": 2,
+      "sourceStep": 1
+    },
+    {
+      "step": 21,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 0,
+      "sourceStep": 2
+    },
+    {
+      "step": 22,
+      "object": 1,
+      "mode": 5,
+      "fields": 501,
+      "palette": 1,
+      "sourceStep": 1
+    },
+    {
+      "step": 23,
+      "object": 1,
+      "mode": 6,
+      "fields": 25,
+      "palette": 2,
+      "sourceStep": 2
+    }
+  ],
+  "baseDurationFields": 501,
+  "flashDurationFields": 25,
+  "preparationBudgets": [
+    [
+      2,
+      3,
+      3,
+      2,
+      2,
+      2,
+      2
+    ],
+    [
+      3,
+      4,
+      5,
+      2,
+      2,
+      2,
+      2
+    ]
+  ],
+  "transitionLookahead": "currentObjectModeBudget+nextObjectModeBudget-1",
+  "palettes": [
+    {
+      "bg": 15,
+      "border": 15,
+      "fg": 11
+    },
+    {
+      "bg": 10,
+      "border": 10,
+      "fg": 4
+    },
+    {
+      "bg": 13,
+      "border": 13,
+      "fg": 5
+    }
+  ],
+  "nominalModeSeconds": 9.995103770827244,
+  "nominalSequenceSeconds": 125.92633732826658,
+  "objectClock": "Eachobject48sourceposesrepeat;staroddoriginalposesdoublephysicalspeed. Objectlocalfilm_serial/frame/phaseadvances1/baseimageand2/flashimage;onlyfinalflash(step11/23)→othernormal0resetstopose1/serial1/phase1. No blankobjecthandoff. WASDcenterpersists.",
+  "geometry": {
+    "fullHeightModes": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "centered192Modes": [
+      3,
+      5,
+      6
+    ],
+    "fullHeightYScroll": 3,
+    "centeredYScroll": 7,
+    "vertical": {
+      "mode": 3,
+      "sourceRows": 12,
+      "sourceColumns": 40,
+      "mirrorRow": "23-y",
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    },
+    "horizontal": {
+      "mode": 4,
+      "sourceRows": 25,
+      "sourceColumns": 20,
+      "mirrorColumn": "39-x"
+    },
+    "both": {
+      "mode": 5,
+      "sourceRows": 12,
+      "sourceColumns": 20,
+      "mirrorRow": "23-y",
+      "mirrorColumn": "39-x",
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    },
+    "zoom": {
+      "mode": 6,
+      "sourceRows": 12,
+      "sourceColumns": 20,
+      "outputRows": 24,
+      "outputColumns": 40,
+      "defaultCrop": [
+        10,
+        6
+      ],
+      "cropXRange": [
+        0,
+        20
+      ],
+      "cropYRange": [
+        0,
+        13
+      ],
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    }
+  },
+  "zoom": {
+    "bytesPerObject": 1024,
+    "quadrantOrder": [
+      "TL",
+      "TR",
+      "BL",
+      "BR"
+    ],
+    "cropOffsets": "zoom_x/yuserstate;latched_zoom_x/ypending;active_zoom_x/yfront",
+    "controls": "WASDallmodesadjustspersistentcenter;onlyflashimageryusesit. Immediatechange10fieldinitialhold4fieldrepeat;clampx0..20/y0..13;opposingkeyscancel",
+    "pan": {
+      "phases": 25,
+      "dx": "round(3*sin(2*pi*p/25))",
+      "dy": "round(2*sin(4*pi*p/25))",
+      "phase": "entryflash0,else 25-mode_fields_leftclamped24",
+      "files": [
+        "pan-dx.bin",
+        "pan-dy.bin"
+      ]
+    },
+    "cia": "OwnedDC00ff/DC02ff/DC0300;FD/FBscanrestoresPRAff"
+  },
+  "wave": {
+    "phases": 48,
+    "formula": "round(4.5+4.5*sin(2*pi*(row/24+phase/48)))",
+    "phase": "objectLocalSerial%48",
+    "minimumHistorySerial": 0
+  },
+  "checker": {
+    "blockCharacters": 4,
+    "A": "t",
+    "B": "max(0,t-24)",
+    "BParity": "((x>>2)^(y>>2))&1"
+  },
+  "rowCache": {
+    "start": 6464,
+    "bytes": 500,
+    "tables": 10,
+    "rowsPerTable": 25,
+    "pointerBytes": 2,
+    "layout": "InterleavedabsoluteLE16row-headerpointers;slot*50+row*2",
+    "frameIds": 6454,
+    "validCount": 6436,
+    "slotContract": "0current;1tenages0..9;2current/age24;3..6directnocache"
+  },
+  "payloadBytes": 34252,
+  "physicalPayloadStorageBytes": 34556,
+  "packingPaddingBytes": 304,
+  "reservedIdleAddress": 32767,
+  "reservedIdleValue": 0,
+  "pointerBytes": 196,
+  "totalFilmBytes": 34448,
+  "fontBytes": 2048,
+  "lutBytes": 2560,
+  "mirrorLutBytes": 512,
+  "zoomLutBytes": 2048,
+  "workScreenBytes": 2048,
+  "waveLutBytes": 1200,
+  "rowCacheBytes": 500,
+  "historyImageBytes": 0,
+  "codeRegionBytes": 7424,
+  "highStagingBytes": 1897,
+  "zeroPageBytes": 16,
+  "basicBytes": 12,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 11520,
+    "highStaging": 11520,
+    "highStagingEnd": 13417,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 53139,
+    "highSource": 57344,
+    "highSourceEnd": 59241
+  },
+  "sourceRegions": [
+    {
+      "file": "movie-low.bin",
+      "start": 20480,
+      "end": 53139,
+      "sha256": "c0596b8178a5da6055fe78692e4b5541ef302cbb0cbfaf6613d1178ab6358b6d"
+    },
+    {
+      "file": "movie-high.bin",
+      "start": 57344,
+      "end": 59241,
+      "loadStart": 11520,
+      "sha256": "374f1e998712bdddb04d9ddc0fc0e18cb6c32aa43ddce89617e356a1fa6181f9"
+    },
+    {
+      "file": "frame-pointers-absolute.bin",
+      "start": 6984,
+      "end": 7180,
+      "sha256": "ab047332b584e71cd2621d261e284a77375ff2a21c94d8941aad430b056954b5",
+      "layout": "98lowbytesfollowedby98highbytes;49perobject"
+    },
+    {
+      "file": "h-lut.bin",
+      "start": 8960,
+      "end": 9216,
+      "sha256": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8"
+    },
+    {
+      "file": "v-lut.bin",
+      "start": 9216,
+      "end": 9472,
+      "sha256": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234"
+    },
+    {
+      "file": "star-zoom-tl.bin",
+      "start": 9472,
+      "end": 9728,
+      "sha256": "f477e698347f1af84df0f26e7ca7b4a575f0ee1bac8a2105d6cff0337f81d12a"
+    },
+    {
+      "file": "star-zoom-tr.bin",
+      "start": 9728,
+      "end": 9984,
+      "sha256": "747f0022e63d259a1be6b9252f1fc0e7b495d82150df8d76d97735a19b109282"
+    },
+    {
+      "file": "star-zoom-bl.bin",
+      "start": 9984,
+      "end": 10240,
+      "sha256": "51cbabb6b4f604d060ef089aa67f8e4b621b7e493213987fbbe0b34053d1039e"
+    },
+    {
+      "file": "star-zoom-br.bin",
+      "start": 10240,
+      "end": 10496,
+      "sha256": "27c522d43d0965646c09710826024caec2b0d1d921445565786e108946f63555"
+    },
+    {
+      "file": "ball-zoom-tl.bin",
+      "start": 10496,
+      "end": 10752,
+      "sha256": "7e304b8ae15a1c5b2c5c94aef6b743803fd6f6b91c62eb5530e40d456af6b6fd"
+    },
+    {
+      "file": "ball-zoom-tr.bin",
+      "start": 10752,
+      "end": 11008,
+      "sha256": "3c39ef90d6daee029d4fbb415fbff9de613bd4f37b65ce8afbb3461ed2265495"
+    },
+    {
+      "file": "ball-zoom-bl.bin",
+      "start": 11008,
+      "end": 11264,
+      "sha256": "9fa0644d89ecde2b685de0a86f7f354c06198dd31a4a60904b7b0aeb43386dac"
+    },
+    {
+      "file": "ball-zoom-br.bin",
+      "start": 11264,
+      "end": 11520,
+      "sha256": "2dac1b99db0657d57e7ade030376b2cda4dc86af45de5db1b734e29fc5859bb7"
+    }
+  ],
+  "input": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-star-ball-flash-data",
+  "colorCommit": {
+    "foregroundCells": 1024,
+    "onlyAtPhaseChange": true,
+    "unroll": 16,
+    "iterations": 64,
+    "deadlineRaster": 51,
+    "scope": "SEIlowerborderafterfieldIRQ,fillthenBGborderandD018switchbeforenextactive51"
+  },
+  "hashes": {
+    "program": "e0301c42195e36c1e8c6f37c6f7a690f81cb5d7be0d00930c79f0f23fc5dff82",
+    "movie": "f2c3825b57cc3bf7db78de0e98df81a69d2cabbbf0e2d627e9a6f4f6cdc97f0f",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "absoluteIndex": "ab047332b584e71cd2621d261e284a77375ff2a21c94d8941aad430b056954b5",
+    "hLut": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8",
+    "vLut": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234",
+    "wave": "aa782873bc0d108edfea4215fea178dc34e7e98ae1bac7048e9619a0bb03631e"
+  },
+  "memoryScope": "OnePRG,twoobjectssequentially,onefont,twooutputs,one500Bpool,nohistoryimages/decompression/copypriorframe. Wholeframesnevercrossreserved7fff=0norI/O;highblobstagedbelowfontandbootcopiedafter01=35. PRGloadendsbelowD000. Codeincludespointers/pool/LUTs/pan/budgets;highstagingandphysicalpackingpaddingcountedseparately;ColorRAMseparate.",
+  "mainRamBytes": 48001,
+  "colorRamCells": 1024
+}

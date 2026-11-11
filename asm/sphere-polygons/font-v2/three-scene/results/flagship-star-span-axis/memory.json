@@ -1,0 +1,27 @@
+{
+  "ordinaryMainRamBytes": 28792,
+  "rawFilmBytes": 23076,
+  "rawRowsBytes": 22882,
+  "framePointerBytes": 194,
+  "fontBytes": 2048,
+  "reusedLookupBytes": 512,
+  "outputScreenRamBytes": 2048,
+  "colorRamSeparateFourBitCells": 1024,
+  "Vgeometry": {
+    "sourceRows": 12,
+    "outputCharacterRows": 24,
+    "yScroll": 7,
+    "pixelOffsetY": 4,
+    "blackMargins": [
+      4,
+      4
+    ]
+  },
+  "Hgeometry": {
+    "sourceRows": 25,
+    "outputCharacterRows": 25,
+    "yScroll": 3,
+    "pixelOffsetY": 0,
+    "fullHeightPixels": 200
+  }
+}

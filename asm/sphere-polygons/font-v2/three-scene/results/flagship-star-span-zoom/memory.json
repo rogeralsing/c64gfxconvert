@@ -1,0 +1,24 @@
+{
+  "mainRamBytes": 33918,
+  "colorRamCells": 1024,
+  "totalFilmBytes": 23076,
+  "fontBytes": 2048,
+  "zoomLutBytes": 1024,
+  "mirrorLutBytes": 512,
+  "workScreenBytes": 2048,
+  "rowCacheBytes": 500,
+  "historyImageBytes": 0,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 11008,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 43362
+  }
+}

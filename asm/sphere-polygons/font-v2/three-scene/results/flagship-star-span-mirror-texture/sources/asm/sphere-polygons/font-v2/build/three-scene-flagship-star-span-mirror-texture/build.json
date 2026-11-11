@@ -1,0 +1,184 @@
+{
+  "name": "span-mirror",
+  "storedFrames": 97,
+  "nominalFps": 25,
+  "nativeFps": null,
+  "minimumFieldsPerImage": 2,
+  "geometry": {
+    "columns": 40,
+    "rows": 25,
+    "sourceTopLeftColumns": 20,
+    "sourceTopLeftRows": 12,
+    "mirroredRows": 24,
+    "blankScreenRow": 24,
+    "mirrorColumn": "39-x",
+    "mirrorRow": "23-y",
+    "yScroll": 7,
+    "firstFetchRaster": 55,
+    "visiblePixelTop": 4,
+    "visiblePixelBottom": 195,
+    "blackTopMarginPixels": 4,
+    "blackBottomMarginPixels": 4,
+    "verticalAxisPixels": 100
+  },
+  "glyphContract": "TL=c;TR=H[c];BL=V[c];BR=V[H[c]]. Two256BLUTs. Exactcanonical4x4Bayerthresholdmasks expanded2x2 preserveidentity(screen-anchor dither); everyotherglyphkeepsnearestHammingreflectionwithlowestcode tie. Fontunchanged; geometricapproximation accepted.",
+  "texturePolicy": {
+    "classifier": "Exact8x8 bitmap equality to Bayer4 threshold0..16 expanded2x2, canonicalphaseonly. No fuzzy/period/phase-shift matching.",
+    "bayerRanks": [
+      0,
+      8,
+      2,
+      10,
+      12,
+      4,
+      14,
+      6,
+      3,
+      11,
+      1,
+      9,
+      15,
+      7,
+      13,
+      5
+    ],
+    "classified": [
+      {
+        "code": 0,
+        "level": 0,
+        "oldH": 0,
+        "oldV": 0
+      },
+      {
+        "code": 8,
+        "level": 16,
+        "oldH": 8,
+        "oldV": 8
+      },
+      {
+        "code": 193,
+        "level": 7,
+        "oldH": 52,
+        "oldV": 35
+      },
+      {
+        "code": 200,
+        "level": 9,
+        "oldH": 52,
+        "oldV": 35
+      },
+      {
+        "code": 205,
+        "level": 5,
+        "oldH": 52,
+        "oldV": 66
+      },
+      {
+        "code": 206,
+        "level": 12,
+        "oldH": 73,
+        "oldV": 31
+      },
+      {
+        "code": 216,
+        "level": 13,
+        "oldH": 73,
+        "oldV": 31
+      },
+      {
+        "code": 220,
+        "level": 14,
+        "oldH": 73,
+        "oldV": 31
+      },
+      {
+        "code": 228,
+        "level": 2,
+        "oldH": 56,
+        "oldV": 70
+      }
+    ],
+    "changedH": [
+      193,
+      200,
+      205,
+      206,
+      216,
+      220,
+      228
+    ],
+    "changedV": [
+      193,
+      200,
+      205,
+      206,
+      216,
+      220,
+      228
+    ]
+  },
+  "sourceAccess": "Only12TLrowheaders andrawglyphsx<20are read. Remainderofeachoriginalrow is skipped arithmetically usingitslength. Wholeoriginalfilm/index remainunchanged.",
+  "payloadBytes": 22882,
+  "pointerBytes": 194,
+  "totalFilmBytes": 23076,
+  "fontBytes": 2048,
+  "lutBytes": 512,
+  "workScreenBytes": 2048,
+  "historyImageBytes": 0,
+  "rowCacheBytes": 0,
+  "codeRegionBytes": 1536,
+  "zeroPageBytes": 14,
+  "basicBytes": 12,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 5632,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 43362
+  },
+  "sourceRegions": [
+    {
+      "file": "rows.bin",
+      "start": 20480,
+      "end": 43362,
+      "sha256": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719"
+    },
+    {
+      "file": "frame-pointers-absolute.bin",
+      "start": 4659,
+      "end": 4853,
+      "sha256": "33f467bdcac6d91bdaf1c6885b8fb63e1dbbcb2344acb20e8a401d0ee6a4f347",
+      "layout": "97lowbytesfollowedby97highbytes"
+    },
+    {
+      "file": "h-lut.bin",
+      "start": 5120,
+      "end": 5376,
+      "sha256": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8"
+    },
+    {
+      "file": "v-lut.bin",
+      "start": 5376,
+      "end": 5632,
+      "sha256": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234"
+    }
+  ],
+  "hashes": {
+    "program": "62ed4edff6a8e6c12a5b3de61e59a1cf09586e6f55fecc3387e62ba4614587f3",
+    "movie": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719",
+    "frameOffsets16": "9c9a213dd0baee1092c80bb6dbe5c41eaa3db391016bee1a1c4c5abc64306932",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c",
+    "hLut": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8",
+    "vLut": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234"
+  },
+  "memoryScope": "Twooutputscreensonly;nocache/historyimages. Code regionincludes194Bframepointersand512BmirrorLUTs; donotcountthemtwice. SeparateColorRAM1024cells. Noidlebyteoverwriteorfontchange.",
+  "mainRamBytes": 28540,
+  "colorRamCells": 1024
+}

@@ -1,0 +1,65 @@
+{
+  "modes": [
+    {
+      "mode": 0,
+      "name": "Normal",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 249,
+      "meanFpsIncludingBoundaryHolds": 24.912197582856265,
+      "firstSerial": 0,
+      "lastSerial": 248
+    },
+    {
+      "mode": 1,
+      "name": "Wave",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 167,
+      "meanFpsIncludingBoundaryHolds": 16.708180708180706,
+      "firstSerial": 249,
+      "lastSerial": 415
+    },
+    {
+      "mode": 2,
+      "name": "Checkerboard",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 167,
+      "meanFpsIncludingBoundaryHolds": 16.708180708180706,
+      "firstSerial": 416,
+      "lastSerial": 582
+    }
+  ],
+  "cycleFields": 1503,
+  "cycleSeconds": 29.98531131248173,
+  "actualFieldsVerifiedIncludingRepeat": 1504,
+  "repeatBoundaryActualScanoutVerified": true,
+  "totalDisplayedImagesIncludingRepeat": 584,
+  "maximumHeldVisibleFields": 5,
+  "maximumHoldSeconds": 0.09975153463899444,
+  "imageFieldResidenceHistogram": {
+    "1": 1,
+    "2": 248,
+    "3": 334,
+    "5": 1
+  },
+  "clearWallCycles": {
+    "min": 11793,
+    "mean": 11797.75,
+    "max": 11802
+  },
+  "cacheHeaderScanWallCycles": {
+    "min": 1927,
+    "mean": 7154.001712328767,
+    "max": 18413
+  },
+  "renderWallCycles": {
+    "min": 13967,
+    "mean": 21638.43396226415,
+    "max": 36923
+  },
+  "nativeClockHz": 985248,
+  "palFieldCycles": 19656,
+  "scope": "Actual native wall cycles include VIC steals and field IRQs. No assumed25fps or host CPU-to-VIC FPS conversion."
+}

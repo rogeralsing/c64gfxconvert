@@ -1,0 +1,61 @@
+{
+  "pass": true,
+  "name": "baseline",
+  "frameCount": 97,
+  "fps": 25,
+  "firstImageIsImplicitBlank": true,
+  "loop": {
+    "startFrame": 1,
+    "frameCount": 96,
+    "durationSeconds": 3.84
+  },
+  "introSeconds": 0.04,
+  "fontBytes": 2048,
+  "fontGlyphs": 256,
+  "fontUnchanged": true,
+  "hashes": {
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c"
+  },
+  "changedCharactersPerTransition": {
+    "min": 49,
+    "mean": 75.3917525773196,
+    "max": 176
+  },
+  "loopChangedCharactersPerTransition": {
+    "min": 49,
+    "mean": 74.34375,
+    "max": 109
+  },
+  "formats": {
+    "literal": {
+      "payloadBytes": 15272,
+      "pointerTableBytes": 194,
+      "totalAnimationBytesWithPointers": 15466,
+      "totalAnimationAndFontBytes": 17514,
+      "bytesPerFrame": {
+        "min": 118,
+        "mean": 157.44329896907217,
+        "max": 226
+      },
+      "loopBytesPerFrame": {
+        "min": 118,
+        "mean": 156.72916666666666,
+        "max": 196
+      },
+      "introPayloadBytes": 226,
+      "loopPayloadBytes": 15046,
+      "closingPatchBytes": 165,
+      "sourceSha256": "6f0bf83e2c289d5113fbe8377b77a92971c159e8428f77d00b65321c64fbc821",
+      "transitionsVerified": 289,
+      "closingPatchIncluded": true
+    }
+  },
+  "sourceMetadata": {
+    "name": "unchanged-PAL-source",
+    "fontMode": "fixed256"
+  },
+  "approximation": null,
+  "nativeTimingMeasured": false,
+  "scope": "Host-generated ordinary character film and exact original global skip/literal compression. Native FPS has not been measured for this new movie."
+}

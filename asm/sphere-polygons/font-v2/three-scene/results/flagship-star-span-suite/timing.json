@@ -1,0 +1,86 @@
+{
+  "modes": [
+    {
+      "mode": 0,
+      "name": "Normal",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "yScroll": 3
+    },
+    {
+      "mode": 1,
+      "name": "Wave",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 167,
+      "meanFpsIncludingBoundaryHold": 16.708180708180706,
+      "yScroll": 3
+    },
+    {
+      "mode": 2,
+      "name": "Checkerboard",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 167,
+      "meanFpsIncludingBoundaryHold": 16.708180708180706,
+      "yScroll": 3
+    },
+    {
+      "mode": 3,
+      "name": "V only",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "yScroll": 7
+    },
+    {
+      "mode": 4,
+      "name": "H only",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "yScroll": 3
+    },
+    {
+      "mode": 5,
+      "name": "Both quadrants",
+      "fields": 501,
+      "seconds": 9.995103770827244,
+      "displayedImages": 249,
+      "meanFpsIncludingBoundaryHold": 24.912197582856265,
+      "yScroll": 7
+    }
+  ],
+  "cycleFields": 3006,
+  "cycleSeconds": 59.97062262496346,
+  "actualFieldsVerifiedIncludingRepeat": 3007,
+  "imagesPresentedIncludingRepeat": 1331,
+  "repeatBoundaryActualScanoutVerified": true,
+  "maximumHeldVisibleFields": 5,
+  "maximumHoldSeconds": 0.09975153463899444,
+  "residenceHistogram": {
+    "1": 1,
+    "2": 992,
+    "3": 334,
+    "5": 4
+  },
+  "clearNativeWallCycles": {
+    "min": 11793,
+    "mean": 11797.76634109692,
+    "max": 11802
+  },
+  "cacheNativeWallCycles": {
+    "min": 15,
+    "mean": 3151.794891059354,
+    "max": 18426
+  },
+  "renderNativeWallCycles": {
+    "min": 5874,
+    "mean": 14730.733834586466,
+    "max": 36947
+  }
+}

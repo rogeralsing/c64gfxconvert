@@ -1,0 +1,306 @@
+{
+  "passed": true,
+  "acceptedPalComparisonApplicable": false,
+  "sourceAll96PosesEqualAcceptedPal": null,
+  "fontLockedAndUnchanged": true,
+  "sourceAll96PosesByteEqualAcceptedPal": null,
+  "sourceAll96PosesFittedDirectlyFromSelected1xCache": true,
+  "exactAcceptedPoseFits": null,
+  "serializedRasterBitsMatchGpuAtEveryPixel": true,
+  "normalizedGlyphCodes": true,
+  "fullView2xCellAlignment": true,
+  "trainHeldoutDisjoint": true,
+  "heldoutNeverUsedToFitLut": true,
+  "learnedTrainingErrorAtMostModal": true,
+  "directUnmaskedLowerBoundForAllGlyphMethods": true,
+  "filesReadBackByteIdentical": true,
+  "metrics": {
+    "train": {
+      "learned": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 253402,
+        "objectMismatches": 223878,
+        "outsideMismatches": 29524,
+        "outsideWhiteSpill": 29524,
+        "missedWhitePixels": 141916,
+        "extraWhitePixels": 111486,
+        "fullFrameError": 0.013747938368055556,
+        "objectError": 0.054074826238263714,
+        "outsideSpillRate": 0.002065793031104165,
+        "extraMismatchesVsDirectMasked": 95154,
+        "extraMismatchesVsDirectUnmasked": 103924
+      },
+      "modal": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 272459,
+        "objectMismatches": 254237,
+        "outsideMismatches": 18222,
+        "outsideWhiteSpill": 18222,
+        "missedWhitePixels": 169357,
+        "extraWhitePixels": 103102,
+        "fullFrameError": 0.014781846788194445,
+        "objectError": 0.06140764880130005,
+        "outsideSpillRate": 0.0012749925691904924,
+        "extraMismatchesVsDirectMasked": 114211,
+        "extraMismatchesVsDirectUnmasked": 122981
+      },
+      "literalPixels": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 1531656,
+        "objectMismatches": 1521780,
+        "outsideMismatches": 9876,
+        "outsideWhiteSpill": 9876,
+        "missedWhitePixels": 790356,
+        "extraWhitePixels": 741300,
+        "fullFrameError": 0.08309765625,
+        "objectError": 0.3675662149602237,
+        "outsideSpillRate": 0.0006910233022349524,
+        "extraMismatchesVsDirectMasked": 1373408,
+        "extraMismatchesVsDirectUnmasked": 1382178
+      },
+      "literalFont": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 1492848,
+        "objectMismatches": 1482529,
+        "outsideMismatches": 10319,
+        "outsideWhiteSpill": 10319,
+        "missedWhitePixels": 849267,
+        "extraWhitePixels": 643581,
+        "fullFrameError": 0.0809921875,
+        "objectError": 0.3580856451647186,
+        "outsideSpillRate": 0.0007220199934955927,
+        "extraMismatchesVsDirectMasked": 1334600,
+        "extraMismatchesVsDirectUnmasked": 1343370
+      },
+      "directMasked": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 158248,
+        "objectMismatches": 158248,
+        "outsideMismatches": 0,
+        "outsideWhiteSpill": 0,
+        "missedWhitePixels": 94348,
+        "extraWhitePixels": 63900,
+        "fullFrameError": 0.008585503472222223,
+        "objectError": 0.038222751241983384,
+        "outsideSpillRate": 0,
+        "extraMismatchesVsDirectMasked": 0,
+        "extraMismatchesVsDirectUnmasked": 8770
+      },
+      "directUnmasked": {
+        "pixels": 18432000,
+        "objectPixels": 4140152,
+        "referenceWhitePixels": 2669612,
+        "mismatches": 149478,
+        "objectMismatches": 136941,
+        "outsideMismatches": 12537,
+        "outsideWhiteSpill": 12537,
+        "missedWhitePixels": 78116,
+        "extraWhitePixels": 71362,
+        "fullFrameError": 0.008109700520833334,
+        "objectError": 0.03307632183552681,
+        "outsideSpillRate": 0.0008772133596718913,
+        "extraMismatchesVsDirectMasked": -8770,
+        "extraMismatchesVsDirectUnmasked": 0
+      }
+    },
+    "heldout": {
+      "learned": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 77953,
+        "objectMismatches": 67742,
+        "outsideMismatches": 10211,
+        "outsideWhiteSpill": 10211,
+        "missedWhitePixels": 40581,
+        "extraWhitePixels": 37372,
+        "fullFrameError": 0.012687662760416666,
+        "objectError": 0.050494193413736045,
+        "outsideSpillRate": 0.002126219697569142,
+        "extraMismatchesVsDirectMasked": 32226,
+        "extraMismatchesVsDirectUnmasked": 34011
+      },
+      "modal": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 84874,
+        "objectMismatches": 78345,
+        "outsideMismatches": 6529,
+        "outsideWhiteSpill": 6529,
+        "missedWhitePixels": 50321,
+        "extraWhitePixels": 34553,
+        "fullFrameError": 0.013814127604166667,
+        "objectError": 0.058397561084691185,
+        "outsideSpillRate": 0.0013595229072009528,
+        "extraMismatchesVsDirectMasked": 39147,
+        "extraMismatchesVsDirectUnmasked": 40932
+      },
+      "literalPixels": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 481792,
+        "objectMismatches": 478252,
+        "outsideMismatches": 3540,
+        "outsideWhiteSpill": 3540,
+        "missedWhitePixels": 246452,
+        "extraWhitePixels": 235340,
+        "fullFrameError": 0.07841666666666666,
+        "objectError": 0.3564841455597132,
+        "outsideSpillRate": 0.00073712836444959,
+        "extraMismatchesVsDirectMasked": 436065,
+        "extraMismatchesVsDirectUnmasked": 437850
+      },
+      "literalFont": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 468633,
+        "objectMismatches": 465100,
+        "outsideMismatches": 3533,
+        "outsideWhiteSpill": 3533,
+        "missedWhitePixels": 262215,
+        "extraWhitePixels": 206418,
+        "fullFrameError": 0.07627490234375,
+        "objectError": 0.34668077937953756,
+        "outsideSpillRate": 0.0007356707659888139,
+        "extraMismatchesVsDirectMasked": 422906,
+        "extraMismatchesVsDirectUnmasked": 424691
+      },
+      "directMasked": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 45727,
+        "objectMismatches": 45727,
+        "outsideMismatches": 0,
+        "outsideWhiteSpill": 0,
+        "missedWhitePixels": 26076,
+        "extraWhitePixels": 19651,
+        "fullFrameError": 0.007442545572916666,
+        "objectError": 0.034084437752500786,
+        "outsideSpillRate": 0,
+        "extraMismatchesVsDirectMasked": 0,
+        "extraMismatchesVsDirectUnmasked": 1785
+      },
+      "directUnmasked": {
+        "pixels": 6144000,
+        "objectPixels": 1341580,
+        "referenceWhitePixels": 884236,
+        "mismatches": 43942,
+        "objectMismatches": 40513,
+        "outsideMismatches": 3429,
+        "outsideWhiteSpill": 3429,
+        "missedWhitePixels": 21878,
+        "extraWhitePixels": 22064,
+        "fullFrameError": 0.007152018229166667,
+        "objectError": 0.03019797552140014,
+        "outsideSpillRate": 0.000714015017428713,
+        "extraMismatchesVsDirectMasked": -1785,
+        "extraMismatchesVsDirectUnmasked": 0
+      }
+    }
+  },
+  "ambiguity": {
+    "usedCanonicalGlyphs": 113,
+    "uniqueFontShapes": 234,
+    "nonblankUsedGlyphs": 112,
+    "nonblankTrainingOccurrenceWeightedDominantShare": 0.5667993496664238,
+    "heldoutUnseenGlyphs": [
+      {
+        "code": 32,
+        "count": 4
+      },
+      {
+        "code": 33,
+        "count": 1
+      },
+      {
+        "code": 34,
+        "count": 3
+      },
+      {
+        "code": 105,
+        "count": 1
+      },
+      {
+        "code": 239,
+        "count": 1
+      }
+    ],
+    "nonblankSingleVariantGlyphs": 11
+  },
+  "zeroDiagnostics": {
+    "train": {
+      "total": 54163,
+      "genuineBackground": 53477,
+      "geometryBut1BitBlank": 79,
+      "whiteDetailAt2x": 607,
+      "whiteDetailAlreadyAt1x": 131
+    },
+    "heldout": {
+      "total": 18248,
+      "genuineBackground": 18047,
+      "geometryBut1BitBlank": 12,
+      "whiteDetailAt2x": 189,
+      "whiteDetailAlreadyAt1x": 40
+    }
+  },
+  "hashes": {
+    "font": {
+      "bytes": 2048,
+      "sha256": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1"
+    },
+    "sourceChars": {
+      "bytes": 96000,
+      "sha256": "6cb8377a463241c86deadac0150a1e62762ecc519847b0e6e577cef29e8333e6"
+    },
+    "targetChars": {
+      "bytes": 384000,
+      "sha256": "005d3856dfe4d4b32ab350b6425659b44b0ba6d2a57c509bced1b9c69cc2c6c8"
+    },
+    "targetUnmaskedChars": {
+      "bytes": 384000,
+      "sha256": "00c7d924e9778dc9adef051c0925347f3fc041cff2fe5f00be65bbf1d3747561"
+    },
+    "sourceBitmap": {
+      "bytes": 768000,
+      "sha256": "b1aa4b0809c91d51865946ccee8b78692849b7436e4f1fb8f09dc96c9d290b9f"
+    },
+    "targetBitmap": {
+      "bytes": 3072000,
+      "sha256": "1769dff02b6ed3dac5fed803b9cb629588fece9203e1094c6f0a69366fa92212"
+    },
+    "mask": {
+      "bytes": 3072000,
+      "sha256": "97e7561613bcc96a98dae42576fb4af89a3fc0bfb231c37c96169bfd97c36aec"
+    },
+    "learnedLut": {
+      "bytes": 1024,
+      "sha256": "df555947764c5a2f630a8fa515592e9032b961454035286721de9c692d415b45"
+    },
+    "modalLut": {
+      "bytes": 1024,
+      "sha256": "b0de73561e69a90d1529693b99e7d162e0cdb5fe6ac965a30c3495588788597a"
+    },
+    "literalLut": {
+      "bytes": 1024,
+      "sha256": "fcf8735ce51c51bcef77af3fdb52b5c2221b9085a6b868181c32136f3a5e7d5c"
+    },
+    "normalization": {
+      "bytes": 256,
+      "sha256": "8ece2a02635368b9ab2367332c49f84575dace3d5adb58fec1c6ec0373ac3106"
+    }
+  }
+}

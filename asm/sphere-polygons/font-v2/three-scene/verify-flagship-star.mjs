@@ -47,6 +47,81 @@ function topology(geometry) {
     axisTips:tips,annotations:geometry.userData};
 }
 
+async function displayCalibration(THREE,renderer,target,camera,metadata,config,output) {
+  // Native screenshots contain square raster samples. PAL presentation changes
+  // their horizontal pitch, so the camera must compensate exactly once.
+  const pixelAspect=59/63;
+  assert.equal(config.star.displayPixelAspect,pixelAspect,'The flagship targets true PAL pixel geometry');
+  const {width,height}=metadata,rasterAspect=width/height;
+  const horizontalSpan=camera.right-camera.left,verticalSpan=camera.top-camera.bottom;
+  assert(Math.abs(horizontalSpan/verticalSpan-rasterAspect*pixelAspect)<1e-12,
+    'The actual camera frustum would stretch the object on the PAL display');
+  camera.updateMatrixWorld(true);
+  const origin=new THREE.Vector3(0,0,0).project(camera);
+  const right=new THREE.Vector3(1,0,0).applyQuaternion(camera.quaternion).project(camera);
+  const up=new THREE.Vector3(0,1,0).applyQuaternion(camera.quaternion).project(camera);
+  const pixelsPerWorldX=Math.abs(right.x-origin.x)*width/2;
+  const pixelsPerWorldY=Math.abs(up.y-origin.y)*height/2;
+  const displayedUnitRatio=pixelsPerWorldX*pixelAspect/pixelsPerWorldY;
+  assert(Math.abs(displayedUnitRatio-1)<1e-9,'Equal model-space lengths must remain equal after PAL presentation');
+  const scene=new THREE.Scene();scene.background=new THREE.Color(0);
+  const geometry=new THREE.CircleGeometry(48,512);
+  const material=new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false});
+  scene.add(new THREE.Mesh(geometry,material));
+  const capture=async view=>{
+    renderer.render(scene,view);
+    const rgba=Buffer.from(await renderer.readRenderTargetPixelsAsync(target,0,0,width,height));
+    let left=width,right=-1,top=height,bottom=-1,whitePixels=0;
+    for(let y=0;y<height;y++)for(let x=0;x<width;x++) {
+      const offset=(y*width+x)*4,value=rgba[offset];
+      assert((value===0||value===255)&&rgba[offset+1]===value&&rgba[offset+2]===value&&rgba[offset+3]===255,
+        'The calibration must use actual opaque binary GPU pixels');
+      if(value) {left=Math.min(left,x);right=Math.max(right,x);top=Math.min(top,y);bottom=Math.max(bottom,y);whitePixels++;}
+    }
+    assert(right>=left&&bottom>=top&&left>0&&top>0&&right<width-1&&bottom<height-1);
+    const bounds={left,top,right:right+1,bottom:bottom+1,width:right-left+1,height:bottom-top+1};
+    return {rgba,bounds,whitePixels,palBoundingBoxRatio:bounds.width*pixelAspect/bounds.height};
+  };
+  let circle,oldCircle;
+  try {
+    circle=await capture(camera);
+    assert(Math.abs(circle.palBoundingBoxRatio-1)<0.025,
+      'The actual GPU circle must look round with PAL pixels, allowing native raster quantization');
+    const squareCamera=camera.clone();
+    squareCamera.left=-config.star.cameraHalfExtent;squareCamera.right=config.star.cameraHalfExtent;
+    squareCamera.top=config.star.cameraHalfExtent;squareCamera.bottom=-config.star.cameraHalfExtent;
+    squareCamera.updateProjectionMatrix();squareCamera.updateMatrixWorld(true);
+    oldCircle=await capture(squareCamera);
+    assert(Math.abs(oldCircle.palBoundingBoxRatio-1)>.4,'The regression calibration must reject the old square frustum');
+  } finally {geometry.dispose();material.dispose();}
+  const circleFile=path.join(output,'pal-aspect-circle.rgba'),oldFile=path.join(output,'pal-aspect-square-camera-circle.rgba');
+  fs.writeFileSync(circleFile,circle.rgba);fs.writeFileSync(oldFile,oldCircle.rgba);
+  const preview=`
+from pathlib import Path
+from PIL import Image,ImageDraw
+import sys
+root=Path(sys.argv[1]);width=int(sys.argv[2]);height=int(sys.argv[3]);sheet=Image.new('RGB',(1200,430));draw=ImageDraw.Draw(sheet)
+for index,(name,title) in enumerate([('pal-aspect-square-camera-circle.rgba','Before: square camera, PAL pixels'),('pal-aspect-circle.rgba','Corrected camera, PAL pixels')]):
+ im=Image.frombytes('RGBA',(width,height),(root/name).read_bytes()).convert('RGB').resize((600,400),Image.Resampling.NEAREST)
+ sheet.paste(im,(index*600,30));draw.text((index*600+12,8),title,fill='white')
+sheet.save(root/'pal-aspect-calibration.png')
+`;
+  execFileSync('rtk',['proxy','python3','-c',preview,output,String(width),String(height)],{stdio:'pipe'});
+  const result={videoStandard:'PAL',displayPixelAspect:pixelAspect,pixelAspectNumerator:59,pixelAspectDenominator:63,
+    rasterAspect,expectedCameraSpanRatio:rasterAspect*pixelAspect,actualCameraSpanRatio:horizontalSpan/verticalSpan,
+    cameraHalfExtents:{horizontal:horizontalSpan/2,vertical:verticalSpan/2},
+    rawPixelsPerWorldUnit:{x:pixelsPerWorldX,y:pixelsPerWorldY},displayedUnitRatio,
+    uniformBitmapReplication:2,compensationAppliedOnce:true,
+    gpuCircle:{radius:48,segments:512,bounds:circle.bounds,whitePixels:circle.whitePixels,
+      palBoundingBoxRatio:circle.palBoundingBoxRatio,maximumRoundnessErrorFraction:.025,rgbaSha256:sha(circle.rgba)},
+    oldSquareCamera:{bounds:oldCircle.bounds,palBoundingBoxRatio:oldCircle.palBoundingBoxRatio,
+      rgbaSha256:sha(oldCircle.rgba),rejected:true},
+    preview:{file:'pal-aspect-calibration.png',displayRaster:[600,400],
+      rounding:'320x200 raster displayed at approximately PAL 59/63 pixel pitch, rounded to 600x400 preview pixels'}};
+  fs.writeFileSync(path.join(output,'pal-aspect-calibration.json'),JSON.stringify(result,null,2)+'\n');
+  return result;
+}
+
 async function gpuProof(metadata,rgba,mask,output,options={}) {
   const factory=await import(pathToFileURL(metadata.sceneSource).href);
   const loop=factory.config.loop;
@@ -78,6 +153,7 @@ async function gpuProof(metadata,rgba,mask,output,options={}) {
     assert(materials.every(material=>material.isMeshBasicMaterial&&!material.transparent&&material.opacity===1&&
       material.depthWrite&&material.depthTest&&!material.wireframe&&!material.transmission));
     const mesh=topology(star.geometry),matrices=[];
+    const displayAspect=await displayCalibration(THREE,renderer,target,world.camera,metadata,factory.config,output);
     const read=async()=>{renderer.render(world.scene,world.camera);return Buffer.from(await renderer.readRenderTargetPixelsAsync(target,0,0,width,height));};
     const capture=async frame=>{await world.update(frame/fps);return read();};
     const endpointFrame=loop.startFrame+loop.frameCount,twoPeriodFrame=loop.startFrame+loop.frameCount*2;
@@ -234,7 +310,7 @@ async function gpuProof(metadata,rgba,mask,output,options={}) {
     assert.equal(touchingBorder,0,'The longer arms are clipped by the screen');
     return {scene:{renderableObjects:1,meshName:star.name,opaque:true,noBall:true,noGlass:true,noWireframe:true,shaded:true},mesh,
       shadingContract:{rule:'facet gray = shadeGrays[round((rotatedNormal.dot(light)*0.5+0.5)*(levels-1))]',samples:shadingContract},
-      symmetryRotation,
+      symmetryRotation,displayAspect,
       screenFit:{touchingBorderPixels:0,logicalBoundsPerFrame:bounds},movement:{maximumMatrixDifference:movement},
       ...(fullRotation?{fullRotation}:{}),
       loop:{...loop,endpointFrame,unwrappedEndpointFrame:twoPeriodFrame,

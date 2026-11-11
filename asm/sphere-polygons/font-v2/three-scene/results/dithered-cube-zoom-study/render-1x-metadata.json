@@ -1,0 +1,648 @@
+{
+  "name": "pal-dithered-cube-loop",
+  "title": "Roterande kub med dithrade sidgradienter",
+  "description": "Den godkända kubens kontinuerliga sidgradienter roterar kring tre axlar i en sluten loop.",
+  "width": 160,
+  "height": 100,
+  "fps": 25,
+  "durationSeconds": 3.88,
+  "frameCount": 97,
+  "frameBytes": 2000,
+  "framesFile": "bitmap.frames",
+  "format": "packed1bit",
+  "bitOrder": "MSB-first",
+  "rowOrder": "top-to-bottom",
+  "quantization": {
+    "mode": "ordered",
+    "threshold": null,
+    "luminance": "Rec.709 integer approximation, composited against black",
+    "matrix": "4x4 Bayer, fixed to screen coordinates"
+  },
+  "renderer": {
+    "engine": "Three.js WebGPURenderer",
+    "revision": "187",
+    "nativeWebGPU": "webgpu 0.6.2 (Dawn)",
+    "backend": "metal",
+    "canvasContextRequests": 0,
+    "browserUsed": false,
+    "targetColorSpace": "srgb",
+    "antialias": false
+  },
+  "source": "../../../../../../c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-dithered-cube-loop.mjs",
+  "sceneSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-dithered-cube-loop.mjs",
+  "sourceSha256": "565c780ebaa444df908f215586a6c43003b3819fb0f62346d5eef4da6d01ce2b",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-dither.mjs",
+      "sha256": "6557ffbdf9eca3382d38d75413ad8b94e31cf17a3c58d2611a01d3cf0f3b1ccb"
+    },
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo.mjs",
+      "sha256": "f85b70602e7cfb09c4fb2fd2637dcd1560b1ea6daf3064648a3e1dabbb4f77d4"
+    }
+  ],
+  "hashes": {
+    "frames": "a533dce9a7b8ff262b8f0666552c8306f3e3ba0d71336d6f6fd660ba9ae5e6c9",
+    "rgba": "f49d06e63cf29aa95706b950b1e872d5131c814708ae186e0ab74dd2f020d957",
+    "objectMask": "cbbc25137bbb297f6972b07950947f8530c212e94401fd92319638fc421117be"
+  },
+  "rgbaFile": "color.rgba",
+  "objectMaskFile": "object-mask.frames",
+  "objectMaskScope": "Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.",
+  "verification": {
+    "firstFrameBlack": true,
+    "deterministicSampleTimes": true,
+    "allFramesReadFromGPU": true
+  },
+  "phaseLabels": {
+    "blank": "Tom startbild",
+    "gray": "Roterande kub med sidgradienter"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "phase": "blank"
+    },
+    {
+      "index": 1,
+      "time": 0.04,
+      "phase": "gray"
+    },
+    {
+      "index": 2,
+      "time": 0.08,
+      "phase": "gray"
+    },
+    {
+      "index": 3,
+      "time": 0.12,
+      "phase": "gray"
+    },
+    {
+      "index": 4,
+      "time": 0.16,
+      "phase": "gray"
+    },
+    {
+      "index": 5,
+      "time": 0.2,
+      "phase": "gray"
+    },
+    {
+      "index": 6,
+      "time": 0.24,
+      "phase": "gray"
+    },
+    {
+      "index": 7,
+      "time": 0.28,
+      "phase": "gray"
+    },
+    {
+      "index": 8,
+      "time": 0.32,
+      "phase": "gray"
+    },
+    {
+      "index": 9,
+      "time": 0.36,
+      "phase": "gray"
+    },
+    {
+      "index": 10,
+      "time": 0.4,
+      "phase": "gray"
+    },
+    {
+      "index": 11,
+      "time": 0.44,
+      "phase": "gray"
+    },
+    {
+      "index": 12,
+      "time": 0.48,
+      "phase": "gray"
+    },
+    {
+      "index": 13,
+      "time": 0.52,
+      "phase": "gray"
+    },
+    {
+      "index": 14,
+      "time": 0.56,
+      "phase": "gray"
+    },
+    {
+      "index": 15,
+      "time": 0.6,
+      "phase": "gray"
+    },
+    {
+      "index": 16,
+      "time": 0.64,
+      "phase": "gray"
+    },
+    {
+      "index": 17,
+      "time": 0.68,
+      "phase": "gray"
+    },
+    {
+      "index": 18,
+      "time": 0.72,
+      "phase": "gray"
+    },
+    {
+      "index": 19,
+      "time": 0.76,
+      "phase": "gray"
+    },
+    {
+      "index": 20,
+      "time": 0.8,
+      "phase": "gray"
+    },
+    {
+      "index": 21,
+      "time": 0.84,
+      "phase": "gray"
+    },
+    {
+      "index": 22,
+      "time": 0.88,
+      "phase": "gray"
+    },
+    {
+      "index": 23,
+      "time": 0.92,
+      "phase": "gray"
+    },
+    {
+      "index": 24,
+      "time": 0.96,
+      "phase": "gray"
+    },
+    {
+      "index": 25,
+      "time": 1,
+      "phase": "gray"
+    },
+    {
+      "index": 26,
+      "time": 1.04,
+      "phase": "gray"
+    },
+    {
+      "index": 27,
+      "time": 1.08,
+      "phase": "gray"
+    },
+    {
+      "index": 28,
+      "time": 1.12,
+      "phase": "gray"
+    },
+    {
+      "index": 29,
+      "time": 1.16,
+      "phase": "gray"
+    },
+    {
+      "index": 30,
+      "time": 1.2,
+      "phase": "gray"
+    },
+    {
+      "index": 31,
+      "time": 1.24,
+      "phase": "gray"
+    },
+    {
+      "index": 32,
+      "time": 1.28,
+      "phase": "gray"
+    },
+    {
+      "index": 33,
+      "time": 1.32,
+      "phase": "gray"
+    },
+    {
+      "index": 34,
+      "time": 1.36,
+      "phase": "gray"
+    },
+    {
+      "index": 35,
+      "time": 1.4,
+      "phase": "gray"
+    },
+    {
+      "index": 36,
+      "time": 1.44,
+      "phase": "gray"
+    },
+    {
+      "index": 37,
+      "time": 1.48,
+      "phase": "gray"
+    },
+    {
+      "index": 38,
+      "time": 1.52,
+      "phase": "gray"
+    },
+    {
+      "index": 39,
+      "time": 1.56,
+      "phase": "gray"
+    },
+    {
+      "index": 40,
+      "time": 1.6,
+      "phase": "gray"
+    },
+    {
+      "index": 41,
+      "time": 1.64,
+      "phase": "gray"
+    },
+    {
+      "index": 42,
+      "time": 1.68,
+      "phase": "gray"
+    },
+    {
+      "index": 43,
+      "time": 1.72,
+      "phase": "gray"
+    },
+    {
+      "index": 44,
+      "time": 1.76,
+      "phase": "gray"
+    },
+    {
+      "index": 45,
+      "time": 1.8,
+      "phase": "gray"
+    },
+    {
+      "index": 46,
+      "time": 1.84,
+      "phase": "gray"
+    },
+    {
+      "index": 47,
+      "time": 1.88,
+      "phase": "gray"
+    },
+    {
+      "index": 48,
+      "time": 1.92,
+      "phase": "gray"
+    },
+    {
+      "index": 49,
+      "time": 1.96,
+      "phase": "gray"
+    },
+    {
+      "index": 50,
+      "time": 2,
+      "phase": "gray"
+    },
+    {
+      "index": 51,
+      "time": 2.04,
+      "phase": "gray"
+    },
+    {
+      "index": 52,
+      "time": 2.08,
+      "phase": "gray"
+    },
+    {
+      "index": 53,
+      "time": 2.12,
+      "phase": "gray"
+    },
+    {
+      "index": 54,
+      "time": 2.16,
+      "phase": "gray"
+    },
+    {
+      "index": 55,
+      "time": 2.2,
+      "phase": "gray"
+    },
+    {
+      "index": 56,
+      "time": 2.24,
+      "phase": "gray"
+    },
+    {
+      "index": 57,
+      "time": 2.28,
+      "phase": "gray"
+    },
+    {
+      "index": 58,
+      "time": 2.32,
+      "phase": "gray"
+    },
+    {
+      "index": 59,
+      "time": 2.36,
+      "phase": "gray"
+    },
+    {
+      "index": 60,
+      "time": 2.4,
+      "phase": "gray"
+    },
+    {
+      "index": 61,
+      "time": 2.44,
+      "phase": "gray"
+    },
+    {
+      "index": 62,
+      "time": 2.48,
+      "phase": "gray"
+    },
+    {
+      "index": 63,
+      "time": 2.52,
+      "phase": "gray"
+    },
+    {
+      "index": 64,
+      "time": 2.56,
+      "phase": "gray"
+    },
+    {
+      "index": 65,
+      "time": 2.6,
+      "phase": "gray"
+    },
+    {
+      "index": 66,
+      "time": 2.64,
+      "phase": "gray"
+    },
+    {
+      "index": 67,
+      "time": 2.68,
+      "phase": "gray"
+    },
+    {
+      "index": 68,
+      "time": 2.72,
+      "phase": "gray"
+    },
+    {
+      "index": 69,
+      "time": 2.76,
+      "phase": "gray"
+    },
+    {
+      "index": 70,
+      "time": 2.8,
+      "phase": "gray"
+    },
+    {
+      "index": 71,
+      "time": 2.84,
+      "phase": "gray"
+    },
+    {
+      "index": 72,
+      "time": 2.88,
+      "phase": "gray"
+    },
+    {
+      "index": 73,
+      "time": 2.92,
+      "phase": "gray"
+    },
+    {
+      "index": 74,
+      "time": 2.96,
+      "phase": "gray"
+    },
+    {
+      "index": 75,
+      "time": 3,
+      "phase": "gray"
+    },
+    {
+      "index": 76,
+      "time": 3.04,
+      "phase": "gray"
+    },
+    {
+      "index": 77,
+      "time": 3.08,
+      "phase": "gray"
+    },
+    {
+      "index": 78,
+      "time": 3.12,
+      "phase": "gray"
+    },
+    {
+      "index": 79,
+      "time": 3.16,
+      "phase": "gray"
+    },
+    {
+      "index": 80,
+      "time": 3.2,
+      "phase": "gray"
+    },
+    {
+      "index": 81,
+      "time": 3.24,
+      "phase": "gray"
+    },
+    {
+      "index": 82,
+      "time": 3.28,
+      "phase": "gray"
+    },
+    {
+      "index": 83,
+      "time": 3.32,
+      "phase": "gray"
+    },
+    {
+      "index": 84,
+      "time": 3.36,
+      "phase": "gray"
+    },
+    {
+      "index": 85,
+      "time": 3.4,
+      "phase": "gray"
+    },
+    {
+      "index": 86,
+      "time": 3.44,
+      "phase": "gray"
+    },
+    {
+      "index": 87,
+      "time": 3.48,
+      "phase": "gray"
+    },
+    {
+      "index": 88,
+      "time": 3.52,
+      "phase": "gray"
+    },
+    {
+      "index": 89,
+      "time": 3.56,
+      "phase": "gray"
+    },
+    {
+      "index": 90,
+      "time": 3.6,
+      "phase": "gray"
+    },
+    {
+      "index": 91,
+      "time": 3.64,
+      "phase": "gray"
+    },
+    {
+      "index": 92,
+      "time": 3.68,
+      "phase": "gray"
+    },
+    {
+      "index": 93,
+      "time": 3.72,
+      "phase": "gray"
+    },
+    {
+      "index": 94,
+      "time": 3.76,
+      "phase": "gray"
+    },
+    {
+      "index": 95,
+      "time": 3.8,
+      "phase": "gray"
+    },
+    {
+      "index": 96,
+      "time": 3.84,
+      "phase": "gray"
+    }
+  ],
+  "litPixels": [
+    0,
+    2527,
+    2583,
+    2625,
+    2615,
+    2586,
+    2533,
+    2426,
+    2292,
+    2177,
+    2170,
+    2153,
+    2116,
+    2067,
+    2068,
+    2164,
+    2212,
+    2227,
+    2193,
+    2118,
+    1986,
+    1826,
+    1733,
+    1908,
+    2057,
+    2139,
+    2206,
+    2213,
+    2175,
+    2099,
+    2017,
+    2036,
+    2038,
+    2034,
+    2161,
+    2339,
+    2491,
+    2580,
+    2633,
+    2656,
+    2643,
+    2575,
+    2501,
+    2371,
+    2204,
+    2297,
+    2410,
+    2493,
+    2536,
+    2527,
+    2510,
+    2445,
+    2472,
+    2548,
+    2612,
+    2658,
+    2664,
+    2648,
+    2615,
+    2574,
+    2525,
+    2478,
+    2416,
+    2375,
+    2301,
+    2245,
+    2194,
+    2165,
+    2144,
+    2125,
+    2111,
+    2129,
+    2149,
+    2163,
+    2195,
+    2237,
+    2278,
+    2306,
+    2332,
+    2359,
+    2381,
+    2397,
+    2401,
+    2408,
+    2406,
+    2391,
+    2353,
+    2321,
+    2292,
+    2253,
+    2211,
+    2157,
+    2131,
+    2150,
+    2287,
+    2374,
+    2458
+  ],
+  "hostRenderSeconds": 1.398235167
+}

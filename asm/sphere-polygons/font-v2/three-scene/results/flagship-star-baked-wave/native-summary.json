@@ -1,0 +1,58 @@
+{
+  "pass": true,
+  "scope": "Unchanged existing literal-front native player; both baked movies independently verified in PAL VICE.",
+  "fontUnchanged": true,
+  "variants": {
+    "wave-rows-8": {
+      "mean_fps": 25.062283205556138,
+      "checked_frames": 106,
+      "actual_visible_fields_verified": 596,
+      "displayedImagesVerified": 298,
+      "loopWrapsVerified": 2,
+      "allPlaybackCountersMatch": true,
+      "render_cycles": {
+        "min": 1331,
+        "mean": 4421.239057239057,
+        "max": 5934
+      },
+      "observed_fields_per_image": [
+        2
+      ],
+      "loopPeriodSeconds": 3.830456392705187,
+      "introSeconds": 0.3990020786644581,
+      "programSha256": "f5eaa17852509ea0e5fad5e92c3f1a0ebe1624c3e2022472ed8ff1545f1135a2",
+      "payloadBytes": 15048,
+      "fontAndPointersAndPayloadBytes": 17308,
+      "ordinaryMainRamBytes": 19389,
+      "colorRamCellsSeparate": 1024,
+      "workingScreens": 1,
+      "workingScreenBytes": 1024
+    },
+    "wave-raster-2": {
+      "mean_fps": 25.062264990632936,
+      "checked_frames": 106,
+      "actual_visible_fields_verified": 596,
+      "displayedImagesVerified": 298,
+      "loopWrapsVerified": 2,
+      "allPlaybackCountersMatch": true,
+      "render_cycles": {
+        "min": 1496,
+        "mean": 4685.232323232323,
+        "max": 5976
+      },
+      "observed_fields_per_image": [
+        2
+      ],
+      "loopPeriodSeconds": 3.830457915164507,
+      "introSeconds": 0.39900410861021796,
+      "programSha256": "948a9e7504569c79a6ffb623205026603005cfac9ec9dacd0cec088e072270e3",
+      "payloadBytes": 15899,
+      "fontAndPointersAndPayloadBytes": 18159,
+      "ordinaryMainRamBytes": 20240,
+      "colorRamCellsSeparate": 1024,
+      "workingScreens": 1,
+      "workingScreenBytes": 1024
+    }
+  },
+  "accounting": "Ordinary main RAM includes actual12-byte BASIC stub, code including pointers/script/alignment, font, payload, one1024-byte screen and9 zero-page bytes. Color RAM is separate. The unchanged builder manifest retains its inherited13-byte BASIC estimate (one byte more). PRG address-gap padding is reclaimable and excluded."
+}

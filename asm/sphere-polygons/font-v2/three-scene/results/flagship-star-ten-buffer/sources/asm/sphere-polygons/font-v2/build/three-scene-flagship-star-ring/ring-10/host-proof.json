@@ -1,0 +1,2932 @@
+{
+  "passed": true,
+  "scope": "Assembled 6502 copy, exact delta and ring selection; no VIC timing claims.",
+  "transitionsVerified": 289,
+  "uniqueTransitionsVerified": 97,
+  "closingTransitionsVerified": 3,
+  "bufferCount": 10,
+  "allSlotsVisited": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+  ],
+  "sourceAndFontUnchanged": true,
+  "frontUnchangedDuringRender": true,
+  "copyBytesPerFrame": 1024,
+  "visibleCharactersPerFrame": 1000,
+  "copyCpuCycles": {
+    "min": 10568,
+    "mean": 10568,
+    "max": 10568
+  },
+  "renderCpuCycles": {
+    "min": 3966,
+    "mean": 4931.387543252596,
+    "max": 5954
+  },
+  "totalCpuCycles": {
+    "min": 14534,
+    "mean": 15499.387543252595,
+    "max": 16522
+  },
+  "programSha256": "3d4b654cd8e54058a8d8c8e42b3c513ad946fcb8083df38da3d40404105144ac",
+  "records": [
+    {
+      "serial": 0,
+      "fromPose": 0,
+      "targetPose": 1,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4884,
+      "totalCpuCycles": 15452
+    },
+    {
+      "serial": 1,
+      "fromPose": 1,
+      "targetPose": 2,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5309,
+      "totalCpuCycles": 15877
+    },
+    {
+      "serial": 2,
+      "fromPose": 2,
+      "targetPose": 3,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5535,
+      "totalCpuCycles": 16103
+    },
+    {
+      "serial": 3,
+      "fromPose": 3,
+      "targetPose": 4,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5658,
+      "totalCpuCycles": 16226
+    },
+    {
+      "serial": 4,
+      "fromPose": 4,
+      "targetPose": 5,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4510,
+      "totalCpuCycles": 15078
+    },
+    {
+      "serial": 5,
+      "fromPose": 5,
+      "targetPose": 6,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5639,
+      "totalCpuCycles": 16207
+    },
+    {
+      "serial": 6,
+      "fromPose": 6,
+      "targetPose": 7,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 7,
+      "fromPose": 7,
+      "targetPose": 8,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4541,
+      "totalCpuCycles": 15109
+    },
+    {
+      "serial": 8,
+      "fromPose": 8,
+      "targetPose": 9,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5434,
+      "totalCpuCycles": 16002
+    },
+    {
+      "serial": 9,
+      "fromPose": 9,
+      "targetPose": 10,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 15823
+    },
+    {
+      "serial": 10,
+      "fromPose": 10,
+      "targetPose": 11,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5256,
+      "totalCpuCycles": 15824
+    },
+    {
+      "serial": 11,
+      "fromPose": 11,
+      "targetPose": 12,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5261,
+      "totalCpuCycles": 15829
+    },
+    {
+      "serial": 12,
+      "fromPose": 12,
+      "targetPose": 13,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5025,
+      "totalCpuCycles": 15593
+    },
+    {
+      "serial": 13,
+      "fromPose": 13,
+      "targetPose": 14,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4946,
+      "totalCpuCycles": 15514
+    },
+    {
+      "serial": 14,
+      "fromPose": 14,
+      "targetPose": 15,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4995,
+      "totalCpuCycles": 15563
+    },
+    {
+      "serial": 15,
+      "fromPose": 15,
+      "targetPose": 16,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4082,
+      "totalCpuCycles": 14650
+    },
+    {
+      "serial": 16,
+      "fromPose": 16,
+      "targetPose": 17,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4791,
+      "totalCpuCycles": 15359
+    },
+    {
+      "serial": 17,
+      "fromPose": 17,
+      "targetPose": 18,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4026,
+      "totalCpuCycles": 14594
+    },
+    {
+      "serial": 18,
+      "fromPose": 18,
+      "targetPose": 19,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4408,
+      "totalCpuCycles": 14976
+    },
+    {
+      "serial": 19,
+      "fromPose": 19,
+      "targetPose": 20,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4144,
+      "totalCpuCycles": 14712
+    },
+    {
+      "serial": 20,
+      "fromPose": 20,
+      "targetPose": 21,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4699,
+      "totalCpuCycles": 15267
+    },
+    {
+      "serial": 21,
+      "fromPose": 21,
+      "targetPose": 22,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4721,
+      "totalCpuCycles": 15289
+    },
+    {
+      "serial": 22,
+      "fromPose": 22,
+      "targetPose": 23,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 15710
+    },
+    {
+      "serial": 23,
+      "fromPose": 23,
+      "targetPose": 24,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4373,
+      "totalCpuCycles": 14941
+    },
+    {
+      "serial": 24,
+      "fromPose": 24,
+      "targetPose": 25,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4190,
+      "totalCpuCycles": 14758
+    },
+    {
+      "serial": 25,
+      "fromPose": 25,
+      "targetPose": 26,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4260,
+      "totalCpuCycles": 14828
+    },
+    {
+      "serial": 26,
+      "fromPose": 26,
+      "targetPose": 27,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4494,
+      "totalCpuCycles": 15062
+    },
+    {
+      "serial": 27,
+      "fromPose": 27,
+      "targetPose": 28,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5336,
+      "totalCpuCycles": 15904
+    },
+    {
+      "serial": 28,
+      "fromPose": 28,
+      "targetPose": 29,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4308,
+      "totalCpuCycles": 14876
+    },
+    {
+      "serial": 29,
+      "fromPose": 29,
+      "targetPose": 30,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4599,
+      "totalCpuCycles": 15167
+    },
+    {
+      "serial": 30,
+      "fromPose": 30,
+      "targetPose": 31,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4088,
+      "totalCpuCycles": 14656
+    },
+    {
+      "serial": 31,
+      "fromPose": 31,
+      "targetPose": 32,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4959,
+      "totalCpuCycles": 15527
+    },
+    {
+      "serial": 32,
+      "fromPose": 32,
+      "targetPose": 33,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4447,
+      "totalCpuCycles": 15015
+    },
+    {
+      "serial": 33,
+      "fromPose": 33,
+      "targetPose": 34,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4584,
+      "totalCpuCycles": 15152
+    },
+    {
+      "serial": 34,
+      "fromPose": 34,
+      "targetPose": 35,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 35,
+      "fromPose": 35,
+      "targetPose": 36,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4793,
+      "totalCpuCycles": 15361
+    },
+    {
+      "serial": 36,
+      "fromPose": 36,
+      "targetPose": 37,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4217,
+      "totalCpuCycles": 14785
+    },
+    {
+      "serial": 37,
+      "fromPose": 37,
+      "targetPose": 38,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 38,
+      "fromPose": 38,
+      "targetPose": 39,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4807,
+      "totalCpuCycles": 15375
+    },
+    {
+      "serial": 39,
+      "fromPose": 39,
+      "targetPose": 40,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4473,
+      "totalCpuCycles": 15041
+    },
+    {
+      "serial": 40,
+      "fromPose": 40,
+      "targetPose": 41,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 3966,
+      "totalCpuCycles": 14534
+    },
+    {
+      "serial": 41,
+      "fromPose": 41,
+      "targetPose": 42,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4564,
+      "totalCpuCycles": 15132
+    },
+    {
+      "serial": 42,
+      "fromPose": 42,
+      "targetPose": 43,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4809,
+      "totalCpuCycles": 15377
+    },
+    {
+      "serial": 43,
+      "fromPose": 43,
+      "targetPose": 44,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4625,
+      "totalCpuCycles": 15193
+    },
+    {
+      "serial": 44,
+      "fromPose": 44,
+      "targetPose": 45,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5198,
+      "totalCpuCycles": 15766
+    },
+    {
+      "serial": 45,
+      "fromPose": 45,
+      "targetPose": 46,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4367,
+      "totalCpuCycles": 14935
+    },
+    {
+      "serial": 46,
+      "fromPose": 46,
+      "targetPose": 47,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4919,
+      "totalCpuCycles": 15487
+    },
+    {
+      "serial": 47,
+      "fromPose": 47,
+      "targetPose": 48,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4920,
+      "totalCpuCycles": 15488
+    },
+    {
+      "serial": 48,
+      "fromPose": 48,
+      "targetPose": 49,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4829,
+      "totalCpuCycles": 15397
+    },
+    {
+      "serial": 49,
+      "fromPose": 49,
+      "targetPose": 50,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4994,
+      "totalCpuCycles": 15562
+    },
+    {
+      "serial": 50,
+      "fromPose": 50,
+      "targetPose": 51,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 51,
+      "fromPose": 51,
+      "targetPose": 52,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5015,
+      "totalCpuCycles": 15583
+    },
+    {
+      "serial": 52,
+      "fromPose": 52,
+      "targetPose": 53,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5154,
+      "totalCpuCycles": 15722
+    },
+    {
+      "serial": 53,
+      "fromPose": 53,
+      "targetPose": 54,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4990,
+      "totalCpuCycles": 15558
+    },
+    {
+      "serial": 54,
+      "fromPose": 54,
+      "targetPose": 55,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4034,
+      "totalCpuCycles": 14602
+    },
+    {
+      "serial": 55,
+      "fromPose": 55,
+      "targetPose": 56,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4643,
+      "totalCpuCycles": 15211
+    },
+    {
+      "serial": 56,
+      "fromPose": 56,
+      "targetPose": 57,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4534,
+      "totalCpuCycles": 15102
+    },
+    {
+      "serial": 57,
+      "fromPose": 57,
+      "targetPose": 58,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4960,
+      "totalCpuCycles": 15528
+    },
+    {
+      "serial": 58,
+      "fromPose": 58,
+      "targetPose": 59,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4751,
+      "totalCpuCycles": 15319
+    },
+    {
+      "serial": 59,
+      "fromPose": 59,
+      "targetPose": 60,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5308,
+      "totalCpuCycles": 15876
+    },
+    {
+      "serial": 60,
+      "fromPose": 60,
+      "targetPose": 61,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4896,
+      "totalCpuCycles": 15464
+    },
+    {
+      "serial": 61,
+      "fromPose": 61,
+      "targetPose": 62,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4843,
+      "totalCpuCycles": 15411
+    },
+    {
+      "serial": 62,
+      "fromPose": 62,
+      "targetPose": 63,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4687,
+      "totalCpuCycles": 15255
+    },
+    {
+      "serial": 63,
+      "fromPose": 63,
+      "targetPose": 64,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 64,
+      "fromPose": 64,
+      "targetPose": 65,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4340,
+      "totalCpuCycles": 14908
+    },
+    {
+      "serial": 65,
+      "fromPose": 65,
+      "targetPose": 66,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5187,
+      "totalCpuCycles": 15755
+    },
+    {
+      "serial": 66,
+      "fromPose": 66,
+      "targetPose": 67,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4647,
+      "totalCpuCycles": 15215
+    },
+    {
+      "serial": 67,
+      "fromPose": 67,
+      "targetPose": 68,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4821,
+      "totalCpuCycles": 15389
+    },
+    {
+      "serial": 68,
+      "fromPose": 68,
+      "targetPose": 69,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4708,
+      "totalCpuCycles": 15276
+    },
+    {
+      "serial": 69,
+      "fromPose": 69,
+      "targetPose": 70,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4702,
+      "totalCpuCycles": 15270
+    },
+    {
+      "serial": 70,
+      "fromPose": 70,
+      "targetPose": 71,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5049,
+      "totalCpuCycles": 15617
+    },
+    {
+      "serial": 71,
+      "fromPose": 71,
+      "targetPose": 72,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5319,
+      "totalCpuCycles": 15887
+    },
+    {
+      "serial": 72,
+      "fromPose": 72,
+      "targetPose": 73,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5311,
+      "totalCpuCycles": 15879
+    },
+    {
+      "serial": 73,
+      "fromPose": 73,
+      "targetPose": 74,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5648,
+      "totalCpuCycles": 16216
+    },
+    {
+      "serial": 74,
+      "fromPose": 74,
+      "targetPose": 75,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4945,
+      "totalCpuCycles": 15513
+    },
+    {
+      "serial": 75,
+      "fromPose": 75,
+      "targetPose": 76,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5797,
+      "totalCpuCycles": 16365
+    },
+    {
+      "serial": 76,
+      "fromPose": 76,
+      "targetPose": 77,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5054,
+      "totalCpuCycles": 15622
+    },
+    {
+      "serial": 77,
+      "fromPose": 77,
+      "targetPose": 78,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 78,
+      "fromPose": 78,
+      "targetPose": 79,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5036,
+      "totalCpuCycles": 15604
+    },
+    {
+      "serial": 79,
+      "fromPose": 79,
+      "targetPose": 80,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5251,
+      "totalCpuCycles": 15819
+    },
+    {
+      "serial": 80,
+      "fromPose": 80,
+      "targetPose": 81,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5224,
+      "totalCpuCycles": 15792
+    },
+    {
+      "serial": 81,
+      "fromPose": 81,
+      "targetPose": 82,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5545,
+      "totalCpuCycles": 16113
+    },
+    {
+      "serial": 82,
+      "fromPose": 82,
+      "targetPose": 83,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4942,
+      "totalCpuCycles": 15510
+    },
+    {
+      "serial": 83,
+      "fromPose": 83,
+      "targetPose": 84,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5954,
+      "totalCpuCycles": 16522
+    },
+    {
+      "serial": 84,
+      "fromPose": 84,
+      "targetPose": 85,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 85,
+      "fromPose": 85,
+      "targetPose": 86,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5665,
+      "totalCpuCycles": 16233
+    },
+    {
+      "serial": 86,
+      "fromPose": 86,
+      "targetPose": 87,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5396,
+      "totalCpuCycles": 15964
+    },
+    {
+      "serial": 87,
+      "fromPose": 87,
+      "targetPose": 88,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5167,
+      "totalCpuCycles": 15735
+    },
+    {
+      "serial": 88,
+      "fromPose": 88,
+      "targetPose": 89,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5548,
+      "totalCpuCycles": 16116
+    },
+    {
+      "serial": 89,
+      "fromPose": 89,
+      "targetPose": 90,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5713,
+      "totalCpuCycles": 16281
+    },
+    {
+      "serial": 90,
+      "fromPose": 90,
+      "targetPose": 91,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5070,
+      "totalCpuCycles": 15638
+    },
+    {
+      "serial": 91,
+      "fromPose": 91,
+      "targetPose": 92,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5452,
+      "totalCpuCycles": 16020
+    },
+    {
+      "serial": 92,
+      "fromPose": 92,
+      "targetPose": 93,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 15738
+    },
+    {
+      "serial": 93,
+      "fromPose": 93,
+      "targetPose": 94,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5528,
+      "totalCpuCycles": 16096
+    },
+    {
+      "serial": 94,
+      "fromPose": 94,
+      "targetPose": 95,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5364,
+      "totalCpuCycles": 15932
+    },
+    {
+      "serial": 95,
+      "fromPose": 95,
+      "targetPose": 96,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 96,
+      "fromPose": 96,
+      "targetPose": 1,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5127,
+      "totalCpuCycles": 15695
+    },
+    {
+      "serial": 97,
+      "fromPose": 1,
+      "targetPose": 2,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5309,
+      "totalCpuCycles": 15877
+    },
+    {
+      "serial": 98,
+      "fromPose": 2,
+      "targetPose": 3,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5535,
+      "totalCpuCycles": 16103
+    },
+    {
+      "serial": 99,
+      "fromPose": 3,
+      "targetPose": 4,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5658,
+      "totalCpuCycles": 16226
+    },
+    {
+      "serial": 100,
+      "fromPose": 4,
+      "targetPose": 5,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4510,
+      "totalCpuCycles": 15078
+    },
+    {
+      "serial": 101,
+      "fromPose": 5,
+      "targetPose": 6,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5639,
+      "totalCpuCycles": 16207
+    },
+    {
+      "serial": 102,
+      "fromPose": 6,
+      "targetPose": 7,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 103,
+      "fromPose": 7,
+      "targetPose": 8,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4541,
+      "totalCpuCycles": 15109
+    },
+    {
+      "serial": 104,
+      "fromPose": 8,
+      "targetPose": 9,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5434,
+      "totalCpuCycles": 16002
+    },
+    {
+      "serial": 105,
+      "fromPose": 9,
+      "targetPose": 10,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 15823
+    },
+    {
+      "serial": 106,
+      "fromPose": 10,
+      "targetPose": 11,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5256,
+      "totalCpuCycles": 15824
+    },
+    {
+      "serial": 107,
+      "fromPose": 11,
+      "targetPose": 12,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5261,
+      "totalCpuCycles": 15829
+    },
+    {
+      "serial": 108,
+      "fromPose": 12,
+      "targetPose": 13,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5025,
+      "totalCpuCycles": 15593
+    },
+    {
+      "serial": 109,
+      "fromPose": 13,
+      "targetPose": 14,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4946,
+      "totalCpuCycles": 15514
+    },
+    {
+      "serial": 110,
+      "fromPose": 14,
+      "targetPose": 15,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4995,
+      "totalCpuCycles": 15563
+    },
+    {
+      "serial": 111,
+      "fromPose": 15,
+      "targetPose": 16,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4082,
+      "totalCpuCycles": 14650
+    },
+    {
+      "serial": 112,
+      "fromPose": 16,
+      "targetPose": 17,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4791,
+      "totalCpuCycles": 15359
+    },
+    {
+      "serial": 113,
+      "fromPose": 17,
+      "targetPose": 18,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4026,
+      "totalCpuCycles": 14594
+    },
+    {
+      "serial": 114,
+      "fromPose": 18,
+      "targetPose": 19,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4408,
+      "totalCpuCycles": 14976
+    },
+    {
+      "serial": 115,
+      "fromPose": 19,
+      "targetPose": 20,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4144,
+      "totalCpuCycles": 14712
+    },
+    {
+      "serial": 116,
+      "fromPose": 20,
+      "targetPose": 21,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4699,
+      "totalCpuCycles": 15267
+    },
+    {
+      "serial": 117,
+      "fromPose": 21,
+      "targetPose": 22,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4721,
+      "totalCpuCycles": 15289
+    },
+    {
+      "serial": 118,
+      "fromPose": 22,
+      "targetPose": 23,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 15710
+    },
+    {
+      "serial": 119,
+      "fromPose": 23,
+      "targetPose": 24,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4373,
+      "totalCpuCycles": 14941
+    },
+    {
+      "serial": 120,
+      "fromPose": 24,
+      "targetPose": 25,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4190,
+      "totalCpuCycles": 14758
+    },
+    {
+      "serial": 121,
+      "fromPose": 25,
+      "targetPose": 26,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4260,
+      "totalCpuCycles": 14828
+    },
+    {
+      "serial": 122,
+      "fromPose": 26,
+      "targetPose": 27,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4494,
+      "totalCpuCycles": 15062
+    },
+    {
+      "serial": 123,
+      "fromPose": 27,
+      "targetPose": 28,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5336,
+      "totalCpuCycles": 15904
+    },
+    {
+      "serial": 124,
+      "fromPose": 28,
+      "targetPose": 29,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4308,
+      "totalCpuCycles": 14876
+    },
+    {
+      "serial": 125,
+      "fromPose": 29,
+      "targetPose": 30,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4599,
+      "totalCpuCycles": 15167
+    },
+    {
+      "serial": 126,
+      "fromPose": 30,
+      "targetPose": 31,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4088,
+      "totalCpuCycles": 14656
+    },
+    {
+      "serial": 127,
+      "fromPose": 31,
+      "targetPose": 32,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4959,
+      "totalCpuCycles": 15527
+    },
+    {
+      "serial": 128,
+      "fromPose": 32,
+      "targetPose": 33,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4447,
+      "totalCpuCycles": 15015
+    },
+    {
+      "serial": 129,
+      "fromPose": 33,
+      "targetPose": 34,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4584,
+      "totalCpuCycles": 15152
+    },
+    {
+      "serial": 130,
+      "fromPose": 34,
+      "targetPose": 35,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 131,
+      "fromPose": 35,
+      "targetPose": 36,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4793,
+      "totalCpuCycles": 15361
+    },
+    {
+      "serial": 132,
+      "fromPose": 36,
+      "targetPose": 37,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4217,
+      "totalCpuCycles": 14785
+    },
+    {
+      "serial": 133,
+      "fromPose": 37,
+      "targetPose": 38,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 134,
+      "fromPose": 38,
+      "targetPose": 39,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4807,
+      "totalCpuCycles": 15375
+    },
+    {
+      "serial": 135,
+      "fromPose": 39,
+      "targetPose": 40,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4473,
+      "totalCpuCycles": 15041
+    },
+    {
+      "serial": 136,
+      "fromPose": 40,
+      "targetPose": 41,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 3966,
+      "totalCpuCycles": 14534
+    },
+    {
+      "serial": 137,
+      "fromPose": 41,
+      "targetPose": 42,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4564,
+      "totalCpuCycles": 15132
+    },
+    {
+      "serial": 138,
+      "fromPose": 42,
+      "targetPose": 43,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4809,
+      "totalCpuCycles": 15377
+    },
+    {
+      "serial": 139,
+      "fromPose": 43,
+      "targetPose": 44,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4625,
+      "totalCpuCycles": 15193
+    },
+    {
+      "serial": 140,
+      "fromPose": 44,
+      "targetPose": 45,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5198,
+      "totalCpuCycles": 15766
+    },
+    {
+      "serial": 141,
+      "fromPose": 45,
+      "targetPose": 46,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4367,
+      "totalCpuCycles": 14935
+    },
+    {
+      "serial": 142,
+      "fromPose": 46,
+      "targetPose": 47,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4919,
+      "totalCpuCycles": 15487
+    },
+    {
+      "serial": 143,
+      "fromPose": 47,
+      "targetPose": 48,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4920,
+      "totalCpuCycles": 15488
+    },
+    {
+      "serial": 144,
+      "fromPose": 48,
+      "targetPose": 49,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4829,
+      "totalCpuCycles": 15397
+    },
+    {
+      "serial": 145,
+      "fromPose": 49,
+      "targetPose": 50,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4994,
+      "totalCpuCycles": 15562
+    },
+    {
+      "serial": 146,
+      "fromPose": 50,
+      "targetPose": 51,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 147,
+      "fromPose": 51,
+      "targetPose": 52,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5015,
+      "totalCpuCycles": 15583
+    },
+    {
+      "serial": 148,
+      "fromPose": 52,
+      "targetPose": 53,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5154,
+      "totalCpuCycles": 15722
+    },
+    {
+      "serial": 149,
+      "fromPose": 53,
+      "targetPose": 54,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4990,
+      "totalCpuCycles": 15558
+    },
+    {
+      "serial": 150,
+      "fromPose": 54,
+      "targetPose": 55,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4034,
+      "totalCpuCycles": 14602
+    },
+    {
+      "serial": 151,
+      "fromPose": 55,
+      "targetPose": 56,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4643,
+      "totalCpuCycles": 15211
+    },
+    {
+      "serial": 152,
+      "fromPose": 56,
+      "targetPose": 57,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4534,
+      "totalCpuCycles": 15102
+    },
+    {
+      "serial": 153,
+      "fromPose": 57,
+      "targetPose": 58,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4960,
+      "totalCpuCycles": 15528
+    },
+    {
+      "serial": 154,
+      "fromPose": 58,
+      "targetPose": 59,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4751,
+      "totalCpuCycles": 15319
+    },
+    {
+      "serial": 155,
+      "fromPose": 59,
+      "targetPose": 60,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5308,
+      "totalCpuCycles": 15876
+    },
+    {
+      "serial": 156,
+      "fromPose": 60,
+      "targetPose": 61,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4896,
+      "totalCpuCycles": 15464
+    },
+    {
+      "serial": 157,
+      "fromPose": 61,
+      "targetPose": 62,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4843,
+      "totalCpuCycles": 15411
+    },
+    {
+      "serial": 158,
+      "fromPose": 62,
+      "targetPose": 63,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4687,
+      "totalCpuCycles": 15255
+    },
+    {
+      "serial": 159,
+      "fromPose": 63,
+      "targetPose": 64,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 160,
+      "fromPose": 64,
+      "targetPose": 65,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4340,
+      "totalCpuCycles": 14908
+    },
+    {
+      "serial": 161,
+      "fromPose": 65,
+      "targetPose": 66,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5187,
+      "totalCpuCycles": 15755
+    },
+    {
+      "serial": 162,
+      "fromPose": 66,
+      "targetPose": 67,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4647,
+      "totalCpuCycles": 15215
+    },
+    {
+      "serial": 163,
+      "fromPose": 67,
+      "targetPose": 68,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4821,
+      "totalCpuCycles": 15389
+    },
+    {
+      "serial": 164,
+      "fromPose": 68,
+      "targetPose": 69,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4708,
+      "totalCpuCycles": 15276
+    },
+    {
+      "serial": 165,
+      "fromPose": 69,
+      "targetPose": 70,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4702,
+      "totalCpuCycles": 15270
+    },
+    {
+      "serial": 166,
+      "fromPose": 70,
+      "targetPose": 71,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5049,
+      "totalCpuCycles": 15617
+    },
+    {
+      "serial": 167,
+      "fromPose": 71,
+      "targetPose": 72,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5319,
+      "totalCpuCycles": 15887
+    },
+    {
+      "serial": 168,
+      "fromPose": 72,
+      "targetPose": 73,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5311,
+      "totalCpuCycles": 15879
+    },
+    {
+      "serial": 169,
+      "fromPose": 73,
+      "targetPose": 74,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5648,
+      "totalCpuCycles": 16216
+    },
+    {
+      "serial": 170,
+      "fromPose": 74,
+      "targetPose": 75,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4945,
+      "totalCpuCycles": 15513
+    },
+    {
+      "serial": 171,
+      "fromPose": 75,
+      "targetPose": 76,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5797,
+      "totalCpuCycles": 16365
+    },
+    {
+      "serial": 172,
+      "fromPose": 76,
+      "targetPose": 77,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5054,
+      "totalCpuCycles": 15622
+    },
+    {
+      "serial": 173,
+      "fromPose": 77,
+      "targetPose": 78,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 174,
+      "fromPose": 78,
+      "targetPose": 79,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5036,
+      "totalCpuCycles": 15604
+    },
+    {
+      "serial": 175,
+      "fromPose": 79,
+      "targetPose": 80,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5251,
+      "totalCpuCycles": 15819
+    },
+    {
+      "serial": 176,
+      "fromPose": 80,
+      "targetPose": 81,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5224,
+      "totalCpuCycles": 15792
+    },
+    {
+      "serial": 177,
+      "fromPose": 81,
+      "targetPose": 82,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5545,
+      "totalCpuCycles": 16113
+    },
+    {
+      "serial": 178,
+      "fromPose": 82,
+      "targetPose": 83,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4942,
+      "totalCpuCycles": 15510
+    },
+    {
+      "serial": 179,
+      "fromPose": 83,
+      "targetPose": 84,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5954,
+      "totalCpuCycles": 16522
+    },
+    {
+      "serial": 180,
+      "fromPose": 84,
+      "targetPose": 85,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 181,
+      "fromPose": 85,
+      "targetPose": 86,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5665,
+      "totalCpuCycles": 16233
+    },
+    {
+      "serial": 182,
+      "fromPose": 86,
+      "targetPose": 87,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5396,
+      "totalCpuCycles": 15964
+    },
+    {
+      "serial": 183,
+      "fromPose": 87,
+      "targetPose": 88,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5167,
+      "totalCpuCycles": 15735
+    },
+    {
+      "serial": 184,
+      "fromPose": 88,
+      "targetPose": 89,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5548,
+      "totalCpuCycles": 16116
+    },
+    {
+      "serial": 185,
+      "fromPose": 89,
+      "targetPose": 90,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5713,
+      "totalCpuCycles": 16281
+    },
+    {
+      "serial": 186,
+      "fromPose": 90,
+      "targetPose": 91,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5070,
+      "totalCpuCycles": 15638
+    },
+    {
+      "serial": 187,
+      "fromPose": 91,
+      "targetPose": 92,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5452,
+      "totalCpuCycles": 16020
+    },
+    {
+      "serial": 188,
+      "fromPose": 92,
+      "targetPose": 93,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 15738
+    },
+    {
+      "serial": 189,
+      "fromPose": 93,
+      "targetPose": 94,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5528,
+      "totalCpuCycles": 16096
+    },
+    {
+      "serial": 190,
+      "fromPose": 94,
+      "targetPose": 95,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5364,
+      "totalCpuCycles": 15932
+    },
+    {
+      "serial": 191,
+      "fromPose": 95,
+      "targetPose": 96,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 192,
+      "fromPose": 96,
+      "targetPose": 1,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5127,
+      "totalCpuCycles": 15695
+    },
+    {
+      "serial": 193,
+      "fromPose": 1,
+      "targetPose": 2,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5309,
+      "totalCpuCycles": 15877
+    },
+    {
+      "serial": 194,
+      "fromPose": 2,
+      "targetPose": 3,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5535,
+      "totalCpuCycles": 16103
+    },
+    {
+      "serial": 195,
+      "fromPose": 3,
+      "targetPose": 4,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5658,
+      "totalCpuCycles": 16226
+    },
+    {
+      "serial": 196,
+      "fromPose": 4,
+      "targetPose": 5,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4510,
+      "totalCpuCycles": 15078
+    },
+    {
+      "serial": 197,
+      "fromPose": 5,
+      "targetPose": 6,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5639,
+      "totalCpuCycles": 16207
+    },
+    {
+      "serial": 198,
+      "fromPose": 6,
+      "targetPose": 7,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 199,
+      "fromPose": 7,
+      "targetPose": 8,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4541,
+      "totalCpuCycles": 15109
+    },
+    {
+      "serial": 200,
+      "fromPose": 8,
+      "targetPose": 9,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5434,
+      "totalCpuCycles": 16002
+    },
+    {
+      "serial": 201,
+      "fromPose": 9,
+      "targetPose": 10,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 15823
+    },
+    {
+      "serial": 202,
+      "fromPose": 10,
+      "targetPose": 11,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5256,
+      "totalCpuCycles": 15824
+    },
+    {
+      "serial": 203,
+      "fromPose": 11,
+      "targetPose": 12,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5261,
+      "totalCpuCycles": 15829
+    },
+    {
+      "serial": 204,
+      "fromPose": 12,
+      "targetPose": 13,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5025,
+      "totalCpuCycles": 15593
+    },
+    {
+      "serial": 205,
+      "fromPose": 13,
+      "targetPose": 14,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4946,
+      "totalCpuCycles": 15514
+    },
+    {
+      "serial": 206,
+      "fromPose": 14,
+      "targetPose": 15,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4995,
+      "totalCpuCycles": 15563
+    },
+    {
+      "serial": 207,
+      "fromPose": 15,
+      "targetPose": 16,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4082,
+      "totalCpuCycles": 14650
+    },
+    {
+      "serial": 208,
+      "fromPose": 16,
+      "targetPose": 17,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4791,
+      "totalCpuCycles": 15359
+    },
+    {
+      "serial": 209,
+      "fromPose": 17,
+      "targetPose": 18,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4026,
+      "totalCpuCycles": 14594
+    },
+    {
+      "serial": 210,
+      "fromPose": 18,
+      "targetPose": 19,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4408,
+      "totalCpuCycles": 14976
+    },
+    {
+      "serial": 211,
+      "fromPose": 19,
+      "targetPose": 20,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4144,
+      "totalCpuCycles": 14712
+    },
+    {
+      "serial": 212,
+      "fromPose": 20,
+      "targetPose": 21,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4699,
+      "totalCpuCycles": 15267
+    },
+    {
+      "serial": 213,
+      "fromPose": 21,
+      "targetPose": 22,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4721,
+      "totalCpuCycles": 15289
+    },
+    {
+      "serial": 214,
+      "fromPose": 22,
+      "targetPose": 23,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 15710
+    },
+    {
+      "serial": 215,
+      "fromPose": 23,
+      "targetPose": 24,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4373,
+      "totalCpuCycles": 14941
+    },
+    {
+      "serial": 216,
+      "fromPose": 24,
+      "targetPose": 25,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4190,
+      "totalCpuCycles": 14758
+    },
+    {
+      "serial": 217,
+      "fromPose": 25,
+      "targetPose": 26,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4260,
+      "totalCpuCycles": 14828
+    },
+    {
+      "serial": 218,
+      "fromPose": 26,
+      "targetPose": 27,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4494,
+      "totalCpuCycles": 15062
+    },
+    {
+      "serial": 219,
+      "fromPose": 27,
+      "targetPose": 28,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5336,
+      "totalCpuCycles": 15904
+    },
+    {
+      "serial": 220,
+      "fromPose": 28,
+      "targetPose": 29,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4308,
+      "totalCpuCycles": 14876
+    },
+    {
+      "serial": 221,
+      "fromPose": 29,
+      "targetPose": 30,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4599,
+      "totalCpuCycles": 15167
+    },
+    {
+      "serial": 222,
+      "fromPose": 30,
+      "targetPose": 31,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4088,
+      "totalCpuCycles": 14656
+    },
+    {
+      "serial": 223,
+      "fromPose": 31,
+      "targetPose": 32,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4959,
+      "totalCpuCycles": 15527
+    },
+    {
+      "serial": 224,
+      "fromPose": 32,
+      "targetPose": 33,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4447,
+      "totalCpuCycles": 15015
+    },
+    {
+      "serial": 225,
+      "fromPose": 33,
+      "targetPose": 34,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4584,
+      "totalCpuCycles": 15152
+    },
+    {
+      "serial": 226,
+      "fromPose": 34,
+      "targetPose": 35,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 227,
+      "fromPose": 35,
+      "targetPose": 36,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4793,
+      "totalCpuCycles": 15361
+    },
+    {
+      "serial": 228,
+      "fromPose": 36,
+      "targetPose": 37,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4217,
+      "totalCpuCycles": 14785
+    },
+    {
+      "serial": 229,
+      "fromPose": 37,
+      "targetPose": 38,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4442,
+      "totalCpuCycles": 15010
+    },
+    {
+      "serial": 230,
+      "fromPose": 38,
+      "targetPose": 39,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4807,
+      "totalCpuCycles": 15375
+    },
+    {
+      "serial": 231,
+      "fromPose": 39,
+      "targetPose": 40,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4473,
+      "totalCpuCycles": 15041
+    },
+    {
+      "serial": 232,
+      "fromPose": 40,
+      "targetPose": 41,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 3966,
+      "totalCpuCycles": 14534
+    },
+    {
+      "serial": 233,
+      "fromPose": 41,
+      "targetPose": 42,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4564,
+      "totalCpuCycles": 15132
+    },
+    {
+      "serial": 234,
+      "fromPose": 42,
+      "targetPose": 43,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4809,
+      "totalCpuCycles": 15377
+    },
+    {
+      "serial": 235,
+      "fromPose": 43,
+      "targetPose": 44,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4625,
+      "totalCpuCycles": 15193
+    },
+    {
+      "serial": 236,
+      "fromPose": 44,
+      "targetPose": 45,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5198,
+      "totalCpuCycles": 15766
+    },
+    {
+      "serial": 237,
+      "fromPose": 45,
+      "targetPose": 46,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4367,
+      "totalCpuCycles": 14935
+    },
+    {
+      "serial": 238,
+      "fromPose": 46,
+      "targetPose": 47,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4919,
+      "totalCpuCycles": 15487
+    },
+    {
+      "serial": 239,
+      "fromPose": 47,
+      "targetPose": 48,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4920,
+      "totalCpuCycles": 15488
+    },
+    {
+      "serial": 240,
+      "fromPose": 48,
+      "targetPose": 49,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4829,
+      "totalCpuCycles": 15397
+    },
+    {
+      "serial": 241,
+      "fromPose": 49,
+      "targetPose": 50,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4994,
+      "totalCpuCycles": 15562
+    },
+    {
+      "serial": 242,
+      "fromPose": 50,
+      "targetPose": 51,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 243,
+      "fromPose": 51,
+      "targetPose": 52,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5015,
+      "totalCpuCycles": 15583
+    },
+    {
+      "serial": 244,
+      "fromPose": 52,
+      "targetPose": 53,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5154,
+      "totalCpuCycles": 15722
+    },
+    {
+      "serial": 245,
+      "fromPose": 53,
+      "targetPose": 54,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4990,
+      "totalCpuCycles": 15558
+    },
+    {
+      "serial": 246,
+      "fromPose": 54,
+      "targetPose": 55,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4034,
+      "totalCpuCycles": 14602
+    },
+    {
+      "serial": 247,
+      "fromPose": 55,
+      "targetPose": 56,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4643,
+      "totalCpuCycles": 15211
+    },
+    {
+      "serial": 248,
+      "fromPose": 56,
+      "targetPose": 57,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4534,
+      "totalCpuCycles": 15102
+    },
+    {
+      "serial": 249,
+      "fromPose": 57,
+      "targetPose": 58,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4960,
+      "totalCpuCycles": 15528
+    },
+    {
+      "serial": 250,
+      "fromPose": 58,
+      "targetPose": 59,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4751,
+      "totalCpuCycles": 15319
+    },
+    {
+      "serial": 251,
+      "fromPose": 59,
+      "targetPose": 60,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5308,
+      "totalCpuCycles": 15876
+    },
+    {
+      "serial": 252,
+      "fromPose": 60,
+      "targetPose": 61,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4896,
+      "totalCpuCycles": 15464
+    },
+    {
+      "serial": 253,
+      "fromPose": 61,
+      "targetPose": 62,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4843,
+      "totalCpuCycles": 15411
+    },
+    {
+      "serial": 254,
+      "fromPose": 62,
+      "targetPose": 63,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4687,
+      "totalCpuCycles": 15255
+    },
+    {
+      "serial": 255,
+      "fromPose": 63,
+      "targetPose": 64,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 256,
+      "fromPose": 64,
+      "targetPose": 65,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4340,
+      "totalCpuCycles": 14908
+    },
+    {
+      "serial": 257,
+      "fromPose": 65,
+      "targetPose": 66,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5187,
+      "totalCpuCycles": 15755
+    },
+    {
+      "serial": 258,
+      "fromPose": 66,
+      "targetPose": 67,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4647,
+      "totalCpuCycles": 15215
+    },
+    {
+      "serial": 259,
+      "fromPose": 67,
+      "targetPose": 68,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4821,
+      "totalCpuCycles": 15389
+    },
+    {
+      "serial": 260,
+      "fromPose": 68,
+      "targetPose": 69,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4708,
+      "totalCpuCycles": 15276
+    },
+    {
+      "serial": 261,
+      "fromPose": 69,
+      "targetPose": 70,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4702,
+      "totalCpuCycles": 15270
+    },
+    {
+      "serial": 262,
+      "fromPose": 70,
+      "targetPose": 71,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5049,
+      "totalCpuCycles": 15617
+    },
+    {
+      "serial": 263,
+      "fromPose": 71,
+      "targetPose": 72,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5319,
+      "totalCpuCycles": 15887
+    },
+    {
+      "serial": 264,
+      "fromPose": 72,
+      "targetPose": 73,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5311,
+      "totalCpuCycles": 15879
+    },
+    {
+      "serial": 265,
+      "fromPose": 73,
+      "targetPose": 74,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5648,
+      "totalCpuCycles": 16216
+    },
+    {
+      "serial": 266,
+      "fromPose": 74,
+      "targetPose": 75,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4945,
+      "totalCpuCycles": 15513
+    },
+    {
+      "serial": 267,
+      "fromPose": 75,
+      "targetPose": 76,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5797,
+      "totalCpuCycles": 16365
+    },
+    {
+      "serial": 268,
+      "fromPose": 76,
+      "targetPose": 77,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5054,
+      "totalCpuCycles": 15622
+    },
+    {
+      "serial": 269,
+      "fromPose": 77,
+      "targetPose": 78,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5298,
+      "totalCpuCycles": 15866
+    },
+    {
+      "serial": 270,
+      "fromPose": 78,
+      "targetPose": 79,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5036,
+      "totalCpuCycles": 15604
+    },
+    {
+      "serial": 271,
+      "fromPose": 79,
+      "targetPose": 80,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5251,
+      "totalCpuCycles": 15819
+    },
+    {
+      "serial": 272,
+      "fromPose": 80,
+      "targetPose": 81,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5224,
+      "totalCpuCycles": 15792
+    },
+    {
+      "serial": 273,
+      "fromPose": 81,
+      "targetPose": 82,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5545,
+      "totalCpuCycles": 16113
+    },
+    {
+      "serial": 274,
+      "fromPose": 82,
+      "targetPose": 83,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4942,
+      "totalCpuCycles": 15510
+    },
+    {
+      "serial": 275,
+      "fromPose": 83,
+      "targetPose": 84,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5954,
+      "totalCpuCycles": 16522
+    },
+    {
+      "serial": 276,
+      "fromPose": 84,
+      "targetPose": 85,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5483,
+      "totalCpuCycles": 16051
+    },
+    {
+      "serial": 277,
+      "fromPose": 85,
+      "targetPose": 86,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5665,
+      "totalCpuCycles": 16233
+    },
+    {
+      "serial": 278,
+      "fromPose": 86,
+      "targetPose": 87,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5396,
+      "totalCpuCycles": 15964
+    },
+    {
+      "serial": 279,
+      "fromPose": 87,
+      "targetPose": 88,
+      "frontIndex": 9,
+      "backIndex": 0,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5167,
+      "totalCpuCycles": 15735
+    },
+    {
+      "serial": 280,
+      "fromPose": 88,
+      "targetPose": 89,
+      "frontIndex": 0,
+      "backIndex": 1,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5548,
+      "totalCpuCycles": 16116
+    },
+    {
+      "serial": 281,
+      "fromPose": 89,
+      "targetPose": 90,
+      "frontIndex": 1,
+      "backIndex": 2,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5713,
+      "totalCpuCycles": 16281
+    },
+    {
+      "serial": 282,
+      "fromPose": 90,
+      "targetPose": 91,
+      "frontIndex": 2,
+      "backIndex": 3,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5070,
+      "totalCpuCycles": 15638
+    },
+    {
+      "serial": 283,
+      "fromPose": 91,
+      "targetPose": 92,
+      "frontIndex": 3,
+      "backIndex": 4,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5452,
+      "totalCpuCycles": 16020
+    },
+    {
+      "serial": 284,
+      "fromPose": 92,
+      "targetPose": 93,
+      "frontIndex": 4,
+      "backIndex": 5,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 15738
+    },
+    {
+      "serial": 285,
+      "fromPose": 93,
+      "targetPose": 94,
+      "frontIndex": 5,
+      "backIndex": 6,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5528,
+      "totalCpuCycles": 16096
+    },
+    {
+      "serial": 286,
+      "fromPose": 94,
+      "targetPose": 95,
+      "frontIndex": 6,
+      "backIndex": 7,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5364,
+      "totalCpuCycles": 15932
+    },
+    {
+      "serial": 287,
+      "fromPose": 95,
+      "targetPose": 96,
+      "frontIndex": 7,
+      "backIndex": 8,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 4996,
+      "totalCpuCycles": 15564
+    },
+    {
+      "serial": 288,
+      "fromPose": 96,
+      "targetPose": 1,
+      "frontIndex": 8,
+      "backIndex": 9,
+      "copyCpuCycles": 10568,
+      "renderCpuCycles": 5127,
+      "totalCpuCycles": 15695
+    }
+  ]
+}

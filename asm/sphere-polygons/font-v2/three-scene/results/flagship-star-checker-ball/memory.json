@@ -1,0 +1,32 @@
+{
+  "mainRamBytes": 46639,
+  "colorRamCells": 1024,
+  "payloadBytes": 34169,
+  "pointerBytes": 196,
+  "totalFilmBytes": 34365,
+  "fontBytes": 2048,
+  "zoomLutBytes": 2048,
+  "mirrorLutBytes": 512,
+  "workScreenBytes": 2048,
+  "rowCacheBytes": 500,
+  "waveLutBytes": 1200,
+  "highStagingBytes": 1434,
+  "historyImageBytes": 0,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 11008,
+    "highStaging": 11008,
+    "highStagingEnd": 12442,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 53215,
+    "highSource": 57344,
+    "highSourceEnd": 58778
+  }
+}

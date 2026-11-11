@@ -1,0 +1,138 @@
+{
+  "passed": true,
+  "baselinePath": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star-span-mirror/player.prg",
+  "oldProgramSha256": "add6e800968b3520b4eb3ff1b098b350ddd1e09dee6af4115615c67fe1a79b5a",
+  "newProgramSha256": "62ed4edff6a8e6c12a5b3de61e59a1cf09586e6f55fecc3387e62ba4614587f3",
+  "oldTonePolicyPassed": false,
+  "oldToneFailures": 14,
+  "newTonePolicyPassed": true,
+  "newToneFailures": 0,
+  "classifiedGlyphs": 9,
+  "nonuniformToneGlyphs": 7,
+  "unchangedEntriesPerLut": 249,
+  "lutBytes": 512,
+  "changedH": [
+    193,
+    200,
+    205,
+    206,
+    216,
+    220,
+    228
+  ],
+  "changedV": [
+    193,
+    200,
+    205,
+    206,
+    216,
+    220,
+    228
+  ],
+  "differences": [
+    {
+      "address": 5313,
+      "axis": "H",
+      "code": 193,
+      "old": 52,
+      "next": 193
+    },
+    {
+      "address": 5320,
+      "axis": "H",
+      "code": 200,
+      "old": 52,
+      "next": 200
+    },
+    {
+      "address": 5325,
+      "axis": "H",
+      "code": 205,
+      "old": 52,
+      "next": 205
+    },
+    {
+      "address": 5326,
+      "axis": "H",
+      "code": 206,
+      "old": 73,
+      "next": 206
+    },
+    {
+      "address": 5336,
+      "axis": "H",
+      "code": 216,
+      "old": 73,
+      "next": 216
+    },
+    {
+      "address": 5340,
+      "axis": "H",
+      "code": 220,
+      "old": 73,
+      "next": 220
+    },
+    {
+      "address": 5348,
+      "axis": "H",
+      "code": 228,
+      "old": 56,
+      "next": 228
+    },
+    {
+      "address": 5569,
+      "axis": "V",
+      "code": 193,
+      "old": 35,
+      "next": 193
+    },
+    {
+      "address": 5576,
+      "axis": "V",
+      "code": 200,
+      "old": 35,
+      "next": 200
+    },
+    {
+      "address": 5581,
+      "axis": "V",
+      "code": 205,
+      "old": 66,
+      "next": 205
+    },
+    {
+      "address": 5582,
+      "axis": "V",
+      "code": 206,
+      "old": 31,
+      "next": 206
+    },
+    {
+      "address": 5592,
+      "axis": "V",
+      "code": 216,
+      "old": 31,
+      "next": 216
+    },
+    {
+      "address": 5596,
+      "axis": "V",
+      "code": 220,
+      "old": 31,
+      "next": 220
+    },
+    {
+      "address": 5604,
+      "axis": "V",
+      "code": 228,
+      "old": 70,
+      "next": 228
+    }
+  ],
+  "allOtherProgramBytesUnchanged": true,
+  "rendererUnchanged": true,
+  "fontUnchanged": true,
+  "rowsUnchanged": true,
+  "frameIndexUnchanged": true,
+  "geometryUnchanged": true
+}

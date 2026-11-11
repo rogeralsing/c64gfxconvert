@@ -1,0 +1,644 @@
+{
+  "name": "pal-dithered-cube-loop",
+  "title": "Roterande kub med dithrade sidgradienter",
+  "description": "Den godkända kubens kontinuerliga sidgradienter roterar kring tre axlar i en sluten loop.",
+  "width": 320,
+  "height": 200,
+  "fps": 25,
+  "durationSeconds": 3.88,
+  "frameCount": 97,
+  "frameBytes": 8000,
+  "framesFile": "bitmap.frames",
+  "format": "packed1bit",
+  "bitOrder": "MSB-first",
+  "rowOrder": "top-to-bottom",
+  "quantization": {
+    "mode": "ordered",
+    "threshold": null,
+    "luminance": "Rec.709 integer approximation, composited against black",
+    "matrix": "4x4 Bayer, fixed to screen coordinates"
+  },
+  "renderer": {
+    "engine": "Three.js WebGPURenderer",
+    "revision": "187",
+    "nativeWebGPU": "webgpu 0.6.2 (Dawn)",
+    "backend": "metal",
+    "canvasContextRequests": 0,
+    "browserUsed": false,
+    "targetColorSpace": "srgb",
+    "antialias": false
+  },
+  "source": "../../../../../../c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/dithered-cube-zoom-study/scene-2x.mjs",
+  "sceneSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/dithered-cube-zoom-study/scene-2x.mjs",
+  "sourceSha256": "7a34950ef279f515f891712570f663a85f1ac90f137b3bc1c111ed12446984bd",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-dithered-cube-loop.mjs",
+      "sha256": "565c780ebaa444df908f215586a6c43003b3819fb0f62346d5eef4da6d01ce2b"
+    }
+  ],
+  "hashes": {
+    "frames": "2ab634e5af8b2380f72f61fb45b151ccc78b1c7b96a0cfa50ab6bfc0a95723de",
+    "rgba": null,
+    "objectMask": "870662ea7fa55f53c0dfe3de63a8429bb91ac078afb190afddc6ac9429dda6bb"
+  },
+  "rgbaFile": null,
+  "objectMaskFile": "object-mask.frames",
+  "objectMaskScope": "Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.",
+  "verification": {
+    "firstFrameBlack": true,
+    "deterministicSampleTimes": true,
+    "allFramesReadFromGPU": true
+  },
+  "phaseLabels": {
+    "blank": "Tom startbild",
+    "gray": "Roterande kub med sidgradienter"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "phase": "blank"
+    },
+    {
+      "index": 1,
+      "time": 0.04,
+      "phase": "gray"
+    },
+    {
+      "index": 2,
+      "time": 0.08,
+      "phase": "gray"
+    },
+    {
+      "index": 3,
+      "time": 0.12,
+      "phase": "gray"
+    },
+    {
+      "index": 4,
+      "time": 0.16,
+      "phase": "gray"
+    },
+    {
+      "index": 5,
+      "time": 0.2,
+      "phase": "gray"
+    },
+    {
+      "index": 6,
+      "time": 0.24,
+      "phase": "gray"
+    },
+    {
+      "index": 7,
+      "time": 0.28,
+      "phase": "gray"
+    },
+    {
+      "index": 8,
+      "time": 0.32,
+      "phase": "gray"
+    },
+    {
+      "index": 9,
+      "time": 0.36,
+      "phase": "gray"
+    },
+    {
+      "index": 10,
+      "time": 0.4,
+      "phase": "gray"
+    },
+    {
+      "index": 11,
+      "time": 0.44,
+      "phase": "gray"
+    },
+    {
+      "index": 12,
+      "time": 0.48,
+      "phase": "gray"
+    },
+    {
+      "index": 13,
+      "time": 0.52,
+      "phase": "gray"
+    },
+    {
+      "index": 14,
+      "time": 0.56,
+      "phase": "gray"
+    },
+    {
+      "index": 15,
+      "time": 0.6,
+      "phase": "gray"
+    },
+    {
+      "index": 16,
+      "time": 0.64,
+      "phase": "gray"
+    },
+    {
+      "index": 17,
+      "time": 0.68,
+      "phase": "gray"
+    },
+    {
+      "index": 18,
+      "time": 0.72,
+      "phase": "gray"
+    },
+    {
+      "index": 19,
+      "time": 0.76,
+      "phase": "gray"
+    },
+    {
+      "index": 20,
+      "time": 0.8,
+      "phase": "gray"
+    },
+    {
+      "index": 21,
+      "time": 0.84,
+      "phase": "gray"
+    },
+    {
+      "index": 22,
+      "time": 0.88,
+      "phase": "gray"
+    },
+    {
+      "index": 23,
+      "time": 0.92,
+      "phase": "gray"
+    },
+    {
+      "index": 24,
+      "time": 0.96,
+      "phase": "gray"
+    },
+    {
+      "index": 25,
+      "time": 1,
+      "phase": "gray"
+    },
+    {
+      "index": 26,
+      "time": 1.04,
+      "phase": "gray"
+    },
+    {
+      "index": 27,
+      "time": 1.08,
+      "phase": "gray"
+    },
+    {
+      "index": 28,
+      "time": 1.12,
+      "phase": "gray"
+    },
+    {
+      "index": 29,
+      "time": 1.16,
+      "phase": "gray"
+    },
+    {
+      "index": 30,
+      "time": 1.2,
+      "phase": "gray"
+    },
+    {
+      "index": 31,
+      "time": 1.24,
+      "phase": "gray"
+    },
+    {
+      "index": 32,
+      "time": 1.28,
+      "phase": "gray"
+    },
+    {
+      "index": 33,
+      "time": 1.32,
+      "phase": "gray"
+    },
+    {
+      "index": 34,
+      "time": 1.36,
+      "phase": "gray"
+    },
+    {
+      "index": 35,
+      "time": 1.4,
+      "phase": "gray"
+    },
+    {
+      "index": 36,
+      "time": 1.44,
+      "phase": "gray"
+    },
+    {
+      "index": 37,
+      "time": 1.48,
+      "phase": "gray"
+    },
+    {
+      "index": 38,
+      "time": 1.52,
+      "phase": "gray"
+    },
+    {
+      "index": 39,
+      "time": 1.56,
+      "phase": "gray"
+    },
+    {
+      "index": 40,
+      "time": 1.6,
+      "phase": "gray"
+    },
+    {
+      "index": 41,
+      "time": 1.64,
+      "phase": "gray"
+    },
+    {
+      "index": 42,
+      "time": 1.68,
+      "phase": "gray"
+    },
+    {
+      "index": 43,
+      "time": 1.72,
+      "phase": "gray"
+    },
+    {
+      "index": 44,
+      "time": 1.76,
+      "phase": "gray"
+    },
+    {
+      "index": 45,
+      "time": 1.8,
+      "phase": "gray"
+    },
+    {
+      "index": 46,
+      "time": 1.84,
+      "phase": "gray"
+    },
+    {
+      "index": 47,
+      "time": 1.88,
+      "phase": "gray"
+    },
+    {
+      "index": 48,
+      "time": 1.92,
+      "phase": "gray"
+    },
+    {
+      "index": 49,
+      "time": 1.96,
+      "phase": "gray"
+    },
+    {
+      "index": 50,
+      "time": 2,
+      "phase": "gray"
+    },
+    {
+      "index": 51,
+      "time": 2.04,
+      "phase": "gray"
+    },
+    {
+      "index": 52,
+      "time": 2.08,
+      "phase": "gray"
+    },
+    {
+      "index": 53,
+      "time": 2.12,
+      "phase": "gray"
+    },
+    {
+      "index": 54,
+      "time": 2.16,
+      "phase": "gray"
+    },
+    {
+      "index": 55,
+      "time": 2.2,
+      "phase": "gray"
+    },
+    {
+      "index": 56,
+      "time": 2.24,
+      "phase": "gray"
+    },
+    {
+      "index": 57,
+      "time": 2.28,
+      "phase": "gray"
+    },
+    {
+      "index": 58,
+      "time": 2.32,
+      "phase": "gray"
+    },
+    {
+      "index": 59,
+      "time": 2.36,
+      "phase": "gray"
+    },
+    {
+      "index": 60,
+      "time": 2.4,
+      "phase": "gray"
+    },
+    {
+      "index": 61,
+      "time": 2.44,
+      "phase": "gray"
+    },
+    {
+      "index": 62,
+      "time": 2.48,
+      "phase": "gray"
+    },
+    {
+      "index": 63,
+      "time": 2.52,
+      "phase": "gray"
+    },
+    {
+      "index": 64,
+      "time": 2.56,
+      "phase": "gray"
+    },
+    {
+      "index": 65,
+      "time": 2.6,
+      "phase": "gray"
+    },
+    {
+      "index": 66,
+      "time": 2.64,
+      "phase": "gray"
+    },
+    {
+      "index": 67,
+      "time": 2.68,
+      "phase": "gray"
+    },
+    {
+      "index": 68,
+      "time": 2.72,
+      "phase": "gray"
+    },
+    {
+      "index": 69,
+      "time": 2.76,
+      "phase": "gray"
+    },
+    {
+      "index": 70,
+      "time": 2.8,
+      "phase": "gray"
+    },
+    {
+      "index": 71,
+      "time": 2.84,
+      "phase": "gray"
+    },
+    {
+      "index": 72,
+      "time": 2.88,
+      "phase": "gray"
+    },
+    {
+      "index": 73,
+      "time": 2.92,
+      "phase": "gray"
+    },
+    {
+      "index": 74,
+      "time": 2.96,
+      "phase": "gray"
+    },
+    {
+      "index": 75,
+      "time": 3,
+      "phase": "gray"
+    },
+    {
+      "index": 76,
+      "time": 3.04,
+      "phase": "gray"
+    },
+    {
+      "index": 77,
+      "time": 3.08,
+      "phase": "gray"
+    },
+    {
+      "index": 78,
+      "time": 3.12,
+      "phase": "gray"
+    },
+    {
+      "index": 79,
+      "time": 3.16,
+      "phase": "gray"
+    },
+    {
+      "index": 80,
+      "time": 3.2,
+      "phase": "gray"
+    },
+    {
+      "index": 81,
+      "time": 3.24,
+      "phase": "gray"
+    },
+    {
+      "index": 82,
+      "time": 3.28,
+      "phase": "gray"
+    },
+    {
+      "index": 83,
+      "time": 3.32,
+      "phase": "gray"
+    },
+    {
+      "index": 84,
+      "time": 3.36,
+      "phase": "gray"
+    },
+    {
+      "index": 85,
+      "time": 3.4,
+      "phase": "gray"
+    },
+    {
+      "index": 86,
+      "time": 3.44,
+      "phase": "gray"
+    },
+    {
+      "index": 87,
+      "time": 3.48,
+      "phase": "gray"
+    },
+    {
+      "index": 88,
+      "time": 3.52,
+      "phase": "gray"
+    },
+    {
+      "index": 89,
+      "time": 3.56,
+      "phase": "gray"
+    },
+    {
+      "index": 90,
+      "time": 3.6,
+      "phase": "gray"
+    },
+    {
+      "index": 91,
+      "time": 3.64,
+      "phase": "gray"
+    },
+    {
+      "index": 92,
+      "time": 3.68,
+      "phase": "gray"
+    },
+    {
+      "index": 93,
+      "time": 3.72,
+      "phase": "gray"
+    },
+    {
+      "index": 94,
+      "time": 3.76,
+      "phase": "gray"
+    },
+    {
+      "index": 95,
+      "time": 3.8,
+      "phase": "gray"
+    },
+    {
+      "index": 96,
+      "time": 3.84,
+      "phase": "gray"
+    }
+  ],
+  "litPixels": [
+    0,
+    10144,
+    10337,
+    10467,
+    10456,
+    10359,
+    10096,
+    9724,
+    9192,
+    8702,
+    8677,
+    8596,
+    8496,
+    8315,
+    8236,
+    8636,
+    8861,
+    8908,
+    8774,
+    8464,
+    7949,
+    7310,
+    6961,
+    7649,
+    8219,
+    8614,
+    8847,
+    8859,
+    8710,
+    8353,
+    8026,
+    8145,
+    8169,
+    8121,
+    8657,
+    9380,
+    9953,
+    10344,
+    10562,
+    10625,
+    10537,
+    10318,
+    9943,
+    9432,
+    8882,
+    9205,
+    9645,
+    9961,
+    10125,
+    10144,
+    10024,
+    9797,
+    9859,
+    10237,
+    10457,
+    10581,
+    10637,
+    10587,
+    10462,
+    10318,
+    10135,
+    9905,
+    9661,
+    9434,
+    9196,
+    8960,
+    8788,
+    8655,
+    8557,
+    8512,
+    8479,
+    8501,
+    8576,
+    8681,
+    8799,
+    8941,
+    9075,
+    9221,
+    9335,
+    9462,
+    9529,
+    9603,
+    9617,
+    9616,
+    9601,
+    9531,
+    9435,
+    9307,
+    9163,
+    9018,
+    8844,
+    8680,
+    8538,
+    8606,
+    9091,
+    9504,
+    9862
+  ],
+  "hostRenderSeconds": 3.4942584170000006
+}

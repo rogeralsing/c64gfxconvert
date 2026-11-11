@@ -1,0 +1,93 @@
+{
+  "name": "span-effects",
+  "format": "Independent25rows/frame: X8,length8,rawCharacters[length]; onlyleading/trailingzero omitted; internalzeros literal.",
+  "storedFrames": 97,
+  "encodedFrames": 97,
+  "nominalFps": 25,
+  "nativeFps": null,
+  "modes": [
+    "normal",
+    "wave",
+    "checkerboard"
+  ],
+  "modeDurationFields": 501,
+  "nominalModeSeconds": 9.995103770827244,
+  "nominalSequenceSeconds": 29.98531131248173,
+  "modeLookaheadFields": 5,
+  "phaseContract": "Globalcommittedfilm_serial incrementsonce/image;1..96sourceposesrepeat. Wavephase=serial%96, age=round(4.5+4.5*sin(2*pi*(row/24+phase/96))), A=max(0,t-age). CheckerA=t,B=max(0,t-48). Fixed4x4-char checker odd parity selectsB.",
+  "timingContract": "Prepare nextmode whenmode_fields_left<=5; waitfordeadline501. Everyframe begins immediatelyafterpreviouspublication andfullyclears+drawshidden. ActualFPS/modeintervalsnativemeasured.",
+  "rowCache": {
+    "start": 5126,
+    "bytes": 500,
+    "tables": 10,
+    "rowsPerTable": 25,
+    "pointerBytes": 2,
+    "layout": "InterleavedabsoluteLE16 row-header pointers; slot*50+row*2",
+    "frameIds": 5116,
+    "validCount": 5113,
+    "slotContract": "Normal1tablecurrent; wave10tablesages0..9; checker2tablescurrentandage48. Same500Bpoolreused. Allvalidtablesrebuiltfromrawheadersperimage.",
+    "pointerMeaning": "AddressesX,lengthheader,notrawdata",
+    "blankPose": 0
+  },
+  "payloadBytes": 22882,
+  "pointerBytes": 194,
+  "totalFilmBytes": 23076,
+  "fontBytes": 2048,
+  "workScreenBytes": 2048,
+  "waveLutBytes": 2400,
+  "codeRegionBytes": 4324,
+  "zeroPageBytes": 11,
+  "basicBytes": 12,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 8420,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 43362
+  },
+  "sourceRegions": [
+    {
+      "file": "movie.bin",
+      "start": 20480,
+      "end": 43362,
+      "sha256": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719"
+    },
+    {
+      "file": "frame-pointers-absolute.bin",
+      "start": 5646,
+      "end": 5840,
+      "sha256": "33f467bdcac6d91bdaf1c6885b8fb63e1dbbcb2344acb20e8a401d0ee6a4f347",
+      "layout": "97absolutelowsfollowedby97absolutehighs;derivedfromunchangedframe-offsets16.bin"
+    }
+  ],
+  "immutableInputHashes": {
+    "rows": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719",
+    "frameOffsets16": "9c9a213dd0baee1092c80bb6dbe5c41eaa3db391016bee1a1c4c5abc64306932",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c"
+  },
+  "hashes": {
+    "program": "67dd338cc66dd4e006a57a7ad8471a787dcac94d2d6cc31add613c271378208b",
+    "movie": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c",
+    "wave": "2338a46d5aabcfb8d653a6bcb05a387274fcf979f66ba8d58a8a5e9a479fca27"
+  },
+  "memoryScope": "Twooutputscreens,one500Bpointerpool,10frameIDs. Code regionincludespointerpool/frameindex/waveLUT; donotcountthemtwice. ColorRAMseparate1024cells. Nofullhistoryimages, nopreviousframecopy, norowdependencies.",
+  "mainRamBytes": 31325,
+  "colorRamCells": 1024,
+  "hostPreparationTiming": {
+    "maximumCpuCycles": 49512,
+    "palFieldCpuBudget": 18456,
+    "threeFieldBudget": 55368,
+    "fitsThreeFieldsCpuBudget": true,
+    "sourceProgramSha256": "cd4c486a302f448016a8295f4f386c07ca42cf5855a83022cf0f5940bff03811",
+    "constantOnlyChange": "Lookahead3to5; byte-exact proof confirms all draw/cache/clear instructions unchanged."
+  }
+}

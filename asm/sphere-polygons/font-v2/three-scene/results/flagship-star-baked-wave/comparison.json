@@ -1,0 +1,147 @@
+{
+  "pass": true,
+  "input": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star-pal/storage",
+  "output": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/raster-wave-study",
+  "fontSha256": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+  "fontUnchanged": true,
+  "method": {
+    "name": "flagship-star-baked-age-wave",
+    "fontMode": "fixed256",
+    "firstRow": 0,
+    "rowCount": 25,
+    "ageFormula": "round(4.5 + 4.5*sin(2*pi*((band-firstBand)/(bandCount-1) + serial/96))); outside the section age=0",
+    "phase": "Initial blank serial0 has phase0; advance once on each film-image commit, modulo96.",
+    "sourcePose": "serial<=0 uses blank0; otherwise ((serial-1)%96)+1.",
+    "startup": "Stored composites0..9 retain the real initially blank history. Only serial0 is entirely blank; history fills gradually.",
+    "repeatingSuffix": "Composites10..105: latest source poses10..96,1..9, with phase10..95,0..9. Composite106 exactly reproduces composite10.",
+    "historyFrames": 10,
+    "sourceStorage": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star-pal/storage"
+  },
+  "storedFrameCountExplanation": "10 one-time startup composites (0..9) plus96 repeating composites (10..105) =106 stored screens and106 outgoing patches including closure. Initial blank has no stored seed. The source baseline is97 screens and97 patches.",
+  "pointerTableIncreaseBytes": 18,
+  "playbackBytecodeBytes": 11,
+  "variants": [
+    {
+      "name": "baseline",
+      "storedFrames": 97,
+      "loopStart": 1,
+      "payloadBytes": 15272,
+      "pointerTableBytes": 194,
+      "totalAnimationBytesWithPointers": 15466,
+      "totalAnimationAndFontBytes": 17514,
+      "bytesPerFrame": {
+        "min": 118,
+        "mean": 157.44329896907217,
+        "max": 226
+      },
+      "loopBytesPerFrame": {
+        "min": 118,
+        "mean": 156.72916666666666,
+        "max": 196
+      },
+      "introPayloadBytes": 226,
+      "loopPayloadBytes": 15046,
+      "closingPatchBytes": 165,
+      "sourceSha256": "6f0bf83e2c289d5113fbe8377b77a92971c159e8428f77d00b65321c64fbc821",
+      "transitionsVerified": 289,
+      "closingPatchIncluded": true,
+      "changedCharactersPerTransition": {
+        "min": 49,
+        "mean": 75.3917525773196,
+        "max": 176
+      },
+      "extraPayloadVersusBaseline": 0,
+      "approximation": null
+    },
+    {
+      "name": "wave-rows-8",
+      "storedFrames": 106,
+      "loopStart": 10,
+      "payloadBytes": 15048,
+      "pointerTableBytes": 212,
+      "totalAnimationBytesWithPointers": 15260,
+      "totalAnimationAndFontBytes": 17308,
+      "bytesPerFrame": {
+        "min": 53,
+        "mean": 141.96226415094338,
+        "max": 194
+      },
+      "loopBytesPerFrame": {
+        "min": 83,
+        "mean": 145.38541666666666,
+        "max": 194
+      },
+      "introPayloadBytes": 1091,
+      "loopPayloadBytes": 13957,
+      "closingPatchBytes": 194,
+      "sourceSha256": "7e92f98c2a5171a2a6bd3fda5f9a3893a1af2d210d0d4afd27fc9a891f37e8fe",
+      "transitionsVerified": 298,
+      "closingPatchIncluded": true,
+      "changedCharactersPerTransition": {
+        "min": 34,
+        "mean": 68.78301886792453,
+        "max": 101
+      },
+      "extraPayloadVersusBaseline": -224,
+      "approximation": {
+        "pixelError": 0,
+        "scope": "Exact whole-character-row selection from the source movie; no additional bitmap or font approximation."
+      }
+    },
+    {
+      "name": "wave-raster-2",
+      "storedFrames": 106,
+      "loopStart": 10,
+      "payloadBytes": 15899,
+      "pointerTableBytes": 212,
+      "totalAnimationBytesWithPointers": 16111,
+      "totalAnimationAndFontBytes": 18159,
+      "bytesPerFrame": {
+        "min": 54,
+        "mean": 149.99056603773585,
+        "max": 205
+      },
+      "loopBytesPerFrame": {
+        "min": 112,
+        "mean": 153.02083333333334,
+        "max": 205
+      },
+      "introPayloadBytes": 1209,
+      "loopPayloadBytes": 14690,
+      "closingPatchBytes": 205,
+      "sourceSha256": "5780ce206757dd1de6e4e1977cba345b7cfc18604b5128a5276626b85eab53a5",
+      "transitionsVerified": 298,
+      "closingPatchIncluded": true,
+      "changedCharactersPerTransition": {
+        "min": 33,
+        "mean": 72.17924528301887,
+        "max": 105
+      },
+      "extraPayloadVersusBaseline": 627,
+      "approximation": {
+        "matcher": "Existing createMatcher(lockedFont,true), minimum 8x8 Hamming error; ties choose the lowest glyph code. No object-mask constraint.",
+        "comparisonReference": "Ideal2-raster-band mix of already decoded source glyph bitmaps; errors are additional to the original three.js-to-font conversion.",
+        "totalMismatchedPixels": 8464,
+        "comparedPixels": 6784000,
+        "pixelError": 0.0012476415094339623,
+        "mismatchedPixelsPerFrame": {
+          "min": 0,
+          "mean": 79.84905660377359,
+          "max": 142
+        },
+        "loopMismatchedPixelsPerFrame": {
+          "min": 28,
+          "mean": 82.35416666666667,
+          "max": 142
+        },
+        "exactCellsPerFrame": {
+          "min": 967,
+          "mean": 981.0377358490566,
+          "max": 1000
+        },
+        "maxTileError": 16
+      }
+    }
+  ],
+  "nativeTimingMeasured": false
+}

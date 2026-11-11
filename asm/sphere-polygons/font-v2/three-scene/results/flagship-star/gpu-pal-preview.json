@@ -1,0 +1,42 @@
+{
+  "pass": true,
+  "scope": "Actual old/new GPU-exported packed bitmaps, shown with the same PAL pixel-aspect correction. No character matching or post-hoc shape correction.",
+  "sourceSha256": "f4d992adeea16d6092751022ad6b9323b0dc4ebae2a92e63fb9f883149c9b4b5",
+  "oldSourceSha256": "26788e19aa11c2feafb4fab00e3d5ab1ec1b5214df4451cb5dbc4284966be677",
+  "oldBitmapSha256": "36708e4ceec2386c53c2c5e522bcc28f9697d176bd931d7c6ec4e118a3b2e081",
+  "newBitmapSha256": "7332f44c5f51622cdbd15e27cd984a80d3a4ddaf814bee13e164e545fd316f81",
+  "pixelAspect": {
+    "width": 59,
+    "height": 63,
+    "ratio": 0.9365079365079365
+  },
+  "sourceRaster": [
+    160,
+    100
+  ],
+  "physicalRawRaster": [
+    320,
+    200
+  ],
+  "palPhysicalRasterContinuous": [
+    299.6825396825397,
+    200
+  ],
+  "previewPixels": [
+    599,
+    400
+  ],
+  "previewAspectRoundingErrorFraction": -0.0006091101694915002,
+  "contactFrames": [
+    1,
+    25,
+    49,
+    73
+  ],
+  "gifFramesCompared": 96,
+  "gifBlocks": 96,
+  "gifDurationMs": 3840,
+  "gifPixelsAndTimingVerified": true,
+  "contact": "pal-before-after.png",
+  "loop": "flagship-star-pal-bitmap.gif"
+}

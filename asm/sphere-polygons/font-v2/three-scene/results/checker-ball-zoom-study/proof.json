@@ -1,0 +1,290 @@
+{
+  "passed": true,
+  "acceptedPalComparisonApplicable": false,
+  "sourceAll96PosesEqualAcceptedPal": null,
+  "fontLockedAndUnchanged": true,
+  "sourceAll96PosesByteEqualAcceptedPal": null,
+  "sourceAll96PosesFittedDirectlyFromSelected1xCache": true,
+  "exactAcceptedPoseFits": null,
+  "serializedRasterBitsMatchGpuAtEveryPixel": true,
+  "normalizedGlyphCodes": true,
+  "fullView2xCellAlignment": true,
+  "trainHeldoutDisjoint": true,
+  "heldoutNeverUsedToFitLut": true,
+  "learnedTrainingErrorAtMostModal": true,
+  "directUnmaskedLowerBoundForAllGlyphMethods": true,
+  "filesReadBackByteIdentical": true,
+  "metrics": {
+    "train": {
+      "learned": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 398221,
+        "objectMismatches": 390275,
+        "outsideMismatches": 7946,
+        "outsideWhiteSpill": 7946,
+        "missedWhitePixels": 209252,
+        "extraWhitePixels": 188969,
+        "fullFrameError": 0.021604871961805557,
+        "objectError": 0.05221791155648512,
+        "outsideSpillRate": 0.0007251302058617825,
+        "extraMismatchesVsDirectMasked": 273800,
+        "extraMismatchesVsDirectUnmasked": 278198
+      },
+      "modal": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 441822,
+        "objectMismatches": 431614,
+        "outsideMismatches": 10208,
+        "outsideWhiteSpill": 10208,
+        "missedWhitePixels": 232028,
+        "extraWhitePixels": 209794,
+        "fullFrameError": 0.023970377604166666,
+        "objectError": 0.0577489761797214,
+        "outsideSpillRate": 0.0009315541330779104,
+        "extraMismatchesVsDirectMasked": 317401,
+        "extraMismatchesVsDirectUnmasked": 321799
+      },
+      "literalPixels": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 408824,
+        "objectMismatches": 401616,
+        "outsideMismatches": 7208,
+        "outsideWhiteSpill": 7208,
+        "missedWhitePixels": 215560,
+        "extraWhitePixels": 193264,
+        "fullFrameError": 0.022180121527777777,
+        "objectError": 0.053735311684502796,
+        "outsideSpillRate": 0.0006577823463191201,
+        "extraMismatchesVsDirectMasked": 284403,
+        "extraMismatchesVsDirectUnmasked": 288801
+      },
+      "literalFont": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 421040,
+        "objectMismatches": 412960,
+        "outsideMismatches": 8080,
+        "outsideWhiteSpill": 8080,
+        "missedWhitePixels": 220339,
+        "extraWhitePixels": 200701,
+        "fullFrameError": 0.022842881944444445,
+        "objectError": 0.05525311320572954,
+        "outsideSpillRate": 0.0007373586790036751,
+        "extraMismatchesVsDirectMasked": 296619,
+        "extraMismatchesVsDirectUnmasked": 301017
+      },
+      "directMasked": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 124421,
+        "objectMismatches": 124421,
+        "outsideMismatches": 0,
+        "outsideWhiteSpill": 0,
+        "missedWhitePixels": 69281,
+        "extraWhitePixels": 55140,
+        "fullFrameError": 0.006750271267361111,
+        "objectError": 0.01664724815519681,
+        "outsideSpillRate": 0,
+        "extraMismatchesVsDirectMasked": 0,
+        "extraMismatchesVsDirectUnmasked": 4398
+      },
+      "directUnmasked": {
+        "pixels": 18432000,
+        "objectPixels": 7473968,
+        "referenceWhitePixels": 3737268,
+        "mismatches": 120023,
+        "objectMismatches": 114733,
+        "outsideMismatches": 5290,
+        "outsideWhiteSpill": 5290,
+        "missedWhitePixels": 60403,
+        "extraWhitePixels": 59620,
+        "fullFrameError": 0.006511664496527778,
+        "objectError": 0.015351015685376229,
+        "outsideSpillRate": 0.00048275091731800015,
+        "extraMismatchesVsDirectMasked": -4398,
+        "extraMismatchesVsDirectUnmasked": 0
+      }
+    },
+    "heldout": {
+      "learned": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 146782,
+        "objectMismatches": 142323,
+        "outsideMismatches": 4459,
+        "outsideWhiteSpill": 4459,
+        "missedWhitePixels": 76203,
+        "extraWhitePixels": 70579,
+        "fullFrameError": 0.023890299479166665,
+        "objectError": 0.057125529018129506,
+        "outsideSpillRate": 0.0012207769167758128,
+        "extraMismatchesVsDirectMasked": 103766,
+        "extraMismatchesVsDirectUnmasked": 105737
+      },
+      "modal": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 164773,
+        "objectMismatches": 158467,
+        "outsideMismatches": 6306,
+        "outsideWhiteSpill": 6306,
+        "missedWhitePixels": 84992,
+        "extraWhitePixels": 79781,
+        "fullFrameError": 0.02681852213541667,
+        "objectError": 0.06360539903540488,
+        "outsideSpillRate": 0.0017264452202709747,
+        "extraMismatchesVsDirectMasked": 121757,
+        "extraMismatchesVsDirectUnmasked": 123728
+      },
+      "literalPixels": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 143084,
+        "objectMismatches": 139776,
+        "outsideMismatches": 3308,
+        "outsideWhiteSpill": 3308,
+        "missedWhitePixels": 75028,
+        "extraWhitePixels": 68056,
+        "fullFrameError": 0.023288411458333335,
+        "objectError": 0.05610321553113741,
+        "outsideSpillRate": 0.0009056582284580375,
+        "extraMismatchesVsDirectMasked": 100068,
+        "extraMismatchesVsDirectUnmasked": 102039
+      },
+      "literalFont": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 147237,
+        "objectMismatches": 143567,
+        "outsideMismatches": 3670,
+        "outsideWhiteSpill": 3670,
+        "missedWhitePixels": 76942,
+        "extraWhitePixels": 70295,
+        "fullFrameError": 0.02396435546875,
+        "objectError": 0.05762484506752808,
+        "outsideSpillRate": 0.0010047659306048964,
+        "extraMismatchesVsDirectMasked": 104221,
+        "extraMismatchesVsDirectUnmasked": 106192
+      },
+      "directMasked": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 43016,
+        "objectMismatches": 43016,
+        "outsideMismatches": 0,
+        "outsideWhiteSpill": 0,
+        "missedWhitePixels": 24917,
+        "extraWhitePixels": 18099,
+        "fullFrameError": 0.007001302083333333,
+        "objectError": 0.01726573889142204,
+        "outsideSpillRate": 0,
+        "extraMismatchesVsDirectMasked": 0,
+        "extraMismatchesVsDirectUnmasked": 1971
+      },
+      "directUnmasked": {
+        "pixels": 6144000,
+        "objectPixels": 2491408,
+        "referenceWhitePixels": 1245996,
+        "mismatches": 41045,
+        "objectMismatches": 38699,
+        "outsideMismatches": 2346,
+        "outsideWhiteSpill": 2346,
+        "missedWhitePixels": 20759,
+        "extraWhitePixels": 20286,
+        "fullFrameError": 0.006680501302083333,
+        "objectError": 0.015532983758581493,
+        "outsideSpillRate": 0.0006422836166755006,
+        "extraMismatchesVsDirectMasked": -1971,
+        "extraMismatchesVsDirectUnmasked": 0
+      }
+    }
+  },
+  "ambiguity": {
+    "usedCanonicalGlyphs": 157,
+    "uniqueFontShapes": 234,
+    "nonblankUsedGlyphs": 156,
+    "nonblankTrainingOccurrenceWeightedDominantShare": 0.34700449114481824,
+    "heldoutUnseenGlyphs": [
+      {
+        "code": 231,
+        "count": 3
+      }
+    ],
+    "nonblankSingleVariantGlyphs": 9
+  },
+  "zeroDiagnostics": {
+    "train": {
+      "total": 48398,
+      "genuineBackground": 39456,
+      "geometryBut1BitBlank": 7100,
+      "whiteDetailAt2x": 1842,
+      "whiteDetailAlreadyAt1x": 254
+    },
+    "heldout": {
+      "total": 15918,
+      "genuineBackground": 13152,
+      "geometryBut1BitBlank": 2140,
+      "whiteDetailAt2x": 626,
+      "whiteDetailAlreadyAt1x": 88
+    }
+  },
+  "hashes": {
+    "font": {
+      "bytes": 2048,
+      "sha256": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1"
+    },
+    "sourceChars": {
+      "bytes": 96000,
+      "sha256": "6a7c06fd2c5bc72df6195e49b02663af1be2d65b5bd3f5ab710e634603f01b51"
+    },
+    "targetChars": {
+      "bytes": 384000,
+      "sha256": "23775085dd6f8480ab85ca5aca428abda108a357194959db94889c43d9786c5a"
+    },
+    "targetUnmaskedChars": {
+      "bytes": 384000,
+      "sha256": "61b391e8cedc85ee1864fd77f65424c62060baa9f5fb2914d2d81051ecfc9433"
+    },
+    "sourceBitmap": {
+      "bytes": 768000,
+      "sha256": "b5380a7d0b97d97d8d6596e0826df7ab6fefa35a523942687b84532b71801fca"
+    },
+    "targetBitmap": {
+      "bytes": 3072000,
+      "sha256": "76d2a6ba6e35d4591b81b6def59b55272e0cd8d83b302538b0fdd1e5033436be"
+    },
+    "mask": {
+      "bytes": 3072000,
+      "sha256": "7af1420a1383d7ec8ed3bf174e33ec408f1c1675278f63c5acc3bcb8943c2f9c"
+    },
+    "learnedLut": {
+      "bytes": 1024,
+      "sha256": "8218a98508124d0e2602068be4dac48bb319dd2472346f67f84e3de230a9dfcd"
+    },
+    "modalLut": {
+      "bytes": 1024,
+      "sha256": "bd8f74cb897692285b3147b8274572a8fc0f0e62381734940e721f3b47d5873d"
+    },
+    "literalLut": {
+      "bytes": 1024,
+      "sha256": "fcf8735ce51c51bcef77af3fdb52b5c2221b9085a6b868181c32136f3a5e7d5c"
+    },
+    "normalization": {
+      "bytes": 256,
+      "sha256": "8ece2a02635368b9ab2367332c49f84575dace3d5adb58fec1c6ec0373ac3106"
+    }
+  }
+}

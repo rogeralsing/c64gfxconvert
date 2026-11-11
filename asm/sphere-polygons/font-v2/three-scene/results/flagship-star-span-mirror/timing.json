@@ -1,0 +1,25 @@
+{
+  "nativeMeanFps": 25.062277726267514,
+  "fieldsPerImage": [
+    2
+  ],
+  "displayedImagesVerified": 289,
+  "actualVisibleFieldsVerified": 578,
+  "filmWrapsVerified": 2,
+  "clearNativeWallCycles": {
+    "min": 11751,
+    "mean": 11755.200692041522,
+    "max": 11759
+  },
+  "renderNativeWallCycles": {
+    "min": 4886,
+    "mean": 5985.477508650519,
+    "max": 7281
+  },
+  "presentationNativeWallCycles": {
+    "min": 39304,
+    "mean": 39311.98954703833,
+    "max": 39321
+  },
+  "scope": "Native cycles include VIC steals and field IRQ work. No music or other interrupt workload."
+}

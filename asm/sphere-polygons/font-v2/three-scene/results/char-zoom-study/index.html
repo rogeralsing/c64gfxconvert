@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Normalbild, zoomreferens och slutresultat</title>
+<style>
+:root{color-scheme:dark;--bg:#151613;--text:#eeeee8;--muted:#a5aa9d;--line:#3b4035;--accent:#d8ee99}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}.page{max-width:1100px;margin:auto;padding:30px 28px 40px}h1,h2,p,figure{margin:0}h1{font-size:32px;line-height:1.15;letter-spacing:-.035em;font-weight:550;margin-top:8px}h2{font-size:16px;font-weight:550}.eyebrow,.mono,.code,.dimensions{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.eyebrow{font-size:11px;letter-spacing:.1em;color:var(--accent)}header{padding-bottom:22px;border-bottom:1px solid var(--line)}header p{color:var(--muted);font-size:13px;margin-top:12px;max-width:710px}.transport{display:flex;align-items:center;gap:18px;max-width:680px;padding:22px 0 26px}.pose-control{display:flex;align-items:center;gap:13px;flex:1}.pose-control input{width:100%;min-width:90px;accent-color:var(--accent)}output{min-width:58px;color:var(--accent);white-space:nowrap}button{font:inherit;cursor:pointer;color:var(--text);background:transparent;border:1px solid var(--line);border-radius:3px;padding:7px 15px;min-width:70px}button:hover{border-color:var(--muted)}button:focus-visible,input:focus-visible,canvas:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.images{display:flex;gap:34px;align-items:flex-start}.normal-figure{width:calc(320px * 59 / 63);flex:none}.zoom-figure{width:calc(640px * 59 / 63);flex:none}figcaption{margin-bottom:12px}.dimensions{font-size:11px;color:var(--muted);margin-top:4px}.stage{position:relative;width:100%;aspect-ratio:calc(320 * 59 / 63) / 200;background:#000;outline:1px solid var(--line)}.stage canvas{position:absolute;inset:0;display:block;width:100%;height:100%;image-rendering:pixelated;image-rendering:crisp-edges;cursor:crosshair;touch-action:none}.selection{border-top:1px solid var(--line);margin-top:28px;padding-top:21px}.selection-heading{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:20px}.selection-heading .mono{font-size:13px;color:var(--accent)}.selection-heading small{color:var(--muted);font-size:11px}.glyphs{display:flex;align-items:center;gap:26px}.glyph-label{font-size:12px;color:var(--muted);margin-bottom:9px}.glyph-source{display:flex;align-items:center;gap:13px}.glyph-source canvas{width:calc(64px * 59 / 63);height:64px;background:#000;outline:1px solid var(--line);image-rendering:pixelated;image-rendering:crisp-edges}.code{color:var(--accent);font-size:20px}.arrow{color:var(--muted);font-size:20px}.glyph-target{display:flex;gap:16px;align-items:center}.glyph-target canvas{width:calc(128px * 59 / 63);height:128px;background:#000;outline:1px solid var(--line);image-rendering:pixelated;image-rendering:crisp-edges}.quad-codes{display:grid;grid-template-columns:repeat(2,1fr);gap:0;font-size:15px}.quad-codes span{padding:12px 14px;border:1px solid var(--line);margin:0 -1px -1px 0;color:var(--accent);text-align:center}.hint{font-size:11px;color:var(--muted);margin-top:17px}.status{font-size:13px;color:var(--muted);margin:20px 0}.status.error{color:#ee8c80}footer{border-top:1px solid var(--line);margin-top:26px;padding-top:14px;font-size:11px;color:var(--muted)}[hidden]{display:none!important}
+.page{max-width:1760px}.images{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr) minmax(0,2fr);gap:24px}.normal-figure,.zoom-figure{width:auto;min-width:0}.glyphs{flex-wrap:wrap}
+@media(max-width:850px){.images{display:flex;flex-direction:column;gap:26px}.normal-figure{width:calc(320px * 59 / 63);max-width:100%}.zoom-figure{width:calc(640px * 59 / 63);max-width:100%}.page{max-width:760px}.selection{margin-top:26px}}
+@media(max-width:550px){.page{padding:23px 16px 28px}h1{font-size:27px}.transport{gap:13px;padding:20px 0 24px}.pose-control{gap:10px}.selection-heading{gap:7px 12px}.glyphs{gap:17px;align-items:flex-start}.glyph-source{flex-direction:column;align-items:flex-start;gap:7px}.glyph-target{flex-direction:column;gap:10px;align-items:flex-start}.glyph-target canvas{width:calc(96px * 59 / 63);height:96px}.glyph-label{max-width:170px}.quad-codes{font-size:13px}.quad-codes span{padding:7px 11px}.arrow{padding-top:47px}.code{font-size:17px}}
+</style>
+</head>
+<body>
+<main class="page">
+  <header><div class="eyebrow">FONTSTUDIE / 1 → 4 TECKEN</div><h1>Normalbild, referens och slutresultat</h1><p>Mitten visar den renderade zoomreferensen. Höger visar slutresultatet byggt med 1→4-tabellen. Klicka på ett tecken i normalbilden för att markera dess fyra motsvarigheter i båda zoombilderna.</p></header>
+  <p id="status" class="status" role="status">Laddar bilder…</p>
+  <div id="workspace" hidden>
+    <div class="transport"><button id="play" type="button">Spela</button><div class="pose-control"><label for="pose">Pose</label><input id="pose" type="range" min="0" max="95" value="0"><output id="pose-value" for="pose" class="mono">01 / 96</output></div></div>
+    <section class="images" aria-label="Normalbild, renderad zoomreferens och slutresultat via uppslagstabellen">
+      <figure class="normal-figure"><figcaption><h2>Normal scen</h2><div class="dimensions">40 × 25 tecken · 320 × 200 px</div></figcaption><div class="stage"><canvas id="source" width="320" height="200" tabindex="0" aria-label="Normal scen. Klicka på ett tecken för att markera det. Piltangenter flyttar markeringen."></canvas></div></figure>
+      <figure class="zoom-figure"><figcaption><h2>Renderad referens 2×</h2><div class="dimensions">Ny 3D-rendering mappad till tecken</div></figcaption><div class="stage"><canvas id="target" width="640" height="400" tabindex="0" aria-label="Renderad zoomreferens. Den markerade fyran motsvarar ett tecken i normalbilden."></canvas></div></figure>
+      <figure class="zoom-figure"><figcaption><h2>Slutresultat via 1 → 4</h2><div class="dimensions">Normalbildens tecken ersatta via tabellen</div></figcaption><div class="stage"><canvas id="result" width="640" height="400" tabindex="0" aria-label="Slutresultat byggt från normalbildens tecken och uppslagstabellen. Den markerade fyran kommer från det valda källtecknet."></canvas></div></figure>
+    </section>
+    <section class="selection" aria-label="Det valda tecknet och dess fyra motsvarigheter">
+      <div class="selection-heading"><h2>Vald cell</h2><span id="position" class="mono"></span><small>Positioner räknas från 0.</small></div>
+      <div class="glyphs">
+        <div><div class="glyph-label">1 tecken i normalbilden</div><div class="glyph-source"><canvas id="source-glyph" width="8" height="8" aria-label="Valt källtecken"></canvas><span id="source-code" class="code"></span></div></div>
+        <div><div class="glyph-label">4 tecken i den renderade referensen</div><div class="glyph-target"><canvas id="target-quad" width="16" height="16" aria-label="De fyra referenstecknen"></canvas><div id="quad-codes" class="quad-codes mono"><span id="code-tl"></span><span id="code-tr"></span><span id="code-bl"></span><span id="code-br"></span></div></div></div>
+        <div><div class="glyph-label">4 tecken från uppslagstabellen</div><div class="glyph-target"><canvas id="result-quad" width="16" height="16" aria-label="De fyra tecknen från uppslagstabellen"></canvas><div id="result-codes" class="quad-codes mono"><span id="result-code-tl"></span><span id="result-code-tr"></span><span id="result-code-bl"></span><span id="result-code-br"></span></div></div></div>
+      </div>
+      <p class="hint">Samma cell förblir markerad när du byter pose. Piltangenter flyttar markeringen när en bild har fokus.</p>
+    </section>
+    <footer>Slutresultatet byggs enbart från normalbildens tecken och den inlärda 1→4-tabellen. Samma låsta font och PAL-pixelförhållande 59 / 63 i alla tre bilder.</footer>
+  </div>
+</main>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+const state={frame:0,x:20,y:12,playing:false};
+const data={};
+let timer=null;
+const clamp=(value,min,max)=>Math.max(min,Math.min(max,value));
+const codeText=code=>'#'+String(code).padStart(3,'0');
+async function get(path,type){const response=await fetch(path);if(!response.ok)throw new Error(path+': HTTP '+response.status);return type==='json'?response.json():new Uint8Array(await response.arrayBuffer());}
+function bit(code,x,y){return(data.font[code*8+y]>>>(7-x))&1;}
+function drawCharacters(canvas,chars,cols,rows,offset=0){
+  const context=canvas.getContext('2d'),width=cols*8,height=rows*8;
+  const image=context.createImageData(width,height);
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++){
+    const code=chars[offset+(y>>>3)*cols+(x>>>3)],value=bit(code,x&7,y&7)*255,index=(y*width+x)*4;
+    image.data[index]=value;image.data[index+1]=value;image.data[index+2]=value;image.data[index+3]=255;
+  }
+  context.putImageData(image,0,0);
+}
+function mark(canvas,x,y,size,cross=false){
+  const context=canvas.getContext('2d');
+  context.strokeStyle='#d8ee99';context.lineWidth=1;
+  context.strokeRect(x+.5,y+.5,size-1,size-1);
+  if(cross){context.beginPath();context.moveTo(x+size/2+.5,y+.5);context.lineTo(x+size/2+.5,y+size-.5);context.moveTo(x+.5,y+size/2+.5);context.lineTo(x+size-.5,y+size/2+.5);context.stroke();}
+}
+function zoomFromCharacters(frame){
+  const output=new Uint8Array(4000);
+  for(let y=0;y<25;y++)for(let x=0;x<40;x++){
+    const source=data.source[frame*1000+y*40+x],lookup=source*4,target=y*160+x*2;
+    output[target]=data.lut[lookup];output[target+1]=data.lut[lookup+1];
+    output[target+80]=data.lut[lookup+2];output[target+81]=data.lut[lookup+3];
+  }
+  return output;
+}
+function render(){
+  drawCharacters($('source'),data.source,40,25,state.frame*1000);
+  drawCharacters($('target'),data.target,80,50,state.frame*4000);
+  drawCharacters($('result'),zoomFromCharacters(state.frame),80,50);
+  mark($('source'),state.x*8,state.y*8,8);
+  mark($('target'),state.x*16,state.y*16,16,true);
+  mark($('result'),state.x*16,state.y*16,16,true);
+  const source=data.source[state.frame*1000+state.y*40+state.x];
+  const targetOffset=state.frame*4000+state.y*2*80+state.x*2;
+  const quad=[data.target[targetOffset],data.target[targetOffset+1],data.target[targetOffset+80],data.target[targetOffset+81]];
+  const resultQuad=Array.from(data.lut.subarray(source*4,source*4+4));
+  drawCharacters($('source-glyph'),Uint8Array.of(source),1,1);
+  drawCharacters($('target-quad'),Uint8Array.from(quad),2,2);
+  mark($('target-quad'),0,0,16,true);
+  drawCharacters($('result-quad'),Uint8Array.from(resultQuad),2,2);
+  mark($('result-quad'),0,0,16,true);
+  $('position').textContent='x '+state.x+', y '+state.y;
+  $('source-code').textContent=codeText(source);
+  ['tl','tr','bl','br'].forEach((corner,index)=>{$('code-'+corner).textContent=codeText(quad[index]);});
+  ['tl','tr','bl','br'].forEach((corner,index)=>{$('result-code-'+corner).textContent=codeText(resultQuad[index]);});
+  $('source-glyph').setAttribute('aria-label','Källtecken '+source);
+  $('target-quad').setAttribute('aria-label','Faktiska måltecken: '+quad.join(', ')+', i ordning övre vänster, övre höger, nedre vänster, nedre höger.');
+  $('result-quad').setAttribute('aria-label','Tecken från uppslagstabellen: '+resultQuad.join(', ')+', i ordning övre vänster, övre höger, nedre vänster, nedre höger.');
+  $('source').setAttribute('aria-label','Normal scen, pose '+data.frames[state.frame].pose+'. Markerad cell x '+state.x+', y '+state.y+', tecken '+source+'. Piltangenter flyttar markeringen.');
+  $('quad-codes').title='Målkolumner '+(state.x*2)+'–'+(state.x*2+1)+', målrader '+(state.y*2)+'–'+(state.y*2+1);
+  $('pose').value=state.frame;
+  $('pose-value').textContent=String(data.frames[state.frame].pose).padStart(2,'0')+' / '+data.count;
+}
+function selectAt(canvas,event){
+  setPlaying(false);
+  const rect=canvas.getBoundingClientRect(),scale=canvas.id==='source'?8:16;
+  state.x=clamp(Math.floor((event.clientX-rect.left)/rect.width*canvas.width/scale),0,39);
+  state.y=clamp(Math.floor((event.clientY-rect.top)/rect.height*canvas.height/scale),0,24);
+  canvas.focus({preventScroll:true});render();
+}
+function setPlaying(playing){
+  state.playing=playing;clearInterval(timer);$('play').textContent=playing?'Pausa':'Spela';
+  if(playing)timer=setInterval(()=>{state.frame=(state.frame+1)%data.count;render();},1000/12);
+}
+$('pose').addEventListener('input',event=>{state.frame=Number(event.target.value);render();});
+$('play').addEventListener('click',()=>setPlaying(!state.playing));
+for(const id of ['source','target','result']){
+  const canvas=$(id);
+  canvas.addEventListener('pointerdown',event=>selectAt(canvas,event));
+  canvas.addEventListener('keydown',event=>{const moves={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]};const move=moves[event.key];if(move){event.preventDefault();setPlaying(false);state.x=clamp(state.x+move[0],0,39);state.y=clamp(state.y+move[1],0,24);render();}});
+}
+ document.addEventListener('visibilitychange',()=>{if(document.hidden)setPlaying(false);});
+async function load(){
+  try{
+    const study=await get('study.json','json');
+    [data.font,data.source,data.target,data.lut]=await Promise.all([get(study.files.font),get(study.files.sourceChars),get(study.files.targetChars),get(study.files.learnedLut)]);
+    data.count=study.frameCount;data.frames=study.frames;
+    if(data.font.length!==2048||data.source.length!==data.count*1000||data.target.length!==data.count*4000||data.lut.length!==1024)throw new Error('Teckenbildernas eller uppslagstabellens storlek stämmer inte med studien.');
+    $('pose').max=data.count-1;$('status').hidden=true;$('workspace').hidden=false;render();
+  }catch(error){$('status').classList.add('error');$('status').textContent='Bilderna kunde inte laddas: '+error.message;console.error(error);}
+}
+load();
+</script>
+</body>
+</html>

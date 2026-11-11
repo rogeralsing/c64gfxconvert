@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "dataComplete": true,
+  "starByteIdenticalToAcceptedHalf": {
+    "rows.bin": true,
+    "frame-offsets16.bin": true,
+    "reference.frames": true,
+    "font.bin": true,
+    "learned.lut": true
+  },
+  "ballSourceAll96EqualStudySource": true,
+  "ballOdd48SampleExactlyPreserved": true,
+  "ballBlankZoomQuad": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "ballFullReferenceSha256": "9d98d4a379881e4cbf255ffb2be6b5fab988d45aed3af416f6d907bfd689aae2",
+  "manifestSha256": "02d0650e74812d85d79710e71aa51b8dc8d0b759add7cd5ce62a9a8a0664fbae",
+  "newBallSceneSha256": "5efdcaf3fd2f5456fbe0728aaf48a4245c22febee96dcafce6004d8a6db296aa",
+  "bitmapFirstProof": "bitmap-preview-proof.json",
+  "zoomStudyProof": "../../three-scene/results/checker-ball-multiaxis-zoom-study/proof.json",
+  "learnedHeldoutObjectError": 0.05022938284213129,
+  "directHeldoutObjectError": 0.016356674663352378,
+  "combinedRawRows": 34252,
+  "ballExtraBytesVsPrevious": 83
+}

@@ -1,5 +1,11 @@
 # Three.js to C64 character film
 
+The current [C64 effects player](results/flagship-star-cube-combined-zoom/player.prg)
+combines the star and world-lit cube with waves, checker patterns, mirrors and
+fixed 2× zoom flashes at normal animation speed. The
+[build instructions, native preview and measurements](results/flagship-star-cube-combined-zoom/README.md)
+describe the verified program and its archived inputs.
+
 The first checkpoint is Three.js scene → RGBA frames → calibrated 1-bit film.
 Inspect this film before converting anything to characters. The build stops at
 that checkpoint by default.
@@ -495,17 +501,21 @@ Primary API references: [Three.js WebGPURenderer](https://threejs.org/manual/pag
 ## Flagship star: very large, lit, endless rotation
 
 `demo-flagship-star.mjs` renders a six-tip stellated-cube star that occupies up
-to 272 × 196 physical pixels. It turns around its actual model-space `(1,1,1)`
+to 180 × 196 native raster pixels. It turns around its actual model-space `(1,1,1)`
 three-fold symmetry axis. The orientation is `base * periodicWobble *
 diagonalSpin`, with the spin unwrapped across periods. A 120-degree turn maps
 all 14 vertices and 24 facets onto the original geometry. The 96-frame film
 therefore repeats without resetting its physical pose; a complete revolution
 takes 288 frames, or 11.52 seconds at nominal 25 fps.
 
-The orthographic camera uses a square ±53 frustum on the 320 × 200 raster,
-retaining the existing 1.6× horizontal anamorphic projection. This small fit
-adjustment leaves every arm inside the screen throughout the corrected spin.
-An independent 960-pose geometric sweep and actual GPU masks both verify fit.
+The orthographic camera is calibrated for PAL pixel aspect 59/63. Its vertical
+half-extent remains 53; the horizontal half-extent is
+`53 * (160 / 100) * (59 / 63) = 79.415873`. Equal world-space lengths therefore
+have equal displayed lengths after PAL presentation. The earlier square
+frustum had stretched the source bitmap horizontally; that distortion is
+removed before character matching. Uniform 2 × 2 bitmap replication remains
+unchanged. Vertical fit still limits the maximum proportional object size.
+An independent 960-pose geometric sweep and actual GPU masks verify fit.
 
 Each facet follows the declared fixed world light in six exact gray levels
 (0, 51, 102, 153, 204, 255). Ordered 4 × 4 Bayer conversion produces the bitmap;
@@ -525,6 +535,14 @@ rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
   --variant literal-front
 ```
 
+The verifier measures equal-axis projection lengths and renders an actual
+48-unit GPU circle with the same camera. Its native 96 × 90 logical-pixel
+bounding box becomes round under PAL pixel geometry, within raster rounding.
+The old square camera is also rendered as a failing negative control. Native
+320 × 200 screenshots retain raw raster samples; the main GIF uses 599 × 400
+display pixels to approximate the PAL aspect, while `c64-raw.gif` retains
+640 × 400 square-pixel samples. VICE playback uses `-VICIIaspectmode 2`.
+
 The verifier independently reconstructs every unwrapped orientation, proves
 vertex and facet permutations plus matching endpoint lighting, and checks
 angular velocity across the symmetry boundary. Actual GPU renders at 120 and
@@ -532,8 +550,8 @@ angular velocity across the symmetry boundary. Actual GPU renders at 120 and
 passing as a seamless rotation.
 
 The [measured program, actual C64 preview and receipts](results/flagship-star/README.md)
-retain the corrected source and unchanged font. The literal movie uses 20,419
-bytes, leaving 20,541 bytes in the current data arena; meaningful loaded code,
-font, tables and state total 23,710 bytes. Character error is 2.279% within
+retain the PAL-calibrated source and unchanged locked font. The literal movie uses 15,272
+bytes, leaving 25,688 bytes in the current data arena; meaningful loaded code,
+font, tables and state total 18,563 bytes. Character error is 2.621% within
 active image bounds, with no white pixels outside the object mask. Full and
 empty source tiles remain exact.

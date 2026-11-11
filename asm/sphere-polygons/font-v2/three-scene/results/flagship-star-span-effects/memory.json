@@ -1,0 +1,20 @@
+{
+  "ordinaryMainRamBytes": 31325,
+  "serializedIndependentFilmBytes": 23076,
+  "rawSpanPayloadBytes": 22882,
+  "frameIndexBytes": 194,
+  "fontBytes": 2048,
+  "outputScreenRamBytes": 2048,
+  "outputScreens": 2,
+  "rowPointerPoolBytes": 500,
+  "rowCacheTablesMaximum": 10,
+  "colorRamSeparateFourBitCells": 1024,
+  "fontAddress": 16384,
+  "screenAddresses": [
+    18432,
+    19456
+  ],
+  "rawSpanAddress": 20480,
+  "rawSpanEndExclusive": 43362,
+  "note": "Rows are X,length,raw character bytes. The500-byte cache stores only row pointers, not image pixels. Working output screens are fully redrawn. PRG file size includes address-gap padding."
+}

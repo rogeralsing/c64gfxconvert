@@ -1,0 +1,17 @@
+[
+  {
+    "op": "play",
+    "startFrame": 0,
+    "frameCount": 1,
+    "repeat": 1
+  },
+  {
+    "op": "play",
+    "startFrame": 1,
+    "frameCount": 96,
+    "repeat": "forever"
+  },
+  {
+    "op": "hold"
+  }
+]

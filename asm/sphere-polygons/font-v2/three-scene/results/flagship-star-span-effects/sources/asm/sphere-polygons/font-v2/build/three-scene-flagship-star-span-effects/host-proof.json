@@ -1,0 +1,6774 @@
+{
+  "passed": true,
+  "framesVerified": 751,
+  "nominalThreePhaseFramesVerified": 750,
+  "repeatTransitionVerified": true,
+  "injectedIrqs": 287,
+  "irqRegistersAndStatusPreserved": true,
+  "sourceAndFontUnchanged": true,
+  "frontUnchangedDuringPreparation": true,
+  "programSha256": "67dd338cc66dd4e006a57a7ad8471a787dcac94d2d6cc31add613c271378208b",
+  "maximumPreparationCpuCycles": 49512,
+  "maximumTransitionCpuCycles": 48048,
+  "records": [
+    {
+      "serial": 1,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15119,
+      "totalCpuCycles": 28143
+    },
+    {
+      "serial": 2,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15639,
+      "totalCpuCycles": 28663
+    },
+    {
+      "serial": 3,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 15535,
+      "totalCpuCycles": 28560
+    },
+    {
+      "serial": 4,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14649,
+      "totalCpuCycles": 27674
+    },
+    {
+      "serial": 5,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27767
+    },
+    {
+      "serial": 6,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15271,
+      "totalCpuCycles": 28295
+    },
+    {
+      "serial": 7,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14959,
+      "totalCpuCycles": 27983
+    },
+    {
+      "serial": 8,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14803,
+      "totalCpuCycles": 27827
+    },
+    {
+      "serial": 9,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27931
+    },
+    {
+      "serial": 10,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27825
+    },
+    {
+      "serial": 11,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14749,
+      "totalCpuCycles": 27773
+    },
+    {
+      "serial": 12,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14591,
+      "totalCpuCycles": 27615
+    },
+    {
+      "serial": 13,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27932
+    },
+    {
+      "serial": 14,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15009,
+      "totalCpuCycles": 28033
+    },
+    {
+      "serial": 15,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 16,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 17,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14275,
+      "totalCpuCycles": 27295
+    },
+    {
+      "serial": 18,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14435,
+      "totalCpuCycles": 27459
+    },
+    {
+      "serial": 19,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14487,
+      "totalCpuCycles": 27511
+    },
+    {
+      "serial": 20,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14799,
+      "totalCpuCycles": 27823
+    },
+    {
+      "serial": 21,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 22,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 23,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14119,
+      "totalCpuCycles": 27143
+    },
+    {
+      "serial": 24,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 25,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27197
+    },
+    {
+      "serial": 26,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14375,
+      "totalCpuCycles": 27395
+    },
+    {
+      "serial": 27,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14277,
+      "totalCpuCycles": 27302
+    },
+    {
+      "serial": 28,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14223,
+      "totalCpuCycles": 27247
+    },
+    {
+      "serial": 29,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13707,
+      "totalCpuCycles": 26731
+    },
+    {
+      "serial": 30,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13653,
+      "totalCpuCycles": 26677
+    },
+    {
+      "serial": 31,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13757,
+      "totalCpuCycles": 26781
+    },
+    {
+      "serial": 32,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13859,
+      "totalCpuCycles": 26883
+    },
+    {
+      "serial": 33,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14219,
+      "totalCpuCycles": 27239
+    },
+    {
+      "serial": 34,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14379,
+      "totalCpuCycles": 27403
+    },
+    {
+      "serial": 35,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 36,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13289,
+      "totalCpuCycles": 26313
+    },
+    {
+      "serial": 37,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13495,
+      "totalCpuCycles": 26519
+    },
+    {
+      "serial": 38,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13391,
+      "totalCpuCycles": 26415
+    },
+    {
+      "serial": 39,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 13543,
+      "totalCpuCycles": 26563
+    },
+    {
+      "serial": 40,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13915,
+      "totalCpuCycles": 26939
+    },
+    {
+      "serial": 41,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14017,
+      "totalCpuCycles": 27041
+    },
+    {
+      "serial": 42,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13963,
+      "totalCpuCycles": 26987
+    },
+    {
+      "serial": 43,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13965,
+      "totalCpuCycles": 26989
+    },
+    {
+      "serial": 44,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13911,
+      "totalCpuCycles": 26935
+    },
+    {
+      "serial": 45,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 46,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27198
+    },
+    {
+      "serial": 47,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14015,
+      "totalCpuCycles": 27035
+    },
+    {
+      "serial": 48,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14225,
+      "totalCpuCycles": 27249
+    },
+    {
+      "serial": 49,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14327,
+      "totalCpuCycles": 27351
+    },
+    {
+      "serial": 50,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14331,
+      "totalCpuCycles": 27355
+    },
+    {
+      "serial": 51,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14537,
+      "totalCpuCycles": 27561
+    },
+    {
+      "serial": 52,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 53,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 54,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14643,
+      "totalCpuCycles": 27667
+    },
+    {
+      "serial": 55,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14383,
+      "totalCpuCycles": 27407
+    },
+    {
+      "serial": 56,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14901,
+      "totalCpuCycles": 27921
+    },
+    {
+      "serial": 57,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27826
+    },
+    {
+      "serial": 58,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 59,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14699,
+      "totalCpuCycles": 27723
+    },
+    {
+      "serial": 60,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14645,
+      "totalCpuCycles": 27669
+    },
+    {
+      "serial": 61,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14697,
+      "totalCpuCycles": 27721
+    },
+    {
+      "serial": 62,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14595,
+      "totalCpuCycles": 27619
+    },
+    {
+      "serial": 63,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15063,
+      "totalCpuCycles": 28087
+    },
+    {
+      "serial": 64,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14959,
+      "totalCpuCycles": 27983
+    },
+    {
+      "serial": 65,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14753,
+      "totalCpuCycles": 27777
+    },
+    {
+      "serial": 66,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15479,
+      "totalCpuCycles": 28503
+    },
+    {
+      "serial": 67,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15427,
+      "totalCpuCycles": 28451
+    },
+    {
+      "serial": 68,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15171,
+      "totalCpuCycles": 28195
+    },
+    {
+      "serial": 69,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 28039
+    },
+    {
+      "serial": 70,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 28039
+    },
+    {
+      "serial": 71,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27927
+    },
+    {
+      "serial": 72,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15587,
+      "totalCpuCycles": 28611
+    },
+    {
+      "serial": 73,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16003,
+      "totalCpuCycles": 29027
+    },
+    {
+      "serial": 74,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15381,
+      "totalCpuCycles": 28405
+    },
+    {
+      "serial": 75,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16057,
+      "totalCpuCycles": 29081
+    },
+    {
+      "serial": 76,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15799,
+      "totalCpuCycles": 28823
+    },
+    {
+      "serial": 77,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16319,
+      "totalCpuCycles": 29343
+    },
+    {
+      "serial": 78,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 16163,
+      "totalCpuCycles": 29188
+    },
+    {
+      "serial": 79,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1700,
+      "renderCpuCycles": 16479,
+      "totalCpuCycles": 29508
+    },
+    {
+      "serial": 80,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16787,
+      "totalCpuCycles": 29811
+    },
+    {
+      "serial": 81,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16269,
+      "totalCpuCycles": 29293
+    },
+    {
+      "serial": 82,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16269,
+      "totalCpuCycles": 29293
+    },
+    {
+      "serial": 83,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 29087
+    },
+    {
+      "serial": 84,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16787,
+      "totalCpuCycles": 29811
+    },
+    {
+      "serial": 85,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16943,
+      "totalCpuCycles": 29967
+    },
+    {
+      "serial": 86,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16425,
+      "totalCpuCycles": 29449
+    },
+    {
+      "serial": 87,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 29087
+    },
+    {
+      "serial": 88,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16111,
+      "totalCpuCycles": 29135
+    },
+    {
+      "serial": 89,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16165,
+      "totalCpuCycles": 29189
+    },
+    {
+      "serial": 90,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16683,
+      "totalCpuCycles": 29707
+    },
+    {
+      "serial": 91,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 15331,
+      "totalCpuCycles": 28356
+    },
+    {
+      "serial": 92,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15487,
+      "totalCpuCycles": 28511
+    },
+    {
+      "serial": 93,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15903,
+      "totalCpuCycles": 28927
+    },
+    {
+      "serial": 94,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15851,
+      "totalCpuCycles": 28875
+    },
+    {
+      "serial": 95,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15899,
+      "totalCpuCycles": 28923
+    },
+    {
+      "serial": 96,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15067,
+      "totalCpuCycles": 28091
+    },
+    {
+      "serial": 97,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15119,
+      "totalCpuCycles": 28143
+    },
+    {
+      "serial": 98,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15639,
+      "totalCpuCycles": 28663
+    },
+    {
+      "serial": 99,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 15535,
+      "totalCpuCycles": 28560
+    },
+    {
+      "serial": 100,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14649,
+      "totalCpuCycles": 27674
+    },
+    {
+      "serial": 101,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27767
+    },
+    {
+      "serial": 102,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15271,
+      "totalCpuCycles": 28295
+    },
+    {
+      "serial": 103,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14959,
+      "totalCpuCycles": 27983
+    },
+    {
+      "serial": 104,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14803,
+      "totalCpuCycles": 27827
+    },
+    {
+      "serial": 105,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27931
+    },
+    {
+      "serial": 106,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27825
+    },
+    {
+      "serial": 107,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14749,
+      "totalCpuCycles": 27773
+    },
+    {
+      "serial": 108,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14591,
+      "totalCpuCycles": 27615
+    },
+    {
+      "serial": 109,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27932
+    },
+    {
+      "serial": 110,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15009,
+      "totalCpuCycles": 28033
+    },
+    {
+      "serial": 111,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 112,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 113,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14275,
+      "totalCpuCycles": 27295
+    },
+    {
+      "serial": 114,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14435,
+      "totalCpuCycles": 27459
+    },
+    {
+      "serial": 115,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14487,
+      "totalCpuCycles": 27511
+    },
+    {
+      "serial": 116,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14799,
+      "totalCpuCycles": 27823
+    },
+    {
+      "serial": 117,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 118,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 119,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14119,
+      "totalCpuCycles": 27143
+    },
+    {
+      "serial": 120,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 121,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27197
+    },
+    {
+      "serial": 122,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14375,
+      "totalCpuCycles": 27395
+    },
+    {
+      "serial": 123,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14277,
+      "totalCpuCycles": 27302
+    },
+    {
+      "serial": 124,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14223,
+      "totalCpuCycles": 27247
+    },
+    {
+      "serial": 125,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13707,
+      "totalCpuCycles": 26731
+    },
+    {
+      "serial": 126,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13653,
+      "totalCpuCycles": 26677
+    },
+    {
+      "serial": 127,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13757,
+      "totalCpuCycles": 26781
+    },
+    {
+      "serial": 128,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13859,
+      "totalCpuCycles": 26883
+    },
+    {
+      "serial": 129,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14219,
+      "totalCpuCycles": 27239
+    },
+    {
+      "serial": 130,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14379,
+      "totalCpuCycles": 27403
+    },
+    {
+      "serial": 131,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 132,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13289,
+      "totalCpuCycles": 26313
+    },
+    {
+      "serial": 133,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13495,
+      "totalCpuCycles": 26519
+    },
+    {
+      "serial": 134,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13391,
+      "totalCpuCycles": 26415
+    },
+    {
+      "serial": 135,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 13543,
+      "totalCpuCycles": 26563
+    },
+    {
+      "serial": 136,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13915,
+      "totalCpuCycles": 26939
+    },
+    {
+      "serial": 137,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14017,
+      "totalCpuCycles": 27041
+    },
+    {
+      "serial": 138,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13963,
+      "totalCpuCycles": 26987
+    },
+    {
+      "serial": 139,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13965,
+      "totalCpuCycles": 26989
+    },
+    {
+      "serial": 140,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13911,
+      "totalCpuCycles": 26935
+    },
+    {
+      "serial": 141,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 142,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27198
+    },
+    {
+      "serial": 143,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14015,
+      "totalCpuCycles": 27035
+    },
+    {
+      "serial": 144,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14225,
+      "totalCpuCycles": 27249
+    },
+    {
+      "serial": 145,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14327,
+      "totalCpuCycles": 27351
+    },
+    {
+      "serial": 146,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14331,
+      "totalCpuCycles": 27355
+    },
+    {
+      "serial": 147,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14537,
+      "totalCpuCycles": 27561
+    },
+    {
+      "serial": 148,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 149,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 150,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14643,
+      "totalCpuCycles": 27667
+    },
+    {
+      "serial": 151,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14383,
+      "totalCpuCycles": 27407
+    },
+    {
+      "serial": 152,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14901,
+      "totalCpuCycles": 27921
+    },
+    {
+      "serial": 153,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27826
+    },
+    {
+      "serial": 154,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 155,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14699,
+      "totalCpuCycles": 27723
+    },
+    {
+      "serial": 156,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14645,
+      "totalCpuCycles": 27669
+    },
+    {
+      "serial": 157,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14697,
+      "totalCpuCycles": 27721
+    },
+    {
+      "serial": 158,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14595,
+      "totalCpuCycles": 27619
+    },
+    {
+      "serial": 159,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15063,
+      "totalCpuCycles": 28087
+    },
+    {
+      "serial": 160,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14959,
+      "totalCpuCycles": 27983
+    },
+    {
+      "serial": 161,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14753,
+      "totalCpuCycles": 27777
+    },
+    {
+      "serial": 162,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15479,
+      "totalCpuCycles": 28503
+    },
+    {
+      "serial": 163,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15427,
+      "totalCpuCycles": 28451
+    },
+    {
+      "serial": 164,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15171,
+      "totalCpuCycles": 28195
+    },
+    {
+      "serial": 165,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 28039
+    },
+    {
+      "serial": 166,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 28039
+    },
+    {
+      "serial": 167,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27927
+    },
+    {
+      "serial": 168,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15587,
+      "totalCpuCycles": 28611
+    },
+    {
+      "serial": 169,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16003,
+      "totalCpuCycles": 29027
+    },
+    {
+      "serial": 170,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15381,
+      "totalCpuCycles": 28405
+    },
+    {
+      "serial": 171,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16057,
+      "totalCpuCycles": 29081
+    },
+    {
+      "serial": 172,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15799,
+      "totalCpuCycles": 28823
+    },
+    {
+      "serial": 173,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16319,
+      "totalCpuCycles": 29343
+    },
+    {
+      "serial": 174,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 16163,
+      "totalCpuCycles": 29188
+    },
+    {
+      "serial": 175,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1700,
+      "renderCpuCycles": 16479,
+      "totalCpuCycles": 29508
+    },
+    {
+      "serial": 176,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16787,
+      "totalCpuCycles": 29811
+    },
+    {
+      "serial": 177,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16269,
+      "totalCpuCycles": 29293
+    },
+    {
+      "serial": 178,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16269,
+      "totalCpuCycles": 29293
+    },
+    {
+      "serial": 179,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 29087
+    },
+    {
+      "serial": 180,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16787,
+      "totalCpuCycles": 29811
+    },
+    {
+      "serial": 181,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16943,
+      "totalCpuCycles": 29967
+    },
+    {
+      "serial": 182,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16425,
+      "totalCpuCycles": 29449
+    },
+    {
+      "serial": 183,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 29087
+    },
+    {
+      "serial": 184,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16111,
+      "totalCpuCycles": 29135
+    },
+    {
+      "serial": 185,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16165,
+      "totalCpuCycles": 29189
+    },
+    {
+      "serial": 186,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 16683,
+      "totalCpuCycles": 29707
+    },
+    {
+      "serial": 187,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 15331,
+      "totalCpuCycles": 28356
+    },
+    {
+      "serial": 188,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15487,
+      "totalCpuCycles": 28511
+    },
+    {
+      "serial": 189,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15903,
+      "totalCpuCycles": 28927
+    },
+    {
+      "serial": 190,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15851,
+      "totalCpuCycles": 28875
+    },
+    {
+      "serial": 191,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15899,
+      "totalCpuCycles": 28923
+    },
+    {
+      "serial": 192,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15067,
+      "totalCpuCycles": 28091
+    },
+    {
+      "serial": 193,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15119,
+      "totalCpuCycles": 28143
+    },
+    {
+      "serial": 194,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15639,
+      "totalCpuCycles": 28663
+    },
+    {
+      "serial": 195,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 15535,
+      "totalCpuCycles": 28560
+    },
+    {
+      "serial": 196,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14649,
+      "totalCpuCycles": 27674
+    },
+    {
+      "serial": 197,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27767
+    },
+    {
+      "serial": 198,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15271,
+      "totalCpuCycles": 28295
+    },
+    {
+      "serial": 199,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14959,
+      "totalCpuCycles": 27983
+    },
+    {
+      "serial": 200,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14803,
+      "totalCpuCycles": 27827
+    },
+    {
+      "serial": 201,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27931
+    },
+    {
+      "serial": 202,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27825
+    },
+    {
+      "serial": 203,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14749,
+      "totalCpuCycles": 27773
+    },
+    {
+      "serial": 204,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14591,
+      "totalCpuCycles": 27615
+    },
+    {
+      "serial": 205,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14907,
+      "totalCpuCycles": 27932
+    },
+    {
+      "serial": 206,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 15009,
+      "totalCpuCycles": 28033
+    },
+    {
+      "serial": 207,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 208,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 209,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14275,
+      "totalCpuCycles": 27295
+    },
+    {
+      "serial": 210,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14435,
+      "totalCpuCycles": 27459
+    },
+    {
+      "serial": 211,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14487,
+      "totalCpuCycles": 27511
+    },
+    {
+      "serial": 212,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14799,
+      "totalCpuCycles": 27823
+    },
+    {
+      "serial": 213,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 214,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 215,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14119,
+      "totalCpuCycles": 27143
+    },
+    {
+      "serial": 216,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14227,
+      "totalCpuCycles": 27251
+    },
+    {
+      "serial": 217,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27197
+    },
+    {
+      "serial": 218,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14375,
+      "totalCpuCycles": 27395
+    },
+    {
+      "serial": 219,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14277,
+      "totalCpuCycles": 27302
+    },
+    {
+      "serial": 220,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14223,
+      "totalCpuCycles": 27247
+    },
+    {
+      "serial": 221,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13707,
+      "totalCpuCycles": 26731
+    },
+    {
+      "serial": 222,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13653,
+      "totalCpuCycles": 26677
+    },
+    {
+      "serial": 223,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13757,
+      "totalCpuCycles": 26781
+    },
+    {
+      "serial": 224,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13859,
+      "totalCpuCycles": 26883
+    },
+    {
+      "serial": 225,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14219,
+      "totalCpuCycles": 27239
+    },
+    {
+      "serial": 226,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14379,
+      "totalCpuCycles": 27403
+    },
+    {
+      "serial": 227,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 228,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13289,
+      "totalCpuCycles": 26313
+    },
+    {
+      "serial": 229,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13495,
+      "totalCpuCycles": 26519
+    },
+    {
+      "serial": 230,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13391,
+      "totalCpuCycles": 26415
+    },
+    {
+      "serial": 231,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 13543,
+      "totalCpuCycles": 26563
+    },
+    {
+      "serial": 232,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13915,
+      "totalCpuCycles": 26939
+    },
+    {
+      "serial": 233,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14017,
+      "totalCpuCycles": 27041
+    },
+    {
+      "serial": 234,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13963,
+      "totalCpuCycles": 26987
+    },
+    {
+      "serial": 235,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13965,
+      "totalCpuCycles": 26989
+    },
+    {
+      "serial": 236,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 13911,
+      "totalCpuCycles": 26935
+    },
+    {
+      "serial": 237,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14071,
+      "totalCpuCycles": 27095
+    },
+    {
+      "serial": 238,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14173,
+      "totalCpuCycles": 27198
+    },
+    {
+      "serial": 239,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14015,
+      "totalCpuCycles": 27035
+    },
+    {
+      "serial": 240,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14225,
+      "totalCpuCycles": 27249
+    },
+    {
+      "serial": 241,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14327,
+      "totalCpuCycles": 27351
+    },
+    {
+      "serial": 242,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14331,
+      "totalCpuCycles": 27355
+    },
+    {
+      "serial": 243,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14537,
+      "totalCpuCycles": 27561
+    },
+    {
+      "serial": 244,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14539,
+      "totalCpuCycles": 27563
+    },
+    {
+      "serial": 245,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 246,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14643,
+      "totalCpuCycles": 27667
+    },
+    {
+      "serial": 247,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14383,
+      "totalCpuCycles": 27407
+    },
+    {
+      "serial": 248,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1691,
+      "renderCpuCycles": 14901,
+      "totalCpuCycles": 27921
+    },
+    {
+      "serial": 249,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1696,
+      "renderCpuCycles": 14801,
+      "totalCpuCycles": 27826
+    },
+    {
+      "serial": 250,
+      "mode": 0,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1695,
+      "renderCpuCycles": 14747,
+      "totalCpuCycles": 27771
+    },
+    {
+      "serial": 251,
+      "mode": 1,
+      "transition": true,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16600,
+      "renderCpuCycles": 15431,
+      "totalCpuCycles": 43360
+    },
+    {
+      "serial": 252,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16600,
+      "renderCpuCycles": 15285,
+      "totalCpuCycles": 43214
+    },
+    {
+      "serial": 253,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16600,
+      "renderCpuCycles": 15234,
+      "totalCpuCycles": 43163
+    },
+    {
+      "serial": 254,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16600,
+      "renderCpuCycles": 15344,
+      "totalCpuCycles": 43273
+    },
+    {
+      "serial": 255,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16600,
+      "renderCpuCycles": 15592,
+      "totalCpuCycles": 43521
+    },
+    {
+      "serial": 256,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15699,
+      "totalCpuCycles": 43528
+    },
+    {
+      "serial": 257,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15700,
+      "totalCpuCycles": 43529
+    },
+    {
+      "serial": 258,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43535
+    },
+    {
+      "serial": 259,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43114
+    },
+    {
+      "serial": 260,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15753,
+      "totalCpuCycles": 43585
+    },
+    {
+      "serial": 261,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43534
+    },
+    {
+      "serial": 262,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15862,
+      "totalCpuCycles": 43694
+    },
+    {
+      "serial": 263,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15810,
+      "totalCpuCycles": 43638
+    },
+    {
+      "serial": 264,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15819,
+      "totalCpuCycles": 43647
+    },
+    {
+      "serial": 265,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15918,
+      "totalCpuCycles": 43746
+    },
+    {
+      "serial": 266,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15914,
+      "totalCpuCycles": 43742
+    },
+    {
+      "serial": 267,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16534,
+      "totalCpuCycles": 44362
+    },
+    {
+      "serial": 268,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16281,
+      "totalCpuCycles": 44109
+    },
+    {
+      "serial": 269,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16074,
+      "totalCpuCycles": 43902
+    },
+    {
+      "serial": 270,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44319
+    },
+    {
+      "serial": 271,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16802,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 272,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 17015,
+      "totalCpuCycles": 44849
+    },
+    {
+      "serial": 273,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16288,
+      "totalCpuCycles": 44126
+    },
+    {
+      "serial": 274,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16542,
+      "totalCpuCycles": 44380
+    },
+    {
+      "serial": 275,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16552,
+      "totalCpuCycles": 44390
+    },
+    {
+      "serial": 276,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16807,
+      "totalCpuCycles": 44645
+    },
+    {
+      "serial": 277,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17530,
+      "totalCpuCycles": 45368
+    },
+    {
+      "serial": 278,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17218,
+      "totalCpuCycles": 45056
+    },
+    {
+      "serial": 279,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16540,
+      "totalCpuCycles": 44378
+    },
+    {
+      "serial": 280,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16508,
+      "renderCpuCycles": 16747,
+      "totalCpuCycles": 44584
+    },
+    {
+      "serial": 281,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 16804,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 282,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 17580,
+      "totalCpuCycles": 45412
+    },
+    {
+      "serial": 283,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16438,
+      "totalCpuCycles": 44271
+    },
+    {
+      "serial": 284,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44323
+    },
+    {
+      "serial": 285,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16909,
+      "totalCpuCycles": 44742
+    },
+    {
+      "serial": 286,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16963,
+      "totalCpuCycles": 44796
+    },
+    {
+      "serial": 287,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16495,
+      "totalCpuCycles": 44328
+    },
+    {
+      "serial": 288,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16275,
+      "totalCpuCycles": 44108
+    },
+    {
+      "serial": 289,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16122,
+      "totalCpuCycles": 43956
+    },
+    {
+      "serial": 290,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16492,
+      "totalCpuCycles": 44326
+    },
+    {
+      "serial": 291,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16506,
+      "renderCpuCycles": 16690,
+      "totalCpuCycles": 44525
+    },
+    {
+      "serial": 292,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16507,
+      "renderCpuCycles": 15912,
+      "totalCpuCycles": 43748
+    },
+    {
+      "serial": 293,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 15907,
+      "totalCpuCycles": 43738
+    },
+    {
+      "serial": 294,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 43894
+    },
+    {
+      "serial": 295,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16219,
+      "totalCpuCycles": 44050
+    },
+    {
+      "serial": 296,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16216,
+      "totalCpuCycles": 44047
+    },
+    {
+      "serial": 297,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16059,
+      "totalCpuCycles": 43890
+    },
+    {
+      "serial": 298,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15231,
+      "totalCpuCycles": 43061
+    },
+    {
+      "serial": 299,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15539,
+      "totalCpuCycles": 43369
+    },
+    {
+      "serial": 300,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15332,
+      "totalCpuCycles": 43162
+    },
+    {
+      "serial": 301,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15455,
+      "totalCpuCycles": 43285
+    },
+    {
+      "serial": 302,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15709,
+      "totalCpuCycles": 43538
+    },
+    {
+      "serial": 303,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43110
+    },
+    {
+      "serial": 304,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43115
+    },
+    {
+      "serial": 305,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15489,
+      "totalCpuCycles": 43318
+    },
+    {
+      "serial": 306,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15223,
+      "totalCpuCycles": 43052
+    },
+    {
+      "serial": 307,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43106
+    },
+    {
+      "serial": 308,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15430,
+      "totalCpuCycles": 43259
+    },
+    {
+      "serial": 309,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15069,
+      "totalCpuCycles": 42898
+    },
+    {
+      "serial": 310,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15077,
+      "totalCpuCycles": 42906
+    },
+    {
+      "serial": 311,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15235,
+      "totalCpuCycles": 43063
+    },
+    {
+      "serial": 312,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15074,
+      "totalCpuCycles": 42902
+    },
+    {
+      "serial": 313,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15169,
+      "totalCpuCycles": 42997
+    },
+    {
+      "serial": 314,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 15117,
+      "totalCpuCycles": 42941
+    },
+    {
+      "serial": 315,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15121,
+      "totalCpuCycles": 42950
+    },
+    {
+      "serial": 316,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14965,
+      "totalCpuCycles": 42794
+    },
+    {
+      "serial": 317,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14556,
+      "totalCpuCycles": 42385
+    },
+    {
+      "serial": 318,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14600,
+      "totalCpuCycles": 42429
+    },
+    {
+      "serial": 319,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14708,
+      "totalCpuCycles": 42537
+    },
+    {
+      "serial": 320,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14605,
+      "totalCpuCycles": 42434
+    },
+    {
+      "serial": 321,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14858,
+      "totalCpuCycles": 42683
+    },
+    {
+      "serial": 322,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14756,
+      "totalCpuCycles": 42581
+    },
+    {
+      "serial": 323,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14606,
+      "totalCpuCycles": 42431
+    },
+    {
+      "serial": 324,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14341,
+      "totalCpuCycles": 42170
+    },
+    {
+      "serial": 325,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14494,
+      "totalCpuCycles": 42322
+    },
+    {
+      "serial": 326,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14394,
+      "totalCpuCycles": 42222
+    },
+    {
+      "serial": 327,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14596,
+      "totalCpuCycles": 42420
+    },
+    {
+      "serial": 328,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14809,
+      "totalCpuCycles": 42633
+    },
+    {
+      "serial": 329,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14612,
+      "totalCpuCycles": 42436
+    },
+    {
+      "serial": 330,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14286,
+      "totalCpuCycles": 42110
+    },
+    {
+      "serial": 331,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14288,
+      "totalCpuCycles": 42116
+    },
+    {
+      "serial": 332,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14441,
+      "totalCpuCycles": 42269
+    },
+    {
+      "serial": 333,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14235,
+      "totalCpuCycles": 42063
+    },
+    {
+      "serial": 334,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14545,
+      "totalCpuCycles": 42374
+    },
+    {
+      "serial": 335,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14967,
+      "totalCpuCycles": 42792
+    },
+    {
+      "serial": 336,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14758,
+      "totalCpuCycles": 42583
+    },
+    {
+      "serial": 337,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14599,
+      "totalCpuCycles": 42428
+    },
+    {
+      "serial": 338,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14649,
+      "totalCpuCycles": 42478
+    },
+    {
+      "serial": 339,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14871,
+      "totalCpuCycles": 42700
+    },
+    {
+      "serial": 340,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14964,
+      "totalCpuCycles": 42793
+    },
+    {
+      "serial": 341,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 42844
+    },
+    {
+      "serial": 342,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43106
+    },
+    {
+      "serial": 343,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15019,
+      "totalCpuCycles": 42848
+    },
+    {
+      "serial": 344,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14916,
+      "totalCpuCycles": 42740
+    },
+    {
+      "serial": 345,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15225,
+      "totalCpuCycles": 43054
+    },
+    {
+      "serial": 346,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15237,
+      "totalCpuCycles": 43066
+    },
+    {
+      "serial": 347,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15431,
+      "totalCpuCycles": 43260
+    },
+    {
+      "serial": 348,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15285,
+      "totalCpuCycles": 43114
+    },
+    {
+      "serial": 349,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15234,
+      "totalCpuCycles": 43063
+    },
+    {
+      "serial": 350,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15344,
+      "totalCpuCycles": 43173
+    },
+    {
+      "serial": 351,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15592,
+      "totalCpuCycles": 43421
+    },
+    {
+      "serial": 352,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15699,
+      "totalCpuCycles": 43528
+    },
+    {
+      "serial": 353,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15700,
+      "totalCpuCycles": 43529
+    },
+    {
+      "serial": 354,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43535
+    },
+    {
+      "serial": 355,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43114
+    },
+    {
+      "serial": 356,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15753,
+      "totalCpuCycles": 43585
+    },
+    {
+      "serial": 357,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43534
+    },
+    {
+      "serial": 358,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15862,
+      "totalCpuCycles": 43694
+    },
+    {
+      "serial": 359,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15810,
+      "totalCpuCycles": 43638
+    },
+    {
+      "serial": 360,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15819,
+      "totalCpuCycles": 43647
+    },
+    {
+      "serial": 361,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15918,
+      "totalCpuCycles": 43746
+    },
+    {
+      "serial": 362,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15914,
+      "totalCpuCycles": 43742
+    },
+    {
+      "serial": 363,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16534,
+      "totalCpuCycles": 44362
+    },
+    {
+      "serial": 364,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16281,
+      "totalCpuCycles": 44109
+    },
+    {
+      "serial": 365,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16074,
+      "totalCpuCycles": 43902
+    },
+    {
+      "serial": 366,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44319
+    },
+    {
+      "serial": 367,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16802,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 368,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 17015,
+      "totalCpuCycles": 44849
+    },
+    {
+      "serial": 369,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16288,
+      "totalCpuCycles": 44126
+    },
+    {
+      "serial": 370,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16542,
+      "totalCpuCycles": 44380
+    },
+    {
+      "serial": 371,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16552,
+      "totalCpuCycles": 44390
+    },
+    {
+      "serial": 372,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16807,
+      "totalCpuCycles": 44645
+    },
+    {
+      "serial": 373,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17530,
+      "totalCpuCycles": 45368
+    },
+    {
+      "serial": 374,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17218,
+      "totalCpuCycles": 45056
+    },
+    {
+      "serial": 375,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16540,
+      "totalCpuCycles": 44378
+    },
+    {
+      "serial": 376,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16508,
+      "renderCpuCycles": 16747,
+      "totalCpuCycles": 44584
+    },
+    {
+      "serial": 377,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 16804,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 378,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 17580,
+      "totalCpuCycles": 45412
+    },
+    {
+      "serial": 379,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16438,
+      "totalCpuCycles": 44271
+    },
+    {
+      "serial": 380,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44323
+    },
+    {
+      "serial": 381,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16909,
+      "totalCpuCycles": 44742
+    },
+    {
+      "serial": 382,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16963,
+      "totalCpuCycles": 44796
+    },
+    {
+      "serial": 383,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16495,
+      "totalCpuCycles": 44328
+    },
+    {
+      "serial": 384,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16275,
+      "totalCpuCycles": 44108
+    },
+    {
+      "serial": 385,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16122,
+      "totalCpuCycles": 43956
+    },
+    {
+      "serial": 386,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16492,
+      "totalCpuCycles": 44326
+    },
+    {
+      "serial": 387,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16506,
+      "renderCpuCycles": 16690,
+      "totalCpuCycles": 44525
+    },
+    {
+      "serial": 388,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16507,
+      "renderCpuCycles": 15912,
+      "totalCpuCycles": 43748
+    },
+    {
+      "serial": 389,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 15907,
+      "totalCpuCycles": 43738
+    },
+    {
+      "serial": 390,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 43894
+    },
+    {
+      "serial": 391,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16219,
+      "totalCpuCycles": 44050
+    },
+    {
+      "serial": 392,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16216,
+      "totalCpuCycles": 44047
+    },
+    {
+      "serial": 393,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16059,
+      "totalCpuCycles": 43890
+    },
+    {
+      "serial": 394,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15231,
+      "totalCpuCycles": 43061
+    },
+    {
+      "serial": 395,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15539,
+      "totalCpuCycles": 43369
+    },
+    {
+      "serial": 396,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15332,
+      "totalCpuCycles": 43162
+    },
+    {
+      "serial": 397,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15455,
+      "totalCpuCycles": 43285
+    },
+    {
+      "serial": 398,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15709,
+      "totalCpuCycles": 43538
+    },
+    {
+      "serial": 399,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43110
+    },
+    {
+      "serial": 400,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43115
+    },
+    {
+      "serial": 401,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15489,
+      "totalCpuCycles": 43318
+    },
+    {
+      "serial": 402,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15223,
+      "totalCpuCycles": 43052
+    },
+    {
+      "serial": 403,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43106
+    },
+    {
+      "serial": 404,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15430,
+      "totalCpuCycles": 43259
+    },
+    {
+      "serial": 405,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15069,
+      "totalCpuCycles": 42898
+    },
+    {
+      "serial": 406,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15077,
+      "totalCpuCycles": 42906
+    },
+    {
+      "serial": 407,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15235,
+      "totalCpuCycles": 43063
+    },
+    {
+      "serial": 408,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15074,
+      "totalCpuCycles": 42902
+    },
+    {
+      "serial": 409,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15169,
+      "totalCpuCycles": 42997
+    },
+    {
+      "serial": 410,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 15117,
+      "totalCpuCycles": 42941
+    },
+    {
+      "serial": 411,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15121,
+      "totalCpuCycles": 42950
+    },
+    {
+      "serial": 412,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14965,
+      "totalCpuCycles": 42794
+    },
+    {
+      "serial": 413,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14556,
+      "totalCpuCycles": 42385
+    },
+    {
+      "serial": 414,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14600,
+      "totalCpuCycles": 42429
+    },
+    {
+      "serial": 415,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14708,
+      "totalCpuCycles": 42537
+    },
+    {
+      "serial": 416,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14605,
+      "totalCpuCycles": 42434
+    },
+    {
+      "serial": 417,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14858,
+      "totalCpuCycles": 42683
+    },
+    {
+      "serial": 418,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14756,
+      "totalCpuCycles": 42581
+    },
+    {
+      "serial": 419,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14606,
+      "totalCpuCycles": 42431
+    },
+    {
+      "serial": 420,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14341,
+      "totalCpuCycles": 42170
+    },
+    {
+      "serial": 421,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14494,
+      "totalCpuCycles": 42322
+    },
+    {
+      "serial": 422,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14394,
+      "totalCpuCycles": 42222
+    },
+    {
+      "serial": 423,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14596,
+      "totalCpuCycles": 42420
+    },
+    {
+      "serial": 424,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14809,
+      "totalCpuCycles": 42633
+    },
+    {
+      "serial": 425,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14612,
+      "totalCpuCycles": 42436
+    },
+    {
+      "serial": 426,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14286,
+      "totalCpuCycles": 42110
+    },
+    {
+      "serial": 427,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14288,
+      "totalCpuCycles": 42116
+    },
+    {
+      "serial": 428,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14441,
+      "totalCpuCycles": 42269
+    },
+    {
+      "serial": 429,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 14235,
+      "totalCpuCycles": 42063
+    },
+    {
+      "serial": 430,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14545,
+      "totalCpuCycles": 42374
+    },
+    {
+      "serial": 431,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14967,
+      "totalCpuCycles": 42792
+    },
+    {
+      "serial": 432,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16496,
+      "renderCpuCycles": 14758,
+      "totalCpuCycles": 42583
+    },
+    {
+      "serial": 433,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14599,
+      "totalCpuCycles": 42428
+    },
+    {
+      "serial": 434,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14649,
+      "totalCpuCycles": 42478
+    },
+    {
+      "serial": 435,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14871,
+      "totalCpuCycles": 42700
+    },
+    {
+      "serial": 436,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 14964,
+      "totalCpuCycles": 42793
+    },
+    {
+      "serial": 437,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15015,
+      "totalCpuCycles": 42844
+    },
+    {
+      "serial": 438,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43106
+    },
+    {
+      "serial": 439,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15019,
+      "totalCpuCycles": 42848
+    },
+    {
+      "serial": 440,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16495,
+      "renderCpuCycles": 14916,
+      "totalCpuCycles": 42740
+    },
+    {
+      "serial": 441,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15225,
+      "totalCpuCycles": 43054
+    },
+    {
+      "serial": 442,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15237,
+      "totalCpuCycles": 43066
+    },
+    {
+      "serial": 443,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15431,
+      "totalCpuCycles": 43260
+    },
+    {
+      "serial": 444,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15285,
+      "totalCpuCycles": 43114
+    },
+    {
+      "serial": 445,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15234,
+      "totalCpuCycles": 43063
+    },
+    {
+      "serial": 446,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15344,
+      "totalCpuCycles": 43173
+    },
+    {
+      "serial": 447,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15592,
+      "totalCpuCycles": 43421
+    },
+    {
+      "serial": 448,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15699,
+      "totalCpuCycles": 43528
+    },
+    {
+      "serial": 449,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15700,
+      "totalCpuCycles": 43529
+    },
+    {
+      "serial": 450,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43535
+    },
+    {
+      "serial": 451,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43114
+    },
+    {
+      "serial": 452,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15753,
+      "totalCpuCycles": 43585
+    },
+    {
+      "serial": 453,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15702,
+      "totalCpuCycles": 43534
+    },
+    {
+      "serial": 454,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 15862,
+      "totalCpuCycles": 43694
+    },
+    {
+      "serial": 455,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15810,
+      "totalCpuCycles": 43638
+    },
+    {
+      "serial": 456,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15819,
+      "totalCpuCycles": 43647
+    },
+    {
+      "serial": 457,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15918,
+      "totalCpuCycles": 43746
+    },
+    {
+      "serial": 458,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 15914,
+      "totalCpuCycles": 43742
+    },
+    {
+      "serial": 459,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16534,
+      "totalCpuCycles": 44362
+    },
+    {
+      "serial": 460,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16281,
+      "totalCpuCycles": 44109
+    },
+    {
+      "serial": 461,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16499,
+      "renderCpuCycles": 16074,
+      "totalCpuCycles": 43902
+    },
+    {
+      "serial": 462,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44319
+    },
+    {
+      "serial": 463,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16802,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 464,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 17015,
+      "totalCpuCycles": 44849
+    },
+    {
+      "serial": 465,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16288,
+      "totalCpuCycles": 44126
+    },
+    {
+      "serial": 466,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16542,
+      "totalCpuCycles": 44380
+    },
+    {
+      "serial": 467,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16552,
+      "totalCpuCycles": 44390
+    },
+    {
+      "serial": 468,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16807,
+      "totalCpuCycles": 44645
+    },
+    {
+      "serial": 469,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17530,
+      "totalCpuCycles": 45368
+    },
+    {
+      "serial": 470,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 17218,
+      "totalCpuCycles": 45056
+    },
+    {
+      "serial": 471,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16509,
+      "renderCpuCycles": 16540,
+      "totalCpuCycles": 44378
+    },
+    {
+      "serial": 472,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16508,
+      "renderCpuCycles": 16747,
+      "totalCpuCycles": 44584
+    },
+    {
+      "serial": 473,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 16804,
+      "totalCpuCycles": 44636
+    },
+    {
+      "serial": 474,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16503,
+      "renderCpuCycles": 17580,
+      "totalCpuCycles": 45412
+    },
+    {
+      "serial": 475,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16438,
+      "totalCpuCycles": 44271
+    },
+    {
+      "serial": 476,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16490,
+      "totalCpuCycles": 44323
+    },
+    {
+      "serial": 477,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16909,
+      "totalCpuCycles": 44742
+    },
+    {
+      "serial": 478,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16963,
+      "totalCpuCycles": 44796
+    },
+    {
+      "serial": 479,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16495,
+      "totalCpuCycles": 44328
+    },
+    {
+      "serial": 480,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 16275,
+      "totalCpuCycles": 44108
+    },
+    {
+      "serial": 481,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16122,
+      "totalCpuCycles": 43956
+    },
+    {
+      "serial": 482,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16505,
+      "renderCpuCycles": 16492,
+      "totalCpuCycles": 44326
+    },
+    {
+      "serial": 483,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16506,
+      "renderCpuCycles": 16690,
+      "totalCpuCycles": 44525
+    },
+    {
+      "serial": 484,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16507,
+      "renderCpuCycles": 15912,
+      "totalCpuCycles": 43748
+    },
+    {
+      "serial": 485,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 15907,
+      "totalCpuCycles": 43738
+    },
+    {
+      "serial": 486,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16063,
+      "totalCpuCycles": 43894
+    },
+    {
+      "serial": 487,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16219,
+      "totalCpuCycles": 44050
+    },
+    {
+      "serial": 488,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16216,
+      "totalCpuCycles": 44047
+    },
+    {
+      "serial": 489,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16502,
+      "renderCpuCycles": 16059,
+      "totalCpuCycles": 43890
+    },
+    {
+      "serial": 490,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15231,
+      "totalCpuCycles": 43061
+    },
+    {
+      "serial": 491,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15539,
+      "totalCpuCycles": 43369
+    },
+    {
+      "serial": 492,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15332,
+      "totalCpuCycles": 43162
+    },
+    {
+      "serial": 493,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16501,
+      "renderCpuCycles": 15455,
+      "totalCpuCycles": 43285
+    },
+    {
+      "serial": 494,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15709,
+      "totalCpuCycles": 43538
+    },
+    {
+      "serial": 495,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43110
+    },
+    {
+      "serial": 496,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16504,
+      "renderCpuCycles": 15282,
+      "totalCpuCycles": 43115
+    },
+    {
+      "serial": 497,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15489,
+      "totalCpuCycles": 43318
+    },
+    {
+      "serial": 498,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15223,
+      "totalCpuCycles": 43052
+    },
+    {
+      "serial": 499,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15277,
+      "totalCpuCycles": 43106
+    },
+    {
+      "serial": 500,
+      "mode": 1,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 16500,
+      "renderCpuCycles": 15430,
+      "totalCpuCycles": 43259
+    },
+    {
+      "serial": 501,
+      "mode": 2,
+      "transition": true,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33368,
+      "totalCpuCycles": 48048
+    },
+    {
+      "serial": 502,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32968,
+      "totalCpuCycles": 47648
+    },
+    {
+      "serial": 503,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32728,
+      "totalCpuCycles": 47404
+    },
+    {
+      "serial": 504,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33592,
+      "totalCpuCycles": 48272
+    },
+    {
+      "serial": 505,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33990,
+      "totalCpuCycles": 48670
+    },
+    {
+      "serial": 506,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33482,
+      "totalCpuCycles": 48158
+    },
+    {
+      "serial": 507,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34144,
+      "totalCpuCycles": 48825
+    },
+    {
+      "serial": 508,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33808,
+      "totalCpuCycles": 48488
+    },
+    {
+      "serial": 509,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33820,
+      "totalCpuCycles": 48500
+    },
+    {
+      "serial": 510,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33618,
+      "totalCpuCycles": 48299
+    },
+    {
+      "serial": 511,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3356,
+      "renderCpuCycles": 34078,
+      "totalCpuCycles": 48763
+    },
+    {
+      "serial": 512,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34584,
+      "totalCpuCycles": 49264
+    },
+    {
+      "serial": 513,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 34414,
+      "totalCpuCycles": 49090
+    },
+    {
+      "serial": 514,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34618,
+      "totalCpuCycles": 49298
+    },
+    {
+      "serial": 515,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34040,
+      "totalCpuCycles": 48720
+    },
+    {
+      "serial": 516,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34018,
+      "totalCpuCycles": 48698
+    },
+    {
+      "serial": 517,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34464,
+      "totalCpuCycles": 49144
+    },
+    {
+      "serial": 518,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33770,
+      "totalCpuCycles": 48450
+    },
+    {
+      "serial": 519,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33536,
+      "totalCpuCycles": 48212
+    },
+    {
+      "serial": 520,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34068,
+      "totalCpuCycles": 48748
+    },
+    {
+      "serial": 521,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34268,
+      "totalCpuCycles": 48948
+    },
+    {
+      "serial": 522,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34832,
+      "totalCpuCycles": 49512
+    },
+    {
+      "serial": 523,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33274,
+      "totalCpuCycles": 47955
+    },
+    {
+      "serial": 524,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33376,
+      "totalCpuCycles": 48056
+    },
+    {
+      "serial": 525,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34028,
+      "totalCpuCycles": 48708
+    },
+    {
+      "serial": 526,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34114,
+      "totalCpuCycles": 48795
+    },
+    {
+      "serial": 527,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33972,
+      "totalCpuCycles": 48648
+    },
+    {
+      "serial": 528,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47935
+    },
+    {
+      "serial": 529,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33428,
+      "totalCpuCycles": 48108
+    },
+    {
+      "serial": 530,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34024,
+      "totalCpuCycles": 48704
+    },
+    {
+      "serial": 531,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34110,
+      "totalCpuCycles": 48791
+    },
+    {
+      "serial": 532,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33054,
+      "totalCpuCycles": 47735
+    },
+    {
+      "serial": 533,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33392,
+      "totalCpuCycles": 48068
+    },
+    {
+      "serial": 534,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33868,
+      "totalCpuCycles": 48548
+    },
+    {
+      "serial": 535,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33172,
+      "totalCpuCycles": 47852
+    },
+    {
+      "serial": 536,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33554,
+      "totalCpuCycles": 48230
+    },
+    {
+      "serial": 537,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33574,
+      "totalCpuCycles": 48255
+    },
+    {
+      "serial": 538,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33354,
+      "totalCpuCycles": 48034
+    },
+    {
+      "serial": 539,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47934
+    },
+    {
+      "serial": 540,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32994,
+      "totalCpuCycles": 47674
+    },
+    {
+      "serial": 541,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33414,
+      "totalCpuCycles": 48095
+    },
+    {
+      "serial": 542,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33430,
+      "totalCpuCycles": 48110
+    },
+    {
+      "serial": 543,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33052,
+      "totalCpuCycles": 47732
+    },
+    {
+      "serial": 544,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32956,
+      "totalCpuCycles": 47636
+    },
+    {
+      "serial": 545,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32834,
+      "totalCpuCycles": 47510
+    },
+    {
+      "serial": 546,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33852,
+      "totalCpuCycles": 48532
+    },
+    {
+      "serial": 547,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33836,
+      "totalCpuCycles": 48516
+    },
+    {
+      "serial": 548,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33944,
+      "totalCpuCycles": 48624
+    },
+    {
+      "serial": 549,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33488,
+      "totalCpuCycles": 48168
+    },
+    {
+      "serial": 550,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33168,
+      "totalCpuCycles": 47848
+    },
+    {
+      "serial": 551,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32912,
+      "totalCpuCycles": 47588
+    },
+    {
+      "serial": 552,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33864,
+      "totalCpuCycles": 48544
+    },
+    {
+      "serial": 553,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34302,
+      "totalCpuCycles": 48982
+    },
+    {
+      "serial": 554,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48518
+    },
+    {
+      "serial": 555,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34512,
+      "totalCpuCycles": 49193
+    },
+    {
+      "serial": 556,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34128,
+      "totalCpuCycles": 48808
+    },
+    {
+      "serial": 557,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34124,
+      "totalCpuCycles": 48804
+    },
+    {
+      "serial": 558,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48523
+    },
+    {
+      "serial": 559,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3356,
+      "renderCpuCycles": 34350,
+      "totalCpuCycles": 49035
+    },
+    {
+      "serial": 560,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34792,
+      "totalCpuCycles": 49472
+    },
+    {
+      "serial": 561,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 34598,
+      "totalCpuCycles": 49274
+    },
+    {
+      "serial": 562,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34762,
+      "totalCpuCycles": 49442
+    },
+    {
+      "serial": 563,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34152,
+      "totalCpuCycles": 48832
+    },
+    {
+      "serial": 564,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34042,
+      "totalCpuCycles": 48722
+    },
+    {
+      "serial": 565,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34432,
+      "totalCpuCycles": 49112
+    },
+    {
+      "serial": 566,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33690,
+      "totalCpuCycles": 48370
+    },
+    {
+      "serial": 567,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33440,
+      "totalCpuCycles": 48116
+    },
+    {
+      "serial": 568,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33876,
+      "totalCpuCycles": 48556
+    },
+    {
+      "serial": 569,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34036,
+      "totalCpuCycles": 48716
+    },
+    {
+      "serial": 570,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34544,
+      "totalCpuCycles": 49224
+    },
+    {
+      "serial": 571,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 32986,
+      "totalCpuCycles": 47667
+    },
+    {
+      "serial": 572,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33120,
+      "totalCpuCycles": 47800
+    },
+    {
+      "serial": 573,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33796,
+      "totalCpuCycles": 48476
+    },
+    {
+      "serial": 574,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33826,
+      "totalCpuCycles": 48507
+    },
+    {
+      "serial": 575,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33716,
+      "totalCpuCycles": 48392
+    },
+    {
+      "serial": 576,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32998,
+      "totalCpuCycles": 47678
+    },
+    {
+      "serial": 577,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33180,
+      "totalCpuCycles": 47860
+    },
+    {
+      "serial": 578,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33792,
+      "totalCpuCycles": 48472
+    },
+    {
+      "serial": 579,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33942,
+      "totalCpuCycles": 48623
+    },
+    {
+      "serial": 580,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 32958,
+      "totalCpuCycles": 47639
+    },
+    {
+      "serial": 581,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33328,
+      "totalCpuCycles": 48004
+    },
+    {
+      "serial": 582,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33820,
+      "totalCpuCycles": 48500
+    },
+    {
+      "serial": 583,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33196,
+      "totalCpuCycles": 47876
+    },
+    {
+      "serial": 584,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33650,
+      "totalCpuCycles": 48326
+    },
+    {
+      "serial": 585,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33638,
+      "totalCpuCycles": 48319
+    },
+    {
+      "serial": 586,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33490,
+      "totalCpuCycles": 48170
+    },
+    {
+      "serial": 587,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33358,
+      "totalCpuCycles": 48038
+    },
+    {
+      "serial": 588,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33130,
+      "totalCpuCycles": 47810
+    },
+    {
+      "serial": 589,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33558,
+      "totalCpuCycles": 48239
+    },
+    {
+      "serial": 590,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33542,
+      "totalCpuCycles": 48222
+    },
+    {
+      "serial": 591,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33196,
+      "totalCpuCycles": 47876
+    },
+    {
+      "serial": 592,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33052,
+      "totalCpuCycles": 47732
+    },
+    {
+      "serial": 593,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32810,
+      "totalCpuCycles": 47486
+    },
+    {
+      "serial": 594,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33836,
+      "totalCpuCycles": 48516
+    },
+    {
+      "serial": 595,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33852,
+      "totalCpuCycles": 48532
+    },
+    {
+      "serial": 596,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33872,
+      "totalCpuCycles": 48552
+    },
+    {
+      "serial": 597,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33368,
+      "totalCpuCycles": 48048
+    },
+    {
+      "serial": 598,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32968,
+      "totalCpuCycles": 47648
+    },
+    {
+      "serial": 599,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32728,
+      "totalCpuCycles": 47404
+    },
+    {
+      "serial": 600,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33592,
+      "totalCpuCycles": 48272
+    },
+    {
+      "serial": 601,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33990,
+      "totalCpuCycles": 48670
+    },
+    {
+      "serial": 602,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33482,
+      "totalCpuCycles": 48158
+    },
+    {
+      "serial": 603,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34144,
+      "totalCpuCycles": 48825
+    },
+    {
+      "serial": 604,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33808,
+      "totalCpuCycles": 48488
+    },
+    {
+      "serial": 605,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33820,
+      "totalCpuCycles": 48500
+    },
+    {
+      "serial": 606,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33618,
+      "totalCpuCycles": 48299
+    },
+    {
+      "serial": 607,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3356,
+      "renderCpuCycles": 34078,
+      "totalCpuCycles": 48763
+    },
+    {
+      "serial": 608,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34584,
+      "totalCpuCycles": 49264
+    },
+    {
+      "serial": 609,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 34414,
+      "totalCpuCycles": 49090
+    },
+    {
+      "serial": 610,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34618,
+      "totalCpuCycles": 49298
+    },
+    {
+      "serial": 611,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34040,
+      "totalCpuCycles": 48720
+    },
+    {
+      "serial": 612,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34018,
+      "totalCpuCycles": 48698
+    },
+    {
+      "serial": 613,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34464,
+      "totalCpuCycles": 49144
+    },
+    {
+      "serial": 614,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33770,
+      "totalCpuCycles": 48450
+    },
+    {
+      "serial": 615,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33536,
+      "totalCpuCycles": 48212
+    },
+    {
+      "serial": 616,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34068,
+      "totalCpuCycles": 48748
+    },
+    {
+      "serial": 617,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34268,
+      "totalCpuCycles": 48948
+    },
+    {
+      "serial": 618,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34832,
+      "totalCpuCycles": 49512
+    },
+    {
+      "serial": 619,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33274,
+      "totalCpuCycles": 47955
+    },
+    {
+      "serial": 620,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33376,
+      "totalCpuCycles": 48056
+    },
+    {
+      "serial": 621,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34028,
+      "totalCpuCycles": 48708
+    },
+    {
+      "serial": 622,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34114,
+      "totalCpuCycles": 48795
+    },
+    {
+      "serial": 623,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33972,
+      "totalCpuCycles": 48648
+    },
+    {
+      "serial": 624,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47935
+    },
+    {
+      "serial": 625,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33428,
+      "totalCpuCycles": 48108
+    },
+    {
+      "serial": 626,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34024,
+      "totalCpuCycles": 48704
+    },
+    {
+      "serial": 627,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34110,
+      "totalCpuCycles": 48791
+    },
+    {
+      "serial": 628,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33054,
+      "totalCpuCycles": 47735
+    },
+    {
+      "serial": 629,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33392,
+      "totalCpuCycles": 48068
+    },
+    {
+      "serial": 630,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33868,
+      "totalCpuCycles": 48548
+    },
+    {
+      "serial": 631,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33172,
+      "totalCpuCycles": 47852
+    },
+    {
+      "serial": 632,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33554,
+      "totalCpuCycles": 48230
+    },
+    {
+      "serial": 633,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33574,
+      "totalCpuCycles": 48255
+    },
+    {
+      "serial": 634,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33354,
+      "totalCpuCycles": 48034
+    },
+    {
+      "serial": 635,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47934
+    },
+    {
+      "serial": 636,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32994,
+      "totalCpuCycles": 47674
+    },
+    {
+      "serial": 637,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33414,
+      "totalCpuCycles": 48095
+    },
+    {
+      "serial": 638,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33430,
+      "totalCpuCycles": 48110
+    },
+    {
+      "serial": 639,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33052,
+      "totalCpuCycles": 47732
+    },
+    {
+      "serial": 640,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32956,
+      "totalCpuCycles": 47636
+    },
+    {
+      "serial": 641,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32834,
+      "totalCpuCycles": 47510
+    },
+    {
+      "serial": 642,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33852,
+      "totalCpuCycles": 48532
+    },
+    {
+      "serial": 643,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33836,
+      "totalCpuCycles": 48516
+    },
+    {
+      "serial": 644,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33944,
+      "totalCpuCycles": 48624
+    },
+    {
+      "serial": 645,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33488,
+      "totalCpuCycles": 48168
+    },
+    {
+      "serial": 646,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33168,
+      "totalCpuCycles": 47848
+    },
+    {
+      "serial": 647,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32912,
+      "totalCpuCycles": 47588
+    },
+    {
+      "serial": 648,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33864,
+      "totalCpuCycles": 48544
+    },
+    {
+      "serial": 649,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34302,
+      "totalCpuCycles": 48982
+    },
+    {
+      "serial": 650,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48518
+    },
+    {
+      "serial": 651,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34512,
+      "totalCpuCycles": 49193
+    },
+    {
+      "serial": 652,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34128,
+      "totalCpuCycles": 48808
+    },
+    {
+      "serial": 653,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34124,
+      "totalCpuCycles": 48804
+    },
+    {
+      "serial": 654,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48523
+    },
+    {
+      "serial": 655,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3356,
+      "renderCpuCycles": 34350,
+      "totalCpuCycles": 49035
+    },
+    {
+      "serial": 656,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34792,
+      "totalCpuCycles": 49472
+    },
+    {
+      "serial": 657,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 34598,
+      "totalCpuCycles": 49274
+    },
+    {
+      "serial": 658,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34762,
+      "totalCpuCycles": 49442
+    },
+    {
+      "serial": 659,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34152,
+      "totalCpuCycles": 48832
+    },
+    {
+      "serial": 660,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34042,
+      "totalCpuCycles": 48722
+    },
+    {
+      "serial": 661,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34432,
+      "totalCpuCycles": 49112
+    },
+    {
+      "serial": 662,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33690,
+      "totalCpuCycles": 48370
+    },
+    {
+      "serial": 663,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33440,
+      "totalCpuCycles": 48116
+    },
+    {
+      "serial": 664,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33876,
+      "totalCpuCycles": 48556
+    },
+    {
+      "serial": 665,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34036,
+      "totalCpuCycles": 48716
+    },
+    {
+      "serial": 666,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34544,
+      "totalCpuCycles": 49224
+    },
+    {
+      "serial": 667,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 32986,
+      "totalCpuCycles": 47667
+    },
+    {
+      "serial": 668,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33120,
+      "totalCpuCycles": 47800
+    },
+    {
+      "serial": 669,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33796,
+      "totalCpuCycles": 48476
+    },
+    {
+      "serial": 670,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33826,
+      "totalCpuCycles": 48507
+    },
+    {
+      "serial": 671,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33716,
+      "totalCpuCycles": 48392
+    },
+    {
+      "serial": 672,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32998,
+      "totalCpuCycles": 47678
+    },
+    {
+      "serial": 673,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33180,
+      "totalCpuCycles": 47860
+    },
+    {
+      "serial": 674,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33792,
+      "totalCpuCycles": 48472
+    },
+    {
+      "serial": 675,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33942,
+      "totalCpuCycles": 48623
+    },
+    {
+      "serial": 676,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 32958,
+      "totalCpuCycles": 47639
+    },
+    {
+      "serial": 677,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33328,
+      "totalCpuCycles": 48004
+    },
+    {
+      "serial": 678,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33820,
+      "totalCpuCycles": 48500
+    },
+    {
+      "serial": 679,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33196,
+      "totalCpuCycles": 47876
+    },
+    {
+      "serial": 680,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33650,
+      "totalCpuCycles": 48326
+    },
+    {
+      "serial": 681,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33638,
+      "totalCpuCycles": 48319
+    },
+    {
+      "serial": 682,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33490,
+      "totalCpuCycles": 48170
+    },
+    {
+      "serial": 683,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33358,
+      "totalCpuCycles": 48038
+    },
+    {
+      "serial": 684,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33130,
+      "totalCpuCycles": 47810
+    },
+    {
+      "serial": 685,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33558,
+      "totalCpuCycles": 48239
+    },
+    {
+      "serial": 686,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33542,
+      "totalCpuCycles": 48222
+    },
+    {
+      "serial": 687,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33196,
+      "totalCpuCycles": 47876
+    },
+    {
+      "serial": 688,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33052,
+      "totalCpuCycles": 47732
+    },
+    {
+      "serial": 689,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32810,
+      "totalCpuCycles": 47486
+    },
+    {
+      "serial": 690,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33836,
+      "totalCpuCycles": 48516
+    },
+    {
+      "serial": 691,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33852,
+      "totalCpuCycles": 48532
+    },
+    {
+      "serial": 692,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33872,
+      "totalCpuCycles": 48552
+    },
+    {
+      "serial": 693,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33368,
+      "totalCpuCycles": 48048
+    },
+    {
+      "serial": 694,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32968,
+      "totalCpuCycles": 47648
+    },
+    {
+      "serial": 695,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32728,
+      "totalCpuCycles": 47404
+    },
+    {
+      "serial": 696,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33592,
+      "totalCpuCycles": 48272
+    },
+    {
+      "serial": 697,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33990,
+      "totalCpuCycles": 48670
+    },
+    {
+      "serial": 698,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33482,
+      "totalCpuCycles": 48158
+    },
+    {
+      "serial": 699,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34144,
+      "totalCpuCycles": 48825
+    },
+    {
+      "serial": 700,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33808,
+      "totalCpuCycles": 48488
+    },
+    {
+      "serial": 701,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33820,
+      "totalCpuCycles": 48500
+    },
+    {
+      "serial": 702,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33618,
+      "totalCpuCycles": 48299
+    },
+    {
+      "serial": 703,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3356,
+      "renderCpuCycles": 34078,
+      "totalCpuCycles": 48763
+    },
+    {
+      "serial": 704,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34584,
+      "totalCpuCycles": 49264
+    },
+    {
+      "serial": 705,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 34414,
+      "totalCpuCycles": 49090
+    },
+    {
+      "serial": 706,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34618,
+      "totalCpuCycles": 49298
+    },
+    {
+      "serial": 707,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34040,
+      "totalCpuCycles": 48720
+    },
+    {
+      "serial": 708,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34018,
+      "totalCpuCycles": 48698
+    },
+    {
+      "serial": 709,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34464,
+      "totalCpuCycles": 49144
+    },
+    {
+      "serial": 710,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33770,
+      "totalCpuCycles": 48450
+    },
+    {
+      "serial": 711,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33536,
+      "totalCpuCycles": 48212
+    },
+    {
+      "serial": 712,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34068,
+      "totalCpuCycles": 48748
+    },
+    {
+      "serial": 713,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34268,
+      "totalCpuCycles": 48948
+    },
+    {
+      "serial": 714,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34832,
+      "totalCpuCycles": 49512
+    },
+    {
+      "serial": 715,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33274,
+      "totalCpuCycles": 47955
+    },
+    {
+      "serial": 716,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33376,
+      "totalCpuCycles": 48056
+    },
+    {
+      "serial": 717,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34028,
+      "totalCpuCycles": 48708
+    },
+    {
+      "serial": 718,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34114,
+      "totalCpuCycles": 48795
+    },
+    {
+      "serial": 719,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33972,
+      "totalCpuCycles": 48648
+    },
+    {
+      "serial": 720,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47935
+    },
+    {
+      "serial": 721,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33428,
+      "totalCpuCycles": 48108
+    },
+    {
+      "serial": 722,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34024,
+      "totalCpuCycles": 48704
+    },
+    {
+      "serial": 723,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34110,
+      "totalCpuCycles": 48791
+    },
+    {
+      "serial": 724,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33054,
+      "totalCpuCycles": 47735
+    },
+    {
+      "serial": 725,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33392,
+      "totalCpuCycles": 48068
+    },
+    {
+      "serial": 726,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33868,
+      "totalCpuCycles": 48548
+    },
+    {
+      "serial": 727,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33172,
+      "totalCpuCycles": 47852
+    },
+    {
+      "serial": 728,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33554,
+      "totalCpuCycles": 48230
+    },
+    {
+      "serial": 729,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33574,
+      "totalCpuCycles": 48255
+    },
+    {
+      "serial": 730,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33354,
+      "totalCpuCycles": 48034
+    },
+    {
+      "serial": 731,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33254,
+      "totalCpuCycles": 47934
+    },
+    {
+      "serial": 732,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32994,
+      "totalCpuCycles": 47674
+    },
+    {
+      "serial": 733,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33414,
+      "totalCpuCycles": 48095
+    },
+    {
+      "serial": 734,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33430,
+      "totalCpuCycles": 48110
+    },
+    {
+      "serial": 735,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33052,
+      "totalCpuCycles": 47732
+    },
+    {
+      "serial": 736,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 32956,
+      "totalCpuCycles": 47636
+    },
+    {
+      "serial": 737,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32834,
+      "totalCpuCycles": 47510
+    },
+    {
+      "serial": 738,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33852,
+      "totalCpuCycles": 48532
+    },
+    {
+      "serial": 739,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33836,
+      "totalCpuCycles": 48516
+    },
+    {
+      "serial": 740,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33944,
+      "totalCpuCycles": 48624
+    },
+    {
+      "serial": 741,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33488,
+      "totalCpuCycles": 48168
+    },
+    {
+      "serial": 742,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33168,
+      "totalCpuCycles": 47848
+    },
+    {
+      "serial": 743,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 32912,
+      "totalCpuCycles": 47588
+    },
+    {
+      "serial": 744,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 33864,
+      "totalCpuCycles": 48544
+    },
+    {
+      "serial": 745,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34302,
+      "totalCpuCycles": 48982
+    },
+    {
+      "serial": 746,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3347,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48518
+    },
+    {
+      "serial": 747,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 34512,
+      "totalCpuCycles": 49193
+    },
+    {
+      "serial": 748,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34128,
+      "totalCpuCycles": 48808
+    },
+    {
+      "serial": 749,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3351,
+      "renderCpuCycles": 34124,
+      "totalCpuCycles": 48804
+    },
+    {
+      "serial": 750,
+      "mode": 2,
+      "transition": false,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 3352,
+      "renderCpuCycles": 33842,
+      "totalCpuCycles": 48523
+    },
+    {
+      "serial": 751,
+      "mode": 0,
+      "transition": true,
+      "clearCpuCycles": 11329,
+      "cacheCpuCycles": 1690,
+      "renderCpuCycles": 16479,
+      "totalCpuCycles": 29498
+    }
+  ]
+}

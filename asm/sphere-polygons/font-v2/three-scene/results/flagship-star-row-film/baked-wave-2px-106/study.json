@@ -1,0 +1,1021 @@
+{
+  "name": "baked-wave-2px-106",
+  "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/results/flagship-star-baked-wave/wave-raster-2",
+  "sourceFrames": 106,
+  "uncompressedCharacterBytes": 106000,
+  "format": "25 ordered rows per frame; x8,length8,rawGlyphs[length]. Empty row is0,0. Only external glyph0 is trimmed.",
+  "rawCharacterBytes": 19036,
+  "rawNonzeroGlyphBytes": 17481,
+  "preservedInternalZeroBytes": 1555,
+  "headerBytes": 5300,
+  "rowDataBytes": 24336,
+  "activeRows": 2096,
+  "blankRows": 554,
+  "activeRowHeaderBytes": 4192,
+  "blankRowHeaderBytes": 1108,
+  "meanBytesPerFrame": 229.58490566037736,
+  "minBytesPerFrame": 50,
+  "maxBytesPerFrame": 279,
+  "framesExceeding255Bytes": 12,
+  "activeSpanMean": 9.08206106870229,
+  "activeSpanMax": 22,
+  "indexes": {
+    "framePointer16": {
+      "valid": true,
+      "indexBytes": 212,
+      "totalBytes": 24548,
+      "access": "Locate frame by 16-bit offset, then parse at most25 ordered row headers."
+    },
+    "framePointer16AndRowOffset8": {
+      "valid": false,
+      "indexBytesIfValid": 2862,
+      "totalBytesIfValid": 27198,
+      "maximumRelativeOffset": 277,
+      "overflowingRows": 38,
+      "affectedFrames": 11,
+      "overflowExamples": [
+        {
+          "frame": 80,
+          "row": 21,
+          "offset": 256
+        },
+        {
+          "frame": 80,
+          "row": 22,
+          "offset": 258
+        },
+        {
+          "frame": 80,
+          "row": 23,
+          "offset": 260
+        },
+        {
+          "frame": 80,
+          "row": 24,
+          "offset": 262
+        },
+        {
+          "frame": 81,
+          "row": 21,
+          "offset": 263
+        },
+        {
+          "frame": 81,
+          "row": 22,
+          "offset": 265
+        },
+        {
+          "frame": 81,
+          "row": 23,
+          "offset": 267
+        },
+        {
+          "frame": 81,
+          "row": 24,
+          "offset": 269
+        }
+      ]
+    },
+    "directRowPointer16": {
+      "valid": true,
+      "indexBytes": 5300,
+      "totalBytes": 29636,
+      "access": "One independent16-bit byte offset per row; no separate frame pointer needed."
+    }
+  },
+  "fontBytes": 2048,
+  "frameStats": [
+    {
+      "frame": 0,
+      "bytes": 50,
+      "rawCharacterBytes": 0,
+      "headerBytes": 50,
+      "activeRows": 0,
+      "blankRows": 25
+    },
+    {
+      "frame": 1,
+      "bytes": 98,
+      "rawCharacterBytes": 48,
+      "headerBytes": 50,
+      "activeRows": 5,
+      "blankRows": 20
+    },
+    {
+      "frame": 2,
+      "bytes": 131,
+      "rawCharacterBytes": 81,
+      "headerBytes": 50,
+      "activeRows": 8,
+      "blankRows": 17
+    },
+    {
+      "frame": 3,
+      "bytes": 144,
+      "rawCharacterBytes": 94,
+      "headerBytes": 50,
+      "activeRows": 9,
+      "blankRows": 16
+    },
+    {
+      "frame": 4,
+      "bytes": 147,
+      "rawCharacterBytes": 97,
+      "headerBytes": 50,
+      "activeRows": 10,
+      "blankRows": 15
+    },
+    {
+      "frame": 5,
+      "bytes": 161,
+      "rawCharacterBytes": 111,
+      "headerBytes": 50,
+      "activeRows": 11,
+      "blankRows": 14
+    },
+    {
+      "frame": 6,
+      "bytes": 177,
+      "rawCharacterBytes": 127,
+      "headerBytes": 50,
+      "activeRows": 12,
+      "blankRows": 13
+    },
+    {
+      "frame": 7,
+      "bytes": 197,
+      "rawCharacterBytes": 147,
+      "headerBytes": 50,
+      "activeRows": 14,
+      "blankRows": 11
+    },
+    {
+      "frame": 8,
+      "bytes": 224,
+      "rawCharacterBytes": 174,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 9,
+      "bytes": 230,
+      "rawCharacterBytes": 180,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 10,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 11,
+      "bytes": 239,
+      "rawCharacterBytes": 189,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 12,
+      "bytes": 234,
+      "rawCharacterBytes": 184,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 13,
+      "bytes": 237,
+      "rawCharacterBytes": 187,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 14,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 15,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 16,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 17,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 18,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 19,
+      "bytes": 234,
+      "rawCharacterBytes": 184,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 20,
+      "bytes": 229,
+      "rawCharacterBytes": 179,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 21,
+      "bytes": 230,
+      "rawCharacterBytes": 180,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 22,
+      "bytes": 230,
+      "rawCharacterBytes": 180,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 23,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 24,
+      "bytes": 228,
+      "rawCharacterBytes": 178,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 25,
+      "bytes": 227,
+      "rawCharacterBytes": 177,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 26,
+      "bytes": 229,
+      "rawCharacterBytes": 179,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 27,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 28,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 29,
+      "bytes": 221,
+      "rawCharacterBytes": 171,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 30,
+      "bytes": 220,
+      "rawCharacterBytes": 170,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 31,
+      "bytes": 222,
+      "rawCharacterBytes": 172,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 32,
+      "bytes": 221,
+      "rawCharacterBytes": 171,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 33,
+      "bytes": 216,
+      "rawCharacterBytes": 166,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 34,
+      "bytes": 223,
+      "rawCharacterBytes": 173,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 35,
+      "bytes": 221,
+      "rawCharacterBytes": 171,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 36,
+      "bytes": 213,
+      "rawCharacterBytes": 163,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 37,
+      "bytes": 217,
+      "rawCharacterBytes": 167,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 38,
+      "bytes": 216,
+      "rawCharacterBytes": 166,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 39,
+      "bytes": 220,
+      "rawCharacterBytes": 170,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 40,
+      "bytes": 222,
+      "rawCharacterBytes": 172,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 41,
+      "bytes": 213,
+      "rawCharacterBytes": 163,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 42,
+      "bytes": 215,
+      "rawCharacterBytes": 165,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 43,
+      "bytes": 213,
+      "rawCharacterBytes": 163,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 44,
+      "bytes": 219,
+      "rawCharacterBytes": 169,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 45,
+      "bytes": 213,
+      "rawCharacterBytes": 163,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 46,
+      "bytes": 215,
+      "rawCharacterBytes": 165,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 47,
+      "bytes": 226,
+      "rawCharacterBytes": 176,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 48,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 49,
+      "bytes": 222,
+      "rawCharacterBytes": 172,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 50,
+      "bytes": 220,
+      "rawCharacterBytes": 170,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 51,
+      "bytes": 216,
+      "rawCharacterBytes": 166,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 52,
+      "bytes": 226,
+      "rawCharacterBytes": 176,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 53,
+      "bytes": 228,
+      "rawCharacterBytes": 178,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 54,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 55,
+      "bytes": 227,
+      "rawCharacterBytes": 177,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 56,
+      "bytes": 227,
+      "rawCharacterBytes": 177,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 57,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 58,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 59,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 60,
+      "bytes": 234,
+      "rawCharacterBytes": 184,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 61,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 62,
+      "bytes": 233,
+      "rawCharacterBytes": 183,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 63,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 64,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 65,
+      "bytes": 237,
+      "rawCharacterBytes": 187,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 66,
+      "bytes": 238,
+      "rawCharacterBytes": 188,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 67,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 68,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 69,
+      "bytes": 243,
+      "rawCharacterBytes": 193,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 70,
+      "bytes": 241,
+      "rawCharacterBytes": 191,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 71,
+      "bytes": 242,
+      "rawCharacterBytes": 192,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 72,
+      "bytes": 245,
+      "rawCharacterBytes": 195,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 73,
+      "bytes": 242,
+      "rawCharacterBytes": 192,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 74,
+      "bytes": 242,
+      "rawCharacterBytes": 192,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 75,
+      "bytes": 254,
+      "rawCharacterBytes": 204,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 76,
+      "bytes": 245,
+      "rawCharacterBytes": 195,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 77,
+      "bytes": 250,
+      "rawCharacterBytes": 200,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 78,
+      "bytes": 255,
+      "rawCharacterBytes": 205,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 79,
+      "bytes": 253,
+      "rawCharacterBytes": 203,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 80,
+      "bytes": 264,
+      "rawCharacterBytes": 214,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 81,
+      "bytes": 271,
+      "rawCharacterBytes": 221,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 82,
+      "bytes": 255,
+      "rawCharacterBytes": 205,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 83,
+      "bytes": 258,
+      "rawCharacterBytes": 208,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 84,
+      "bytes": 252,
+      "rawCharacterBytes": 202,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 85,
+      "bytes": 267,
+      "rawCharacterBytes": 217,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 86,
+      "bytes": 279,
+      "rawCharacterBytes": 229,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 87,
+      "bytes": 264,
+      "rawCharacterBytes": 214,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 88,
+      "bytes": 253,
+      "rawCharacterBytes": 203,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 89,
+      "bytes": 263,
+      "rawCharacterBytes": 213,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 90,
+      "bytes": 274,
+      "rawCharacterBytes": 224,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 91,
+      "bytes": 253,
+      "rawCharacterBytes": 203,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 92,
+      "bytes": 254,
+      "rawCharacterBytes": 204,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 93,
+      "bytes": 262,
+      "rawCharacterBytes": 212,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 94,
+      "bytes": 263,
+      "rawCharacterBytes": 213,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 95,
+      "bytes": 256,
+      "rawCharacterBytes": 206,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 96,
+      "bytes": 249,
+      "rawCharacterBytes": 199,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 97,
+      "bytes": 250,
+      "rawCharacterBytes": 200,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 98,
+      "bytes": 253,
+      "rawCharacterBytes": 203,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 99,
+      "bytes": 261,
+      "rawCharacterBytes": 211,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 100,
+      "bytes": 242,
+      "rawCharacterBytes": 192,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 101,
+      "bytes": 245,
+      "rawCharacterBytes": 195,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 102,
+      "bytes": 248,
+      "rawCharacterBytes": 198,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 103,
+      "bytes": 246,
+      "rawCharacterBytes": 196,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 104,
+      "bytes": 249,
+      "rawCharacterBytes": 199,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 105,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    }
+  ],
+  "rowPointerCache": {
+    "historyFrames": 10,
+    "rowsPerFrame": 25,
+    "bytesPerPointer": 2,
+    "runtimeBytes": 500,
+    "storedIndexBytes": 212,
+    "update": "Parse25 ordered records once per newly admitted movie frame; replace the oldest of ten pointer sets.",
+    "scope": "Host-proven lookup concept. Native implementation and timing remain unbuilt."
+  },
+  "roundtrip": {
+    "passed": true,
+    "frames": 106,
+    "characterBytes": 106000,
+    "independentRowFetches": 2650,
+    "fontUnchanged": true
+  },
+  "headerPacking": {
+    "byteAlignedBytesPerRow": 2,
+    "separateFieldsBits": 12,
+    "validCanonicalSpans": 821,
+    "minimumInformationBits": 10,
+    "oneByteCanRepresentAllSpans": false,
+    "note": "x and length need6bits each if independent; byte-aligned records still need2bytes. Even exploiting x+length<=40 gives821 legal spans including blank, more than256."
+  },
+  "fixedMemorySubtotals": [
+    {
+      "index": "framePointer16",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 24548,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "subtotalBytes": 27620
+    },
+    {
+      "index": "framePointer16",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 24548,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "subtotalBytes": 28644
+    },
+    {
+      "index": "directRowPointer16",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 29636,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "subtotalBytes": 32708
+    },
+    {
+      "index": "directRowPointer16",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 29636,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "subtotalBytes": 33732
+    },
+    {
+      "index": "framePointer16WithTenFrameRowCache",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 24548,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "rowPointerCacheBytes": 500,
+      "subtotalBytes": 28120
+    },
+    {
+      "index": "framePointer16WithTenFrameRowCache",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 24548,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "rowPointerCacheBytes": 500,
+      "subtotalBytes": 29144
+    }
+  ],
+  "memoryScope": "These are movie/index/font/screen subtotals only. Native code, zero page, playback, row selection tables and scratch are unbuilt/unmeasured. Color RAM is separate. No FPS or total native RAM claim.",
+  "hashes": {
+    "reference": "b14eaae0b1c329d4afdcbcd6d806bcdfd8a04dd907ff3485bf7e5a70c3d2f475",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "rows": "07ca185738fb745cb34e61849a38c8ab0de3025502cbd4427a41007a9fba8b73",
+    "frameOffsets16": "6b6c9daf1b86b2f472246b559268b05c230f0a36e6d9960b8c90ecaa94ee0891",
+    "rowOffsets16": "954fdb9129cbdb13871ebf6b868f4a6875b9428c4cbd45877f60b54de9be6adc"
+  }
+}

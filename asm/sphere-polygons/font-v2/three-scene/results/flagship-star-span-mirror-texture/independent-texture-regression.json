@@ -1,0 +1,218 @@
+{
+  "pass": true,
+  "oldImplementationPolicyTest": {
+    "pass": false,
+    "expectedFailure": true,
+    "rejection": "Canonical Bayer tone193 lost bitmap/density underH: 28->21 ink pixels",
+    "toneMappingsFailing": 14,
+    "failures": [
+      {
+        "sourceGlyph": 193,
+        "level16": 7,
+        "axis": "H",
+        "oldTargetGlyph": 52,
+        "sourceInkPixels": 28,
+        "oldTargetInkPixels": 21,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 193,
+        "level16": 7,
+        "axis": "V",
+        "oldTargetGlyph": 35,
+        "sourceInkPixels": 28,
+        "oldTargetInkPixels": 43,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 200,
+        "level16": 9,
+        "axis": "H",
+        "oldTargetGlyph": 52,
+        "sourceInkPixels": 36,
+        "oldTargetInkPixels": 21,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 200,
+        "level16": 9,
+        "axis": "V",
+        "oldTargetGlyph": 35,
+        "sourceInkPixels": 36,
+        "oldTargetInkPixels": 43,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 205,
+        "level16": 5,
+        "axis": "H",
+        "oldTargetGlyph": 52,
+        "sourceInkPixels": 20,
+        "oldTargetInkPixels": 21,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 205,
+        "level16": 5,
+        "axis": "V",
+        "oldTargetGlyph": 66,
+        "sourceInkPixels": 20,
+        "oldTargetInkPixels": 21,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 206,
+        "level16": 12,
+        "axis": "H",
+        "oldTargetGlyph": 73,
+        "sourceInkPixels": 48,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 206,
+        "level16": 12,
+        "axis": "V",
+        "oldTargetGlyph": 31,
+        "sourceInkPixels": 48,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 216,
+        "level16": 13,
+        "axis": "H",
+        "oldTargetGlyph": 73,
+        "sourceInkPixels": 52,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 216,
+        "level16": 13,
+        "axis": "V",
+        "oldTargetGlyph": 31,
+        "sourceInkPixels": 52,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 220,
+        "level16": 14,
+        "axis": "H",
+        "oldTargetGlyph": 73,
+        "sourceInkPixels": 56,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 220,
+        "level16": 14,
+        "axis": "V",
+        "oldTargetGlyph": 31,
+        "sourceInkPixels": 56,
+        "oldTargetInkPixels": 61,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 228,
+        "level16": 2,
+        "axis": "H",
+        "oldTargetGlyph": 56,
+        "sourceInkPixels": 8,
+        "oldTargetInkPixels": 3,
+        "toneBitmapPreserved": false
+      },
+      {
+        "sourceGlyph": 228,
+        "level16": 2,
+        "axis": "V",
+        "oldTargetGlyph": 70,
+        "sourceInkPixels": 8,
+        "oldTargetInkPixels": 3,
+        "toneBitmapPreserved": false
+      }
+    ]
+  },
+  "newImplementationPolicyTest": {
+    "pass": true,
+    "toneMappingsFailing": 0
+  },
+  "canonicalBayerTones": {
+    "0": 0,
+    "8": 16,
+    "193": 7,
+    "200": 9,
+    "205": 5,
+    "206": 12,
+    "216": 13,
+    "220": 14,
+    "228": 2
+  },
+  "changedHsourceGlyphs": [
+    193,
+    200,
+    205,
+    206,
+    216,
+    220,
+    228
+  ],
+  "changedVsourceGlyphs": [
+    193,
+    200,
+    205,
+    206,
+    216,
+    220,
+    228
+  ],
+  "unchangedSourceGlyphMappingsPerAxis": 249,
+  "nonTemplateActualFlipNearestChecks": 494,
+  "edgeExamples": {
+    "10": {
+      "H": 2,
+      "V": 10,
+      "unchangedFromOld": true
+    },
+    "42": {
+      "H": 70,
+      "V": 56,
+      "unchangedFromOld": true
+    },
+    "45": {
+      "H": 73,
+      "V": 31,
+      "unchangedFromOld": true
+    },
+    "156": {
+      "H": 156,
+      "V": 17,
+      "unchangedFromOld": true
+    }
+  },
+  "unchangedFontRowsFrameIndexReference": true,
+  "programDifferenceBytes": 14,
+  "programDifferenceAddresses": [
+    5313,
+    5320,
+    5325,
+    5326,
+    5336,
+    5340,
+    5348,
+    5569,
+    5576,
+    5581,
+    5582,
+    5592,
+    5596,
+    5604
+  ],
+  "allDifferencesInsideApprovedLookupEntries": true,
+  "oldProgramSha256": "add6e800968b3520b4eb3ff1b098b350ddd1e09dee6af4115615c67fe1a79b5a",
+  "newProgramSha256": "62ed4edff6a8e6c12a5b3de61e59a1cf09586e6f55fecc3387e62ba4614587f3",
+  "oldGeometricPixelErrorFraction": 0.011864368556701031,
+  "newGeometricPixelErrorFraction": 0.023605186855670104,
+  "note": "Uniform dither tone/motif preservation is the regression contract. Exact geometric Hamming error is a separate metric and may increase when dither phase is kept stable."
+}

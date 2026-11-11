@@ -1,0 +1,644 @@
+{
+  "name": "flagship-six-point-star",
+  "title": "Flaggskeppsstjärna: mycket stor, kontinuerlig rotation",
+  "description": "En nästan skärmfyllande sex-tippad stjärna med långa armar roterar kontinuerligt kring sin trefaldiga symmetriaxel. Fasetterna tonas i sex grånivåer efter ljusriktningen; 120 grader per 96-bilders loop gör filmen oändlig utan synlig fog.",
+  "width": 320,
+  "height": 200,
+  "fps": 25,
+  "durationSeconds": 3.88,
+  "frameCount": 97,
+  "frameBytes": 8000,
+  "framesFile": "bitmap.frames",
+  "format": "packed1bit",
+  "bitOrder": "MSB-first",
+  "rowOrder": "top-to-bottom",
+  "quantization": {
+    "mode": "ordered",
+    "threshold": null,
+    "luminance": "Rec.709 integer approximation, composited against black",
+    "matrix": "4x4 Bayer, fixed to screen coordinates"
+  },
+  "renderer": {
+    "engine": "Three.js WebGPURenderer",
+    "revision": "187",
+    "nativeWebGPU": "webgpu 0.6.2 (Dawn)",
+    "backend": "metal",
+    "canvasContextRequests": 0,
+    "browserUsed": false,
+    "targetColorSpace": "srgb",
+    "antialias": false
+  },
+  "source": "../../../../../../c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/char-zoom-study-light-contrast/scene-2x.mjs",
+  "sceneSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/char-zoom-study-light-contrast/scene-2x.mjs",
+  "sourceSha256": "b6c82d6b0954308884134fd778f49d32ba59ac05b79c16f70a0a56ce969f07bd",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-flagship-star.mjs",
+      "sha256": "f84d7abb6dd4fd93e8908f0936020cc808e1ccde25752535b434084abf02d7e5"
+    }
+  ],
+  "hashes": {
+    "frames": "5512fb4aaf680a481d09dfaf1fb61a3472f90c0989059c6b5d4500c0240939b8",
+    "rgba": null,
+    "objectMask": "bc51d4e84ed7feb991e78ec8a040f435e1acee27ae09c902af8f222d3239fc18"
+  },
+  "rgbaFile": null,
+  "objectMaskFile": "object-mask.frames",
+  "objectMaskScope": "Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.",
+  "verification": {
+    "firstFrameBlack": true,
+    "deterministicSampleTimes": true,
+    "allFramesReadFromGPU": true
+  },
+  "phaseLabels": {
+    "blank": "Tom startbild",
+    "star": "Roterande flaggskeppsstjärna"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "phase": "blank"
+    },
+    {
+      "index": 1,
+      "time": 0.04,
+      "phase": "star"
+    },
+    {
+      "index": 2,
+      "time": 0.08,
+      "phase": "star"
+    },
+    {
+      "index": 3,
+      "time": 0.12,
+      "phase": "star"
+    },
+    {
+      "index": 4,
+      "time": 0.16,
+      "phase": "star"
+    },
+    {
+      "index": 5,
+      "time": 0.2,
+      "phase": "star"
+    },
+    {
+      "index": 6,
+      "time": 0.24,
+      "phase": "star"
+    },
+    {
+      "index": 7,
+      "time": 0.28,
+      "phase": "star"
+    },
+    {
+      "index": 8,
+      "time": 0.32,
+      "phase": "star"
+    },
+    {
+      "index": 9,
+      "time": 0.36,
+      "phase": "star"
+    },
+    {
+      "index": 10,
+      "time": 0.4,
+      "phase": "star"
+    },
+    {
+      "index": 11,
+      "time": 0.44,
+      "phase": "star"
+    },
+    {
+      "index": 12,
+      "time": 0.48,
+      "phase": "star"
+    },
+    {
+      "index": 13,
+      "time": 0.52,
+      "phase": "star"
+    },
+    {
+      "index": 14,
+      "time": 0.56,
+      "phase": "star"
+    },
+    {
+      "index": 15,
+      "time": 0.6,
+      "phase": "star"
+    },
+    {
+      "index": 16,
+      "time": 0.64,
+      "phase": "star"
+    },
+    {
+      "index": 17,
+      "time": 0.68,
+      "phase": "star"
+    },
+    {
+      "index": 18,
+      "time": 0.72,
+      "phase": "star"
+    },
+    {
+      "index": 19,
+      "time": 0.76,
+      "phase": "star"
+    },
+    {
+      "index": 20,
+      "time": 0.8,
+      "phase": "star"
+    },
+    {
+      "index": 21,
+      "time": 0.84,
+      "phase": "star"
+    },
+    {
+      "index": 22,
+      "time": 0.88,
+      "phase": "star"
+    },
+    {
+      "index": 23,
+      "time": 0.92,
+      "phase": "star"
+    },
+    {
+      "index": 24,
+      "time": 0.96,
+      "phase": "star"
+    },
+    {
+      "index": 25,
+      "time": 1,
+      "phase": "star"
+    },
+    {
+      "index": 26,
+      "time": 1.04,
+      "phase": "star"
+    },
+    {
+      "index": 27,
+      "time": 1.08,
+      "phase": "star"
+    },
+    {
+      "index": 28,
+      "time": 1.12,
+      "phase": "star"
+    },
+    {
+      "index": 29,
+      "time": 1.16,
+      "phase": "star"
+    },
+    {
+      "index": 30,
+      "time": 1.2,
+      "phase": "star"
+    },
+    {
+      "index": 31,
+      "time": 1.24,
+      "phase": "star"
+    },
+    {
+      "index": 32,
+      "time": 1.28,
+      "phase": "star"
+    },
+    {
+      "index": 33,
+      "time": 1.32,
+      "phase": "star"
+    },
+    {
+      "index": 34,
+      "time": 1.36,
+      "phase": "star"
+    },
+    {
+      "index": 35,
+      "time": 1.4,
+      "phase": "star"
+    },
+    {
+      "index": 36,
+      "time": 1.44,
+      "phase": "star"
+    },
+    {
+      "index": 37,
+      "time": 1.48,
+      "phase": "star"
+    },
+    {
+      "index": 38,
+      "time": 1.52,
+      "phase": "star"
+    },
+    {
+      "index": 39,
+      "time": 1.56,
+      "phase": "star"
+    },
+    {
+      "index": 40,
+      "time": 1.6,
+      "phase": "star"
+    },
+    {
+      "index": 41,
+      "time": 1.64,
+      "phase": "star"
+    },
+    {
+      "index": 42,
+      "time": 1.68,
+      "phase": "star"
+    },
+    {
+      "index": 43,
+      "time": 1.72,
+      "phase": "star"
+    },
+    {
+      "index": 44,
+      "time": 1.76,
+      "phase": "star"
+    },
+    {
+      "index": 45,
+      "time": 1.8,
+      "phase": "star"
+    },
+    {
+      "index": 46,
+      "time": 1.84,
+      "phase": "star"
+    },
+    {
+      "index": 47,
+      "time": 1.88,
+      "phase": "star"
+    },
+    {
+      "index": 48,
+      "time": 1.92,
+      "phase": "star"
+    },
+    {
+      "index": 49,
+      "time": 1.96,
+      "phase": "star"
+    },
+    {
+      "index": 50,
+      "time": 2,
+      "phase": "star"
+    },
+    {
+      "index": 51,
+      "time": 2.04,
+      "phase": "star"
+    },
+    {
+      "index": 52,
+      "time": 2.08,
+      "phase": "star"
+    },
+    {
+      "index": 53,
+      "time": 2.12,
+      "phase": "star"
+    },
+    {
+      "index": 54,
+      "time": 2.16,
+      "phase": "star"
+    },
+    {
+      "index": 55,
+      "time": 2.2,
+      "phase": "star"
+    },
+    {
+      "index": 56,
+      "time": 2.24,
+      "phase": "star"
+    },
+    {
+      "index": 57,
+      "time": 2.28,
+      "phase": "star"
+    },
+    {
+      "index": 58,
+      "time": 2.32,
+      "phase": "star"
+    },
+    {
+      "index": 59,
+      "time": 2.36,
+      "phase": "star"
+    },
+    {
+      "index": 60,
+      "time": 2.4,
+      "phase": "star"
+    },
+    {
+      "index": 61,
+      "time": 2.44,
+      "phase": "star"
+    },
+    {
+      "index": 62,
+      "time": 2.48,
+      "phase": "star"
+    },
+    {
+      "index": 63,
+      "time": 2.52,
+      "phase": "star"
+    },
+    {
+      "index": 64,
+      "time": 2.56,
+      "phase": "star"
+    },
+    {
+      "index": 65,
+      "time": 2.6,
+      "phase": "star"
+    },
+    {
+      "index": 66,
+      "time": 2.64,
+      "phase": "star"
+    },
+    {
+      "index": 67,
+      "time": 2.68,
+      "phase": "star"
+    },
+    {
+      "index": 68,
+      "time": 2.72,
+      "phase": "star"
+    },
+    {
+      "index": 69,
+      "time": 2.76,
+      "phase": "star"
+    },
+    {
+      "index": 70,
+      "time": 2.8,
+      "phase": "star"
+    },
+    {
+      "index": 71,
+      "time": 2.84,
+      "phase": "star"
+    },
+    {
+      "index": 72,
+      "time": 2.88,
+      "phase": "star"
+    },
+    {
+      "index": 73,
+      "time": 2.92,
+      "phase": "star"
+    },
+    {
+      "index": 74,
+      "time": 2.96,
+      "phase": "star"
+    },
+    {
+      "index": 75,
+      "time": 3,
+      "phase": "star"
+    },
+    {
+      "index": 76,
+      "time": 3.04,
+      "phase": "star"
+    },
+    {
+      "index": 77,
+      "time": 3.08,
+      "phase": "star"
+    },
+    {
+      "index": 78,
+      "time": 3.12,
+      "phase": "star"
+    },
+    {
+      "index": 79,
+      "time": 3.16,
+      "phase": "star"
+    },
+    {
+      "index": 80,
+      "time": 3.2,
+      "phase": "star"
+    },
+    {
+      "index": 81,
+      "time": 3.24,
+      "phase": "star"
+    },
+    {
+      "index": 82,
+      "time": 3.28,
+      "phase": "star"
+    },
+    {
+      "index": 83,
+      "time": 3.32,
+      "phase": "star"
+    },
+    {
+      "index": 84,
+      "time": 3.36,
+      "phase": "star"
+    },
+    {
+      "index": 85,
+      "time": 3.4,
+      "phase": "star"
+    },
+    {
+      "index": 86,
+      "time": 3.44,
+      "phase": "star"
+    },
+    {
+      "index": 87,
+      "time": 3.48,
+      "phase": "star"
+    },
+    {
+      "index": 88,
+      "time": 3.52,
+      "phase": "star"
+    },
+    {
+      "index": 89,
+      "time": 3.56,
+      "phase": "star"
+    },
+    {
+      "index": 90,
+      "time": 3.6,
+      "phase": "star"
+    },
+    {
+      "index": 91,
+      "time": 3.64,
+      "phase": "star"
+    },
+    {
+      "index": 92,
+      "time": 3.68,
+      "phase": "star"
+    },
+    {
+      "index": 93,
+      "time": 3.72,
+      "phase": "star"
+    },
+    {
+      "index": 94,
+      "time": 3.76,
+      "phase": "star"
+    },
+    {
+      "index": 95,
+      "time": 3.8,
+      "phase": "star"
+    },
+    {
+      "index": 96,
+      "time": 3.84,
+      "phase": "star"
+    }
+  ],
+  "litPixels": [
+    0,
+    6684,
+    6678,
+    6672,
+    6644,
+    6611,
+    6619,
+    6592,
+    6589,
+    6317,
+    6696,
+    6685,
+    6670,
+    6657,
+    6638,
+    6637,
+    6639,
+    6609,
+    6592,
+    6578,
+    6604,
+    6534,
+    6368,
+    6656,
+    6635,
+    6644,
+    6638,
+    6627,
+    6611,
+    6602,
+    6592,
+    6584,
+    6574,
+    6562,
+    6717,
+    6672,
+    6666,
+    6664,
+    6652,
+    6666,
+    6632,
+    6631,
+    6838,
+    6820,
+    6821,
+    6805,
+    6799,
+    6788,
+    6825,
+    6818,
+    6807,
+    6801,
+    6836,
+    6836,
+    6809,
+    6802,
+    6805,
+    6790,
+    6774,
+    6931,
+    6939,
+    6907,
+    6907,
+    6795,
+    6750,
+    6785,
+    6794,
+    6786,
+    6789,
+    6978,
+    7007,
+    7002,
+    6823,
+    6842,
+    6838,
+    6962,
+    6906,
+    6913,
+    6903,
+    6903,
+    6924,
+    6902,
+    6977,
+    6822,
+    6816,
+    6808,
+    6806,
+    6827,
+    6706,
+    6703,
+    6719,
+    6691,
+    6686,
+    6672,
+    6926,
+    6712,
+    6689
+  ],
+  "hostRenderSeconds": 0.8752174580000001
+}

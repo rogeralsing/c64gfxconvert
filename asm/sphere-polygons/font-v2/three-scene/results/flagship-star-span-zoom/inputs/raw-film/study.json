@@ -1,0 +1,986 @@
+{
+  "name": "original-pal-97",
+  "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/results/flagship-star-ten-buffer",
+  "sourceFrames": 97,
+  "uncompressedCharacterBytes": 97000,
+  "format": "25 ordered rows per frame; x8,length8,rawGlyphs[length]. Empty row is0,0. Only external glyph0 is trimmed.",
+  "rawCharacterBytes": 18032,
+  "rawNonzeroGlyphBytes": 16570,
+  "preservedInternalZeroBytes": 1462,
+  "headerBytes": 4850,
+  "rowDataBytes": 22882,
+  "activeRows": 2029,
+  "blankRows": 396,
+  "activeRowHeaderBytes": 4058,
+  "blankRowHeaderBytes": 792,
+  "meanBytesPerFrame": 235.89690721649484,
+  "minBytesPerFrame": 50,
+  "maxBytesPerFrame": 277,
+  "framesExceeding255Bytes": 19,
+  "activeSpanMean": 8.887136520453426,
+  "activeSpanMax": 22,
+  "indexes": {
+    "framePointer16": {
+      "valid": true,
+      "indexBytes": 194,
+      "totalBytes": 23076,
+      "access": "Locate frame by 16-bit offset, then parse at most25 ordered row headers."
+    },
+    "framePointer16AndRowOffset8": {
+      "valid": false,
+      "indexBytesIfValid": 2619,
+      "totalBytesIfValid": 25501,
+      "maximumRelativeOffset": 275,
+      "overflowingRows": 54,
+      "affectedFrames": 16,
+      "overflowExamples": [
+        {
+          "frame": 73,
+          "row": 24,
+          "offset": 257
+        },
+        {
+          "frame": 75,
+          "row": 23,
+          "offset": 256
+        },
+        {
+          "frame": 75,
+          "row": 24,
+          "offset": 258
+        },
+        {
+          "frame": 77,
+          "row": 21,
+          "offset": 257
+        },
+        {
+          "frame": 77,
+          "row": 22,
+          "offset": 259
+        },
+        {
+          "frame": 77,
+          "row": 23,
+          "offset": 261
+        },
+        {
+          "frame": 77,
+          "row": 24,
+          "offset": 263
+        },
+        {
+          "frame": 78,
+          "row": 22,
+          "offset": 256
+        }
+      ]
+    },
+    "directRowPointer16": {
+      "valid": true,
+      "indexBytes": 4850,
+      "totalBytes": 27732,
+      "access": "One independent16-bit byte offset per row; no separate frame pointer needed."
+    }
+  },
+  "fontBytes": 2048,
+  "frameStats": [
+    {
+      "frame": 0,
+      "bytes": 50,
+      "rawCharacterBytes": 0,
+      "headerBytes": 50,
+      "activeRows": 0,
+      "blankRows": 25
+    },
+    {
+      "frame": 1,
+      "bytes": 242,
+      "rawCharacterBytes": 192,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 2,
+      "bytes": 252,
+      "rawCharacterBytes": 202,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 3,
+      "bytes": 250,
+      "rawCharacterBytes": 200,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 4,
+      "bytes": 233,
+      "rawCharacterBytes": 183,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 5,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 6,
+      "bytes": 245,
+      "rawCharacterBytes": 195,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 7,
+      "bytes": 239,
+      "rawCharacterBytes": 189,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 8,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 9,
+      "bytes": 238,
+      "rawCharacterBytes": 188,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 10,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 11,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 12,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 13,
+      "bytes": 238,
+      "rawCharacterBytes": 188,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 14,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 15,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 16,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 17,
+      "bytes": 226,
+      "rawCharacterBytes": 176,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 18,
+      "bytes": 229,
+      "rawCharacterBytes": 179,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 19,
+      "bytes": 230,
+      "rawCharacterBytes": 180,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 20,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 21,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 22,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 23,
+      "bytes": 223,
+      "rawCharacterBytes": 173,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 24,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 25,
+      "bytes": 224,
+      "rawCharacterBytes": 174,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 26,
+      "bytes": 228,
+      "rawCharacterBytes": 178,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 27,
+      "bytes": 226,
+      "rawCharacterBytes": 176,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 28,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 29,
+      "bytes": 215,
+      "rawCharacterBytes": 165,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 30,
+      "bytes": 214,
+      "rawCharacterBytes": 164,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 31,
+      "bytes": 216,
+      "rawCharacterBytes": 166,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 32,
+      "bytes": 218,
+      "rawCharacterBytes": 168,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 33,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 34,
+      "bytes": 228,
+      "rawCharacterBytes": 178,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 35,
+      "bytes": 222,
+      "rawCharacterBytes": 172,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 36,
+      "bytes": 207,
+      "rawCharacterBytes": 157,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 37,
+      "bytes": 211,
+      "rawCharacterBytes": 161,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 38,
+      "bytes": 209,
+      "rawCharacterBytes": 159,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 39,
+      "bytes": 212,
+      "rawCharacterBytes": 162,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 40,
+      "bytes": 219,
+      "rawCharacterBytes": 169,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 41,
+      "bytes": 221,
+      "rawCharacterBytes": 171,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 42,
+      "bytes": 220,
+      "rawCharacterBytes": 170,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 43,
+      "bytes": 220,
+      "rawCharacterBytes": 170,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 44,
+      "bytes": 219,
+      "rawCharacterBytes": 169,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 45,
+      "bytes": 222,
+      "rawCharacterBytes": 172,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 46,
+      "bytes": 224,
+      "rawCharacterBytes": 174,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 47,
+      "bytes": 221,
+      "rawCharacterBytes": 171,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 48,
+      "bytes": 225,
+      "rawCharacterBytes": 175,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 49,
+      "bytes": 227,
+      "rawCharacterBytes": 177,
+      "headerBytes": 50,
+      "activeRows": 25,
+      "blankRows": 0
+    },
+    {
+      "frame": 50,
+      "bytes": 227,
+      "rawCharacterBytes": 177,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 51,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 24,
+      "blankRows": 1
+    },
+    {
+      "frame": 52,
+      "bytes": 231,
+      "rawCharacterBytes": 181,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 53,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 54,
+      "bytes": 233,
+      "rawCharacterBytes": 183,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 55,
+      "bytes": 228,
+      "rawCharacterBytes": 178,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 56,
+      "bytes": 238,
+      "rawCharacterBytes": 188,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 57,
+      "bytes": 236,
+      "rawCharacterBytes": 186,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 58,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 23,
+      "blankRows": 2
+    },
+    {
+      "frame": 59,
+      "bytes": 234,
+      "rawCharacterBytes": 184,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 60,
+      "bytes": 233,
+      "rawCharacterBytes": 183,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 61,
+      "bytes": 234,
+      "rawCharacterBytes": 184,
+      "headerBytes": 50,
+      "activeRows": 22,
+      "blankRows": 3
+    },
+    {
+      "frame": 62,
+      "bytes": 232,
+      "rawCharacterBytes": 182,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 63,
+      "bytes": 241,
+      "rawCharacterBytes": 191,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 64,
+      "bytes": 239,
+      "rawCharacterBytes": 189,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 65,
+      "bytes": 235,
+      "rawCharacterBytes": 185,
+      "headerBytes": 50,
+      "activeRows": 20,
+      "blankRows": 5
+    },
+    {
+      "frame": 66,
+      "bytes": 249,
+      "rawCharacterBytes": 199,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 67,
+      "bytes": 248,
+      "rawCharacterBytes": 198,
+      "headerBytes": 50,
+      "activeRows": 21,
+      "blankRows": 4
+    },
+    {
+      "frame": 68,
+      "bytes": 243,
+      "rawCharacterBytes": 193,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 69,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 70,
+      "bytes": 240,
+      "rawCharacterBytes": 190,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 71,
+      "bytes": 238,
+      "rawCharacterBytes": 188,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 72,
+      "bytes": 251,
+      "rawCharacterBytes": 201,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 73,
+      "bytes": 259,
+      "rawCharacterBytes": 209,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 74,
+      "bytes": 247,
+      "rawCharacterBytes": 197,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 75,
+      "bytes": 260,
+      "rawCharacterBytes": 210,
+      "headerBytes": 50,
+      "activeRows": 18,
+      "blankRows": 7
+    },
+    {
+      "frame": 76,
+      "bytes": 255,
+      "rawCharacterBytes": 205,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 77,
+      "bytes": 265,
+      "rawCharacterBytes": 215,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 78,
+      "bytes": 262,
+      "rawCharacterBytes": 212,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 79,
+      "bytes": 268,
+      "rawCharacterBytes": 218,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 80,
+      "bytes": 274,
+      "rawCharacterBytes": 224,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 81,
+      "bytes": 264,
+      "rawCharacterBytes": 214,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 82,
+      "bytes": 264,
+      "rawCharacterBytes": 214,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 83,
+      "bytes": 260,
+      "rawCharacterBytes": 210,
+      "headerBytes": 50,
+      "activeRows": 15,
+      "blankRows": 10
+    },
+    {
+      "frame": 84,
+      "bytes": 274,
+      "rawCharacterBytes": 224,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 85,
+      "bytes": 277,
+      "rawCharacterBytes": 227,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 86,
+      "bytes": 267,
+      "rawCharacterBytes": 217,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 87,
+      "bytes": 260,
+      "rawCharacterBytes": 210,
+      "headerBytes": 50,
+      "activeRows": 15,
+      "blankRows": 10
+    },
+    {
+      "frame": 88,
+      "bytes": 261,
+      "rawCharacterBytes": 211,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 89,
+      "bytes": 262,
+      "rawCharacterBytes": 212,
+      "headerBytes": 50,
+      "activeRows": 16,
+      "blankRows": 9
+    },
+    {
+      "frame": 90,
+      "bytes": 272,
+      "rawCharacterBytes": 222,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 91,
+      "bytes": 246,
+      "rawCharacterBytes": 196,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 92,
+      "bytes": 249,
+      "rawCharacterBytes": 199,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 93,
+      "bytes": 257,
+      "rawCharacterBytes": 207,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 94,
+      "bytes": 256,
+      "rawCharacterBytes": 206,
+      "headerBytes": 50,
+      "activeRows": 17,
+      "blankRows": 8
+    },
+    {
+      "frame": 95,
+      "bytes": 257,
+      "rawCharacterBytes": 207,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    },
+    {
+      "frame": 96,
+      "bytes": 241,
+      "rawCharacterBytes": 191,
+      "headerBytes": 50,
+      "activeRows": 19,
+      "blankRows": 6
+    }
+  ],
+  "rowPointerCache": {
+    "historyFrames": 10,
+    "rowsPerFrame": 25,
+    "bytesPerPointer": 2,
+    "runtimeBytes": 500,
+    "storedIndexBytes": 194,
+    "update": "Parse25 ordered records once per newly admitted movie frame; replace the oldest of ten pointer sets.",
+    "scope": "Host-proven lookup concept. Native implementation and timing remain unbuilt."
+  },
+  "roundtrip": {
+    "passed": true,
+    "frames": 97,
+    "characterBytes": 97000,
+    "independentRowFetches": 2425,
+    "fontUnchanged": true
+  },
+  "headerPacking": {
+    "byteAlignedBytesPerRow": 2,
+    "separateFieldsBits": 12,
+    "validCanonicalSpans": 821,
+    "minimumInformationBits": 10,
+    "oneByteCanRepresentAllSpans": false,
+    "note": "x and length need6bits each if independent; byte-aligned records still need2bytes. Even exploiting x+length<=40 gives821 legal spans including blank, more than256."
+  },
+  "fixedMemorySubtotals": [
+    {
+      "index": "framePointer16",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 23076,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "subtotalBytes": 26148
+    },
+    {
+      "index": "framePointer16",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 23076,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "subtotalBytes": 27172
+    },
+    {
+      "index": "directRowPointer16",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 27732,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "subtotalBytes": 30804
+    },
+    {
+      "index": "directRowPointer16",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 27732,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "subtotalBytes": 31828
+    },
+    {
+      "index": "framePointer16WithTenFrameRowCache",
+      "screenBuffers": 1,
+      "movieAndIndexBytes": 23076,
+      "fontBytes": 2048,
+      "workScreenBytes": 1024,
+      "rowPointerCacheBytes": 500,
+      "subtotalBytes": 26648
+    },
+    {
+      "index": "framePointer16WithTenFrameRowCache",
+      "screenBuffers": 2,
+      "movieAndIndexBytes": 23076,
+      "fontBytes": 2048,
+      "workScreenBytes": 2048,
+      "rowPointerCacheBytes": 500,
+      "subtotalBytes": 27672
+    }
+  ],
+  "memoryScope": "These are movie/index/font/screen subtotals only. Native code, zero page, playback, row selection tables and scratch are unbuilt/unmeasured. Color RAM is separate. No FPS or total native RAM claim.",
+  "hashes": {
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "rows": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719",
+    "frameOffsets16": "9c9a213dd0baee1092c80bb6dbe5c41eaa3db391016bee1a1c4c5abc64306932",
+    "rowOffsets16": "5eb77b46deaf7fffaa8393e4d9aaad39397560c6ab86d312c27108e1bdaf1f0f"
+  },
+  "existingExactDelta": {
+    "payloadBytes": 15272,
+    "pointerBytes": 194,
+    "movieAndIndexBytes": 15466,
+    "rowDataPayloadIncrease": 7610
+  },
+  "bufferReplacementEstimate": {
+    "oldHistoryScreenBuffers": 11,
+    "oldWorkScreenBytes": 11264,
+    "oneOutputScreen": {
+      "workBytes": 1024,
+      "releasedBufferBytes": 10240
+    },
+    "twoOutputScreens": {
+      "workBytes": 2048,
+      "releasedBufferBytes": 9216
+    },
+    "note": "Potential allocation change only; an independent-row renderer has not been implemented. Extra row-film bytes and indexes must also fit. No native RAM savings certified."
+  },
+  "waveCompositeProof": {
+    "passed": true,
+    "compositesVerified": 290,
+    "completeSourceLoops": 3,
+    "closingTransitionsIncluded": 3,
+    "independentRawRowFetches": 7250,
+    "characterBytesCompared": 290000,
+    "frameScanAndDirectIndexesBothExact": true,
+    "tenFrameRowPointerCacheExact": true,
+    "runtimeRowCacheBytes": 500,
+    "pointerCacheUpdates": 7225,
+    "rowHeaderScansPerNewFrame": 25,
+    "cacheInitialization": "Clear500B so every initial pointer selects blank0's empty first row record; no stored500B seed is needed.",
+    "bitmapIdentity": "Identical glyph codes with the unchanged locked font imply identical pixels.",
+    "formula": "floor(4.5+4.5*sin(2*pi*(row/24+phase/96))+.5)",
+    "phase": "serial%96, initial0; missing histories are blank frame0",
+    "compositeStreamSha256": "91c91f3b0efa07b164d6bdbf14d6c66d9aa6d64d0ffbeeecbe7597b2228d3926"
+  }
+}

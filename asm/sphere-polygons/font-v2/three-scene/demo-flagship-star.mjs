@@ -10,8 +10,8 @@ export const config = Object.freeze({
   loop: Object.freeze({startFrame: 1, frameCount: 96}),
   geometry: 'solid-stellated-cube-star',
   star: Object.freeze({cubeHalfExtent: 8.5, tipDistance: 54, axisTips: 6, triangles: 24,
-    cameraStretchX: 1.6, cameraHalfExtent: 53, tiltRadians: 0.30,
-    shadeLevels: 6, shadeGrays: Object.freeze([0, 51, 102, 153, 204, 255]), spinTurnsPerLoop: 1 / 3,
+    displayPixelAspect: 59 / 63, cameraHalfExtent: 53, tiltRadians: 0.30,
+    shadeLevels: 6, shadeGrays: Object.freeze([0, 51, 102, 153, 204, 255]), shadeContrast: 1.15, spinTurnsPerLoop: 1 / 3,
     spinAxisModelSpace: Object.freeze([1, 1, 1])}),
   phaseLabels: {blank: 'Tom startbild', star: 'Roterande flaggskeppsstjärna'},
 });
@@ -49,11 +49,13 @@ function makeGeometry(THREE) {
 export function createScene(THREE) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
-  // Screen-space anamorphic view: a square frustum stretched onto the
-  // 320x200 raster widens the projection by 1.6x at every rotation angle
-  // (unlike a mesh scale, which would rotate the wide tips into the border).
+  // PAL display pixels have a 59:63 width-to-height ratio. Match the frustum
+  // to the displayed raster aspect so equal model lengths stay equal on PAL.
+  // The bitmap-to-character conversion scales both axes by the same factor.
   const extent = config.star.cameraHalfExtent;
-  const camera = new THREE.OrthographicCamera(-extent, extent, extent, -extent, 0.1, 400);
+  const displayAspect = config.width / config.height * config.star.displayPixelAspect;
+  const horizontalExtent = extent * displayAspect;
+  const camera = new THREE.OrthographicCamera(-horizontalExtent, horizontalExtent, extent, -extent, 0.1, 400);
   camera.position.set(0, 0, 180);camera.lookAt(0, 0, 0);
   const geometry = makeGeometry(THREE);
   const materials = Array.from({length: 24}, (_, index) => {
@@ -91,18 +93,23 @@ export function createScene(THREE) {
   function toneFor(index, poseQuaternion) {
     normal.copy(localNormals[index]).applyQuaternion(poseQuaternion);
     const facing = normal.dot(light);
-    const level = Math.round((facing * 0.5 + 0.5) * (grays.length - 1));
+    const brightness = facing * 0.5 + 0.5;
+    const contrasted = Math.max(0, Math.min(1, (brightness - 0.5) * config.star.shadeContrast + 0.5));
+    const level = Math.round(contrasted * (grays.length - 1));
     return grays[Math.max(0, Math.min(grays.length - 1, level))] / 255;
   }
   scene.userData.calibration = {geometry: geometry.userData,
     fill: 'Opaque flat-shaded facets in six exact gray levels; no textures, transparency, glass or line strokes.',
     lightDirectionWorld: light.toArray(),
-    shadingRule: 'Facet gray = shadeGrays[round((normalWorld.dot(light)*0.5+0.5)*(shadeLevels-1))], recomputed every frame from the declared fixed light.',
-    shadeLevels: config.star.shadeLevels, shadeGrays: grays,
+    shadingRule: 'Facet gray = shadeGrays[round(clamp((normalWorld.dot(light)*0.5)*shadeContrast+0.5,0,1)*(shadeLevels-1))], recomputed every frame from the declared fixed light.',
+    shadeLevels: config.star.shadeLevels, shadeGrays: grays, shadeContrast: config.star.shadeContrast,
     spinTurnsPerLoop: config.star.spinTurnsPerLoop, spinAxisModelSpace: diagonal.toArray(),
     rotationComposition: 'base * periodicWobble(progress) * diagonalSpin(unwrappedProgress)',
     symmetryTurn: '120-degree rotation maps the star onto itself',
-    cameraStretchX: config.star.cameraStretchX, cameraHalfExtent: config.star.cameraHalfExtent,
+    displayPixelAspect: config.star.displayPixelAspect, displayVideoStandard: 'PAL',
+    rasterAspect: config.width / config.height, displayAspect,
+    cameraHalfExtent: extent, cameraHorizontalHalfExtent: horizontalExtent,
+    cameraAspectRule: 'horizontal span / vertical span = raster aspect * display pixel aspect',
     expectedRGBLevels: grays};
 
   function update(time) {

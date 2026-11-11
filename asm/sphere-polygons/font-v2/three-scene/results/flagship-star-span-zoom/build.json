@@ -1,0 +1,222 @@
+{
+  "name": "span-zoom",
+  "storedFrames": 97,
+  "nominalFps": 25,
+  "nativeFps": null,
+  "minimumFieldsPerImage": 2,
+  "modes": [
+    "normal",
+    "wave",
+    "checkerboard",
+    "vertical",
+    "horizontal",
+    "both",
+    "zoom"
+  ],
+  "startMode": 6,
+  "modeOrder": [
+    6,
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "modeDurationFields": 501,
+  "modeLookaheadFields": 5,
+  "nominalModeSeconds": 9.995103770827244,
+  "nominalSequenceSeconds": 69.96572639579071,
+  "geometry": {
+    "fullHeightModes": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "centered192Modes": [
+      3,
+      5,
+      6
+    ],
+    "fullHeightYScroll": 3,
+    "centeredYScroll": 7,
+    "vertical": {
+      "mode": 3,
+      "sourceRows": 12,
+      "sourceColumns": 40,
+      "mirrorRow": "23-y",
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    },
+    "horizontal": {
+      "mode": 4,
+      "sourceRows": 25,
+      "sourceColumns": 20,
+      "mirrorColumn": "39-x",
+      "blankScreenRow": null
+    },
+    "both": {
+      "mode": 5,
+      "sourceRows": 12,
+      "sourceColumns": 20,
+      "mirrorRow": "23-y",
+      "mirrorColumn": "39-x",
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    },
+    "zoom": {
+      "mode": 6,
+      "sourceRows": 12,
+      "sourceColumns": 20,
+      "outputRows": 24,
+      "outputColumns": 40,
+      "defaultCrop": [
+        10,
+        6
+      ],
+      "cropXRange": [
+        0,
+        20
+      ],
+      "cropYRange": [
+        0,
+        13
+      ],
+      "blankScreenRow": 24,
+      "blackMarginsPixels": 4
+    }
+  },
+  "glyphContract": "Modes0..5 retainaccepted behavior. Zoom6 maps each originalrawsourcechar toTL/TR/BL/BR fromMATCHEDbaselinelearned1024BLUT; nofontorfilmchange. Fourdeinterleavedaligned256Bpages.",
+  "timingContract": "SevenmodesinONESINGLEPRG,start6then0..5repeat6. Globalfilm_serial continues;poses1..96repeat. Eachmode501PALfields,5-fieldlookahead,lowerborderD011+D018commit. ActualFPSandtimingnativemeasured.",
+  "zoom": {
+    "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/results/char-zoom-study/learned.lut",
+    "bytes": 1024,
+    "sha256": "37efc20a89731ff3a6b745bfb5e4083947649774b2fe63b56f0c2a4340b2dc21",
+    "quadrantOrder": [
+      "TL",
+      "TR",
+      "BL",
+      "BR"
+    ],
+    "cropOffsets": "zoom_x/yuserstate;latched_zoom_x/ypendinghiddenimage;active_zoom_x/yfrontimage",
+    "controls": "WASDonlymode6;Wup,Aleft,Sdown,Dright. Clampx0..20,y0..13. Immediatekeychange,10PALfieldinitialhold,4fieldrepeat. Opposingkeys cancel.",
+    "cia": "OwnedidleDC00=ff,DC02=ff,DC03=00 initializedonce; scannerselectsFD/FBandrestoresPRAff; noKERNAL/otherinputconsumer."
+  },
+  "wave": {
+    "phases": 96,
+    "formula": "round(4.5+4.5*sin(2*pi*(row/24+phase/96)))",
+    "phase": "serial%96",
+    "minimumHistorySerial": 0
+  },
+  "checker": {
+    "blockCharacters": 4,
+    "A": "t",
+    "B": "max(0,t-48)",
+    "BParity": "((x>>2)^(y>>2))&1"
+  },
+  "rowCache": {
+    "start": 5958,
+    "bytes": 500,
+    "tables": 10,
+    "rowsPerTable": 25,
+    "pointerBytes": 2,
+    "layout": "InterleavedabsoluteLE16row-headerpointers;slot*50+row*2",
+    "frameIds": 5948,
+    "validCount": 5930,
+    "slotContract": "Mode0onecurrenttable;mode1tenages0..9;mode2currentandage48. Modes3/4/5/6directheaders,validcount0. ONE500Bpoolreused."
+  },
+  "payloadBytes": 22882,
+  "pointerBytes": 194,
+  "totalFilmBytes": 23076,
+  "fontBytes": 2048,
+  "lutBytes": 1536,
+  "mirrorLutBytes": 512,
+  "zoomLutBytes": 1024,
+  "workScreenBytes": 2048,
+  "waveLutBytes": 2400,
+  "historyImageBytes": 0,
+  "rowCacheBytes": 500,
+  "codeRegionBytes": 6912,
+  "zeroPageBytes": 16,
+  "basicBytes": 12,
+  "addresses": {
+    "code": 4096,
+    "codeEnd": 11008,
+    "font": 16384,
+    "screens": [
+      18432,
+      19456
+    ],
+    "front": 18432,
+    "hidden": 19456,
+    "source": 20480,
+    "sourceEnd": 43362
+  },
+  "sourceRegions": [
+    {
+      "file": "rows.bin",
+      "start": 20480,
+      "end": 43362,
+      "sha256": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719"
+    },
+    {
+      "file": "frame-pointers-absolute.bin",
+      "start": 6478,
+      "end": 6672,
+      "sha256": "33f467bdcac6d91bdaf1c6885b8fb63e1dbbcb2344acb20e8a401d0ee6a4f347",
+      "layout": "97lowbytesfollowedby97highbytes"
+    },
+    {
+      "file": "h-lut.bin",
+      "start": 9472,
+      "end": 9728,
+      "sha256": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8"
+    },
+    {
+      "file": "v-lut.bin",
+      "start": 9728,
+      "end": 9984,
+      "sha256": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234"
+    },
+    {
+      "file": "zoom-tl.bin",
+      "start": 9984,
+      "end": 10240,
+      "sha256": "f477e698347f1af84df0f26e7ca7b4a575f0ee1bac8a2105d6cff0337f81d12a"
+    },
+    {
+      "file": "zoom-tr.bin",
+      "start": 10240,
+      "end": 10496,
+      "sha256": "747f0022e63d259a1be6b9252f1fc0e7b495d82150df8d76d97735a19b109282"
+    },
+    {
+      "file": "zoom-bl.bin",
+      "start": 10496,
+      "end": 10752,
+      "sha256": "51cbabb6b4f604d060ef089aa67f8e4b621b7e493213987fbbe0b34053d1039e"
+    },
+    {
+      "file": "zoom-br.bin",
+      "start": 10752,
+      "end": 11008,
+      "sha256": "27c522d43d0965646c09710826024caec2b0d1d921445565786e108946f63555"
+    }
+  ],
+  "lutSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/results/flagship-star-span-mirror-texture",
+  "hashes": {
+    "program": "a023a0150497331a41053278144ad86de62b3e25873fc2d351757b0c3f43336f",
+    "movie": "cbd68a6607da7e175f587e58c1d738fe321146d3ca9414d4eba05c46f0c9c719",
+    "frameOffsets16": "9c9a213dd0baee1092c80bb6dbe5c41eaa3db391016bee1a1c4c5abc64306932",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "5c245453149adfa4bafd433efa50b606a614ff3264eac46f0c5a0906bc9b698c",
+    "hLut": "8758e99a0a12a3295a674c3a806a3ca9160ee11b837493e9ca65d8f4d3f09ba8",
+    "vLut": "7bd4a003ad2078ef6dcaa1fed00d230f17e8089575c4f356b5b91bc36f278234",
+    "wave": "2338a46d5aabcfb8d653a6bcb05a387274fcf979f66ba8d58a8a5e9a479fca27",
+    "zoom": "37efc20a89731ff3a6b745bfb5e4083947649774b2fe63b56f0c2a4340b2dc21"
+  },
+  "memoryScope": "Singleplayer,twooutputscreens,one500Bpool,nohistory/canonicalimagesorpreviousframecopy. Coderegionincludespool/frameindex/LUTs/wavetable;donotdoublecount. ColorRAMseparate1024cells.",
+  "mainRamBytes": 33918,
+  "colorRamCells": 1024
+}

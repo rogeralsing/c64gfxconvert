@@ -1,0 +1,57 @@
+{
+  "videoStandard": "PAL",
+  "displayPixelAspect": 0.9365079365079365,
+  "pixelAspectNumerator": 59,
+  "pixelAspectDenominator": 63,
+  "rasterAspect": 1.6,
+  "expectedCameraSpanRatio": 1.4984126984126984,
+  "actualCameraSpanRatio": 1.4984126984126984,
+  "cameraHalfExtents": {
+    "horizontal": 79.41587301587302,
+    "vertical": 53
+  },
+  "rawPixelsPerWorldUnit": {
+    "x": 1.0073552926127278,
+    "y": 0.9433962264150944
+  },
+  "displayedUnitRatio": 1,
+  "uniformBitmapReplication": 2,
+  "compensationAppliedOnce": true,
+  "gpuCircle": {
+    "radius": 48,
+    "segments": 512,
+    "bounds": {
+      "left": 32,
+      "top": 5,
+      "right": 128,
+      "bottom": 95,
+      "width": 96,
+      "height": 90
+    },
+    "whitePixels": 6876,
+    "palBoundingBoxRatio": 0.9989417989417989,
+    "maximumRoundnessErrorFraction": 0.025,
+    "rgbaSha256": "e9b71109a6331acfc282902658355ed256840436bf3f6dd4b583efcd90c52112"
+  },
+  "oldSquareCamera": {
+    "bounds": {
+      "left": 8,
+      "top": 5,
+      "right": 152,
+      "bottom": 95,
+      "width": 144,
+      "height": 90
+    },
+    "palBoundingBoxRatio": 1.4984126984126984,
+    "rgbaSha256": "51ddfc66f4c66861f083bd4cbeddb4ac9b5748851390c1a78157ee3b1ef76dfe",
+    "rejected": true
+  },
+  "preview": {
+    "file": "pal-aspect-calibration.png",
+    "displayRaster": [
+      600,
+      400
+    ],
+    "rounding": "320x200 raster displayed at approximately PAL 59/63 pixel pitch, rounded to 600x400 preview pixels"
+  }
+}

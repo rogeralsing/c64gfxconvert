@@ -1,0 +1,93 @@
+{
+  "pass": true,
+  "name": "wave-raster-2",
+  "frameCount": 106,
+  "fps": 25,
+  "firstImageIsImplicitBlank": true,
+  "loop": {
+    "startFrame": 10,
+    "frameCount": 96,
+    "durationSeconds": 3.84
+  },
+  "introSeconds": 0.4,
+  "fontBytes": 2048,
+  "fontGlyphs": 256,
+  "fontUnchanged": true,
+  "hashes": {
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "reference": "b14eaae0b1c329d4afdcbcd6d806bcdfd8a04dd907ff3485bf7e5a70c3d2f475"
+  },
+  "changedCharactersPerTransition": {
+    "min": 33,
+    "mean": 72.17924528301887,
+    "max": 105
+  },
+  "loopChangedCharactersPerTransition": {
+    "min": 52,
+    "mean": 72.71875,
+    "max": 105
+  },
+  "formats": {
+    "literal": {
+      "payloadBytes": 15899,
+      "pointerTableBytes": 212,
+      "totalAnimationBytesWithPointers": 16111,
+      "totalAnimationAndFontBytes": 18159,
+      "bytesPerFrame": {
+        "min": 54,
+        "mean": 149.99056603773585,
+        "max": 205
+      },
+      "loopBytesPerFrame": {
+        "min": 112,
+        "mean": 153.02083333333334,
+        "max": 205
+      },
+      "introPayloadBytes": 1209,
+      "loopPayloadBytes": 14690,
+      "closingPatchBytes": 205,
+      "sourceSha256": "5780ce206757dd1de6e4e1977cba345b7cfc18604b5128a5276626b85eab53a5",
+      "transitionsVerified": 298,
+      "closingPatchIncluded": true
+    }
+  },
+  "sourceMetadata": {
+    "name": "flagship-star-baked-age-wave",
+    "fontMode": "fixed256",
+    "firstRow": 0,
+    "rowCount": 25,
+    "ageFormula": "round(4.5 + 4.5*sin(2*pi*((band-firstBand)/(bandCount-1) + serial/96))); outside the section age=0",
+    "phase": "Initial blank serial0 has phase0; advance once on each film-image commit, modulo96.",
+    "sourcePose": "serial<=0 uses blank0; otherwise ((serial-1)%96)+1.",
+    "startup": "Stored composites0..9 retain the real initially blank history. Only serial0 is entirely blank; history fills gradually.",
+    "repeatingSuffix": "Composites10..105: latest source poses10..96,1..9, with phase10..95,0..9. Composite106 exactly reproduces composite10.",
+    "historyFrames": 10,
+    "sourceStorage": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star-pal/storage",
+    "bandHeightPixels": 2
+  },
+  "approximation": {
+    "matcher": "Existing createMatcher(lockedFont,true), minimum 8x8 Hamming error; ties choose the lowest glyph code. No object-mask constraint.",
+    "comparisonReference": "Ideal2-raster-band mix of already decoded source glyph bitmaps; errors are additional to the original three.js-to-font conversion.",
+    "totalMismatchedPixels": 8464,
+    "comparedPixels": 6784000,
+    "pixelError": 0.0012476415094339623,
+    "mismatchedPixelsPerFrame": {
+      "min": 0,
+      "mean": 79.84905660377359,
+      "max": 142
+    },
+    "loopMismatchedPixelsPerFrame": {
+      "min": 28,
+      "mean": 82.35416666666667,
+      "max": 142
+    },
+    "exactCellsPerFrame": {
+      "min": 967,
+      "mean": 981.0377358490566,
+      "max": 1000
+    },
+    "maxTileError": 16
+  },
+  "nativeTimingMeasured": false,
+  "scope": "Host-generated ordinary character film and exact original global skip/literal compression. Native FPS has not been measured for this new movie."
+}

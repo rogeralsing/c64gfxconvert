@@ -1,0 +1,13 @@
+{
+  "ordinaryMainRamBytes": 32382,
+  "rawFilmBytes": 23076,
+  "rawRowsBytes": 22882,
+  "framePointerBytes": 194,
+  "fontBytes": 2048,
+  "correctedLookupBytes": 512,
+  "sharedRowPointerCacheBytes": 500,
+  "outputScreenRamBytes": 2048,
+  "outputScreens": 2,
+  "colorRamSeparateFourBitCells": 1024,
+  "note": "Code region includes frame pointers, lookups, row cache and wave-age table; do not count those twice."
+}

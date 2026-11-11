@@ -1,0 +1,24 @@
+{
+  "commands": [
+    {
+      "op": "play",
+      "startFrame": 0,
+      "frameCount": 10,
+      "repeat": 1
+    },
+    {
+      "op": "play",
+      "startFrame": 10,
+      "frameCount": 96,
+      "repeat": "forever"
+    },
+    {
+      "op": "hold"
+    }
+  ],
+  "bytecodeBytes": 11,
+  "totalDisplayedFrames": null,
+  "nominalSeconds": null,
+  "repeatsForever": true,
+  "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/raster-wave-study/wave-raster-2/playback.json"
+}

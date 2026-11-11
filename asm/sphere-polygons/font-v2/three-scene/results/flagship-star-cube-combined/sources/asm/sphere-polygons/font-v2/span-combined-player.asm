@@ -1,0 +1,1043 @@
+// Star/cube effects, normal-size two-step flashes and mixed-object modes.
+BasicUpstart2(start)
+.label source_ptr=$02
+.label destination=$04
+.label tl_destination=destination
+.label tr_destination=$06
+.label cache_write=tr_destination
+.label bl_destination=$08
+.label br_destination=$0a
+.label column=$0c
+.label span_left=$0d
+.label plot_value=$0e
+.label source_age=$0f
+.label next_row_ptr=$10
+.macro read_byte() {
+    ldy #0
+    lda (source_ptr),y
+    inc source_ptr
+    bne !ready+
+    inc source_ptr+1
+!ready:
+}
+*=$1000 "Star and cube combined raw-span effects"
+start:
+    sei
+    cld
+    lda #$2f
+    sta $00
+    lda #$35
+    sta $01
+    lda #$7f
+    sta $dc0d
+    sta $dd0d
+    lda $dc0d
+    lda $dd0d
+    lda #0
+    sta $d01a
+    sta $d015
+    sta $d020
+    sta $d021
+    sta field_counter
+    sta field_counter+1
+    sta mode
+    sta next_mode
+    sta film_frame
+    sta film_serial
+    sta film_serial+1
+    sta phase
+    sta mode_due
+    sta mode_started_field
+    sta mode_started_field+1
+    sta object_id
+    sta next_object
+    sta step_index
+    sta next_step
+    sta active_palette_index
+    sta next_palette_index
+    sta active_color_pattern
+    sta next_color_pattern
+    lda #15
+    sta active_bg
+    sta next_bg
+    sta $d020
+    sta $d021
+    lda #11
+    sta active_fg
+    sta next_fg
+    lda #$0b
+    sta $d011
+    jsr copy_high_payload
+    lda #<interrupt_return
+    sta $fffa
+    lda #>interrupt_return
+    sta $fffb
+    lda #<field_irq
+    sta $fffe
+    lda #>field_irq
+    sta $ffff
+    lda $dd02
+    ora #3
+    sta $dd02
+    lda $dd00
+    and #$fc
+    ora #2
+    sta $dd00
+    ldx #0
+!clear:
+    lda #0
+    .for(var p=0;p<8;p++) { sta $4800+p*$100,x }
+    lda #11
+    .for(var p=0;p<4;p++) { sta $d800+p*$100,x }
+    inx
+    bne !clear-
+    lda #$48
+    sta front_screen_hi
+    lda #$4c
+    sta back_screen_hi
+    lda #$20
+    sta $d018
+    lda #8
+    sta $d016
+    jsr reset_mode_clock
+    lda #2
+    sta frame_wait_fields
+    jsr wait_raster_boundary
+    lda #$9b
+    sta $d011
+    lda #0
+    sta $d012
+    lda #1
+    sta $d019
+    sta $d01a
+    cli
+    jmp presented
+presented:
+    nop
+prepare_start:
+    jsr select_next
+    lda next_object
+    sta lookup_object
+clear_start:
+    jsr clear_back
+clear_end:
+    nop
+cache_start:
+    lda next_mode
+    cmp #3
+    bcc !cache+
+    cmp #6
+    beq !cache+
+    cmp #7
+    beq !cache+
+    lda #0
+    sta cache_table_count
+    jmp cache_end
+!cache:
+    jsr build_cache
+cache_end:
+    nop
+render_start:
+    lda next_mode
+    cmp #7
+    beq !mixed_checker+
+    cmp #8
+    beq !mixed_quadrants+
+    cmp #3
+    bcc !cached+
+    cmp #6
+    beq !cached+
+    jsr render_direct_rows
+    jmp render_end
+!cached:
+    jsr render_cached_rows
+    jmp render_end
+!mixed_checker:
+    jsr render_mixed_checker
+    jmp render_end
+!mixed_quadrants:
+    jsr render_mixed_quadrants
+render_end:
+    nop
+!wait:
+    jsr wait_field
+    lda next_step
+    cmp step_index
+    beq !normal_wait+
+    lda mode_due
+    beq !wait-
+    jmp commit_start
+!normal_wait:
+    lda frame_wait_fields
+    bne !wait-
+commit_start:
+    sei
+    lda next_step
+    cmp step_index
+    beq !same_mode+
+    sta step_index
+    lda next_mode
+    sta mode
+    jsr reset_mode_clock
+    lda field_counter
+    sta mode_started_field
+    lda field_counter+1
+    sta mode_started_field+1
+    jsr fill_phase_colors
+    lda next_palette_index
+    sta active_palette_index
+    lda next_bg
+    sta active_bg
+    sta $d020
+    sta $d021
+    lda next_fg
+    sta active_fg
+    lda next_color_pattern
+    sta active_color_pattern
+!same_mode:
+    lda next_mode
+    cmp #3
+    beq !y7+
+    cmp #5
+    beq !y7+
+    cmp #8
+    beq !y7+
+    lda #$9b
+    bne !geometry+
+!y7:
+    lda #$9f
+!geometry:
+    sta $d011
+    lda front_screen_hi
+    pha
+    lda back_screen_hi
+    sta front_screen_hi
+    cmp #$48
+    beq !screen0+
+    lda #$30
+    bne !d018+
+!screen0:
+    lda #$20
+!d018:
+    sta $d018
+    pla
+    sta back_screen_hi
+    lda next_film_frame
+    sta film_frame
+    lda next_serial
+    sta film_serial
+    lda next_serial+1
+    sta film_serial+1
+    lda next_phase
+    sta phase
+    lda next_object
+    sta object_id
+    lda #2
+    sta frame_wait_fields
+commit_end:
+    nop
+    cli
+    jmp presented
+
+select_next:
+    // Prepare exactly one next image. The transition window accounts for
+    // the current cadence plus the next mode's measured preparation budget.
+    ldx step_index
+    inx
+    cpx #28
+    bcc !candidate+
+    ldx #0
+!candidate:
+    stx candidate_step
+    lda step_mode,x
+    sta candidate_mode
+    lda step_object,x
+    sta candidate_object
+    lda object_id
+    beq !current_star+
+    lda mode
+    clc
+    adc #9
+    bne !current_index+
+!current_star:
+    lda mode
+!current_index:
+    tax
+    lda preparation_budget,x
+    sta transition_margin
+    lda candidate_object
+    beq !next_star+
+    lda candidate_mode
+    clc
+    adc #9
+    bne !next_index+
+!next_star:
+    lda candidate_mode
+!next_index:
+    tax
+    lda preparation_budget,x
+    clc
+    adc transition_margin
+    sec
+    sbc #1
+    sta transition_margin
+    lda step_index
+    sta next_step
+    lda mode_fields_left+1
+    bne !chosen+
+    lda mode_fields_left
+    cmp transition_margin
+    bcc !advance+
+    beq !advance+
+    bne !chosen+
+!advance:
+    lda candidate_step
+    sta next_step
+!chosen:
+    ldx next_step
+    lda step_mode,x
+    sta next_mode
+    lda #0
+    sta next_color_pattern
+    lda next_mode
+    cmp #2
+    beq !checker_color+
+    cmp #7
+    bne !pattern_ready+
+!checker_color:
+    inc next_color_pattern
+!pattern_ready:
+    lda step_object,x
+    sta next_object
+    lda step_palette,x
+    sta next_palette_index
+    tax
+    lda palette_bg,x
+    sta next_bg
+    lda palette_fg,x
+    sta next_fg
+    lda next_object
+    cmp object_id
+    beq !continue+
+    lda #1
+    sta next_film_frame
+    sta next_serial
+    sta next_phase
+    sta source_step
+    lda #0
+    sta next_serial+1
+    rts
+!continue:
+    lda #1
+    sta source_step
+    lda next_mode
+    cmp #6
+    bne !step_ready+
+    inc source_step
+!step_ready:
+    lda film_frame
+    clc
+    adc source_step
+    cmp #49
+    bcc !pose+
+    sec
+    sbc #48
+!pose:
+    sta next_film_frame
+    cmp #48
+    bne !phase+
+    lda #0
+!phase:
+    sta next_phase
+    lda film_serial
+    clc
+    adc source_step
+    sta next_serial
+    lda film_serial+1
+    adc #0
+    sta next_serial+1
+    rts
+reset_mode_clock:
+    lda step_index
+    and #1
+    bne !flash+
+    lda #<501
+    ldx #>501
+    bne !duration+
+!flash:
+    lda #25
+    ldx #0
+!duration:
+    sta mode_fields_left
+    stx mode_fields_left+1
+    lda #0
+    sta mode_due
+    rts
+
+// Both paths fill exactly1024cells during the lower-border phase commit.
+fill_phase_colors:
+color_fill_start:
+    lda next_color_pattern
+    bne fill_checker_colors
+    ldx #0
+    lda next_fg
+!colors:
+    .for(var p=0;p<16;p++) { sta $d800+p*64,x }
+    inx
+    cpx #64
+    bne !colors-
+    jmp color_fill_end
+fill_checker_colors:
+checker_fill_start:
+    ldx #3
+!blocks:
+    lda #4
+    .for(var p=0;p<256;p++) {
+        .if (((floor(p/40)+p)&1)==0) { sta $d800+p*4,x }
+    }
+    lda #5
+    .for(var p=0;p<256;p++) {
+        .if (((floor(p/40)+p)&1)==1) { sta $d800+p*4,x }
+    }
+    dex
+    bmi !done+
+    jmp !blocks-
+!done:
+checker_fill_end:
+    nop
+color_fill_end:
+    nop
+    rts
+
+// Keep the disk/PRG load below I/O. Only after banking out KERNAL, relocate
+// the staged whole-frame tail to high RAM; no source frame crosses the gap.
+copy_high_payload:
+copy_high_start:
+    lda #<high_movie_staging
+    sta source_ptr
+    lda #>high_movie_staging
+    sta source_ptr+1
+    lda #0
+    sta destination
+    lda #$e0
+    sta destination+1
+    lda #<highMovieData.getSize()
+    sta high_copy_left
+    lda #>highMovieData.getSize()
+    sta high_copy_left+1
+    ora high_copy_left
+    beq copy_high_end
+    ldy #0
+!byte:
+    lda (source_ptr),y
+    sta (destination),y
+    inc source_ptr
+    bne !source+
+    inc source_ptr+1
+!source:
+    inc destination
+    bne !destination+
+    inc destination+1
+!destination:
+    lda high_copy_left
+    bne !decrement+
+    dec high_copy_left+1
+!decrement:
+    dec high_copy_left
+    lda high_copy_left
+    ora high_copy_left+1
+    bne !byte-
+copy_high_end:
+    nop
+    rts
+
+// lookup_object selects a raw source without changing pending next_object.
+// The displayed object_id is unchanged until lower-border commit.
+set_source_pointer:
+    ldx lookup_object
+    beq !index+
+    clc
+    adc #49
+!index:
+    tax
+    lda frame_pointer_low,x
+    sta source_ptr
+    lda frame_pointer_high,x
+    sta source_ptr+1
+    rts
+render_mixed_checker:
+mixed_checker_start:
+    nop
+    jsr render_cached_rows
+mixed_checker_end:
+    nop
+    rts
+
+render_mixed_quadrants:
+mixed_quadrants_start:
+    lda #0
+    sta lookup_object
+    jsr render_direct_rows
+    lda #1
+    sta lookup_object
+    jsr render_direct_rows
+mixed_quadrants_end:
+    nop
+    rts
+
+// Reuse one500-byte pool: normal1table, wave10tables, checker2tables.
+// Table slots store interleaved absolute row-record pointers (25x2bytes).
+build_cache:
+    lda #1
+    sta cache_table_count
+    lda next_mode
+    cmp #1
+    bne !checker+
+    lda #10
+    sta cache_table_count
+!checker:
+    cmp #2
+    beq !two+
+    lda next_mode
+    cmp #7
+    bne !start+
+!two:
+    lda #2
+    sta cache_table_count
+!start:
+    lda #0
+    sta cache_slot
+!table:
+    lda next_object
+    sta lookup_object
+    lda cache_slot
+    sta source_age
+    lda next_mode
+    cmp #7
+    bne !temporal+
+    lda cache_slot
+    sta lookup_object
+    lda #0
+    sta source_age
+    jmp !age+
+!temporal:
+    cmp #2
+    bne !age+
+    lda cache_slot
+    beq !age+
+    lda #24
+    sta source_age
+!age:
+    jsr age_to_source_frame
+    ldx cache_slot
+    sta cache_frame_ids,x
+    lda lookup_object
+    sta cache_object_ids,x
+    lda cache_frame_ids,x
+    jsr set_source_pointer
+    ldx cache_slot
+    lda cache_pointer_low,x
+    sta cache_write
+    lda cache_pointer_high,x
+    sta cache_write+1
+    lda #25
+    sta cache_rows_left
+!row:
+    ldy #0
+    lda source_ptr
+    sta (cache_write),y
+    iny
+    lda source_ptr+1
+    sta (cache_write),y
+    lda (source_ptr),y
+    clc
+    adc #2
+    clc
+    adc source_ptr
+    sta source_ptr
+    bcc !source_ready+
+    inc source_ptr+1
+!source_ready:
+    lda cache_write
+    clc
+    adc #2
+    sta cache_write
+    bcc !cache_ready+
+    inc cache_write+1
+!cache_ready:
+    dec cache_rows_left
+    bne !row-
+    inc cache_slot
+    lda cache_slot
+    cmp cache_table_count
+    beq !done+
+    jmp !table-
+!done:
+    rts
+
+age_to_source_frame:
+    lda next_serial+1
+    bne !positive+
+    lda next_serial
+    cmp source_age
+    beq !blank+
+    bcc !blank+
+!positive:
+    lda next_film_frame
+    sec
+    sbc source_age
+    bcs !nonnegative+
+    clc
+    adc #48
+    rts
+!nonnegative:
+    bne !done+
+    lda #48
+!done:
+    rts
+!blank:
+    lda #0
+    rts
+
+render_cached_rows:
+    lda #0
+    sta physical_row
+!row:
+    ldx physical_row
+    lda row_offset_low,x
+    sta destination
+    lda row_offset_high,x
+    clc
+    adc back_screen_hi
+    sta destination+1
+    lda #0
+    sta selected_cache_slot
+    sta mask_mode
+    lda next_mode
+    cmp #1
+    bne !not_wave+
+    lda wave_pointer_low,x
+    sta wave_load+1
+    lda wave_pointer_high,x
+    sta wave_load+2
+    ldx next_phase
+wave_load:
+    lda wave_ages,x
+    sta selected_cache_slot
+!not_wave:
+    lda next_mode
+    cmp #2
+    beq !checker_a+
+    cmp #7
+    bne !draw_a+
+!checker_a:
+    lda #1
+    sta mask_mode
+!draw_a:
+    jsr setup_clip
+    jsr draw_cached_span
+    lda next_mode
+    cmp #2
+    beq !checker_b+
+    cmp #7
+    bne !next_row+
+!checker_b:
+    lda #1
+    sta selected_cache_slot
+    lda #2
+    sta mask_mode
+    jsr setup_clip
+    jsr draw_cached_span
+!next_row:
+    inc physical_row
+    lda physical_row
+    cmp #25
+    bne !row-
+    rts
+
+// Mirror modes read independent source headers directly; the cache pool is idle.
+render_direct_rows:
+    lda #12
+    sta source_rows
+    lda #20
+    sta column_limit
+    lda next_mode
+    cmp #3
+    bne !horizontal+
+    lda #40
+    sta column_limit
+!horizontal:
+    lda next_mode
+    cmp #4
+    bne !limits_ready+
+    lda #25
+    sta source_rows
+!limits_ready:
+    lda next_film_frame
+    jsr set_source_pointer
+    lda #0
+    sta physical_row
+!row:
+    ldx physical_row
+    lda row_offset_low,x
+    sta tl_destination
+    sta tr_destination
+    lda row_offset_high,x
+    clc
+    adc back_screen_hi
+    sta tl_destination+1
+    sta tr_destination+1
+    lda next_mode
+    cmp #4
+    beq !destinations_ready+
+    lda bottom_offset_low,x
+    sta bl_destination
+    sta br_destination
+    lda bottom_offset_high,x
+    clc
+    adc back_screen_hi
+    sta bl_destination+1
+    sta br_destination+1
+!destinations_ready:
+direct_span_start:
+    :read_byte()
+    sta column
+    :read_byte()
+    sta span_left
+    clc
+    adc source_ptr
+    sta next_row_ptr
+    lda source_ptr+1
+    adc #0
+    sta next_row_ptr+1
+    lda column
+    cmp column_limit
+    bcc !column_ready+
+    jmp !next_row+
+!column_ready:
+    lda column_limit
+    sec
+    sbc column
+    cmp span_left
+    bcs !length_ready+
+    sta span_left
+!length_ready:
+    lda span_left
+    bne !glyph+
+    jmp !next_row+
+!glyph:
+    :read_byte()
+    tax
+    ldy column
+    lda next_mode
+    cmp #8
+    bne !single_object+
+    lda lookup_object
+    bne !mixed_cube+
+    txa
+mixed_store_star_tl:
+    sta (tl_destination),y
+    lda h_lut,x
+    tax
+    lda mirror_column,y
+    tay
+    lda v_lut,x
+mixed_store_star_br:
+    sta (br_destination),y
+    jmp !plotted+
+!mixed_cube:
+    lda v_lut,x
+mixed_store_cube_bl:
+    sta (bl_destination),y
+    lda h_lut,x
+    tax
+    lda mirror_column,y
+    tay
+    txa
+mixed_store_cube_tr:
+    sta (tr_destination),y
+    jmp !plotted+
+!single_object:
+    txa
+store_original:
+    sta (tl_destination),y
+    lda next_mode
+    cmp #4
+    beq !horizontal_glyph+
+    lda v_lut,x
+store_v:
+    sta (bl_destination),y
+    lda next_mode
+    cmp #3
+    beq !plotted+
+!horizontal_glyph:
+    lda h_lut,x
+    tax
+    lda mirror_column,y
+    tay
+    txa
+store_h:
+    sta (tr_destination),y
+    lda next_mode
+    cmp #5
+    bne !plotted+
+    lda v_lut,x
+store_both:
+    sta (br_destination),y
+!plotted:
+    inc column
+    dec span_left
+    beq !next_row+
+    jmp !glyph-
+!next_row:
+direct_span_end:
+    nop
+    lda next_row_ptr
+    sta source_ptr
+    lda next_row_ptr+1
+    sta source_ptr+1
+    inc physical_row
+    lda physical_row
+    cmp source_rows
+    beq !done+
+    jmp !row-
+!done:
+    rts
+
+draw_cached_span:
+    ldx selected_cache_slot
+    lda cache_pointer_low,x
+    sta cache_write
+    lda cache_pointer_high,x
+    sta cache_write+1
+    lda physical_row
+    asl
+    tay
+    lda (cache_write),y
+    sta source_ptr
+    iny
+    lda (cache_write),y
+    sta source_ptr+1
+span_start:
+    :read_byte()
+    sta column
+    :read_byte()
+    sta span_left
+    lda span_left
+    beq span_end
+!copy:
+    :read_byte()
+    jsr plot_dispatch
+    dec span_left
+    bne !copy-
+span_end:
+    nop
+    rts
+setup_clip:
+    lda mask_mode
+    bne !checker+
+    lda #<plot_all
+    sta plot_dispatch+1
+    lda #>plot_all
+    sta plot_dispatch+2
+    rts
+!checker:
+    lda #<plot_clipped
+    sta plot_dispatch+1
+    lda #>plot_clipped
+    sta plot_dispatch+2
+    lda physical_row
+    lsr
+    lsr
+    and #1
+    sta clip_parity
+    lda mask_mode
+    cmp #1
+    beq !parity+
+    lda clip_parity
+    eor #1
+    sta clip_parity
+!parity:
+    lda clip_parity
+    beq !even+
+    lda #<clip_odd
+    ldx #>clip_odd
+    jmp !patch+
+!even:
+    lda #<clip_even
+    ldx #>clip_even
+!patch:
+    sta clip_load+1
+    stx clip_load+2
+    rts
+
+plot_dispatch:
+    jmp plot_all
+plot_all:
+    ldy column
+packet_store_all:
+    sta (destination),y
+    inc column
+    rts
+plot_clipped:
+    sta plot_value
+    ldy column
+clip_load:
+    lda clip_even,y
+    beq clip_reject
+    lda plot_value
+packet_store:
+    sta (destination),y
+clip_reject:
+    inc column
+    rts
+
+clear_back:
+    lda #0
+    sta destination
+    lda back_screen_hi
+    sta destination+1
+    ldx #4
+    ldy #0
+    lda #0
+!clear:
+    sta (destination),y
+    iny
+    bne !clear-
+    inc destination+1
+    dex
+    bne !clear-
+    rts
+
+wait_field:
+    lda field_counter
+!wait:
+    cmp field_counter
+    beq !wait-
+    rts
+wait_raster_boundary:
+!low:
+    bit $d011
+    bmi !low-
+!high:
+    bit $d011
+    bpl !high-
+    rts
+
+field_irq:
+    pha
+    lda #1
+    sta $d019
+    inc field_counter
+    bne !field+
+    inc field_counter+1
+!field:
+    lda frame_wait_fields
+    beq !mode+
+    dec frame_wait_fields
+!mode:
+    lda mode_due
+    bne field_complete
+    lda mode_fields_left
+    bne !decrement+
+    dec mode_fields_left+1
+!decrement:
+    dec mode_fields_left
+    lda mode_fields_left
+    ora mode_fields_left+1
+    bne field_complete
+    lda #1
+    sta mode_due
+field_complete:
+    nop
+    pla
+irq_return:
+    rti
+interrupt_return:
+    rti
+
+mode: .byte 0
+next_mode: .byte 0
+object_id: .byte 0
+next_object: .byte 0
+lookup_object: .byte 0
+step_index: .byte 0
+next_step: .byte 0
+candidate_step: .byte 0
+candidate_mode: .byte 0
+candidate_object: .byte 0
+transition_margin: .byte 3
+source_step: .byte 1
+active_palette_index: .byte 0
+next_palette_index: .byte 0
+active_bg: .byte 15
+active_fg: .byte 11
+next_bg: .byte 15
+next_fg: .byte 11
+active_color_pattern: .byte 0
+next_color_pattern: .byte 0
+high_copy_left: .word 0
+film_frame: .byte 0
+next_film_frame: .byte 0
+film_serial: .word 0
+next_serial: .word 0
+phase: .byte 0
+next_phase: .byte 0
+field_counter: .word 0
+mode_started_field: .word 0
+mode_fields_left: .word 501
+mode_due: .byte 0
+frame_wait_fields: .byte 2
+front_screen_hi: .byte $48
+back_screen_hi: .byte $4c
+physical_row: .byte 0
+mask_mode: .byte 0
+clip_parity: .byte 0
+cache_slot: .byte 0
+cache_table_count: .byte 0
+cache_rows_left: .byte 0
+selected_cache_slot: .byte 0
+source_rows: .byte 12
+column_limit: .byte 20
+cache_frame_ids: .fill 10, 0
+cache_object_ids: .fill 10, 0
+row_cache: .fill 500, 0
+cache_pointer_low: .fill 10, <(row_cache+i*50)
+cache_pointer_high: .fill 10, >(row_cache+i*50)
+frame_pointer_low: .fill 98, absoluteIndexData.get(i)
+frame_pointer_high: .fill 98, absoluteIndexData.get(i+98)
+row_offset_low: .fill 25, <(i*40)
+row_offset_high: .fill 25, >(i*40)
+bottom_offset_low: .fill 12, <((23-i)*40)
+bottom_offset_high: .fill 12, >((23-i)*40)
+mirror_column: .fill 20, 39-i
+clip_even: .fill 40, (floor(i/4)&1)==0 ? 1 : 0
+clip_odd: .fill 40, (floor(i/4)&1)==1 ? 1 : 0
+wave_pointer_low: .fill 25, <(wave_ages+i*48)
+wave_pointer_high: .fill 25, >(wave_ages+i*48)
+wave_ages: .fill waveData.getSize(), waveData.get(i)
+step_mode: .fill 28, stepModeData.get(i)
+step_object: .fill 28, stepObjectData.get(i)
+step_palette: .fill 28, i-floor(i/3)*3
+preparation_budget: .fill 18, budgetData.get(i)
+palette_bg: .byte 15,10,13
+palette_fg: .byte 11,4,5
+.align $100
+h_lut: .fill 256, hData.get(i)
+v_lut: .fill 256, vData.get(i)
+player_code_end:
+.assert "Code and wave LUT below font", player_code_end <= $4000, true
+high_movie_staging: .fill highMovieData.getSize(), highMovieData.get(i)
+high_movie_staging_end:
+.assert "High payload staging below font", high_movie_staging_end <= $4000, true
+*=$4000 "Locked unchanged font"
+font: .fill fontData.getSize(), fontData.get(i)
+.assert "Full font", *-font, 2048
+*=$5000 "Independent raw X,length,chars rows"
+animation: .fill lowMovieData.getSize(), lowMovieData.get(i)
+animation_end:
+.assert "Spans below I/O", animation_end <= $d000, true
+.assert "Reserved idle graphics byte", lowMovieData.get($7fff-$5000), 0
+.label animation_high=$e000
+.label animation_high_end=$e000+highMovieData.getSize()
+.assert "High spans below interrupt vectors", animation_high_end <= $fffa, true

@@ -1,0 +1,644 @@
+{
+  "name": "pal-world-lit-cube-loop",
+  "title": "Roterande kub med fast punktljus",
+  "description": "Fast ljuskälla i världen. Kubens plana sidnormaler och avståndet till ljuset styr toningen under rotationen.",
+  "width": 320,
+  "height": 200,
+  "fps": 25,
+  "durationSeconds": 3.88,
+  "frameCount": 97,
+  "frameBytes": 8000,
+  "framesFile": "bitmap.frames",
+  "format": "packed1bit",
+  "bitOrder": "MSB-first",
+  "rowOrder": "top-to-bottom",
+  "quantization": {
+    "mode": "ordered",
+    "threshold": null,
+    "luminance": "Rec.709 integer approximation, composited against black",
+    "matrix": "4x4 Bayer, fixed to screen coordinates"
+  },
+  "renderer": {
+    "engine": "Three.js WebGPURenderer",
+    "revision": "187",
+    "nativeWebGPU": "webgpu 0.6.2 (Dawn)",
+    "backend": "metal",
+    "canvasContextRequests": 0,
+    "browserUsed": false,
+    "targetColorSpace": "srgb",
+    "antialias": false
+  },
+  "source": "../../../../../../c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/world-lit-cube-zoom-study/scene-2x.mjs",
+  "sceneSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/world-lit-cube-zoom-study/scene-2x.mjs",
+  "sourceSha256": "54796fed4dc245340326e31b181b0a5e320fff02dad6b1db9aca430147a58ae4",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-world-lit-cube-loop.mjs",
+      "sha256": "19e3c71fd8fe2d15b8f76f213b3eb8ea9ca33db1be4affe71f90a4937cb37f54"
+    }
+  ],
+  "hashes": {
+    "frames": "7917cb976ff07b04751a93015f9cb1242380c683345a7759d275ae7eb0f879e1",
+    "rgba": "7d39e15eca24e6d0bfaf7938c81b1fa0384afde55c7b6a295d20eae15aacec9b",
+    "objectMask": "c626b4ed2afa4836b94b547f4d42c56903bf17e0c4f3a4b5cfaaf3bf3e736400"
+  },
+  "rgbaFile": "color.rgba",
+  "objectMaskFile": "object-mask.frames",
+  "objectMaskScope": "Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.",
+  "verification": {
+    "firstFrameBlack": true,
+    "deterministicSampleTimes": true,
+    "allFramesReadFromGPU": true
+  },
+  "phaseLabels": {
+    "blank": "Tom startbild",
+    "gray": "Roterande kub i fast punktljus"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "phase": "blank"
+    },
+    {
+      "index": 1,
+      "time": 0.04,
+      "phase": "gray"
+    },
+    {
+      "index": 2,
+      "time": 0.08,
+      "phase": "gray"
+    },
+    {
+      "index": 3,
+      "time": 0.12,
+      "phase": "gray"
+    },
+    {
+      "index": 4,
+      "time": 0.16,
+      "phase": "gray"
+    },
+    {
+      "index": 5,
+      "time": 0.2,
+      "phase": "gray"
+    },
+    {
+      "index": 6,
+      "time": 0.24,
+      "phase": "gray"
+    },
+    {
+      "index": 7,
+      "time": 0.28,
+      "phase": "gray"
+    },
+    {
+      "index": 8,
+      "time": 0.32,
+      "phase": "gray"
+    },
+    {
+      "index": 9,
+      "time": 0.36,
+      "phase": "gray"
+    },
+    {
+      "index": 10,
+      "time": 0.4,
+      "phase": "gray"
+    },
+    {
+      "index": 11,
+      "time": 0.44,
+      "phase": "gray"
+    },
+    {
+      "index": 12,
+      "time": 0.48,
+      "phase": "gray"
+    },
+    {
+      "index": 13,
+      "time": 0.52,
+      "phase": "gray"
+    },
+    {
+      "index": 14,
+      "time": 0.56,
+      "phase": "gray"
+    },
+    {
+      "index": 15,
+      "time": 0.6,
+      "phase": "gray"
+    },
+    {
+      "index": 16,
+      "time": 0.64,
+      "phase": "gray"
+    },
+    {
+      "index": 17,
+      "time": 0.68,
+      "phase": "gray"
+    },
+    {
+      "index": 18,
+      "time": 0.72,
+      "phase": "gray"
+    },
+    {
+      "index": 19,
+      "time": 0.76,
+      "phase": "gray"
+    },
+    {
+      "index": 20,
+      "time": 0.8,
+      "phase": "gray"
+    },
+    {
+      "index": 21,
+      "time": 0.84,
+      "phase": "gray"
+    },
+    {
+      "index": 22,
+      "time": 0.88,
+      "phase": "gray"
+    },
+    {
+      "index": 23,
+      "time": 0.92,
+      "phase": "gray"
+    },
+    {
+      "index": 24,
+      "time": 0.96,
+      "phase": "gray"
+    },
+    {
+      "index": 25,
+      "time": 1,
+      "phase": "gray"
+    },
+    {
+      "index": 26,
+      "time": 1.04,
+      "phase": "gray"
+    },
+    {
+      "index": 27,
+      "time": 1.08,
+      "phase": "gray"
+    },
+    {
+      "index": 28,
+      "time": 1.12,
+      "phase": "gray"
+    },
+    {
+      "index": 29,
+      "time": 1.16,
+      "phase": "gray"
+    },
+    {
+      "index": 30,
+      "time": 1.2,
+      "phase": "gray"
+    },
+    {
+      "index": 31,
+      "time": 1.24,
+      "phase": "gray"
+    },
+    {
+      "index": 32,
+      "time": 1.28,
+      "phase": "gray"
+    },
+    {
+      "index": 33,
+      "time": 1.32,
+      "phase": "gray"
+    },
+    {
+      "index": 34,
+      "time": 1.36,
+      "phase": "gray"
+    },
+    {
+      "index": 35,
+      "time": 1.4,
+      "phase": "gray"
+    },
+    {
+      "index": 36,
+      "time": 1.44,
+      "phase": "gray"
+    },
+    {
+      "index": 37,
+      "time": 1.48,
+      "phase": "gray"
+    },
+    {
+      "index": 38,
+      "time": 1.52,
+      "phase": "gray"
+    },
+    {
+      "index": 39,
+      "time": 1.56,
+      "phase": "gray"
+    },
+    {
+      "index": 40,
+      "time": 1.6,
+      "phase": "gray"
+    },
+    {
+      "index": 41,
+      "time": 1.64,
+      "phase": "gray"
+    },
+    {
+      "index": 42,
+      "time": 1.68,
+      "phase": "gray"
+    },
+    {
+      "index": 43,
+      "time": 1.72,
+      "phase": "gray"
+    },
+    {
+      "index": 44,
+      "time": 1.76,
+      "phase": "gray"
+    },
+    {
+      "index": 45,
+      "time": 1.8,
+      "phase": "gray"
+    },
+    {
+      "index": 46,
+      "time": 1.84,
+      "phase": "gray"
+    },
+    {
+      "index": 47,
+      "time": 1.88,
+      "phase": "gray"
+    },
+    {
+      "index": 48,
+      "time": 1.92,
+      "phase": "gray"
+    },
+    {
+      "index": 49,
+      "time": 1.96,
+      "phase": "gray"
+    },
+    {
+      "index": 50,
+      "time": 2,
+      "phase": "gray"
+    },
+    {
+      "index": 51,
+      "time": 2.04,
+      "phase": "gray"
+    },
+    {
+      "index": 52,
+      "time": 2.08,
+      "phase": "gray"
+    },
+    {
+      "index": 53,
+      "time": 2.12,
+      "phase": "gray"
+    },
+    {
+      "index": 54,
+      "time": 2.16,
+      "phase": "gray"
+    },
+    {
+      "index": 55,
+      "time": 2.2,
+      "phase": "gray"
+    },
+    {
+      "index": 56,
+      "time": 2.24,
+      "phase": "gray"
+    },
+    {
+      "index": 57,
+      "time": 2.28,
+      "phase": "gray"
+    },
+    {
+      "index": 58,
+      "time": 2.32,
+      "phase": "gray"
+    },
+    {
+      "index": 59,
+      "time": 2.36,
+      "phase": "gray"
+    },
+    {
+      "index": 60,
+      "time": 2.4,
+      "phase": "gray"
+    },
+    {
+      "index": 61,
+      "time": 2.44,
+      "phase": "gray"
+    },
+    {
+      "index": 62,
+      "time": 2.48,
+      "phase": "gray"
+    },
+    {
+      "index": 63,
+      "time": 2.52,
+      "phase": "gray"
+    },
+    {
+      "index": 64,
+      "time": 2.56,
+      "phase": "gray"
+    },
+    {
+      "index": 65,
+      "time": 2.6,
+      "phase": "gray"
+    },
+    {
+      "index": 66,
+      "time": 2.64,
+      "phase": "gray"
+    },
+    {
+      "index": 67,
+      "time": 2.68,
+      "phase": "gray"
+    },
+    {
+      "index": 68,
+      "time": 2.72,
+      "phase": "gray"
+    },
+    {
+      "index": 69,
+      "time": 2.76,
+      "phase": "gray"
+    },
+    {
+      "index": 70,
+      "time": 2.8,
+      "phase": "gray"
+    },
+    {
+      "index": 71,
+      "time": 2.84,
+      "phase": "gray"
+    },
+    {
+      "index": 72,
+      "time": 2.88,
+      "phase": "gray"
+    },
+    {
+      "index": 73,
+      "time": 2.92,
+      "phase": "gray"
+    },
+    {
+      "index": 74,
+      "time": 2.96,
+      "phase": "gray"
+    },
+    {
+      "index": 75,
+      "time": 3,
+      "phase": "gray"
+    },
+    {
+      "index": 76,
+      "time": 3.04,
+      "phase": "gray"
+    },
+    {
+      "index": 77,
+      "time": 3.08,
+      "phase": "gray"
+    },
+    {
+      "index": 78,
+      "time": 3.12,
+      "phase": "gray"
+    },
+    {
+      "index": 79,
+      "time": 3.16,
+      "phase": "gray"
+    },
+    {
+      "index": 80,
+      "time": 3.2,
+      "phase": "gray"
+    },
+    {
+      "index": 81,
+      "time": 3.24,
+      "phase": "gray"
+    },
+    {
+      "index": 82,
+      "time": 3.28,
+      "phase": "gray"
+    },
+    {
+      "index": 83,
+      "time": 3.32,
+      "phase": "gray"
+    },
+    {
+      "index": 84,
+      "time": 3.36,
+      "phase": "gray"
+    },
+    {
+      "index": 85,
+      "time": 3.4,
+      "phase": "gray"
+    },
+    {
+      "index": 86,
+      "time": 3.44,
+      "phase": "gray"
+    },
+    {
+      "index": 87,
+      "time": 3.48,
+      "phase": "gray"
+    },
+    {
+      "index": 88,
+      "time": 3.52,
+      "phase": "gray"
+    },
+    {
+      "index": 89,
+      "time": 3.56,
+      "phase": "gray"
+    },
+    {
+      "index": 90,
+      "time": 3.6,
+      "phase": "gray"
+    },
+    {
+      "index": 91,
+      "time": 3.64,
+      "phase": "gray"
+    },
+    {
+      "index": 92,
+      "time": 3.68,
+      "phase": "gray"
+    },
+    {
+      "index": 93,
+      "time": 3.72,
+      "phase": "gray"
+    },
+    {
+      "index": 94,
+      "time": 3.76,
+      "phase": "gray"
+    },
+    {
+      "index": 95,
+      "time": 3.8,
+      "phase": "gray"
+    },
+    {
+      "index": 96,
+      "time": 3.84,
+      "phase": "gray"
+    }
+  ],
+  "litPixels": [
+    0,
+    4839,
+    5638,
+    6393,
+    7140,
+    7854,
+    8358,
+    8564,
+    8419,
+    7910,
+    7196,
+    6313,
+    5402,
+    4616,
+    4168,
+    4281,
+    4907,
+    5613,
+    6060,
+    6132,
+    5791,
+    5114,
+    4358,
+    4155,
+    4325,
+    4838,
+    5981,
+    7008,
+    7790,
+    8205,
+    8218,
+    7846,
+    7003,
+    5870,
+    5087,
+    4756,
+    4671,
+    4808,
+    5360,
+    5946,
+    6319,
+    6362,
+    6092,
+    5587,
+    4857,
+    4449,
+    4246,
+    4236,
+    4456,
+    4839,
+    5347,
+    5840,
+    6419,
+    6962,
+    7368,
+    7643,
+    7797,
+    7821,
+    7733,
+    7604,
+    7381,
+    7224,
+    7008,
+    6779,
+    6557,
+    6348,
+    6137,
+    5941,
+    5738,
+    5527,
+    5323,
+    5146,
+    5009,
+    4838,
+    4727,
+    4659,
+    4648,
+    4752,
+    4932,
+    5175,
+    5532,
+    5915,
+    6330,
+    6716,
+    7034,
+    7261,
+    7341,
+    7282,
+    7041,
+    6668,
+    6157,
+    5571,
+    4958,
+    4498,
+    4332,
+    4298,
+    4442
+  ],
+  "hostRenderSeconds": 0.256962958
+}

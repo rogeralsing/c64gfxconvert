@@ -1,0 +1,62 @@
+{
+  "nativePalClockHz": 985248,
+  "nativePalFieldClocks": 19656,
+  "measuredMeanFps": 25.06221350831955,
+  "observedPalFieldsPerImage": [
+    2
+  ],
+  "presentationWallCycles": {
+    "min": 39306,
+    "mean": 39312.09027777778,
+    "max": 39338
+  },
+  "copyCpuCycles": {
+    "min": 10568,
+    "mean": 10568,
+    "max": 10568
+  },
+  "decodeCpuCycles": {
+    "min": 3966,
+    "mean": 4931.387543252596,
+    "max": 5954
+  },
+  "copyNativeWallCyclesIncludingVicSteals": {
+    "min": 10952,
+    "mean": 10954.138408304498,
+    "max": 10955
+  },
+  "decodeNativeWallCyclesIncludingVicSteals": {
+    "min": 4352,
+    "mean": 5390.785467128027,
+    "max": 6513
+  },
+  "cpuTimingMethod": "Assembled 6502 copy, exact delta and ring selection; no VIC timing claims.",
+  "nativeTimingMethod": "Owned, unmodified native PAL VICE; forced refresh disabled. Actual completed VIC scanouts, hardware bank/slot, full 1024-byte copies, hidden writes, all ring buffers, source immutability and script counters are checked. Memory write checkpoints guard front/font/movie during native execution.",
+  "media": [
+    {
+      "file": "preview-pal.gif",
+      "source": "Actual completed native VIC scanouts, first loop poses1..96",
+      "size": [
+        599,
+        400
+      ],
+      "frames": 96,
+      "durationMs": 3840,
+      "gifFrameDurationMs": 40,
+      "allDecodedFramesMatchNativeCrop": true
+    },
+    {
+      "file": "preview-square.gif",
+      "source": "Actual completed native VIC scanouts, first loop poses1..96",
+      "size": [
+        640,
+        400
+      ],
+      "frames": 96,
+      "durationMs": 3840,
+      "gifFrameDurationMs": 40,
+      "allDecodedFramesMatchNativeCrop": true
+    }
+  ],
+  "mediaTimingNote": "GIF delays have10ms granularity:40ms is used; actual native mean image interval is about39.900ms. PAL preview applies59/63 horizontal pixel aspect, rounded to599x400; square preview is640x400."
+}

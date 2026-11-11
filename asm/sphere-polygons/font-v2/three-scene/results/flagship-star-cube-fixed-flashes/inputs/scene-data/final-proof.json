@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "dataComplete": true,
+  "starAllFiveAssetsByteIdentical": true,
+  "cubeSourceAll96EqualStudySource": true,
+  "cubeOdd48SampleExactlyPreserved": true,
+  "cubeBlankZoomQuad": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "cubeFullReferenceSha256": "9a0f62ad899d3837e7c25fc8f273a0b956e6bc8ac04d6652ed4f43544982704d",
+  "manifestSha256": "22c5902b54739c74f252a61552c156c77bfd13ae1fc49bc04c6259aae0954ea3",
+  "bitmapFirstProof": "bitmap-preview-proof.json",
+  "zoomStudyProof": "../../three-scene/results/dithered-cube-zoom-study/proof.json",
+  "learnedHeldoutObjectError": 0.050494193413736045,
+  "directHeldoutObjectError": 0.034084437752500786,
+  "combinedRawRows": 25720,
+  "highPayloadNeeded": false,
+  "cubeHashes": {
+    "rows": "2993b8a2bfca5f19e8c4f59f1808f043ef62552fa3be42a5571b2eb20ae5b2a2",
+    "index": "f80c1b625287e8b6bf1e4c9966cabe15828d6d2f6675ef9546094d823e9fec5a",
+    "reference": "9e73885c5bde181dac289a4601ca0df43a6d35183de4ea8aa3624695ead1b307",
+    "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+    "zoomLut": "df555947764c5a2f630a8fa515592e9032b961454035286721de9c692d415b45"
+  }
+}

@@ -1,0 +1,2328 @@
+{
+  "passed": true,
+  "imagesVerified": 290,
+  "implicitBlankVerified": true,
+  "uniqueSourceFramesVerified": 97,
+  "loopClosingsVerified": 3,
+  "injectedIrqs": 9462,
+  "irqRegistersAndStatusPreserved": true,
+  "frontUnchangedDuringPreparation": true,
+  "sourceFontAndLutsUnchanged": true,
+  "maximumPreparationCpuCycles": 18018,
+  "programSha256": "62ed4edff6a8e6c12a5b3de61e59a1cf09586e6f55fecc3387e62ba4614587f3",
+  "scope": "Assembled6502 directTLspan reads andfour glyph writes. Host proves charactercells; native proof must verifyYSCROLL7 plus4pxmargins and actualFPS.",
+  "records": [
+    {
+      "serial": 1,
+      "pose": 1,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5705,
+      "totalCpuCycles": 17087
+    },
+    {
+      "serial": 2,
+      "pose": 2,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5948,
+      "totalCpuCycles": 17330
+    },
+    {
+      "serial": 3,
+      "pose": 3,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6110,
+      "totalCpuCycles": 17492
+    },
+    {
+      "serial": 4,
+      "pose": 4,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5201,
+      "totalCpuCycles": 16583
+    },
+    {
+      "serial": 5,
+      "pose": 5,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5264,
+      "totalCpuCycles": 16646
+    },
+    {
+      "serial": 6,
+      "pose": 6,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5853,
+      "totalCpuCycles": 17235
+    },
+    {
+      "serial": 7,
+      "pose": 7,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5592,
+      "totalCpuCycles": 16974
+    },
+    {
+      "serial": 8,
+      "pose": 8,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5750,
+      "totalCpuCycles": 17132
+    },
+    {
+      "serial": 9,
+      "pose": 9,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 10,
+      "pose": 10,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 11,
+      "pose": 11,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 12,
+      "pose": 12,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 13,
+      "pose": 13,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 14,
+      "pose": 14,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 15,
+      "pose": 15,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 16,
+      "pose": 16,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 17,
+      "pose": 17,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 18,
+      "pose": 18,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 19,
+      "pose": 19,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 20,
+      "pose": 20,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 21,
+      "pose": 21,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4683,
+      "totalCpuCycles": 16065
+    },
+    {
+      "serial": 22,
+      "pose": 22,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4598,
+      "totalCpuCycles": 15980
+    },
+    {
+      "serial": 23,
+      "pose": 23,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4679,
+      "totalCpuCycles": 16061
+    },
+    {
+      "serial": 24,
+      "pose": 24,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4859,
+      "totalCpuCycles": 16241
+    },
+    {
+      "serial": 25,
+      "pose": 25,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4778,
+      "totalCpuCycles": 16160
+    },
+    {
+      "serial": 26,
+      "pose": 26,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4841,
+      "totalCpuCycles": 16223
+    },
+    {
+      "serial": 27,
+      "pose": 27,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4863,
+      "totalCpuCycles": 16245
+    },
+    {
+      "serial": 28,
+      "pose": 28,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4458,
+      "totalCpuCycles": 15840
+    },
+    {
+      "serial": 29,
+      "pose": 29,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 30,
+      "pose": 30,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 31,
+      "pose": 31,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 32,
+      "pose": 32,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4715,
+      "totalCpuCycles": 16097
+    },
+    {
+      "serial": 33,
+      "pose": 33,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4958,
+      "totalCpuCycles": 16340
+    },
+    {
+      "serial": 34,
+      "pose": 34,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 16524
+    },
+    {
+      "serial": 35,
+      "pose": 35,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5160,
+      "totalCpuCycles": 16542
+    },
+    {
+      "serial": 36,
+      "pose": 36,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4670,
+      "totalCpuCycles": 16052
+    },
+    {
+      "serial": 37,
+      "pose": 37,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4913,
+      "totalCpuCycles": 16295
+    },
+    {
+      "serial": 38,
+      "pose": 38,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5091,
+      "totalCpuCycles": 16473
+    },
+    {
+      "serial": 39,
+      "pose": 39,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5172,
+      "totalCpuCycles": 16554
+    },
+    {
+      "serial": 40,
+      "pose": 40,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5095,
+      "totalCpuCycles": 16477
+    },
+    {
+      "serial": 41,
+      "pose": 41,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 16637
+    },
+    {
+      "serial": 42,
+      "pose": 42,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 43,
+      "pose": 43,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 44,
+      "pose": 44,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5571,
+      "totalCpuCycles": 16953
+    },
+    {
+      "serial": 45,
+      "pose": 45,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 46,
+      "pose": 46,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 47,
+      "pose": 47,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5328,
+      "totalCpuCycles": 16710
+    },
+    {
+      "serial": 48,
+      "pose": 48,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 49,
+      "pose": 49,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 50,
+      "pose": 50,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 51,
+      "pose": 51,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5407,
+      "totalCpuCycles": 16789
+    },
+    {
+      "serial": 52,
+      "pose": 52,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 53,
+      "pose": 53,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 54,
+      "pose": 54,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 55,
+      "pose": 55,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5405,
+      "totalCpuCycles": 16787
+    },
+    {
+      "serial": 56,
+      "pose": 56,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5166,
+      "totalCpuCycles": 16548
+    },
+    {
+      "serial": 57,
+      "pose": 57,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5089,
+      "totalCpuCycles": 16471
+    },
+    {
+      "serial": 58,
+      "pose": 58,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 59,
+      "pose": 59,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 60,
+      "pose": 60,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5085,
+      "totalCpuCycles": 16467
+    },
+    {
+      "serial": 61,
+      "pose": 61,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 16552
+    },
+    {
+      "serial": 62,
+      "pose": 62,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 63,
+      "pose": 63,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5249,
+      "totalCpuCycles": 16631
+    },
+    {
+      "serial": 64,
+      "pose": 64,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 65,
+      "pose": 65,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5168,
+      "totalCpuCycles": 16550
+    },
+    {
+      "serial": 66,
+      "pose": 66,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 67,
+      "pose": 67,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 68,
+      "pose": 68,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5413,
+      "totalCpuCycles": 16795
+    },
+    {
+      "serial": 69,
+      "pose": 69,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 70,
+      "pose": 70,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 71,
+      "pose": 71,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5656,
+      "totalCpuCycles": 17038
+    },
+    {
+      "serial": 72,
+      "pose": 72,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5660,
+      "totalCpuCycles": 17042
+    },
+    {
+      "serial": 73,
+      "pose": 73,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5741,
+      "totalCpuCycles": 17123
+    },
+    {
+      "serial": 74,
+      "pose": 74,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 75,
+      "pose": 75,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 76,
+      "pose": 76,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 77,
+      "pose": 77,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 78,
+      "pose": 78,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 79,
+      "pose": 79,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6636,
+      "totalCpuCycles": 18018
+    },
+    {
+      "serial": 80,
+      "pose": 80,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5966,
+      "totalCpuCycles": 17348
+    },
+    {
+      "serial": 81,
+      "pose": 81,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6225,
+      "totalCpuCycles": 17607
+    },
+    {
+      "serial": 82,
+      "pose": 82,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 83,
+      "pose": 83,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6308,
+      "totalCpuCycles": 17690
+    },
+    {
+      "serial": 84,
+      "pose": 84,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 85,
+      "pose": 85,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 86,
+      "pose": 86,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5822,
+      "totalCpuCycles": 17204
+    },
+    {
+      "serial": 87,
+      "pose": 87,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5903,
+      "totalCpuCycles": 17285
+    },
+    {
+      "serial": 88,
+      "pose": 88,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6144,
+      "totalCpuCycles": 17526
+    },
+    {
+      "serial": 89,
+      "pose": 89,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 90,
+      "pose": 90,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6290,
+      "totalCpuCycles": 17672
+    },
+    {
+      "serial": 91,
+      "pose": 91,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5561,
+      "totalCpuCycles": 16943
+    },
+    {
+      "serial": 92,
+      "pose": 92,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5804,
+      "totalCpuCycles": 17186
+    },
+    {
+      "serial": 93,
+      "pose": 93,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5885,
+      "totalCpuCycles": 17267
+    },
+    {
+      "serial": 94,
+      "pose": 94,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6128,
+      "totalCpuCycles": 17510
+    },
+    {
+      "serial": 95,
+      "pose": 95,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6191,
+      "totalCpuCycles": 17573
+    },
+    {
+      "serial": 96,
+      "pose": 96,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5624,
+      "totalCpuCycles": 17006
+    },
+    {
+      "serial": 97,
+      "pose": 1,
+      "setupCpuCycles": 52,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5705,
+      "totalCpuCycles": 17088
+    },
+    {
+      "serial": 98,
+      "pose": 2,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5948,
+      "totalCpuCycles": 17330
+    },
+    {
+      "serial": 99,
+      "pose": 3,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6110,
+      "totalCpuCycles": 17492
+    },
+    {
+      "serial": 100,
+      "pose": 4,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5201,
+      "totalCpuCycles": 16583
+    },
+    {
+      "serial": 101,
+      "pose": 5,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5264,
+      "totalCpuCycles": 16646
+    },
+    {
+      "serial": 102,
+      "pose": 6,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5853,
+      "totalCpuCycles": 17235
+    },
+    {
+      "serial": 103,
+      "pose": 7,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5592,
+      "totalCpuCycles": 16974
+    },
+    {
+      "serial": 104,
+      "pose": 8,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5750,
+      "totalCpuCycles": 17132
+    },
+    {
+      "serial": 105,
+      "pose": 9,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 106,
+      "pose": 10,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 107,
+      "pose": 11,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 108,
+      "pose": 12,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 109,
+      "pose": 13,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 110,
+      "pose": 14,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 111,
+      "pose": 15,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 112,
+      "pose": 16,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 113,
+      "pose": 17,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 114,
+      "pose": 18,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 115,
+      "pose": 19,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 116,
+      "pose": 20,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 117,
+      "pose": 21,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4683,
+      "totalCpuCycles": 16065
+    },
+    {
+      "serial": 118,
+      "pose": 22,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4598,
+      "totalCpuCycles": 15980
+    },
+    {
+      "serial": 119,
+      "pose": 23,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4679,
+      "totalCpuCycles": 16061
+    },
+    {
+      "serial": 120,
+      "pose": 24,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4859,
+      "totalCpuCycles": 16241
+    },
+    {
+      "serial": 121,
+      "pose": 25,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4778,
+      "totalCpuCycles": 16160
+    },
+    {
+      "serial": 122,
+      "pose": 26,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4841,
+      "totalCpuCycles": 16223
+    },
+    {
+      "serial": 123,
+      "pose": 27,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4863,
+      "totalCpuCycles": 16245
+    },
+    {
+      "serial": 124,
+      "pose": 28,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4458,
+      "totalCpuCycles": 15840
+    },
+    {
+      "serial": 125,
+      "pose": 29,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 126,
+      "pose": 30,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 127,
+      "pose": 31,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 128,
+      "pose": 32,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4715,
+      "totalCpuCycles": 16097
+    },
+    {
+      "serial": 129,
+      "pose": 33,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4958,
+      "totalCpuCycles": 16340
+    },
+    {
+      "serial": 130,
+      "pose": 34,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 16524
+    },
+    {
+      "serial": 131,
+      "pose": 35,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5160,
+      "totalCpuCycles": 16542
+    },
+    {
+      "serial": 132,
+      "pose": 36,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4670,
+      "totalCpuCycles": 16052
+    },
+    {
+      "serial": 133,
+      "pose": 37,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4913,
+      "totalCpuCycles": 16295
+    },
+    {
+      "serial": 134,
+      "pose": 38,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5091,
+      "totalCpuCycles": 16473
+    },
+    {
+      "serial": 135,
+      "pose": 39,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5172,
+      "totalCpuCycles": 16554
+    },
+    {
+      "serial": 136,
+      "pose": 40,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5095,
+      "totalCpuCycles": 16477
+    },
+    {
+      "serial": 137,
+      "pose": 41,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 16637
+    },
+    {
+      "serial": 138,
+      "pose": 42,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 139,
+      "pose": 43,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 140,
+      "pose": 44,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5571,
+      "totalCpuCycles": 16953
+    },
+    {
+      "serial": 141,
+      "pose": 45,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 142,
+      "pose": 46,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 143,
+      "pose": 47,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5328,
+      "totalCpuCycles": 16710
+    },
+    {
+      "serial": 144,
+      "pose": 48,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 145,
+      "pose": 49,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 146,
+      "pose": 50,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 147,
+      "pose": 51,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5407,
+      "totalCpuCycles": 16789
+    },
+    {
+      "serial": 148,
+      "pose": 52,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 149,
+      "pose": 53,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 150,
+      "pose": 54,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 151,
+      "pose": 55,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5405,
+      "totalCpuCycles": 16787
+    },
+    {
+      "serial": 152,
+      "pose": 56,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5166,
+      "totalCpuCycles": 16548
+    },
+    {
+      "serial": 153,
+      "pose": 57,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5089,
+      "totalCpuCycles": 16471
+    },
+    {
+      "serial": 154,
+      "pose": 58,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 155,
+      "pose": 59,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 156,
+      "pose": 60,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5085,
+      "totalCpuCycles": 16467
+    },
+    {
+      "serial": 157,
+      "pose": 61,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 16552
+    },
+    {
+      "serial": 158,
+      "pose": 62,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 159,
+      "pose": 63,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5249,
+      "totalCpuCycles": 16631
+    },
+    {
+      "serial": 160,
+      "pose": 64,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 161,
+      "pose": 65,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5168,
+      "totalCpuCycles": 16550
+    },
+    {
+      "serial": 162,
+      "pose": 66,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 163,
+      "pose": 67,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 164,
+      "pose": 68,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5413,
+      "totalCpuCycles": 16795
+    },
+    {
+      "serial": 165,
+      "pose": 69,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 166,
+      "pose": 70,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 167,
+      "pose": 71,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5656,
+      "totalCpuCycles": 17038
+    },
+    {
+      "serial": 168,
+      "pose": 72,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5660,
+      "totalCpuCycles": 17042
+    },
+    {
+      "serial": 169,
+      "pose": 73,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5741,
+      "totalCpuCycles": 17123
+    },
+    {
+      "serial": 170,
+      "pose": 74,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 171,
+      "pose": 75,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 172,
+      "pose": 76,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 173,
+      "pose": 77,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 174,
+      "pose": 78,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 175,
+      "pose": 79,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6636,
+      "totalCpuCycles": 18018
+    },
+    {
+      "serial": 176,
+      "pose": 80,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5966,
+      "totalCpuCycles": 17348
+    },
+    {
+      "serial": 177,
+      "pose": 81,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6225,
+      "totalCpuCycles": 17607
+    },
+    {
+      "serial": 178,
+      "pose": 82,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 179,
+      "pose": 83,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6308,
+      "totalCpuCycles": 17690
+    },
+    {
+      "serial": 180,
+      "pose": 84,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 181,
+      "pose": 85,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 182,
+      "pose": 86,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5822,
+      "totalCpuCycles": 17204
+    },
+    {
+      "serial": 183,
+      "pose": 87,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5903,
+      "totalCpuCycles": 17285
+    },
+    {
+      "serial": 184,
+      "pose": 88,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6144,
+      "totalCpuCycles": 17526
+    },
+    {
+      "serial": 185,
+      "pose": 89,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 186,
+      "pose": 90,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6290,
+      "totalCpuCycles": 17672
+    },
+    {
+      "serial": 187,
+      "pose": 91,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5561,
+      "totalCpuCycles": 16943
+    },
+    {
+      "serial": 188,
+      "pose": 92,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5804,
+      "totalCpuCycles": 17186
+    },
+    {
+      "serial": 189,
+      "pose": 93,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5885,
+      "totalCpuCycles": 17267
+    },
+    {
+      "serial": 190,
+      "pose": 94,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6128,
+      "totalCpuCycles": 17510
+    },
+    {
+      "serial": 191,
+      "pose": 95,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6191,
+      "totalCpuCycles": 17573
+    },
+    {
+      "serial": 192,
+      "pose": 96,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5624,
+      "totalCpuCycles": 17006
+    },
+    {
+      "serial": 193,
+      "pose": 1,
+      "setupCpuCycles": 52,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5705,
+      "totalCpuCycles": 17088
+    },
+    {
+      "serial": 194,
+      "pose": 2,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5948,
+      "totalCpuCycles": 17330
+    },
+    {
+      "serial": 195,
+      "pose": 3,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6110,
+      "totalCpuCycles": 17492
+    },
+    {
+      "serial": 196,
+      "pose": 4,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5201,
+      "totalCpuCycles": 16583
+    },
+    {
+      "serial": 197,
+      "pose": 5,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5264,
+      "totalCpuCycles": 16646
+    },
+    {
+      "serial": 198,
+      "pose": 6,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5853,
+      "totalCpuCycles": 17235
+    },
+    {
+      "serial": 199,
+      "pose": 7,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5592,
+      "totalCpuCycles": 16974
+    },
+    {
+      "serial": 200,
+      "pose": 8,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5750,
+      "totalCpuCycles": 17132
+    },
+    {
+      "serial": 201,
+      "pose": 9,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 202,
+      "pose": 10,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5511,
+      "totalCpuCycles": 16893
+    },
+    {
+      "serial": 203,
+      "pose": 11,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 204,
+      "pose": 12,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5489,
+      "totalCpuCycles": 16871
+    },
+    {
+      "serial": 205,
+      "pose": 13,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 206,
+      "pose": 14,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5669,
+      "totalCpuCycles": 17051
+    },
+    {
+      "serial": 207,
+      "pose": 15,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 208,
+      "pose": 16,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5066,
+      "totalCpuCycles": 16448
+    },
+    {
+      "serial": 209,
+      "pose": 17,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 210,
+      "pose": 18,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 211,
+      "pose": 19,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 212,
+      "pose": 20,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5165,
+      "totalCpuCycles": 16547
+    },
+    {
+      "serial": 213,
+      "pose": 21,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4683,
+      "totalCpuCycles": 16065
+    },
+    {
+      "serial": 214,
+      "pose": 22,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4598,
+      "totalCpuCycles": 15980
+    },
+    {
+      "serial": 215,
+      "pose": 23,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4679,
+      "totalCpuCycles": 16061
+    },
+    {
+      "serial": 216,
+      "pose": 24,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4859,
+      "totalCpuCycles": 16241
+    },
+    {
+      "serial": 217,
+      "pose": 25,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4778,
+      "totalCpuCycles": 16160
+    },
+    {
+      "serial": 218,
+      "pose": 26,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4841,
+      "totalCpuCycles": 16223
+    },
+    {
+      "serial": 219,
+      "pose": 27,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4863,
+      "totalCpuCycles": 16245
+    },
+    {
+      "serial": 220,
+      "pose": 28,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4458,
+      "totalCpuCycles": 15840
+    },
+    {
+      "serial": 221,
+      "pose": 29,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 222,
+      "pose": 30,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 223,
+      "pose": 31,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4634,
+      "totalCpuCycles": 16016
+    },
+    {
+      "serial": 224,
+      "pose": 32,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4715,
+      "totalCpuCycles": 16097
+    },
+    {
+      "serial": 225,
+      "pose": 33,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4958,
+      "totalCpuCycles": 16340
+    },
+    {
+      "serial": 226,
+      "pose": 34,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5142,
+      "totalCpuCycles": 16524
+    },
+    {
+      "serial": 227,
+      "pose": 35,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5160,
+      "totalCpuCycles": 16542
+    },
+    {
+      "serial": 228,
+      "pose": 36,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4670,
+      "totalCpuCycles": 16052
+    },
+    {
+      "serial": 229,
+      "pose": 37,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 4913,
+      "totalCpuCycles": 16295
+    },
+    {
+      "serial": 230,
+      "pose": 38,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5091,
+      "totalCpuCycles": 16473
+    },
+    {
+      "serial": 231,
+      "pose": 39,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5172,
+      "totalCpuCycles": 16554
+    },
+    {
+      "serial": 232,
+      "pose": 40,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5095,
+      "totalCpuCycles": 16477
+    },
+    {
+      "serial": 233,
+      "pose": 41,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5255,
+      "totalCpuCycles": 16637
+    },
+    {
+      "serial": 234,
+      "pose": 42,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 235,
+      "pose": 43,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 236,
+      "pose": 44,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5571,
+      "totalCpuCycles": 16953
+    },
+    {
+      "serial": 237,
+      "pose": 45,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 238,
+      "pose": 46,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 239,
+      "pose": 47,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5328,
+      "totalCpuCycles": 16710
+    },
+    {
+      "serial": 240,
+      "pose": 48,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 241,
+      "pose": 49,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 242,
+      "pose": 50,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5411,
+      "totalCpuCycles": 16793
+    },
+    {
+      "serial": 243,
+      "pose": 51,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5407,
+      "totalCpuCycles": 16789
+    },
+    {
+      "serial": 244,
+      "pose": 52,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 245,
+      "pose": 53,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5650,
+      "totalCpuCycles": 17032
+    },
+    {
+      "serial": 246,
+      "pose": 54,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5488,
+      "totalCpuCycles": 16870
+    },
+    {
+      "serial": 247,
+      "pose": 55,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5405,
+      "totalCpuCycles": 16787
+    },
+    {
+      "serial": 248,
+      "pose": 56,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5166,
+      "totalCpuCycles": 16548
+    },
+    {
+      "serial": 249,
+      "pose": 57,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5089,
+      "totalCpuCycles": 16471
+    },
+    {
+      "serial": 250,
+      "pose": 58,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 251,
+      "pose": 59,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 252,
+      "pose": 60,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5085,
+      "totalCpuCycles": 16467
+    },
+    {
+      "serial": 253,
+      "pose": 61,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5170,
+      "totalCpuCycles": 16552
+    },
+    {
+      "serial": 254,
+      "pose": 62,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5247,
+      "totalCpuCycles": 16629
+    },
+    {
+      "serial": 255,
+      "pose": 63,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5249,
+      "totalCpuCycles": 16631
+    },
+    {
+      "serial": 256,
+      "pose": 64,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5330,
+      "totalCpuCycles": 16712
+    },
+    {
+      "serial": 257,
+      "pose": 65,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5168,
+      "totalCpuCycles": 16550
+    },
+    {
+      "serial": 258,
+      "pose": 66,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 259,
+      "pose": 67,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5492,
+      "totalCpuCycles": 16874
+    },
+    {
+      "serial": 260,
+      "pose": 68,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5413,
+      "totalCpuCycles": 16795
+    },
+    {
+      "serial": 261,
+      "pose": 69,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5494,
+      "totalCpuCycles": 16876
+    },
+    {
+      "serial": 262,
+      "pose": 70,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5575,
+      "totalCpuCycles": 16957
+    },
+    {
+      "serial": 263,
+      "pose": 71,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5656,
+      "totalCpuCycles": 17038
+    },
+    {
+      "serial": 264,
+      "pose": 72,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5660,
+      "totalCpuCycles": 17042
+    },
+    {
+      "serial": 265,
+      "pose": 73,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5741,
+      "totalCpuCycles": 17123
+    },
+    {
+      "serial": 266,
+      "pose": 74,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 267,
+      "pose": 75,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 268,
+      "pose": 76,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5743,
+      "totalCpuCycles": 17125
+    },
+    {
+      "serial": 269,
+      "pose": 77,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 270,
+      "pose": 78,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5986,
+      "totalCpuCycles": 17368
+    },
+    {
+      "serial": 271,
+      "pose": 79,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6636,
+      "totalCpuCycles": 18018
+    },
+    {
+      "serial": 272,
+      "pose": 80,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5966,
+      "totalCpuCycles": 17348
+    },
+    {
+      "serial": 273,
+      "pose": 81,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6225,
+      "totalCpuCycles": 17607
+    },
+    {
+      "serial": 274,
+      "pose": 82,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 275,
+      "pose": 83,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6308,
+      "totalCpuCycles": 17690
+    },
+    {
+      "serial": 276,
+      "pose": 84,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 277,
+      "pose": 85,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6452,
+      "totalCpuCycles": 17834
+    },
+    {
+      "serial": 278,
+      "pose": 86,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5822,
+      "totalCpuCycles": 17204
+    },
+    {
+      "serial": 279,
+      "pose": 87,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5903,
+      "totalCpuCycles": 17285
+    },
+    {
+      "serial": 280,
+      "pose": 88,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6144,
+      "totalCpuCycles": 17526
+    },
+    {
+      "serial": 281,
+      "pose": 89,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6227,
+      "totalCpuCycles": 17609
+    },
+    {
+      "serial": 282,
+      "pose": 90,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6290,
+      "totalCpuCycles": 17672
+    },
+    {
+      "serial": 283,
+      "pose": 91,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5561,
+      "totalCpuCycles": 16943
+    },
+    {
+      "serial": 284,
+      "pose": 92,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5804,
+      "totalCpuCycles": 17186
+    },
+    {
+      "serial": 285,
+      "pose": 93,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5885,
+      "totalCpuCycles": 17267
+    },
+    {
+      "serial": 286,
+      "pose": 94,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6128,
+      "totalCpuCycles": 17510
+    },
+    {
+      "serial": 287,
+      "pose": 95,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 6191,
+      "totalCpuCycles": 17573
+    },
+    {
+      "serial": 288,
+      "pose": 96,
+      "setupCpuCycles": 51,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5624,
+      "totalCpuCycles": 17006
+    },
+    {
+      "serial": 289,
+      "pose": 1,
+      "setupCpuCycles": 52,
+      "clearCpuCycles": 11331,
+      "renderCpuCycles": 5705,
+      "totalCpuCycles": 17088
+    }
+  ]
+}

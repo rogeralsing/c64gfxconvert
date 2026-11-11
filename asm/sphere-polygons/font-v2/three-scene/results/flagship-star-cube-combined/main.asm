@@ -1,0 +1,11 @@
+.var lowMovieData=LoadBinary("movie-low.bin")
+.var highMovieData=LoadBinary("movie-high.bin")
+.var absoluteIndexData=LoadBinary("frame-pointers-absolute.bin")
+.var waveData=LoadBinary("wave-ages.bin")
+.var stepModeData=LoadBinary("step-mode.bin")
+.var stepObjectData=LoadBinary("step-object.bin")
+.var budgetData=LoadBinary("preparation-budgets.bin")
+.var fontData=LoadBinary("font.bin")
+.var hData=LoadBinary("h-lut.bin")
+.var vData=LoadBinary("v-lut.bin")
+.import source "sources/asm/sphere-polygons/font-v2/span-combined-player.asm"

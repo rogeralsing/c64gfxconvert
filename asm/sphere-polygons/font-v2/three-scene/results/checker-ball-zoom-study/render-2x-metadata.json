@@ -1,0 +1,644 @@
+{
+  "name": "pal-checker-ball",
+  "title": "Schackboll med 14 × 7 rutor",
+  "description": "En stor svartvit schackboll roterar kring sin egen lutande axel med en liten periodisk rörelse.",
+  "width": 320,
+  "height": 200,
+  "fps": 25,
+  "durationSeconds": 3.88,
+  "frameCount": 97,
+  "frameBytes": 8000,
+  "framesFile": "bitmap.frames",
+  "format": "packed1bit",
+  "bitOrder": "MSB-first",
+  "rowOrder": "top-to-bottom",
+  "quantization": {
+    "mode": "ordered",
+    "threshold": null,
+    "luminance": "Rec.709 integer approximation, composited against black",
+    "matrix": "4x4 Bayer, fixed to screen coordinates"
+  },
+  "renderer": {
+    "engine": "Three.js WebGPURenderer",
+    "revision": "187",
+    "nativeWebGPU": "webgpu 0.6.2 (Dawn)",
+    "backend": "metal",
+    "canvasContextRequests": 0,
+    "browserUsed": false,
+    "targetColorSpace": "srgb",
+    "antialias": false
+  },
+  "source": "../../../../../../c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/checker-ball-zoom-study/scene-2x.mjs",
+  "sceneSource": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/checker-ball-zoom-study/scene-2x.mjs",
+  "sourceSha256": "cbe3c0cef7b417d62533cf693cf3ff13f6682152582b2e5aaa14f19a43d9cca7",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/three-scene/demo-checker-ball.mjs",
+      "sha256": "aa7cee6aa351eb6c2466b4f90b8625f68542d592d6be507f78f5dc42518922e2"
+    }
+  ],
+  "hashes": {
+    "frames": "087756f152a9df16daf8088f7d1e033a13ad033eab429b7b7a4c75d8df5a697d",
+    "rgba": null,
+    "objectMask": "a2f113fee776764cda4d4cfbafdc0ed6fa5c6b8d2e26f2021db5026134252c32"
+  },
+  "rgbaFile": null,
+  "objectMaskFile": "object-mask.frames",
+  "objectMaskScope": "Diagnostic only: identical mesh poses rendered with an opaque white MeshBasicMaterial override on black.",
+  "verification": {
+    "firstFrameBlack": true,
+    "deterministicSampleTimes": true,
+    "allFramesReadFromGPU": true
+  },
+  "phaseLabels": {
+    "blank": "Tom startbild",
+    "sphere": "Roterande schackboll"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "time": 0,
+      "phase": "blank"
+    },
+    {
+      "index": 1,
+      "time": 0.04,
+      "phase": "sphere"
+    },
+    {
+      "index": 2,
+      "time": 0.08,
+      "phase": "sphere"
+    },
+    {
+      "index": 3,
+      "time": 0.12,
+      "phase": "sphere"
+    },
+    {
+      "index": 4,
+      "time": 0.16,
+      "phase": "sphere"
+    },
+    {
+      "index": 5,
+      "time": 0.2,
+      "phase": "sphere"
+    },
+    {
+      "index": 6,
+      "time": 0.24,
+      "phase": "sphere"
+    },
+    {
+      "index": 7,
+      "time": 0.28,
+      "phase": "sphere"
+    },
+    {
+      "index": 8,
+      "time": 0.32,
+      "phase": "sphere"
+    },
+    {
+      "index": 9,
+      "time": 0.36,
+      "phase": "sphere"
+    },
+    {
+      "index": 10,
+      "time": 0.4,
+      "phase": "sphere"
+    },
+    {
+      "index": 11,
+      "time": 0.44,
+      "phase": "sphere"
+    },
+    {
+      "index": 12,
+      "time": 0.48,
+      "phase": "sphere"
+    },
+    {
+      "index": 13,
+      "time": 0.52,
+      "phase": "sphere"
+    },
+    {
+      "index": 14,
+      "time": 0.56,
+      "phase": "sphere"
+    },
+    {
+      "index": 15,
+      "time": 0.6,
+      "phase": "sphere"
+    },
+    {
+      "index": 16,
+      "time": 0.64,
+      "phase": "sphere"
+    },
+    {
+      "index": 17,
+      "time": 0.68,
+      "phase": "sphere"
+    },
+    {
+      "index": 18,
+      "time": 0.72,
+      "phase": "sphere"
+    },
+    {
+      "index": 19,
+      "time": 0.76,
+      "phase": "sphere"
+    },
+    {
+      "index": 20,
+      "time": 0.8,
+      "phase": "sphere"
+    },
+    {
+      "index": 21,
+      "time": 0.84,
+      "phase": "sphere"
+    },
+    {
+      "index": 22,
+      "time": 0.88,
+      "phase": "sphere"
+    },
+    {
+      "index": 23,
+      "time": 0.92,
+      "phase": "sphere"
+    },
+    {
+      "index": 24,
+      "time": 0.96,
+      "phase": "sphere"
+    },
+    {
+      "index": 25,
+      "time": 1,
+      "phase": "sphere"
+    },
+    {
+      "index": 26,
+      "time": 1.04,
+      "phase": "sphere"
+    },
+    {
+      "index": 27,
+      "time": 1.08,
+      "phase": "sphere"
+    },
+    {
+      "index": 28,
+      "time": 1.12,
+      "phase": "sphere"
+    },
+    {
+      "index": 29,
+      "time": 1.16,
+      "phase": "sphere"
+    },
+    {
+      "index": 30,
+      "time": 1.2,
+      "phase": "sphere"
+    },
+    {
+      "index": 31,
+      "time": 1.24,
+      "phase": "sphere"
+    },
+    {
+      "index": 32,
+      "time": 1.28,
+      "phase": "sphere"
+    },
+    {
+      "index": 33,
+      "time": 1.32,
+      "phase": "sphere"
+    },
+    {
+      "index": 34,
+      "time": 1.36,
+      "phase": "sphere"
+    },
+    {
+      "index": 35,
+      "time": 1.4,
+      "phase": "sphere"
+    },
+    {
+      "index": 36,
+      "time": 1.44,
+      "phase": "sphere"
+    },
+    {
+      "index": 37,
+      "time": 1.48,
+      "phase": "sphere"
+    },
+    {
+      "index": 38,
+      "time": 1.52,
+      "phase": "sphere"
+    },
+    {
+      "index": 39,
+      "time": 1.56,
+      "phase": "sphere"
+    },
+    {
+      "index": 40,
+      "time": 1.6,
+      "phase": "sphere"
+    },
+    {
+      "index": 41,
+      "time": 1.64,
+      "phase": "sphere"
+    },
+    {
+      "index": 42,
+      "time": 1.68,
+      "phase": "sphere"
+    },
+    {
+      "index": 43,
+      "time": 1.72,
+      "phase": "sphere"
+    },
+    {
+      "index": 44,
+      "time": 1.76,
+      "phase": "sphere"
+    },
+    {
+      "index": 45,
+      "time": 1.8,
+      "phase": "sphere"
+    },
+    {
+      "index": 46,
+      "time": 1.84,
+      "phase": "sphere"
+    },
+    {
+      "index": 47,
+      "time": 1.88,
+      "phase": "sphere"
+    },
+    {
+      "index": 48,
+      "time": 1.92,
+      "phase": "sphere"
+    },
+    {
+      "index": 49,
+      "time": 1.96,
+      "phase": "sphere"
+    },
+    {
+      "index": 50,
+      "time": 2,
+      "phase": "sphere"
+    },
+    {
+      "index": 51,
+      "time": 2.04,
+      "phase": "sphere"
+    },
+    {
+      "index": 52,
+      "time": 2.08,
+      "phase": "sphere"
+    },
+    {
+      "index": 53,
+      "time": 2.12,
+      "phase": "sphere"
+    },
+    {
+      "index": 54,
+      "time": 2.16,
+      "phase": "sphere"
+    },
+    {
+      "index": 55,
+      "time": 2.2,
+      "phase": "sphere"
+    },
+    {
+      "index": 56,
+      "time": 2.24,
+      "phase": "sphere"
+    },
+    {
+      "index": 57,
+      "time": 2.28,
+      "phase": "sphere"
+    },
+    {
+      "index": 58,
+      "time": 2.32,
+      "phase": "sphere"
+    },
+    {
+      "index": 59,
+      "time": 2.36,
+      "phase": "sphere"
+    },
+    {
+      "index": 60,
+      "time": 2.4,
+      "phase": "sphere"
+    },
+    {
+      "index": 61,
+      "time": 2.44,
+      "phase": "sphere"
+    },
+    {
+      "index": 62,
+      "time": 2.48,
+      "phase": "sphere"
+    },
+    {
+      "index": 63,
+      "time": 2.52,
+      "phase": "sphere"
+    },
+    {
+      "index": 64,
+      "time": 2.56,
+      "phase": "sphere"
+    },
+    {
+      "index": 65,
+      "time": 2.6,
+      "phase": "sphere"
+    },
+    {
+      "index": 66,
+      "time": 2.64,
+      "phase": "sphere"
+    },
+    {
+      "index": 67,
+      "time": 2.68,
+      "phase": "sphere"
+    },
+    {
+      "index": 68,
+      "time": 2.72,
+      "phase": "sphere"
+    },
+    {
+      "index": 69,
+      "time": 2.76,
+      "phase": "sphere"
+    },
+    {
+      "index": 70,
+      "time": 2.8,
+      "phase": "sphere"
+    },
+    {
+      "index": 71,
+      "time": 2.84,
+      "phase": "sphere"
+    },
+    {
+      "index": 72,
+      "time": 2.88,
+      "phase": "sphere"
+    },
+    {
+      "index": 73,
+      "time": 2.92,
+      "phase": "sphere"
+    },
+    {
+      "index": 74,
+      "time": 2.96,
+      "phase": "sphere"
+    },
+    {
+      "index": 75,
+      "time": 3,
+      "phase": "sphere"
+    },
+    {
+      "index": 76,
+      "time": 3.04,
+      "phase": "sphere"
+    },
+    {
+      "index": 77,
+      "time": 3.08,
+      "phase": "sphere"
+    },
+    {
+      "index": 78,
+      "time": 3.12,
+      "phase": "sphere"
+    },
+    {
+      "index": 79,
+      "time": 3.16,
+      "phase": "sphere"
+    },
+    {
+      "index": 80,
+      "time": 3.2,
+      "phase": "sphere"
+    },
+    {
+      "index": 81,
+      "time": 3.24,
+      "phase": "sphere"
+    },
+    {
+      "index": 82,
+      "time": 3.28,
+      "phase": "sphere"
+    },
+    {
+      "index": 83,
+      "time": 3.32,
+      "phase": "sphere"
+    },
+    {
+      "index": 84,
+      "time": 3.36,
+      "phase": "sphere"
+    },
+    {
+      "index": 85,
+      "time": 3.4,
+      "phase": "sphere"
+    },
+    {
+      "index": 86,
+      "time": 3.44,
+      "phase": "sphere"
+    },
+    {
+      "index": 87,
+      "time": 3.48,
+      "phase": "sphere"
+    },
+    {
+      "index": 88,
+      "time": 3.52,
+      "phase": "sphere"
+    },
+    {
+      "index": 89,
+      "time": 3.56,
+      "phase": "sphere"
+    },
+    {
+      "index": 90,
+      "time": 3.6,
+      "phase": "sphere"
+    },
+    {
+      "index": 91,
+      "time": 3.64,
+      "phase": "sphere"
+    },
+    {
+      "index": 92,
+      "time": 3.68,
+      "phase": "sphere"
+    },
+    {
+      "index": 93,
+      "time": 3.72,
+      "phase": "sphere"
+    },
+    {
+      "index": 94,
+      "time": 3.76,
+      "phase": "sphere"
+    },
+    {
+      "index": 95,
+      "time": 3.8,
+      "phase": "sphere"
+    },
+    {
+      "index": 96,
+      "time": 3.84,
+      "phase": "sphere"
+    }
+  ],
+  "litPixels": [
+    0,
+    13003,
+    12989,
+    12978,
+    12976,
+    12986,
+    12980,
+    12975,
+    12967,
+    12970,
+    12979,
+    12973,
+    12973,
+    12971,
+    12993,
+    12985,
+    12967,
+    12967,
+    12959,
+    12963,
+    12985,
+    12971,
+    12973,
+    12959,
+    12965,
+    12968,
+    12958,
+    12983,
+    12967,
+    12965,
+    12989,
+    13002,
+    12987,
+    12977,
+    12994,
+    12987,
+    12975,
+    12982,
+    12990,
+    12937,
+    12951,
+    12971,
+    12985,
+    12979,
+    12986,
+    12984,
+    12988,
+    12989,
+    12986,
+    12981,
+    12998,
+    12994,
+    12989,
+    13006,
+    12997,
+    12980,
+    12951,
+    12990,
+    12950,
+    12952,
+    12951,
+    12975,
+    12964,
+    12956,
+    12981,
+    12978,
+    12991,
+    12993,
+    12958,
+    12968,
+    12981,
+    12966,
+    12980,
+    12981,
+    12993,
+    12970,
+    12983,
+    12980,
+    12970,
+    12984,
+    13014,
+    12964,
+    13000,
+    12966,
+    12965,
+    12998,
+    12973,
+    12965,
+    12969,
+    12995,
+    12955,
+    12996,
+    12974,
+    12970,
+    12983,
+    12953,
+    12998
+  ],
+  "hostRenderSeconds": 2.016613875
+}

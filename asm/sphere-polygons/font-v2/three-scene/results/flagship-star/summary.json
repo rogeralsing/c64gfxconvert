@@ -1,34 +1,73 @@
 {
   "pass": true,
-  "sourceSha256": "26788e19aa11c2feafb4fab00e3d5ab1ec1b5214df4451cb5dbc4284966be677",
-  "programSha256": "32be36dcb381f22e21aca2e4bdf41db752ec3c3c96dfbd56d5c87c7f3c2fd6b2",
+  "sourceSha256": "f4d992adeea16d6092751022ad6b9323b0dc4ebae2a92e63fb9f883149c9b4b5",
+  "programSha256": "44c815dbd54221f19246de0c879abca3a3067514cec60306dda0c4d542c101ad",
   "fontSha256": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
   "fontUnchanged": true,
+  "fontMode": "fixed256",
   "storedFrames": 97,
   "loopFrames": 96,
   "nominalFps": 25,
-  "nativeFps": 25.062264421417016,
+  "nativeFps": 25.062271062271062,
   "nominalLoopSeconds": 3.84,
-  "measuredLoopSeconds": 3.830458930137387,
-  "payloadBytes": 20419,
-  "meaningfulLoadedBytes": 23710,
-  "ordinaryMainRamBytes": 24743,
-  "programBytes": 30660,
-  "unusedDataArenaBytes": 20541,
+  "measuredLoopSeconds": 3.830458422650947,
+  "payloadBytes": 15272,
+  "meaningfulLoadedBytes": 18563,
+  "ordinaryMainRamBytes": 19596,
+  "programBytes": 25513,
+  "unusedDataArenaBytes": 25688,
   "actualVisibleFieldsVerified": 578,
   "displayedImagesVerified": 289,
   "loopWrapsVerified": 2,
   "actualUnwrappedSymmetryVerified": true,
   "angularVelocityContinuousAtLoop": true,
   "screenBorderPixels": 0,
-  "cameraHalfExtent": 53,
-  "cameraStretchX": 1.6,
-  "activeBoundsPixelErrorFraction": 0.022785610737933403,
-  "wholeFramePixelErrorFraction": 0.014708118556701032,
-  "objectMaskPixelErrorFraction": 0.07224557228038637,
+  "cameraHalfExtents": {
+    "horizontal": 79.41587301587302,
+    "vertical": 53
+  },
+  "displayVideoStandard": "PAL",
+  "displayPixelAspect": 0.9365079365079365,
+  "displayedUnitRatio": 1,
+  "circlePalBoundingBoxRatio": 0.9989417989417989,
+  "viceAspectMode": 2,
+  "nativeRaster": [
+    320,
+    200
+  ],
+  "palDisplayRasterEquivalent": [
+    299.6825396825397,
+    200
+  ],
+  "activeBoundsPixelErrorFraction": 0.026211549010506773,
+  "wholeFramePixelErrorFraction": 0.011214239690721649,
+  "objectMaskPixelErrorFraction": 0.08256012523125089,
   "outputWhiteOutsideObject": 0,
-  "gifSource": "Actual verified PAL VICE screenshots",
+  "gifSource": "Actual verified PAL VICE screenshots, active320x200 crop resized with nearest samples",
   "gifFrames": 96,
   "gifFrameDurationMs": 40,
-  "gifDecodedPixelsVerified": true
+  "gifDecodedPixelsVerified": true,
+  "palGif": {
+    "file": "c64.gif",
+    "size": [
+      599,
+      400
+    ],
+    "frames": 96,
+    "blocks": 96,
+    "durationMs": 3840,
+    "decodedPixelsVerified": true
+  },
+  "rawGif": {
+    "file": "c64-raw.gif",
+    "size": [
+      640,
+      400
+    ],
+    "frames": 96,
+    "blocks": 96,
+    "durationMs": 3840,
+    "decodedPixelsVerified": true
+  },
+  "palGifPixelAspectRoundingErrorFraction": -0.0006091101694916112
 }

@@ -1,0 +1,41 @@
+{
+  "pose": 6,
+  "beforeOriginalScreenshot": "field-0205-serial-102-pose-006.png",
+  "afterOriginalScreenshot": "field-0205-serial-102-pose-006.png",
+  "bothActualNativeImagesMatchedTheirGlyphReferences": true,
+  "glyphExamples": [
+    {
+      "sourceGlyph": 216,
+      "sourceCell": [
+        16,
+        11
+      ],
+      "actualTopRightCell": [
+        23,
+        11
+      ],
+      "oldHtarget": 73,
+      "newHtarget": 216,
+      "oldInk": 61,
+      "newInk": 52
+    },
+    {
+      "sourceGlyph": 200,
+      "sourceCell": [
+        19,
+        11
+      ],
+      "actualTopRightCell": [
+        20,
+        11
+      ],
+      "oldHtarget": 52,
+      "newHtarget": 200,
+      "oldInk": 21,
+      "newInk": 36
+    }
+  ],
+  "oldGeometricPixelErrorFraction": 0.011864368556701031,
+  "newGeometricPixelErrorFraction": 0.023605186855670104,
+  "geometricErrorIsNotTextureQualityScore": true
+}
