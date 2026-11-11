@@ -1,0 +1,703 @@
+{
+  "songs": {
+    "4mats-madness": {
+      "source_sha256": "e0b3b0d767b5544d3f6264c7207e7bfa2bc149c18fcf68ca049add9e7341c398",
+      "instruments": {
+        "10": {
+          "recipe": {
+            "source_instrument": 10,
+            "name": "greets to:",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "low transient drum impact",
+            "measurement": {
+              "source_instrument_name": "greets to:",
+              "sample_sha256": "3a2090efb48f902f69906755cb9ac2fcdfc3874baf94c39040dc6e73102b92e4",
+              "original_bytes": 2974,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 214,
+              "energy90_ms": 50.08,
+              "energy99_ms": 154.879,
+              "dominant_quarter_peaks_hz": [
+                104.2,
+                128.5,
+                152.8,
+                101.2
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.28509251360343657,
+                  "flatness": 0.023599334648552187,
+                  "high_band_energy": 0.043688618805380636
+                },
+                {
+                  "region": "body",
+                  "acf": 0.8402343748565955,
+                  "flatness": 0.03275730710404618,
+                  "high_band_energy": 0.05188641202115291
+                }
+              ],
+              "selected_clip_source_range_s": [
+                48.640000000002004,
+                68.64000000000348
+              ],
+              "hits_and_periods_by_channel": {
+                "3": {
+                  "hits": 9,
+                  "periods": [
+                    226
+                  ]
+                },
+                "4": {
+                  "hits": 35,
+                  "periods": [
+                    214
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        },
+        "11": {
+          "recipe": {
+            "source_instrument": 11,
+            "name": "purple om and morph",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "noise-then-triangle-sweep",
+            "base_hz": 50,
+            "reference_period": 202,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "noise_control": 129,
+            "noise_divisor": 16,
+            "noise_duration_s": 0.02,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "short falling pitched drum/tom",
+            "measurement": {
+              "source_instrument_name": "purple om and morph",
+              "sample_sha256": "0d6fafb036ad08236f12fbd8405eb6e39e3560ca883685da59ce18771b91ae78",
+              "original_bytes": 1174,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 170,
+              "energy90_ms": 36.57,
+              "energy99_ms": 49.894,
+              "dominant_quarter_peaks_hz": [
+                323.5,
+                296.7,
+                284.0,
+                208.8
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.6319541955838852,
+                  "flatness": 0.0454728865889384,
+                  "high_band_energy": 0.0596789292022263
+                },
+                {
+                  "region": "body",
+                  "acf": 0.6113834982928344,
+                  "flatness": 0.048552206567161804,
+                  "high_band_energy": 0.05713272460876898
+                }
+              ],
+              "selected_clip_source_range_s": [
+                48.640000000002004,
+                68.64000000000348
+              ],
+              "hits_and_periods_by_channel": {
+                "3": {
+                  "hits": 9,
+                  "periods": [
+                    226
+                  ]
+                },
+                "4": {
+                  "hits": 26,
+                  "periods": [
+                    170
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/02-high-kick.json",
+              "sha256": "79e7782c5574ff479c20175c5cc4e42ec9c14ee9de30fdecb823eef86d61ff0f"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        },
+        "13": {
+          "recipe": {
+            "source_instrument": 13,
+            "name": "and all in anarchy",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "low falling drum/tom",
+            "measurement": {
+              "source_instrument_name": "and all in anarchy",
+              "sample_sha256": "006c26c1fcd5b6865bfe4fbc8b21473c22e2c4c1e14aeca1e7a2068f3079086f",
+              "original_bytes": 3140,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 170,
+              "energy90_ms": 79.51,
+              "energy99_ms": 120.782,
+              "dominant_quarter_peaks_hz": [
+                108.2,
+                100.6,
+                95.5,
+                91.7
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.9484464022529627,
+                  "flatness": 0.0020989791351728113,
+                  "high_band_energy": 0.0030300663223131645
+                },
+                {
+                  "region": "body",
+                  "acf": 0.6904561129814328,
+                  "flatness": 0.0016827229658531173,
+                  "high_band_energy": 0.0017354032160087388
+                }
+              ],
+              "selected_clip_source_range_s": [
+                48.640000000002004,
+                68.64000000000348
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 14,
+                  "periods": [
+                    170
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        }
+      }
+    },
+    "global-trash-3": {
+      "source_sha256": "48044e1150b807bd772b76ac51849ad098fc173cc5a2b26db05a83c8e444a0e3",
+      "instruments": {
+        "6": {
+          "recipe": {
+            "source_instrument": 6,
+            "name": "St-00:artnoiseting4",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "falling bass-drum impact",
+            "measurement": {
+              "source_instrument_name": "St-00:artnoiseting4",
+              "sample_sha256": "7247837d7a26e6ff7f30553a4842a217e7c906458fcc1dcf5986621f49839194",
+              "original_bytes": 2710,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 381,
+              "energy90_ms": 228.59,
+              "energy99_ms": 280.038,
+              "dominant_quarter_peaks_hz": [
+                114.2,
+                56.3,
+                50.6,
+                49.4
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.633290492705994,
+                  "flatness": 0.022506548192856732,
+                  "high_band_energy": 0.05313457167990471
+                },
+                {
+                  "region": "body",
+                  "acf": 0.7431803787125174,
+                  "flatness": 0.01931460892402247,
+                  "high_band_energy": 0.056579919769889124
+                }
+              ],
+              "selected_clip_source_range_s": [
+                0.0,
+                19.999999999999662
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 8,
+                  "periods": [
+                    381
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        },
+        "16": {
+          "recipe": {
+            "source_instrument": 16,
+            "name": "St-00:artnoiseting4",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "falling bass-drum impact",
+            "measurement": {
+              "source_instrument_name": "St-00:artnoiseting4",
+              "sample_sha256": "9e44ac48a9d277e025ef4765f1e378f8285cbc61b78e493519922fe2642ab4b6",
+              "original_bytes": 2968,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 381,
+              "energy90_ms": 237.61,
+              "energy99_ms": 272.197,
+              "dominant_quarter_peaks_hz": [
+                149.4,
+                55.1,
+                50.6,
+                50.6
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.5555886590213172,
+                  "flatness": 0.008077499771284139,
+                  "high_band_energy": 0.004903251274590125
+                },
+                {
+                  "region": "body",
+                  "acf": 0.7463857436152062,
+                  "flatness": 0.003081234458221597,
+                  "high_band_energy": 0.001779535072111646
+                }
+              ],
+              "selected_clip_source_range_s": [
+                0.0,
+                19.999999999999662
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 8,
+                  "periods": [
+                    381
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        },
+        "17": {
+          "recipe": {
+            "source_instrument": 17,
+            "name": "ST-19:slamhiqual3",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "low slam/bass-drum hit",
+            "measurement": {
+              "source_instrument_name": "ST-19:slamhiqual3",
+              "sample_sha256": "8c457b42f52221557085a4b407603151eabe240539cef0a11a89fbf6972745ed",
+              "original_bytes": 4666,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 180,
+              "energy90_ms": 61.1,
+              "energy99_ms": 120.477,
+              "dominant_quarter_peaks_hz": [
+                89.0,
+                79.4,
+                81.8,
+                77.0
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.9159166603731376,
+                  "flatness": 0.007010517309336587,
+                  "high_band_energy": 0.009060714966347415
+                },
+                {
+                  "region": "body",
+                  "acf": 0.27428027539879435,
+                  "flatness": 0.007196006453355266,
+                  "high_band_energy": 0.010928604604046157
+                }
+              ],
+              "selected_clip_source_range_s": [
+                0.0,
+                19.999999999999662
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 16,
+                  "periods": [
+                    180
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        }
+      }
+    },
+    "condom-corruption": {
+      "source_sha256": "f74f635926482845decf2ecdf214e1f53f7100a41871609f5c6789940fc1ef14",
+      "instruments": {
+        "4": {
+          "recipe": {
+            "source_instrument": 4,
+            "name": "duration : 3min 24sek",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "noise-then-triangle-sweep",
+            "base_hz": 50,
+            "reference_period": 202,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "noise_control": 129,
+            "noise_divisor": 16,
+            "noise_duration_s": 0.02,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "short mixed-noise falling drum hit",
+            "measurement": {
+              "source_instrument_name": "duration : 3min 24sek\u0003",
+              "sample_sha256": "113c75adbf0d5a413a001e7c7219111abf2e8a1ea6e7b69d4bd378e76b012fc1",
+              "original_bytes": 1594,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 155,
+              "energy90_ms": 50.04,
+              "energy99_ms": 58.121,
+              "dominant_quarter_peaks_hz": [
+                150.8,
+                139.7,
+                128.5,
+                115.9
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.5849208292141034,
+                  "flatness": 0.20012679855297358,
+                  "high_band_energy": 0.21156370104366323
+                },
+                {
+                  "region": "body",
+                  "acf": 0.5804709855562616,
+                  "flatness": 0.2342091009523674,
+                  "high_band_energy": 0.2088466299011806
+                }
+              ],
+              "selected_clip_source_range_s": [
+                28.873383458646657,
+                48.873383458643495
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 38,
+                  "periods": [
+                    146,
+                    155,
+                    174
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/02-high-kick.json",
+              "sha256": "79e7782c5574ff479c20175c5cc4e42ec9c14ee9de30fdecb823eef86d61ff0f"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        },
+        "5": {
+          "recipe": {
+            "source_instrument": 5,
+            "name": "yes, this is the",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.1,
+            "program": "triangle-sweep",
+            "base_hz": 55,
+            "reference_period": 302,
+            "sweep_depth": 3,
+            "sweep_decay_s": 0.018,
+            "triangle_control": 17,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "low percussive bass-drum hit",
+            "measurement": {
+              "source_instrument_name": "yes, this is the  \b",
+              "sample_sha256": "6a68a007a3c9fede2b6c895c70118919b7664eaa2326875d2e05003477cd583d",
+              "original_bytes": 4190,
+              "loop_start": 0,
+              "loop_length": 2,
+              "reference_period": 214,
+              "energy90_ms": 183.24,
+              "energy99_ms": 220.643,
+              "dominant_quarter_peaks_hz": [
+                211.4,
+                61.7,
+                62.7,
+                64.7
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.7023318390702348,
+                  "flatness": 0.0058010062989117565,
+                  "high_band_energy": 0.0027719202466187113
+                },
+                {
+                  "region": "body",
+                  "acf": 0.7939207489668819,
+                  "flatness": 0.0027668480791665302,
+                  "high_band_energy": 0.001698030854201841
+                }
+              ],
+              "selected_clip_source_range_s": [
+                28.873383458646657,
+                48.873383458643495
+              ],
+              "hits_and_periods_by_channel": {
+                "4": {
+                  "hits": 100,
+                  "periods": [
+                    202,
+                    214,
+                    240
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/01-kick.json",
+              "sha256": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        }
+      }
+    },
+    "elektrik-funk": {
+      "source_sha256": "9d7ce6b7f334f31b44f5949054e953f773784ad6470344e31387e76a3aa90ec4",
+      "instruments": {
+        "19": {
+          "recipe": {
+            "source_instrument": 19,
+            "name": "elektrik-funk instrument 19",
+            "kind": "sid",
+            "sustain": 1,
+            "rest_control": 25,
+            "rms_gate_ratio": 0.1,
+            "duration_s": 0.06,
+            "program": "noise",
+            "noise_control": 129,
+            "noise_divisor": 16,
+            "description": "Quiet triangle/noise approximation of the source percussion; duration and source RMS gate end the synthesized tail."
+          },
+          "analysis": {
+            "decision": "approved_percussion_substitution",
+            "role": "high-band cymbal/hi-hat noise",
+            "measurement": {
+              "source_instrument_name": "",
+              "sample_sha256": "739ef294bac01e1994a5b4088b6023726a19d43d00c920d8a499bc472048e88f",
+              "original_bytes": 7164,
+              "loop_start": 5178,
+              "loop_length": 1986,
+              "reference_period": 127,
+              "energy90_ms": 204.67,
+              "energy99_ms": 249.066,
+              "dominant_quarter_peaks_hz": [
+                13449.4,
+                7607.7,
+                8444.6,
+                7931.5
+              ],
+              "regions": [
+                {
+                  "region": "attack",
+                  "acf": 0.14376087735702728,
+                  "flatness": 0.17182723967674993,
+                  "high_band_energy": 0.8322848944397276
+                },
+                {
+                  "region": "body",
+                  "acf": 0.17390467885393393,
+                  "flatness": 0.19514980820036856,
+                  "high_band_energy": 0.8306411986352722
+                },
+                {
+                  "region": "loop",
+                  "acf": 0.21787851116589815,
+                  "flatness": 0.06154707087404068,
+                  "high_band_energy": 0.8119489606616629
+                }
+              ],
+              "selected_clip_source_range_s": [
+                56.34000000000321,
+                76.34000000000195
+              ],
+              "hits_and_periods_by_channel": {
+                "1": {
+                  "hits": 1,
+                  "periods": [
+                    127
+                  ]
+                },
+                "4": {
+                  "hits": 5,
+                  "periods": [
+                    127
+                  ]
+                }
+              }
+            },
+            "template": {
+              "path": "instruments/cream-of-the-earth/05-hi-hat.json",
+              "sha256": "2d86bb7f7f31d6f8220724b3bb424ce61b0f63ac8bc7a5e8edd9119d7026108f"
+            },
+            "tradeoff": "Intentional approved-kit substitution for this20-second audition. Source hit timing and source-period scaling remain; original resonant pitch, spectrum and recorded decay are not matched. The unchanged Cream template supplies its quiet sustain, waveform program and maximum duration; source RMS gating may end it earlier. The source noise loop/cymbal tail is replaced by the approved short hi-hat tail, not reproduced as a sustained noise recording.",
+            "confidence": "high",
+            "recommendation": "sid",
+            "listening_status": "unreviewed"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,460 @@
+{
+  "status": "recorded_for_listening",
+  "songs": 19,
+  "source_channel_counts": {
+    "3": 14,
+    "2": 5
+  },
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "sample_values_verified": 2970921,
+  "sid_writes_verified": 115086,
+  "underruns": 0,
+  "accepted_references_unchanged": true,
+  "listening_status": "Three previews rejected; Global Trash melody solo accepted. New Stardust/Desert solos and other previews await review. Digital correctness is separate from sound quality",
+  "artifacts": {
+    "4mats-madness": {
+      "audio_sha256": "e81f970e83dc96f6c00382cdbaf371923e0b8fb433579450ea764be873704d5c",
+      "program_sha256": "2b6dda6cb83ce2876ccff63e95ec85d8e17097ff0ca8fe3b619fcb0779a9f679",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        48.640000000002004,
+        68.64000000000348
+      ],
+      "source_channels": {
+        "sampled": [
+          3
+        ],
+        "sid": [
+          4,
+          1
+        ],
+        "omitted": [
+          2
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "condom-corruption": {
+      "audio_sha256": "b03d1b45ec3ff6622d4be4110faa4c8c9462aae8817e8b823223f47ca3fadbb7",
+      "program_sha256": "c008dc1a1c8a956f92d202f86c8d46784ee8ecf25aee356e099b62d9359c6ae7",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        28.873383458646657,
+        48.873383458643495
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          4,
+          3
+        ],
+        "omitted": [
+          2
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "cream-of-the-earth": {
+      "audio_sha256": "d7e87193331475a7190f146f6992a0c5dd6bb697782aa14534cb490293bcb525",
+      "program_sha256": "8e04f07e0db03d04aca41b45acf7dc0f8da327181d02cf3766ed114b8a37b0d1",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        17.919999999999707,
+        37.92000000000033
+      ],
+      "source_channels": {
+        "sampled": [
+          2
+        ],
+        "sid": [
+          3,
+          4
+        ],
+        "omitted": [
+          1
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "desert-dream-1": {
+      "audio_sha256": "195c7de1594c736006ae3adda34fbc811e918250ae33b3a8e3bcfb7300c1d989",
+      "program_sha256": "c243636aabeb5201b84b258e612bcd38366f6aa0adfb840165d059b4d3d817b7",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        35.55999999999996,
+        55.560000000003086
+      ],
+      "source_channels": {
+        "sampled": [
+          2
+        ],
+        "sid": [
+          4,
+          1
+        ],
+        "omitted": [
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "rejected"
+    },
+    "echoing": {
+      "audio_sha256": "437625f10803f9d6053ef38735ea0148c8924b5ec860a01465b7dae6c6191763",
+      "program_sha256": "69572d2444e3c1918126b412f314cfc62f678a22815fb547a42044e3f802519d",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        15.359999999999761,
+        35.35999999999993
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          4,
+          3
+        ],
+        "omitted": [
+          2
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "elektrik-funk": {
+      "audio_sha256": "a591cbb4d42ce4d79024a5ccd05f85ffea118bec4fc15072a752723ab0f0583d",
+      "program_sha256": "eb3105bf7844abb1bfa36e3fc94e8fb4743bca83d0fa4927a1fb5803dd61051a",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        56.34000000000321,
+        76.34000000000195
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          3
+        ],
+        "omitted": [
+          2,
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "elysium": {
+      "audio_sha256": "0cf8a0fc4ab657dbfd1fd624c86b47dbcb35a3a0b4a2b6fbcf124622df6fa57c",
+      "program_sha256": "86cde3bc3d17b2fbbd5697881c172e34f5c80ab634e4226ed36f016ca7dedcda",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        15.359999999999761,
+        35.35999999999993
+      ],
+      "source_channels": {
+        "sampled": [
+          2
+        ],
+        "sid": [
+          1,
+          4
+        ],
+        "omitted": [
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "global-trash-3": {
+      "audio_sha256": "11512ee7d0193e1fb5bdad25dea3a7dbcbebfe0eba0c0067d014064674f3a845",
+      "program_sha256": "ec971ff9959d8f68eb6ccbde32771eab37ca51c2872e5d6acb684d4d6853ece5",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        0.0,
+        19.999999999999662
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          4,
+          2
+        ],
+        "omitted": [
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "global-trash": {
+      "audio_sha256": "23ca70721266be6f109acd714c12865834e707b9cf057d7669b483ccdcd659b9",
+      "program_sha256": "97503a3eb5527a6020c85cc138a1cf9e1b64e96eff52d335ec6fcc51b417c1d8",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        68.96000000000342,
+        88.95999999999944
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          3
+        ],
+        "omitted": [
+          2,
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "rejected"
+    },
+    "guitar-slinger": {
+      "audio_sha256": "e7ebd2d13d8039bfe7099077dbcf567be5f000c4d90738f432b771750f3275e4",
+      "program_sha256": "06d5232e70bb3c5c6bd90f10c15d6ce21a593ee6260bd3af542e8f47bf6aa45d",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        32.37999999999946,
+        52.38000000000259
+      ],
+      "source_channels": {
+        "sampled": [
+          3
+        ],
+        "sid": [
+          1,
+          2
+        ],
+        "omitted": [
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "hyperbased": {
+      "audio_sha256": "3a6d40afa043b65fff637a2fa5cd0cd16a14950460db6a4c53f0970d05a947f8",
+      "program_sha256": "ced6189328c2753b02b1794bb6d71fb1c37486ed5c7c471ed8242cd3227a38c6",
+      "duration_s": 19.939954648526076,
+      "source_range_s": [
+        37.44000000000025,
+        57.38000000000337
+      ],
+      "source_channels": {
+        "sampled": [
+          4
+        ],
+        "sid": [
+          2,
+          1
+        ],
+        "omitted": [
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "klisje-paa-klisje": {
+      "audio_sha256": "bfa4ef16a3634b41eb1e1958d33c5b264ef96c30f776cfbfa34b094a9d49e8c8",
+      "program_sha256": "0b6848478fd14f2eb9ed17cf0e54a7d9ee151da1fc8e390786586c14a72f2fff",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        39.42000000000056,
+        59.42000000000369
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          3,
+          4
+        ],
+        "omitted": [
+          2
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "livin-insanity": {
+      "audio_sha256": "fa0bf1b93e3c8eb0627de15e10507599c47578150c557820c089175cd53a6d97",
+      "program_sha256": "7e4189672eb7321eb9f32085085cbec6e343c37ec0a36e803479d940b52dba4b",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        31.559999999999416,
+        51.56000000000246
+      ],
+      "source_channels": {
+        "sampled": [
+          4
+        ],
+        "sid": [
+          1
+        ],
+        "omitted": [
+          2,
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "madness-took-me": {
+      "audio_sha256": "b745c7098a77cfa0405a658ac68a2c258b8fd2863424d4bd033a8238a7345ac5",
+      "program_sha256": "5505bbfb65ebaf6acc6efc8c9868b62165c43c4897dca208a853117b890df6b6",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        23.039999999999598,
+        43.04000000000113
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          4,
+          2
+        ],
+        "omitted": [
+          3
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "mobyle": {
+      "audio_sha256": "8d51c1c344d75959e8902786eb77b5dce5df09b4d7b02965d71b335dabf76771",
+      "program_sha256": "aaf134b4d36fb3e89665436748d41f6f4fcf1cda76a208a1e403b55197e1c9af",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        103.83999999999648,
+        123.8399999999925
+      ],
+      "source_channels": {
+        "sampled": [
+          3
+        ],
+        "sid": [
+          1,
+          2
+        ],
+        "omitted": [
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "physical-presence": {
+      "audio_sha256": "9a0400962b16e2b6c0d33850496c427e284c6893d680510a52a4317628643c7a",
+      "program_sha256": "2baa7430812d0dde9dab404254263b4c2c835b230ce00c665e7ed46b419a5c62",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        6.859285714285766,
+        26.859285714285257
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          2,
+          3
+        ],
+        "omitted": [
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "rink-a-dink": {
+      "audio_sha256": "907d79568b8b2c744a8d3f7fe5fd6b4c77d6a0fa883a5a9818213fa46eb5edb3",
+      "program_sha256": "5becf6adfec96e2db32ce79d093b01ac7e6b882c73c0ebae20a8d418cff9ebaf",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        46.080000000001604,
+        66.08000000000399
+      ],
+      "source_channels": {
+        "sampled": [
+          3
+        ],
+        "sid": [
+          1
+        ],
+        "omitted": [
+          2,
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "space-debris": {
+      "audio_sha256": "f402e395d9fca49148e61e32a29007ac6ba4a9a9fd4058ca7596c17a6bc84e31",
+      "program_sha256": "611990b67dfa966c1d4c91bcbfe08f4cf25711f3d3665f02028e5e9ca747f606",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        38.400000000000404,
+        58.40000000000353
+      ],
+      "source_channels": {
+        "sampled": [
+          2
+        ],
+        "sid": [
+          3,
+          1
+        ],
+        "omitted": [
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "unreviewed"
+    },
+    "stardust-memories": {
+      "audio_sha256": "df678ca2c89cfb616ee852b060a68d75513e21358eaa8f1f1ef50ac62b42b0ac",
+      "program_sha256": "d8bafd822f1e366bfadaaeaec12e70d864d06018bfdee22e54a99796c1dea2a4",
+      "duration_s": 20.000045351473922,
+      "source_range_s": [
+        15.359999999999761,
+        35.35999999999993
+      ],
+      "source_channels": {
+        "sampled": [
+          1
+        ],
+        "sid": [
+          3
+        ],
+        "omitted": [
+          2,
+          4
+        ]
+      },
+      "native_passed": true,
+      "listening_status": "rejected"
+    }
+  }
+}

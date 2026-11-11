@@ -21,7 +21,7 @@ def source_mod(source: dict, out: Path) -> dict:
     cached = hybrid.base.MOD / "sources" / f"{slug}.mod"
     path = cached if slug and cached.exists() else out / "source.mod"
     if not path.exists():
-        with urllib.request.urlopen(source["download_url"], timeout=45) as response:
+        with urllib.request.urlopen(source.get("download_url") or source["source_url"], timeout=45) as response:
             data = response.read()
         if len(data) != source["bytes"]:
             raise ValueError("Downloaded MOD has the wrong size")

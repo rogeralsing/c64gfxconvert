@@ -1,0 +1,591 @@
+{
+  "source": {
+    "title": "Stardust Memories",
+    "composer": "Jester / Sanity (Volker Tripp)",
+    "demo": "World of Commodore, Sanity, November 1992",
+    "source_url": "https://media.demozoo.org/music/da/45/stardust.MOD",
+    "source_page": "https://demozoo.org/music/21462/",
+    "listen_page": "https://scenesat.com/track/755",
+    "format": "ProTracker MOD, M.K.",
+    "channels": 4,
+    "bytes": 152652,
+    "md5": "5fe8b898803c0c08afe317e302f64726",
+    "sha256": "e8a50357107f3e355af9380f81550445ebbd6cddd840f5f34008fa1ddda318bf",
+    "orders": 31,
+    "patterns": 19,
+    "active_samples": 16,
+    "sample_bytes": 132112,
+    "sample_headers": [
+      {
+        "id": 1,
+        "bytes": 10320,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 2,
+        "bytes": 7168,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 3,
+        "bytes": 2416,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 4,
+        "bytes": 1616,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 5,
+        "bytes": 3614,
+        "volume": 64,
+        "loop_start": 2770,
+        "loop_bytes": 844
+      },
+      {
+        "id": 6,
+        "bytes": 7904,
+        "volume": 64,
+        "loop_start": 3324,
+        "loop_bytes": 4580
+      },
+      {
+        "id": 7,
+        "bytes": 2192,
+        "volume": 48,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 8,
+        "bytes": 9936,
+        "volume": 64,
+        "loop_start": 4218,
+        "loop_bytes": 5718
+      },
+      {
+        "id": 9,
+        "bytes": 9968,
+        "volume": 64,
+        "loop_start": 4272,
+        "loop_bytes": 5696
+      },
+      {
+        "id": 10,
+        "bytes": 2158,
+        "volume": 48,
+        "loop_start": 454,
+        "loop_bytes": 1704
+      },
+      {
+        "id": 11,
+        "bytes": 43522,
+        "volume": 64,
+        "loop_start": 6194,
+        "loop_bytes": 37328
+      },
+      {
+        "id": 12,
+        "bytes": 1104,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 13,
+        "bytes": 10640,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 14,
+        "bytes": 7762,
+        "volume": 64,
+        "loop_start": 2536,
+        "loop_bytes": 5226
+      },
+      {
+        "id": 15,
+        "bytes": 2304,
+        "volume": 64,
+        "loop_start": 0,
+        "loop_bytes": 2
+      },
+      {
+        "id": 16,
+        "bytes": 9488,
+        "volume": 53,
+        "loop_start": 9362,
+        "loop_bytes": 126
+      }
+    ],
+    "effect_commands_in_stored_patterns": {
+      "0": 1,
+      "1": 19,
+      "3": 145,
+      "4": 272,
+      "6": 37,
+      "A": 743,
+      "C": 1215,
+      "D": 1,
+      "F": 4
+    },
+    "variant_note": "This is the Demozoo download: 152652 bytes, 19 stored patterns. The Mod Archive entry 59344 catalogs a different binary variant (153676 bytes, 20 patterns); its checksum does not identify this file.",
+    "analysis_scope": "Static header/pattern inspection only. Playback and C64 conversion are not yet verified. Counts describe stored patterns, not expanded song execution.",
+    "rights": "Original authorship and copyright retained. This downloaded module is not a CC0 laboratory recording.",
+    "title_slug": "stardust-memories"
+  },
+  "source_channel": 2,
+  "source_range_s": [
+    61.20000000000397,
+    81.20000000000098
+  ],
+  "frames": 1000,
+  "duration_s": 20.000054808535516,
+  "source_duration_s": 20.0,
+  "duration_error_us": 54.80853551631526,
+  "input_codes": 156389,
+  "triggers": 48,
+  "sample_rate_hz": 7819.428571428572,
+  "sample_period_cycles": 126,
+  "frame_sample_counts": {
+    "156": 611,
+    "157": 389
+  },
+  "bank_bytes": 35840,
+  "bank_variants": 13,
+  "instruments": [
+    1,
+    10,
+    16
+  ],
+  "sample_preparation": [
+    {
+      "instrument": 1,
+      "canonical_divisor": 3,
+      "divisor": 3,
+      "real_end": 3584,
+      "loop_start": null,
+      "loop_rounding_pitch_error_cents": null
+    },
+    {
+      "instrument": 10,
+      "canonical_divisor": 3,
+      "divisor": 3,
+      "real_end": 720,
+      "loop_start": 151,
+      "loop_rounding_pitch_error_cents": -3.045267362279808
+    },
+    {
+      "instrument": 16,
+      "canonical_divisor": 3,
+      "divisor": 3,
+      "real_end": 3163,
+      "loop_start": 3121,
+      "loop_rounding_pitch_error_cents": 0.0
+    }
+  ],
+  "muted_ticks": 0,
+  "ended_ticks": 1,
+  "loop_wrap_buffers": 93,
+  "fractional_pitch_error_cents": [
+    -9.832772879367626,
+    10.202397356168976
+  ],
+  "gain_quantization_error_units": [
+    -1,
+    2
+  ],
+  "expected_input_sha256": "c2f6db285a26e2fa0ae7c4777650de7aa1992daa4af6629d236a7f0881a32245",
+  "quality": "Explicit per-instrument nearest gain quanta, half steps rounded upward. Exact quantum1 retains source volume; extra decimation is separate and never implicit. Eight-bit sample values and original sample clock are retained.",
+  "loop_model": "Looped initial DMA end is ceil(source first-pass bytes/divisor); repeat begins at round(source loop start/divisor). One-shot ends are page-rounded with neutral padding only. Eight-bit fractional phase is retained across repeat; resampled endpoint rounding is disclosed pitch quantization.",
+  "runtime_contract": "Mute bit requires constant neutral reads while cursor advances. Physical bank prefix ends are not logical sample ends. Ended one-shots stay silent through gain changes until a retrigger.",
+  "initial_silent_ticks": 0,
+  "gain_quantum": {
+    "1": 4,
+    "10": 4,
+    "16": 4
+  },
+  "extra_decimation": {
+    "16": 1,
+    "1": 1,
+    "10": 1
+  },
+  "gain_quantization_error_units_by_instrument": {
+    "1": [
+      0,
+      0
+    ],
+    "10": [
+      -1,
+      0
+    ],
+    "16": [
+      -1,
+      2
+    ]
+  },
+  "maximum_absolute_gain_quantization_error_units": 2,
+  "loop_alignment": {
+    "samples_compared": 156389,
+    "frames": 1000,
+    "all_sample_inputs_identical": true,
+    "original_input_sha256": "c2f6db285a26e2fa0ae7c4777650de7aa1992daa4af6629d236a7f0881a32245",
+    "aligned_input_sha256": "c2f6db285a26e2fa0ae7c4777650de7aa1992daa4af6629d236a7f0881a32245",
+    "original_bank_bytes": 35840,
+    "bank_bytes": 35840,
+    "banks": [
+      {
+        "id": 0,
+        "old_real_end": 3584,
+        "old_loop_start": null,
+        "real_end": 3584,
+        "loop_start": null,
+        "padding_samples": 0,
+        "old_stored_bytes": 3584,
+        "stored_bytes": 3584,
+        "maximum_read_index": 3583,
+        "old_sha256": "73943a74a09616d22644839a3290354c6dfd6c3059e34240d45fc7d82bd9d8a8",
+        "sha256": "73943a74a09616d22644839a3290354c6dfd6c3059e34240d45fc7d82bd9d8a8"
+      },
+      {
+        "id": 1,
+        "old_real_end": 720,
+        "old_loop_start": 151,
+        "real_end": 768,
+        "loop_start": 199,
+        "padding_samples": 48,
+        "old_stored_bytes": 768,
+        "stored_bytes": 768,
+        "maximum_read_index": 753,
+        "old_sha256": "b45f30ca10fdfbc55cb7e4d687ef68317ae8b52c0ff8c4c1a807cc9ae769e678",
+        "sha256": "82226a3417615cdceb7e6fe20d5d1e8afbe75d79e0bffa35628c6ad6e42c4e12"
+      },
+      {
+        "id": 2,
+        "old_real_end": 720,
+        "old_loop_start": 151,
+        "real_end": 768,
+        "loop_start": 199,
+        "padding_samples": 48,
+        "old_stored_bytes": 768,
+        "stored_bytes": 768,
+        "maximum_read_index": 767,
+        "old_sha256": "adf4eef2ff1265e7d8061432bf12a08448457ecfb77f6ff426a432278fc747ef",
+        "sha256": "917144e7cf4617c92296e6462f477ce3fb45b25557efb68aef23d21f7653a734"
+      },
+      {
+        "id": 3,
+        "old_real_end": 720,
+        "old_loop_start": 151,
+        "real_end": 768,
+        "loop_start": 199,
+        "padding_samples": 48,
+        "old_stored_bytes": 768,
+        "stored_bytes": 768,
+        "maximum_read_index": 767,
+        "old_sha256": "409bb2925aa041c4d4a1b8b5ce77006428c46b0431e4884d6158f39d15f8c099",
+        "sha256": "ebf0c01d2029c9ee39253f6641110ebb81a60b77a994a368ebd1195d5ac0a7a0"
+      },
+      {
+        "id": 4,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "10a4e655e8e1f3babd3af4649bbea8c66f74b22ba492cee747a444725727f95b",
+        "sha256": "89ca80b36c857eee84931228ddd54e0d4047b41d2e37773892b50bc92cb9b8b9"
+      },
+      {
+        "id": 5,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "066ee80ab7339afab4aa22da17cac808b2031cd5f035ca0020c4466308ff0ad2",
+        "sha256": "ea84aedf0abb6c8fa35fcc459f7597adc86d5465d90f4dd6d911cc0356bef1ae"
+      },
+      {
+        "id": 6,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "5ad0fa5197fec222b2bd7f0e3206b859e9849308a121e05f0e2bfedcaba48040",
+        "sha256": "2d00d5ca28a1dcf80f61ecbf546a1053f4a46d1d20e5567abf842cfe76a538aa"
+      },
+      {
+        "id": 7,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "0e38f7ab756e20e16919b2074d3fa9f493591efc88c6708a3e64fa9d6254110e",
+        "sha256": "2f86874c5e621d471e679b624e6e4b4d40500c7f885ee4ab751999ca1ccb8209"
+      },
+      {
+        "id": 8,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "1746e73f1092ca2ac536a5ecbd5eb7c217f74307df76630808ae2e430ee4ce3d",
+        "sha256": "948bdbc7ca687c808df16b47a2b8ba2e2228031ee19654dda1725b28fc346749"
+      },
+      {
+        "id": 9,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "f6f1c806c18688c14b9f58335c053348570f98080cc0c35134ce42d5ab180649",
+        "sha256": "99d480e8c17ff060bf5dab2195c7d9bc7578a20b290d6fba86e27665bb40d244"
+      },
+      {
+        "id": 10,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "f5ec7d9abb5f2f5a0b576bdeb053620a900778f173adecbf8944ec4d1b885c49",
+        "sha256": "32edbfb76d73b5847687b896ce4a870cd24059d0294349178246309ef7668045"
+      },
+      {
+        "id": 11,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "c7c446509fa2b3632ebed6ccd68de695ced80f2ccfe1f41c375f1054db345679",
+        "sha256": "16eacab3818c6fd4d639325af42cd1e50850dbd6a161ac9d1965d10513d534b6"
+      },
+      {
+        "id": 12,
+        "old_real_end": 3163,
+        "old_loop_start": 3121,
+        "real_end": 3328,
+        "loop_start": 3286,
+        "padding_samples": 165,
+        "old_stored_bytes": 3328,
+        "stored_bytes": 3328,
+        "maximum_read_index": 3327,
+        "old_sha256": "ec530dbbac78c04f1c81bff7caf3a56f72cd36420673270a232cb1656451fe91",
+        "sha256": "75b10d80b291a3e62af6d22d659129e12400962d0d529253a8e3bcd3cb9d8834"
+      }
+    ],
+    "scope": "Every prepared sample compared by an independent logical cursor, including gain changes, mute, retriggers and fractional loop phase. Exact only for this complete score. Native deadlines require separate VICE verification."
+  },
+  "runtime_bank_descriptors": [
+    {
+      "id": 0,
+      "old_real_end": 3584,
+      "old_loop_start": null,
+      "real_end": 3584,
+      "loop_start": null,
+      "padding_samples": 0,
+      "old_stored_bytes": 3584,
+      "stored_bytes": 3584,
+      "maximum_read_index": 3583,
+      "old_sha256": "73943a74a09616d22644839a3290354c6dfd6c3059e34240d45fc7d82bd9d8a8",
+      "sha256": "73943a74a09616d22644839a3290354c6dfd6c3059e34240d45fc7d82bd9d8a8"
+    },
+    {
+      "id": 1,
+      "old_real_end": 720,
+      "old_loop_start": 151,
+      "real_end": 768,
+      "loop_start": 199,
+      "padding_samples": 48,
+      "old_stored_bytes": 768,
+      "stored_bytes": 768,
+      "maximum_read_index": 753,
+      "old_sha256": "b45f30ca10fdfbc55cb7e4d687ef68317ae8b52c0ff8c4c1a807cc9ae769e678",
+      "sha256": "82226a3417615cdceb7e6fe20d5d1e8afbe75d79e0bffa35628c6ad6e42c4e12"
+    },
+    {
+      "id": 2,
+      "old_real_end": 720,
+      "old_loop_start": 151,
+      "real_end": 768,
+      "loop_start": 199,
+      "padding_samples": 48,
+      "old_stored_bytes": 768,
+      "stored_bytes": 768,
+      "maximum_read_index": 767,
+      "old_sha256": "adf4eef2ff1265e7d8061432bf12a08448457ecfb77f6ff426a432278fc747ef",
+      "sha256": "917144e7cf4617c92296e6462f477ce3fb45b25557efb68aef23d21f7653a734"
+    },
+    {
+      "id": 3,
+      "old_real_end": 720,
+      "old_loop_start": 151,
+      "real_end": 768,
+      "loop_start": 199,
+      "padding_samples": 48,
+      "old_stored_bytes": 768,
+      "stored_bytes": 768,
+      "maximum_read_index": 767,
+      "old_sha256": "409bb2925aa041c4d4a1b8b5ce77006428c46b0431e4884d6158f39d15f8c099",
+      "sha256": "ebf0c01d2029c9ee39253f6641110ebb81a60b77a994a368ebd1195d5ac0a7a0"
+    },
+    {
+      "id": 4,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "10a4e655e8e1f3babd3af4649bbea8c66f74b22ba492cee747a444725727f95b",
+      "sha256": "89ca80b36c857eee84931228ddd54e0d4047b41d2e37773892b50bc92cb9b8b9"
+    },
+    {
+      "id": 5,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "066ee80ab7339afab4aa22da17cac808b2031cd5f035ca0020c4466308ff0ad2",
+      "sha256": "ea84aedf0abb6c8fa35fcc459f7597adc86d5465d90f4dd6d911cc0356bef1ae"
+    },
+    {
+      "id": 6,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "5ad0fa5197fec222b2bd7f0e3206b859e9849308a121e05f0e2bfedcaba48040",
+      "sha256": "2d00d5ca28a1dcf80f61ecbf546a1053f4a46d1d20e5567abf842cfe76a538aa"
+    },
+    {
+      "id": 7,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "0e38f7ab756e20e16919b2074d3fa9f493591efc88c6708a3e64fa9d6254110e",
+      "sha256": "2f86874c5e621d471e679b624e6e4b4d40500c7f885ee4ab751999ca1ccb8209"
+    },
+    {
+      "id": 8,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "1746e73f1092ca2ac536a5ecbd5eb7c217f74307df76630808ae2e430ee4ce3d",
+      "sha256": "948bdbc7ca687c808df16b47a2b8ba2e2228031ee19654dda1725b28fc346749"
+    },
+    {
+      "id": 9,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "f6f1c806c18688c14b9f58335c053348570f98080cc0c35134ce42d5ab180649",
+      "sha256": "99d480e8c17ff060bf5dab2195c7d9bc7578a20b290d6fba86e27665bb40d244"
+    },
+    {
+      "id": 10,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "f5ec7d9abb5f2f5a0b576bdeb053620a900778f173adecbf8944ec4d1b885c49",
+      "sha256": "32edbfb76d73b5847687b896ce4a870cd24059d0294349178246309ef7668045"
+    },
+    {
+      "id": 11,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "c7c446509fa2b3632ebed6ccd68de695ced80f2ccfe1f41c375f1054db345679",
+      "sha256": "16eacab3818c6fd4d639325af42cd1e50850dbd6a161ac9d1965d10513d534b6"
+    },
+    {
+      "id": 12,
+      "old_real_end": 3163,
+      "old_loop_start": 3121,
+      "real_end": 3328,
+      "loop_start": 3286,
+      "padding_samples": 165,
+      "old_stored_bytes": 3328,
+      "stored_bytes": 3328,
+      "maximum_read_index": 3327,
+      "old_sha256": "ec530dbbac78c04f1c81bff7caf3a56f72cd36420673270a232cb1656451fe91",
+      "sha256": "75b10d80b291a3e62af6d22d659129e12400962d0d529253a8e3bcd3cb9d8834"
+    }
+  ]
+}

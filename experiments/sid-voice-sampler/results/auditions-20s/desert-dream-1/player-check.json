@@ -1,0 +1,39 @@
+{
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "program_sha256": "c243636aabeb5201b84b258e612bcd38366f6aa0adfb840165d059b4d3d817b7",
+  "trace_sha256": "9af2d04cfba205b3eac2a5a4f6eded117acb8946f08c5a6df1ab089d3e3cad11",
+  "expected_samples": 156389,
+  "observed_latches": 156389,
+  "input_codes_written": 156389,
+  "all_sample_inputs_match_independent_model": true,
+  "input_mismatches": 0,
+  "first_input_mismatches": [],
+  "sample_gap_counts": {
+    "126": 156388
+  },
+  "first_latch_cycle": 2190512,
+  "last_latch_cycle": 21895400,
+  "generated_frames": 1000,
+  "underruns": 0,
+  "ordinary_sid_writes_checked": 6000,
+  "ordinary_sid_sequence_matches": true,
+  "ordinary_sid_write_mismatches": 0,
+  "first_synth_mismatches": [],
+  "synth_frame_timing_errors": 0,
+  "synth_commit_offset_cycles_after_boundary_latch": [
+    176,
+    305
+  ],
+  "d418_writes_during_music": [],
+  "native_events_read": 787995,
+  "retained_synth_event_bytes": 60020,
+  "scope": "Streaming verification of every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not establish original timbre, physical SID fidelity or perceived balance.",
+  "passed": true
+}

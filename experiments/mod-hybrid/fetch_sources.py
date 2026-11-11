@@ -1,6 +1,7 @@
 """Fetch selected MOD sources and verify their recorded identities."""
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -12,7 +13,8 @@ SONGS = ("stardust-memories", "hyperbased", "4mats-madness")
 CANDIDATES = ("global-trash-3", "madness-took-me", "rink-a-dink", "elysium",
               "global-trash", "mobyle", "livin-insanity", "elektrik-funk",
               "desert-dream-1", "guitar-slinger", "klisje-paa-klisje",
-              "physical-presence", "condom-corruption")
+              "physical-presence", "condom-corruption", "cream-of-the-earth",
+              "echoing", "space-debris")
 
 
 def fetch_sources(directory: Path = HERE / "sources", songs: tuple[str, ...] = SONGS) -> list[dict]:
@@ -42,4 +44,7 @@ def fetch_sources(directory: Path = HERE / "sources", songs: tuple[str, ...] = S
 
 
 if __name__ == "__main__":
-    print(json.dumps(fetch_sources(), indent=2))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--songs", nargs="+", choices=SONGS + CANDIDATES, default=SONGS)
+    args = parser.parse_args()
+    print(json.dumps(fetch_sources(songs=tuple(args.songs)), indent=2))

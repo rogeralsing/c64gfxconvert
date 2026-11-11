@@ -63,6 +63,15 @@ def pack_score(pcm_frames: list, sid_rows: list, banks: list,
         if decoded != rows:
             raise ValueError("Full-song compressed score failed its complete roundtrip")
         dictionaries.append(dictionary); ids.append(indices); blocks.append(chunks); playlists.append(playlist)
+    # Check the absolute resident span on the host. An oversized collection
+    # can wrap a 16-bit assembler program counter and otherwise make a final
+    # address assertion appear to pass while overwriting the runtime.
+    bank_bytes = sum(len(bytes(bank["data"])) for bank in banks)
+    dictionary_start = (0x1000 + bank_bytes + len(banks) * 5 + 255) & ~255
+    resident_end = (dictionary_start + 9 * 256 + sum(len(stream) for stream in blocks) * CHUNK
+                    + len(playlists[0]) * 6 + 175)
+    if resident_end > 0xD000:
+        raise ValueError(f"Resident gain banks and score exceed C64 RAM: end${resident_end:05x}, limit$0d000")
     settings = ([{"sustain": 2, "pulse_width": 1966}, {"sustain": 1, "pulse_width": 2048}]
                 if sid_settings is None else sid_settings)
     if len(settings) != 2 or any(

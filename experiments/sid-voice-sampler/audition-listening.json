@@ -1,0 +1,64 @@
+{
+  "songs": {
+    "desert-dream-1": {
+      "status": "rejected",
+      "feedback": "broken",
+      "diagnosis": "Melodikanal 3 utelämnades; inspelade flertoniga ljud ersattes med manuella arpeggion.",
+      "melody_channel": 3,
+      "audio_sha256": "195c7de1594c736006ae3adda34fbc811e918250ae33b3a8e3bcfb7300c1d989",
+      "program_sha256": "c243636aabeb5201b84b258e612bcd38366f6aa0adfb840165d059b4d3d817b7",
+      "melody_solo": {
+        "status": "unreviewed",
+        "source_range_s": [
+          94.43999999999835,
+          114.43999999999437
+        ],
+        "audio": "results/auditions-20s/melody-checks/desert-dream-1-melody.wav",
+        "audio_sha256": "adaab59caa0037bfba2c0e7bc777cb9023cc240d0d4f5ca39dc33ed865e328a0",
+        "program": "results/auditions-20s/melody-checks/desert-dream-1/player.prg",
+        "program_sha256": "3c30a269355bb08a7cd11e2c0e830282705d4772f415d20e5e1a8e03fb27a600",
+        "feedback": ""
+      }
+    },
+    "global-trash": {
+      "status": "rejected",
+      "feedback": "just odd. no melody.",
+      "diagnosis": "Melodikanal 3:s tonala instrument 9 ersattes med ett kickljud.",
+      "melody_channel": 3,
+      "melody_solo": {
+        "status": "accepted",
+        "source_range_s": [
+          68.96000000000342,
+          88.95999999999944
+        ],
+        "audio": "results/auditions-20s/melody-checks/global-trash-melody.wav",
+        "audio_sha256": "ee32281a49d78cd8ca02400204eb1c686dbbc4f4495ddf7cedb8027e9b16082b",
+        "program": "results/auditions-20s/melody-checks/global-trash/player.prg",
+        "program_sha256": "28477b95f4d0d7abb268e791bdc48a89526f06ecd8721fcff9c09cab312ad8c6",
+        "feedback": "den låter bra nu!"
+      },
+      "audio_sha256": "23ca70721266be6f109acd714c12865834e707b9cf057d7669b483ccdcd659b9",
+      "program_sha256": "97503a3eb5527a6020c85cc138a1cf9e1b64e96eff52d335ec6fcc51b417c1d8"
+    },
+    "stardust-memories": {
+      "status": "rejected",
+      "feedback": "just drums and hihat",
+      "diagnosis": "Melodikanal 2 utelämnades; basens instrument 5 ersattes också med ett kickljud.",
+      "melody_channel": 2,
+      "audio_sha256": "df678ca2c89cfb616ee852b060a68d75513e21358eaa8f1f1ef50ac62b42b0ac",
+      "program_sha256": "d8bafd822f1e366bfadaaeaec12e70d864d06018bfdee22e54a99796c1dea2a4",
+      "melody_solo": {
+        "status": "unreviewed",
+        "source_range_s": [
+          61.20000000000397,
+          81.20000000000098
+        ],
+        "audio": "results/auditions-20s/melody-checks/stardust-memories-melody.wav",
+        "audio_sha256": "95c81acb2b8bc53035c12916ae30fa2fbde6a5829508407f81d20807dcfa11db",
+        "program": "results/auditions-20s/melody-checks/stardust-memories/player.prg",
+        "program_sha256": "844171009c15754ae0e7014e6a824f29d126c11c591be3d1c5e5e22d8e806a3b",
+        "feedback": ""
+      }
+    }
+  }
+}

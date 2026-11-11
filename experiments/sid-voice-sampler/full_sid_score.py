@@ -72,13 +72,17 @@ class SourceCursor:
             self.ended = True
 
 
-def prepare_full_sid(mod: dict, ticks: list, out: Path) -> dict:
-    document = json.loads((LIBRARY / "library.json").read_text())
+def prepare_full_sid(mod: dict, ticks: list, out: Path, *, library_dir: Path = LIBRARY,
+                     channels: tuple[int, int] = (1, 0),
+                     separate_percussion_hits: bool = False) -> dict:
+    if len(channels) != 2 or len(set(channels)) != 2 or any(c not in range(4) for c in channels):
+        raise ValueError("Two distinct source channels are required for the SID voices")
+    document = json.loads((library_dir / "library.json").read_text())
     if document["source"]["sha256"] != mod["sha256"]:
         raise ValueError("SID library belongs to a different MOD")
-    presets, files = {}, [LIBRARY / "library.json"]
+    presets, files = {}, [library_dir / "library.json"]
     for name in document["instruments"]:
-        path = LIBRARY / name; files.append(path)
+        path = library_dir / name; files.append(path)
         item = json.loads(path.read_text()); presets[item["source_instrument"]] = item
     pitches = {}
     for identifier, preset in presets.items():
@@ -98,7 +102,7 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path) -> dict:
             peaks[sample["id"]] = max(float(np.sqrt(np.mean(raw[j:j + 256] ** 2)))
                                       for j in range(0, len(raw), 128))
     voices, details = [], []
-    for channel in (1, 0):
+    for channel in channels:
         cursor = SourceCursor(mod)
         rows, active, used = [], Counter(), Counter()
         onset, trigger_index, transitions, previous = 0.0, 0, 0, 0
@@ -116,7 +120,9 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path) -> dict:
                 rms = float(np.sqrt(np.mean(block * block)))
                 audible = rms > peaks[effective] * preset["rms_gate_ratio"]
                 age = tick["time_s"] - onset
-                if program in {"noise", "triangle-sweep"}:
+                if program in {"noise", "triangle-sweep", "noise-then-triangle-sweep"}:
+                    if separate_percussion_hits and state["trigger"]:
+                        audible = True
                     audible = audible and age < preset["duration_s"] - 1e-8
                 if audible:
                     rate = PAULA / state["period"]
@@ -127,9 +133,10 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path) -> dict:
                             semitone = chord[((index - trigger_index) // preset["ticks_per_step"]) % len(chord)]
                             frequency *= 2 ** (semitone / 12)
                         control = preset["control"]
-                    elif program == "noise":
+                    elif program == "noise" or (program == "noise-then-triangle-sweep"
+                                                  and age < preset["noise_duration_s"] - 1e-8):
                         frequency, control = rate / preset["noise_divisor"], preset["noise_control"]
-                    elif program == "triangle-sweep":
+                    elif program in {"triangle-sweep", "noise-then-triangle-sweep"}:
                         body = preset["base_hz"] * preset["reference_period"] / state["period"]
                         frequency = body * (1 + preset["sweep_depth"] * math.exp(-age / preset["sweep_decay_s"]))
                         control = preset["triangle_control"]
@@ -142,6 +149,15 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path) -> dict:
             rows.append([word & 255, word >> 8, control])
             if effective != previous:
                 transitions += 1; previous = effective
+        if separate_percussion_hits:
+            percussion = {identifier for identifier, preset in presets.items()
+                          if preset["program"] in {"noise", "triangle-sweep", "noise-then-triangle-sweep"}}
+            for index in range(1, len(rows)):
+                now, before = ticks[index]["channels"][channel], ticks[index - 1]["channels"][channel]
+                if (now["trigger"] and not before["trigger"]
+                        and now["playing_sample"] in percussion
+                        and before["playing_sample"] in percussion):
+                    rows[index - 1] = [0, 0, 0x19]
         voices.append(rows)
         details.append({"source_channel": channel + 1, "source_triggers": sum(t["channels"][channel]["trigger"] for t in ticks),
                         "source_loop_target_change_ticks": sum("loop_sample" in t["channels"][channel] for t in ticks),

@@ -48,7 +48,8 @@ def load_mod(path: Path | str) -> dict:
             "loop_start": loop_start, "loop_length": loop_length,
         })
         sample_offset += size
-    if sample_offset != len(data):
+    padding = data[sample_offset:]
+    if any(padding):
         raise ValueError("Unexpected data after samples; pattern layout needs review")
     patterns = []
     for pattern in range(pattern_count):
@@ -93,6 +94,10 @@ def load_mod(path: Path | str) -> dict:
         "bytes": len(data),
         "format": "Startrekker FLT4" if startrekker else "ProTracker MOD",
     }
+    if padding:
+        result["layout"] = {"declared_payload_bytes": sample_offset,
+                            "trailing_zero_padding_bytes": len(padding),
+                            "trailing_zero_padding_sha256": hashlib.sha256(padding).hexdigest()}
     if timing_mode is not None:
         result["timing_mode"] = timing_mode
     return result

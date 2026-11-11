@@ -1,5 +1,7 @@
 # Sampling through an ordinary SID voice
 
+For MOD auditions and melody-first corrections, see [AUDITIONS.md](AUDITIONS.md).
+
 Standalone research experiment based on the SounDemoN method explained by
 [Linus Akesson in Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php).
 It writes only this directory and does not change the MOD converter or the

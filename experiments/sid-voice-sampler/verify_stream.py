@@ -19,6 +19,15 @@ def verify(compiled: dict, receipt: dict, pcm: dict, rows: list[list[int]],
            out: Path) -> dict:
     """Check every input, latch and ordered synth write over the whole trace."""
     expected = (out / "expected-input.bin").read_bytes()
+    frame_cuts = None
+    if "frame_sample_counts_exact" in pcm:
+        counts = pcm["frame_sample_counts_exact"]
+        if (len(counts) != pcm["frames"] or any(type(count) is not int or not 1 <= count <= 256 for count in counts)
+                or sum(counts) != len(expected)):
+            raise ValueError("Explicit frame lengths must cover the complete sampled input")
+        frame_cuts = [0]
+        for count in counts:
+            frame_cuts.append(frame_cuts[-1] + count)
     if len(rows) != pcm["frames"] or any(len(row) != len(REGISTERS) for row in rows):
         raise ValueError("Expected six SID fields for every prepared frame")
     synth_cycles, synth_registers, synth_values = array("q"), bytearray(), bytearray()
@@ -101,7 +110,8 @@ def verify(compiled: dict, receipt: dict, pcm: dict, rows: list[list[int]],
             if frame == 0:
                 timing_errors += cycle >= first_latch
             else:
-                cut = (frame * CLOCK + PERIOD * 25) // (PERIOD * 50)
+                cut = (frame_cuts[frame] if frame_cuts is not None
+                       else (frame * CLOCK + PERIOD * 25) // (PERIOD * 50))
                 boundary = first_latch + (cut - 1) * PERIOD
                 offset = cycle - boundary
                 minimum_offset = offset if minimum_offset is None else min(minimum_offset, offset)

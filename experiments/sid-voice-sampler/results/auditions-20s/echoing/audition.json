@@ -1,0 +1,3256 @@
+{
+  "slug": "echoing",
+  "status": "recorded",
+  "listening_status": "unreviewed",
+  "duration_s": 20.000054808535516,
+  "source_range_s": [
+    15.359999999999761,
+    35.35999999999993
+  ],
+  "source_channels": {
+    "sampled": [
+      1
+    ],
+    "sid": [
+      4,
+      3
+    ],
+    "omitted": [
+      2
+    ]
+  },
+  "source_sha256": "baacc5c37db0b37305c866b19ae06cc68106291cec7717bbddf04be49d7b8b73",
+  "pcm_input": {
+    "frames": 1000,
+    "source_channel": 1,
+    "source_range_s": [
+      15.359999999999761,
+      35.35999999999993
+    ],
+    "duration_s": 20.000054808535516,
+    "input_codes": 156389,
+    "sample_rate_hz": 7819.428571428572,
+    "sample_period_cycles": 126,
+    "frame_sample_counts_exact": [
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157,
+      156,
+      156,
+      157,
+      156,
+      157
+    ],
+    "frame_sample_counts": {
+      "156": 611,
+      "157": 389
+    },
+    "triggers": 84,
+    "bank_bytes": 5376,
+    "fractional_pitch_error_cents": [
+      2.3590665848984083,
+      4.382718538362403
+    ],
+    "inaudible_ended_volume_updates": 0,
+    "neutral_two_byte_loop_updates": 0,
+    "expected_input_sha256": "227ad5839fb8ddc6005b91eabce856ba6e26544bbfd7602c8c3dac7ecb1f53a3",
+    "banks": [
+      {
+        "id": 0,
+        "source_instrument": 1,
+        "source_gain": 32,
+        "source_offset": 0,
+        "divisor": 2,
+        "bytes": 768,
+        "original_bytes": 1180,
+        "source_loop_start": 0,
+        "source_loop_length": 2,
+        "unrolled_loop_copies": 0,
+        "maximum_read_index": 996,
+        "sha256": "e97c690ab880ae034fe73818e51dddb4f7470a7e7ea0ed18505929429f9f9d62",
+        "processing": "Unsigned eight-bit reusable instrument bank; source gain, polyphase decimation, bounded original loop repeats and neutral page padding. Pitch and position remain C64 work."
+      },
+      {
+        "id": 1,
+        "source_instrument": 1,
+        "source_gain": 64,
+        "source_offset": 0,
+        "divisor": 2,
+        "bytes": 768,
+        "original_bytes": 1180,
+        "source_loop_start": 0,
+        "source_loop_length": 2,
+        "unrolled_loop_copies": 0,
+        "maximum_read_index": 996,
+        "sha256": "48737c54e31cfc0dbdf161334a5d8389fb9287be263416656da93b8b7e7a9c33",
+        "processing": "Unsigned eight-bit reusable instrument bank; source gain, polyphase decimation, bounded original loop repeats and neutral page padding. Pitch and position remain C64 work."
+      },
+      {
+        "id": 2,
+        "source_instrument": 2,
+        "source_gain": 64,
+        "source_offset": 0,
+        "divisor": 2,
+        "bytes": 768,
+        "original_bytes": 1222,
+        "source_loop_start": 0,
+        "source_loop_length": 2,
+        "unrolled_loop_copies": 0,
+        "maximum_read_index": 996,
+        "sha256": "5dac7e77b9bc5776ce591ed5de252df24163dc4c0de467289137274762982bc7",
+        "processing": "Unsigned eight-bit reusable instrument bank; source gain, polyphase decimation, bounded original loop repeats and neutral page padding. Pitch and position remain C64 work."
+      },
+      {
+        "id": 3,
+        "source_instrument": 3,
+        "source_gain": 49,
+        "source_offset": 0,
+        "divisor": 2,
+        "bytes": 1536,
+        "original_bytes": 3990,
+        "source_loop_start": 0,
+        "source_loop_length": 2,
+        "unrolled_loop_copies": 0,
+        "maximum_read_index": 1494,
+        "sha256": "6698edd0af61d41da7373e0d726014b9625ccacace3c4de0232440aa040fedaa",
+        "processing": "Unsigned eight-bit reusable instrument bank; source gain, polyphase decimation, bounded original loop repeats and neutral page padding. Pitch and position remain C64 work."
+      },
+      {
+        "id": 4,
+        "source_instrument": 4,
+        "source_gain": 64,
+        "source_offset": 0,
+        "divisor": 2,
+        "bytes": 1536,
+        "original_bytes": 2962,
+        "source_loop_start": 0,
+        "source_loop_length": 2,
+        "unrolled_loop_copies": 0,
+        "maximum_read_index": 1494,
+        "sha256": "cab1d4fb5479e524ec5e74f964b4fc305f382dbb31a90956c93e8fc02bfc1f87",
+        "processing": "Unsigned eight-bit reusable instrument bank; source gain, polyphase decimation, bounded original loop repeats and neutral page padding. Pitch and position remain C64 work."
+      }
+    ],
+    "scope": "One original source channel over a declared passage. No audible gain changes, independent loop changes or short DMA segments discarded. Bounded loop materialization stores reusable waveforms, not a recording of the passage."
+  },
+  "synth_input": {
+    "source_channels": [
+      4,
+      3
+    ],
+    "physical_voice_settings": [
+      {
+        "sustain": 1,
+        "pulse_width": 1966
+      },
+      {
+        "sustain": 1,
+        "pulse_width": 1966
+      }
+    ],
+    "instrument_analysis": {
+      "8": {
+        "original_bytes": 3900,
+        "loop_start": 2178,
+        "loop_length": 1684,
+        "reference_period": 381,
+        "reference_source_rate_hz": 9309.434645669291,
+        "sample_sha256": "1ffe81db35e532be1599791f44e6c52aab259cc660f413d5f62dd3c96a093083",
+        "regions": [
+          {
+            "region": "attack",
+            "samples": 3900,
+            "rms": 0.3663987112080498,
+            "period_samples": 15.868750673806737,
+            "acf": 0.9941242864631785,
+            "peaks": [
+              {
+                "frequency": 0.06292724609375,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.0635986328125,
+                "amplitude": 0.42671549236654444
+              },
+              {
+                "frequency": 0.062255859375,
+                "amplitude": 0.19397829817488269
+              },
+              {
+                "frequency": 0.31512451171875,
+                "amplitude": 0.05210953031990015
+              },
+              {
+                "frequency": 0.18865966796875,
+                "amplitude": 0.0514916414736854
+              },
+              {
+                "frequency": 0.3184814453125,
+                "amplitude": 0.04413556521252416
+              },
+              {
+                "frequency": 0.190673828125,
+                "amplitude": 0.04266099587734602
+              },
+              {
+                "frequency": 0.31787109375,
+                "amplitude": 0.03227121908001128
+              },
+              {
+                "frequency": 0.31427001953125,
+                "amplitude": 0.03209865181192669
+              },
+              {
+                "frequency": 0.1915283203125,
+                "amplitude": 0.029686344736972486
+              },
+              {
+                "frequency": 0.31573486328125,
+                "amplitude": 0.028732849156689902
+              },
+              {
+                "frequency": 0.18951416015625,
+                "amplitude": 0.027781913915563405
+              },
+              {
+                "frequency": 0.313720703125,
+                "amplitude": 0.027367349720150962
+              },
+              {
+                "frequency": 0.319091796875,
+                "amplitude": 0.025112930155295834
+              },
+              {
+                "frequency": 0.18804931640625,
+                "amplitude": 0.021130378442269355
+              },
+              {
+                "frequency": 0.1900634765625,
+                "amplitude": 0.02106410707843233
+              },
+              {
+                "frequency": 0.31304931640625,
+                "amplitude": 0.020015058327428288
+              },
+              {
+                "frequency": 0.317138671875,
+                "amplitude": 0.01918970975306754
+              },
+              {
+                "frequency": 0.31640625,
+                "amplitude": 0.016614300103108607
+              },
+              {
+                "frequency": 0.3123779296875,
+                "amplitude": 0.009369155088454009
+              },
+              {
+                "frequency": 0.18731689453125,
+                "amplitude": 0.009264508391788046
+              },
+              {
+                "frequency": 0.42657470703125,
+                "amplitude": 0.007183615351121962
+              },
+              {
+                "frequency": 0.4278564453125,
+                "amplitude": 0.006739831597720306
+              },
+              {
+                "frequency": 0.0615234375,
+                "amplitude": 0.006178322187250959
+              },
+              {
+                "frequency": 0.429931640625,
+                "amplitude": 0.005954857139352063
+              },
+              {
+                "frequency": 0.06085205078125,
+                "amplitude": 0.0057752388688144425
+              },
+              {
+                "frequency": 0.3204345703125,
+                "amplitude": 0.005228348354515808
+              },
+              {
+                "frequency": 0.4293212890625,
+                "amplitude": 0.005090203160897619
+              },
+              {
+                "frequency": 0.06488037109375,
+                "amplitude": 0.005004048950573931
+              },
+              {
+                "frequency": 0.4405517578125,
+                "amplitude": 0.004660320635424029
+              },
+              {
+                "frequency": 0.42535400390625,
+                "amplitude": 0.0034241462776265453
+              },
+              {
+                "frequency": 0.4306640625,
+                "amplitude": 0.0030416052338872865
+              },
+              {
+                "frequency": 0.3197021484375,
+                "amplitude": 0.0029263763158687644
+              },
+              {
+                "frequency": 0.33355712890625,
+                "amplitude": 0.00291528708078618
+              },
+              {
+                "frequency": 0.4393310546875,
+                "amplitude": 0.0028265373751725385
+              },
+              {
+                "frequency": 0.30816650390625,
+                "amplitude": 0.0025688278962166604
+              },
+              {
+                "frequency": 0.311767578125,
+                "amplitude": 0.0025530308675198324
+              },
+              {
+                "frequency": 0.4337158203125,
+                "amplitude": 0.0024291377654613697
+              },
+              {
+                "frequency": 0.44232177734375,
+                "amplitude": 0.002407473672810785
+              },
+              {
+                "frequency": 0.43206787109375,
+                "amplitude": 0.0023784570716776526
+              },
+              {
+                "frequency": 0.4248046875,
+                "amplitude": 0.0023034204821859167
+              },
+              {
+                "frequency": 0.4454345703125,
+                "amplitude": 0.0020319697330342668
+              },
+              {
+                "frequency": 0.43267822265625,
+                "amplitude": 0.001975223485939107
+              },
+              {
+                "frequency": 0.4234619140625,
+                "amplitude": 0.0018946097580807611
+              },
+              {
+                "frequency": 0.4384765625,
+                "amplitude": 0.0018460487912428988
+              },
+              {
+                "frequency": 0.3291015625,
+                "amplitude": 0.0018287338941511413
+              },
+              {
+                "frequency": 0.06573486328125,
+                "amplitude": 0.0018100503069037783
+              },
+              {
+                "frequency": 0.4241943359375,
+                "amplitude": 0.0017744333924730208
+              }
+            ],
+            "half_period_acf": -0.8836351220696878,
+            "flatness": 0.00018462345964284212,
+            "high_band_energy": 0.014609527683008217
+          },
+          {
+            "region": "body",
+            "samples": 1950,
+            "rms": 0.4512704505407483,
+            "period_samples": 15.862635558345712,
+            "acf": 0.9907155137221483,
+            "peaks": [
+              {
+                "frequency": 0.0628662109375,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.06390380859375,
+                "amplitude": 0.36741323605256215
+              },
+              {
+                "frequency": 0.315185546875,
+                "amplitude": 0.05833870552063354
+              },
+              {
+                "frequency": 0.18896484375,
+                "amplitude": 0.05780693593241053
+              },
+              {
+                "frequency": 0.318603515625,
+                "amplitude": 0.05527008196832033
+              },
+              {
+                "frequency": 0.1910400390625,
+                "amplitude": 0.05393847440458978
+              },
+              {
+                "frequency": 0.18780517578125,
+                "amplitude": 0.01132711197608842
+              },
+              {
+                "frequency": 0.42633056640625,
+                "amplitude": 0.010857963077064799
+              },
+              {
+                "frequency": 0.31292724609375,
+                "amplitude": 0.010058935626725421
+              },
+              {
+                "frequency": 0.0606689453125,
+                "amplitude": 0.00833809521607232
+              },
+              {
+                "frequency": 0.06103515625,
+                "amplitude": 0.007378111034684
+              },
+              {
+                "frequency": 0.18701171875,
+                "amplitude": 0.007238077182282816
+              },
+              {
+                "frequency": 0.4278564453125,
+                "amplitude": 0.006968984516856223
+              },
+              {
+                "frequency": 0.3204345703125,
+                "amplitude": 0.00680718431020327
+              },
+              {
+                "frequency": 0.4290771484375,
+                "amplitude": 0.005187797823596923
+              },
+              {
+                "frequency": 0.06573486328125,
+                "amplitude": 0.00513819392725461
+              },
+              {
+                "frequency": 0.3121337890625,
+                "amplitude": 0.004659379383379271
+              },
+              {
+                "frequency": 0.4320068359375,
+                "amplitude": 0.004031119934612086
+              },
+              {
+                "frequency": 0.4300537109375,
+                "amplitude": 0.003923386816526192
+              },
+              {
+                "frequency": 0.44097900390625,
+                "amplitude": 0.003748479672321753
+              },
+              {
+                "frequency": 0.43359375,
+                "amplitude": 0.00369777512331848
+              },
+              {
+                "frequency": 0.30810546875,
+                "amplitude": 0.003366075918028444
+              },
+              {
+                "frequency": 0.06536865234375,
+                "amplitude": 0.0031528360030953595
+              },
+              {
+                "frequency": 0.33367919921875,
+                "amplitude": 0.0029506127541299044
+              },
+              {
+                "frequency": 0.06005859375,
+                "amplitude": 0.0028316865323680146
+              },
+              {
+                "frequency": 0.44561767578125,
+                "amplitude": 0.002321268453136519
+              },
+              {
+                "frequency": 0.30657958984375,
+                "amplitude": 0.002195419069083735
+              },
+              {
+                "frequency": 0.42352294921875,
+                "amplitude": 0.002171280776657372
+              },
+              {
+                "frequency": 0.0592041015625,
+                "amplitude": 0.0020057719395731124
+              },
+              {
+                "frequency": 0.3114013671875,
+                "amplitude": 0.0019459929490890835
+              },
+              {
+                "frequency": 0.32452392578125,
+                "amplitude": 0.0018310391296561515
+              },
+              {
+                "frequency": 0.355712890625,
+                "amplitude": 0.001763349000449398
+              },
+              {
+                "frequency": 0.44256591796875,
+                "amplitude": 0.0017061214311312929
+              },
+              {
+                "frequency": 0.33807373046875,
+                "amplitude": 0.0016468424816803106
+              },
+              {
+                "frequency": 0.01422119140625,
+                "amplitude": 0.0016012166428330638
+              },
+              {
+                "frequency": 0.43658447265625,
+                "amplitude": 0.0015543961627880036
+              },
+              {
+                "frequency": 0.2891845703125,
+                "amplitude": 0.0015293983449796785
+              },
+              {
+                "frequency": 0.25665283203125,
+                "amplitude": 0.0015216980929314938
+              },
+              {
+                "frequency": 0.3291015625,
+                "amplitude": 0.0015091576609000262
+              },
+              {
+                "frequency": 0.17926025390625,
+                "amplitude": 0.0015011387099131655
+              },
+              {
+                "frequency": 0.3050537109375,
+                "amplitude": 0.001446445814661581
+              },
+              {
+                "frequency": 0.1937255859375,
+                "amplitude": 0.0014403800631138223
+              },
+              {
+                "frequency": 0.13104248046875,
+                "amplitude": 0.0014208673211030102
+              },
+              {
+                "frequency": 0.27435302734375,
+                "amplitude": 0.001418771378425187
+              },
+              {
+                "frequency": 0.4111328125,
+                "amplitude": 0.0013965002439268646
+              },
+              {
+                "frequency": 0.12579345703125,
+                "amplitude": 0.001382775169970084
+              },
+              {
+                "frequency": 0.08099365234375,
+                "amplitude": 0.0013694372691831272
+              },
+              {
+                "frequency": 0.06683349609375,
+                "amplitude": 0.001330299420958931
+              }
+            ],
+            "half_period_acf": -0.8951406272831999,
+            "flatness": 0.00022142865268279363,
+            "high_band_energy": 0.020071775184327817
+          },
+          {
+            "region": "loop",
+            "samples": 8192,
+            "rms": 0.33534924434689345,
+            "period_samples": 15.869606665780793,
+            "acf": 0.9964420333440064,
+            "peaks": [
+              {
+                "frequency": 0.06292724609375,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.06353759765625,
+                "amplitude": 0.4023078497513911
+              },
+              {
+                "frequency": 0.06231689453125,
+                "amplitude": 0.17422610399606017
+              },
+              {
+                "frequency": 0.31829833984375,
+                "amplitude": 0.04877888468288009
+              },
+              {
+                "frequency": 0.19061279296875,
+                "amplitude": 0.044803346469239266
+              },
+              {
+                "frequency": 0.314697265625,
+                "amplitude": 0.038833158561518984
+              },
+              {
+                "frequency": 0.1888427734375,
+                "amplitude": 0.036337923488150424
+              },
+              {
+                "frequency": 0.063232421875,
+                "amplitude": 0.03382567032530739
+              },
+              {
+                "frequency": 0.31768798828125,
+                "amplitude": 0.03254787227140585
+              },
+              {
+                "frequency": 0.188232421875,
+                "amplitude": 0.03174289573540274
+              },
+              {
+                "frequency": 0.19000244140625,
+                "amplitude": 0.030970226690857475
+              },
+              {
+                "frequency": 0.31591796875,
+                "amplitude": 0.028992936228570486
+              },
+              {
+                "frequency": 0.06414794921875,
+                "amplitude": 0.02733727143019298
+              },
+              {
+                "frequency": 0.19122314453125,
+                "amplitude": 0.024930711719684927
+              },
+              {
+                "frequency": 0.31353759765625,
+                "amplitude": 0.023625896313500722
+              },
+              {
+                "frequency": 0.0626220703125,
+                "amplitude": 0.02213912045519048
+              },
+              {
+                "frequency": 0.061767578125,
+                "amplitude": 0.021280981669650187
+              },
+              {
+                "frequency": 0.1876220703125,
+                "amplitude": 0.020153226555686334
+              },
+              {
+                "frequency": 0.06475830078125,
+                "amplitude": 0.01963701332224129
+              },
+              {
+                "frequency": 0.31414794921875,
+                "amplitude": 0.017029163432258066
+              },
+              {
+                "frequency": 0.31890869140625,
+                "amplitude": 0.01612264527636138
+              },
+              {
+                "frequency": 0.31707763671875,
+                "amplitude": 0.01606171897502655
+              },
+              {
+                "frequency": 0.3153076171875,
+                "amplitude": 0.014376933014168283
+              },
+              {
+                "frequency": 0.31292724609375,
+                "amplitude": 0.012407524705316857
+              },
+              {
+                "frequency": 0.3194580078125,
+                "amplitude": 0.011799935430312295
+              },
+              {
+                "frequency": 0.3165283203125,
+                "amplitude": 0.011770183156482972
+              },
+              {
+                "frequency": 0.189453125,
+                "amplitude": 0.009869806225294004
+              },
+              {
+                "frequency": 0.0638427734375,
+                "amplitude": 0.009613902673904105
+              },
+              {
+                "frequency": 0.18707275390625,
+                "amplitude": 0.008784494471324164
+              },
+              {
+                "frequency": 0.0653076171875,
+                "amplitude": 0.007984843938173938
+              },
+              {
+                "frequency": 0.1923828125,
+                "amplitude": 0.006958972181201252
+              },
+              {
+                "frequency": 0.0611572265625,
+                "amplitude": 0.006815581139254747
+              },
+              {
+                "frequency": 0.1929931640625,
+                "amplitude": 0.006494744771239163
+              },
+              {
+                "frequency": 0.320068359375,
+                "amplitude": 0.005895200493106727
+              },
+              {
+                "frequency": 0.1917724609375,
+                "amplitude": 0.0056810418975078705
+              },
+              {
+                "frequency": 0.3206787109375,
+                "amplitude": 0.005178810476414614
+              },
+              {
+                "frequency": 0.193603515625,
+                "amplitude": 0.004895806303822329
+              },
+              {
+                "frequency": 0.19415283203125,
+                "amplitude": 0.004086455154506898
+              },
+              {
+                "frequency": 0.3123779296875,
+                "amplitude": 0.004058272823062314
+              },
+              {
+                "frequency": 0.06591796875,
+                "amplitude": 0.004004026906832424
+              },
+              {
+                "frequency": 0.3212890625,
+                "amplitude": 0.003933586261267098
+              },
+              {
+                "frequency": 0.18646240234375,
+                "amplitude": 0.0038413210069123942
+              },
+              {
+                "frequency": 0.18585205078125,
+                "amplitude": 0.003605309351077875
+              },
+              {
+                "frequency": 0.1846923828125,
+                "amplitude": 0.003488581522911911
+              },
+              {
+                "frequency": 0.0665283203125,
+                "amplitude": 0.0034091539275370314
+              },
+              {
+                "frequency": 0.19476318359375,
+                "amplitude": 0.0032794812519609455
+              },
+              {
+                "frequency": 0.4287109375,
+                "amplitude": 0.0032252498880951754
+              },
+              {
+                "frequency": 0.185302734375,
+                "amplitude": 0.002990999555213573
+              }
+            ],
+            "half_period_acf": -0.8983042409420392,
+            "flatness": 3.672766374568812e-05,
+            "high_band_energy": 0.012388232533643156
+          }
+        ],
+        "energy_99_source_samples": 3807,
+        "energy_99_duration_s": 0.40893997808674665,
+        "classification": "tonal",
+        "confidence": "high",
+        "root_period_samples": 15.858610687397201,
+        "root_spread_cents": 0.760653385929877,
+        "reason": "Consistent strong ACF repetition with independent spectral energy at that fundamental",
+        "source_instrument": 8,
+        "source_sha256": "baacc5c37db0b37305c866b19ae06cc68106291cec7717bbddf04be49d7b8b73",
+        "listening_status": "unreviewed",
+        "recommendation": "sid",
+        "scope": "Source measurements and existing-template audition proposal. Recorded envelope, filtering, polyphony and timbre are not reproduced exactly; no channel choice or audio-quality acceptance.",
+        "pitch_calibration": {
+          "instrument": 8,
+          "source_period_samples": 15.858610687397201,
+          "cycles_per_source_sample": 0.06305722611594833,
+          "autocorrelation": 0.9983020230414016,
+          "pulse_width": 1966,
+          "method": "Original instrument's first 8192 samples (or repeating loop), 8-fold interpolation, autocorrelation peak in the configured 14\u201318 sample period band; parabolic refinement.",
+          "region": "loop_if_present",
+          "scope": "A monophonic pulse approximation. The recorded source has a different envelope and may have pitch drift."
+        },
+        "tradeoff": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated",
+        "template": {
+          "path": "instruments/cream-of-the-earth/10-pulse-melody.json",
+          "sha256": "74e2781c375344f769391a6a2c3ab71465e15968f97626d4706e1e450ed39859"
+        },
+        "overrides": {
+          "source_instrument": 8,
+          "name": "Instrument 8: measured tonal audition",
+          "pitch_analysis": {
+            "sample_count": 8192,
+            "upsample": 8,
+            "period_band_samples": [
+              14,
+              18
+            ],
+            "minimum_autocorrelation": 0.75,
+            "region": "loop_if_present"
+          },
+          "description": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated"
+        },
+        "decision": "template_audition"
+      },
+      "9": {
+        "original_bytes": 7814,
+        "loop_start": 0,
+        "loop_length": 2,
+        "reference_period": 428,
+        "reference_source_rate_hz": 8287.136915887852,
+        "sample_sha256": "4c5eadf8734c9797300dd246b6923b731f81aaac220e5441d82521cb1e0c1918",
+        "regions": [
+          {
+            "region": "attack",
+            "samples": 7814,
+            "rms": 0.21681218007963776,
+            "period_samples": 4.955146710146328,
+            "acf": 0.9709444615521002,
+            "peaks": [
+              {
+                "frequency": 0.00146484375,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.0009765625,
+                "amplitude": 0.978143054732848
+              },
+              {
+                "frequency": 0.00189208984375,
+                "amplitude": 0.8046597048147723
+              },
+              {
+                "frequency": 0.00341796875,
+                "amplitude": 0.45671586375354545
+              },
+              {
+                "frequency": 0.00390625,
+                "amplitude": 0.4470309936602425
+              },
+              {
+                "frequency": 0.00238037109375,
+                "amplitude": 0.44371841523620403
+              },
+              {
+                "frequency": 0.00531005859375,
+                "amplitude": 0.38000936261931656
+              },
+              {
+                "frequency": 0.00469970703125,
+                "amplitude": 0.35215441944988257
+              },
+              {
+                "frequency": 0.00274658203125,
+                "amplitude": 0.3405483192392545
+              },
+              {
+                "frequency": 0.20135498046875,
+                "amplitude": 0.29541437770455364
+              },
+              {
+                "frequency": 0.005859375,
+                "amplitude": 0.2748214481390023
+              },
+              {
+                "frequency": 0.006103515625,
+                "amplitude": 0.24028202210982982
+              },
+              {
+                "frequency": 0.2059326171875,
+                "amplitude": 0.2355110260719849
+              },
+              {
+                "frequency": 0.20361328125,
+                "amplitude": 0.19778138315529897
+              },
+              {
+                "frequency": 0.20709228515625,
+                "amplitude": 0.1936008973641791
+              },
+              {
+                "frequency": 0.20648193359375,
+                "amplitude": 0.18437650050719712
+              },
+              {
+                "frequency": 0.20404052734375,
+                "amplitude": 0.17827866151961544
+              },
+              {
+                "frequency": 0.2022705078125,
+                "amplitude": 0.17759082201177614
+              },
+              {
+                "frequency": 0.2076416015625,
+                "amplitude": 0.17450833822019868
+              },
+              {
+                "frequency": 0.00823974609375,
+                "amplitude": 0.17129084380302942
+              },
+              {
+                "frequency": 0.00653076171875,
+                "amplitude": 0.15848546919574588
+              },
+              {
+                "frequency": 0.202880859375,
+                "amplitude": 0.15835048755624528
+              },
+              {
+                "frequency": 0.00421142578125,
+                "amplitude": 0.14464955849718972
+              },
+              {
+                "frequency": 0.208740234375,
+                "amplitude": 0.13794060561018132
+              },
+              {
+                "frequency": 0.20037841796875,
+                "amplitude": 0.13650505931077134
+              },
+              {
+                "frequency": 0.2049560546875,
+                "amplitude": 0.1349824922681572
+              },
+              {
+                "frequency": 0.20074462890625,
+                "amplitude": 0.1331928710987533
+              },
+              {
+                "frequency": 0.20458984375,
+                "amplitude": 0.13280423835896135
+              },
+              {
+                "frequency": 0.003662109375,
+                "amplitude": 0.13000815760201598
+              },
+              {
+                "frequency": 0.1995849609375,
+                "amplitude": 0.1283653651461882
+              },
+              {
+                "frequency": 0.20623779296875,
+                "amplitude": 0.12462146704545947
+              },
+              {
+                "frequency": 0.007080078125,
+                "amplitude": 0.12450378242778425
+              },
+              {
+                "frequency": 0.0078125,
+                "amplitude": 0.12275783310447627
+              },
+              {
+                "frequency": 0.1998291015625,
+                "amplitude": 0.12236560190772056
+              },
+              {
+                "frequency": 0.206787109375,
+                "amplitude": 0.11898882821703477
+              },
+              {
+                "frequency": 0.20318603515625,
+                "amplitude": 0.10863203605314029
+              },
+              {
+                "frequency": 0.00689697265625,
+                "amplitude": 0.10701532935241334
+              },
+              {
+                "frequency": 0.19927978515625,
+                "amplitude": 0.10231255482142064
+              },
+              {
+                "frequency": 0.01611328125,
+                "amplitude": 0.09384269900572338
+              },
+              {
+                "frequency": 0.19598388671875,
+                "amplitude": 0.09026377171279687
+              },
+              {
+                "frequency": 0.0098876953125,
+                "amplitude": 0.08539761062336858
+              },
+              {
+                "frequency": 0.19036865234375,
+                "amplitude": 0.08472836848193512
+              },
+              {
+                "frequency": 0.19769287109375,
+                "amplitude": 0.0771051126990418
+              },
+              {
+                "frequency": 0.20947265625,
+                "amplitude": 0.07538264929420627
+              },
+              {
+                "frequency": 0.2080078125,
+                "amplitude": 0.07394455395789266
+              },
+              {
+                "frequency": 0.01068115234375,
+                "amplitude": 0.072461427682195
+              },
+              {
+                "frequency": 0.01141357421875,
+                "amplitude": 0.07187337073830974
+              },
+              {
+                "frequency": 0.19549560546875,
+                "amplitude": 0.07147423852845804
+              }
+            ],
+            "half_period_acf": 0.9709444615521002,
+            "flatness": 0.02900890075090488,
+            "high_band_energy": 0.1540644741162355
+          },
+          {
+            "region": "body",
+            "samples": 3907,
+            "rms": 0.21228596710872905,
+            "period_samples": 4.970388395925846,
+            "acf": 0.9652056955334581,
+            "peaks": [
+              {
+                "frequency": 0.00146484375,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.004638671875,
+                "amplitude": 0.3984125425496634
+              },
+              {
+                "frequency": 0.00531005859375,
+                "amplitude": 0.3579741170728725
+              },
+              {
+                "frequency": 0.00335693359375,
+                "amplitude": 0.3534807187152947
+              },
+              {
+                "frequency": 0.00244140625,
+                "amplitude": 0.348571795919061
+              },
+              {
+                "frequency": 0.201416015625,
+                "amplitude": 0.33083253136421686
+              },
+              {
+                "frequency": 0.00396728515625,
+                "amplitude": 0.328244586368558
+              },
+              {
+                "frequency": 0.0029296875,
+                "amplitude": 0.2672908401140034
+              },
+              {
+                "frequency": 0.20587158203125,
+                "amplitude": 0.1842500354431509
+              },
+              {
+                "frequency": 0.20361328125,
+                "amplitude": 0.1736301141961067
+              },
+              {
+                "frequency": 0.006591796875,
+                "amplitude": 0.1624897648231954
+              },
+              {
+                "frequency": 0.19970703125,
+                "amplitude": 0.1506620093204788
+              },
+              {
+                "frequency": 0.0059814453125,
+                "amplitude": 0.14830423221479866
+              },
+              {
+                "frequency": 0.20074462890625,
+                "amplitude": 0.14181399932488642
+              },
+              {
+                "frequency": 0.20233154296875,
+                "amplitude": 0.13325812092609302
+              },
+              {
+                "frequency": 0.20037841796875,
+                "amplitude": 0.1332528265093607
+              },
+              {
+                "frequency": 0.20635986328125,
+                "amplitude": 0.1296871984781726
+              },
+              {
+                "frequency": 0.2047119140625,
+                "amplitude": 0.12949436104486087
+              },
+              {
+                "frequency": 0.00830078125,
+                "amplitude": 0.12752613682387112
+              },
+              {
+                "frequency": 0.2030029296875,
+                "amplitude": 0.11199389205724063
+              },
+              {
+                "frequency": 0.2076416015625,
+                "amplitude": 0.10723625445206265
+              },
+              {
+                "frequency": 0.20867919921875,
+                "amplitude": 0.09835363830923852
+              },
+              {
+                "frequency": 0.2071533203125,
+                "amplitude": 0.09761067752312177
+              },
+              {
+                "frequency": 0.007080078125,
+                "amplitude": 0.09465129205702
+              },
+              {
+                "frequency": 0.00775146484375,
+                "amplitude": 0.09029524458987127
+              },
+              {
+                "frequency": 0.1954345703125,
+                "amplitude": 0.07873153896052168
+              },
+              {
+                "frequency": 0.2117919921875,
+                "amplitude": 0.07443967341090882
+              },
+              {
+                "frequency": 0.0098876953125,
+                "amplitude": 0.07384803148167512
+              },
+              {
+                "frequency": 0.01605224609375,
+                "amplitude": 0.07197895485847651
+              },
+              {
+                "frequency": 0.19635009765625,
+                "amplitude": 0.06736814789699067
+              },
+              {
+                "frequency": 0.19036865234375,
+                "amplitude": 0.0671380725270842
+              },
+              {
+                "frequency": 0.0113525390625,
+                "amplitude": 0.06517023121637282
+              },
+              {
+                "frequency": 0.011962890625,
+                "amplitude": 0.062357376353100145
+              },
+              {
+                "frequency": 0.19915771484375,
+                "amplitude": 0.059819561720538865
+              },
+              {
+                "frequency": 0.18804931640625,
+                "amplitude": 0.05723417775221949
+              },
+              {
+                "frequency": 0.1949462890625,
+                "amplitude": 0.054824016715205585
+              },
+              {
+                "frequency": 0.18853759765625,
+                "amplitude": 0.05425387732627634
+              },
+              {
+                "frequency": 0.01904296875,
+                "amplitude": 0.05412536795155326
+              },
+              {
+                "frequency": 0.0107421875,
+                "amplitude": 0.0539430408766331
+              },
+              {
+                "frequency": 0.19830322265625,
+                "amplitude": 0.05270697907662093
+              },
+              {
+                "frequency": 0.19598388671875,
+                "amplitude": 0.05205674818000383
+              },
+              {
+                "frequency": 0.197021484375,
+                "amplitude": 0.05120164110462532
+              },
+              {
+                "frequency": 0.024169921875,
+                "amplitude": 0.04810155912011712
+              },
+              {
+                "frequency": 0.1920166015625,
+                "amplitude": 0.046141012243370944
+              },
+              {
+                "frequency": 0.18975830078125,
+                "amplitude": 0.044279342676491605
+              },
+              {
+                "frequency": 0.016845703125,
+                "amplitude": 0.043447420218276016
+              },
+              {
+                "frequency": 0.19775390625,
+                "amplitude": 0.04242437096399907
+              },
+              {
+                "frequency": 0.18939208984375,
+                "amplitude": 0.0403837667004926
+              }
+            ],
+            "half_period_acf": 0.9652056955334581,
+            "flatness": 0.04211497462881673,
+            "high_band_energy": 0.15879721439765296
+          }
+        ],
+        "energy_99_source_samples": 7551,
+        "energy_99_duration_s": 0.911171141087756,
+        "classification": "tonal",
+        "confidence": "high",
+        "root_period_samples": 4.941258810311135,
+        "root_spread_cents": 5.316982076134957,
+        "reason": "Consistent strong ACF repetition with independent spectral energy at that fundamental",
+        "source_instrument": 9,
+        "source_sha256": "baacc5c37db0b37305c866b19ae06cc68106291cec7717bbddf04be49d7b8b73",
+        "listening_status": "unreviewed",
+        "recommendation": "sid",
+        "scope": "Source measurements and existing-template audition proposal. Recorded envelope, filtering, polyphony and timbre are not reproduced exactly; no channel choice or audio-quality acceptance.",
+        "pitch_calibration": {
+          "instrument": 9,
+          "source_period_samples": 4.941258810311135,
+          "cycles_per_source_sample": 0.20237757996267217,
+          "autocorrelation": 0.971582944397269,
+          "pulse_width": 1966,
+          "method": "Original instrument's first 8192 samples (or repeating loop), 8-fold interpolation, autocorrelation peak in the configured 4\u20136 sample period band; parabolic refinement.",
+          "region": "loop_if_present",
+          "scope": "A monophonic pulse approximation. The recorded source has a different envelope and may have pitch drift."
+        },
+        "tradeoff": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated",
+        "template": {
+          "path": "instruments/cream-of-the-earth/10-pulse-melody.json",
+          "sha256": "74e2781c375344f769391a6a2c3ab71465e15968f97626d4706e1e450ed39859"
+        },
+        "overrides": {
+          "source_instrument": 9,
+          "name": "Instrument 9: measured tonal audition",
+          "pitch_analysis": {
+            "sample_count": 8192,
+            "upsample": 8,
+            "period_band_samples": [
+              4,
+              6
+            ],
+            "minimum_autocorrelation": 0.75,
+            "region": "loop_if_present"
+          },
+          "description": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated"
+        },
+        "decision": "template_audition"
+      },
+      "7": {
+        "original_bytes": 9480,
+        "loop_start": 0,
+        "loop_length": 2,
+        "reference_period": 428,
+        "reference_source_rate_hz": 8287.136915887852,
+        "sample_sha256": "6677837659fd27eb479530c676533c031e88b77c05844a26a55793633003f283",
+        "regions": [
+          {
+            "region": "attack",
+            "samples": 8192,
+            "rms": 0.6842800292219205,
+            "period_samples": 127.78325496013487,
+            "acf": 0.9533952857215486,
+            "peaks": [
+              {
+                "frequency": 0.03143310546875,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.00787353515625,
+                "amplitude": 0.8833859031759772
+              },
+              {
+                "frequency": 0.04705810546875,
+                "amplitude": 0.8238037974630323
+              },
+              {
+                "frequency": 0.0234375,
+                "amplitude": 0.6821673784264243
+              },
+              {
+                "frequency": 0.04681396484375,
+                "amplitude": 0.6129828699881172
+              },
+              {
+                "frequency": 0.062744140625,
+                "amplitude": 0.5960644193847462
+              },
+              {
+                "frequency": 0.0631103515625,
+                "amplitude": 0.5103880976514605
+              },
+              {
+                "frequency": 0.09356689453125,
+                "amplitude": 0.5061631896862551
+              },
+              {
+                "frequency": 0.09405517578125,
+                "amplitude": 0.42943860705680287
+              },
+              {
+                "frequency": 0.015625,
+                "amplitude": 0.35028614722268975
+              },
+              {
+                "frequency": 0.18719482421875,
+                "amplitude": 0.308707794836623
+              },
+              {
+                "frequency": 0.015869140625,
+                "amplitude": 0.2480936567758469
+              },
+              {
+                "frequency": 0.1881103515625,
+                "amplitude": 0.24580035557376012
+              },
+              {
+                "frequency": 0.07061767578125,
+                "amplitude": 0.18355167656695495
+              },
+              {
+                "frequency": 0.04736328125,
+                "amplitude": 0.17986531834953073
+              },
+              {
+                "frequency": 0.0701904296875,
+                "amplitude": 0.17477329740623504
+              },
+              {
+                "frequency": 0.11761474609375,
+                "amplitude": 0.14496925950043735
+              },
+              {
+                "frequency": 0.05474853515625,
+                "amplitude": 0.132202397921355
+              },
+              {
+                "frequency": 0.09466552734375,
+                "amplitude": 0.12592312785554183
+              },
+              {
+                "frequency": 0.0782470703125,
+                "amplitude": 0.11452920474793725
+              },
+              {
+                "frequency": 0.140380859375,
+                "amplitude": 0.11303957089877038
+              },
+              {
+                "frequency": 0.00738525390625,
+                "amplitude": 0.10433018228662133
+              },
+              {
+                "frequency": 0.15692138671875,
+                "amplitude": 0.09784123082125047
+              },
+              {
+                "frequency": 0.0394287109375,
+                "amplitude": 0.09721100209610965
+              },
+              {
+                "frequency": 0.08612060546875,
+                "amplitude": 0.09415021285891388
+              },
+              {
+                "frequency": 0.1409912109375,
+                "amplitude": 0.09408240995358831
+              },
+              {
+                "frequency": 0.10198974609375,
+                "amplitude": 0.09072758201394977
+              },
+              {
+                "frequency": 0.078857421875,
+                "amplitude": 0.08678748651566949
+              },
+              {
+                "frequency": 0.09442138671875,
+                "amplitude": 0.08585411693659059
+              },
+              {
+                "frequency": 0.18927001953125,
+                "amplitude": 0.08393214356456483
+              },
+              {
+                "frequency": 0.038818359375,
+                "amplitude": 0.0825462429573618
+              },
+              {
+                "frequency": 0.03106689453125,
+                "amplitude": 0.08050026790363524
+              },
+              {
+                "frequency": 0.0081787109375,
+                "amplitude": 0.07959301380074435
+              },
+              {
+                "frequency": 0.0009765625,
+                "amplitude": 0.07917248590853969
+              },
+              {
+                "frequency": 0.11700439453125,
+                "amplitude": 0.07877600598757349
+              },
+              {
+                "frequency": 0.13336181640625,
+                "amplitude": 0.07617859365077416
+              },
+              {
+                "frequency": 0.125,
+                "amplitude": 0.0755792275437536
+              },
+              {
+                "frequency": 0.06219482421875,
+                "amplitude": 0.07554918403533739
+              },
+              {
+                "frequency": 0.02313232421875,
+                "amplitude": 0.07374039239230916
+              },
+              {
+                "frequency": 0.102294921875,
+                "amplitude": 0.07231180902850864
+              },
+              {
+                "frequency": 0.0625,
+                "amplitude": 0.07058452806218003
+              },
+              {
+                "frequency": 0.13299560546875,
+                "amplitude": 0.07002434888047424
+              },
+              {
+                "frequency": 0.00836181640625,
+                "amplitude": 0.0697724812443234
+              },
+              {
+                "frequency": 0.18841552734375,
+                "amplitude": 0.06730443879790862
+              },
+              {
+                "frequency": 0.12548828125,
+                "amplitude": 0.06682240050020068
+              },
+              {
+                "frequency": 0.15771484375,
+                "amplitude": 0.06345148569242905
+              },
+              {
+                "frequency": 0.1103515625,
+                "amplitude": 0.0630956956198177
+              },
+              {
+                "frequency": 0.16461181640625,
+                "amplitude": 0.06302587982747747
+              }
+            ],
+            "half_period_acf": 0.38947624140747017,
+            "flatness": 0.004369340433661349,
+            "high_band_energy": 0.04061780109248738
+          },
+          {
+            "region": "body",
+            "samples": 4096,
+            "rms": 0.6748221653222,
+            "period_samples": 127.72691100626535,
+            "acf": 0.9378820190414076,
+            "peaks": [
+              {
+                "frequency": 0.03143310546875,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.00787353515625,
+                "amplitude": 0.7905777241191133
+              },
+              {
+                "frequency": 0.0628662109375,
+                "amplitude": 0.66412064725525
+              },
+              {
+                "frequency": 0.04705810546875,
+                "amplitude": 0.5838988187157408
+              },
+              {
+                "frequency": 0.0234375,
+                "amplitude": 0.5636689999329724
+              },
+              {
+                "frequency": 0.09356689453125,
+                "amplitude": 0.46476869943475896
+              },
+              {
+                "frequency": 0.09405517578125,
+                "amplitude": 0.3893021664239791
+              },
+              {
+                "frequency": 0.01556396484375,
+                "amplitude": 0.2812258181117526
+              },
+              {
+                "frequency": 0.18719482421875,
+                "amplitude": 0.2755063514065494
+              },
+              {
+                "frequency": 0.07049560546875,
+                "amplitude": 0.25182329773575846
+              },
+              {
+                "frequency": 0.18804931640625,
+                "amplitude": 0.20939293825606745
+              },
+              {
+                "frequency": 0.11761474609375,
+                "amplitude": 0.17325213826712374
+              },
+              {
+                "frequency": 0.0946044921875,
+                "amplitude": 0.13504196182567765
+              },
+              {
+                "frequency": 0.140380859375,
+                "amplitude": 0.11643143763722526
+              },
+              {
+                "frequency": 0.0546875,
+                "amplitude": 0.11158232737137191
+              },
+              {
+                "frequency": 0.15692138671875,
+                "amplitude": 0.09400325944086167
+              },
+              {
+                "frequency": 0.07818603515625,
+                "amplitude": 0.09352501346808101
+              },
+              {
+                "frequency": 0.08612060546875,
+                "amplitude": 0.09181209186673193
+              },
+              {
+                "frequency": 0.12542724609375,
+                "amplitude": 0.09023914010945878
+              },
+              {
+                "frequency": 0.14886474609375,
+                "amplitude": 0.0880172610692586
+              },
+              {
+                "frequency": 0.10198974609375,
+                "amplitude": 0.08554063080697152
+              },
+              {
+                "frequency": 0.189208984375,
+                "amplitude": 0.08421698930718488
+              },
+              {
+                "frequency": 0.1409912109375,
+                "amplitude": 0.08388409347600985
+              },
+              {
+                "frequency": 0.0394287109375,
+                "amplitude": 0.08225746530327971
+              },
+              {
+                "frequency": 0.1334228515625,
+                "amplitude": 0.08164292172453858
+              },
+              {
+                "frequency": 0.13287353515625,
+                "amplitude": 0.07961738333873997
+              },
+              {
+                "frequency": 0.078857421875,
+                "amplitude": 0.07893097830626393
+              },
+              {
+                "frequency": 0.10235595703125,
+                "amplitude": 0.07616050964210622
+              },
+              {
+                "frequency": 0.0308837890625,
+                "amplitude": 0.07008415074555811
+              },
+              {
+                "frequency": 0.038818359375,
+                "amplitude": 0.06963214928011195
+              },
+              {
+                "frequency": 0.11700439453125,
+                "amplitude": 0.06853999491167259
+              },
+              {
+                "frequency": 0.15765380859375,
+                "amplitude": 0.06643399290346233
+              },
+              {
+                "frequency": 0.10980224609375,
+                "amplitude": 0.06410060695837325
+              },
+              {
+                "frequency": 0.06201171875,
+                "amplitude": 0.05961187350471382
+              },
+              {
+                "frequency": 0.1103515625,
+                "amplitude": 0.05645107214221018
+              },
+              {
+                "frequency": 0.05419921875,
+                "amplitude": 0.05394577689520344
+              },
+              {
+                "frequency": 0.1646728515625,
+                "amplitude": 0.05139987715481359
+              },
+              {
+                "frequency": 0.10150146484375,
+                "amplitude": 0.04952353382342859
+              },
+              {
+                "frequency": 0.2822265625,
+                "amplitude": 0.0484362585345716
+              },
+              {
+                "frequency": 0.21966552734375,
+                "amplitude": 0.047543673165552774
+              },
+              {
+                "frequency": 0.08673095703125,
+                "amplitude": 0.047342270439569026
+              },
+              {
+                "frequency": 0.15570068359375,
+                "amplitude": 0.04703226418875881
+              },
+              {
+                "frequency": 0.28076171875,
+                "amplitude": 0.04668420804035277
+              },
+              {
+                "frequency": 0.17254638671875,
+                "amplitude": 0.04604772812530231
+              },
+              {
+                "frequency": 0.1339111328125,
+                "amplitude": 0.045390180925501115
+              },
+              {
+                "frequency": 0.1181640625,
+                "amplitude": 0.04455728687690399
+              },
+              {
+                "frequency": 0.1802978515625,
+                "amplitude": 0.044321482405204234
+              },
+              {
+                "frequency": 0.2352294921875,
+                "amplitude": 0.04347112155335484
+              }
+            ],
+            "half_period_acf": 0.39714660210798913,
+            "flatness": 0.004616566436166536,
+            "high_band_energy": 0.04114759900889481
+          },
+          {
+            "region": "tail",
+            "samples": 4096,
+            "rms": 0.683063901191424,
+            "period_samples": 127.8342740963148,
+            "acf": 0.9429470735885054,
+            "peaks": [
+              {
+                "frequency": 0.00787353515625,
+                "amplitude": 1.0
+              },
+              {
+                "frequency": 0.0628662109375,
+                "amplitude": 0.9917603463306816
+              },
+              {
+                "frequency": 0.0157470703125,
+                "amplitude": 0.8996790489580956
+              },
+              {
+                "frequency": 0.046875,
+                "amplitude": 0.6703412410854926
+              },
+              {
+                "frequency": 0.09356689453125,
+                "amplitude": 0.49792266698330484
+              },
+              {
+                "frequency": 0.0234375,
+                "amplitude": 0.4475363343375553
+              },
+              {
+                "frequency": 0.03125,
+                "amplitude": 0.3325335741332901
+              },
+              {
+                "frequency": 0.1871337890625,
+                "amplitude": 0.3036304216254433
+              },
+              {
+                "frequency": 0.18804931640625,
+                "amplitude": 0.29360640948038874
+              },
+              {
+                "frequency": 0.07037353515625,
+                "amplitude": 0.2738400679327
+              },
+              {
+                "frequency": 0.09405517578125,
+                "amplitude": 0.2660516197446678
+              },
+              {
+                "frequency": 0.03912353515625,
+                "amplitude": 0.19981381247333355
+              },
+              {
+                "frequency": 0.0548095703125,
+                "amplitude": 0.16338353823197632
+              },
+              {
+                "frequency": 0.0863037109375,
+                "amplitude": 0.1603128305926344
+              },
+              {
+                "frequency": 0.117431640625,
+                "amplitude": 0.1539473601600093
+              },
+              {
+                "frequency": 0.078369140625,
+                "amplitude": 0.14722042749883651
+              },
+              {
+                "frequency": 0.14117431640625,
+                "amplitude": 0.13822123414791002
+              },
+              {
+                "frequency": 0.03173828125,
+                "amplitude": 0.12870715321662984
+              },
+              {
+                "frequency": 0.1405029296875,
+                "amplitude": 0.11987686087520522
+              },
+              {
+                "frequency": 0.09466552734375,
+                "amplitude": 0.11514802672346819
+              },
+              {
+                "frequency": 0.15692138671875,
+                "amplitude": 0.10658894430520845
+              },
+              {
+                "frequency": 0.08575439453125,
+                "amplitude": 0.09049759737311995
+              },
+              {
+                "frequency": 0.1097412109375,
+                "amplitude": 0.09046746910733393
+              },
+              {
+                "frequency": 0.1019287109375,
+                "amplitude": 0.08918452602726036
+              },
+              {
+                "frequency": 0.18914794921875,
+                "amplitude": 0.08788411985284296
+              },
+              {
+                "frequency": 0.10137939453125,
+                "amplitude": 0.081338097143406
+              },
+              {
+                "frequency": 0.0010986328125,
+                "amplitude": 0.07796862609284635
+              },
+              {
+                "frequency": 0.11029052734375,
+                "amplitude": 0.06929279996399586
+              },
+              {
+                "frequency": 0.17205810546875,
+                "amplitude": 0.0651795614153555
+              },
+              {
+                "frequency": 0.133544921875,
+                "amplitude": 0.06463928803547547
+              },
+              {
+                "frequency": 0.0240478515625,
+                "amplitude": 0.06211706120406648
+              },
+              {
+                "frequency": 0.0150146484375,
+                "amplitude": 0.06129435836426633
+              },
+              {
+                "frequency": 0.1575927734375,
+                "amplitude": 0.058661143508120565
+              },
+              {
+                "frequency": 0.28076171875,
+                "amplitude": 0.049398865522332705
+              },
+              {
+                "frequency": 0.149169921875,
+                "amplitude": 0.04822789024923263
+              },
+              {
+                "frequency": 0.12530517578125,
+                "amplitude": 0.046359081763626124
+              },
+              {
+                "frequency": 0.03839111328125,
+                "amplitude": 0.04599534194477272
+              },
+              {
+                "frequency": 0.21966552734375,
+                "amplitude": 0.0459265072584438
+              },
+              {
+                "frequency": 0.20391845703125,
+                "amplitude": 0.04407235441803931
+              },
+              {
+                "frequency": 0.2821044921875,
+                "amplitude": 0.04383091099921062
+              },
+              {
+                "frequency": 0.18060302734375,
+                "amplitude": 0.04176736335833487
+              },
+              {
+                "frequency": 0.1646728515625,
+                "amplitude": 0.04145337696603304
+              },
+              {
+                "frequency": 0.06195068359375,
+                "amplitude": 0.03982888162094189
+              },
+              {
+                "frequency": 0.0321044921875,
+                "amplitude": 0.03968060140063869
+              },
+              {
+                "frequency": 0.13275146484375,
+                "amplitude": 0.03941818857195095
+              },
+              {
+                "frequency": 0.258544921875,
+                "amplitude": 0.03936256841779587
+              },
+              {
+                "frequency": 0.148193359375,
+                "amplitude": 0.03811775007564729
+              },
+              {
+                "frequency": 0.148681640625,
+                "amplitude": 0.03777225596059632
+              }
+            ],
+            "half_period_acf": 0.40991278189844627,
+            "flatness": 0.004640898879012004,
+            "high_band_energy": 0.05079947663750058
+          }
+        ],
+        "energy_99_source_samples": 9399,
+        "energy_99_duration_s": 1.1341673361255222,
+        "classification": "tonal",
+        "confidence": "high",
+        "root_period_samples": 127.7802226642199,
+        "root_spread_cents": 1.4546078111728902,
+        "reason": "Consistent strong ACF repetition with independent spectral energy at that fundamental",
+        "source_instrument": 7,
+        "source_sha256": "baacc5c37db0b37305c866b19ae06cc68106291cec7717bbddf04be49d7b8b73",
+        "listening_status": "unreviewed",
+        "recommendation": "sid",
+        "scope": "Source measurements and existing-template audition proposal. Recorded envelope, filtering, polyphony and timbre are not reproduced exactly; no channel choice or audio-quality acceptance.",
+        "pitch_calibration": {
+          "instrument": 7,
+          "source_period_samples": 127.7802226642199,
+          "cycles_per_source_sample": 0.007825937215869423,
+          "autocorrelation": 0.9572904996765075,
+          "pulse_width": 1966,
+          "method": "Original instrument's first 8192 samples (or repeating loop), 8-fold interpolation, autocorrelation peak in the configured 117\u2013139 sample period band; parabolic refinement.",
+          "region": "loop_if_present",
+          "scope": "A monophonic pulse approximation. The recorded source has a different envelope and may have pitch drift."
+        },
+        "tradeoff": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated",
+        "template": {
+          "path": "instruments/cream-of-the-earth/10-pulse-melody.json",
+          "sha256": "74e2781c375344f769391a6a2c3ab71465e15968f97626d4706e1e450ed39859"
+        },
+        "overrides": {
+          "source_instrument": 7,
+          "name": "Instrument 7: measured tonal audition",
+          "pitch_analysis": {
+            "sample_count": 8192,
+            "upsample": 8,
+            "period_band_samples": [
+              117,
+              139
+            ],
+            "minimum_autocorrelation": 0.75,
+            "region": "loop_if_present"
+          },
+          "description": "Accepted pulse waveform and quiet fixed sustain; source envelope, filtering and harmonic balance are approximated"
+        },
+        "decision": "template_audition"
+      }
+    },
+    "host_preroll_ticks": 768,
+    "scope": "Source lifetime is advanced before the selected passage on the host; no preroll audio is included. Kept SID channels use original timing/periods and approved sound templates; their timbre/envelopes are approximations."
+  },
+  "build": {
+    "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/auditions-20s/echoing/mod-channel-hybrid-player.prg",
+    "symbols": {
+      "frame_boundary": 205,
+      "fill_end": 2553,
+      "score": 13824,
+      "pitch": 2511,
+      "boundary_count": 6,
+      "SID1_PULSE": 1966,
+      "SID2_SUSTAIN": 1,
+      "next_buffer": 12,
+      "finished": 2585,
+      "score_ptr": 4,
+      "nmi_image": 2816,
+      "done": 2623,
+      "fill_frame_rts": 2553,
+      "jitter_slide": 142,
+      "jitter_branch": 140,
+      "audition_bank_4_end": 13568,
+      "stop_requested": 9,
+      "nmi_end": 220,
+      "silence_page": 13568,
+      "pending_sid": 14,
+      "fill_begin": 2421,
+      "destination": 2505,
+      "source_read": 2502,
+      "pointer_commit": 2393,
+      "bank_end_compare": 2533,
+      "audition_bank_4": 12032,
+      "audition_bank_3": 10496,
+      "nmi_return": 214,
+      "audition_bank_2": 9728,
+      "audition_bank_3_end": 12032,
+      "audition_bank_1": 8960,
+      "nmi_rti": 219,
+      "fill_frame": 2421,
+      "buffer_read": 190,
+      "sample_latch": 175,
+      "FRAME_COUNT": 1000,
+      "song_started": 2351,
+      "audition_bank_2_end": 10496,
+      "program_end": 24824,
+      "SID1_SUSTAIN": 1,
+      "buffer_b": 768,
+      "buffer_a": 512,
+      "generated_frames": 10,
+      "start": 2062,
+      "nmi_entry": 128,
+      "audition_bank_1_end": 9728,
+      "sample_index": 3,
+      "underruns": 8,
+      "fraction": 2,
+      "boundary_before": 7,
+      "commit_sid": 2554,
+      "restore_a": 217,
+      "audition_bank_0": 8192,
+      "pending_start_low": 13,
+      "pointer_swap_begin": 2387,
+      "SID2_PULSE": 1966,
+      "next_frame": 2358,
+      "audition_bank_0_end": 8960,
+      "wait_start": 2382
+    },
+    "bytes": 22777,
+    "program_sha256": "69572d2444e3c1918126b412f314cfc62f678a22815fb547a42044e3f802519d",
+    "source_sha256": "405b22e66c1ddf1af64fc34ff1493dee90bf2b3de3db3f4d3006bed3aecc8b1a"
+  },
+  "rejected_candidates": [],
+  "selected_candidate": {
+    "start_tick": 768,
+    "end_tick": 1768,
+    "pcm_channel": 1,
+    "sid_channels": [
+      4,
+      3
+    ],
+    "omitted_channel": 2,
+    "start_s": 15.36,
+    "end_s": 35.36,
+    "duration_s": 20.0,
+    "constant_tempo": true,
+    "notes": "Real PCM trigger at start; exact gain fixed during each held note;8-bit banks,126-cycle SID voice. SID channel roles are proposals requiring recipe-confidence/listening review.",
+    "risks": [],
+    "source_ticks": 1000,
+    "sample_values": 156389,
+    "sample_count_minmax": [
+      156,
+      157
+    ],
+    "sample_counts": {
+      "156": 611,
+      "157": 389
+    },
+    "maximum_adjacent_count_ratio": 1.0064102564102564,
+    "maximum_adjacent_count_increase": 1,
+    "pcm_instruments": [
+      {
+        "id": 1,
+        "source_bytes": 1180,
+        "volumes": [
+          32,
+          64
+        ],
+        "loop_start": 0,
+        "loop_length": 2,
+        "triggers": 32
+      },
+      {
+        "id": 2,
+        "source_bytes": 1222,
+        "volumes": [
+          64
+        ],
+        "loop_start": 0,
+        "loop_length": 2,
+        "triggers": 21
+      },
+      {
+        "id": 3,
+        "source_bytes": 3990,
+        "volumes": [
+          49
+        ],
+        "loop_start": 0,
+        "loop_length": 2,
+        "triggers": 21
+      },
+      {
+        "id": 4,
+        "source_bytes": 2962,
+        "volumes": [
+          64
+        ],
+        "loop_start": 0,
+        "loop_length": 2,
+        "triggers": 10
+      }
+    ],
+    "sid_instrument_sets": {
+      "4": [
+        8,
+        9
+      ],
+      "3": [
+        7
+      ]
+    },
+    "all_channel_instrument_sets": {
+      "1": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "2": [
+        5,
+        6
+      ],
+      "3": [
+        7
+      ],
+      "4": [
+        8,
+        9
+      ]
+    },
+    "offset_events": [],
+    "short_first_dma_events": [],
+    "neutral_loop_transitions": [],
+    "ram_estimate": {
+      "bank_bytes_estimate": 5376,
+      "note_bank_variants_estimate": 5,
+      "canonical_divisors": {
+        "1": 2,
+        "2": 2,
+        "3": 2,
+        "4": 2
+      },
+      "program_end_estimate": 24824,
+      "ram_margin_before_d000_estimate": 28424
+    }
+  },
+  "implementation_sha256": {
+    "build_auditions.py": "155914b1409b7bdbda1b944f2a6ea989c8b17523b9027fa9c2ad093beff5ce31",
+    "audition_samples.py": "475152b701801948cfaabbabb38e2f01e2cd5532bf297e1467ea082a105cc930",
+    "audition_instruments.py": "156974d5f2569506a1fa86f89113b4c17f0e7ba99b9900d79baf3fdf72dc4213",
+    "full_sid_score.py": "a8a1c2ae8c4f9a62f33af3b911d41091c183da91a3782e41a063af70c00f66e5",
+    "verify_stream.py": "f7ce714aeee28331ae063e2be36e4bb8d79fbd8116daf7c40edc12df3442c9e7",
+    "mod-channel-hybrid-player.asm": "405b22e66c1ddf1af64fc34ff1493dee90bf2b3de3db3f4d3006bed3aecc8b1a"
+  },
+  "accepted_cream_anchor": null,
+  "scope": "A bounded MOD audition, using unchanged accepted SID-voice runtime and reusable original eight-bit sample banks. SID sounds reuse approved templates; omissions and approximations are explicit. Not a full-song or exact four-channel conversion.",
+  "native_playback": {
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "program_sha256": "69572d2444e3c1918126b412f314cfc62f678a22815fb547a42044e3f802519d",
+    "trace_sha256": "86476c69049a1e67ebd9f2ccfc3e31d71d628d5b9b9790adc9ed09318439763a",
+    "expected_samples": 156389,
+    "observed_latches": 156389,
+    "input_codes_written": 156389,
+    "all_sample_inputs_match_independent_model": true,
+    "input_mismatches": 0,
+    "first_input_mismatches": [],
+    "sample_gap_counts": {
+      "126": 156388
+    },
+    "first_latch_cycle": 2190696,
+    "last_latch_cycle": 21895584,
+    "generated_frames": 1000,
+    "underruns": 0,
+    "ordinary_sid_writes_checked": 6000,
+    "ordinary_sid_sequence_matches": true,
+    "ordinary_sid_write_mismatches": 0,
+    "first_synth_mismatches": [],
+    "synth_frame_timing_errors": 0,
+    "synth_commit_offset_cycles_after_boundary_latch": [
+      176,
+      305
+    ],
+    "d418_writes_during_music": [],
+    "native_events_read": 787995,
+    "retained_synth_event_bytes": 60020,
+    "scope": "Streaming verification of every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not establish original timbre, physical SID fidelity or perceived balance.",
+    "passed": true
+  },
+  "audio": {
+    "frames": 441001,
+    "duration_s": 20.000045351473922,
+    "sample_rate": 22050,
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "generated_frames": 1000,
+    "underruns": 0,
+    "raw_peak": 0.11196218202366694,
+    "raw_rms": 0.02643727781321023,
+    "listening_gain": 8.0,
+    "output_sha256": "437625f10803f9d6053ef38735ea0148c8924b5ec860a01465b7dae6c6191763",
+    "processing": "Actual VICE WAV, clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, alignment, time stretching or dynamics."
+  },
+  "audio_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/auditions-20s/audio/echoing-sid-preview.wav",
+  "program_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/results/auditions-20s/players/echoing-sid-preview.prg",
+  "accepted_references_preserved": {
+    "mod-channel-hybrid-player.asm": "405b22e66c1ddf1af64fc34ff1493dee90bf2b3de3db3f4d3006bed3aecc8b1a",
+    "build_mod_hybrid.py": "ba28e3d31d85bdee894210a5f341b49fd58c63e4dc0ebbe6325f673a05eef857",
+    "instrument_library.py": "0113bb0da12c9493a0ec377e09b30bb9ac97a1d858baf341a9435bded585acf0",
+    "mod_sample_channel.py": "e3d8411c418bdce6e760b001db38745108d5017ecaa73048a91290e2d101cd40",
+    "results/mod-channel-hybrid/player.prg": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "results/mod-channel-hybrid/hybrid.wav": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "results/mod-channel/player.prg": "9e63777cce4c1fb143b5c4d8ad2cc256595436b1abc917b10c12961e0a962048",
+    "results/mod-channel/mod-channel.wav": "3b48ccf1ba10d6d147c7de9a1e4fc6ae8e5bcffb354d1a202bf56261bf3a34a2",
+    "results/hyperbased/player.prg": "41a9c6c68a9360927678f032aa1ca6fb5927d60e24f0b5fa5353fff00b318c86",
+    "results/hyperbased/hybrid.wav": "ee7cbe192245e69148cd7b3fabe6e58a4e9bbd389d9294b55ba01c1ba671613a",
+    "results/hyperbased-full/player.prg": "8c25f91a807b4d5c0f74203fa9ea75ddd6317710d2ca5151e26467386e06cf5a",
+    "results/hyperbased-full/hybrid.wav": "f386f2a77554569cd75e61ab7c3b44734f41bfd7b5406cdde5c5accdf33c0f88",
+    "instruments/cream-of-the-earth/05-hi-hat.json": "2d86bb7f7f31d6f8220724b3bb424ce61b0f63ac8bc7a5e8edd9119d7026108f",
+    "instruments/cream-of-the-earth/08-bass.asm": "7e283a76145adef7501d44be4d2b2a8d389c00e2d0441145e33b7694c54930ef",
+    "instruments/cream-of-the-earth/10-pulse-melody.json": "74e2781c375344f769391a6a2c3ab71465e15968f97626d4706e1e450ed39859",
+    "instruments/cream-of-the-earth/07-bass.json": "a17cb84fb47a476e3a63e156d9265a48c919e94b3202d0b61c4526727cab3909",
+    "instruments/cream-of-the-earth/04-snare.json": "4d7c8fc778af8a62e4f8404370e247f9fdace3c14fdef9137dbe9cc23743e1b0",
+    "instruments/cream-of-the-earth/06-hi-hat.json": "4e44654a77aabe9f6d4557a196f5a83fdafce2e36aa0c094513e5e8f713d095b",
+    "instruments/cream-of-the-earth/03-ring.json": "ddaaf9f64764790758806e751db2915fc3c32a44b659d8d8871842bb5dc7454d",
+    "instruments/cream-of-the-earth/library.json": "656fd318843bd70d0b38b5b46c843c3178babce3dc3b1c70220f160205db64f8",
+    "instruments/cream-of-the-earth/01-kick.json": "d1bbd70f8c376b3509d947ebe283c986b45e35d4a4bfd12df88767cf91eddfba",
+    "instruments/cream-of-the-earth/08-bass.json": "9b7a2dd605584bf79026f6ce9d169c490454eb2de006dd6b45c3430080515449",
+    "instruments/cream-of-the-earth/02-high-kick.json": "79e7782c5574ff479c20175c5cc4e42ec9c14ee9de30fdecb823eef86d61ff0f",
+    "instruments/cream-of-the-earth/07-bass.asm": "09ee27b9219bd9730d6209ed2998bf7bd9c561ab0e2e387234de99979c2f1cac",
+    "instruments/cream-of-the-earth/09-percussion-sample.json": "4606e878fb06acb9a911d05dd579d08931fbc00a5623c0d33728617cd3c7aa14",
+    "instruments/cream-of-the-earth/09-percussion-sample.asm": "d6b1f4dce836c7036fbb31408784ba7512170cbe09bc719c7f21663a3a8bff5d",
+    "instruments/hyperbased/04-sample.json": "e4121753c950036a3f1f4a5a5919d10f00050061f73e529053c577a1de457c19",
+    "instruments/hyperbased/04-sample.asm": "3aac456ee5336c6c90f80a926107309f435261f42018b8e9ce7c6fcd927f28d2",
+    "instruments/hyperbased/07-pulse-lead.json": "7cba16033290386685074c156f3a4468a27bcf0f25971599a2dbd8f27c8e6a4c",
+    "instruments/hyperbased/06-sample.asm": "032d9eff106316488f18bfc471b7b413c76abb2153ce6b70a80c687feac5bab6",
+    "instruments/hyperbased/02-sample.json": "e0175f3a7b90288bf2d16d16e9092da9b63b1c6905cd833717d649cc6e7120f3",
+    "instruments/hyperbased/03-sample.asm": "bd95d1e308907691482df5d2ab8c120423db1973099f0a8b0f195f61938c0f25",
+    "instruments/hyperbased/library.json": "710cf11625314c3bcfd8ec737d753bf9608941500ee854fc9480e2a5098a74d9",
+    "instruments/hyperbased/01-triangle-bass.json": "ee89b502a7e1eb4d9f8d032381f67e015be1bb1210e5110b9a85507c6c85de9d",
+    "instruments/hyperbased/05-sample.asm": "5365163dcf655a8e5374b64d5ae294052594301581d467ce4e7069fa2b063c87",
+    "instruments/hyperbased/05-sample.json": "f9711c23dc821f8aefc1be85642bf61bc77198f36321e4991f2a1a7c3a94af58",
+    "instruments/hyperbased/06-sample.json": "5afd756edffb4e1ef2f56c6d2c46c4f7f387097426af794a8eed1a497a7d804e",
+    "instruments/hyperbased/02-sample.asm": "127001631d1e97a5ed9d4304b9a16254f7a4b2a72872e905eab72efb98a07ea4",
+    "instruments/hyperbased/03-sample.json": "ea660312ad03f3e96bfd687963dea349a700be60677625146035b53554d6431f",
+    "instruments/hyperbased-full-sid/01-sid.json": "8bd834060fb23ef81c0a69f237085014e8eb7517c8c07c2f671a59ff06d40f15",
+    "instruments/hyperbased-full-sid/16-sid.json": "5725309066410ed50f49a903eecadbe373f1df9547ca4f19b1e3490223cc271a",
+    "instruments/hyperbased-full-sid/17-sid.json": "4dae15e8da1532709cac28a499261bf078827d6420afa2680b408218094a367f",
+    "instruments/hyperbased-full-sid/23-sid.json": "dde8db3df0ef95356f4904f80ffd272addb4e6604bc04b22a320f12d1237d7c0",
+    "instruments/hyperbased-full-sid/10-sid.json": "6631305baade23ffe878d4231eda5702e5dbf9e70f7ebe64937acf6f2d133a23",
+    "instruments/hyperbased-full-sid/24-sid.json": "92a7ac37237f892c73aa09a7898d24a5fcff024e4f08864cba53922636276d4a",
+    "instruments/hyperbased-full-sid/06-sid.json": "cb4f8373a7024ce12288d4a7f2c3cbe228a36509e805938d2ad4b6711a02afbe",
+    "instruments/hyperbased-full-sid/07-sid.json": "e2d880c8c98860de9459973f36a1b49958502126c663283643cbc5492ed1e539",
+    "instruments/hyperbased-full-sid/21-sid.json": "a41ca54725657fc47c638e0d4c320a812967d7cd5b7534de8986f722765878e2",
+    "instruments/hyperbased-full-sid/20-sid.json": "8fa9e1f6def9672842945fb74711c9963116c4226cb8f5adbeca6d7d3cedfd6a",
+    "instruments/hyperbased-full-sid/15-sid.json": "f8f46abba66aee47506aab3c9a392a1a89566cf93efc21ab54cb03dc0ce104b8",
+    "instruments/hyperbased-full-sid/14-sid.json": "35c0f1afe87717b0b8e63589c351c796542f9a1220a87d095b4c799a8fa415ea",
+    "instruments/hyperbased-full-sid/library.json": "33dcdfa91c579ef7c89d97fc618709d86730747fea1d98add9ae129cb09a1175",
+    "instruments/hyperbased-full-sid/08-sid.json": "07a766540140e03a38b761ddeaac6893fadbb6e8490a33d546912e64dc4823e4",
+    "instruments/hyperbased-full-sid/09-sid.json": "dd21da5ff41a7707c4d5ddf549e999398ca9fee4d93679751bb772442039e982",
+    "instruments/hyperbased-full-sid/02-sid.json": "66474644d01337fd73168e73927d0527cf1ce4a6b4667164eaa6eccd526de3a2",
+    "instruments/hyperbased-full-sid/03-sid.json": "9ff424d7ea71589a6984b6e240c8a27a785210d966fe5f39cf6a05c3160efe4c",
+    "instruments/hyperbased-full-sid/05-sid.json": "d52459e97fc8eacd15c437b6f5c1d022b5be11df89abb8f2f086443808774242",
+    "instruments/hyperbased-full-sid/04-sid.json": "5a7b1a9375d003c72b76036a2a962e7e24d13d949b0ff3d55401a90c2eb1a897",
+    "instruments/hyperbased-full-sid/18-sid.json": "eb000440f01aa849151e8a17f701b60980a672577b7a4a3c3873dad7358e030d",
+    "instruments/hyperbased-full-sid/19-sid.json": "211588a825bb63dd83a60a664a43af0ab36e94175974d1a047dad0fd846bf37d",
+    "instruments/hyperbased-full-sid/12-sid.json": "05c99d78fb83d97861ec1d82251692474f820e001d7fb56a9624671a5ccf54b2",
+    "instruments/hyperbased-full-sid/13-sid.json": "858daaea19bb74b5a05c6611d6930f4ff139de7605250b69f275186e95d02246"
+  }
+}
