@@ -1,0 +1,16 @@
+{
+  "pass": true,
+  "engine": "py65 NMOS6502",
+  "programSha256": "afa076bd059a20e75c4b2efde29b396dc1a20fd0a72faaafe3ebe85004c0565a",
+  "scope": "Actual assembled render_start to render_end, excluding VIC steals, raster waits and scanout. Not native FPS.",
+  "transitionsVerified": 97,
+  "closingTransitionsVerified": 1,
+  "screenBytesCompared": 97000,
+  "fontAndMovieUnchanged": true,
+  "noScreenOverrun": true,
+  "renderInstructionCycles": {
+    "min": 2940,
+    "mean": 4444.257731958763,
+    "max": 8320
+  }
+}

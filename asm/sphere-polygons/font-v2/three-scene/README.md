@@ -491,3 +491,50 @@ junction differences. The existing 168-glyph font is unchanged.
 
 Primary API references: [Three.js WebGPURenderer](https://threejs.org/manual/pages/webgpurenderer),
 [Dawn for Node](https://github.com/dawn-gpu/node-webgpu).
+
+
+
+## Flagship star: very large, lit, endless rotation
+
+`demo-flagship-star.mjs` renders a 276-pixel-wide six-tip stellated-cube star
+spinning continuously about its own three-fold symmetry axis. Each facet is
+flat-shaded by the declared fixed world light into six exact gray levels
+(0, 51, 102, 153, 204, 255), recomputed every frame; the exporter converts the
+film through the screen-aligned 4x4 Bayer matrix, so interior tiles are pure
+tone patterns that stay constant while the star rotates. One symmetry turn
+(120 degrees) per 96-frame loop makes the loop endpoints pixel-identical: the
+film plays forever seamlessly and a full visible revolution takes 288 frames
+(11.52 seconds). The projection uses a screen-space anamorphic camera (square
++-50 frustum on the 320x200 raster, 1.6x horizontal), which widens the star at
+every rotation angle without rotating wide tips into the border.
+
+The film runs on the fixed universal 256-glyph font (`font-v2/universal`,
+191 parametric drawing slots + 65 once-optimized content slots, d12 stride 3)
+via `bitmap-to-chars.cjs --fixed-font`. The content census now spans nine
+corpora and still holds only 271 unique tiles; every uniform tile stays exact
+and remaining error (1.63% of the whole frame, 2.74% inside the active bounds)
+is confined to mask-constrained silhouette tiles, exactly like the binary
+films.
+
+Build and verify from the repository root:
+
+    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs
+    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs --characters
+    rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-flagship-star/native --variant literal-front
+
+Native PAL receipt (`native/literal-front/pal-proof/verification.json`): all 97
+stored frames match in both PAL fields, 578 visible fields verified, two loop
+wraps checked with 192 repeated update fields and 289 held fields, 25.06224
+fps mean (min 25.059), render mean 4418 cycles (max 8491 of 19656). The
+literal movie is 13,337 bytes - smaller than the unshaded variant, because
+screen-aligned dither interiors do not change while the star rotates - inside
+the 40,960-byte arena with 27,623 bytes unused; meaningful loaded bytes 16,628
+including the 2,048-byte universal font. The player loops forever by playback
+bytecode (`repeat`: `forever`, 11 bytes). The verifier adds an ordered-Bayer
+quantization contract (every rendered gray must be one of the six declared
+levels, every bitmap bit must equal the Bayer rule) and a shading contract
+(every facet's color must equal the declared light rule at sampled frames).
+
+The [published flagship package](results/flagship-star/README.md) contains the
+PRG, actual PAL VICE capture, compact verification receipts and source
+comparison.

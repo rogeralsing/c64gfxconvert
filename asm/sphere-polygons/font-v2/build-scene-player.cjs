@@ -105,6 +105,7 @@ function main(argv = process.argv.slice(2)) {
   const variant = literal ? 'literal-front' : 'sparse-front';
   const output = path.join(root, variant);
   const study = JSON.parse(fs.readFileSync(path.join(input, 'study.json')));
+  const metadata = study.sourceMetadata || {};
   const reference = fs.readFileSync(path.join(input, 'reference.frames'));
   const font = fs.readFileSync(path.join(input, 'font.bin'));
   const movie = fs.readFileSync(path.join(input, `${codec}.bin`));
@@ -117,8 +118,8 @@ function main(argv = process.argv.slice(2)) {
   assert.equal(reference.length, count * 1000);
   assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0,
     'Font must contain the original168 glyphs plus whole appended glyphs within the256-glyph VIC charset.');
-  assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59',
-    'The original168 glyphs and character codes must remain unchanged.');
+  if (metadata.fontMode === 'fixed256') assert.equal(font.length, 2048, 'A fixed256 film must ship all 256 glyphs.');
+  else assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
   assert(reference.every(code => code < font.length / 8));
   assert.equal(index.length, count - (loop ? 0 : 1));
   assert(reference.subarray(0, 1000).every(code => code === 0));
