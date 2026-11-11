@@ -1,13 +1,16 @@
 {
   "frames": 66,
-  "screenBytesCompared": 66000,
-  "coverageBytesCompared": 66000,
+  "totalExecutedFrames": 68,
+  "forcedCounterWrapFrames": 2,
+  "forcedCounterWrapPass": true,
+  "screenBytesCompared": 68000,
+  "coverageBytesCompared": 68000,
   "sourceAndFontImmutable": true,
   "noSteadyCoverageClear": true,
   "screenStoresStrictlyAscending": true,
   "boundedFlushWithinOnePalField": true,
-  "minConservativeFlushMargin": 5795,
-  "maxFlushWith1075StallsAnd63Jitter": 7942,
+  "minConservativeFlushMargin": 5790,
+  "maxFlushWith1075StallsAnd63Jitter": 8051,
   "stages": {
     "decode": {
       "samples": 66,
@@ -30,34 +33,34 @@
     "face_fill": {
       "samples": 1196,
       "min": 737,
-      "mean": 6547.186454849499,
-      "max": 35775
+      "mean": 6550.695652173913,
+      "max": 35936
     },
     "resolve": {
       "samples": 66,
-      "min": 22793,
-      "mean": 26999.363636363636,
-      "max": 38533
+      "min": 22513,
+      "mean": 26618.272727272728,
+      "max": 38109
     },
     "flush": {
       "samples": 66,
       "min": 38,
-      "mean": 5666.333333333333,
-      "max": 6804
+      "mean": 5757.015151515152,
+      "max": 6913
     },
     "render": {
       "samples": 66,
-      "min": 201089,
-      "mean": 219676.04545454544,
-      "max": 437683
+      "min": 200924,
+      "mean": 219455.22727272726,
+      "max": 438611
     }
   },
   "steady": {
     "renderCycles": {
       "samples": 65,
-      "min": 201089,
-      "mean": 219202.86153846153,
-      "max": 437683
+      "min": 200924,
+      "mean": 218989.92307692306,
+      "max": 438611
     },
     "dirtyCells": {
       "samples": 65,
@@ -91,9 +94,9 @@
     },
     "resolveCycles": {
       "samples": 65,
-      "min": 22793,
-      "mean": 26845.676923076924,
-      "max": 38533
+      "min": 22513,
+      "mean": 26477.36923076923,
+      "max": 38109
     },
     "queueBytes": {
       "samples": 65,
@@ -103,875 +106,901 @@
     },
     "flushCycles": {
       "samples": 65,
-      "min": 4378,
-      "mean": 5752.923076923077,
-      "max": 6804
+      "min": 4448,
+      "mean": 5845,
+      "max": 6913
     }
   },
-  "codeBytes": 1423,
+  "codeBytes": 1429,
   "tableBytes": 13689,
   "movieBytes": 24981,
   "prgBytes": 46486,
-  "prgSha256": "92e8b15ada518d6b520b4c35ea4ec0d197bb11c7f3d30156bb19c8718b31cf70",
+  "prgSha256": "09ea99de4c82abfc28a1b26aa18e7119158c0ad4987f517b9c8ff0b82132c961",
   "measurement": "Actual6502 instruction cycles, raster waits bypassed; no VIC stalls or nativeFPS claim.",
   "frameRows": [
     {
       "sequence": 0,
       "frame": 0,
-      "renderCycles": 250433,
+      "renderCycles": 249700,
       "dirtyCells": 303,
       "addMasks": 776,
       "removeMasks": 0,
       "screenWrites": 303,
       "coverageWrites": 776,
-      "resolveCycles": 36989,
+      "resolveCycles": 35777,
       "queueBytes": 0,
       "flushCycles": 38
     },
     {
       "sequence": 1,
       "frame": 1,
-      "renderCycles": 222708,
+      "renderCycles": 222454,
       "dirtyCells": 103,
       "addMasks": 65,
       "removeMasks": 78,
       "screenWrites": 100,
       "coverageWrites": 143,
-      "resolveCycles": 28262,
+      "resolveCycles": 27862,
       "queueBytes": 300,
-      "flushCycles": 6246
+      "flushCycles": 6346
     },
     {
       "sequence": 2,
       "frame": 2,
-      "renderCycles": 218173,
+      "renderCycles": 217923,
       "dirtyCells": 98,
       "addMasks": 69,
       "removeMasks": 61,
       "screenWrites": 96,
       "coverageWrites": 130,
-      "resolveCycles": 27972,
+      "resolveCycles": 27588,
       "queueBytes": 288,
-      "flushCycles": 5998
+      "flushCycles": 6094
     },
     {
       "sequence": 3,
       "frame": 3,
-      "renderCycles": 227019,
+      "renderCycles": 226752,
       "dirtyCells": 108,
       "addMasks": 75,
       "removeMasks": 81,
       "screenWrites": 107,
       "coverageWrites": 156,
-      "resolveCycles": 29246,
+      "resolveCycles": 28818,
       "queueBytes": 321,
-      "flushCycles": 6680
+      "flushCycles": 6787
     },
     {
       "sequence": 4,
       "frame": 4,
-      "renderCycles": 208385,
+      "renderCycles": 208168,
       "dirtyCells": 86,
       "addMasks": 56,
       "removeMasks": 59,
       "screenWrites": 84,
       "coverageWrites": 115,
-      "resolveCycles": 25102,
+      "resolveCycles": 24766,
       "queueBytes": 252,
-      "flushCycles": 5246
+      "flushCycles": 5330
     },
     {
       "sequence": 5,
       "frame": 5,
-      "renderCycles": 216077,
+      "renderCycles": 215820,
       "dirtyCells": 99,
       "addMasks": 67,
       "removeMasks": 63,
       "screenWrites": 98,
       "coverageWrites": 130,
-      "resolveCycles": 27742,
+      "resolveCycles": 27350,
       "queueBytes": 294,
-      "flushCycles": 6122
+      "flushCycles": 6220
     },
     {
       "sequence": 6,
       "frame": 6,
-      "renderCycles": 220445,
+      "renderCycles": 220171,
       "dirtyCells": 111,
       "addMasks": 67,
       "removeMasks": 91,
       "screenWrites": 109,
       "coverageWrites": 158,
-      "resolveCycles": 29687,
+      "resolveCycles": 29251,
       "queueBytes": 327,
-      "flushCycles": 6804
+      "flushCycles": 6913
     },
     {
       "sequence": 7,
       "frame": 7,
-      "renderCycles": 209967,
+      "renderCycles": 209747,
       "dirtyCells": 86,
       "addMasks": 62,
       "removeMasks": 53,
       "screenWrites": 85,
       "coverageWrites": 115,
-      "resolveCycles": 25216,
+      "resolveCycles": 24876,
       "queueBytes": 255,
-      "flushCycles": 5308
+      "flushCycles": 5393
     },
     {
       "sequence": 8,
       "frame": 8,
-      "renderCycles": 206100,
+      "renderCycles": 205906,
       "dirtyCells": 82,
       "addMasks": 61,
       "removeMasks": 61,
       "screenWrites": 80,
       "coverageWrites": 122,
-      "resolveCycles": 24542,
+      "resolveCycles": 24222,
       "queueBytes": 240,
-      "flushCycles": 4998
+      "flushCycles": 5078
     },
     {
       "sequence": 9,
       "frame": 9,
-      "renderCycles": 214622,
+      "renderCycles": 214362,
       "dirtyCells": 106,
       "addMasks": 73,
       "removeMasks": 82,
       "screenWrites": 105,
       "coverageWrites": 155,
-      "resolveCycles": 29195,
+      "resolveCycles": 28775,
       "queueBytes": 315,
-      "flushCycles": 6556
+      "flushCycles": 6661
     },
     {
       "sequence": 10,
       "frame": 10,
-      "renderCycles": 209323,
+      "renderCycles": 209094,
       "dirtyCells": 87,
       "addMasks": 55,
       "removeMasks": 58,
       "screenWrites": 87,
       "coverageWrites": 113,
-      "resolveCycles": 25315,
+      "resolveCycles": 24967,
       "queueBytes": 261,
-      "flushCycles": 5440
+      "flushCycles": 5527
     },
     {
       "sequence": 11,
       "frame": 11,
-      "renderCycles": 215908,
+      "renderCycles": 215677,
       "dirtyCells": 93,
       "addMasks": 71,
       "removeMasks": 64,
       "screenWrites": 93,
       "coverageWrites": 135,
-      "resolveCycles": 25980,
+      "resolveCycles": 25608,
       "queueBytes": 279,
-      "flushCycles": 5812
+      "flushCycles": 5905
     },
     {
       "sequence": 12,
       "frame": 12,
-      "renderCycles": 206366,
+      "renderCycles": 206182,
       "dirtyCells": 78,
       "addMasks": 50,
       "removeMasks": 69,
       "screenWrites": 77,
       "coverageWrites": 119,
-      "resolveCycles": 23971,
+      "resolveCycles": 23663,
       "queueBytes": 231,
-      "flushCycles": 4812
+      "flushCycles": 4889
     },
     {
       "sequence": 13,
       "frame": 13,
-      "renderCycles": 229942,
+      "renderCycles": 229682,
       "dirtyCells": 107,
       "addMasks": 87,
       "removeMasks": 72,
       "screenWrites": 106,
       "coverageWrites": 159,
-      "resolveCycles": 29156,
+      "resolveCycles": 28732,
       "queueBytes": 318,
-      "flushCycles": 6618
+      "flushCycles": 6724
     },
     {
       "sequence": 14,
       "frame": 14,
-      "renderCycles": 206013,
+      "renderCycles": 205837,
       "dirtyCells": 70,
       "addMasks": 52,
       "removeMasks": 46,
       "screenWrites": 70,
       "coverageWrites": 98,
-      "resolveCycles": 22793,
+      "resolveCycles": 22513,
       "queueBytes": 210,
-      "flushCycles": 4378
+      "flushCycles": 4448
     },
     {
       "sequence": 15,
       "frame": 15,
-      "renderCycles": 222889,
+      "renderCycles": 222656,
       "dirtyCells": 99,
       "addMasks": 71,
       "removeMasks": 86,
       "screenWrites": 99,
       "coverageWrites": 157,
-      "resolveCycles": 27410,
+      "resolveCycles": 27014,
       "queueBytes": 297,
-      "flushCycles": 6184
+      "flushCycles": 6283
     },
     {
       "sequence": 16,
       "frame": 16,
-      "renderCycles": 224124,
+      "renderCycles": 223910,
       "dirtyCells": 92,
       "addMasks": 89,
       "removeMasks": 50,
       "screenWrites": 89,
       "coverageWrites": 139,
-      "resolveCycles": 26447,
+      "resolveCycles": 26091,
       "queueBytes": 267,
-      "flushCycles": 5564
+      "flushCycles": 5653
     },
     {
       "sequence": 17,
       "frame": 17,
-      "renderCycles": 218831,
+      "renderCycles": 218616,
       "dirtyCells": 92,
       "addMasks": 61,
       "removeMasks": 77,
       "screenWrites": 89,
       "coverageWrites": 138,
-      "resolveCycles": 26145,
+      "resolveCycles": 25789,
       "queueBytes": 267,
-      "flushCycles": 5564
+      "flushCycles": 5653
     },
     {
       "sequence": 18,
       "frame": 18,
-      "renderCycles": 212586,
+      "renderCycles": 212369,
       "dirtyCells": 86,
       "addMasks": 57,
       "removeMasks": 58,
       "screenWrites": 84,
       "coverageWrites": 115,
-      "resolveCycles": 25310,
+      "resolveCycles": 24974,
       "queueBytes": 252,
-      "flushCycles": 5246
+      "flushCycles": 5330
     },
     {
       "sequence": 19,
       "frame": 19,
-      "renderCycles": 220672,
+      "renderCycles": 220422,
       "dirtyCells": 101,
       "addMasks": 65,
       "removeMasks": 77,
       "screenWrites": 99,
       "coverageWrites": 142,
-      "resolveCycles": 27950,
+      "resolveCycles": 27554,
       "queueBytes": 297,
-      "flushCycles": 6184
+      "flushCycles": 6283
     },
     {
       "sequence": 20,
       "frame": 20,
-      "renderCycles": 225761,
+      "renderCycles": 225508,
       "dirtyCells": 103,
       "addMasks": 77,
       "removeMasks": 70,
       "screenWrites": 101,
       "coverageWrites": 147,
-      "resolveCycles": 29078,
+      "resolveCycles": 28674,
       "queueBytes": 303,
-      "flushCycles": 6308
+      "flushCycles": 6409
     },
     {
       "sequence": 21,
       "frame": 21,
-      "renderCycles": 213710,
+      "renderCycles": 213516,
       "dirtyCells": 83,
       "addMasks": 58,
       "removeMasks": 68,
       "screenWrites": 81,
       "coverageWrites": 126,
-      "resolveCycles": 24727,
+      "resolveCycles": 24403,
       "queueBytes": 243,
-      "flushCycles": 5060
+      "flushCycles": 5141
     },
     {
       "sequence": 22,
       "frame": 22,
-      "renderCycles": 213411,
+      "renderCycles": 213185,
       "dirtyCells": 86,
       "addMasks": 61,
       "removeMasks": 51,
       "screenWrites": 86,
       "coverageWrites": 112,
-      "resolveCycles": 25247,
+      "resolveCycles": 24903,
       "queueBytes": 258,
-      "flushCycles": 5378
+      "flushCycles": 5464
     },
     {
       "sequence": 23,
       "frame": 23,
-      "renderCycles": 210354,
+      "renderCycles": 210135,
       "dirtyCells": 91,
       "addMasks": 64,
       "removeMasks": 72,
       "screenWrites": 90,
       "coverageWrites": 136,
-      "resolveCycles": 26562,
+      "resolveCycles": 26202,
       "queueBytes": 270,
-      "flushCycles": 5626
+      "flushCycles": 5716
     },
     {
       "sequence": 24,
       "frame": 24,
-      "renderCycles": 210000,
+      "renderCycles": 209776,
       "dirtyCells": 87,
       "addMasks": 57,
       "removeMasks": 61,
       "screenWrites": 87,
       "coverageWrites": 118,
-      "resolveCycles": 25782,
+      "resolveCycles": 25434,
       "queueBytes": 261,
-      "flushCycles": 5440
+      "flushCycles": 5527
     },
     {
       "sequence": 25,
       "frame": 25,
-      "renderCycles": 215513,
+      "renderCycles": 215284,
       "dirtyCells": 92,
       "addMasks": 72,
       "removeMasks": 52,
       "screenWrites": 89,
       "coverageWrites": 124,
-      "resolveCycles": 26503,
+      "resolveCycles": 26147,
       "queueBytes": 267,
-      "flushCycles": 5564
+      "flushCycles": 5653
     },
     {
       "sequence": 26,
       "frame": 26,
-      "renderCycles": 211633,
+      "renderCycles": 211403,
       "dirtyCells": 91,
       "addMasks": 60,
       "removeMasks": 65,
       "screenWrites": 90,
       "coverageWrites": 125,
-      "resolveCycles": 26304,
+      "resolveCycles": 25944,
       "queueBytes": 270,
-      "flushCycles": 5626
+      "flushCycles": 5716
     },
     {
       "sequence": 27,
       "frame": 27,
-      "renderCycles": 219135,
+      "renderCycles": 218893,
       "dirtyCells": 97,
       "addMasks": 71,
       "removeMasks": 69,
       "screenWrites": 97,
       "coverageWrites": 140,
-      "resolveCycles": 27707,
+      "resolveCycles": 27319,
       "queueBytes": 291,
-      "flushCycles": 6060
+      "flushCycles": 6157
     },
     {
       "sequence": 28,
       "frame": 28,
-      "renderCycles": 218975,
+      "renderCycles": 218726,
       "dirtyCells": 98,
       "addMasks": 60,
       "removeMasks": 74,
       "screenWrites": 97,
       "coverageWrites": 134,
-      "resolveCycles": 27183,
+      "resolveCycles": 26795,
       "queueBytes": 291,
-      "flushCycles": 6060
+      "flushCycles": 6157
     },
     {
       "sequence": 29,
       "frame": 29,
-      "renderCycles": 214917,
+      "renderCycles": 214700,
       "dirtyCells": 90,
       "addMasks": 79,
       "removeMasks": 55,
       "screenWrites": 89,
       "coverageWrites": 134,
-      "resolveCycles": 26248,
+      "resolveCycles": 25892,
       "queueBytes": 267,
-      "flushCycles": 5564
+      "flushCycles": 5653
     },
     {
       "sequence": 30,
       "frame": 30,
-      "renderCycles": 212968,
+      "renderCycles": 212747,
       "dirtyCells": 88,
       "addMasks": 64,
       "removeMasks": 55,
       "screenWrites": 86,
       "coverageWrites": 119,
-      "resolveCycles": 25944,
+      "resolveCycles": 25600,
       "queueBytes": 258,
-      "flushCycles": 5378
+      "flushCycles": 5464
     },
     {
       "sequence": 31,
       "frame": 31,
-      "renderCycles": 224675,
+      "renderCycles": 224416,
       "dirtyCells": 101,
       "addMasks": 63,
       "removeMasks": 73,
       "screenWrites": 100,
       "coverageWrites": 136,
-      "resolveCycles": 28170,
+      "resolveCycles": 27770,
       "queueBytes": 300,
-      "flushCycles": 6246
+      "flushCycles": 6346
     },
     {
       "sequence": 32,
       "frame": 32,
-      "renderCycles": 215771,
+      "renderCycles": 215517,
       "dirtyCells": 99,
       "addMasks": 68,
       "removeMasks": 65,
       "screenWrites": 98,
       "coverageWrites": 133,
-      "resolveCycles": 27221,
+      "resolveCycles": 26829,
       "queueBytes": 294,
-      "flushCycles": 6122
+      "flushCycles": 6220
     },
     {
       "sequence": 33,
       "frame": 33,
-      "renderCycles": 222871,
+      "renderCycles": 222639,
       "dirtyCells": 95,
       "addMasks": 72,
       "removeMasks": 64,
       "screenWrites": 93,
       "coverageWrites": 136,
-      "resolveCycles": 26993,
+      "resolveCycles": 26621,
       "queueBytes": 279,
-      "flushCycles": 5812
+      "flushCycles": 5905
     },
     {
       "sequence": 34,
       "frame": 34,
-      "renderCycles": 222098,
+      "renderCycles": 221859,
       "dirtyCells": 95,
       "addMasks": 58,
       "removeMasks": 71,
       "screenWrites": 93,
       "coverageWrites": 129,
-      "resolveCycles": 26979,
+      "resolveCycles": 26607,
       "queueBytes": 279,
-      "flushCycles": 5812
+      "flushCycles": 5905
     },
     {
       "sequence": 35,
       "frame": 35,
-      "renderCycles": 228719,
+      "renderCycles": 228461,
       "dirtyCells": 105,
       "addMasks": 75,
       "removeMasks": 78,
       "screenWrites": 104,
       "coverageWrites": 153,
-      "resolveCycles": 28383,
+      "resolveCycles": 27967,
       "queueBytes": 312,
-      "flushCycles": 6494
+      "flushCycles": 6598
     },
     {
       "sequence": 36,
       "frame": 36,
-      "renderCycles": 210942,
+      "renderCycles": 210737,
       "dirtyCells": 83,
       "addMasks": 60,
       "removeMasks": 52,
       "screenWrites": 80,
       "coverageWrites": 112,
-      "resolveCycles": 24315,
+      "resolveCycles": 23995,
       "queueBytes": 240,
-      "flushCycles": 4998
+      "flushCycles": 5078
     },
     {
       "sequence": 37,
       "frame": 37,
-      "renderCycles": 218417,
+      "renderCycles": 218161,
       "dirtyCells": 97,
       "addMasks": 62,
       "removeMasks": 64,
       "screenWrites": 97,
       "coverageWrites": 126,
-      "resolveCycles": 26819,
+      "resolveCycles": 26431,
       "queueBytes": 291,
-      "flushCycles": 6060
+      "flushCycles": 6157
     },
     {
       "sequence": 38,
       "frame": 38,
-      "renderCycles": 220969,
+      "renderCycles": 220713,
       "dirtyCells": 105,
       "addMasks": 88,
       "removeMasks": 64,
       "screenWrites": 103,
       "coverageWrites": 152,
-      "resolveCycles": 28497,
+      "resolveCycles": 28085,
       "queueBytes": 309,
-      "flushCycles": 6432
+      "flushCycles": 6535
     },
     {
       "sequence": 39,
       "frame": 39,
-      "renderCycles": 215028,
+      "renderCycles": 214819,
       "dirtyCells": 84,
       "addMasks": 48,
       "removeMasks": 67,
       "screenWrites": 82,
       "coverageWrites": 115,
-      "resolveCycles": 24588,
+      "resolveCycles": 24260,
       "queueBytes": 246,
-      "flushCycles": 5122
+      "flushCycles": 5204
     },
     {
       "sequence": 40,
       "frame": 40,
-      "renderCycles": 214263,
+      "renderCycles": 214072,
       "dirtyCells": 84,
       "addMasks": 58,
       "removeMasks": 72,
       "screenWrites": 81,
       "coverageWrites": 130,
-      "resolveCycles": 24804,
+      "resolveCycles": 24480,
       "queueBytes": 243,
-      "flushCycles": 5060
+      "flushCycles": 5141
     },
     {
       "sequence": 41,
       "frame": 41,
-      "renderCycles": 222933,
+      "renderCycles": 222685,
       "dirtyCells": 104,
       "addMasks": 78,
       "removeMasks": 75,
       "screenWrites": 101,
       "coverageWrites": 153,
-      "resolveCycles": 28359,
+      "resolveCycles": 27955,
       "queueBytes": 303,
-      "flushCycles": 6308
+      "flushCycles": 6409
     },
     {
       "sequence": 42,
       "frame": 42,
-      "renderCycles": 212247,
+      "renderCycles": 212023,
       "dirtyCells": 87,
       "addMasks": 61,
       "removeMasks": 51,
       "screenWrites": 85,
       "coverageWrites": 112,
-      "resolveCycles": 25160,
+      "resolveCycles": 24820,
       "queueBytes": 255,
-      "flushCycles": 5308
+      "flushCycles": 5393
     },
     {
       "sequence": 43,
       "frame": 43,
-      "renderCycles": 217097,
+      "renderCycles": 216837,
       "dirtyCells": 105,
       "addMasks": 69,
       "removeMasks": 82,
       "screenWrites": 104,
       "coverageWrites": 151,
-      "resolveCycles": 28554,
+      "resolveCycles": 28138,
       "queueBytes": 312,
-      "flushCycles": 6494
+      "flushCycles": 6598
     },
     {
       "sequence": 44,
       "frame": 44,
-      "renderCycles": 201089,
+      "renderCycles": 200924,
       "dirtyCells": 77,
       "addMasks": 71,
       "removeMasks": 51,
       "screenWrites": 72,
       "coverageWrites": 122,
-      "resolveCycles": 23420,
+      "resolveCycles": 23132,
       "queueBytes": 216,
-      "flushCycles": 4502
+      "flushCycles": 4574
     },
     {
       "sequence": 45,
       "frame": 45,
-      "renderCycles": 222067,
+      "renderCycles": 221808,
       "dirtyCells": 108,
       "addMasks": 76,
       "removeMasks": 82,
       "screenWrites": 105,
       "coverageWrites": 158,
-      "resolveCycles": 28667,
+      "resolveCycles": 28247,
       "queueBytes": 315,
-      "flushCycles": 6556
+      "flushCycles": 6661
     },
     {
       "sequence": 46,
       "frame": 46,
-      "renderCycles": 205035,
+      "renderCycles": 204860,
       "dirtyCells": 77,
       "addMasks": 52,
       "removeMasks": 57,
       "screenWrites": 71,
       "coverageWrites": 109,
-      "resolveCycles": 23754,
+      "resolveCycles": 23470,
       "queueBytes": 213,
-      "flushCycles": 4440
+      "flushCycles": 4511
     },
     {
       "sequence": 47,
       "frame": 47,
-      "renderCycles": 213077,
+      "renderCycles": 212864,
       "dirtyCells": 95,
       "addMasks": 79,
       "removeMasks": 76,
       "screenWrites": 93,
       "coverageWrites": 155,
-      "resolveCycles": 26561,
+      "resolveCycles": 26189,
       "queueBytes": 279,
-      "flushCycles": 5812
+      "flushCycles": 5905
     },
     {
       "sequence": 48,
       "frame": 48,
-      "renderCycles": 211893,
+      "renderCycles": 211680,
       "dirtyCells": 90,
       "addMasks": 60,
       "removeMasks": 69,
       "screenWrites": 86,
       "coverageWrites": 129,
-      "resolveCycles": 25680,
+      "resolveCycles": 25336,
       "queueBytes": 258,
-      "flushCycles": 5378
+      "flushCycles": 5464
     },
     {
       "sequence": 49,
       "frame": 49,
-      "renderCycles": 210434,
+      "renderCycles": 210221,
       "dirtyCells": 89,
       "addMasks": 73,
       "removeMasks": 61,
       "screenWrites": 88,
       "coverageWrites": 134,
-      "resolveCycles": 25703,
+      "resolveCycles": 25351,
       "queueBytes": 264,
-      "flushCycles": 5502
+      "flushCycles": 5590
     },
     {
       "sequence": 50,
       "frame": 50,
-      "renderCycles": 207360,
+      "renderCycles": 207150,
       "dirtyCells": 88,
       "addMasks": 50,
       "removeMasks": 68,
       "screenWrites": 82,
       "coverageWrites": 118,
-      "resolveCycles": 25169,
+      "resolveCycles": 24841,
       "queueBytes": 246,
-      "flushCycles": 5122
+      "flushCycles": 5204
     },
     {
       "sequence": 51,
       "frame": 51,
-      "renderCycles": 214715,
+      "renderCycles": 214471,
       "dirtyCells": 98,
       "addMasks": 76,
       "removeMasks": 66,
       "screenWrites": 98,
       "coverageWrites": 142,
-      "resolveCycles": 27936,
+      "resolveCycles": 27544,
       "queueBytes": 294,
-      "flushCycles": 6122
+      "flushCycles": 6220
     },
     {
       "sequence": 52,
       "frame": 52,
-      "renderCycles": 214147,
+      "renderCycles": 213912,
       "dirtyCells": 95,
       "addMasks": 69,
       "removeMasks": 67,
       "screenWrites": 94,
       "coverageWrites": 136,
-      "resolveCycles": 27544,
+      "resolveCycles": 27168,
       "queueBytes": 282,
-      "flushCycles": 5874
+      "flushCycles": 5968
     },
     {
       "sequence": 53,
       "frame": 53,
-      "renderCycles": 209517,
+      "renderCycles": 209320,
       "dirtyCells": 85,
       "addMasks": 75,
       "removeMasks": 53,
       "screenWrites": 82,
       "coverageWrites": 128,
-      "resolveCycles": 25065,
+      "resolveCycles": 24737,
       "queueBytes": 246,
-      "flushCycles": 5122
+      "flushCycles": 5204
     },
     {
       "sequence": 54,
       "frame": 54,
-      "renderCycles": 211261,
+      "renderCycles": 211034,
       "dirtyCells": 91,
       "addMasks": 50,
       "removeMasks": 72,
       "screenWrites": 88,
       "coverageWrites": 122,
-      "resolveCycles": 25847,
+      "resolveCycles": 25495,
       "queueBytes": 264,
-      "flushCycles": 5502
+      "flushCycles": 5590
     },
     {
       "sequence": 55,
       "frame": 55,
-      "renderCycles": 215288,
+      "renderCycles": 215060,
       "dirtyCells": 93,
       "addMasks": 70,
       "removeMasks": 68,
       "screenWrites": 93,
       "coverageWrites": 138,
-      "resolveCycles": 26700,
+      "resolveCycles": 26328,
       "queueBytes": 279,
-      "flushCycles": 5812
+      "flushCycles": 5905
     },
     {
       "sequence": 56,
       "frame": 56,
-      "renderCycles": 222570,
+      "renderCycles": 222320,
       "dirtyCells": 98,
       "addMasks": 70,
       "removeMasks": 63,
       "screenWrites": 97,
       "coverageWrites": 133,
-      "resolveCycles": 27767,
+      "resolveCycles": 27379,
       "queueBytes": 291,
-      "flushCycles": 6060
+      "flushCycles": 6157
     },
     {
       "sequence": 57,
       "frame": 57,
-      "renderCycles": 212733,
+      "renderCycles": 212506,
       "dirtyCells": 91,
       "addMasks": 54,
       "removeMasks": 68,
       "screenWrites": 88,
       "coverageWrites": 122,
-      "resolveCycles": 26205,
+      "resolveCycles": 25853,
       "queueBytes": 264,
-      "flushCycles": 5502
+      "flushCycles": 5590
     },
     {
       "sequence": 58,
       "frame": 58,
-      "renderCycles": 209264,
+      "renderCycles": 209040,
       "dirtyCells": 90,
       "addMasks": 65,
       "removeMasks": 59,
       "screenWrites": 88,
       "coverageWrites": 124,
-      "resolveCycles": 26033,
+      "resolveCycles": 25681,
       "queueBytes": 264,
-      "flushCycles": 5502
+      "flushCycles": 5590
     },
     {
       "sequence": 59,
       "frame": 59,
-      "renderCycles": 216936,
+      "renderCycles": 216701,
       "dirtyCells": 96,
       "addMasks": 75,
       "removeMasks": 62,
       "screenWrites": 94,
       "coverageWrites": 137,
-      "resolveCycles": 27244,
+      "resolveCycles": 26868,
       "queueBytes": 282,
-      "flushCycles": 5874
+      "flushCycles": 5968
     },
     {
       "sequence": 60,
       "frame": 60,
-      "renderCycles": 215665,
+      "renderCycles": 215411,
       "dirtyCells": 99,
       "addMasks": 74,
       "removeMasks": 59,
       "screenWrites": 98,
       "coverageWrites": 133,
-      "resolveCycles": 26988,
+      "resolveCycles": 26596,
       "queueBytes": 294,
-      "flushCycles": 6122
+      "flushCycles": 6220
     },
     {
       "sequence": 61,
       "frame": 61,
-      "renderCycles": 215961,
+      "renderCycles": 215725,
       "dirtyCells": 96,
       "addMasks": 59,
       "removeMasks": 80,
       "screenWrites": 95,
       "coverageWrites": 139,
-      "resolveCycles": 27566,
+      "resolveCycles": 27186,
       "queueBytes": 285,
-      "flushCycles": 5936
+      "flushCycles": 6031
     },
     {
       "sequence": 62,
       "frame": 62,
-      "renderCycles": 211526,
+      "renderCycles": 211294,
       "dirtyCells": 90,
       "addMasks": 60,
       "removeMasks": 59,
       "screenWrites": 89,
       "coverageWrites": 119,
-      "resolveCycles": 27014,
+      "resolveCycles": 26658,
       "queueBytes": 267,
-      "flushCycles": 5564
+      "flushCycles": 5653
     },
     {
       "sequence": 63,
       "frame": 63,
-      "renderCycles": 224700,
+      "renderCycles": 224419,
       "dirtyCells": 107,
       "addMasks": 73,
       "removeMasks": 68,
       "screenWrites": 107,
       "coverageWrites": 141,
-      "resolveCycles": 29743,
+      "resolveCycles": 29315,
       "queueBytes": 321,
-      "flushCycles": 6680
+      "flushCycles": 6787
     },
     {
       "sequence": 64,
       "frame": 0,
-      "renderCycles": 437683,
+      "renderCycles": 438611,
       "dirtyCells": 307,
       "addMasks": 776,
       "removeMasks": 771,
       "screenWrites": 106,
       "coverageWrites": 1547,
-      "resolveCycles": 38533,
+      "resolveCycles": 38109,
       "queueBytes": 318,
-      "flushCycles": 6618
+      "flushCycles": 6724
     },
     {
       "sequence": 65,
       "frame": 1,
-      "renderCycles": 222708,
+      "renderCycles": 222454,
       "dirtyCells": 103,
       "addMasks": 65,
       "removeMasks": 78,
       "screenWrites": 100,
       "coverageWrites": 143,
-      "resolveCycles": 28262,
+      "resolveCycles": 27862,
       "queueBytes": 300,
-      "flushCycles": 6246
+      "flushCycles": 6346
+    },
+    {
+      "sequence": 66,
+      "frame": 2,
+      "renderCycles": 217923,
+      "dirtyCells": 98,
+      "addMasks": 69,
+      "removeMasks": 61,
+      "screenWrites": 96,
+      "coverageWrites": 130,
+      "resolveCycles": 27588,
+      "queueBytes": 288,
+      "flushCycles": 6094
+    },
+    {
+      "sequence": 67,
+      "frame": 3,
+      "renderCycles": 226752,
+      "dirtyCells": 108,
+      "addMasks": 75,
+      "removeMasks": 81,
+      "screenWrites": 107,
+      "coverageWrites": 156,
+      "resolveCycles": 28818,
+      "queueBytes": 321,
+      "flushCycles": 6787
     }
   ],
   "pass": true

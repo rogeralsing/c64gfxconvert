@@ -92,6 +92,25 @@ start:
     lda #8
     sta next_dac
     sta SID+24
+#if DIGI_DC_BOOST
+    // Constant-DC reference on every voice: test + gate + pulse with pulse
+    // width 0 and full sustain. The ADSR DAC then supplies a large fixed
+    // voltage for the volume register to modulate, instead of the chip's
+    // small natural offset. The voices stay untouched afterwards; the D418
+    // sample stream and all SID oscillator playback states are unchanged.
+    lda #$49
+    sta SID+4
+    sta SID+11
+    sta SID+18
+    lda #$01
+    sta SID+5
+    sta SID+12
+    sta SID+19
+    lda #$ff
+    sta SID+6
+    sta SID+13
+    sta SID+20
+#endif
     lda #<irq
     sta $fffe
     lda #>irq

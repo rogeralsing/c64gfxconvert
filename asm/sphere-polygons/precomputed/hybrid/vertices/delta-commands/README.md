@@ -139,7 +139,8 @@ clocks after line256. It has 2,031 clocks of global blanking headroom without
 using later per-row deadlines.
 
 For the pipeline, the conservative independent maxima are
-`28483 + 3572 + 2*1075 + 63 = 34268` clocks, below two PAL fields39312. The
+`28483 + 3572 + 128 + 2*1075 + 63 = 34396` clocks, including a128-clock
+driver allowance, below two PAL fields39312. The
 minimum computation alone exceeds one field19656 clocks. These bounds support
 two-field scheduling under the specified no-sprite/no-IRQ workload; actual
 PAL verification owns the resulting frame rate. The [VIC-II timing model](https://www.cebix.net/VIC-Article.txt)
