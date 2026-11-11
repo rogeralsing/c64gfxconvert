@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SFÄR — ett experiment med 256 tecken</title>
+<title>SFÄR — grovpixlig font med 168 tecken</title>
 <style>
 :root{color-scheme:dark;--bg:#141613;--panel:#1d201b;--line:#373c32;--text:#e6e8da;--muted:#a5ad98;--accent:#d9f18a;--orange:#ed9671}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,sans-serif;font-size:14px;line-height:1.5}button,input,select{font:inherit}button,select{color:var(--text);background:transparent;border:1px solid var(--line);border-radius:3px}button{padding:8px 13px;cursor:pointer}button:hover,select:hover{border-color:var(--muted)}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button.active,button[aria-pressed=true]{color:var(--bg);background:var(--accent);border-color:var(--accent)}button:disabled{opacity:.4;cursor:default}select{width:100%;padding:9px 10px}input[type=range]{width:100%;accent-color:var(--accent);margin:12px 0 0}input[type=checkbox]{accent-color:var(--accent);width:15px;height:15px}.mono,output,.tag,.eyebrow,.stat strong{font-family:ui-monospace,SFMono-Regular,Consolas,monospace}.eyebrow{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
@@ -17,16 +17,16 @@
 <body>
 <div class="page">
   <header>
-    <div><div class="eyebrow">C64 / matematiskt fontexperiment / 01</div><h1>SFÄR <span>/ 256</span></h1></div>
-    <p>En stor 3D-sfär. En fast font. Fyra matematiska metoder väljer tecken direkt, utan en pixelbild som mellanled.</p>
+    <div><div class="eyebrow">C64 / matematiskt fontexperiment / 01</div><h1>SFÄR <span>/ 168</span></h1></div>
+    <p>Befintliga tecken med grövre pixlar. Varje punkt är 2 × 2 pixlar. Dubletterna är borttagna.</p>
   </header>
   <div class="layout">
     <aside aria-label="Inställningar">
       <div class="presets" aria-label="Förinställningar">
-        <button type="button" data-preset="fine">Fin font</button><button type="button" data-preset="coarse">Kvadranter</button><button type="button" data-preset="hard">Svåra kanter</button>
+        <button type="button" data-preset="coarse">Grov 4 × 4</button><button type="button" data-preset="fine">Original 8 × 8</button><button type="button" data-preset="hard">Svåra kanter</button>
       </div>
       <div class="control"><label for="method">Välj tecken med</label><select id="method"><option value="conics" selected>Kurvor · analytiska gränser</option><option value="gradient">Lutning · lokala derivator</option><option value="probes3">9 prov · liten tabell</option><option value="probes4">16 prov · stor tabell</option><option value="matching">Pixelmatchning · jämförelse</option></select><p class="help" id="methodNote"></p></div>
-      <div class="control"><label for="fontSize">Fontens storlek <output id="fontValue">256 tecken</output></label><select id="fontSize"><option value="16">16 · fyra kvadranter</option><option value="64">64 · kompakta former</option><option value="128">128 · fler lutningar</option><option value="256" selected>256 · hela teckenuppsättningen</option></select><p class="help">Samma font återanvänds i alla bildrutor.</p></div>
+      <div class="control"><label for="fontSize">Fontens storlek <output id="fontValue">168 tecken</output></label><select id="fontSize"><option value="168" selected>168 · grov 4 × 4, deduplicerad</option><option value="256">256 · original 8 × 8</option><option value="30">30 · mindre urval, 8 × 8</option><option value="64">64 · mindre urval, 8 × 8</option><option value="128">128 · mindre urval, 8 × 8</option></select><p class="help" id="fontHelp">Samma font återanvänds i alla bildrutor.</p></div>
       <div class="control"><label for="checks">Schackrutor <output id="checksValue"></output></label><input id="checks" type="range" min="4" max="32" step="2" value="12"><p class="help">Fler rutor ger svårare korsningar.</p></div>
       <div class="control"><label for="radius">Storlek <output id="radiusValue"></output></label><input id="radius" type="range" min="55" max="145" step="1" value="94"></div>
       <div class="control"><label for="tilt">Axelns lutning <output id="tiltValue"></output></label><input id="tilt" type="range" min="-65" max="65" step="1" value="22"></div>
@@ -55,7 +55,7 @@
     </main>
   </div>
   <div class="recipe"><div><div class="eyebrow">Spara en variant att arbeta vidare med</div><p id="recipeText"></p></div><button id="copy" type="button">Kopiera beskrivning</button></div>
-  <footer><span>Visuellt metodprov, inte C64-bildfrekvens. Font: 2 048 B. Skärmkarta: 1 000 B. Geometri och kod tillkommer utöver teckentabellen.</span><span>Två färger · ingen kantutjämning · fasta tecken</span></footer>
+  <footer><span>Visuellt metodprov, inte C64-bildfrekvens. Font: <span id="fontBytes">1 344 B</span>. Skärmkarta: 1 000 B. Geometri och kod tillkommer utöver teckentabellen.</span><span>Två färger · ingen kantutjämning · fasta tecken</span></footer>
 </div>
 <script>
 /* FONT_MATH */
@@ -66,7 +66,7 @@
 (function () {
   'use strict';
   const $ = id => document.getElementById(id);
-  const DEFAULTS = { fontSize:256, checks:12, radius:94, tilt:22, grid:false, solid:false, measure:false, method:'conics', angle:0.38, view:'font', playing:!matchMedia('(prefers-reduced-motion: reduce)').matches };
+  const DEFAULTS = { fontSize:168, checks:20, radius:145, tilt:65, grid:false, solid:false, measure:false, method:'matching', angle:0.38, view:'font', playing:!matchMedia('(prefers-reduced-motion: reduce)').matches };
   const state = { ...DEFAULTS };
   const renderer = new SphereMath.SphereRenderer();
   const canvas = $('screen'), ctx = canvas.getContext('2d', { alpha:false });
@@ -83,16 +83,16 @@
   };
   const LABELS = { quadrant:'fyra kvadranter', edge:'rakt snitt', crossing:'två korsande snitt', corner:'hörn' };
   const presets = {
-    fine:{ ...DEFAULTS },
-    coarse:{ ...DEFAULTS, fontSize:16 },
+    fine:{ ...DEFAULTS, fontSize:256 },
+    coarse:{ ...DEFAULTS },
     hard:{ ...DEFAULTS, checks:24, radius:115, tilt:37 }
   };
 
   function setFont() {
-    font = GlyphMath.generateFont(state.fontSize);
-    DirectCore.prepareSilhouette(font,state.radius);
+    font = state.fontSize === 168 ? GlyphMath.generateCoarsenedFont() : GlyphMath.generateFont(state.fontSize);
+    DirectCore.prepareSilhouette(font.sourceFont || font,state.radius);
     renderer.resetFont();
-    $('fontCount').textContent = font.count + ' / 256';
+    $('fontCount').textContent = font.count + (font.coarsened ? ' · 4 × 4' : ' · 8 × 8');
     $('fontSignature').textContent = 'FONT-ID ' + font.signature;
     document.querySelector('h1 span').textContent = '/ ' + font.count;
     drawAtlas();
@@ -117,7 +117,9 @@
     $('grid').checked = state.grid; $('solid').checked = state.solid; $('measure').checked=state.measure;
     $('methodNote').textContent=descriptions[state.method][0];
     $('methodExplanation').innerHTML=descriptions[state.method][1];
-    $('fontValue').textContent = state.fontSize + ' tecken';
+    $('fontValue').textContent = font.count + ' tecken';
+    $('fontHelp').textContent = font.coarsened ? '256 befintliga tecken gjorda grovpixliga och deduplicerade. Varje punkt är 2 × 2 pixlar.' : 'Originalfont med 8 × 8 pixlar per tecken.';
+    $('fontBytes').textContent = (font.count * 8).toLocaleString('sv-SE') + ' B';
     $('checksValue').textContent = state.solid ? 'avstängt' : state.checks + ' × ' + state.checks/2;
     $('checks').disabled = state.solid;
     $('radiusValue').textContent = state.radius*2 + ' px Ø';
@@ -137,7 +139,7 @@
     if (state.radius !== DEFAULTS.radius) parts.push('diametern ' + state.radius*2 + ' pixlar');
     if (state.tilt !== DEFAULTS.tilt) parts.push(state.tilt + ' graders axellutning');
     if (state.solid) parts.push('en helt fylld silhuett i stället för schackmönstret');
-    $('recipeText').textContent = 'Bygg en roterande sfär i 320 × 200 med en fast, matematiskt genererad font på ' + state.fontSize + ' tecken à 8 × 8 pixlar. Välj tecken med metoden ' + descriptions[state.method][0] + ' Använd 40 × 25 teckenceller och två färger' + (parts.length ? ', med ' + parts.join(', ') : '') + '. Håll pixelreferensen separat från teckenvalet.';
+    $('recipeText').textContent = 'Bygg en roterande sfär i 320 × 200 med en fast font på ' + font.count + ' tecken. ' + (font.coarsened ? 'Befintliga 8 × 8-tecken är omvandlade till 4 × 4 punkter, varje punkt 2 × 2 pixlar, och deduplicerade. ' : 'Varje tecken har 8 × 8 pixlar. ') + 'Välj tecken med metoden ' + descriptions[state.method][0] + ' Använd 40 × 25 teckenceller och två färger' + (parts.length ? ', med ' + parts.join(', ') : '') + '.';
     needsRender = true;
   }
 
@@ -164,23 +166,23 @@
       ctx.stroke();
     }
     $('viewLabel').textContent = state.view === 'reference' ? 'MATEMATISK PIXELREFERENS' : state.view === 'difference' ? 'SKILLNAD / FONT MOT REFERENS' : 'FAST FONT / ' + font.count + ' TECKEN';
-    $('viewLegend').textContent = state.view === 'difference' ? 'ORANGE = FELPIXEL' : state.view === 'reference' ? 'UTAN TECKENBEGRÄNSNING' : '8 × 8 PX PER TECKEN';
+    $('viewLegend').textContent = state.view === 'difference' ? 'ORANGE = FELPIXEL' : state.view === 'reference' ? (font.coarsened ? '160 × 100 PUNKTER · 2 × 2 PX' : '320 × 200 PUNKTER') : font.coarsened ? '4 × 4 PUNKTER · 2 × 2 PX' : '8 × 8 PX PER TECKEN';
     $('viewLegend').classList.toggle('error-key',state.view === 'difference');
   }
 
   function render() {
     const measuring=state.measure || state.view!=='font' || state.method==='matching';
     if(state.method==='matching') {
-      stats=renderer.render(state,font);
-      displayPixels=renderer.output;referencePixels=renderer.source;lastScreen=renderer.screen;
+      stats=font.coarsened ? GlyphMath.renderCoarsened(renderer,state,font) : renderer.render(state,font);
+      displayPixels=renderer.output;referencePixels=font.coarsened ? renderer.displayReference : renderer.source;lastScreen=renderer.screen;
       const silhouette=stats.silhouette;
       lastOps={samples:64000,glyphComparisons:'sökning',silhouetteLookups:silhouette.lookups,silhouetteChanges:silhouette.changes,silhouetteTableBytes:silhouette.tableBytes,silhouetteIndexBytes:silhouette.indexBytes};lastMethod={tableBytes:0};
     } else {
-      lastMethod=DirectMethods[state.method].create(font);
-      const frame=lastMethod.render(state);lastScreen=frame.screen;lastOps=frame.ops;
+      lastMethod=DirectMethods[state.method].create(font.sourceFont || font);
+      const frame=lastMethod.render(state);lastScreen=font.coarsened ? GlyphMath.mapCoarsenedScreen(frame.screen,font) : frame.screen;lastOps=frame.ops;
       displayPixels=DirectCore.reconstruct(lastScreen,font);referencePixels=null;
       stats={usedCount:new Set(lastScreen).size,normalizedError:null};
-      if(measuring){const ref=DirectCore.reference(state),comparison=DirectCore.compare(lastScreen,font,ref);referencePixels=ref.pixels;stats.normalizedError=comparison.error;stats.mismatches=comparison.errors;stats.surfacePixels=ref.area;}
+      if(measuring){const fineRef=DirectCore.reference(state),ref=font.coarsened ? {...fineRef,pixels:GlyphMath.coarsenReferencePixels(fineRef.pixels)} : fineRef,comparison=DirectCore.compare(lastScreen,font,ref);referencePixels=ref.pixels;stats.normalizedError=comparison.error;stats.mismatches=comparison.errors;stats.surfacePixels=ref.area;}
     }
     paint(); frameCount++;
     $('errorValue').textContent=stats.normalizedError===null?'av':(stats.normalizedError*100).toLocaleString('sv-SE',{minimumFractionDigits:1,maximumFractionDigits:1})+' %';
@@ -206,7 +208,7 @@
   for (const id of ['fontSize','checks','radius','tilt','method']) $(id).addEventListener('input',()=>{
     state[id]=id==='method'?$(id).value:Number($(id).value);
     if(id==='fontSize') setFont();
-    if(id==='radius') DirectCore.prepareSilhouette(font,state.radius);
+    if(id==='radius') DirectCore.prepareSilhouette(font.sourceFont || font,state.radius);
     updateUI(); render();
   });
   for (const id of ['grid','solid','measure']) $(id).addEventListener('change',()=>{state[id]=$(id).checked;if(id==='measure'&&!state.measure)state.view='font';updateUI();render()});
@@ -223,7 +225,7 @@
   atlas.addEventListener('pointermove',event=>{const box=atlas.getBoundingClientRect();const x=(event.clientX-box.left)*208/box.width,y=(event.clientY-box.top)*208/box.height;const index=Math.floor(y/13)*16+Math.floor(x/13);if(index<font.count){const glyph=font.glyphs[index];$('atlasNote').textContent='#'+String(index).padStart(3,'0')+' · '+LABELS[glyph.kind]+' · '+Math.round(glyph.coverage*100)+' % fyllt'}});
   atlas.addEventListener('pointerleave',()=>{$('atlasNote').textContent='Peka på ett tecken för att se dess formtyp.'});
   function download(bytes,name){const url=URL.createObjectURL(new Blob([bytes],{type:'application/octet-stream'}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)}
-  $('saveFont').addEventListener('click',()=>{const bytes=new Uint8Array(2048);font.glyphs.forEach((glyph,index)=>bytes.set(glyph.rows,index*8));download(bytes,'sphere-font-'+font.count+'.bin')});
+  $('saveFont').addEventListener('click',()=>{const bytes=new Uint8Array(font.count*8);font.glyphs.forEach((glyph,index)=>bytes.set(glyph.rows,index*8));download(bytes,'sphere-font-'+font.count+'.bin')});
   $('saveScreen').addEventListener('click',()=>download(lastScreen.slice(),'sphere-screen-40x25.bin'));
   $('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('recipeText').textContent);$('copy').textContent='Kopierat';setTimeout(()=>{$('copy').textContent='Kopiera beskrivning'},1600)}catch{const range=document.createRange();range.selectNodeContents($('recipeText'));const selection=getSelection();selection.removeAllRanges();selection.addRange(range);$('copy').textContent='Texten markerad'}});
 

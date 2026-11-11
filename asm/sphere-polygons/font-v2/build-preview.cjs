@@ -1,6 +1,6 @@
 'use strict';
 const fs = require('node:fs'), path = require('node:path');
-const {buildBrowserSource} = require('./browser-font.cjs');
+const {buildBrowserSource4} = require('./browser-font4.cjs');
 const {generateFont} = require('./font.cjs');
 const args = process.argv.slice(2);
 let outputDirectory = path.join(__dirname, 'build');
@@ -18,7 +18,7 @@ const directCore = fs.readFileSync(path.join(__dirname, 'matching/direct-core.js
 const sphereRenderer = fs.readFileSync(path.join(__dirname, 'matching/sphere-renderer.js'), 'utf8');
 const palette = generateFont();
 const kinds = palette.glyphs.reduce((counts, glyph) => {counts[glyph.kind] = (counts[glyph.kind] || 0) + 1; return counts;}, {});
-const browserFont = buildBrowserSource(palette);
+const browserFont = buildBrowserSource4();
 const fragment = fs.readFileSync(path.join(__dirname, 'preview-template.html'), 'utf8').replace('/* RENDER_SOURCES */',
   [browserFont, sphereRenderer, directCore, conics].join('\n'));
 if (!args.includes('--html-only')) fs.writeFileSync(path.join(outputDirectory, 'checker-font-v2.html'), fragment);
@@ -46,5 +46,6 @@ let standalone = read('sphere-shell.html')
   .replace("method:'conics'", "method:'matching'")
   .replace("+ state.fontSize + ' tecken à 8 × 8 pixlar.", "+ font.count + ' tecken à 8 × 8 pixlar.");
 fs.writeFileSync(path.join(outputDirectory, 'font-v2.html'), standalone);
+fs.writeFileSync(path.join(outputDirectory, 'font-v2-4x4.html'), standalone);
 console.log(JSON.stringify({fragment:path.join(outputDirectory,'checker-font-v2.html'), html:path.join(outputDirectory,'font-v2.html'),
-  fragmentBytes:Buffer.byteLength(fragment), activeGlyphs:palette.usedCount, reservedExcluded:true}));
+  coarseHtml:path.join(outputDirectory,'font-v2-4x4.html'), fragmentBytes:Buffer.byteLength(fragment), activeGlyphs:168, reservedExcluded:true}));

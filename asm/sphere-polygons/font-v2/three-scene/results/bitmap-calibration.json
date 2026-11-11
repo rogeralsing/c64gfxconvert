@@ -1,0 +1,1898 @@
+{
+  "pass": true,
+  "stage": "Three.js to1-bit bitmap only; no character conversion",
+  "selectedThreshold": 128,
+  "quantization": {
+    "mode": "threshold",
+    "threshold": 128,
+    "selection": "Rounded midpoint of the measured longest stable interior threshold plateau; no dithering."
+  },
+  "plateau": {
+    "min": 1,
+    "max": 254,
+    "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0"
+  },
+  "uniqueBitmapMovies": 2,
+  "width": 160,
+  "height": 100,
+  "fps": 25,
+  "frameCount": 125,
+  "durationSeconds": 5,
+  "sourceSha256": "f85b70602e7cfb09c4fb2fd2637dcd1560b1ea6daf3064648a3e1dabbb4f77d4",
+  "rgbaSha256": "a1249a0c388a284c2a47339931ef5a97563e45bfdd0a92959d7dae3fb67f857d",
+  "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+  "checker": {
+    "columns": 14,
+    "rows": 7,
+    "whiteTexels": 49,
+    "blackTexels": 49,
+    "unlit": true,
+    "nearest": true,
+    "mipmaps": false
+  },
+  "analyticSphere": {
+    "method": "Orthographic ray/sphere front intersection, inverse Rz*Rx*Ry, original atan2/asin14x7 checker; rim and UV-boundary pixels excluded.",
+    "comparedPixels": 833,
+    "mismatches": 0,
+    "whitePixels": 419,
+    "blackPixels": 414,
+    "frames": [
+      {
+        "frame": 25,
+        "comparedPixels": 68
+      },
+      {
+        "frame": 50,
+        "comparedPixels": 245
+      },
+      {
+        "frame": 74,
+        "comparedPixels": 520
+      }
+    ]
+  },
+  "grayscaleHistogram": [
+    1943817,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    56183
+  ],
+  "nonBinaryPixels": 0,
+  "translucentPixels": 0,
+  "phases": {
+    "blank": {
+      "frames": 1,
+      "pixels": 16000,
+      "nonBinaryPixels": 0,
+      "levels": [
+        0
+      ]
+    },
+    "grow": {
+      "frames": 74,
+      "pixels": 1184000,
+      "nonBinaryPixels": 0,
+      "levels": [
+        0,
+        255
+      ]
+    },
+    "morph": {
+      "frames": 38,
+      "pixels": 608000,
+      "nonBinaryPixels": 0,
+      "levels": [
+        0,
+        255
+      ]
+    },
+    "cube": {
+      "frames": 12,
+      "pixels": 192000,
+      "nonBinaryPixels": 0,
+      "levels": [
+        0,
+        255
+      ]
+    }
+  },
+  "thresholds": [
+    {
+      "threshold": 0,
+      "bitmapSha256": "5499a017e5937d55db3d4b771130c3f7788e8eee28a7dc4cc57aaad1e24fdd26",
+      "whitePixels": 2000000,
+      "firstFrameBlack": false
+    },
+    {
+      "threshold": 1,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 2,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 3,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 4,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 5,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 6,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 7,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 8,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 9,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 10,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 11,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 12,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 13,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 14,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 15,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 16,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 17,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 18,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 19,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 20,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 21,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 22,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 23,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 24,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 25,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 26,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 27,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 28,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 29,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 30,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 31,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 32,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 33,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 34,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 35,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 36,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 37,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 38,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 39,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 40,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 41,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 42,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 43,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 44,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 45,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 46,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 47,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 48,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 49,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 50,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 51,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 52,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 53,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 54,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 55,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 56,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 57,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 58,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 59,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 60,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 61,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 62,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 63,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 64,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 65,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 66,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 67,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 68,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 69,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 70,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 71,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 72,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 73,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 74,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 75,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 76,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 77,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 78,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 79,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 80,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 81,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 82,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 83,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 84,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 85,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 86,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 87,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 88,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 89,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 90,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 91,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 92,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 93,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 94,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 95,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 96,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 97,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 98,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 99,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 100,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 101,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 102,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 103,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 104,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 105,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 106,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 107,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 108,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 109,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 110,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 111,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 112,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 113,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 114,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 115,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 116,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 117,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 118,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 119,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 120,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 121,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 122,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 123,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 124,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 125,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 126,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 127,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 128,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 129,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 130,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 131,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 132,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 133,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 134,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 135,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 136,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 137,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 138,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 139,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 140,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 141,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 142,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 143,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 144,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 145,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 146,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 147,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 148,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 149,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 150,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 151,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 152,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 153,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 154,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 155,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 156,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 157,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 158,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 159,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 160,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 161,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 162,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 163,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 164,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 165,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 166,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 167,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 168,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 169,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 170,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 171,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 172,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 173,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 174,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 175,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 176,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 177,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 178,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 179,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 180,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 181,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 182,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 183,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 184,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 185,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 186,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 187,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 188,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 189,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 190,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 191,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 192,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 193,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 194,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 195,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 196,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 197,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 198,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 199,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 200,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 201,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 202,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 203,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 204,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 205,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 206,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 207,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 208,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 209,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 210,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 211,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 212,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 213,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 214,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 215,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 216,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 217,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 218,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 219,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 220,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 221,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 222,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 223,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 224,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 225,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 226,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 227,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 228,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 229,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 230,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 231,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 232,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 233,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 234,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 235,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 236,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 237,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 238,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 239,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 240,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 241,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 242,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 243,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 244,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 245,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 246,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 247,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 248,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 249,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 250,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 251,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 252,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 253,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 254,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    },
+    {
+      "threshold": 255,
+      "bitmapSha256": "81228daa4fe1645aa544af09c82094b883afc99d6920faa5627fe2d26839c5e0",
+      "whitePixels": 56183,
+      "firstFrameBlack": true
+    }
+  ],
+  "verification": {
+    "firstFrameBlack": true,
+    "sourcePixelBitsCompared": 2000000,
+    "wrongBits": 0,
+    "sourceWhiteOutsideMask": 0,
+    "actualGpuReadback": true,
+    "ditheringUsed": false,
+    "characterConversionRun": false
+  }
+}

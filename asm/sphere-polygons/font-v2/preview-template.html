@@ -6,8 +6,8 @@
     #checker-font-v2 .rotation{display:grid;gap:calc(var(--font-size-base)*.25)}
     #checker-font-v2 .status{display:flex;justify-content:space-between;flex-wrap:wrap;gap:calc(var(--font-size-base)*.5)}
   </style>
-  <div class="heading"><h2>Schackboll · genomsnittsfont</h2><span class="text-small text-muted" data-value="font-summary">256 matematiska tecken</span></div>
-  <canvas class="screen" width="320" height="200" role="img" aria-label="Roterande schackboll ritad med 256 tecken, inklusive hörn och korsningar"></canvas>
+  <div class="heading"><h2>Schackboll · grovpixlig font</h2><span class="text-small text-muted" data-value="font-summary">168 deduplicerade tecken · 4 × 4 punkter</span></div>
+  <canvas class="screen" width="320" height="200" role="img" aria-label="Roterande schackboll ritad med 168 grovpixliga tecken"></canvas>
   <div class="viz-controls">
     <button class="btn" type="button" data-action="play">Pausa</button>
     <label class="form-check"><input class="form-check-input" type="checkbox" data-control="grid"><span class="form-check-label">Rutnät</span></label>
@@ -16,7 +16,7 @@
     </label>
   </div>
   <label class="form-label rotation">Rotation <output class="tabular-nums" data-value="angle">22°</output><input class="form-range" type="range" min="0" max="360" step="0.25" value="22" data-control="angle"></label>
-  <div class="status text-small text-muted"><span data-value="used"></span><span>40 × 25 tecken · 8 × 8 pixlar</span></div>
+  <div class="status text-small text-muted"><span data-value="used"></span><span>40 × 25 tecken · 4 × 4 punkter · 2 × 2 pixlar</span></div>
   <script>
   /* RENDER_SOURCES */
   (function () {
@@ -25,22 +25,21 @@
     const find = selector => root.querySelector(selector);
     const canvas = find('canvas'), context = canvas.getContext('2d', {alpha:false});
     const image = context.createImageData(320, 200);
-    const font = window.GlyphMath.generateFont(256);
-    const direct = window.DirectMethods.conics.create(font);
+    const font = window.GlyphMath.generateCoarsenedFont();
+    const direct = window.DirectMethods.conics.create(font.sourceFont);
     const matching = new window.SphereMath.SphereRenderer();
     const saved = window.openai?.widgetState;
-    const previous = saved?.modelContent?.fontVersion === 'v2' ? saved : null;
-    const state = {angle:0.38, tilt:22, checks:12, radius:94, solid:false,
+    const previous = ['v2', 'v2-4x4'].includes(saved?.modelContent?.fontVersion) ? saved : null;
+    const state = {angle:0.38, tilt:65, checks:20, radius:145, solid:false,
       grid:previous?.modelContent?.grid === true,
       method:previous?.modelContent?.method === 'conics' ? 'conics' : 'matching',
       playing:!matchMedia('(prefers-reduced-motion: reduce)').matches};
     if (Number.isFinite(previous?.privateContent?.angle)) state.angle = previous.privateContent.angle;
-    window.DirectCore.prepareSilhouette(font, state.radius);
+    window.DirectCore.prepareSilhouette(font.sourceFont, state.radius);
     let screen, lastTime = 0, lastRender = 0, dragging = null;
 
     function controls() {
-      const kinds = font.glyphs.reduce((result, glyph) => {result[glyph.sourceKind] = (result[glyph.sourceKind] || 0) + 1; return result;}, {});
-      find('[data-value="font-summary"]').textContent = (kinds.basic || 0) + ' raka fyllningar · ' + (kinds.diagonal || 0) + ' diagonaler · ' + ((kinds.corner || 0) + (kinds.crossing || 0)) + ' hörn/korsningar';
+      find('[data-value="font-summary"]').textContent = font.count + ' deduplicerade tecken · 4 × 4 punkter · ' + (font.count * 8).toLocaleString('sv-SE') + ' B';
       find('[data-action="play"]').textContent = state.playing ? 'Pausa' : 'Rotera';
       find('[data-action="play"]').setAttribute('aria-pressed', String(state.playing));
       find('[data-control="grid"]').checked = state.grid;
@@ -50,17 +49,17 @@
       find('[data-value="angle"]').textContent = degrees.toFixed(1) + '°';
     }
     function save() {
-      window.openai?.setWidgetState?.({modelContent:{fontVersion:'v2', fontCount:font.count, method:state.method, grid:state.grid},
+      window.openai?.setWidgetState?.({modelContent:{fontVersion:'v2-4x4', fontResolution:'4x4', fontCount:font.count, method:state.method, grid:state.grid},
         privateContent:{angle:state.angle}})?.catch(() => {});
     }
     function render() {
       let pixels;
       if (state.method === 'matching') {
-        matching.render(state, font);
+        window.GlyphMath.renderCoarsened(matching, state, font);
         screen = matching.screen;
         pixels = matching.output;
       } else {
-        screen = direct.render(state).screen;
+        screen = window.GlyphMath.mapCoarsenedScreen(direct.render(state).screen, font);
         pixels = window.DirectCore.reconstruct(screen, font);
       }
       for (let index = 0; index < pixels.length; index++) {
@@ -88,7 +87,7 @@
     for (const name of ['pointerup', 'pointercancel']) canvas.addEventListener(name, () => {dragging = null; save();});
     window.addEventListener('openai:set_globals', event => {
       const update = event.detail?.globals?.widgetState;
-      if (update?.modelContent?.fontVersion !== 'v2') return;
+      if (!['v2', 'v2-4x4'].includes(update?.modelContent?.fontVersion)) return;
       state.grid = update.modelContent.grid === true;
       state.method = update.modelContent.method === 'matching' ? 'matching' : 'conics';
       if (Number.isFinite(update.privateContent?.angle)) state.angle = update.privateContent.angle;
@@ -104,7 +103,8 @@
       }
       requestAnimationFrame(tick);
     }
-    render(); requestAnimationFrame(tick);
+    window.sphereLab = {state, get font(){return font}, get screen(){return screen}, render};
+    render(); save(); requestAnimationFrame(tick);
   })();
   </script>
 </div>

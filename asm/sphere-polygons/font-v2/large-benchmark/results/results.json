@@ -1,0 +1,665 @@
+{
+  "pass": true,
+  "settings": {
+    "width": 320,
+    "height": 200,
+    "columns": 40,
+    "rows": 25,
+    "radius": 145,
+    "diameter": 290,
+    "checks": 20,
+    "bands": 10,
+    "tilt": 65,
+    "camera": 3.2,
+    "initialAngle": 0.38,
+    "frames": 384,
+    "stepDegrees": 0.9375
+  },
+  "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+  "mesh": {
+    "vertices": 182,
+    "faces": 200,
+    "whiteFaces": 100,
+    "triangles": 40,
+    "quads": 160,
+    "whiteTriangles": 20,
+    "whiteQuads": 80
+  },
+  "platform": {
+    "emulator": "PAL VICE 3.10",
+    "clockHz": 985248,
+    "fieldClocks": 19656,
+    "speedPercent": 100,
+    "warp": false,
+    "musicOrOtherIrqWorkload": false
+  },
+  "storageScope": "Actual encoded prefixes in current contiguous memory layouts, with code/font/tables/runtime excluded from source arenas. These are not an optimal packing claim for every byte of C64 RAM.",
+  "timingScope": "All 384 delta transitions verified through separate RAM-sized native programs. Each geometry method verified at 16 equally spaced poses, including actual completed VIC scanout. Geometry native decode, filling and glyph resolution are timed; projection is precomputed. Geometry sources are injected between paused measurements, so geometry full-prefix playback is not claimed.",
+  "durationScope": "Frames divided by measured mean FPS is an estimated duration, not a complete geometry-prefix playback measurement. Storage-only seconds at 25 FPS do not imply geometry can reach 25 FPS.",
+  "imageScope": "Analytic corpus reproduces the HTML full-64-pixel matching renderer. Geometry corpus uses 200 flat faces and an eight-probe glyph LUT. Geometry methods share one 384-screen reference and match all 16 native-tested poses. Geometry-delta methods match all 384 reference transitions.",
+  "quality": {
+    "comparison": "Reconstructed geometry glyph pixels versus reconstructed analytic HTML glyph pixels; not error against an ideal bitmap.",
+    "poses": 16,
+    "analyticFramesSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+    "geometryFramesSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+    "differentCharacters": {
+      "min": 297,
+      "mean": 352.9375,
+      "max": 415
+    },
+    "differentPixels": {
+      "min": 2701,
+      "mean": 3805.5,
+      "max": 4665
+    },
+    "fractionOfScreenPixels": {
+      "min": 0.042203125,
+      "mean": 0.0594609375,
+      "max": 0.072890625
+    },
+    "samples": [
+      {
+        "pose": 0,
+        "differentCharacters": 384,
+        "differentPixels": 4286,
+        "fractionOfScreenPixels": 0.06696875
+      },
+      {
+        "pose": 24,
+        "differentCharacters": 365,
+        "differentPixels": 4334,
+        "fractionOfScreenPixels": 0.06771875
+      },
+      {
+        "pose": 48,
+        "differentCharacters": 317,
+        "differentPixels": 3053,
+        "fractionOfScreenPixels": 0.047703125
+      },
+      {
+        "pose": 72,
+        "differentCharacters": 302,
+        "differentPixels": 2701,
+        "fractionOfScreenPixels": 0.042203125
+      },
+      {
+        "pose": 96,
+        "differentCharacters": 298,
+        "differentPixels": 2883,
+        "fractionOfScreenPixels": 0.045046875
+      },
+      {
+        "pose": 120,
+        "differentCharacters": 359,
+        "differentPixels": 4461,
+        "fractionOfScreenPixels": 0.069703125
+      },
+      {
+        "pose": 144,
+        "differentCharacters": 401,
+        "differentPixels": 4164,
+        "fractionOfScreenPixels": 0.0650625
+      },
+      {
+        "pose": 168,
+        "differentCharacters": 396,
+        "differentPixels": 4278,
+        "fractionOfScreenPixels": 0.06684375
+      },
+      {
+        "pose": 192,
+        "differentCharacters": 371,
+        "differentPixels": 3991,
+        "fractionOfScreenPixels": 0.062359375
+      },
+      {
+        "pose": 216,
+        "differentCharacters": 366,
+        "differentPixels": 4271,
+        "fractionOfScreenPixels": 0.066734375
+      },
+      {
+        "pose": 240,
+        "differentCharacters": 337,
+        "differentPixels": 3383,
+        "fractionOfScreenPixels": 0.052859375
+      },
+      {
+        "pose": 264,
+        "differentCharacters": 297,
+        "differentPixels": 2735,
+        "fractionOfScreenPixels": 0.042734375
+      },
+      {
+        "pose": 288,
+        "differentCharacters": 298,
+        "differentPixels": 2948,
+        "fractionOfScreenPixels": 0.0460625
+      },
+      {
+        "pose": 312,
+        "differentCharacters": 347,
+        "differentPixels": 4272,
+        "fractionOfScreenPixels": 0.06675
+      },
+      {
+        "pose": 336,
+        "differentCharacters": 394,
+        "differentPixels": 4463,
+        "fractionOfScreenPixels": 0.069734375
+      },
+      {
+        "pose": 360,
+        "differentCharacters": 415,
+        "differentPixels": 4665,
+        "fractionOfScreenPixels": 0.072890625
+      }
+    ]
+  },
+  "rejectedDirectPacketPath": {
+    "pass": false,
+    "observedFinalImageFps": 25.062271062271062,
+    "reason": "Actual first visible update field mixes old and new poses. Final-image cadence is not a tear-free playback rate.",
+    "renderCycles": {
+      "min": 27198,
+      "mean": 28709.590163934427,
+      "max": 30484
+    },
+    "intermediateFieldProbe": {
+      "program_sha256": "cff31d10570892d9b89cc157f569fa7dd0ccd519830159293259a1297ac8a6e4",
+      "method": "Conditional monitor checkpoints on existing store/read instructions, raster lines 254-255; no extra native instructions or forced display refresh.",
+      "start": {
+        "pc": 4256,
+        "raster": 256,
+        "raster_cycle": 32,
+        "clock": 3220088
+      },
+      "capture": {
+        "pc": 4553,
+        "raster": 254,
+        "raster_cycle": 3,
+        "clock": 3239589
+      },
+      "elapsed_cycles": 19501,
+      "different_pixels_from_pose_0": 2871,
+      "different_pixels_from_pose_1": 2180,
+      "unexplained_pixels": 0,
+      "actual_intermediate_field_is_torn": true,
+      "screenshot": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/large-benchmark/build/delta/packets-front/intermediate-field-probe/first-visible-field.png"
+    }
+  },
+  "rows": [
+    {
+      "id": "analytic/sparse-front",
+      "corpus": "analytic",
+      "label": "Sparse character delta, direct front screen",
+      "fps": 50.12452884283403,
+      "storedFrames": 55,
+      "storedSourceBytes": 40390,
+      "sourceCapacityBytes": 40960,
+      "fontBytes": 2048,
+      "codeStatePointersBytes": 1263,
+      "initialScreenBytes": 1000,
+      "runtimeScreenBytes": 1024,
+      "programBytes": 50631,
+      "renderCycles": {
+        "min": 11547,
+        "mean": 14242.140625,
+        "max": 17159
+      },
+      "copyCycles": null,
+      "nativePosesVerified": 384,
+      "actualVisibleFieldsVerified": 392,
+      "estimatedSecondsAtMeasuredFps": 1.0972671717763784,
+      "secondsAt25FpsStorageOnly": 2.2,
+      "angularRangeDegrees": 50.625,
+      "program": "build/delta/sparse-front/player.prg",
+      "programSha256": "fac97674ecf43417a72f2baf13d3ee74bde78fc62d3e84509cc7fbe34ba088aa",
+      "sourceScreensSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c"
+    },
+    {
+      "id": "analytic/sparse-hidden",
+      "corpus": "analytic",
+      "label": "Sparse character delta, hidden screen plus copy",
+      "fps": 25.062290984854325,
+      "storedFrames": 55,
+      "storedSourceBytes": 40390,
+      "sourceCapacityBytes": 40960,
+      "fontBytes": 2048,
+      "codeStatePointersBytes": 1279,
+      "initialScreenBytes": 1000,
+      "runtimeScreenBytes": 2048,
+      "programBytes": 50631,
+      "renderCycles": {
+        "min": 11618,
+        "mean": 14336.513020833334,
+        "max": 17240
+      },
+      "copyCycles": {
+        "min": 10001,
+        "mean": 10002.223958333334,
+        "max": 10003
+      },
+      "nativePosesVerified": 384,
+      "actualVisibleFieldsVerified": 776,
+      "estimatedSecondsAtMeasuredFps": 2.1945320175732403,
+      "secondsAt25FpsStorageOnly": 2.2,
+      "angularRangeDegrees": 50.625,
+      "program": "build/delta/sparse-hidden/player.prg",
+      "programSha256": "182323916d482f0cf800b2b18ba1a6784d3ee491946feea2bce7c4d295c1997e",
+      "sourceScreensSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c"
+    },
+    {
+      "id": "analytic/packets-hidden",
+      "corpus": "analytic",
+      "label": "Packet character delta, hidden screen plus copy",
+      "fps": 16.708186611165736,
+      "storedFrames": 62,
+      "storedSourceBytes": 40430,
+      "sourceCapacityBytes": 40960,
+      "fontBytes": 2048,
+      "codeStatePointersBytes": 1301,
+      "initialScreenBytes": 1000,
+      "runtimeScreenBytes": 2048,
+      "programBytes": 50671,
+      "renderCycles": {
+        "min": 26238,
+        "mean": 28451.5859375,
+        "max": 30750
+      },
+      "copyCycles": {
+        "min": 10001,
+        "mean": 10002.25,
+        "max": 10003
+      },
+      "nativePosesVerified": 384,
+      "actualVisibleFieldsVerified": 775,
+      "estimatedSecondsAtMeasuredFps": 3.7107557775639566,
+      "secondsAt25FpsStorageOnly": 2.48,
+      "angularRangeDegrees": 57.1875,
+      "program": "build/delta/packets-hidden/player.prg",
+      "programSha256": "e4381374866ba3bce3f87fd2f777c8b15fc42220d57aeb4538efd457dcb1a273",
+      "sourceScreensSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c"
+    },
+    {
+      "id": "geometry/sparse-front",
+      "corpus": "geometry",
+      "label": "Sparse character delta, direct front screen",
+      "fps": 50.124575328843164,
+      "storedFrames": 74,
+      "storedSourceBytes": 40850,
+      "sourceCapacityBytes": 40960,
+      "fontBytes": 2048,
+      "codeStatePointersBytes": 1301,
+      "initialScreenBytes": 1000,
+      "runtimeScreenBytes": 1024,
+      "programBytes": 51091,
+      "renderCycles": {
+        "min": 8231,
+        "mean": 10962.473958333334,
+        "max": 13205
+      },
+      "copyCycles": null,
+      "nativePosesVerified": 384,
+      "actualVisibleFieldsVerified": 390,
+      "estimatedSecondsAtMeasuredFps": 1.4763217346884574,
+      "secondsAt25FpsStorageOnly": 2.96,
+      "angularRangeDegrees": 68.4375,
+      "program": "build/delta/geometry-native/sparse-front/player.prg",
+      "programSha256": "839b6fe60ef2db1f81db9448808ae0f7b7fbc65656c860b31fbbef4ef6f383c8",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c"
+    },
+    {
+      "id": "geometry/sparse-hidden",
+      "corpus": "geometry",
+      "label": "Sparse character delta, hidden screen plus copy",
+      "fps": 25.062281023558736,
+      "storedFrames": 74,
+      "storedSourceBytes": 40850,
+      "sourceCapacityBytes": 40960,
+      "fontBytes": 2048,
+      "codeStatePointersBytes": 1317,
+      "initialScreenBytes": 1000,
+      "runtimeScreenBytes": 2048,
+      "programBytes": 51091,
+      "renderCycles": {
+        "min": 8326,
+        "mean": 11035.252604166666,
+        "max": 13347
+      },
+      "copyCycles": {
+        "min": 10001,
+        "mean": 10002.3046875,
+        "max": 10003
+      },
+      "nativePosesVerified": 384,
+      "actualVisibleFieldsVerified": 774,
+      "estimatedSecondsAtMeasuredFps": 2.952644251751843,
+      "secondsAt25FpsStorageOnly": 2.96,
+      "angularRangeDegrees": 68.4375,
+      "program": "build/delta/geometry-native/sparse-hidden/player.prg",
+      "programSha256": "97d78efad4c30167ba0d8fcd4892890a37057d0385ed8836842221b6e5c27e1c",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c"
+    },
+    {
+      "id": "geometry/raw-individual",
+      "corpus": "geometry",
+      "label": "Raw face spans, individual sample lines",
+      "fps": 4.335094342943399,
+      "storedFrames": 11,
+      "storedSourceBytes": 23506,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 1508,
+        "mean": 1999.421875,
+        "max": 2270,
+        "total": 767778
+      },
+      "fontBytes": 2048,
+      "codeBytes": 795,
+      "edgeCodeAndStaticBytes": 0,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 31,
+        "colorRamBytes": 1000
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 0,
+      "renderCycles": {
+        "min": 191893,
+        "mean": 217824.25,
+        "max": 233430
+      },
+      "preparationAndFillCycles": {
+        "min": 162163,
+        "mean": 188437.875,
+        "max": 204015
+      },
+      "resolveCycles": {
+        "min": 22599,
+        "mean": 22955.375,
+        "max": 23299
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 2.537430360173276,
+      "secondsAt25FpsStorageOnly": 0.44,
+      "angularRangeDegrees": 9.375,
+      "program": "build/native-geometry/variants/raw-individual/player.prg",
+      "receipt": "build/native-geometry/variants/raw-individual/pal-proof/verification.json",
+      "programSha256": "86f5cfcaa586e71e7fb5862f91aa5d3a48f8ce5e00e99061da4516a49fc1987b",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    },
+    {
+      "id": "geometry/raw-fast",
+      "corpus": "geometry",
+      "label": "Raw face spans, combined character rows",
+      "fps": 4.480409820200595,
+      "storedFrames": 11,
+      "storedSourceBytes": 23506,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 1508,
+        "mean": 1999.421875,
+        "max": 2270,
+        "total": 767778
+      },
+      "fontBytes": 2048,
+      "codeBytes": 809,
+      "edgeCodeAndStaticBytes": 0,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 31,
+        "colorRamBytes": 1000
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 0,
+      "renderCycles": {
+        "min": 184286,
+        "mean": 210271.3125,
+        "max": 224116
+      },
+      "preparationAndFillCycles": {
+        "min": 154747,
+        "mean": 180860.9375,
+        "max": 194582
+      },
+      "resolveCycles": {
+        "min": 22588,
+        "mean": 22979.375,
+        "max": 23282
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 2.455132552920686,
+      "secondsAt25FpsStorageOnly": 0.44,
+      "angularRangeDegrees": 9.375,
+      "program": "build/native-geometry/variants/raw-fast/player.prg",
+      "receipt": "build/native-geometry/variants/raw-fast/pal-proof/verification.json",
+      "programSha256": "278a6989d82d472738e9352944f8a936d0a8c1e39f9a74e4436a67d1e838dc70",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    },
+    {
+      "id": "geometry/packed-fast",
+      "corpus": "geometry",
+      "label": "Compressed face spans, combined character rows",
+      "fps": 4.582808618511805,
+      "storedFrames": 28,
+      "storedSourceBytes": 23579,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 553,
+        "mean": 782.8359375,
+        "max": 962,
+        "total": 300609
+      },
+      "fontBytes": 2048,
+      "codeBytes": 865,
+      "edgeCodeAndStaticBytes": 0,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 31,
+        "colorRamBytes": 1000
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 0,
+      "renderCycles": {
+        "min": 179107,
+        "mean": 204403.125,
+        "max": 218452
+      },
+      "preparationAndFillCycles": {
+        "min": 149634,
+        "mean": 174991.375,
+        "max": 189029
+      },
+      "resolveCycles": {
+        "min": 22810,
+        "mean": 22980.75,
+        "max": 23296
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 6.109790377651109,
+      "secondsAt25FpsStorageOnly": 1.12,
+      "angularRangeDegrees": 25.3125,
+      "program": "build/native-geometry/variants/packed-fast/player.prg",
+      "receipt": "build/native-geometry/variants/packed-fast/pal-proof/verification.json",
+      "programSha256": "7319ca6d4f5d05de845a3da1dfae2cc2e15ecef8dfddc3331d505502cf5c18b6",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    },
+    {
+      "id": "geometry/edge-paths-fast",
+      "corpus": "geometry",
+      "label": "Precomputed individual edge paths",
+      "fps": 2.9593825608585758,
+      "storedFrames": 16,
+      "storedSourceBytes": 23324,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 1022,
+        "mean": 1360.7682291666667,
+        "max": 1546,
+        "total": 522535
+      },
+      "fontBytes": 2048,
+      "codeBytes": 812,
+      "edgeCodeAndStaticBytes": 242,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 48,
+        "colorRamBytes": 1000,
+        "compactXyBytes": 0
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 0,
+      "renderCycles": {
+        "min": 279725,
+        "mean": 324482.3125,
+        "max": 348574
+      },
+      "preparationAndFillCycles": {
+        "min": 250272,
+        "mean": 295047.8125,
+        "max": 319081
+      },
+      "resolveCycles": {
+        "min": 22846,
+        "mean": 23003.5,
+        "max": 23278
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 5.406533177433499,
+      "secondsAt25FpsStorageOnly": 0.64,
+      "angularRangeDegrees": 14.0625,
+      "program": "build/native-geometry/variants/edge-paths-fast/player.prg",
+      "receipt": "build/native-geometry/variants/edge-paths-fast/pal-proof/verification.json",
+      "programSha256": "cbf72409a8b8c1704117e809aa47913e99ebcee8e810942f4f9d3760560f3306",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    },
+    {
+      "id": "geometry/edges-fast",
+      "corpus": "geometry",
+      "label": "Raw projected XY, runtime edge crossings",
+      "fps": 1.2395560078132133,
+      "storedFrames": 26,
+      "storedSourceBytes": 23815,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 864,
+        "mean": 901.3854166666666,
+        "max": 935,
+        "total": 346132
+      },
+      "fontBytes": 2048,
+      "codeBytes": 812,
+      "edgeCodeAndStaticBytes": 822,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 31,
+        "colorRamBytes": 1000
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 0,
+      "renderCycles": {
+        "min": 676987,
+        "mean": 783571.1875,
+        "max": 893707
+      },
+      "preparationAndFillCycles": {
+        "min": 647360,
+        "mean": 754192.8125,
+        "max": 864301
+      },
+      "resolveCycles": {
+        "min": 22587,
+        "mean": 22947.375,
+        "max": 23281
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 20.975252296883625,
+      "secondsAt25FpsStorageOnly": 1.04,
+      "angularRangeDegrees": 23.4375,
+      "program": "build/native-geometry/variants/edges-fast/player.prg",
+      "receipt": "build/native-geometry/variants/edges-fast/pal-proof/verification.json",
+      "programSha256": "e54658e8a73484e660c84a28a53997d41361d2997221f2aaca1132de123457ad",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    },
+    {
+      "id": "geometry/xy-delta-fast",
+      "corpus": "geometry",
+      "label": "Compressed projected XY, runtime edge crossings",
+      "fps": 1.1863794273984214,
+      "storedFrames": 217,
+      "storedSourceBytes": 24000,
+      "sourceCapacityBytes": 24064,
+      "frameSourceBytes": {
+        "min": 106,
+        "mean": 110.375,
+        "max": 124,
+        "total": 42384
+      },
+      "fontBytes": 2048,
+      "codeBytes": 815,
+      "edgeCodeAndStaticBytes": 2338,
+      "lookupAndRemapBytes": 12612,
+      "runtime": {
+        "screenBytes": 2048,
+        "coverageBytes": 1024,
+        "spanArrayBytes": 300,
+        "zeroPageBytes": 48,
+        "colorRamBytes": 1000,
+        "compactXyBytes": 832
+      },
+      "loadedSeedAlsoUsedAsRuntimeBytes": 728,
+      "renderCycles": {
+        "min": 712234,
+        "mean": 818316.875,
+        "max": 926387
+      },
+      "preparationAndFillCycles": {
+        "min": 682780,
+        "mean": 788909.4375,
+        "max": 897199
+      },
+      "resolveCycles": {
+        "min": 22716,
+        "mean": 22976.4375,
+        "max": 23319
+      },
+      "nativePosesVerified": 16,
+      "actualVisibleFieldsVerified": 16,
+      "estimatedSecondsAtMeasuredFps": 182.9094427875012,
+      "secondsAt25FpsStorageOnly": 8.68,
+      "angularRangeDegrees": 202.5,
+      "program": "build/native-geometry/variants/xy-delta-fast/player.prg",
+      "receipt": "build/native-geometry/variants/xy-delta-fast/pal-proof/verification.json",
+      "programSha256": "39cbae66a354c9b5d16b484a923df0e4e8d7792629e0f93751dad816e0538d03",
+      "sourceScreensSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "timingProgramContainsOneInjectedFrame": true,
+      "capacityIsEncodedSequentialPrefix": true
+    }
+  ]
+}

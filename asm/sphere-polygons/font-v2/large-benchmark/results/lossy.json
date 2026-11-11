@@ -1,0 +1,1299 @@
+{
+  "pass": true,
+  "font": {
+    "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+    "uniqueGlyphPairs": 32640,
+    "minimumDistinctGlyphPixelDifference": 3,
+    "glyphPairDistanceHistogram": [
+      0,
+      0,
+      0,
+      80,
+      104,
+      136,
+      148,
+      208,
+      220,
+      216,
+      264,
+      264,
+      388,
+      440,
+      384,
+      472,
+      612,
+      600,
+      480,
+      776,
+      692,
+      656,
+      576,
+      784,
+      1184,
+      808,
+      616,
+      728,
+      1148,
+      1040,
+      804,
+      856,
+      1144,
+      856,
+      804,
+      1040,
+      1148,
+      728,
+      616,
+      808,
+      1184,
+      784,
+      576,
+      656,
+      692,
+      776,
+      480,
+      600,
+      612,
+      472,
+      384,
+      440,
+      388,
+      264,
+      264,
+      216,
+      220,
+      208,
+      148,
+      136,
+      104,
+      80,
+      0,
+      0,
+      128
+    ]
+  },
+  "rows": [
+    {
+      "dataset": "analytic",
+      "threshold": 0,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 289560,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 55,
+      "prefixSourceBytes": 40390,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 1,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 289560,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 55,
+      "prefixSourceBytes": 40390,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 2,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 289560,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 55,
+      "prefixSourceBytes": 40390,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": {
+        "measurementReusedByByteIdentity": true,
+        "variants": {
+          "sparse-front": {
+            "fps": 50.124494900723086,
+            "storedFrames": 55,
+            "actualVisibleFieldsVerified": 55,
+            "programSha256": "fac97674ecf43417a72f2baf13d3ee74bde78fc62d3e84509cc7fbe34ba088aa"
+          },
+          "sparse-hidden": {
+            "fps": 25.062306480218762,
+            "storedFrames": 55,
+            "actualVisibleFieldsVerified": 109,
+            "programSha256": "182323916d482f0cf800b2b18ba1a6784d3ee491946feea2bce7c4d295c1997e"
+          }
+        }
+      }
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 3,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 263434,
+      "payloadSavingsFraction": 0.0902265506285399,
+      "storedFrames": 62,
+      "prefixSourceBytes": 40736,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 501.9140625,
+        "max": 678
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.007842407226562506,
+        "max": 0.01059375
+      },
+      "worstCellPixelError": 3,
+      "referenceSha256": "a780ec2488d5f6103ac7da83e9e565140dbfa5e64048052e76cef916f8199f38",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": {
+        "measurementReusedByByteIdentity": false,
+        "variants": {
+          "sparse-front": {
+            "fps": 50.12458392930864,
+            "storedFrames": 62,
+            "actualVisibleFieldsVerified": 62,
+            "programSha256": "04ad7ab9e2d952b7071e24fb6dee12465689215e245b4eb06e4196eb55fa159a"
+          },
+          "sparse-hidden": {
+            "fps": 25.06226061109251,
+            "storedFrames": 62,
+            "actualVisibleFieldsVerified": 123,
+            "programSha256": "8a7cc0e04545e5d7b5df1bc543a97b48b2d17fb88131c17fa292a0ac99a750e4"
+          }
+        }
+      }
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 3,
+      "protectSolids": true,
+      "cyclicPayloadBytes": 270938,
+      "payloadSavingsFraction": 0.06431136897361511,
+      "storedFrames": 60,
+      "prefixSourceBytes": 40836,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 83.5,
+        "max": 123
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.0013046874999999968,
+        "max": 0.001921875
+      },
+      "worstCellPixelError": 3,
+      "referenceSha256": "ddca0386e6c0224a5de50007446302631a6d85607a5e94b6484c243b4f52c97d",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 4,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 249130,
+      "payloadSavingsFraction": 0.13962563890040058,
+      "storedFrames": 66,
+      "prefixSourceBytes": 40630,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 931.3958333333334,
+        "max": 1237
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.014553059895833323,
+        "max": 0.019328125
+      },
+      "worstCellPixelError": 4,
+      "referenceSha256": "df3cb5c4e4f80710a296ab75f336aad66565f48f2b29848805a67896b63de126",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": {
+        "measurementReusedByByteIdentity": false,
+        "variants": {
+          "sparse-front": {
+            "fps": 50.12438519650232,
+            "storedFrames": 66,
+            "actualVisibleFieldsVerified": 66,
+            "programSha256": "ef2cdb14cefceba2cebf5a3f59a85a7846db6f2844b36e40e343b98c06b52ced"
+          },
+          "sparse-hidden": {
+            "fps": 25.062310294465256,
+            "storedFrames": 66,
+            "actualVisibleFieldsVerified": 131,
+            "programSha256": "3db145472bc2c529189007c5ad37f446912b5a56d3303ed3efe470ecd1bb4a1f"
+          }
+        }
+      }
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 4,
+      "protectSolids": true,
+      "cyclicPayloadBytes": 258254,
+      "payloadSavingsFraction": 0.10811576184555882,
+      "storedFrames": 63,
+      "prefixSourceBytes": 40748,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 169.8515625,
+        "max": 250
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.0026539306640624982,
+        "max": 0.00390625
+      },
+      "worstCellPixelError": 4,
+      "referenceSha256": "b6d22ef59151d6b7db04b56b9d7bf743093dc00c1efca423f135b3670530ad0d",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": {
+        "measurementReusedByByteIdentity": false,
+        "variants": {
+          "sparse-front": {
+            "fps": 50.12450099411409,
+            "storedFrames": 63,
+            "actualVisibleFieldsVerified": 63,
+            "programSha256": "844f09607bcdc9ed666d6bd9d3f3b8d94319118de7849a71a6db3dd85be99a51"
+          },
+          "sparse-hidden": {
+            "fps": 25.06230191015537,
+            "storedFrames": 63,
+            "actualVisibleFieldsVerified": 125,
+            "programSha256": "86c9d3f8c20a8cf4af4597161fe7c75fcc05821ec5d74a0400d7e204aae4c4c4"
+          }
+        }
+      }
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 8,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 205516,
+      "payloadSavingsFraction": 0.29024727172261366,
+      "storedFrames": 82,
+      "prefixSourceBytes": 40740,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 1648.8776041666667,
+        "max": 1869
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.025763712565104176,
+        "max": 0.029203125
+      },
+      "worstCellPixelError": 8,
+      "referenceSha256": "3246b3392e4d8c30877463901e716180e701460ebaaf5ff36d14b27b13aa19e8",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "analytic",
+      "threshold": 8,
+      "protectSolids": true,
+      "cyclicPayloadBytes": 219372,
+      "payloadSavingsFraction": 0.24239535847492744,
+      "storedFrames": 76,
+      "prefixSourceBytes": 40890,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 579.8880208333334,
+        "max": 867
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.00906075032552083,
+        "max": 0.013546875
+      },
+      "worstCellPixelError": 8,
+      "referenceSha256": "513858b2e72ffa0733f13955abe1c7709e542cef4d88c8cf6a600c1021730c9f",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 0,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 225228,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 74,
+      "prefixSourceBytes": 40850,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 1,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 225228,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 74,
+      "prefixSourceBytes": 40850,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 2,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 225228,
+      "payloadSavingsFraction": 0,
+      "storedFrames": 74,
+      "prefixSourceBytes": 40850,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "worstCellPixelError": 0,
+      "referenceSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 3,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 224902,
+      "payloadSavingsFraction": 0.0014474221677588384,
+      "storedFrames": 74,
+      "prefixSourceBytes": 40774,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 2.265625,
+        "max": 9
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.000035400390625000025,
+        "max": 0.000140625
+      },
+      "worstCellPixelError": 3,
+      "referenceSha256": "37d8b4d6ead6900b121732cd7869f1966d88fa88ae29187aa739896d50a4008c",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 4,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 224622,
+      "payloadSavingsFraction": 0.0026906068517236204,
+      "storedFrames": 74,
+      "prefixSourceBytes": 40724,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 5.190104166666667,
+        "max": 22
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.00008109537760416644,
+        "max": 0.00034375
+      },
+      "worstCellPixelError": 4,
+      "referenceSha256": "552a7def2a135f833cf42ff3b77b372aeb2a08e31c4f10c8dbb5ba5b0bb52a4f",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    },
+    {
+      "dataset": "geometry",
+      "threshold": 8,
+      "protectSolids": false,
+      "cyclicPayloadBytes": 188244,
+      "payloadSavingsFraction": 0.16420693697053657,
+      "storedFrames": 92,
+      "prefixSourceBytes": 40766,
+      "extraPixelErrorPerFrame": {
+        "min": 0,
+        "mean": 1789.8671875,
+        "max": 2332
+      },
+      "extraScreenPixelErrorFraction": {
+        "min": 0,
+        "mean": 0.027966674804687477,
+        "max": 0.0364375
+      },
+      "worstCellPixelError": 8,
+      "referenceSha256": "51e7bf40a5b9f142d6ad24268170abc39977991a6879db0b5743357f016e783a",
+      "hostFramesVerified": 384,
+      "replayFramesVerified": 1152,
+      "native": null
+    }
+  ],
+  "actualCharacterWrites": [
+    {
+      "name": "analytic",
+      "frames": 384,
+      "updates": {
+        "empty": {
+          "min": 14,
+          "mean": 25.6875,
+          "max": 40
+        },
+        "full": {
+          "min": 13,
+          "mean": 24.015625,
+          "max": 38
+        },
+        "edge": {
+          "min": 264,
+          "mean": 325.328125,
+          "max": 379
+        },
+        "totalMean": 375.03125
+      },
+      "population": {
+        "empty": {
+          "min": 357,
+          "mean": 397.3125,
+          "max": 438
+        },
+        "full": {
+          "min": 198,
+          "mean": 234.79427083333334,
+          "max": 274
+        },
+        "edge": {
+          "min": 300,
+          "mean": 367.8932291666667,
+          "max": 432
+        }
+      },
+      "scope": "All384 cyclic transitions, including the exact lossy closing patch; the initial seed is excluded."
+    },
+    {
+      "name": "geometry",
+      "frames": 384,
+      "updates": {
+        "empty": {
+          "min": 15,
+          "mean": 28.453125,
+          "max": 45
+        },
+        "full": {
+          "min": 14,
+          "mean": 26.455729166666668,
+          "max": 42
+        },
+        "edge": {
+          "min": 181,
+          "mean": 236.35677083333334,
+          "max": 287
+        },
+        "totalMean": 291.265625
+      },
+      "population": {
+        "empty": {
+          "min": 408,
+          "mean": 440.8489583333333,
+          "max": 477
+        },
+        "full": {
+          "min": 226,
+          "mean": 263.2760416666667,
+          "max": 300
+        },
+        "edge": {
+          "min": 241,
+          "mean": 295.875,
+          "max": 355
+        }
+      },
+      "scope": "All384 cyclic transitions, including the exact lossy closing patch; the initial seed is excluded."
+    },
+    {
+      "name": "lossy3",
+      "frames": 384,
+      "updates": {
+        "empty": {
+          "min": 8,
+          "mean": 18.2265625,
+          "max": 79
+        },
+        "full": {
+          "min": 7,
+          "mean": 16.770833333333332,
+          "max": 87
+        },
+        "edge": {
+          "min": 249,
+          "mean": 306.015625,
+          "max": 359
+        },
+        "totalMean": 341.0130208333333
+      },
+      "population": {
+        "empty": {
+          "min": 307,
+          "mean": 331.015625,
+          "max": 382
+        },
+        "full": {
+          "min": 148,
+          "mean": 169.70833333333334,
+          "max": 217
+        },
+        "edge": {
+          "min": 401,
+          "mean": 499.2760416666667,
+          "max": 533
+        }
+      },
+      "scope": "All384 cyclic transitions, including the exact lossy closing patch; the initial seed is excluded."
+    },
+    {
+      "name": "lossy4",
+      "frames": 384,
+      "updates": {
+        "empty": {
+          "min": 2,
+          "mean": 12.791666666666666,
+          "max": 126
+        },
+        "full": {
+          "min": 2,
+          "mean": 12.044270833333334,
+          "max": 120
+        },
+        "edge": {
+          "min": 244,
+          "mean": 297.5520833333333,
+          "max": 359
+        },
+        "totalMean": 322.3880208333333
+      },
+      "population": {
+        "empty": {
+          "min": 258,
+          "mean": 281.359375,
+          "max": 382
+        },
+        "full": {
+          "min": 102,
+          "mean": 125.53385416666667,
+          "max": 217
+        },
+        "edge": {
+          "min": 401,
+          "mean": 593.1067708333334,
+          "max": 635
+        }
+      },
+      "scope": "All384 cyclic transitions, including the exact lossy closing patch; the initial seed is excluded."
+    },
+    {
+      "name": "lossy4-protect-solids",
+      "frames": 384,
+      "updates": {
+        "empty": {
+          "min": 14,
+          "mean": 25.403645833333332,
+          "max": 39
+        },
+        "full": {
+          "min": 13,
+          "mean": 24.0078125,
+          "max": 38
+        },
+        "edge": {
+          "min": 223,
+          "mean": 284.8567708333333,
+          "max": 364
+        },
+        "totalMean": 334.26822916666663
+      },
+      "population": {
+        "empty": {
+          "min": 375,
+          "mean": 415.1354166666667,
+          "max": 456
+        },
+        "full": {
+          "min": 207,
+          "mean": 248.8046875,
+          "max": 288
+        },
+        "edge": {
+          "min": 270,
+          "mean": 336.0598958333333,
+          "max": 409
+        }
+      },
+      "scope": "All384 cyclic transitions, including the exact lossy closing patch; the initial seed is excluded."
+    }
+  ],
+  "groupedPageFormatSizeEstimate": [
+    {
+      "name": "analytic",
+      "frames": 384,
+      "sparseBytes": 289560,
+      "allGroupedBytes": 340808,
+      "allGroupedSavingsFraction": -0.17698577151540262,
+      "hybridBytes": 271132,
+      "hybridSavingsFraction": 0.06364138693189669,
+      "scope": "Host serialized-size estimate. Grouped=count8 groups then glyph8,count8,offset8[]; hybrid adds individual offset8,glyph8 pairs for groups smaller than three."
+    },
+    {
+      "name": "lossy4-protect-solids",
+      "frames": 384,
+      "sparseBytes": 258254,
+      "allGroupedBytes": 305531,
+      "allGroupedSavingsFraction": -0.1830639602871591,
+      "hybridBytes": 241658,
+      "hybridSavingsFraction": 0.06426231539492133,
+      "scope": "Host serialized-size estimate. Grouped=count8 groups then glyph8,count8,offset8[]; hybrid adds individual offset8,glyph8 pairs for groups smaller than three."
+    }
+  ],
+  "groupedNative": [
+    {
+      "pass": true,
+      "dataset": "analytic",
+      "codec": "four-page grouped glyphs with singles",
+      "abi": "Four sequential pages: groupCount8,singleCount8, groups[glyph8,count8,offset8...], singles[offset8,glyph8...].",
+      "storedFrames": 59,
+      "payloadBytes": 40396,
+      "sourceArenaBytes": 40960,
+      "programBytes": 50637,
+      "codeStateAndPointersBytes": 691,
+      "meanFps": 50.12467402602529,
+      "renderCycles": {
+        "min": 12038,
+        "mean": 14185.034482758621,
+        "max": 15750
+      },
+      "fieldsPerImage": [
+        1
+      ],
+      "nativeFramesVerified": 59,
+      "actualVisibleFieldsVerified": 59,
+      "secondsOfStoredFramesAtMeasuredFps": 1.1770650113228973,
+      "angularRangeDegrees": 54.375,
+      "programSha256": "26237ba4e9e12f27cfaf397ab7baf9965d40d77dbb57d6a19b2587aae6a9ed1e",
+      "movieSha256": "cec894e4d1ef8115b755d450b4ea7b5fe25e7ea5fb57a54cc0dcdede74bbe925",
+      "fullCorpusSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+      "program": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/large-benchmark/build/grouped-native/analytic/hybrid-front/player.prg",
+      "receipt": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/large-benchmark/build/grouped-native/analytic/hybrid-front/pal-proof/verification.json",
+      "scope": "Every field of the largest stored forward prefix. Grouping preserves page order and reorders cells within pages; actual VIC scanout is pixel-exact."
+    },
+    {
+      "pass": true,
+      "dataset": "protected4",
+      "codec": "four-page grouped glyphs with singles",
+      "abi": "Four sequential pages: groupCount8,singleCount8, groups[glyph8,count8,offset8...], singles[offset8,glyph8...].",
+      "storedFrames": 68,
+      "payloadBytes": 40870,
+      "sourceArenaBytes": 40960,
+      "programBytes": 51111,
+      "codeStateAndPointersBytes": 709,
+      "meanFps": 50.124618246706405,
+      "renderCycles": {
+        "min": 10631,
+        "mean": 12320.194029850747,
+        "max": 14341
+      },
+      "fieldsPerImage": [
+        1
+      ],
+      "nativeFramesVerified": 68,
+      "actualVisibleFieldsVerified": 68,
+      "secondsOfStoredFramesAtMeasuredFps": 1.3566188108468666,
+      "angularRangeDegrees": 62.8125,
+      "programSha256": "b516176bcee8b4e85cf7fdad016ddd97009937023ef8b150cf5e4852eb46f211",
+      "movieSha256": "f7213999dca31de80c66c0ac89ff4dd11e2d90b4afd6e4aeb9590c3903267b45",
+      "fullCorpusSha256": "b6d22ef59151d6b7db04b56b9d7bf743093dc00c1efca423f135b3670530ad0d",
+      "program": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/large-benchmark/build/grouped-native/protected4/hybrid-front/player.prg",
+      "receipt": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/large-benchmark/build/grouped-native/protected4/hybrid-front/pal-proof/verification.json",
+      "scope": "Every field of the largest stored forward prefix. Grouping preserves page order and reorders cells within pages; actual VIC scanout is pixel-exact."
+    }
+  ],
+  "groupedAndCodegenHost": {
+    "pass": true,
+    "scope": "All formats encode identical character updates. Byte counts include actual headers/opcodes and RTS; pointer tables and raw first screen are outside the fixed arena. No native FPS claim from code size or py65 instruction cycles.",
+    "formats": {
+      "sparse": "Four pages: count8, then count (offset8,glyph8) pairs.",
+      "page-groups": "Four pages: groupCount8, then groups (glyph8,count8,offset8[count]). Four frame header bytes.",
+      "hybrid": "Four pages: groupCount8,pairCount8, then groups with >=3 offsets (glyph8,count8,offsets...), then single pairs (offset8,glyph8). Eight frame header bytes.",
+      "ordered": "Actual 6502 routine: A9 glyph when accumulator value changes, then 8D absolute screen address per changed cell, ascending cell order; final60 RTS.",
+      "grouped": "Actual 6502 routine: group updates by glyph, A9 glyph once per group, 8D absolute address per changed cell; final60 RTS. Store order differs from raster order."
+    },
+    "cases": [
+      {
+        "dataset": "analytic",
+        "frames": 384,
+        "targetSourceSha256": "3be37e90e6516491e6ff9217e8a2cec5def9c70813745f95328ffc93b95dbe2c",
+        "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+        "arena": {
+          "start": 12288,
+          "endExclusive": 53248,
+          "bytes": 40960
+        },
+        "firstImageBytesOutsideArena": 1000,
+        "framePointerBytesOutsideArena": 768,
+        "changedCells": {
+          "min": 313,
+          "mean": 375.03125,
+          "max": 439
+        },
+        "glyphGroups": {
+          "min": 102,
+          "mean": 149.75520833333334,
+          "max": 186
+        },
+        "orderedAccumulatorLoads": {
+          "min": 313,
+          "mean": 374.34375,
+          "max": 438
+        },
+        "formats": {
+          "sparse": {
+            "cyclicPayloadBytes": 289560,
+            "payloadBytes": {
+              "min": 630,
+              "mean": 754.0625,
+              "max": 882
+            },
+            "maximumPrefix": {
+              "frames": 55,
+              "transitions": 54,
+              "payloadBytes": 40390,
+              "remainingArenaBytes": 570,
+              "secondsAt25Fps": 2.2,
+              "secondsAt50Fps": 1.1,
+              "angularRangeDegrees": 50.625,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 110
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "19b5bdaa8dc9d26082b897b61feb77a2c60cb627dcfea9030fad3e50a2efd394",
+            "nativeTimingMeasured": false
+          },
+          "page-groups": {
+            "cyclicPayloadBytes": 340808,
+            "payloadBytes": {
+              "min": 721,
+              "mean": 887.5208333333334,
+              "max": 1054
+            },
+            "maximumPrefix": {
+              "frames": 46,
+              "transitions": 45,
+              "payloadBytes": 40614,
+              "remainingArenaBytes": 346,
+              "secondsAt25Fps": 1.84,
+              "secondsAt50Fps": 0.92,
+              "angularRangeDegrees": 42.1875,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 92
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "a74ba442d7722f7d5cb3c64946ec3301cae41e892fe5e8c72c44c12a93b36baa",
+            "nativeTimingMeasured": false
+          },
+          "hybrid": {
+            "cyclicPayloadBytes": 271132,
+            "payloadBytes": {
+              "min": 590,
+              "mean": 706.0729166666666,
+              "max": 820
+            },
+            "maximumPrefix": {
+              "frames": 59,
+              "transitions": 58,
+              "payloadBytes": 40396,
+              "remainingArenaBytes": 564,
+              "secondsAt25Fps": 2.36,
+              "secondsAt50Fps": 1.18,
+              "angularRangeDegrees": 54.375,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 118
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "253af565e9fb00db59fabde1936a4cd7c4ccfd96c62128ad6420a8d51fff930c",
+            "nativeTimingMeasured": false
+          },
+          "ordered": {
+            "cyclicPayloadBytes": 719916,
+            "payloadBytes": {
+              "min": 1566,
+              "mean": 1874.78125,
+              "max": 2192
+            },
+            "maximumPrefix": {
+              "frames": 21,
+              "transitions": 20,
+              "payloadBytes": 39719,
+              "remainingArenaBytes": 1241,
+              "secondsAt25Fps": 0.84,
+              "secondsAt50Fps": 0.42,
+              "angularRangeDegrees": 18.75,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 42
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "db7999a8be38599647bccb9146e88ee9a09e439cff6484a44732dd6a5ff549d8",
+            "nativeTimingMeasured": false
+          },
+          "grouped": {
+            "cyclicPayloadBytes": 547432,
+            "payloadBytes": {
+              "min": 1144,
+              "mean": 1425.6041666666667,
+              "max": 1674
+            },
+            "maximumPrefix": {
+              "frames": 28,
+              "transitions": 27,
+              "payloadBytes": 40570,
+              "remainingArenaBytes": 390,
+              "secondsAt25Fps": 1.12,
+              "secondsAt50Fps": 0.56,
+              "angularRangeDegrees": 25.3125,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 56
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "d1147461d51a587c5ab593bac002a989342c17af7c0990b81911a4e2abdcb406",
+            "nativeTimingMeasured": false
+          }
+        }
+      },
+      {
+        "dataset": "geometry",
+        "frames": 384,
+        "targetSourceSha256": "6c419dbb0e4b9cb03a5bc4fb21bead21ca503a0f434a9f583edfefd2e973310c",
+        "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+        "arena": {
+          "start": 12288,
+          "endExclusive": 53248,
+          "bytes": 40960
+        },
+        "firstImageBytesOutsideArena": 1000,
+        "framePointerBytesOutsideArena": 768,
+        "changedCells": {
+          "min": 222,
+          "mean": 291.265625,
+          "max": 352
+        },
+        "glyphGroups": {
+          "min": 43,
+          "mean": 60.208333333333336,
+          "max": 73
+        },
+        "orderedAccumulatorLoads": {
+          "min": 220,
+          "mean": 289.2864583333333,
+          "max": 352
+        },
+        "formats": {
+          "sparse": {
+            "cyclicPayloadBytes": 225228,
+            "payloadBytes": {
+              "min": 448,
+              "mean": 586.53125,
+              "max": 708
+            },
+            "maximumPrefix": {
+              "frames": 74,
+              "transitions": 73,
+              "payloadBytes": 40850,
+              "remainingArenaBytes": 110,
+              "secondsAt25Fps": 2.96,
+              "secondsAt50Fps": 1.48,
+              "angularRangeDegrees": 68.4375,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 148
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "167ab5873a28ecdc593c117e2fbee2d7dfda2460bd3422cb6072c7610f9b2805",
+            "nativeTimingMeasured": false
+          },
+          "page-groups": {
+            "cyclicPayloadBytes": 219466,
+            "payloadBytes": {
+              "min": 442,
+              "mean": 571.5260416666666,
+              "max": 664
+            },
+            "maximumPrefix": {
+              "frames": 75,
+              "transitions": 74,
+              "payloadBytes": 40663,
+              "remainingArenaBytes": 297,
+              "secondsAt25Fps": 3,
+              "secondsAt50Fps": 1.5,
+              "angularRangeDegrees": 69.375,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 150
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "233efe4cc8f83e1dbf45ceb9af8e50db38c28a37e66be74edbe60ee8a4a49465",
+            "nativeTimingMeasured": false
+          },
+          "hybrid": {
+            "cyclicPayloadBytes": 194198,
+            "payloadBytes": {
+              "min": 387,
+              "mean": 505.7239583333333,
+              "max": 594
+            },
+            "maximumPrefix": {
+              "frames": 86,
+              "transitions": 85,
+              "payloadBytes": 40526,
+              "remainingArenaBytes": 434,
+              "secondsAt25Fps": 3.44,
+              "secondsAt50Fps": 1.72,
+              "angularRangeDegrees": 79.6875,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 172
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "b62c1552dbdae651a7dc3c2a001fd0f03d1bd93a1ae8b3bc43d97b7e5ea1d80e",
+            "nativeTimingMeasured": false
+          },
+          "ordered": {
+            "cyclicPayloadBytes": 558094,
+            "payloadBytes": {
+              "min": 1107,
+              "mean": 1453.3697916666667,
+              "max": 1761
+            },
+            "maximumPrefix": {
+              "frames": 27,
+              "transitions": 26,
+              "payloadBytes": 39889,
+              "remainingArenaBytes": 1071,
+              "secondsAt25Fps": 1.08,
+              "secondsAt50Fps": 0.54,
+              "angularRangeDegrees": 24.375,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 54
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "54ec5d6a103f7689f3518c04e5c7fbf1ff4ccbc2b31157f0447d139971c424c3",
+            "nativeTimingMeasured": false
+          },
+          "grouped": {
+            "cyclicPayloadBytes": 382162,
+            "payloadBytes": {
+              "min": 765,
+              "mean": 995.2135416666666,
+              "max": 1187
+            },
+            "maximumPrefix": {
+              "frames": 41,
+              "transitions": 40,
+              "payloadBytes": 40900,
+              "remainingArenaBytes": 60,
+              "secondsAt25Fps": 1.64,
+              "secondsAt50Fps": 0.82,
+              "angularRangeDegrees": 37.5,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 82
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "f20a6778626a92130af3882e81b6b78a84d172add71a16722f3c1c7e18074cec",
+            "nativeTimingMeasured": false
+          }
+        }
+      },
+      {
+        "dataset": "protected4",
+        "frames": 384,
+        "targetSourceSha256": "b6d22ef59151d6b7db04b56b9d7bf743093dc00c1efca423f135b3670530ad0d",
+        "fontSha256": "e4071e1e3176e3ee65eeb5fc2df5bb3eccab7b733b9ea7cbb276a2f3a65a1aac",
+        "arena": {
+          "start": 12288,
+          "endExclusive": 53248,
+          "bytes": 40960
+        },
+        "firstImageBytesOutsideArena": 1000,
+        "framePointerBytesOutsideArena": 768,
+        "changedCells": {
+          "min": 271,
+          "mean": 334.2682291666667,
+          "max": 427
+        },
+        "glyphGroups": {
+          "min": 91,
+          "mean": 139.4453125,
+          "max": 179
+        },
+        "orderedAccumulatorLoads": {
+          "min": 270,
+          "mean": 333.6223958333333,
+          "max": 427
+        },
+        "formats": {
+          "sparse": {
+            "cyclicPayloadBytes": 258254,
+            "payloadBytes": {
+              "min": 546,
+              "mean": 672.5364583333334,
+              "max": 858
+            },
+            "maximumPrefix": {
+              "frames": 63,
+              "transitions": 62,
+              "payloadBytes": 40748,
+              "remainingArenaBytes": 212,
+              "secondsAt25Fps": 2.52,
+              "secondsAt50Fps": 1.26,
+              "angularRangeDegrees": 58.125,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 126
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "4b93b5b25324df10607518434d6f1fdc146899bb7107cfc49e69f6db0e3faf2f",
+            "nativeTimingMeasured": false
+          },
+          "page-groups": {
+            "cyclicPayloadBytes": 305531,
+            "payloadBytes": {
+              "min": 624,
+              "mean": 795.6536458333334,
+              "max": 1023
+            },
+            "maximumPrefix": {
+              "frames": 52,
+              "transitions": 51,
+              "payloadBytes": 40849,
+              "remainingArenaBytes": 111,
+              "secondsAt25Fps": 2.08,
+              "secondsAt50Fps": 1.04,
+              "angularRangeDegrees": 47.8125,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 104
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "fddf32ef639a348d9e9205fe41d72fa34f72c374292757a3d6c6ca1c927e3697",
+            "nativeTimingMeasured": false
+          },
+          "hybrid": {
+            "cyclicPayloadBytes": 241658,
+            "payloadBytes": {
+              "min": 506,
+              "mean": 629.3177083333334,
+              "max": 805
+            },
+            "maximumPrefix": {
+              "frames": 68,
+              "transitions": 67,
+              "payloadBytes": 40870,
+              "remainingArenaBytes": 90,
+              "secondsAt25Fps": 2.72,
+              "secondsAt50Fps": 1.36,
+              "angularRangeDegrees": 62.8125,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 136
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "67785de311b29ce62f6f83c365910cd7c88026e33d140caf4d1e097cb0fa20e5",
+            "nativeTimingMeasured": false
+          },
+          "ordered": {
+            "cyclicPayloadBytes": 641683,
+            "payloadBytes": {
+              "min": 1354,
+              "mean": 1671.0494791666667,
+              "max": 2136
+            },
+            "maximumPrefix": {
+              "frames": 24,
+              "transitions": 23,
+              "payloadBytes": 40837,
+              "remainingArenaBytes": 123,
+              "secondsAt25Fps": 0.96,
+              "secondsAt50Fps": 0.48,
+              "angularRangeDegrees": 21.5625,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 48
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "20fb69a561ba2a645cfd319981884b0e59169e22b0976cd755915649712eaff0",
+            "nativeTimingMeasured": false
+          },
+          "grouped": {
+            "cyclicPayloadBytes": 492555,
+            "payloadBytes": {
+              "min": 996,
+              "mean": 1282.6953125,
+              "max": 1640
+            },
+            "maximumPrefix": {
+              "frames": 31,
+              "transitions": 30,
+              "payloadBytes": 40649,
+              "remainingArenaBytes": 311,
+              "secondsAt25Fps": 1.24,
+              "secondsAt50Fps": 0.62,
+              "angularRangeDegrees": 28.125,
+              "initialRawScreenBytesOutsideArena": 1000,
+              "pointerBytesOutsideArena": 62
+            },
+            "cyclicPointerBytesOutsideArena": 768,
+            "sourceSha256": "bd429f60c7f87aebdd7b0c3dafc4435f1c79c9eb741bca647e5ed120c9221e17",
+            "nativeTimingMeasured": false
+          }
+        }
+      }
+    ],
+    "py65Proof": {
+      "pass": true,
+      "engine": "py65.devices.mpu6502.MPU",
+      "cases": [
+        {
+          "dataset": "analytic",
+          "variant": "ordered",
+          "transitionsVerified": 384,
+          "codeSha256": "db7999a8be38599647bccb9146e88ee9a09e439cff6484a44732dd6a5ff549d8",
+          "instructionCycles": {
+            "min": 1884,
+            "mean": 2254.8125,
+            "max": 2636
+          }
+        },
+        {
+          "dataset": "analytic",
+          "variant": "grouped",
+          "transitionsVerified": 384,
+          "codeSha256": "d1147461d51a587c5ab593bac002a989342c17af7c0990b81911a4e2abdcb406",
+          "instructionCycles": {
+            "min": 1462,
+            "mean": 1805.6354166666667,
+            "max": 2118
+          }
+        },
+        {
+          "dataset": "geometry",
+          "variant": "ordered",
+          "transitionsVerified": 384,
+          "codeSha256": "54ec5d6a103f7689f3518c04e5c7fbf1ff4ccbc2b31157f0447d139971c424c3",
+          "instructionCycles": {
+            "min": 1334,
+            "mean": 1749.6354166666667,
+            "max": 2118
+          }
+        },
+        {
+          "dataset": "geometry",
+          "variant": "grouped",
+          "transitionsVerified": 384,
+          "codeSha256": "f20a6778626a92130af3882e81b6b78a84d172add71a16722f3c1c7e18074cec",
+          "instructionCycles": {
+            "min": 992,
+            "mean": 1291.4791666666667,
+            "max": 1544
+          }
+        },
+        {
+          "dataset": "protected4",
+          "variant": "ordered",
+          "transitionsVerified": 384,
+          "codeSha256": "20fb69a561ba2a645cfd319981884b0e59169e22b0976cd755915649712eaff0",
+          "instructionCycles": {
+            "min": 1630,
+            "mean": 2010.3177083333333,
+            "max": 2568
+          }
+        },
+        {
+          "dataset": "protected4",
+          "variant": "grouped",
+          "transitionsVerified": 384,
+          "codeSha256": "bd429f60c7f87aebdd7b0c3dafc4435f1c79c9eb741bca647e5ed120c9221e17",
+          "instructionCycles": {
+            "min": 1272,
+            "mean": 1621.9635416666667,
+            "max": 2072
+          }
+        }
+      ],
+      "scope": "Actual 6502 instruction execution; no VIC stalls or raster waits, so not an FPS result."
+    }
+  },
+  "errorScope": "Extra pixel differences against the lossless fixed-font output, not against an ideal sphere bitmap.",
+  "feedback": "Compare each target with the actually retained displayed glyph. Exact initial frame and exact closing patch reset the cycle state. Native sparse format and decoder remain unchanged.",
+  "protectedPolicy": "Always update a changed target empty glyph0 or filled glyph15. Apply the threshold only to partial target glyphs.",
+  "nativeScope": "Threshold2 inputs and programs are byte-identical to the existing lossless case; its measurements are reused. Threshold3/4 and protected4 have actual native prefix playback and completed-VIC-field checks. Other thresholds have host results only.",
+  "storageScope": "Largest encoded prefix in the existing40960-byte source arena. Font, seed, code and pointers remain separately reserved.",
+  "groupedScope": "Pure grouped data and generated-code sizes are host-verified. The four-page hybrid decoder has actual50FPS native prefix receipts for59 lossless and68 protected4 poses. Every displayed field matches; other motions and pure-grouped/generated-code native FPS are unmeasured."
+}

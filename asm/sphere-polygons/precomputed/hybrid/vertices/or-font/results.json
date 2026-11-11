@@ -1,0 +1,81 @@
+{
+  "pass": true,
+  "scope": "72-face checker sphere; same 64-frame SA64 spans, 2048-byte font and double buffering; no runtime projection, edge DDA, music or IRQ work",
+  "baselineReceipt": "../../results/vertices/span-atlas/verification.json",
+  "baselinePrgRebuiltAndHashMatched": true,
+  "baselinePrgSha256": "05dc7f549efb8ec3f58fe295fb4c1ce2d458a9003a64ad67e80a1f5ad515e19d",
+  "orFontPrgSha256": "fdaeaec94f7378acb77afe41bf80debc42301fe862b39e4df92281e0b8419354",
+  "movieSha256": "127c8f6e14d44c76de7acc3ebf22a57f76e8067df3cc30bc98a1a29d5227c162",
+  "nativeValidation": {
+    "frames_verified": 66,
+    "loop_wrap_verified": true,
+    "screen_bytes_checked": 66000,
+    "font_bytes_checked": 135168,
+    "movie_immutable": true,
+    "screenshots": 3
+  },
+  "performance": {
+    "beforeFps": 8.354087084747235,
+    "afterFps": 10.024908424908425,
+    "fpsIncreasePercent": 20.00004696158544,
+    "beforePalFields": 6.0000023480792715,
+    "afterPalFields": 5.0,
+    "beforeRenderCycles": 113004.890625,
+    "afterRenderCycles": 95053.984375,
+    "renderReductionPercent": 15.885070239631494,
+    "beforeRenderMs": 114.69689928322616,
+    "afterRenderMs": 96.47721626940628,
+    "stages": {
+      "decode": {
+        "beforeCycles": 215.140625,
+        "afterCycles": 215.140625,
+        "beforeMs": 0.2183618997450388,
+        "afterMs": 0.2183618997450388
+      },
+      "clear": {
+        "beforeCycles": 6744.453125,
+        "afterCycles": 6776.9375,
+        "beforeMs": 6.845437011798045,
+        "afterMs": 6.878407771444347
+      },
+      "face_edges": {
+        "beforeCycles": 29144.84375,
+        "afterCycles": 29138.96875,
+        "beforeMs": 29.58122599589139,
+        "afterMs": 29.575263030221834
+      },
+      "face_fill": {
+        "beforeCycles": 46111.359375,
+        "afterCycles": 46164.171875,
+        "beforeMs": 46.801779222084186,
+        "afterMs": 46.855382477305206
+      },
+      "resolve": {
+        "beforeCycles": 28642.046875,
+        "afterCycles": 10590.09375,
+        "beforeMs": 29.070900803655526,
+        "afterMs": 10.74865795210952
+      }
+    }
+  },
+  "quality": {
+    "unclippedAll256MasksExact": true,
+    "meanBoundaryPixelChangesPerFrame": 12.78125,
+    "maxBoundaryPixelChangesPerFrame": 33,
+    "boundaryPixelChangesTotal": 818,
+    "protrudingPixels": 0
+  },
+  "memory": {
+    "fontBytes": 2048,
+    "separateCoverageBytesFreed": 1024,
+    "prgBytes": 46428,
+    "baselinePrgBytes": 46684,
+    "codeBytes": 1145
+  },
+  "rawReceipts": [
+    "build/host-smoke.json",
+    "build/assets/manifest.json",
+    "build/verification/verification.json",
+    "build/pal-profile/profile.json"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "pass": true,
+  "scope": "Complete live 72-face checker renderer; all-axis rotation, projection, culling, runtime edge DDA and original span filler; no music or IRQ workload",
+  "animationDataBytes": 0,
+  "precomputedPoses": 0,
+  "precomputedSpans": 0,
+  "framesVerifiedPerVariant": 64,
+  "additionalHostPoses": 32,
+  "baselinePrgSha256": "1379a1c305d1ef6553aead15fd74da1f093538cb88a0c4d57b5c71f7bb34b25c",
+  "orPrgSha256": "8417c7ea70bbfea2a6d7a6300bdcbb66367ac73848a19510ab9ce2b9260a65e2",
+  "performance": {
+    "baselineFps": 4.106431929578874,
+    "orFps": 4.453942840708671,
+    "fpsIncreasePercent": 8.462600064709601,
+    "renderReductionPercent": 7.508265480263887,
+    "stageMs": {
+      "geometry": {
+        "baseline": 16.026199748692715,
+        "or": 16.03972743410796
+      },
+      "raster": {
+        "baseline": 188.65925761838645,
+        "or": 189.53135720651045
+      },
+      "resolve": {
+        "baseline": 28.785804437055443,
+        "or": 10.371135617631296
+      },
+      "render": {
+        "baseline": 233.4814273918851,
+        "or": 215.9510219761928
+      }
+    }
+  },
+  "quality": {
+    "all256UnclippedMaskGlyphsExact": true,
+    "circlePixelChangesTotal": 457,
+    "circlePixelChangesMean": 7.140625,
+    "circlePixelChangesMax": 34,
+    "protrudingPixels": 0
+  },
+  "nativeChecks": {
+    "screenBytesChecked": 64000,
+    "coverageBytesChecked": 64000,
+    "fontAndAssetsImmutable": true,
+    "frontUntouchedDuringRendering": true,
+    "all72FacesTraversed": true,
+    "allProjectionAndMatricesMatch": true,
+    "screenshots": 3
+  },
+  "receipts": [
+    "build/pal-baseline/verification.json",
+    "build/pal-or/verification.json",
+    "build/host-smoke.json"
+  ],
+  "priorSpanPlayerResult": "10.02 FPS is a separate stored-span playback measurement and does not apply to this live renderer"
+}

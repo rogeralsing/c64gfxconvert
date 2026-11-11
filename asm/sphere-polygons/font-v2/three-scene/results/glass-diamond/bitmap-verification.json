@@ -1,0 +1,523 @@
+{
+  "pass": true,
+  "stage": "Three.js grayscale to dithered bitmap only",
+  "characterConversionRun": false,
+  "width": 160,
+  "height": 100,
+  "physicalPreviewPixels": [
+    320,
+    200
+  ],
+  "fps": 25,
+  "frameCount": 161,
+  "startupBlankFrames": 1,
+  "loopSeconds": 6.4,
+  "sourceSha256": "ca7a50db71b5e459763e7a33af657f33c4beaeb2c3a70e4c43c4b2745e64519c",
+  "bitmapSha256": "4ee29f7eeaf4b3426e9c061fb7c90e266267959388c6c58a7c5e70fdbcfc8e3f",
+  "rgbaSha256": "30f17c7ed317feb3b1350eb00350dfbec0567f3ea2bb198e94c32a2cc55c919b",
+  "objectMaskSha256": "3a847ff3d4f6574574e30aa7eae381376203d8f678a6ba141dca5bd933376b58",
+  "sourceFile": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-diamond.mjs",
+  "input": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/build/three-scene-glass-diamond/render",
+  "loop": {
+    "startFrame": 1,
+    "frameCount": 160,
+    "endpointFrame": 161,
+    "unwrappedEndpointFrame": 321,
+    "endpointMatchesStart": true,
+    "unwrappedPeriodMatchesStart": true,
+    "rgbaSha256": "4757bd60d4e0825da284e9b4c394ba4f6b347cf7b6c6237e45f730f19d04352c",
+    "bitmapSha256": "5ca9761c1e9ec17cb451cf3b6cdb06c0f06f4648a4e40f25d3acd1f59fcf2a87"
+  },
+  "cubeMotion": {
+    "matrixDifference": 0.5867410906789271,
+    "changedBitmapPixels": 318,
+    "matrices": [
+      [
+        0.5857790661879713,
+        0.06593894564779594,
+        -0.8077839693029354,
+        0,
+        -0.3070458818552517,
+        0.9404458595912478,
+        -0.14589178048611878,
+        0,
+        0.7500571391911948,
+        0.33348709214081446,
+        0.5711397791467381,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      [
+        0.9730324255935507,
+        0.0659389456477959,
+        -0.22104287862400826,
+        0,
+        -0.13464004926872303,
+        0.9404458595912478,
+        -0.3121436244913467,
+        0,
+        0.18729643850443836,
+        0.3334870921408144,
+        0.9239623387882306,
+        0,
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "shape": {
+    "type": "BufferGeometry",
+    "name": "cut-glass-diamond-orbit",
+    "title": "Facetterad glasdiamant med kretsande boll",
+    "kind": "cut-diamond",
+    "mesh": {
+      "triangles": 48,
+      "distinctSpatialVertices": 26,
+      "planarNormalDirections": 25,
+      "edges": 72,
+      "nonManifoldEdges": 0,
+      "weldToleranceLogical": 0.00001,
+      "signedVolume": 33788.39111960934,
+      "bounds": {
+        "min": [
+          -22.17310905456543,
+          -29,
+          -22.17310905456543
+        ],
+        "max": [
+          22.17310905456543,
+          22,
+          22.17310905456543
+        ]
+      },
+      "annotations": {
+        "cut": "flat table, sloped crown, narrow girdle, pointed pavilion",
+        "sectors": 8,
+        "triangleCounts": {
+          "table": 8,
+          "crown": 16,
+          "girdle": 16,
+          "pavilion": 8,
+          "total": 48
+        },
+        "polygonCounts": {
+          "table": 1,
+          "crown": 8,
+          "girdle": 8,
+          "pavilion": 8
+        },
+        "expectedWeldedVertices": 26,
+        "ringDimensions": {
+          "sectors": 8,
+          "tableRadius": 9,
+          "tableY": 22,
+          "girdleRadius": 24,
+          "crownBottomY": 8,
+          "girdleBottomY": 6,
+          "pointY": -29
+        },
+        "flatFaceNormals": true
+      }
+    }
+  },
+  "outline": {
+    "ringMaskFile": "outline-ring-mask.frames",
+    "ringMaskSha256": "d8d837414382f25a8dacb1ed570e8291786682a55e6a8b9605dbef2dad9d92e7",
+    "logicalRingPixelsPerFrame": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      2,
+      2,
+      9,
+      10,
+      27,
+      30,
+      43,
+      48,
+      53,
+      61,
+      68,
+      68,
+      73,
+      74,
+      72,
+      70,
+      66,
+      70,
+      71,
+      65,
+      74,
+      78,
+      70,
+      68,
+      70,
+      75,
+      74,
+      74,
+      76,
+      70,
+      71,
+      71,
+      70,
+      75,
+      73,
+      64,
+      73,
+      75,
+      70,
+      71,
+      71,
+      70,
+      76,
+      74,
+      74,
+      75,
+      70,
+      68,
+      70,
+      78,
+      74,
+      65,
+      71,
+      70,
+      66,
+      70,
+      72,
+      74,
+      73,
+      68,
+      68,
+      61,
+      53,
+      48,
+      43,
+      30,
+      27,
+      10,
+      9,
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "unchangedBehindFrames": 80,
+    "comparison": {
+      "method": "actual GPU same-shape no-outline control",
+      "shape": "BufferGeometry"
+    },
+    "sourceRingWhitePixels": 0,
+    "coreDiameterPhysical": 44,
+    "outerDiameterPhysical": 48
+  },
+  "controls": [
+    {
+      "frame": 41,
+      "time": 1.64,
+      "side": "front",
+      "actualBallPosition": [
+        2.7554552980815448e-15,
+        13,
+        45
+      ],
+      "overlappingPixels": 376,
+      "grayChangedInsideCube": 376,
+      "binaryChangedInsideCube": 125,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 90.36968085106383,
+      "ballDistinctGrayLevels": 175,
+      "cubeDistinctGrayLevels": 31,
+      "cubeBoundsLogical": [
+        55,
+        26,
+        101,
+        77
+      ],
+      "ballBoundsLogical": [
+        69,
+        26,
+        91,
+        48
+      ],
+      "cubePhysicalSize": [
+        92,
+        102
+      ],
+      "ballPhysicalSize": [
+        44,
+        44
+      ],
+      "fullSha256": "6451846975b144c83acb23f85532c4c4a70ea148ec2e4a15e34ba4b542c917f2",
+      "hiddenSha256": "d0608a03510faa71c8a98ef2a364a6cded8f884fad24da559656213f91851992",
+      "ballOnlySha256": "30cac224e6e671a6a6032377550a62b9988273539521801926d566ae07180ba5",
+      "noRefractionSha256": "13f3a1d85fa34b50246672e5086fceeb7c5c522cba6d53d57f2dab43b0952056",
+      "noRefractionHiddenSha256": "d0608a03510faa71c8a98ef2a364a6cded8f884fad24da559656213f91851992",
+      "sharpSha256": "116fbb792ea70adc5d8a7eea793e49c28e163ddfd2fec9e59652fb1e855784e9",
+      "sharpHiddenSha256": "ac51fe697a8eb738033caacd666d966278d6e8ad4514371891c54323dd1ca52e",
+      "outline": {
+        "changedGrayPixels": 50,
+        "changedPixelsAreBlack": 50,
+        "coreChanges": 0,
+        "noOutlineSha256": "d2aa9407f781ff88e582546af8199f900a4032a0b30c83e9be05456d4bd6b05b",
+        "noOutlineMaskSha256": "5b9f2d607edb94ba38df19fcd3797e1db89925ea20fbe8d9d0b2d0ec54824627"
+      },
+      "fullMaskSha256": "b7fc37d0dbddcb5ca88916b2f02e131c7d64bc29af1a366d51fee23e9007d076",
+      "hiddenMaskSha256": "dfd84287ec7edd550c40663a34c2ef9fb16570e69ad563d3e1770a53d31af850",
+      "affectedMaskSha256": "ae6fa125ff97945ad84d981440fe426d70b8b7c33bc0310148a7a84f663f1470",
+      "optics": {
+        "centroidShiftLogical": 1.4733234329295173,
+        "effectPixelsOutsideOriginalBall": 311,
+        "softeningRequired": false,
+        "actualSignal": {
+          "mass": 38865,
+          "centroid": [
+            77.40550623954715,
+            35.49777434709893
+          ],
+          "supportPixels": 555,
+          "normalizedGradient": 0.7804965907628972
+        },
+        "noRefractionSignal": {
+          "mass": 30552,
+          "centroid": [
+            77.22424063891071,
+            34.03564414768264
+          ],
+          "supportPixels": 320,
+          "normalizedGradient": 0.6620188531029065
+        },
+        "sharpSignal": {
+          "mass": 38600,
+          "centroid": [
+            77.38665803108809,
+            35.420880829015545
+          ],
+          "supportPixels": 540,
+          "normalizedGradient": 0.7808290155440415
+        },
+        "refractionDifference": {
+          "grayPixels": 261,
+          "binaryPixels": 33,
+          "absoluteGrayDifference": 8341
+        },
+        "softeningDifference": {
+          "grayPixels": 44,
+          "binaryPixels": 1,
+          "absoluteGrayDifference": 417
+        },
+        "softenedGradientRatio": 0.9995742668695365
+      }
+    },
+    {
+      "frame": 121,
+      "time": 4.84,
+      "side": "behind",
+      "actualBallPosition": [
+        -8.266365894244634e-15,
+        -13,
+        -45
+      ],
+      "overlappingPixels": 335,
+      "grayChangedInsideCube": 334,
+      "binaryChangedInsideCube": 140,
+      "foregroundMismatches": 0,
+      "meanGrayChangeInsideCube": 108.15820895522388,
+      "ballDistinctGrayLevels": 175,
+      "cubeDistinctGrayLevels": 35,
+      "cubeBoundsLogical": [
+        55,
+        26,
+        103,
+        77
+      ],
+      "ballBoundsLogical": [
+        69,
+        52,
+        91,
+        74
+      ],
+      "cubePhysicalSize": [
+        96,
+        102
+      ],
+      "ballPhysicalSize": [
+        44,
+        44
+      ],
+      "fullSha256": "5d23f8d93b284f7310aec207ae81dc6e134c8a1cf1aa5d98bf6001adb87c805a",
+      "hiddenSha256": "7c02e7cff0f82f2179c35ce7e4eddf3ebe8eda8b27c610590af734a6a8a5a7c0",
+      "ballOnlySha256": "f596764e3de196358674015d9e7801406511ff6668d1161d4a7957eb4f917c2b",
+      "noRefractionSha256": "5bef0431d90f2f8a3ee049d1e2861996eaa36f4b4ff7c4064ef5bd3e87af497b",
+      "noRefractionHiddenSha256": "7c02e7cff0f82f2179c35ce7e4eddf3ebe8eda8b27c610590af734a6a8a5a7c0",
+      "sharpSha256": "ba99807a940389a19a1c887784c6661d9c948dfe064971af6605a57c1b352a93",
+      "sharpHiddenSha256": "7c02e7cff0f82f2179c35ce7e4eddf3ebe8eda8b27c610590af734a6a8a5a7c0",
+      "outline": {
+        "changedGrayPixels": 0,
+        "changedPixelsAreBlack": 0,
+        "coreChanges": 0,
+        "noOutlineSha256": "5d23f8d93b284f7310aec207ae81dc6e134c8a1cf1aa5d98bf6001adb87c805a",
+        "noOutlineMaskSha256": "f31193c8f669d59bdc3be3a6064d45231ef100d9455fc07a63ca0fd57e649fda"
+      },
+      "fullMaskSha256": "f31193c8f669d59bdc3be3a6064d45231ef100d9455fc07a63ca0fd57e649fda",
+      "hiddenMaskSha256": "c4251d95ec5b38cace2232ce2734a79487828c5be4109a54cd8962e8641e0217",
+      "affectedMaskSha256": "ba26c058e78e77ae85190d20331b758edf83a1a4e1c9708e7f0228ff6c8811c1",
+      "optics": {
+        "centroidShiftLogical": 1.7462279794719984,
+        "effectPixelsOutsideOriginalBall": 81,
+        "softeningRequired": false,
+        "actualSignal": {
+          "mass": 44816,
+          "centroid": [
+            79.36210282042128,
+            60.807033202427704
+          ],
+          "supportPixels": 456,
+          "normalizedGradient": 0.6080863977151018
+        },
+        "noRefractionSignal": {
+          "mass": 39332,
+          "centroid": [
+            77.69719312519068,
+            60.28035696125293
+          ],
+          "supportPixels": 457,
+          "normalizedGradient": 0.5748499949150818
+        },
+        "sharpSignal": {
+          "mass": 44440,
+          "centroid": [
+            79.36881188118812,
+            60.87425742574258
+          ],
+          "supportPixels": 444,
+          "normalizedGradient": 0.6115211521152115
+        },
+        "refractionDifference": {
+          "grayPixels": 413,
+          "binaryPixels": 55,
+          "absoluteGrayDifference": 13884
+        },
+        "softeningDifference": {
+          "grayPixels": 96,
+          "binaryPixels": 1,
+          "absoluteGrayDifference": 1010
+        },
+        "softenedGradientRatio": 0.9943832614976127
+      }
+    }
+  ],
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+      "sha256": "af49ee20e64ca5464739eb3f4f1ec6c347e6b37ff1c5abb676ac2299cd0783e4"
+    }
+  ],
+  "quantization": {
+    "screenAnchored": true,
+    "matrix": "4x4 Bayer",
+    "pixelsCompared": 2576000,
+    "wrongBits": 0,
+    "nonGrayscale": 0,
+    "nonOpaque": 0,
+    "whiteOutsideMask": 0,
+    "distinctSourceGrayLevels": 226
+  },
+  "previews": {
+    "frontBack": "bitmap-front-back.png",
+    "controls": "transparency-control.png",
+    "loop": "bitmap-loop.gif",
+    "optics": "optics-controls.png",
+    "outline": "outline-controls.png",
+    "decodedGifFramesAnd40msTimingVerified": true
+  }
+}

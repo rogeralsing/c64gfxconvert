@@ -1,0 +1,28 @@
+{
+  "pass": true,
+  "geometry": "closed triangular prism",
+  "nativeFps": 25.062279031300566,
+  "storedFrames": 161,
+  "orbitFrames": 160,
+  "nominalOrbitSeconds": 6.4,
+  "measuredOrbitSeconds": 6.384099739354965,
+  "payloadBytes": 12992,
+  "meaningfulLoadedBytes": 16411,
+  "savedBytesVersusOutlinedCube": 1066,
+  "actualVisibleFieldsVerified": 962,
+  "loopWrapsVerified": 2,
+  "programSha256": "e98da84073a2458fc92ddbc8e5f43641adf8004136c156eb707dd4b034e0ee3b",
+  "fontSha256": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+  "sourceSha256": "08bfbe38c7908143ad7914fefa785d3cb6c5182469b0de42b5350548096fb80c",
+  "sourceDependencies": [
+    {
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-sphere-font-publish-20261109/c64/asm/sphere-polygons/font-v2/three-scene/demo-glass.mjs",
+      "sha256": "af49ee20e64ca5464739eb3f4f1ec6c347e6b37ff1c5abb676ac2299cd0783e4"
+    }
+  ],
+  "nativeFontAndPlayerUnchanged": true,
+  "gifSource": "Actual verified PAL VICE screenshots",
+  "gifFrames": 160,
+  "gifFrameDurationMs": 40,
+  "gifDecodedPixelsVerified": true
+}
