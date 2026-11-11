@@ -33,7 +33,8 @@ function main(argv = process.argv.slice(2)) {
   const font = fs.readFileSync(path.join(input, 'font.bin'));
   assert.equal(raw.length % 1000, 0);
   assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0);
-  assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
+  if (metadata.fontMode === 'fixed256') assert.equal(font.length, 2048, 'A fixed256 film must ship all 256 glyphs.');
+  else assert.equal(sha(font.subarray(0, 1344)), '68ad34844c8a998f5270c31bc16962545f6c3232555fa03f9faec134c21c5b59');
   const frameCount = raw.length / 1000;
   const poses = Array.isArray(scene) ? scene : scene.frames;
   assert.equal(poses.length, frameCount);

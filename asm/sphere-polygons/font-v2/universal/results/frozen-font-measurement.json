@@ -1,0 +1,217 @@
+{
+  "pass": true,
+  "mode": "measure-frozen-font",
+  "font": "../three-scene/universal-font.bin",
+  "pathBase": "universal script directory",
+  "fontSha256": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+  "producerSha256": {
+    "font.cjs": "297eba1d72d83f45df1d355eae0eb2a19f6afdfeeda372806effe33f2b02665f",
+    "optimize-content.cjs": "263ffead890f03a935210e75d1eaf83969478ac31165a82cfcb3c0aa4d29ed80"
+  },
+  "rasterLayout": "320x200 binary byte pixels; 64000 bytes/frame, MSB-left packed only when extracting a tile",
+  "fitting": "Unconstrained nearest-glyph Hamming distance; native mask-constrained fitting can differ.",
+  "corpora": 9,
+  "uniqueTiles": 4977,
+  "results": [
+    {
+      "name": "solid-star",
+      "frames": 161,
+      "cells": 161000,
+      "uniqueTiles": 851,
+      "target": "ideal-raster",
+      "mismatchedPixels": 34562,
+      "errPerFrame": 214.67080745341616,
+      "pct": 0.33542313664596274,
+      "hashes": {
+        "reference": "4c0607411b850dd1f72efc680f389d8e577657f2f12c9ce4e409ae69d981f629",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "c035fbcf0f5a4a73e4eb9fa06444c52cf86d014cd955bc5e17b4825563bb2bd2"
+      }
+    },
+    {
+      "name": "sphere-to-cube-zoom",
+      "frames": 250,
+      "cells": 250000,
+      "uniqueTiles": 256,
+      "target": "existing-film-font",
+      "mismatchedPixels": 59768,
+      "errPerFrame": 239.072,
+      "pct": 0.37355,
+      "hashes": {
+        "reference": "eb8741f2d8ddff9c4b253f66f1009c3428298c4fc10e8a34a2feec081c14ded1",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69"
+      }
+    },
+    {
+      "name": "gradient-dither-cube",
+      "frames": 200,
+      "cells": 200000,
+      "uniqueTiles": 3244,
+      "target": "ideal-raster",
+      "mismatchedPixels": 70368,
+      "errPerFrame": 351.84,
+      "pct": 0.54975,
+      "hashes": {
+        "reference": "cac6178b57cbd240a2e494b1403210993387ff3f111f050226d8be77147bd2a0",
+        "font": "21428b389e5831802cd6a0ad3880d7d8dde32e7e30a16de2a7c599b8b3ee05fa",
+        "ideal": "7f717d84587b6ff6934e027fb5f6ffa21821c11653857260eff77cd4c4bce296"
+      }
+    },
+    {
+      "name": "dithered-star",
+      "frames": 241,
+      "cells": 241000,
+      "uniqueTiles": 848,
+      "target": "ideal-raster",
+      "mismatchedPixels": 104656,
+      "errPerFrame": 434.2572614107884,
+      "pct": 0.6785269709543569,
+      "hashes": {
+        "reference": "e9e68c65a765d0391c7a27d3de98fc5ef21981bd70379f48aa710210289bd28a",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "1e5afbc026c276417b7dd4fc9a6531278fd6a6f0c6d59c2cf9b35aed728e5627"
+      }
+    },
+    {
+      "name": "tumbling-star",
+      "frames": 241,
+      "cells": 241000,
+      "uniqueTiles": 1053,
+      "target": "ideal-raster",
+      "mismatchedPixels": 44037,
+      "errPerFrame": 182.72614107883817,
+      "pct": 0.28550959543568466,
+      "hashes": {
+        "reference": "4db86e5574af188b43e4c3733de85170a9d53a4f9443579795618453dbddece2",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "12f5b3c0a793b8872de985d0ee3a3c7647a06cce1f4c7dc6d85ad68bcdb21acb"
+      }
+    },
+    {
+      "name": "glass-diamond",
+      "frames": 161,
+      "cells": 161000,
+      "uniqueTiles": 456,
+      "target": "ideal-raster",
+      "mismatchedPixels": 72654,
+      "errPerFrame": 451.2670807453416,
+      "pct": 0.7051048136645963,
+      "hashes": {
+        "reference": "13cadcd8de5e9520429542cc44dea8c1467bc9a825e89035356be925b7d9beab",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "e0d66d2f3cec4893ba1c6cef7b1b7964cd76fc8146d2b0607a36027d9af50eef"
+      }
+    },
+    {
+      "name": "glass-star",
+      "frames": 161,
+      "cells": 161000,
+      "uniqueTiles": 461,
+      "target": "ideal-raster",
+      "mismatchedPixels": 59234,
+      "errPerFrame": 367.9130434782609,
+      "pct": 0.5748641304347826,
+      "hashes": {
+        "reference": "55d859149e6e01537c517c692cc6cc6b77d805f1cf8076d3775eab3594ee8a4f",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "8db4daa314a9704c0b47a58301bf43ccb9c4da2be17ff5575a056770ee7b8235"
+      }
+    },
+    {
+      "name": "glass-outline",
+      "frames": 161,
+      "cells": 161000,
+      "uniqueTiles": 908,
+      "target": "ideal-raster",
+      "mismatchedPixels": 78607,
+      "errPerFrame": 488.2422360248447,
+      "pct": 0.7628784937888199,
+      "hashes": {
+        "reference": "71eecb6df0cd10d3f16aad7af2a0b19c9d2757fc93a5c0ef4820b88a3027715b",
+        "font": "a1ada9eaaa3e60d4dab40cb7fb9397ff30331c4d162633a74bb7f418b4895e69",
+        "ideal": "41d36cabb2a914a3c6c33a6ba5ff9792e54f1eb0443fd3d796267a9556a05c63"
+      }
+    },
+    {
+      "name": "flagship-star",
+      "frames": 97,
+      "cells": 97000,
+      "uniqueTiles": 736,
+      "target": "ideal-raster",
+      "mismatchedPixels": 88990,
+      "errPerFrame": 917.4226804123712,
+      "pct": 1.4334729381443299,
+      "hashes": {
+        "reference": "de980a5a8f292ccdd4275c395c8f23e912a9c40c8531a3fba41a563d8fda68ff",
+        "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
+        "ideal": "0a11d77d1f085d798feaa8bda7e04a3bcdadb24f0c2200eed2b4ef59a2d79efb"
+      }
+    }
+  ],
+  "independentLayoutVerification": {
+    "pass": true,
+    "method": "Independent Pillow MSB-first packed bitmap decoder and nearest-neighbor source scaling compared byte-for-byte with the entire ideal raster.",
+    "corpora": [
+      {
+        "name": "three-scene-solid-star",
+        "frames": 161,
+        "physicalPixelsCompared": 10304000,
+        "idealSha256": "c035fbcf0f5a4a73e4eb9fa06444c52cf86d014cd955bc5e17b4825563bb2bd2",
+        "packedSourceSha256": "4b37dd7e36ab6ff430cf4625136f8ffdb7d1c4bb047e6b5acdfb4f62cb2fc8b3"
+      },
+      {
+        "name": "three-scene-gradient-c64",
+        "frames": 200,
+        "physicalPixelsCompared": 12800000,
+        "idealSha256": "7f717d84587b6ff6934e027fb5f6ffa21821c11653857260eff77cd4c4bce296",
+        "packedSourceSha256": "bc9571dec1f2ab5725ddd63aff18546dff98d2457f0d10e7746b5f367dff84ea"
+      },
+      {
+        "name": "three-scene-dithered-star",
+        "frames": 241,
+        "physicalPixelsCompared": 15424000,
+        "idealSha256": "1e5afbc026c276417b7dd4fc9a6531278fd6a6f0c6d59c2cf9b35aed728e5627",
+        "packedSourceSha256": "21906a24b7ba7d617f81f8155738c1c981b3157f9f772bb8009ba49cc9ef10a2"
+      },
+      {
+        "name": "three-scene-tumbling-star",
+        "frames": 241,
+        "physicalPixelsCompared": 15424000,
+        "idealSha256": "12f5b3c0a793b8872de985d0ee3a3c7647a06cce1f4c7dc6d85ad68bcdb21acb",
+        "packedSourceSha256": "b84fb4e2e4d4c3086fe899892aa01ff755a23c07e7f95265a77196d75ded23e9"
+      },
+      {
+        "name": "three-scene-glass-diamond",
+        "frames": 161,
+        "physicalPixelsCompared": 10304000,
+        "idealSha256": "e0d66d2f3cec4893ba1c6cef7b1b7964cd76fc8146d2b0607a36027d9af50eef",
+        "packedSourceSha256": "4ee29f7eeaf4b3426e9c061fb7c90e266267959388c6c58a7c5e70fdbcfc8e3f"
+      },
+      {
+        "name": "three-scene-glass-star",
+        "frames": 161,
+        "physicalPixelsCompared": 10304000,
+        "idealSha256": "8db4daa314a9704c0b47a58301bf43ccb9c4da2be17ff5575a056770ee7b8235",
+        "packedSourceSha256": "963579665b7c4966b48fa7e5187027f7d35cf935837942fdf9f6180ffbb95f10"
+      },
+      {
+        "name": "three-scene-glass-outline",
+        "frames": 161,
+        "physicalPixelsCompared": 10304000,
+        "idealSha256": "41d36cabb2a914a3c6c33a6ba5ff9792e54f1eb0443fd3d796267a9556a05c63",
+        "packedSourceSha256": "a696729f4714580a583ac5699b6b2bc57db4f1b37461a08883e48cbc80c009c9"
+      },
+      {
+        "name": "three-scene-flagship-star",
+        "frames": 97,
+        "physicalPixelsCompared": 6208000,
+        "idealSha256": "0a11d77d1f085d798feaa8bda7e04a3bcdadb24f0c2200eed2b4ef59a2d79efb",
+        "packedSourceSha256": "4f14ad8a65a1a25bdf6fa4fc4ef3052a535817854b06bb8285c0a5f4c28fa4ca"
+      }
+    ],
+    "physicalPixelsCompared": 91072000,
+    "syntheticLayoutPixelsCompared": 128000,
+    "rejects8000BytePackedLayout": true,
+    "rejectsWrongMetadataFrameCount": true
+  }
+}

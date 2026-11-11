@@ -22,7 +22,12 @@ function audit({framesPath, metadataPath, charactersPath, maskPath}) {
   assert.equal(raw.length, inputCount * width * height / 8);
   assert.equal(screens.length, metadata.frameCount * 1000);
   assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0);
-  assert.equal(sha(font.subarray(0, 1344)), BASE_FONT_SHA, 'The original168-glyph prefix must remain byte-identical.');
+  if (metadata.fontMode === 'fixed256') {
+    assert.equal(font.length, 2048, 'A fixed256 film must ship all 256 glyphs.');
+    assert.equal(metadata.fontExtension && metadata.fontExtension.fixedFont, true, 'fixed256 metadata must declare the fixed font.');
+  } else {
+    assert.equal(sha(font.subarray(0, 1344)), BASE_FONT_SHA, 'The original168-glyph prefix must remain byte-identical.');
+  }
   const glyphCount = font.length / 8;
   const prepend = metadata.bitmapSource.prependedBlankFrames || 0;
   assert.equal(metadata.frameCount, inputCount + prepend);

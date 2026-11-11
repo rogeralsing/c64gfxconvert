@@ -1,0 +1,1127 @@
+{
+  "maxStatic": 1,
+  "maxSequentialFaceIntermediate": 2,
+  "maxIntermediateWhere": {
+    "previous": 63,
+    "frame": 0,
+    "face": 30,
+    "cell": 942,
+    "bit": 1
+  },
+  "countHistogram": {
+    "0": 406437,
+    "1": 105563
+  },
+  "frames": [
+    {
+      "frame": 0,
+      "previous": 63,
+      "dirtyCoverage": 109,
+      "dirtyCounts": 109,
+      "changedGlyphs": 106,
+      "probeAdds": 74,
+      "probeRemoves": 71,
+      "cellMaskCommands": 109,
+      "maskCommandBytes": 335,
+      "intervalCommands": 313,
+      "intervalBytes": 941
+    },
+    {
+      "frame": 1,
+      "previous": 0,
+      "dirtyCoverage": 103,
+      "dirtyCounts": 103,
+      "changedGlyphs": 100,
+      "probeAdds": 65,
+      "probeRemoves": 77,
+      "cellMaskCommands": 103,
+      "maskCommandBytes": 314,
+      "intervalCommands": 357,
+      "intervalBytes": 1073
+    },
+    {
+      "frame": 2,
+      "previous": 1,
+      "dirtyCoverage": 97,
+      "dirtyCounts": 97,
+      "changedGlyphs": 96,
+      "probeAdds": 67,
+      "probeRemoves": 59,
+      "cellMaskCommands": 97,
+      "maskCommandBytes": 296,
+      "intervalCommands": 336,
+      "intervalBytes": 1010
+    },
+    {
+      "frame": 3,
+      "previous": 2,
+      "dirtyCoverage": 108,
+      "dirtyCounts": 108,
+      "changedGlyphs": 107,
+      "probeAdds": 75,
+      "probeRemoves": 81,
+      "cellMaskCommands": 108,
+      "maskCommandBytes": 331,
+      "intervalCommands": 367,
+      "intervalBytes": 1103
+    },
+    {
+      "frame": 4,
+      "previous": 3,
+      "dirtyCoverage": 86,
+      "dirtyCounts": 86,
+      "changedGlyphs": 84,
+      "probeAdds": 56,
+      "probeRemoves": 60,
+      "cellMaskCommands": 86,
+      "maskCommandBytes": 265,
+      "intervalCommands": 301,
+      "intervalBytes": 905
+    },
+    {
+      "frame": 5,
+      "previous": 4,
+      "dirtyCoverage": 99,
+      "dirtyCounts": 99,
+      "changedGlyphs": 98,
+      "probeAdds": 66,
+      "probeRemoves": 62,
+      "cellMaskCommands": 99,
+      "maskCommandBytes": 303,
+      "intervalCommands": 322,
+      "intervalBytes": 968
+    },
+    {
+      "frame": 6,
+      "previous": 5,
+      "dirtyCoverage": 111,
+      "dirtyCounts": 111,
+      "changedGlyphs": 109,
+      "probeAdds": 68,
+      "probeRemoves": 92,
+      "cellMaskCommands": 111,
+      "maskCommandBytes": 339,
+      "intervalCommands": 322,
+      "intervalBytes": 968
+    },
+    {
+      "frame": 7,
+      "previous": 6,
+      "dirtyCoverage": 85,
+      "dirtyCounts": 85,
+      "changedGlyphs": 85,
+      "probeAdds": 73,
+      "probeRemoves": 53,
+      "cellMaskCommands": 85,
+      "maskCommandBytes": 260,
+      "intervalCommands": 322,
+      "intervalBytes": 968
+    },
+    {
+      "frame": 8,
+      "previous": 7,
+      "dirtyCoverage": 81,
+      "dirtyCounts": 81,
+      "changedGlyphs": 80,
+      "probeAdds": 60,
+      "probeRemoves": 62,
+      "cellMaskCommands": 81,
+      "maskCommandBytes": 250,
+      "intervalCommands": 298,
+      "intervalBytes": 896
+    },
+    {
+      "frame": 9,
+      "previous": 8,
+      "dirtyCoverage": 106,
+      "dirtyCounts": 106,
+      "changedGlyphs": 105,
+      "probeAdds": 75,
+      "probeRemoves": 85,
+      "cellMaskCommands": 106,
+      "maskCommandBytes": 326,
+      "intervalCommands": 302,
+      "intervalBytes": 908
+    },
+    {
+      "frame": 10,
+      "previous": 9,
+      "dirtyCoverage": 87,
+      "dirtyCounts": 87,
+      "changedGlyphs": 87,
+      "probeAdds": 54,
+      "probeRemoves": 59,
+      "cellMaskCommands": 87,
+      "maskCommandBytes": 266,
+      "intervalCommands": 310,
+      "intervalBytes": 932
+    },
+    {
+      "frame": 11,
+      "previous": 10,
+      "dirtyCoverage": 93,
+      "dirtyCounts": 93,
+      "changedGlyphs": 93,
+      "probeAdds": 71,
+      "probeRemoves": 67,
+      "cellMaskCommands": 93,
+      "maskCommandBytes": 287,
+      "intervalCommands": 309,
+      "intervalBytes": 929
+    },
+    {
+      "frame": 12,
+      "previous": 11,
+      "dirtyCoverage": 78,
+      "dirtyCounts": 78,
+      "changedGlyphs": 77,
+      "probeAdds": 50,
+      "probeRemoves": 70,
+      "cellMaskCommands": 78,
+      "maskCommandBytes": 237,
+      "intervalCommands": 268,
+      "intervalBytes": 806
+    },
+    {
+      "frame": 13,
+      "previous": 12,
+      "dirtyCoverage": 107,
+      "dirtyCounts": 107,
+      "changedGlyphs": 106,
+      "probeAdds": 92,
+      "probeRemoves": 72,
+      "cellMaskCommands": 107,
+      "maskCommandBytes": 327,
+      "intervalCommands": 373,
+      "intervalBytes": 1121
+    },
+    {
+      "frame": 14,
+      "previous": 13,
+      "dirtyCoverage": 70,
+      "dirtyCounts": 70,
+      "changedGlyphs": 70,
+      "probeAdds": 52,
+      "probeRemoves": 45,
+      "cellMaskCommands": 70,
+      "maskCommandBytes": 214,
+      "intervalCommands": 292,
+      "intervalBytes": 878
+    },
+    {
+      "frame": 15,
+      "previous": 14,
+      "dirtyCoverage": 99,
+      "dirtyCounts": 99,
+      "changedGlyphs": 99,
+      "probeAdds": 71,
+      "probeRemoves": 86,
+      "cellMaskCommands": 99,
+      "maskCommandBytes": 305,
+      "intervalCommands": 332,
+      "intervalBytes": 998
+    },
+    {
+      "frame": 16,
+      "previous": 15,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 89,
+      "probeAdds": 85,
+      "probeRemoves": 46,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 275,
+      "intervalCommands": 367,
+      "intervalBytes": 1103
+    },
+    {
+      "frame": 17,
+      "previous": 16,
+      "dirtyCoverage": 92,
+      "dirtyCounts": 92,
+      "changedGlyphs": 89,
+      "probeAdds": 61,
+      "probeRemoves": 77,
+      "cellMaskCommands": 92,
+      "maskCommandBytes": 281,
+      "intervalCommands": 322,
+      "intervalBytes": 968
+    },
+    {
+      "frame": 18,
+      "previous": 17,
+      "dirtyCoverage": 86,
+      "dirtyCounts": 86,
+      "changedGlyphs": 84,
+      "probeAdds": 56,
+      "probeRemoves": 58,
+      "cellMaskCommands": 86,
+      "maskCommandBytes": 263,
+      "intervalCommands": 304,
+      "intervalBytes": 914
+    },
+    {
+      "frame": 19,
+      "previous": 18,
+      "dirtyCoverage": 101,
+      "dirtyCounts": 101,
+      "changedGlyphs": 99,
+      "probeAdds": 64,
+      "probeRemoves": 76,
+      "cellMaskCommands": 101,
+      "maskCommandBytes": 310,
+      "intervalCommands": 325,
+      "intervalBytes": 977
+    },
+    {
+      "frame": 20,
+      "previous": 19,
+      "dirtyCoverage": 102,
+      "dirtyCounts": 102,
+      "changedGlyphs": 101,
+      "probeAdds": 79,
+      "probeRemoves": 69,
+      "cellMaskCommands": 102,
+      "maskCommandBytes": 315,
+      "intervalCommands": 350,
+      "intervalBytes": 1052
+    },
+    {
+      "frame": 21,
+      "previous": 20,
+      "dirtyCoverage": 83,
+      "dirtyCounts": 83,
+      "changedGlyphs": 81,
+      "probeAdds": 58,
+      "probeRemoves": 73,
+      "cellMaskCommands": 83,
+      "maskCommandBytes": 256,
+      "intervalCommands": 321,
+      "intervalBytes": 965
+    },
+    {
+      "frame": 22,
+      "previous": 21,
+      "dirtyCoverage": 86,
+      "dirtyCounts": 86,
+      "changedGlyphs": 86,
+      "probeAdds": 61,
+      "probeRemoves": 52,
+      "cellMaskCommands": 86,
+      "maskCommandBytes": 264,
+      "intervalCommands": 321,
+      "intervalBytes": 965
+    },
+    {
+      "frame": 23,
+      "previous": 22,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 90,
+      "probeAdds": 67,
+      "probeRemoves": 71,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 275,
+      "intervalCommands": 280,
+      "intervalBytes": 842
+    },
+    {
+      "frame": 24,
+      "previous": 23,
+      "dirtyCoverage": 87,
+      "dirtyCounts": 87,
+      "changedGlyphs": 87,
+      "probeAdds": 61,
+      "probeRemoves": 61,
+      "cellMaskCommands": 87,
+      "maskCommandBytes": 266,
+      "intervalCommands": 307,
+      "intervalBytes": 923
+    },
+    {
+      "frame": 25,
+      "previous": 24,
+      "dirtyCoverage": 92,
+      "dirtyCounts": 92,
+      "changedGlyphs": 89,
+      "probeAdds": 72,
+      "probeRemoves": 55,
+      "cellMaskCommands": 92,
+      "maskCommandBytes": 283,
+      "intervalCommands": 331,
+      "intervalBytes": 995
+    },
+    {
+      "frame": 26,
+      "previous": 25,
+      "dirtyCoverage": 91,
+      "dirtyCounts": 91,
+      "changedGlyphs": 90,
+      "probeAdds": 61,
+      "probeRemoves": 70,
+      "cellMaskCommands": 91,
+      "maskCommandBytes": 280,
+      "intervalCommands": 290,
+      "intervalBytes": 872
+    },
+    {
+      "frame": 27,
+      "previous": 26,
+      "dirtyCoverage": 97,
+      "dirtyCounts": 97,
+      "changedGlyphs": 97,
+      "probeAdds": 71,
+      "probeRemoves": 69,
+      "cellMaskCommands": 97,
+      "maskCommandBytes": 300,
+      "intervalCommands": 323,
+      "intervalBytes": 971
+    },
+    {
+      "frame": 28,
+      "previous": 27,
+      "dirtyCoverage": 97,
+      "dirtyCounts": 97,
+      "changedGlyphs": 97,
+      "probeAdds": 59,
+      "probeRemoves": 73,
+      "cellMaskCommands": 97,
+      "maskCommandBytes": 300,
+      "intervalCommands": 319,
+      "intervalBytes": 959
+    },
+    {
+      "frame": 29,
+      "previous": 28,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 89,
+      "probeAdds": 78,
+      "probeRemoves": 54,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 273,
+      "intervalCommands": 296,
+      "intervalBytes": 890
+    },
+    {
+      "frame": 30,
+      "previous": 29,
+      "dirtyCoverage": 87,
+      "dirtyCounts": 87,
+      "changedGlyphs": 86,
+      "probeAdds": 64,
+      "probeRemoves": 53,
+      "cellMaskCommands": 87,
+      "maskCommandBytes": 267,
+      "intervalCommands": 293,
+      "intervalBytes": 881
+    },
+    {
+      "frame": 31,
+      "previous": 30,
+      "dirtyCoverage": 101,
+      "dirtyCounts": 101,
+      "changedGlyphs": 100,
+      "probeAdds": 63,
+      "probeRemoves": 74,
+      "cellMaskCommands": 101,
+      "maskCommandBytes": 309,
+      "intervalCommands": 349,
+      "intervalBytes": 1049
+    },
+    {
+      "frame": 32,
+      "previous": 31,
+      "dirtyCoverage": 99,
+      "dirtyCounts": 99,
+      "changedGlyphs": 98,
+      "probeAdds": 68,
+      "probeRemoves": 66,
+      "cellMaskCommands": 99,
+      "maskCommandBytes": 304,
+      "intervalCommands": 287,
+      "intervalBytes": 863
+    },
+    {
+      "frame": 33,
+      "previous": 32,
+      "dirtyCoverage": 95,
+      "dirtyCounts": 95,
+      "changedGlyphs": 93,
+      "probeAdds": 72,
+      "probeRemoves": 65,
+      "cellMaskCommands": 95,
+      "maskCommandBytes": 290,
+      "intervalCommands": 347,
+      "intervalBytes": 1043
+    },
+    {
+      "frame": 34,
+      "previous": 33,
+      "dirtyCoverage": 94,
+      "dirtyCounts": 94,
+      "changedGlyphs": 93,
+      "probeAdds": 57,
+      "probeRemoves": 70,
+      "cellMaskCommands": 94,
+      "maskCommandBytes": 289,
+      "intervalCommands": 347,
+      "intervalBytes": 1043
+    },
+    {
+      "frame": 35,
+      "previous": 34,
+      "dirtyCoverage": 104,
+      "dirtyCounts": 104,
+      "changedGlyphs": 104,
+      "probeAdds": 75,
+      "probeRemoves": 77,
+      "cellMaskCommands": 104,
+      "maskCommandBytes": 319,
+      "intervalCommands": 363,
+      "intervalBytes": 1091
+    },
+    {
+      "frame": 36,
+      "previous": 35,
+      "dirtyCoverage": 83,
+      "dirtyCounts": 83,
+      "changedGlyphs": 80,
+      "probeAdds": 61,
+      "probeRemoves": 53,
+      "cellMaskCommands": 83,
+      "maskCommandBytes": 256,
+      "intervalCommands": 294,
+      "intervalBytes": 884
+    },
+    {
+      "frame": 37,
+      "previous": 36,
+      "dirtyCoverage": 97,
+      "dirtyCounts": 97,
+      "changedGlyphs": 97,
+      "probeAdds": 62,
+      "probeRemoves": 64,
+      "cellMaskCommands": 97,
+      "maskCommandBytes": 297,
+      "intervalCommands": 314,
+      "intervalBytes": 944
+    },
+    {
+      "frame": 38,
+      "previous": 37,
+      "dirtyCoverage": 105,
+      "dirtyCounts": 105,
+      "changedGlyphs": 103,
+      "probeAdds": 89,
+      "probeRemoves": 65,
+      "cellMaskCommands": 105,
+      "maskCommandBytes": 321,
+      "intervalCommands": 305,
+      "intervalBytes": 917
+    },
+    {
+      "frame": 39,
+      "previous": 38,
+      "dirtyCoverage": 84,
+      "dirtyCounts": 84,
+      "changedGlyphs": 82,
+      "probeAdds": 48,
+      "probeRemoves": 78,
+      "cellMaskCommands": 84,
+      "maskCommandBytes": 257,
+      "intervalCommands": 330,
+      "intervalBytes": 992
+    },
+    {
+      "frame": 40,
+      "previous": 39,
+      "dirtyCoverage": 83,
+      "dirtyCounts": 83,
+      "changedGlyphs": 81,
+      "probeAdds": 56,
+      "probeRemoves": 71,
+      "cellMaskCommands": 83,
+      "maskCommandBytes": 257,
+      "intervalCommands": 311,
+      "intervalBytes": 935
+    },
+    {
+      "frame": 41,
+      "previous": 40,
+      "dirtyCoverage": 104,
+      "dirtyCounts": 104,
+      "changedGlyphs": 101,
+      "probeAdds": 79,
+      "probeRemoves": 79,
+      "cellMaskCommands": 104,
+      "maskCommandBytes": 320,
+      "intervalCommands": 301,
+      "intervalBytes": 905
+    },
+    {
+      "frame": 42,
+      "previous": 41,
+      "dirtyCoverage": 87,
+      "dirtyCounts": 87,
+      "changedGlyphs": 85,
+      "probeAdds": 63,
+      "probeRemoves": 51,
+      "cellMaskCommands": 87,
+      "maskCommandBytes": 266,
+      "intervalCommands": 299,
+      "intervalBytes": 899
+    },
+    {
+      "frame": 43,
+      "previous": 42,
+      "dirtyCoverage": 105,
+      "dirtyCounts": 105,
+      "changedGlyphs": 104,
+      "probeAdds": 74,
+      "probeRemoves": 82,
+      "cellMaskCommands": 105,
+      "maskCommandBytes": 322,
+      "intervalCommands": 325,
+      "intervalBytes": 977
+    },
+    {
+      "frame": 44,
+      "previous": 43,
+      "dirtyCoverage": 77,
+      "dirtyCounts": 77,
+      "changedGlyphs": 72,
+      "probeAdds": 70,
+      "probeRemoves": 49,
+      "cellMaskCommands": 77,
+      "maskCommandBytes": 234,
+      "intervalCommands": 269,
+      "intervalBytes": 809
+    },
+    {
+      "frame": 45,
+      "previous": 44,
+      "dirtyCoverage": 107,
+      "dirtyCounts": 107,
+      "changedGlyphs": 105,
+      "probeAdds": 74,
+      "probeRemoves": 85,
+      "cellMaskCommands": 107,
+      "maskCommandBytes": 330,
+      "intervalCommands": 356,
+      "intervalBytes": 1070
+    },
+    {
+      "frame": 46,
+      "previous": 45,
+      "dirtyCoverage": 77,
+      "dirtyCounts": 77,
+      "changedGlyphs": 71,
+      "probeAdds": 51,
+      "probeRemoves": 56,
+      "cellMaskCommands": 77,
+      "maskCommandBytes": 235,
+      "intervalCommands": 313,
+      "intervalBytes": 941
+    },
+    {
+      "frame": 47,
+      "previous": 46,
+      "dirtyCoverage": 95,
+      "dirtyCounts": 95,
+      "changedGlyphs": 93,
+      "probeAdds": 78,
+      "probeRemoves": 76,
+      "cellMaskCommands": 95,
+      "maskCommandBytes": 293,
+      "intervalCommands": 312,
+      "intervalBytes": 938
+    },
+    {
+      "frame": 48,
+      "previous": 47,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 86,
+      "probeAdds": 60,
+      "probeRemoves": 70,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 276,
+      "intervalCommands": 340,
+      "intervalBytes": 1022
+    },
+    {
+      "frame": 49,
+      "previous": 48,
+      "dirtyCoverage": 89,
+      "dirtyCounts": 89,
+      "changedGlyphs": 88,
+      "probeAdds": 73,
+      "probeRemoves": 61,
+      "cellMaskCommands": 89,
+      "maskCommandBytes": 272,
+      "intervalCommands": 314,
+      "intervalBytes": 944
+    },
+    {
+      "frame": 50,
+      "previous": 49,
+      "dirtyCoverage": 88,
+      "dirtyCounts": 88,
+      "changedGlyphs": 82,
+      "probeAdds": 51,
+      "probeRemoves": 68,
+      "cellMaskCommands": 88,
+      "maskCommandBytes": 270,
+      "intervalCommands": 314,
+      "intervalBytes": 944
+    },
+    {
+      "frame": 51,
+      "previous": 50,
+      "dirtyCoverage": 98,
+      "dirtyCounts": 98,
+      "changedGlyphs": 98,
+      "probeAdds": 75,
+      "probeRemoves": 65,
+      "cellMaskCommands": 98,
+      "maskCommandBytes": 303,
+      "intervalCommands": 321,
+      "intervalBytes": 965
+    },
+    {
+      "frame": 52,
+      "previous": 51,
+      "dirtyCoverage": 95,
+      "dirtyCounts": 95,
+      "changedGlyphs": 94,
+      "probeAdds": 68,
+      "probeRemoves": 68,
+      "cellMaskCommands": 95,
+      "maskCommandBytes": 292,
+      "intervalCommands": 323,
+      "intervalBytes": 971
+    },
+    {
+      "frame": 53,
+      "previous": 52,
+      "dirtyCoverage": 85,
+      "dirtyCounts": 85,
+      "changedGlyphs": 82,
+      "probeAdds": 80,
+      "probeRemoves": 52,
+      "cellMaskCommands": 85,
+      "maskCommandBytes": 261,
+      "intervalCommands": 312,
+      "intervalBytes": 938
+    },
+    {
+      "frame": 54,
+      "previous": 53,
+      "dirtyCoverage": 89,
+      "dirtyCounts": 89,
+      "changedGlyphs": 88,
+      "probeAdds": 49,
+      "probeRemoves": 70,
+      "cellMaskCommands": 89,
+      "maskCommandBytes": 274,
+      "intervalCommands": 320,
+      "intervalBytes": 962
+    },
+    {
+      "frame": 55,
+      "previous": 54,
+      "dirtyCoverage": 93,
+      "dirtyCounts": 93,
+      "changedGlyphs": 93,
+      "probeAdds": 69,
+      "probeRemoves": 71,
+      "cellMaskCommands": 93,
+      "maskCommandBytes": 284,
+      "intervalCommands": 287,
+      "intervalBytes": 863
+    },
+    {
+      "frame": 56,
+      "previous": 55,
+      "dirtyCoverage": 98,
+      "dirtyCounts": 98,
+      "changedGlyphs": 97,
+      "probeAdds": 70,
+      "probeRemoves": 67,
+      "cellMaskCommands": 98,
+      "maskCommandBytes": 302,
+      "intervalCommands": 348,
+      "intervalBytes": 1046
+    },
+    {
+      "frame": 57,
+      "previous": 56,
+      "dirtyCoverage": 91,
+      "dirtyCounts": 91,
+      "changedGlyphs": 88,
+      "probeAdds": 57,
+      "probeRemoves": 68,
+      "cellMaskCommands": 91,
+      "maskCommandBytes": 280,
+      "intervalCommands": 327,
+      "intervalBytes": 983
+    },
+    {
+      "frame": 58,
+      "previous": 57,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 88,
+      "probeAdds": 70,
+      "probeRemoves": 59,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 277,
+      "intervalCommands": 295,
+      "intervalBytes": 887
+    },
+    {
+      "frame": 59,
+      "previous": 58,
+      "dirtyCoverage": 96,
+      "dirtyCounts": 96,
+      "changedGlyphs": 94,
+      "probeAdds": 75,
+      "probeRemoves": 62,
+      "cellMaskCommands": 96,
+      "maskCommandBytes": 297,
+      "intervalCommands": 330,
+      "intervalBytes": 992
+    },
+    {
+      "frame": 60,
+      "previous": 59,
+      "dirtyCoverage": 99,
+      "dirtyCounts": 99,
+      "changedGlyphs": 98,
+      "probeAdds": 74,
+      "probeRemoves": 59,
+      "cellMaskCommands": 99,
+      "maskCommandBytes": 305,
+      "intervalCommands": 324,
+      "intervalBytes": 974
+    },
+    {
+      "frame": 61,
+      "previous": 60,
+      "dirtyCoverage": 96,
+      "dirtyCounts": 96,
+      "changedGlyphs": 95,
+      "probeAdds": 59,
+      "probeRemoves": 81,
+      "cellMaskCommands": 96,
+      "maskCommandBytes": 292,
+      "intervalCommands": 310,
+      "intervalBytes": 932
+    },
+    {
+      "frame": 62,
+      "previous": 61,
+      "dirtyCoverage": 90,
+      "dirtyCounts": 90,
+      "changedGlyphs": 89,
+      "probeAdds": 61,
+      "probeRemoves": 62,
+      "cellMaskCommands": 90,
+      "maskCommandBytes": 277,
+      "intervalCommands": 298,
+      "intervalBytes": 896
+    },
+    {
+      "frame": 63,
+      "previous": 62,
+      "dirtyCoverage": 107,
+      "dirtyCounts": 107,
+      "changedGlyphs": 107,
+      "probeAdds": 74,
+      "probeRemoves": 69,
+      "cellMaskCommands": 107,
+      "maskCommandBytes": 327,
+      "intervalCommands": 359,
+      "intervalBytes": 1079
+    }
+  ],
+  "summary": {
+    "dirtyCoverageMean": 93.453125,
+    "dirtyCountsMean": 93.453125,
+    "changedGlyphsMean": 91.953125,
+    "intervalCommandsMean": 319.015625,
+    "intervalBytes": 61379,
+    "cellMaskCommandsMean": 93.453125,
+    "cellMaskBytes": 18351
+  },
+  "geometryXorMovie": {
+    "bytes": 16100,
+    "headerBytes": 12,
+    "initialGeometryBytes": 539,
+    "initialSpanSamples": 251,
+    "frameRecordsBytes": 15549,
+    "records": 64,
+    "meanRecordBytes": 242.953125,
+    "hostFramesChecked": 192,
+    "packets": [
+      {
+        "frame": 1,
+        "bytes": 264
+      },
+      {
+        "frame": 2,
+        "bytes": 255
+      },
+      {
+        "frame": 3,
+        "bytes": 268
+      },
+      {
+        "frame": 4,
+        "bytes": 222
+      },
+      {
+        "frame": 5,
+        "bytes": 254
+      },
+      {
+        "frame": 6,
+        "bytes": 276
+      },
+      {
+        "frame": 7,
+        "bytes": 218
+      },
+      {
+        "frame": 8,
+        "bytes": 218
+      },
+      {
+        "frame": 9,
+        "bytes": 260
+      },
+      {
+        "frame": 10,
+        "bytes": 228
+      },
+      {
+        "frame": 11,
+        "bytes": 244
+      },
+      {
+        "frame": 12,
+        "bytes": 219
+      },
+      {
+        "frame": 13,
+        "bytes": 275
+      },
+      {
+        "frame": 14,
+        "bytes": 194
+      },
+      {
+        "frame": 15,
+        "bytes": 256
+      },
+      {
+        "frame": 16,
+        "bytes": 243
+      },
+      {
+        "frame": 17,
+        "bytes": 240
+      },
+      {
+        "frame": 18,
+        "bytes": 222
+      },
+      {
+        "frame": 19,
+        "bytes": 257
+      },
+      {
+        "frame": 20,
+        "bytes": 270
+      },
+      {
+        "frame": 21,
+        "bytes": 224
+      },
+      {
+        "frame": 22,
+        "bytes": 223
+      },
+      {
+        "frame": 23,
+        "bytes": 242
+      },
+      {
+        "frame": 24,
+        "bytes": 237
+      },
+      {
+        "frame": 25,
+        "bytes": 245
+      },
+      {
+        "frame": 26,
+        "bytes": 234
+      },
+      {
+        "frame": 27,
+        "bytes": 253
+      },
+      {
+        "frame": 28,
+        "bytes": 249
+      },
+      {
+        "frame": 29,
+        "bytes": 245
+      },
+      {
+        "frame": 30,
+        "bytes": 232
+      },
+      {
+        "frame": 31,
+        "bytes": 269
+      },
+      {
+        "frame": 32,
+        "bytes": 250
+      },
+      {
+        "frame": 33,
+        "bytes": 249
+      },
+      {
+        "frame": 34,
+        "bytes": 242
+      },
+      {
+        "frame": 35,
+        "bytes": 259
+      },
+      {
+        "frame": 36,
+        "bytes": 221
+      },
+      {
+        "frame": 37,
+        "bytes": 245
+      },
+      {
+        "frame": 38,
+        "bytes": 264
+      },
+      {
+        "frame": 39,
+        "bytes": 218
+      },
+      {
+        "frame": 40,
+        "bytes": 225
+      },
+      {
+        "frame": 41,
+        "bytes": 257
+      },
+      {
+        "frame": 42,
+        "bytes": 227
+      },
+      {
+        "frame": 43,
+        "bytes": 274
+      },
+      {
+        "frame": 44,
+        "bytes": 216
+      },
+      {
+        "frame": 45,
+        "bytes": 269
+      },
+      {
+        "frame": 46,
+        "bytes": 205
+      },
+      {
+        "frame": 47,
+        "bytes": 247
+      },
+      {
+        "frame": 48,
+        "bytes": 238
+      },
+      {
+        "frame": 49,
+        "bytes": 233
+      },
+      {
+        "frame": 50,
+        "bytes": 224
+      },
+      {
+        "frame": 51,
+        "bytes": 247
+      },
+      {
+        "frame": 52,
+        "bytes": 249
+      },
+      {
+        "frame": 53,
+        "bytes": 222
+      },
+      {
+        "frame": 54,
+        "bytes": 224
+      },
+      {
+        "frame": 55,
+        "bytes": 248
+      },
+      {
+        "frame": 56,
+        "bytes": 263
+      },
+      {
+        "frame": 57,
+        "bytes": 231
+      },
+      {
+        "frame": 58,
+        "bytes": 226
+      },
+      {
+        "frame": 59,
+        "bytes": 246
+      },
+      {
+        "frame": 60,
+        "bytes": 252
+      },
+      {
+        "frame": 61,
+        "bytes": 258
+      },
+      {
+        "frame": 62,
+        "bytes": 233
+      },
+      {
+        "frame": 63,
+        "bytes": 287
+      },
+      {
+        "frame": 0,
+        "bytes": 264
+      }
+    ],
+    "scope": "Precomputed exact geometric eight-probe XOR changes; no glyph codes. Safe because every endpoint pose has at most one white contribution per probe."
+  }
+}

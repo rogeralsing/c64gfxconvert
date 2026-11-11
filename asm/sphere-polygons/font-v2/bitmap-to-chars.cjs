@@ -51,9 +51,13 @@ function unpackFrame(packed, width, height) {
   return output;
 }
 
-function createMatcher(font = fixedFont().font) {
-  assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0, 'Font must contain168..256 complete glyphs.');
-  assert.equal(sha(font.subarray(0, 1344)), FONT_SHA, 'The original168 glyphs must be unchanged.');
+function createMatcher(font = fixedFont().font, fixedFontMode = false) {
+  if (fixedFontMode) {
+    assert.equal(font.length, 2048, 'A fixed font must supply all 256 glyphs.');
+  } else {
+    assert(font.length >= 1344 && font.length <= 2048 && font.length % 8 === 0, 'Font must contain168..256 complete glyphs.');
+    assert.equal(sha(font.subarray(0, 1344)), FONT_SHA, 'The original168 glyphs must be unchanged.');
+  }
   const glyphs = Array.from({length: font.length / 8}, (_, code) => {
     const rows = font.subarray(code * 8, code * 8 + 8);
     return {lo: rows.readUInt32LE(0), hi: rows.readUInt32LE(4), filled: rows.reduce((sum, row) => sum + popcount(row), 0)};
@@ -61,7 +65,7 @@ function createMatcher(font = fixedFont().font) {
   const cache = new Map();
   return function matchFrame(pixels, objectMask = null, glyphLimit = glyphs.length) {
     assert.equal(pixels.length, PIXELS);
-    assert(Number.isInteger(glyphLimit) && glyphLimit >= 168 && glyphLimit <= glyphs.length);
+    assert(Number.isInteger(glyphLimit) && glyphLimit >= (fixedFontMode ? 1 : 168) && glyphLimit <= glyphs.length);
     if (objectMask) assert.equal(objectMask.length, PIXELS);
     const screen = Buffer.alloc(1000), errors = Buffer.alloc(1000), usage = new Set();
     let mismatches = 0, whitePixels = 0, sourceWhitePixels = 0, exactCells = 0;
@@ -225,8 +229,8 @@ function main(argv = process.argv.slice(2)) {
   const options = {};
   for (let index = 0; index < argv.length; index++) {
     const [key, inline] = argv[index].split('=');
-    assert(['--frames', '--metadata', '--output', '--prepend-blank', '--mask', '--font', '--font-start-frame'].includes(key), 'Unknown option ' + key);
-    if (key === '--prepend-blank') {assert(inline === undefined); options[key] = true;}
+    assert(['--frames', '--metadata', '--output', '--prepend-blank', '--mask', '--font', '--font-start-frame', '--fixed-font'].includes(key), 'Unknown option ' + key);
+    if (key === '--prepend-blank' || key === '--fixed-font') {assert(inline === undefined); options[key] = true;}
     else {options[key] = inline ?? argv[++index]; assert(options[key], 'Missing value for ' + key);}
   }
   assert(options['--frames'] && options['--metadata'], 'Use --frames /absolute/source.frames --metadata /absolute/metadata.json [--output DIRECTORY] [--prepend-blank] [--mask /absolute/mask.frames].');
@@ -245,7 +249,8 @@ function main(argv = process.argv.slice(2)) {
   const font = options['--font'] ? fs.readFileSync(path.resolve(options['--font'])) : base.font;
   const fontStartFrame = Number(options['--font-start-frame'] ?? 0);
   assert(Number.isInteger(fontStartFrame) && fontStartFrame >= 0 && fontStartFrame <= layout.frameCount);
-  const match = createMatcher(font);
+  const fixedFontMode = Boolean(options['--fixed-font']);
+  const match = createMatcher(font, fixedFontMode);
   const count = layout.frameCount + Number(prepend), screens = Buffer.alloc(count * 1000), poses = [], statistics = [];
   const idealHash = crypto.createHash('sha256');
   fs.mkdirSync(output, {recursive: true});
@@ -256,7 +261,7 @@ function main(argv = process.argv.slice(2)) {
       const sourceFrame = index - Number(prepend);
       const pixels = sourceFrame < 0 ? Buffer.alloc(PIXELS) : unpackFrame(packed.subarray(sourceFrame * layout.frameBytes, (sourceFrame + 1) * layout.frameBytes), layout.width, layout.height);
       const mask = packedMask ? sourceFrame < 0 ? Buffer.alloc(PIXELS) : unpackFrame(packedMask.subarray(sourceFrame * layout.frameBytes, (sourceFrame + 1) * layout.frameBytes), layout.width, layout.height) : null;
-      const glyphLimit = sourceFrame < fontStartFrame ? 168 : font.length / 8;
+      const glyphLimit = fixedFontMode ? font.length / 8 : sourceFrame < fontStartFrame ? 168 : font.length / 8;
       const converted = match(pixels, mask, glyphLimit);
       if (mask) assert.equal(converted.statistics.silhouetteSpill, 0);
       converted.screen.copy(screens, index * 1000);
@@ -274,13 +279,15 @@ function main(argv = process.argv.slice(2)) {
   const metadata = {pass: true, name, kind: 'bitmap', title: scene.title, description: scene.description,
     sceneSource: source.sceneSource ?? null, phaseLabels: source.phaseLabels, fps: layout.fps, frameCount: count, frameBytes: 1000,
     width: WIDTH, height: HEIGHT, durationSeconds: scene.durationSeconds, introSeconds: scene.introSeconds, loop: null,
-    fontGlyphs: font.length / 8, fontBytes: font.length, emptyGlyph: map[0], filledGlyph: map[15],
+    fontGlyphs: font.length / 8, fontBytes: font.length, fontMode: fixedFontMode ? 'fixed256' : 'legacy168append',
+    emptyGlyph: fixedFontMode ? 0 : map[0], filledGlyph: fixedFontMode ? 8 : map[15],
     bitmapSource: {frames: framesPath, metadata: metadataPath, ...layout, bitOrder: 'MSB-first', prependedBlankFrames: Number(prepend)},
-    glyphSelection: 'Direct minimum8x8 bitmap Hamming error among the supplied coarse glyphs; the original168 are unchanged and equal errors choose the lowest code. ' + (packedMask ? 'All white glyph pixels must lie inside the supplied object mask. ' : 'No silhouette constraint. ') + 'Cache keys include the mask and eligible glyph count. No fine-font remapping.',
-    fontExtension: {originalGlyphs: 168, appendedGlyphs: font.length / 8 - 168, firstEligibleSourceFrame: fontStartFrame,
+    glyphSelection: (fixedFontMode ? 'Direct minimum8x8 bitmap Hamming error among the fixed 256 universal-font glyphs; equal errors choose the lowest code. ' : 'Direct minimum8x8 bitmap Hamming error among the supplied coarse glyphs; the original168 are unchanged and equal errors choose the lowest code. ') + (packedMask ? 'All white glyph pixels must lie inside the supplied object mask. ' : 'No silhouette constraint. ') + 'Cache keys include the mask and eligible glyph count. No fine-font remapping.',
+    fontExtension: fixedFontMode ? {fixedFont: true, glyphs: 256, source: options['--font'] ? path.resolve(options['--font']) : null, fixedFontSha256: sha(font)}
+      : {originalGlyphs: 168, appendedGlyphs: font.length / 8 - 168, firstEligibleSourceFrame: fontStartFrame,
       source: options['--font'] ? path.resolve(options['--font']) : null, originalFontSha256: FONT_SHA},
     objectMask: packedMask ? {file: maskPath, sha256: sha(packedMask), format: 'Same packed frame layout as the source bitmap', whiteGlyphPixelsMustBeSubset: true} : null,
-    verification: {firstFrameEmpty: screens.subarray(0, 1000).every(code => code === 0), everyCodeWithinFixedFont: screens.every(code => code < font.length / 8), original168GlyphsUnchanged: true, noClosingPatch: true},
+    verification: {firstFrameEmpty: screens.subarray(0, 1000).every(code => code === 0), everyCodeWithinFixedFont: screens.every(code => code < font.length / 8), original168GlyphsUnchanged: !fixedFontMode, fixedFont256: fixedFontMode, noClosingPatch: true},
     hashes: {font: sha(font), screens: sha(screens), ideal: idealHash.digest('hex'), sourcePacked: sha(packed)},
     errorSummary: {totalMismatchedPixels, meanMismatchedPixelsPerFrame: totalMismatchedPixels / count,
       meanPixelErrorFraction: totalMismatchedPixels / (count * PIXELS), comparedPixels: count * PIXELS,

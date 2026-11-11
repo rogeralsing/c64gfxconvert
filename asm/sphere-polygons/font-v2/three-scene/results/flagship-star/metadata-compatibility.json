@@ -1,0 +1,25 @@
+{
+  "pass": true,
+  "scope": "Actual native assembly using embedded metadata, legacy adjacent metadata, and old no-metadata storage layout.",
+  "cases": [
+    {
+      "name": "embedded-fixed256",
+      "pass": true,
+      "storedFrames": 2,
+      "programSha256": "1c9444098cc8a2dd6723471850c6b895b82b6ce0e2aa71b1e5ca27958ebbb735"
+    },
+    {
+      "name": "legacy-adjacent-file",
+      "pass": true,
+      "storedFrames": 2,
+      "programSha256": "1c9444098cc8a2dd6723471850c6b895b82b6ce0e2aa71b1e5ca27958ebbb735"
+    },
+    {
+      "name": "legacy-no-metadata",
+      "pass": true,
+      "storedFrames": 2,
+      "programSha256": "60471a964f8c4f9e7ab7885d49af82c1272c043e29715355872f0f178fb0fa95"
+    }
+  ],
+  "builderSha256": "ed838f81b5ebde60dec1218c0ad6f00d8f1e022564e87e3d26956f1091df6cf8"
+}

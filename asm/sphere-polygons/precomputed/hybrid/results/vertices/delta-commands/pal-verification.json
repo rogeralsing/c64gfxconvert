@@ -1,0 +1,3949 @@
+{
+  "pass": true,
+  "variant": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/vertices/delta-commands",
+  "protocol": "pre-flush",
+  "program_sha256": "d8665b5c2efbf994ad8616567ab00c40432108ec39bb3225a970ec6b01cdaa2f",
+  "symbols_sha256": "fdfa4aed39e97379d2f02c66386d0f73852ac81c2ab5e5e8b2abbec35e076c17",
+  "source_sha256": {
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/vertices/delta-commands/main.asm": "656e226f9042effd7ddb56db33e5f08319b342ac8520f7f75a31f153d83ed291"
+  },
+  "asset": "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/vertices/delta-commands/build/geometry.gd64",
+  "asset_bytes": 16100,
+  "asset_sha256": "1ef52eb2d30b06ae95abecd3a807fdc17cb262d888383c4dc79c03e2b7327620",
+  "asset_matches_program": true,
+  "font_sha256": "54738b614baf5a56ac4c74fa33496e6148273f798a703fee62a02fe6fed80769",
+  "reference_sha256": "5d4b75fc49e0401709f230e7a6dd61cb1efb7f1c2d695ee8edba02b80029cbce",
+  "pal_clock_hz": 985248,
+  "pal_frame_cycles": 19656,
+  "expected_fields": 2,
+  "speed_percent": 100,
+  "warp": false,
+  "measurement": "Actual VIC PNG after every completed presented UPDATE, with compute and flush clocks including VIC stalls. Positive held-field counts are allowed; held fields are not individually captured.",
+  "write_scope": "Separate assembled write/deadline traces certify visible warm writes only in the bounded ascending flush. This PAL proof checks front immutability at compute boundaries, exact flush result and completed-update scanout.",
+  "samples": [
+    {
+      "sequence": 0,
+      "frame": 0,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3298704
+      },
+      "screenshot": "update-000-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true
+    },
+    {
+      "sequence": 1,
+      "frame": 1,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3338014
+      },
+      "screenshot": "update-001-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 2,
+      "frame": 2,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3377328
+      },
+      "screenshot": "update-002-frame-02.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 3,
+      "frame": 3,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3416640
+      },
+      "screenshot": "update-003-frame-03.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 4,
+      "frame": 4,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3455949
+      },
+      "screenshot": "update-004-frame-04.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 5,
+      "frame": 5,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3495263
+      },
+      "screenshot": "update-005-frame-05.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 6,
+      "frame": 6,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3534574
+      },
+      "screenshot": "update-006-frame-06.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 7,
+      "frame": 7,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3573885
+      },
+      "screenshot": "update-007-frame-07.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 8,
+      "frame": 8,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3613195
+      },
+      "screenshot": "update-008-frame-08.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 9,
+      "frame": 9,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3652511
+      },
+      "screenshot": "update-009-frame-09.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39316,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 10,
+      "frame": 10,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3691823
+      },
+      "screenshot": "update-010-frame-10.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 11,
+      "frame": 11,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3731135
+      },
+      "screenshot": "update-011-frame-11.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 12,
+      "frame": 12,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 3770444
+      },
+      "screenshot": "update-012-frame-12.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 13,
+      "frame": 13,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3809758
+      },
+      "screenshot": "update-013-frame-13.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 14,
+      "frame": 14,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3849071
+      },
+      "screenshot": "update-014-frame-14.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 15,
+      "frame": 15,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3888378
+      },
+      "screenshot": "update-015-frame-15.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39307,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 16,
+      "frame": 16,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3927696
+      },
+      "screenshot": "update-016-frame-16.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39318,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 17,
+      "frame": 17,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3967007
+      },
+      "screenshot": "update-017-frame-17.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 18,
+      "frame": 18,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4006320
+      },
+      "screenshot": "update-018-frame-18.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 19,
+      "frame": 19,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4045630
+      },
+      "screenshot": "update-019-frame-19.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 20,
+      "frame": 20,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4084938
+      },
+      "screenshot": "update-020-frame-20.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39308,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 21,
+      "frame": 21,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4124256
+      },
+      "screenshot": "update-021-frame-21.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39318,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 22,
+      "frame": 22,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4163565
+      },
+      "screenshot": "update-022-frame-22.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 23,
+      "frame": 23,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4202879
+      },
+      "screenshot": "update-023-frame-23.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 24,
+      "frame": 24,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4242189
+      },
+      "screenshot": "update-024-frame-24.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 25,
+      "frame": 25,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4281498
+      },
+      "screenshot": "update-025-frame-25.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 26,
+      "frame": 26,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4320812
+      },
+      "screenshot": "update-026-frame-26.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 27,
+      "frame": 27,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4360123
+      },
+      "screenshot": "update-027-frame-27.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 28,
+      "frame": 28,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4399439
+      },
+      "screenshot": "update-028-frame-28.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39316,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 29,
+      "frame": 29,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4438746
+      },
+      "screenshot": "update-029-frame-29.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39307,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 30,
+      "frame": 30,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4478063
+      },
+      "screenshot": "update-030-frame-30.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39317,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 31,
+      "frame": 31,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4517376
+      },
+      "screenshot": "update-031-frame-31.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 32,
+      "frame": 32,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4556687
+      },
+      "screenshot": "update-032-frame-32.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 33,
+      "frame": 33,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4595996
+      },
+      "screenshot": "update-033-frame-33.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 34,
+      "frame": 34,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4635306
+      },
+      "screenshot": "update-034-frame-34.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 35,
+      "frame": 35,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4674618
+      },
+      "screenshot": "update-035-frame-35.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 36,
+      "frame": 36,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4713936
+      },
+      "screenshot": "update-036-frame-36.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39318,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 37,
+      "frame": 37,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4753246
+      },
+      "screenshot": "update-037-frame-37.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 38,
+      "frame": 38,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4792554
+      },
+      "screenshot": "update-038-frame-38.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39308,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 39,
+      "frame": 39,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4831866
+      },
+      "screenshot": "update-039-frame-39.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 40,
+      "frame": 40,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4871182
+      },
+      "screenshot": "update-040-frame-40.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39316,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 41,
+      "frame": 41,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4910492
+      },
+      "screenshot": "update-041-frame-41.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 42,
+      "frame": 42,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4949802
+      },
+      "screenshot": "update-042-frame-42.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 43,
+      "frame": 43,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4989114
+      },
+      "screenshot": "update-043-frame-43.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 44,
+      "frame": 44,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5028427
+      },
+      "screenshot": "update-044-frame-44.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 45,
+      "frame": 45,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5067741
+      },
+      "screenshot": "update-045-frame-45.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39314,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 46,
+      "frame": 46,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5107054
+      },
+      "screenshot": "update-046-frame-46.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 47,
+      "frame": 47,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5146366
+      },
+      "screenshot": "update-047-frame-47.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 48,
+      "frame": 48,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5185678
+      },
+      "screenshot": "update-048-frame-48.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 49,
+      "frame": 49,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5224986
+      },
+      "screenshot": "update-049-frame-49.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39308,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 50,
+      "frame": 50,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5264302
+      },
+      "screenshot": "update-050-frame-50.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39316,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 51,
+      "frame": 51,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5303612
+      },
+      "screenshot": "update-051-frame-51.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39310,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 52,
+      "frame": 52,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5342925
+      },
+      "screenshot": "update-052-frame-52.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 53,
+      "frame": 53,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5382236
+      },
+      "screenshot": "update-053-frame-53.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 54,
+      "frame": 54,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5421548
+      },
+      "screenshot": "update-054-frame-54.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 55,
+      "frame": 55,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5460860
+      },
+      "screenshot": "update-055-frame-55.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 56,
+      "frame": 56,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5500172
+      },
+      "screenshot": "update-056-frame-56.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39312,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 57,
+      "frame": 57,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5539487
+      },
+      "screenshot": "update-057-frame-57.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39315,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 58,
+      "frame": 58,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5578794
+      },
+      "screenshot": "update-058-frame-58.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39307,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 59,
+      "frame": 59,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5618109
+      },
+      "screenshot": "update-059-frame-59.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39315,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 60,
+      "frame": 60,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5657420
+      },
+      "screenshot": "update-060-frame-60.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 61,
+      "frame": 61,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5696731
+      },
+      "screenshot": "update-061-frame-61.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39311,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 62,
+      "frame": 62,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5736044
+      },
+      "screenshot": "update-062-frame-62.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39313,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 63,
+      "frame": 63,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5775360
+      },
+      "screenshot": "update-063-frame-63.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39316,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 64,
+      "frame": 0,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5814669
+      },
+      "screenshot": "update-064-frame-00.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39309,
+      "pal_fields": 2
+    },
+    {
+      "sequence": 65,
+      "frame": 1,
+      "frame_done": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5853984
+      },
+      "screenshot": "update-065-frame-01.png",
+      "screenshot_comparison": {
+        "origin": [
+          32,
+          35
+        ],
+        "mismatched_rgb_bytes": 0,
+        "compared_pixels": 64000
+      },
+      "screen_match": true,
+      "scanout_match": true,
+      "presentation_cycles": 39315,
+      "pal_fields": 2
+    }
+  ],
+  "work_samples": [
+    {
+      "sequence": 0,
+      "target": 1,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 256,
+        "raster_cycle": 15,
+        "clock": 3259383
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 71,
+        "raster_cycle": 23,
+        "clock": 3287048
+      },
+      "compute_cycles": 27665,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 103,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3298704
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 309,
+        "raster_cycle": 1,
+        "clock": 3302020
+      },
+      "flush_cycles": 3316,
+      "flush_screen_match": true,
+      "render_label_cycles": 27667
+    },
+    {
+      "sequence": 1,
+      "target": 2,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 309,
+        "raster_cycle": 29,
+        "clock": 3302048
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 110,
+        "raster_cycle": 19,
+        "clock": 3328813
+      },
+      "compute_cycles": 26765,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 97,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3338014
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 59,
+        "clock": 3341138
+      },
+      "flush_cycles": 3124,
+      "flush_screen_match": true,
+      "render_label_cycles": 26767
+    },
+    {
+      "sequence": 2,
+      "target": 3,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 24,
+        "clock": 3341166
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 136,
+        "raster_cycle": 24,
+        "clock": 3369768
+      },
+      "compute_cycles": 28602,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 108,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3377328
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 311,
+        "raster_cycle": 35,
+        "clock": 3380804
+      },
+      "flush_cycles": 3476,
+      "flush_screen_match": true,
+      "render_label_cycles": 28604
+    },
+    {
+      "sequence": 3,
+      "target": 4,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 0,
+        "raster_cycle": 0,
+        "clock": 3380832
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 65,
+        "raster_cycle": 36,
+        "clock": 3404619
+      },
+      "compute_cycles": 23787,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 86,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3416640
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 24,
+        "clock": 3419412
+      },
+      "flush_cycles": 2772,
+      "flush_screen_match": true,
+      "render_label_cycles": 23789
+    },
+    {
+      "sequence": 4,
+      "target": 5,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 300,
+        "raster_cycle": 52,
+        "clock": 3419440
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 102,
+        "raster_cycle": 24,
+        "clock": 3446250
+      },
+      "compute_cycles": 26810,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 99,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3455949
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 59,
+        "clock": 3459137
+      },
+      "flush_cycles": 3188,
+      "flush_screen_match": true,
+      "render_label_cycles": 26812
+    },
+    {
+      "sequence": 5,
+      "target": 6,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 307,
+        "raster_cycle": 24,
+        "clock": 3459165
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 145,
+        "raster_cycle": 3,
+        "clock": 3488250
+      },
+      "compute_cycles": 29085,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 111,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3495263
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 1,
+        "raster_cycle": 4,
+        "clock": 3498835
+      },
+      "flush_cycles": 3572,
+      "flush_screen_match": true,
+      "render_label_cycles": 29087
+    },
+    {
+      "sequence": 6,
+      "target": 7,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 1,
+        "raster_cycle": 32,
+        "clock": 3498863
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 71,
+        "raster_cycle": 42,
+        "clock": 3522939
+      },
+      "compute_cycles": 24076,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 85,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3534574
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 299,
+        "raster_cycle": 53,
+        "clock": 3537314
+      },
+      "flush_cycles": 2740,
+      "flush_screen_match": true,
+      "render_label_cycles": 24078
+    },
+    {
+      "sequence": 7,
+      "target": 8,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 300,
+        "raster_cycle": 18,
+        "clock": 3537342
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 61,
+        "raster_cycle": 26,
+        "clock": 3561605
+      },
+      "compute_cycles": 24263,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 81,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 3573885
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 297,
+        "raster_cycle": 50,
+        "clock": 3576497
+      },
+      "flush_cycles": 2612,
+      "flush_screen_match": true,
+      "render_label_cycles": 24265
+    },
+    {
+      "sequence": 8,
+      "target": 9,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 298,
+        "raster_cycle": 15,
+        "clock": 3576525
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 112,
+        "raster_cycle": 44,
+        "clock": 3604148
+      },
+      "compute_cycles": 27623,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 106,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 3613195
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 310,
+        "raster_cycle": 29,
+        "clock": 3616607
+      },
+      "flush_cycles": 3412,
+      "flush_screen_match": true,
+      "render_label_cycles": 27625
+    },
+    {
+      "sequence": 9,
+      "target": 10,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 310,
+        "raster_cycle": 57,
+        "clock": 3616635
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 71,
+        "raster_cycle": 43,
+        "clock": 3640876
+      },
+      "compute_cycles": 24241,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 87,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3652511
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 55,
+        "clock": 3655315
+      },
+      "flush_cycles": 2804,
+      "flush_screen_match": true,
+      "render_label_cycles": 24243
+    },
+    {
+      "sequence": 10,
+      "target": 11,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 301,
+        "raster_cycle": 20,
+        "clock": 3655343
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 93,
+        "raster_cycle": 25,
+        "clock": 3681556
+      },
+      "compute_cycles": 26213,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 93,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3691823
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 303,
+        "raster_cycle": 58,
+        "clock": 3694819
+      },
+      "flush_cycles": 2996,
+      "flush_screen_match": true,
+      "render_label_cycles": 26215
+    },
+    {
+      "sequence": 11,
+      "target": 12,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 304,
+        "raster_cycle": 23,
+        "clock": 3694847
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 55,
+        "raster_cycle": 6,
+        "clock": 3718455
+      },
+      "compute_cycles": 23608,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 78,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3731135
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 296,
+        "raster_cycle": 19,
+        "clock": 3733651
+      },
+      "flush_cycles": 2516,
+      "flush_screen_match": true,
+      "render_label_cycles": 23610
+    },
+    {
+      "sequence": 12,
+      "target": 13,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 296,
+        "raster_cycle": 47,
+        "clock": 3733679
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 150,
+        "raster_cycle": 50,
+        "clock": 3763796
+      },
+      "compute_cycles": 30117,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 107,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 3770444
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 310,
+        "raster_cycle": 62,
+        "clock": 3773888
+      },
+      "flush_cycles": 3444,
+      "flush_screen_match": true,
+      "render_label_cycles": 30119
+    },
+    {
+      "sequence": 13,
+      "target": 14,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 311,
+        "raster_cycle": 27,
+        "clock": 3773916
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 21,
+        "raster_cycle": 32,
+        "clock": 3794963
+      },
+      "compute_cycles": 21047,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 70,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 3809758
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 292,
+        "raster_cycle": 14,
+        "clock": 3812018
+      },
+      "flush_cycles": 2260,
+      "flush_screen_match": true,
+      "render_label_cycles": 21049
+    },
+    {
+      "sequence": 14,
+      "target": 15,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 292,
+        "raster_cycle": 42,
+        "clock": 3812046
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 99,
+        "raster_cycle": 11,
+        "clock": 3839168
+      },
+      "compute_cycles": 27122,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 99,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3849071
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 61,
+        "clock": 3852259
+      },
+      "flush_cycles": 3188,
+      "flush_screen_match": true,
+      "render_label_cycles": 27167
+    },
+    {
+      "sequence": 15,
+      "target": 16,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 307,
+        "raster_cycle": 26,
+        "clock": 3852287
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 95,
+        "raster_cycle": 41,
+        "clock": 3878258
+      },
+      "compute_cycles": 25971,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 3888378
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 20,
+        "clock": 3891278
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 25973
+    },
+    {
+      "sequence": 16,
+      "target": 17,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 48,
+        "clock": 3891306
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 75,
+        "raster_cycle": 59,
+        "clock": 3916328
+      },
+      "compute_cycles": 25022,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 92,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 3927696
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 303,
+        "raster_cycle": 27,
+        "clock": 3930660
+      },
+      "flush_cycles": 2964,
+      "flush_screen_match": true,
+      "render_label_cycles": 25024
+    },
+    {
+      "sequence": 17,
+      "target": 18,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 303,
+        "raster_cycle": 55,
+        "clock": 3930688
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 61,
+        "raster_cycle": 28,
+        "clock": 3954727
+      },
+      "compute_cycles": 24039,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 86,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 3967007
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 23,
+        "clock": 3969779
+      },
+      "flush_cycles": 2772,
+      "flush_screen_match": true,
+      "render_label_cycles": 24041
+    },
+    {
+      "sequence": 18,
+      "target": 19,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 300,
+        "raster_cycle": 51,
+        "clock": 3969807
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 111,
+        "raster_cycle": 35,
+        "clock": 3997196
+      },
+      "compute_cycles": 27389,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 101,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4006320
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 308,
+        "raster_cycle": 0,
+        "clock": 4009572
+      },
+      "flush_cycles": 3252,
+      "flush_screen_match": true,
+      "render_label_cycles": 27391
+    },
+    {
+      "sequence": 19,
+      "target": 20,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 308,
+        "raster_cycle": 28,
+        "clock": 4009600
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 143,
+        "raster_cycle": 2,
+        "clock": 4038491
+      },
+      "compute_cycles": 28891,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 102,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4045630
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 308,
+        "raster_cycle": 30,
+        "clock": 4048914
+      },
+      "flush_cycles": 3284,
+      "flush_screen_match": true,
+      "render_label_cycles": 28893
+    },
+    {
+      "sequence": 20,
+      "target": 21,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 308,
+        "raster_cycle": 58,
+        "clock": 4048942
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 66,
+        "raster_cycle": 51,
+        "clock": 4073001
+      },
+      "compute_cycles": 24059,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 83,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4084938
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 298,
+        "raster_cycle": 48,
+        "clock": 4087614
+      },
+      "flush_cycles": 2676,
+      "flush_screen_match": true,
+      "render_label_cycles": 24061
+    },
+    {
+      "sequence": 21,
+      "target": 22,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 299,
+        "raster_cycle": 13,
+        "clock": 4087642
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 44,
+        "raster_cycle": 13,
+        "clock": 4110889
+      },
+      "compute_cycles": 23247,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 86,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4124256
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 24,
+        "clock": 4127028
+      },
+      "flush_cycles": 2772,
+      "flush_screen_match": true,
+      "render_label_cycles": 23249
+    },
+    {
+      "sequence": 22,
+      "target": 23,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 300,
+        "raster_cycle": 52,
+        "clock": 4127056
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 85,
+        "raster_cycle": 1,
+        "clock": 4152772
+      },
+      "compute_cycles": 25716,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4163565
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 23,
+        "clock": 4166465
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 25718
+    },
+    {
+      "sequence": 23,
+      "target": 24,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 51,
+        "clock": 4166493
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 76,
+        "raster_cycle": 37,
+        "clock": 4191553
+      },
+      "compute_cycles": 25060,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 87,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4202879
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 55,
+        "clock": 4205683
+      },
+      "flush_cycles": 2804,
+      "flush_screen_match": true,
+      "render_label_cycles": 25062
+    },
+    {
+      "sequence": 24,
+      "target": 25,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 301,
+        "raster_cycle": 20,
+        "clock": 4205711
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 82,
+        "raster_cycle": 14,
+        "clock": 4231220
+      },
+      "compute_cycles": 25509,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 92,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 4242189
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 303,
+        "raster_cycle": 24,
+        "clock": 4245153
+      },
+      "flush_cycles": 2964,
+      "flush_screen_match": true,
+      "render_label_cycles": 25511
+    },
+    {
+      "sequence": 25,
+      "target": 26,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 303,
+        "raster_cycle": 52,
+        "clock": 4245181
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 78,
+        "raster_cycle": 4,
+        "clock": 4270270
+      },
+      "compute_cycles": 25089,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 91,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4281498
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 52,
+        "clock": 4284430
+      },
+      "flush_cycles": 2932,
+      "flush_screen_match": true,
+      "render_label_cycles": 25091
+    },
+    {
+      "sequence": 26,
+      "target": 27,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 303,
+        "raster_cycle": 17,
+        "clock": 4284458
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 120,
+        "raster_cycle": 60,
+        "clock": 4312284
+      },
+      "compute_cycles": 27826,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 97,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4320812
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 57,
+        "clock": 4323936
+      },
+      "flush_cycles": 3124,
+      "flush_screen_match": true,
+      "render_label_cycles": 27828
+    },
+    {
+      "sequence": 27,
+      "target": 28,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 22,
+        "clock": 4323964
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 96,
+        "raster_cycle": 7,
+        "clock": 4350031
+      },
+      "compute_cycles": 26067,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 97,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 4360123
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 56,
+        "clock": 4363247
+      },
+      "flush_cycles": 3124,
+      "flush_screen_match": true,
+      "render_label_cycles": 26069
+    },
+    {
+      "sequence": 28,
+      "target": 29,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 21,
+        "clock": 4363275
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 106,
+        "raster_cycle": 19,
+        "clock": 4389985
+      },
+      "compute_cycles": 26710,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4399439
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 25,
+        "clock": 4402339
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 26712
+    },
+    {
+      "sequence": 29,
+      "target": 30,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 53,
+        "clock": 4402367
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 73,
+        "raster_cycle": 24,
+        "clock": 4427223
+      },
+      "compute_cycles": 24856,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 87,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4438746
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 50,
+        "clock": 4441550
+      },
+      "flush_cycles": 2804,
+      "flush_screen_match": true,
+      "render_label_cycles": 24858
+    },
+    {
+      "sequence": 30,
+      "target": 31,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 301,
+        "raster_cycle": 15,
+        "clock": 4441578
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 116,
+        "raster_cycle": 49,
+        "clock": 4469269
+      },
+      "compute_cycles": 27691,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 101,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4478063
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 307,
+        "raster_cycle": 62,
+        "clock": 4481315
+      },
+      "flush_cycles": 3252,
+      "flush_screen_match": true,
+      "render_label_cycles": 27693
+    },
+    {
+      "sequence": 31,
+      "target": 32,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 308,
+        "raster_cycle": 27,
+        "clock": 4481343
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 98,
+        "raster_cycle": 40,
+        "clock": 4507438
+      },
+      "compute_cycles": 26095,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 99,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4517376
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 62,
+        "clock": 4520564
+      },
+      "flush_cycles": 3188,
+      "flush_screen_match": true,
+      "render_label_cycles": 26097
+    },
+    {
+      "sequence": 32,
+      "target": 33,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 307,
+        "raster_cycle": 27,
+        "clock": 4520592
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 97,
+        "raster_cycle": 53,
+        "clock": 4546700
+      },
+      "compute_cycles": 26108,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 95,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 4556687
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 304,
+        "raster_cycle": 59,
+        "clock": 4559747
+      },
+      "flush_cycles": 3060,
+      "flush_screen_match": true,
+      "render_label_cycles": 26110
+    },
+    {
+      "sequence": 33,
+      "target": 34,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 305,
+        "raster_cycle": 24,
+        "clock": 4559775
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 87,
+        "raster_cycle": 42,
+        "clock": 4585371
+      },
+      "compute_cycles": 25596,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 94,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4595996
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 304,
+        "raster_cycle": 24,
+        "clock": 4599024
+      },
+      "flush_cycles": 3028,
+      "flush_screen_match": true,
+      "render_label_cycles": 25598
+    },
+    {
+      "sequence": 34,
+      "target": 35,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 304,
+        "raster_cycle": 52,
+        "clock": 4599052
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 121,
+        "raster_cycle": 30,
+        "clock": 4626813
+      },
+      "compute_cycles": 27761,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 104,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4635306
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 309,
+        "raster_cycle": 27,
+        "clock": 4638654
+      },
+      "flush_cycles": 3348,
+      "flush_screen_match": true,
+      "render_label_cycles": 27763
+    },
+    {
+      "sequence": 35,
+      "target": 36,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 309,
+        "raster_cycle": 55,
+        "clock": 4638682
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 62,
+        "raster_cycle": 37,
+        "clock": 4662415
+      },
+      "compute_cycles": 23733,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 83,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4674618
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 298,
+        "raster_cycle": 48,
+        "clock": 4677294
+      },
+      "flush_cycles": 2676,
+      "flush_screen_match": true,
+      "render_label_cycles": 23735
+    },
+    {
+      "sequence": 36,
+      "target": 37,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 299,
+        "raster_cycle": 13,
+        "clock": 4677322
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 80,
+        "raster_cycle": 17,
+        "clock": 4702841
+      },
+      "compute_cycles": 25519,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 97,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 4713936
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 61,
+        "clock": 4717060
+      },
+      "flush_cycles": 3124,
+      "flush_screen_match": true,
+      "render_label_cycles": 25521
+    },
+    {
+      "sequence": 37,
+      "target": 38,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 26,
+        "clock": 4717088
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 127,
+        "raster_cycle": 0,
+        "clock": 4745097
+      },
+      "compute_cycles": 28009,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 105,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4753246
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 310,
+        "raster_cycle": 0,
+        "clock": 4756626
+      },
+      "flush_cycles": 3380,
+      "flush_screen_match": true,
+      "render_label_cycles": 28011
+    },
+    {
+      "sequence": 38,
+      "target": 39,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 310,
+        "raster_cycle": 28,
+        "clock": 4756654
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 72,
+        "raster_cycle": 24,
+        "clock": 4780968
+      },
+      "compute_cycles": 24314,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 84,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4792554
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 299,
+        "raster_cycle": 17,
+        "clock": 4795262
+      },
+      "flush_cycles": 2708,
+      "flush_screen_match": true,
+      "render_label_cycles": 24316
+    },
+    {
+      "sequence": 39,
+      "target": 40,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 299,
+        "raster_cycle": 45,
+        "clock": 4795290
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 71,
+        "raster_cycle": 31,
+        "clock": 4820224
+      },
+      "compute_cycles": 24934,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 83,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4831866
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 298,
+        "raster_cycle": 48,
+        "clock": 4834542
+      },
+      "flush_cycles": 2676,
+      "flush_screen_match": true,
+      "render_label_cycles": 24936
+    },
+    {
+      "sequence": 40,
+      "target": 41,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 299,
+        "raster_cycle": 13,
+        "clock": 4834570
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 102,
+        "raster_cycle": 18,
+        "clock": 4861476
+      },
+      "compute_cycles": 26906,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 104,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 4871182
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 309,
+        "raster_cycle": 31,
+        "clock": 4874530
+      },
+      "flush_cycles": 3348,
+      "flush_screen_match": true,
+      "render_label_cycles": 26908
+    },
+    {
+      "sequence": 41,
+      "target": 42,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 309,
+        "raster_cycle": 59,
+        "clock": 4874558
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 70,
+        "raster_cycle": 40,
+        "clock": 4898794
+      },
+      "compute_cycles": 24236,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 87,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 4910492
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 300,
+        "raster_cycle": 52,
+        "clock": 4913296
+      },
+      "flush_cycles": 2804,
+      "flush_screen_match": true,
+      "render_label_cycles": 24238
+    },
+    {
+      "sequence": 42,
+      "target": 43,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 301,
+        "raster_cycle": 17,
+        "clock": 4913324
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 141,
+        "raster_cycle": 5,
+        "clock": 4942544
+      },
+      "compute_cycles": 29220,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 105,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4949802
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 309,
+        "raster_cycle": 59,
+        "clock": 4953182
+      },
+      "flush_cycles": 3380,
+      "flush_screen_match": true,
+      "render_label_cycles": 29222
+    },
+    {
+      "sequence": 43,
+      "target": 44,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 310,
+        "raster_cycle": 24,
+        "clock": 4953210
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 58,
+        "raster_cycle": 8,
+        "clock": 4976630
+      },
+      "compute_cycles": 23420,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 77,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 4989114
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 295,
+        "raster_cycle": 45,
+        "clock": 4991598
+      },
+      "flush_cycles": 2484,
+      "flush_screen_match": true,
+      "render_label_cycles": 23422
+    },
+    {
+      "sequence": 44,
+      "target": 45,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 296,
+        "raster_cycle": 10,
+        "clock": 4991626
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 132,
+        "raster_cycle": 26,
+        "clock": 5020622
+      },
+      "compute_cycles": 28996,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 107,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5028427
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 310,
+        "raster_cycle": 61,
+        "clock": 5031871
+      },
+      "flush_cycles": 3444,
+      "flush_screen_match": true,
+      "render_label_cycles": 28998
+    },
+    {
+      "sequence": 45,
+      "target": 46,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 311,
+        "raster_cycle": 26,
+        "clock": 5031899
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 46,
+        "raster_cycle": 59,
+        "clock": 5054549
+      },
+      "compute_cycles": 22650,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 77,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5067741
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 295,
+        "raster_cycle": 48,
+        "clock": 5070225
+      },
+      "flush_cycles": 2484,
+      "flush_screen_match": true,
+      "render_label_cycles": 22652
+    },
+    {
+      "sequence": 46,
+      "target": 47,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 296,
+        "raster_cycle": 13,
+        "clock": 5070253
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 86,
+        "raster_cycle": 2,
+        "clock": 5096324
+      },
+      "compute_cycles": 26071,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 95,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5107054
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 304,
+        "raster_cycle": 58,
+        "clock": 5110114
+      },
+      "flush_cycles": 3060,
+      "flush_screen_match": true,
+      "render_label_cycles": 26073
+    },
+    {
+      "sequence": 47,
+      "target": 48,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 305,
+        "raster_cycle": 23,
+        "clock": 5110142
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 83,
+        "raster_cycle": 8,
+        "clock": 5135453
+      },
+      "compute_cycles": 25311,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5146366
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 24,
+        "clock": 5149266
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 25313
+    },
+    {
+      "sequence": 48,
+      "target": 49,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 52,
+        "clock": 5149294
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 70,
+        "raster_cycle": 7,
+        "clock": 5173945
+      },
+      "compute_cycles": 24651,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 89,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5185678
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 301,
+        "raster_cycle": 55,
+        "clock": 5188546
+      },
+      "flush_cycles": 2868,
+      "flush_screen_match": true,
+      "render_label_cycles": 24653
+    },
+    {
+      "sequence": 49,
+      "target": 50,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 20,
+        "clock": 5188574
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 67,
+        "raster_cycle": 59,
+        "clock": 5213120
+      },
+      "compute_cycles": 24546,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 88,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5224986
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 301,
+        "raster_cycle": 19,
+        "clock": 5227822
+      },
+      "flush_cycles": 2836,
+      "flush_screen_match": true,
+      "render_label_cycles": 24548
+    },
+    {
+      "sequence": 50,
+      "target": 51,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 301,
+        "raster_cycle": 47,
+        "clock": 5227850
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 105,
+        "raster_cycle": 39,
+        "clock": 5254806
+      },
+      "compute_cycles": 26956,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 98,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 22,
+        "clock": 5264302
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 28,
+        "clock": 5267458
+      },
+      "flush_cycles": 3156,
+      "flush_screen_match": true,
+      "render_label_cycles": 26958
+    },
+    {
+      "sequence": 51,
+      "target": 52,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 56,
+        "clock": 5267486
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 104,
+        "raster_cycle": 9,
+        "clock": 5294025
+      },
+      "compute_cycles": 26539,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 95,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5303612
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 304,
+        "raster_cycle": 56,
+        "clock": 5306672
+      },
+      "flush_cycles": 3060,
+      "flush_screen_match": true,
+      "render_label_cycles": 26541
+    },
+    {
+      "sequence": 52,
+      "target": 53,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 305,
+        "raster_cycle": 21,
+        "clock": 5306700
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 64,
+        "raster_cycle": 33,
+        "clock": 5330841
+      },
+      "compute_cycles": 24141,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 85,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5342925
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 299,
+        "raster_cycle": 52,
+        "clock": 5345665
+      },
+      "flush_cycles": 2740,
+      "flush_screen_match": true,
+      "render_label_cycles": 24143
+    },
+    {
+      "sequence": 53,
+      "target": 54,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 300,
+        "raster_cycle": 17,
+        "clock": 5345693
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 49,
+        "raster_cycle": 16,
+        "clock": 5369191
+      },
+      "compute_cycles": 23498,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 89,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5382236
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 301,
+        "raster_cycle": 53,
+        "clock": 5385104
+      },
+      "flush_cycles": 2868,
+      "flush_screen_match": true,
+      "render_label_cycles": 23500
+    },
+    {
+      "sequence": 54,
+      "target": 55,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 18,
+        "clock": 5385132
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 90,
+        "raster_cycle": 21,
+        "clock": 5411091
+      },
+      "compute_cycles": 25959,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 93,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5421548
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 303,
+        "raster_cycle": 55,
+        "clock": 5424544
+      },
+      "flush_cycles": 2996,
+      "flush_screen_match": true,
+      "render_label_cycles": 25961
+    },
+    {
+      "sequence": 55,
+      "target": 56,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 304,
+        "raster_cycle": 20,
+        "clock": 5424572
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 120,
+        "raster_cycle": 4,
+        "clock": 5452276
+      },
+      "compute_cycles": 27704,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 98,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5460860
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 26,
+        "clock": 5464016
+      },
+      "flush_cycles": 3156,
+      "flush_screen_match": true,
+      "render_label_cycles": 27706
+    },
+    {
+      "sequence": 56,
+      "target": 57,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 306,
+        "raster_cycle": 54,
+        "clock": 5464044
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 71,
+        "raster_cycle": 12,
+        "clock": 5488509
+      },
+      "compute_cycles": 24465,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 91,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5500172
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 54,
+        "clock": 5503104
+      },
+      "flush_cycles": 2932,
+      "flush_screen_match": true,
+      "render_label_cycles": 24467
+    },
+    {
+      "sequence": 57,
+      "target": 58,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 303,
+        "raster_cycle": 19,
+        "clock": 5503132
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 63,
+        "raster_cycle": 28,
+        "clock": 5527333
+      },
+      "compute_cycles": 24201,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 23,
+        "clock": 5539487
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 25,
+        "clock": 5542387
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 24203
+    },
+    {
+      "sequence": 58,
+      "target": 59,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 53,
+        "clock": 5542415
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 110,
+        "raster_cycle": 8,
+        "clock": 5569586
+      },
+      "compute_cycles": 27171,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 96,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 18,
+        "clock": 5578794
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 23,
+        "clock": 5581886
+      },
+      "flush_cycles": 3092,
+      "flush_screen_match": true,
+      "render_label_cycles": 27173
+    },
+    {
+      "sequence": 59,
+      "target": 60,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 305,
+        "raster_cycle": 51,
+        "clock": 5581914
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 100,
+        "raster_cycle": 59,
+        "clock": 5608319
+      },
+      "compute_cycles": 26405,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 99,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5618109
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 306,
+        "raster_cycle": 59,
+        "clock": 5621297
+      },
+      "flush_cycles": 3188,
+      "flush_screen_match": true,
+      "render_label_cycles": 26407
+    },
+    {
+      "sequence": 60,
+      "target": 61,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 307,
+        "raster_cycle": 24,
+        "clock": 5621325
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 130,
+        "raster_cycle": 54,
+        "clock": 5649516
+      },
+      "compute_cycles": 28191,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 96,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5657420
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 305,
+        "raster_cycle": 25,
+        "clock": 5660512
+      },
+      "flush_cycles": 3092,
+      "flush_screen_match": true,
+      "render_label_cycles": 28193
+    },
+    {
+      "sequence": 61,
+      "target": 62,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 305,
+        "raster_cycle": 53,
+        "clock": 5660540
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 82,
+        "raster_cycle": 54,
+        "clock": 5685804
+      },
+      "compute_cycles": 25264,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 90,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 19,
+        "clock": 5696731
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 302,
+        "raster_cycle": 21,
+        "clock": 5699631
+      },
+      "flush_cycles": 2900,
+      "flush_screen_match": true,
+      "render_label_cycles": 25266
+    },
+    {
+      "sequence": 62,
+      "target": 63,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 302,
+        "raster_cycle": 49,
+        "clock": 5699659
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 148,
+        "raster_cycle": 50,
+        "clock": 5729270
+      },
+      "compute_cycles": 29611,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 107,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 20,
+        "clock": 5736044
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 310,
+        "raster_cycle": 62,
+        "clock": 5739488
+      },
+      "flush_cycles": 3444,
+      "flush_screen_match": true,
+      "render_label_cycles": 29613
+    },
+    {
+      "sequence": 63,
+      "target": 0,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 311,
+        "raster_cycle": 32,
+        "clock": 5739521
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 134,
+        "raster_cycle": 59,
+        "clock": 5767709
+      },
+      "compute_cycles": 28188,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 109,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 24,
+        "clock": 5775360
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 0,
+        "raster_cycle": 4,
+        "clock": 5778868
+      },
+      "flush_cycles": 3508,
+      "flush_screen_match": true,
+      "render_label_cycles": 28190
+    },
+    {
+      "sequence": 64,
+      "target": 1,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 0,
+        "raster_cycle": 32,
+        "clock": 5778896
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 133,
+        "raster_cycle": 7,
+        "clock": 5806906
+      },
+      "compute_cycles": 28010,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 103,
+      "flush_start": {
+        "pc": 12553,
+        "raster": 256,
+        "raster_cycle": 21,
+        "clock": 5814669
+      },
+      "flush_end": {
+        "pc": 12556,
+        "raster": 308,
+        "raster_cycle": 61,
+        "clock": 5817985
+      },
+      "flush_cycles": 3316,
+      "flush_screen_match": true,
+      "render_label_cycles": 28012
+    },
+    {
+      "sequence": 65,
+      "target": 2,
+      "compute_start": {
+        "pc": 12504,
+        "raster": 309,
+        "raster_cycle": 26,
+        "clock": 5818013
+      },
+      "compute_end": {
+        "pc": 12541,
+        "raster": 110,
+        "raster_cycle": 14,
+        "clock": 5844776
+      },
+      "compute_cycles": 26763,
+      "cold_direct_initialization": false,
+      "front_unchanged_at_compute_boundaries": true,
+      "queued_glyphs": 97,
+      "pending_flush_not_executed_at_final_capture": true
+    }
+  ],
+  "lookup_assets": {
+    "start": 13568,
+    "end": 24384,
+    "bytes": 10816,
+    "sha256": "c382ec6aa764e55f3c4d1c78de936c659ae14f5d03d6689d775c8e6b0389c51c"
+  },
+  "coverage_reference_sha256": "9183b3fd4257ab9dc1784a03cb852b0fa6f94691b0c49c269d291931c2816027",
+  "labels": {
+    "start": 12288,
+    "delta_code_end": 13495,
+    "coverage": 4096,
+    "queue_count": 85,
+    "target_update_index": 12958
+  },
+  "motion": {
+    "kind": "fixed-axis-symmetry-loop",
+    "yawDegreesPerFrame": 0.9375,
+    "pitchDegrees": 22,
+    "rollDegrees": 12,
+    "symmetryPeriodDegrees": 60,
+    "frames": 64,
+    "fullRevolutionFrames": 384,
+    "fullRevolutionSecondsAt50Fps": 7.68,
+    "subByteAnglePrecision": true,
+    "loopEndpointMatches": true
+  },
+  "command": [
+    "/opt/homebrew/Cellar/vice/3.10/bin/x64sc",
+    "-default",
+    "+saveres",
+    "-minimized",
+    "-pal",
+    "-speed",
+    "100",
+    "+warp",
+    "+autostart-warp",
+    "+confirmonexit",
+    "-sounddev",
+    "dummy",
+    "+refreshonbreak",
+    "+binarymonitor",
+    "-initbreak",
+    "reset",
+    "-autostartprgmode",
+    "1",
+    "-autostart",
+    "/Users/rogerjohansson/git/asynkron/c64/asm/sphere-polygons/precomputed/hybrid/vertices/delta-commands/build/player.prg",
+    "-VICIIfilter",
+    "0",
+    "-VICIIextpal",
+    "-VICIIpalette",
+    "/Users/rogerjohansson/git/asynkron/c64/palettes/colodore.vpl",
+    "-VICIIsaturation",
+    "1000",
+    "-VICIIcontrast",
+    "1000",
+    "-VICIIbrightness",
+    "1000",
+    "-VICIIgamma",
+    "1000",
+    "-remotemonitor",
+    "-remotemonitoraddress",
+    "ip4://127.0.0.1:61859"
+  ],
+  "owned_pid": 98222,
+  "frames_verified": 66,
+  "presented_update_scanouts_verified": 66,
+  "screen_bytes_checked": 66000,
+  "scanout_pixels_checked": 4224000,
+  "font_bytes_checked": 135168,
+  "screenshots": 66,
+  "loop_wraps_verified": 1,
+  "movie_immutable": true,
+  "lookup_assets_immutable": true,
+  "warm_front_unchanged_at_compute_boundaries": true,
+  "compute_cycles": {
+    "samples": 66,
+    "min": 21047,
+    "median": 26019.0,
+    "mean": 25989.515151515152,
+    "max": 30117
+  },
+  "flush_cycles": {
+    "samples": 65,
+    "min": 2260,
+    "median": 2996,
+    "mean": 3015.2,
+    "max": 3572
+  },
+  "presentation_cycles": {
+    "samples": 65,
+    "min": 39307,
+    "median": 39312,
+    "mean": 39312,
+    "max": 39318
+  },
+  "presentation_fields": {
+    "samples": 65,
+    "min": 2,
+    "median": 2,
+    "mean": 2,
+    "max": 2
+  },
+  "mean_fps": 25.062271062271062,
+  "median_fps": 25.062271062271062,
+  "screenshot_origin": [
+    32,
+    35
+  ],
+  "owned_process_exit_code": 0
+}

@@ -1,0 +1,855 @@
+{
+  "pass": true,
+  "stage": "Flagship star GPU bitmap",
+  "characterConversionRun": false,
+  "sourceSha256": "26788e19aa11c2feafb4fab00e3d5ab1ec1b5214df4451cb5dbc4284966be677",
+  "sourceDependencies": [],
+  "bitmapSha256": "36708e4ceec2386c53c2c5e522bcc28f9697d176bd931d7c6ec4e118a3b2e081",
+  "rgbaSha256": "d9b6222aed4a41502d270bedfb82770aa06661d6173acb75188f8e87dfc6171c",
+  "objectMaskSha256": "5e2266043859c4799235798bd51d82708be819cc54f68fd603ae7e61a2cf9ca6",
+  "width": 160,
+  "height": 100,
+  "physicalPreviewPixels": [
+    320,
+    200
+  ],
+  "fps": 25,
+  "frameCount": 97,
+  "quantization": {
+    "mode": "orderedBayer4x4",
+    "sourceLevels": [
+      0,
+      51,
+      102,
+      153,
+      204,
+      255
+    ],
+    "pixelsCompared": 1552000,
+    "wrongBits": 0,
+    "nonBinary": 0,
+    "nonOpaque": 0,
+    "whiteOutsideMask": 0,
+    "whitePixels": [
+      0,
+      2498,
+      2504,
+      2508,
+      2486,
+      2476,
+      2479,
+      2477,
+      2455,
+      2367,
+      2502,
+      2501,
+      2488,
+      2489,
+      2491,
+      2486,
+      2465,
+      2473,
+      2473,
+      2472,
+      2478,
+      2459,
+      2396,
+      2429,
+      2427,
+      2417,
+      2408,
+      2394,
+      2476,
+      2474,
+      2465,
+      2469,
+      2467,
+      2447,
+      2464,
+      2459,
+      2452,
+      2517,
+      2480,
+      2401,
+      2422,
+      2391,
+      2394,
+      2401,
+      2399,
+      2462,
+      2454,
+      2449,
+      2448,
+      2437,
+      2431,
+      2468,
+      2476,
+      2426,
+      2403,
+      2444,
+      2428,
+      2427,
+      2422,
+      2433,
+      2364,
+      2388,
+      2468,
+      2448,
+      2443,
+      2450,
+      2437,
+      2434,
+      2431,
+      2452,
+      2485,
+      2508,
+      2474,
+      2486,
+      2479,
+      2475,
+      2475,
+      2469,
+      2478,
+      2418,
+      2423,
+      2398,
+      2503,
+      2502,
+      2555,
+      2516,
+      2523,
+      2511,
+      2504,
+      2539,
+      2539,
+      2527,
+      2448,
+      2462,
+      2531,
+      2512,
+      2494
+    ]
+  },
+  "scene": {
+    "renderableObjects": 1,
+    "meshName": "solid-star",
+    "opaque": true,
+    "noBall": true,
+    "noGlass": true,
+    "noWireframe": true,
+    "shaded": true
+  },
+  "mesh": {
+    "vertices": 14,
+    "triangles": 24,
+    "edges": 36,
+    "eulerCharacteristic": 2,
+    "closed": true,
+    "oppositeEdgeWindings": true,
+    "cubeHalfExtent": 8.5,
+    "tipDistance": 54,
+    "armLength": 45.5,
+    "tipToHalfExtentRatio": 6.352941176470588,
+    "previous": {
+      "cubeHalfExtent": 10,
+      "tipDistance": 30,
+      "armLength": 20,
+      "ratio": 3
+    },
+    "signedVolume": 31212,
+    "axisTips": [
+      [
+        -54,
+        0,
+        0
+      ],
+      [
+        54,
+        0,
+        0
+      ],
+      [
+        0,
+        -54,
+        0
+      ],
+      [
+        0,
+        54,
+        0
+      ],
+      [
+        0,
+        0,
+        -54
+      ],
+      [
+        0,
+        0,
+        54
+      ]
+    ],
+    "annotations": {
+      "construction": "six square cube faces replaced by four-triangle pyramids, no internal cube faces",
+      "shape": "solid-stellated-cube-star",
+      "cubeHalfExtent": 8.5,
+      "tipDistance": 54,
+      "axisTips": 6,
+      "expectedWeldedVertices": 14,
+      "expectedEdges": 36,
+      "triangleCount": 24,
+      "nonconvex": true,
+      "armRatio": 6.352941176470588,
+      "flatFaceNormals": true
+    }
+  },
+  "shadingContract": {
+    "rule": "facet gray = shadeGrays[round((rotatedNormal.dot(light)*0.5+0.5)*(levels-1))]",
+    "samples": [
+      {
+        "frame": 1,
+        "facetsChecked": 24,
+        "maxDeviation": 1.0738299138779439e-11
+      },
+      {
+        "frame": 20,
+        "facetsChecked": 24,
+        "maxDeviation": 1.0738299138779439e-11
+      },
+      {
+        "frame": 39,
+        "facetsChecked": 24,
+        "maxDeviation": 1.0738299138779439e-11
+      },
+      {
+        "frame": 58,
+        "facetsChecked": 24,
+        "maxDeviation": 1.0738299138779439e-11
+      },
+      {
+        "frame": 77,
+        "facetsChecked": 24,
+        "maxDeviation": 1.0738299138779439e-11
+      }
+    ]
+  },
+  "symmetryRotation": {
+    "axisModelSpace": [
+      0.5773502691896258,
+      0.5773502691896258,
+      0.5773502691896258
+    ],
+    "spinRadiansPerLoop": 2.0943951023931953,
+    "vertexPermutationCount": 14,
+    "facetPermutationCount": 24,
+    "actualMeshMatchesUnwrappedTransform": true,
+    "endpointEqualsInitialTimesSymmetry": true,
+    "nextPoseEqualsInitialNextTimesSymmetry": true,
+    "facetLightingPermutationMatches": true,
+    "angularStepRadians": {
+      "min": 0.017456994534886288,
+      "max": 0.02719316847336743
+    },
+    "boundaryAngularVelocityVectorDifference": 0.00624499214662301,
+    "largestOrdinaryAngularVelocityVectorDifference": 0.016822732957819206,
+    "angularVelocityContinuousAtLoop": true
+  },
+  "screenFit": {
+    "touchingBorderPixels": 0,
+    "logicalBoundsPerFrame": [
+      [
+        15,
+        12,
+        145,
+        88
+      ],
+      [
+        15,
+        12,
+        145,
+        88
+      ],
+      [
+        15,
+        11,
+        145,
+        89
+      ],
+      [
+        15,
+        11,
+        145,
+        89
+      ],
+      [
+        15,
+        10,
+        145,
+        90
+      ],
+      [
+        15,
+        9,
+        145,
+        91
+      ],
+      [
+        15,
+        9,
+        145,
+        91
+      ],
+      [
+        13,
+        9,
+        147,
+        91
+      ],
+      [
+        14,
+        8,
+        146,
+        92
+      ],
+      [
+        14,
+        7,
+        146,
+        93
+      ],
+      [
+        15,
+        7,
+        145,
+        93
+      ],
+      [
+        16,
+        7,
+        144,
+        93
+      ],
+      [
+        14,
+        6,
+        146,
+        94
+      ],
+      [
+        15,
+        6,
+        145,
+        94
+      ],
+      [
+        16,
+        5,
+        144,
+        95
+      ],
+      [
+        16,
+        4,
+        144,
+        96
+      ],
+      [
+        15,
+        4,
+        145,
+        96
+      ],
+      [
+        17,
+        4,
+        143,
+        96
+      ],
+      [
+        16,
+        4,
+        144,
+        96
+      ],
+      [
+        16,
+        3,
+        144,
+        97
+      ],
+      [
+        18,
+        3,
+        142,
+        97
+      ],
+      [
+        16,
+        3,
+        144,
+        97
+      ],
+      [
+        19,
+        2,
+        141,
+        98
+      ],
+      [
+        17,
+        3,
+        143,
+        97
+      ],
+      [
+        19,
+        3,
+        141,
+        97
+      ],
+      [
+        19,
+        2,
+        141,
+        98
+      ],
+      [
+        19,
+        2,
+        141,
+        98
+      ],
+      [
+        20,
+        2,
+        140,
+        98
+      ],
+      [
+        19,
+        1,
+        141,
+        99
+      ],
+      [
+        21,
+        1,
+        139,
+        99
+      ],
+      [
+        20,
+        1,
+        140,
+        99
+      ],
+      [
+        22,
+        2,
+        138,
+        98
+      ],
+      [
+        22,
+        2,
+        138,
+        98
+      ],
+      [
+        22,
+        2,
+        138,
+        98
+      ],
+      [
+        23,
+        1,
+        137,
+        99
+      ],
+      [
+        23,
+        1,
+        137,
+        99
+      ],
+      [
+        23,
+        1,
+        137,
+        99
+      ],
+      [
+        22,
+        1,
+        138,
+        99
+      ],
+      [
+        22,
+        2,
+        138,
+        98
+      ],
+      [
+        21,
+        2,
+        139,
+        98
+      ],
+      [
+        21,
+        1,
+        139,
+        99
+      ],
+      [
+        19,
+        1,
+        141,
+        99
+      ],
+      [
+        20,
+        2,
+        140,
+        98
+      ],
+      [
+        18,
+        2,
+        142,
+        98
+      ],
+      [
+        19,
+        2,
+        141,
+        98
+      ],
+      [
+        16,
+        2,
+        144,
+        98
+      ],
+      [
+        17,
+        2,
+        143,
+        98
+      ],
+      [
+        15,
+        3,
+        145,
+        97
+      ],
+      [
+        16,
+        2,
+        144,
+        98
+      ],
+      [
+        16,
+        3,
+        144,
+        97
+      ],
+      [
+        14,
+        4,
+        146,
+        96
+      ],
+      [
+        15,
+        3,
+        145,
+        97
+      ],
+      [
+        14,
+        4,
+        146,
+        96
+      ],
+      [
+        13,
+        5,
+        147,
+        95
+      ],
+      [
+        15,
+        4,
+        145,
+        96
+      ],
+      [
+        14,
+        5,
+        146,
+        95
+      ],
+      [
+        12,
+        6,
+        148,
+        94
+      ],
+      [
+        13,
+        6,
+        147,
+        94
+      ],
+      [
+        14,
+        7,
+        146,
+        93
+      ],
+      [
+        13,
+        7,
+        147,
+        93
+      ],
+      [
+        12,
+        7,
+        148,
+        93
+      ],
+      [
+        13,
+        8,
+        147,
+        92
+      ],
+      [
+        15,
+        9,
+        145,
+        91
+      ],
+      [
+        14,
+        9,
+        146,
+        91
+      ],
+      [
+        14,
+        10,
+        146,
+        90
+      ],
+      [
+        14,
+        10,
+        146,
+        90
+      ],
+      [
+        14,
+        10,
+        146,
+        90
+      ],
+      [
+        14,
+        11,
+        146,
+        89
+      ],
+      [
+        16,
+        12,
+        144,
+        88
+      ],
+      [
+        16,
+        12,
+        144,
+        88
+      ],
+      [
+        17,
+        13,
+        143,
+        87
+      ],
+      [
+        17,
+        13,
+        143,
+        87
+      ],
+      [
+        17,
+        13,
+        143,
+        87
+      ],
+      [
+        18,
+        14,
+        142,
+        86
+      ],
+      [
+        18,
+        15,
+        142,
+        85
+      ],
+      [
+        18,
+        16,
+        142,
+        84
+      ],
+      [
+        19,
+        16,
+        141,
+        84
+      ],
+      [
+        20,
+        17,
+        140,
+        83
+      ],
+      [
+        20,
+        17,
+        140,
+        83
+      ],
+      [
+        21,
+        18,
+        139,
+        82
+      ],
+      [
+        21,
+        18,
+        139,
+        82
+      ],
+      [
+        22,
+        18,
+        138,
+        82
+      ],
+      [
+        23,
+        18,
+        137,
+        82
+      ],
+      [
+        22,
+        18,
+        138,
+        82
+      ],
+      [
+        22,
+        18,
+        138,
+        82
+      ],
+      [
+        21,
+        18,
+        139,
+        82
+      ],
+      [
+        20,
+        19,
+        140,
+        81
+      ],
+      [
+        18,
+        18,
+        142,
+        82
+      ],
+      [
+        18,
+        18,
+        142,
+        82
+      ],
+      [
+        17,
+        18,
+        143,
+        82
+      ],
+      [
+        17,
+        17,
+        143,
+        83
+      ],
+      [
+        16,
+        16,
+        144,
+        84
+      ],
+      [
+        16,
+        16,
+        144,
+        84
+      ],
+      [
+        15,
+        15,
+        145,
+        85
+      ],
+      [
+        15,
+        14,
+        145,
+        86
+      ],
+      [
+        15,
+        13,
+        145,
+        87
+      ]
+    ]
+  },
+  "movement": {
+    "maximumMatrixDifference": 1.3501777447534122
+  },
+  "loop": {
+    "startFrame": 1,
+    "frameCount": 96,
+    "endpointFrame": 97,
+    "unwrappedEndpointFrame": 193,
+    "endpointMatchesStart": true,
+    "unwrappedPeriodMatchesStart": true,
+    "rgbaSha256": "3d08b34f2ef1f71673d8bcf612be261a39db739ff77fd911173034f9556e25b7"
+  },
+  "previews": {
+    "contact": "flagship-star-bitmap-contact.png",
+    "loop": "flagship-star-bitmap.gif",
+    "loopTimingAndPixelsVerified": true
+  }
+}

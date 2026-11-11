@@ -1,0 +1,2972 @@
+{
+  "pass": true,
+  "blankingFlushBoundPass": true,
+  "scope": "Precomputed geometric probe-mask XOR deltas, future-target coverage and sparseglyphqueue; actual6502 CPU proof, not realPAL FPS.",
+  "presentedFrames": 194,
+  "loopWraps": 3,
+  "coverageBytesCompared": 194000,
+  "screenBytesCompared": 194000,
+  "frontUnchangedDuringCompute": true,
+  "allVisibleWritesOnlyInAscendingFlush": true,
+  "fontAndAllAssetsImmutable": true,
+  "computeCpuCycles": {
+    "min": 19976,
+    "mean": 24649.350515463917,
+    "max": 28483
+  },
+  "flushCpuCycles": {
+    "min": 2260,
+    "mean": 3012.659793814433,
+    "max": 3572
+  },
+  "queueEntries": {
+    "min": 70,
+    "mean": 93.52061855670104,
+    "max": 111
+  },
+  "maximumComputePlusFlushCpu": 32055,
+  "twoFieldCpuBound": 34268,
+  "twoFieldCpuBoundPass": true,
+  "stallBudgetPerField": 1075,
+  "startJitterBudget": 63,
+  "maximumFlushClockBound": 4710,
+  "firstRowDeadline": 6741,
+  "worstPerRowSlack": 5940,
+  "worstWrite": {
+    "sequence": 8,
+    "target": 9,
+    "address": 1087,
+    "row": 1,
+    "column": 23,
+    "cpuCompleteOffset": 167,
+    "deadline": 7245,
+    "completionUpperBound": 1305,
+    "slack": 5940
+  },
+  "codeBytes": 1207,
+  "fontBytes": 2048,
+  "fixedLookupBytes": 10816,
+  "fixedLookupInternalPaddingBytes": 80,
+  "codeToLookupPaddingBytes": 73,
+  "movieBytes": 16100,
+  "geometryPlaneAllocatedBytes": 1024,
+  "sparseGlyphQueueBytes": 384,
+  "queueCapacity": 128,
+  "prgBytes": 38437,
+  "endExclusive": "0x9e24",
+  "programSha256": "d8665b5c2efbf994ad8616567ab00c40432108ec39bb3225a970ec6b01cdaa2f",
+  "computes": [
+    {
+      "sequence": 0,
+      "frame": 0,
+      "target": 1,
+      "queueCount": 103,
+      "cpuCycles": 26463
+    },
+    {
+      "sequence": 1,
+      "frame": 1,
+      "target": 2,
+      "queueCount": 97,
+      "cpuCycles": 25348
+    },
+    {
+      "sequence": 2,
+      "frame": 2,
+      "target": 3,
+      "queueCount": 108,
+      "cpuCycles": 27064
+    },
+    {
+      "sequence": 3,
+      "frame": 3,
+      "target": 4,
+      "queueCount": 86,
+      "cpuCycles": 22628
+    },
+    {
+      "sequence": 4,
+      "frame": 4,
+      "target": 5,
+      "queueCount": 99,
+      "cpuCycles": 25438
+    },
+    {
+      "sequence": 5,
+      "frame": 5,
+      "target": 6,
+      "queueCount": 111,
+      "cpuCycles": 27500
+    },
+    {
+      "sequence": 6,
+      "frame": 6,
+      "target": 7,
+      "queueCount": 85,
+      "cpuCycles": 22876
+    },
+    {
+      "sequence": 7,
+      "frame": 7,
+      "target": 8,
+      "queueCount": 81,
+      "cpuCycles": 23106
+    },
+    {
+      "sequence": 8,
+      "frame": 8,
+      "target": 9,
+      "queueCount": 106,
+      "cpuCycles": 26206
+    },
+    {
+      "sequence": 9,
+      "frame": 9,
+      "target": 10,
+      "queueCount": 87,
+      "cpuCycles": 23039
+    },
+    {
+      "sequence": 10,
+      "frame": 10,
+      "target": 11,
+      "queueCount": 93,
+      "cpuCycles": 24891
+    },
+    {
+      "sequence": 11,
+      "frame": 11,
+      "target": 12,
+      "queueCount": 78,
+      "cpuCycles": 22491
+    },
+    {
+      "sequence": 12,
+      "frame": 12,
+      "target": 13,
+      "queueCount": 107,
+      "cpuCycles": 28483
+    },
+    {
+      "sequence": 13,
+      "frame": 13,
+      "target": 14,
+      "queueCount": 70,
+      "cpuCycles": 19976
+    },
+    {
+      "sequence": 14,
+      "frame": 14,
+      "target": 15,
+      "queueCount": 99,
+      "cpuCycles": 25793
+    },
+    {
+      "sequence": 15,
+      "frame": 15,
+      "target": 16,
+      "queueCount": 90,
+      "cpuCycles": 24641
+    },
+    {
+      "sequence": 16,
+      "frame": 16,
+      "target": 17,
+      "queueCount": 92,
+      "cpuCycles": 23781
+    },
+    {
+      "sequence": 17,
+      "frame": 17,
+      "target": 18,
+      "queueCount": 86,
+      "cpuCycles": 22878
+    },
+    {
+      "sequence": 18,
+      "frame": 18,
+      "target": 19,
+      "queueCount": 101,
+      "cpuCycles": 25971
+    },
+    {
+      "sequence": 19,
+      "frame": 19,
+      "target": 20,
+      "queueCount": 102,
+      "cpuCycles": 27306
+    },
+    {
+      "sequence": 20,
+      "frame": 20,
+      "target": 21,
+      "queueCount": 83,
+      "cpuCycles": 22900
+    },
+    {
+      "sequence": 21,
+      "frame": 21,
+      "target": 22,
+      "queueCount": 86,
+      "cpuCycles": 22174
+    },
+    {
+      "sequence": 22,
+      "frame": 22,
+      "target": 23,
+      "queueCount": 90,
+      "cpuCycles": 24433
+    },
+    {
+      "sequence": 23,
+      "frame": 23,
+      "target": 24,
+      "queueCount": 87,
+      "cpuCycles": 23821
+    },
+    {
+      "sequence": 24,
+      "frame": 24,
+      "target": 25,
+      "queueCount": 92,
+      "cpuCycles": 24265
+    },
+    {
+      "sequence": 25,
+      "frame": 25,
+      "target": 26,
+      "queueCount": 91,
+      "cpuCycles": 23849
+    },
+    {
+      "sequence": 26,
+      "frame": 26,
+      "target": 27,
+      "queueCount": 97,
+      "cpuCycles": 26366
+    },
+    {
+      "sequence": 27,
+      "frame": 27,
+      "target": 28,
+      "queueCount": 97,
+      "cpuCycles": 24736
+    },
+    {
+      "sequence": 28,
+      "frame": 28,
+      "target": 29,
+      "queueCount": 90,
+      "cpuCycles": 25340
+    },
+    {
+      "sequence": 29,
+      "frame": 29,
+      "target": 30,
+      "queueCount": 87,
+      "cpuCycles": 23653
+    },
+    {
+      "sequence": 30,
+      "frame": 30,
+      "target": 31,
+      "queueCount": 101,
+      "cpuCycles": 26239
+    },
+    {
+      "sequence": 31,
+      "frame": 31,
+      "target": 32,
+      "queueCount": 99,
+      "cpuCycles": 24765
+    },
+    {
+      "sequence": 32,
+      "frame": 32,
+      "target": 33,
+      "queueCount": 95,
+      "cpuCycles": 24778
+    },
+    {
+      "sequence": 33,
+      "frame": 33,
+      "target": 34,
+      "queueCount": 94,
+      "cpuCycles": 24314
+    },
+    {
+      "sequence": 34,
+      "frame": 34,
+      "target": 35,
+      "queueCount": 104,
+      "cpuCycles": 26300
+    },
+    {
+      "sequence": 35,
+      "frame": 35,
+      "target": 36,
+      "queueCount": 83,
+      "cpuCycles": 22574
+    },
+    {
+      "sequence": 36,
+      "frame": 36,
+      "target": 37,
+      "queueCount": 97,
+      "cpuCycles": 24274
+    },
+    {
+      "sequence": 37,
+      "frame": 37,
+      "target": 38,
+      "queueCount": 105,
+      "cpuCycles": 26507
+    },
+    {
+      "sequence": 38,
+      "frame": 38,
+      "target": 39,
+      "queueCount": 84,
+      "cpuCycles": 23115
+    },
+    {
+      "sequence": 39,
+      "frame": 39,
+      "target": 40,
+      "queueCount": 83,
+      "cpuCycles": 23732
+    },
+    {
+      "sequence": 40,
+      "frame": 40,
+      "target": 41,
+      "queueCount": 104,
+      "cpuCycles": 25531
+    },
+    {
+      "sequence": 41,
+      "frame": 41,
+      "target": 42,
+      "queueCount": 87,
+      "cpuCycles": 23033
+    },
+    {
+      "sequence": 42,
+      "frame": 42,
+      "target": 43,
+      "queueCount": 105,
+      "cpuCycles": 27631
+    },
+    {
+      "sequence": 43,
+      "frame": 43,
+      "target": 44,
+      "queueCount": 77,
+      "cpuCycles": 22306
+    },
+    {
+      "sequence": 44,
+      "frame": 44,
+      "target": 45,
+      "queueCount": 107,
+      "cpuCycles": 27452
+    },
+    {
+      "sequence": 45,
+      "frame": 45,
+      "target": 46,
+      "queueCount": 77,
+      "cpuCycles": 21576
+    },
+    {
+      "sequence": 46,
+      "frame": 46,
+      "target": 47,
+      "queueCount": 95,
+      "cpuCycles": 24782
+    },
+    {
+      "sequence": 47,
+      "frame": 47,
+      "target": 48,
+      "queueCount": 90,
+      "cpuCycles": 24068
+    },
+    {
+      "sequence": 48,
+      "frame": 48,
+      "target": 49,
+      "queueCount": 89,
+      "cpuCycles": 23451
+    },
+    {
+      "sequence": 49,
+      "frame": 49,
+      "target": 50,
+      "queueCount": 88,
+      "cpuCycles": 23348
+    },
+    {
+      "sequence": 50,
+      "frame": 50,
+      "target": 51,
+      "queueCount": 98,
+      "cpuCycles": 25582
+    },
+    {
+      "sequence": 51,
+      "frame": 51,
+      "target": 52,
+      "queueCount": 95,
+      "cpuCycles": 25167
+    },
+    {
+      "sequence": 52,
+      "frame": 52,
+      "target": 53,
+      "queueCount": 85,
+      "cpuCycles": 22988
+    },
+    {
+      "sequence": 53,
+      "frame": 53,
+      "target": 54,
+      "queueCount": 89,
+      "cpuCycles": 22429
+    },
+    {
+      "sequence": 54,
+      "frame": 54,
+      "target": 55,
+      "queueCount": 93,
+      "cpuCycles": 24675
+    },
+    {
+      "sequence": 55,
+      "frame": 55,
+      "target": 56,
+      "queueCount": 98,
+      "cpuCycles": 26242
+    },
+    {
+      "sequence": 56,
+      "frame": 56,
+      "target": 57,
+      "queueCount": 91,
+      "cpuCycles": 23265
+    },
+    {
+      "sequence": 57,
+      "frame": 57,
+      "target": 58,
+      "queueCount": 90,
+      "cpuCycles": 23047
+    },
+    {
+      "sequence": 58,
+      "frame": 58,
+      "target": 59,
+      "queueCount": 96,
+      "cpuCycles": 25755
+    },
+    {
+      "sequence": 59,
+      "frame": 59,
+      "target": 60,
+      "queueCount": 99,
+      "cpuCycles": 25035
+    },
+    {
+      "sequence": 60,
+      "frame": 60,
+      "target": 61,
+      "queueCount": 96,
+      "cpuCycles": 26692
+    },
+    {
+      "sequence": 61,
+      "frame": 61,
+      "target": 62,
+      "queueCount": 90,
+      "cpuCycles": 24022
+    },
+    {
+      "sequence": 62,
+      "frame": 62,
+      "target": 63,
+      "queueCount": 107,
+      "cpuCycles": 27980
+    },
+    {
+      "sequence": 63,
+      "frame": 63,
+      "target": 0,
+      "queueCount": 109,
+      "cpuCycles": 26650
+    },
+    {
+      "sequence": 64,
+      "frame": 0,
+      "target": 1,
+      "queueCount": 103,
+      "cpuCycles": 26463
+    },
+    {
+      "sequence": 65,
+      "frame": 1,
+      "target": 2,
+      "queueCount": 97,
+      "cpuCycles": 25348
+    },
+    {
+      "sequence": 66,
+      "frame": 2,
+      "target": 3,
+      "queueCount": 108,
+      "cpuCycles": 27064
+    },
+    {
+      "sequence": 67,
+      "frame": 3,
+      "target": 4,
+      "queueCount": 86,
+      "cpuCycles": 22628
+    },
+    {
+      "sequence": 68,
+      "frame": 4,
+      "target": 5,
+      "queueCount": 99,
+      "cpuCycles": 25438
+    },
+    {
+      "sequence": 69,
+      "frame": 5,
+      "target": 6,
+      "queueCount": 111,
+      "cpuCycles": 27500
+    },
+    {
+      "sequence": 70,
+      "frame": 6,
+      "target": 7,
+      "queueCount": 85,
+      "cpuCycles": 22876
+    },
+    {
+      "sequence": 71,
+      "frame": 7,
+      "target": 8,
+      "queueCount": 81,
+      "cpuCycles": 23106
+    },
+    {
+      "sequence": 72,
+      "frame": 8,
+      "target": 9,
+      "queueCount": 106,
+      "cpuCycles": 26206
+    },
+    {
+      "sequence": 73,
+      "frame": 9,
+      "target": 10,
+      "queueCount": 87,
+      "cpuCycles": 23039
+    },
+    {
+      "sequence": 74,
+      "frame": 10,
+      "target": 11,
+      "queueCount": 93,
+      "cpuCycles": 24891
+    },
+    {
+      "sequence": 75,
+      "frame": 11,
+      "target": 12,
+      "queueCount": 78,
+      "cpuCycles": 22491
+    },
+    {
+      "sequence": 76,
+      "frame": 12,
+      "target": 13,
+      "queueCount": 107,
+      "cpuCycles": 28483
+    },
+    {
+      "sequence": 77,
+      "frame": 13,
+      "target": 14,
+      "queueCount": 70,
+      "cpuCycles": 19976
+    },
+    {
+      "sequence": 78,
+      "frame": 14,
+      "target": 15,
+      "queueCount": 99,
+      "cpuCycles": 25793
+    },
+    {
+      "sequence": 79,
+      "frame": 15,
+      "target": 16,
+      "queueCount": 90,
+      "cpuCycles": 24641
+    },
+    {
+      "sequence": 80,
+      "frame": 16,
+      "target": 17,
+      "queueCount": 92,
+      "cpuCycles": 23781
+    },
+    {
+      "sequence": 81,
+      "frame": 17,
+      "target": 18,
+      "queueCount": 86,
+      "cpuCycles": 22878
+    },
+    {
+      "sequence": 82,
+      "frame": 18,
+      "target": 19,
+      "queueCount": 101,
+      "cpuCycles": 25971
+    },
+    {
+      "sequence": 83,
+      "frame": 19,
+      "target": 20,
+      "queueCount": 102,
+      "cpuCycles": 27306
+    },
+    {
+      "sequence": 84,
+      "frame": 20,
+      "target": 21,
+      "queueCount": 83,
+      "cpuCycles": 22900
+    },
+    {
+      "sequence": 85,
+      "frame": 21,
+      "target": 22,
+      "queueCount": 86,
+      "cpuCycles": 22174
+    },
+    {
+      "sequence": 86,
+      "frame": 22,
+      "target": 23,
+      "queueCount": 90,
+      "cpuCycles": 24433
+    },
+    {
+      "sequence": 87,
+      "frame": 23,
+      "target": 24,
+      "queueCount": 87,
+      "cpuCycles": 23821
+    },
+    {
+      "sequence": 88,
+      "frame": 24,
+      "target": 25,
+      "queueCount": 92,
+      "cpuCycles": 24265
+    },
+    {
+      "sequence": 89,
+      "frame": 25,
+      "target": 26,
+      "queueCount": 91,
+      "cpuCycles": 23849
+    },
+    {
+      "sequence": 90,
+      "frame": 26,
+      "target": 27,
+      "queueCount": 97,
+      "cpuCycles": 26366
+    },
+    {
+      "sequence": 91,
+      "frame": 27,
+      "target": 28,
+      "queueCount": 97,
+      "cpuCycles": 24736
+    },
+    {
+      "sequence": 92,
+      "frame": 28,
+      "target": 29,
+      "queueCount": 90,
+      "cpuCycles": 25340
+    },
+    {
+      "sequence": 93,
+      "frame": 29,
+      "target": 30,
+      "queueCount": 87,
+      "cpuCycles": 23653
+    },
+    {
+      "sequence": 94,
+      "frame": 30,
+      "target": 31,
+      "queueCount": 101,
+      "cpuCycles": 26239
+    },
+    {
+      "sequence": 95,
+      "frame": 31,
+      "target": 32,
+      "queueCount": 99,
+      "cpuCycles": 24765
+    },
+    {
+      "sequence": 96,
+      "frame": 32,
+      "target": 33,
+      "queueCount": 95,
+      "cpuCycles": 24778
+    },
+    {
+      "sequence": 97,
+      "frame": 33,
+      "target": 34,
+      "queueCount": 94,
+      "cpuCycles": 24314
+    },
+    {
+      "sequence": 98,
+      "frame": 34,
+      "target": 35,
+      "queueCount": 104,
+      "cpuCycles": 26300
+    },
+    {
+      "sequence": 99,
+      "frame": 35,
+      "target": 36,
+      "queueCount": 83,
+      "cpuCycles": 22574
+    },
+    {
+      "sequence": 100,
+      "frame": 36,
+      "target": 37,
+      "queueCount": 97,
+      "cpuCycles": 24274
+    },
+    {
+      "sequence": 101,
+      "frame": 37,
+      "target": 38,
+      "queueCount": 105,
+      "cpuCycles": 26507
+    },
+    {
+      "sequence": 102,
+      "frame": 38,
+      "target": 39,
+      "queueCount": 84,
+      "cpuCycles": 23115
+    },
+    {
+      "sequence": 103,
+      "frame": 39,
+      "target": 40,
+      "queueCount": 83,
+      "cpuCycles": 23732
+    },
+    {
+      "sequence": 104,
+      "frame": 40,
+      "target": 41,
+      "queueCount": 104,
+      "cpuCycles": 25531
+    },
+    {
+      "sequence": 105,
+      "frame": 41,
+      "target": 42,
+      "queueCount": 87,
+      "cpuCycles": 23033
+    },
+    {
+      "sequence": 106,
+      "frame": 42,
+      "target": 43,
+      "queueCount": 105,
+      "cpuCycles": 27631
+    },
+    {
+      "sequence": 107,
+      "frame": 43,
+      "target": 44,
+      "queueCount": 77,
+      "cpuCycles": 22306
+    },
+    {
+      "sequence": 108,
+      "frame": 44,
+      "target": 45,
+      "queueCount": 107,
+      "cpuCycles": 27452
+    },
+    {
+      "sequence": 109,
+      "frame": 45,
+      "target": 46,
+      "queueCount": 77,
+      "cpuCycles": 21576
+    },
+    {
+      "sequence": 110,
+      "frame": 46,
+      "target": 47,
+      "queueCount": 95,
+      "cpuCycles": 24782
+    },
+    {
+      "sequence": 111,
+      "frame": 47,
+      "target": 48,
+      "queueCount": 90,
+      "cpuCycles": 24068
+    },
+    {
+      "sequence": 112,
+      "frame": 48,
+      "target": 49,
+      "queueCount": 89,
+      "cpuCycles": 23451
+    },
+    {
+      "sequence": 113,
+      "frame": 49,
+      "target": 50,
+      "queueCount": 88,
+      "cpuCycles": 23348
+    },
+    {
+      "sequence": 114,
+      "frame": 50,
+      "target": 51,
+      "queueCount": 98,
+      "cpuCycles": 25582
+    },
+    {
+      "sequence": 115,
+      "frame": 51,
+      "target": 52,
+      "queueCount": 95,
+      "cpuCycles": 25167
+    },
+    {
+      "sequence": 116,
+      "frame": 52,
+      "target": 53,
+      "queueCount": 85,
+      "cpuCycles": 22988
+    },
+    {
+      "sequence": 117,
+      "frame": 53,
+      "target": 54,
+      "queueCount": 89,
+      "cpuCycles": 22429
+    },
+    {
+      "sequence": 118,
+      "frame": 54,
+      "target": 55,
+      "queueCount": 93,
+      "cpuCycles": 24675
+    },
+    {
+      "sequence": 119,
+      "frame": 55,
+      "target": 56,
+      "queueCount": 98,
+      "cpuCycles": 26242
+    },
+    {
+      "sequence": 120,
+      "frame": 56,
+      "target": 57,
+      "queueCount": 91,
+      "cpuCycles": 23265
+    },
+    {
+      "sequence": 121,
+      "frame": 57,
+      "target": 58,
+      "queueCount": 90,
+      "cpuCycles": 23047
+    },
+    {
+      "sequence": 122,
+      "frame": 58,
+      "target": 59,
+      "queueCount": 96,
+      "cpuCycles": 25755
+    },
+    {
+      "sequence": 123,
+      "frame": 59,
+      "target": 60,
+      "queueCount": 99,
+      "cpuCycles": 25035
+    },
+    {
+      "sequence": 124,
+      "frame": 60,
+      "target": 61,
+      "queueCount": 96,
+      "cpuCycles": 26692
+    },
+    {
+      "sequence": 125,
+      "frame": 61,
+      "target": 62,
+      "queueCount": 90,
+      "cpuCycles": 24022
+    },
+    {
+      "sequence": 126,
+      "frame": 62,
+      "target": 63,
+      "queueCount": 107,
+      "cpuCycles": 27980
+    },
+    {
+      "sequence": 127,
+      "frame": 63,
+      "target": 0,
+      "queueCount": 109,
+      "cpuCycles": 26650
+    },
+    {
+      "sequence": 128,
+      "frame": 0,
+      "target": 1,
+      "queueCount": 103,
+      "cpuCycles": 26463
+    },
+    {
+      "sequence": 129,
+      "frame": 1,
+      "target": 2,
+      "queueCount": 97,
+      "cpuCycles": 25348
+    },
+    {
+      "sequence": 130,
+      "frame": 2,
+      "target": 3,
+      "queueCount": 108,
+      "cpuCycles": 27064
+    },
+    {
+      "sequence": 131,
+      "frame": 3,
+      "target": 4,
+      "queueCount": 86,
+      "cpuCycles": 22628
+    },
+    {
+      "sequence": 132,
+      "frame": 4,
+      "target": 5,
+      "queueCount": 99,
+      "cpuCycles": 25438
+    },
+    {
+      "sequence": 133,
+      "frame": 5,
+      "target": 6,
+      "queueCount": 111,
+      "cpuCycles": 27500
+    },
+    {
+      "sequence": 134,
+      "frame": 6,
+      "target": 7,
+      "queueCount": 85,
+      "cpuCycles": 22876
+    },
+    {
+      "sequence": 135,
+      "frame": 7,
+      "target": 8,
+      "queueCount": 81,
+      "cpuCycles": 23106
+    },
+    {
+      "sequence": 136,
+      "frame": 8,
+      "target": 9,
+      "queueCount": 106,
+      "cpuCycles": 26206
+    },
+    {
+      "sequence": 137,
+      "frame": 9,
+      "target": 10,
+      "queueCount": 87,
+      "cpuCycles": 23039
+    },
+    {
+      "sequence": 138,
+      "frame": 10,
+      "target": 11,
+      "queueCount": 93,
+      "cpuCycles": 24891
+    },
+    {
+      "sequence": 139,
+      "frame": 11,
+      "target": 12,
+      "queueCount": 78,
+      "cpuCycles": 22491
+    },
+    {
+      "sequence": 140,
+      "frame": 12,
+      "target": 13,
+      "queueCount": 107,
+      "cpuCycles": 28483
+    },
+    {
+      "sequence": 141,
+      "frame": 13,
+      "target": 14,
+      "queueCount": 70,
+      "cpuCycles": 19976
+    },
+    {
+      "sequence": 142,
+      "frame": 14,
+      "target": 15,
+      "queueCount": 99,
+      "cpuCycles": 25793
+    },
+    {
+      "sequence": 143,
+      "frame": 15,
+      "target": 16,
+      "queueCount": 90,
+      "cpuCycles": 24641
+    },
+    {
+      "sequence": 144,
+      "frame": 16,
+      "target": 17,
+      "queueCount": 92,
+      "cpuCycles": 23781
+    },
+    {
+      "sequence": 145,
+      "frame": 17,
+      "target": 18,
+      "queueCount": 86,
+      "cpuCycles": 22878
+    },
+    {
+      "sequence": 146,
+      "frame": 18,
+      "target": 19,
+      "queueCount": 101,
+      "cpuCycles": 25971
+    },
+    {
+      "sequence": 147,
+      "frame": 19,
+      "target": 20,
+      "queueCount": 102,
+      "cpuCycles": 27306
+    },
+    {
+      "sequence": 148,
+      "frame": 20,
+      "target": 21,
+      "queueCount": 83,
+      "cpuCycles": 22900
+    },
+    {
+      "sequence": 149,
+      "frame": 21,
+      "target": 22,
+      "queueCount": 86,
+      "cpuCycles": 22174
+    },
+    {
+      "sequence": 150,
+      "frame": 22,
+      "target": 23,
+      "queueCount": 90,
+      "cpuCycles": 24433
+    },
+    {
+      "sequence": 151,
+      "frame": 23,
+      "target": 24,
+      "queueCount": 87,
+      "cpuCycles": 23821
+    },
+    {
+      "sequence": 152,
+      "frame": 24,
+      "target": 25,
+      "queueCount": 92,
+      "cpuCycles": 24265
+    },
+    {
+      "sequence": 153,
+      "frame": 25,
+      "target": 26,
+      "queueCount": 91,
+      "cpuCycles": 23849
+    },
+    {
+      "sequence": 154,
+      "frame": 26,
+      "target": 27,
+      "queueCount": 97,
+      "cpuCycles": 26366
+    },
+    {
+      "sequence": 155,
+      "frame": 27,
+      "target": 28,
+      "queueCount": 97,
+      "cpuCycles": 24736
+    },
+    {
+      "sequence": 156,
+      "frame": 28,
+      "target": 29,
+      "queueCount": 90,
+      "cpuCycles": 25340
+    },
+    {
+      "sequence": 157,
+      "frame": 29,
+      "target": 30,
+      "queueCount": 87,
+      "cpuCycles": 23653
+    },
+    {
+      "sequence": 158,
+      "frame": 30,
+      "target": 31,
+      "queueCount": 101,
+      "cpuCycles": 26239
+    },
+    {
+      "sequence": 159,
+      "frame": 31,
+      "target": 32,
+      "queueCount": 99,
+      "cpuCycles": 24765
+    },
+    {
+      "sequence": 160,
+      "frame": 32,
+      "target": 33,
+      "queueCount": 95,
+      "cpuCycles": 24778
+    },
+    {
+      "sequence": 161,
+      "frame": 33,
+      "target": 34,
+      "queueCount": 94,
+      "cpuCycles": 24314
+    },
+    {
+      "sequence": 162,
+      "frame": 34,
+      "target": 35,
+      "queueCount": 104,
+      "cpuCycles": 26300
+    },
+    {
+      "sequence": 163,
+      "frame": 35,
+      "target": 36,
+      "queueCount": 83,
+      "cpuCycles": 22574
+    },
+    {
+      "sequence": 164,
+      "frame": 36,
+      "target": 37,
+      "queueCount": 97,
+      "cpuCycles": 24274
+    },
+    {
+      "sequence": 165,
+      "frame": 37,
+      "target": 38,
+      "queueCount": 105,
+      "cpuCycles": 26507
+    },
+    {
+      "sequence": 166,
+      "frame": 38,
+      "target": 39,
+      "queueCount": 84,
+      "cpuCycles": 23115
+    },
+    {
+      "sequence": 167,
+      "frame": 39,
+      "target": 40,
+      "queueCount": 83,
+      "cpuCycles": 23732
+    },
+    {
+      "sequence": 168,
+      "frame": 40,
+      "target": 41,
+      "queueCount": 104,
+      "cpuCycles": 25531
+    },
+    {
+      "sequence": 169,
+      "frame": 41,
+      "target": 42,
+      "queueCount": 87,
+      "cpuCycles": 23033
+    },
+    {
+      "sequence": 170,
+      "frame": 42,
+      "target": 43,
+      "queueCount": 105,
+      "cpuCycles": 27631
+    },
+    {
+      "sequence": 171,
+      "frame": 43,
+      "target": 44,
+      "queueCount": 77,
+      "cpuCycles": 22306
+    },
+    {
+      "sequence": 172,
+      "frame": 44,
+      "target": 45,
+      "queueCount": 107,
+      "cpuCycles": 27452
+    },
+    {
+      "sequence": 173,
+      "frame": 45,
+      "target": 46,
+      "queueCount": 77,
+      "cpuCycles": 21576
+    },
+    {
+      "sequence": 174,
+      "frame": 46,
+      "target": 47,
+      "queueCount": 95,
+      "cpuCycles": 24782
+    },
+    {
+      "sequence": 175,
+      "frame": 47,
+      "target": 48,
+      "queueCount": 90,
+      "cpuCycles": 24068
+    },
+    {
+      "sequence": 176,
+      "frame": 48,
+      "target": 49,
+      "queueCount": 89,
+      "cpuCycles": 23451
+    },
+    {
+      "sequence": 177,
+      "frame": 49,
+      "target": 50,
+      "queueCount": 88,
+      "cpuCycles": 23348
+    },
+    {
+      "sequence": 178,
+      "frame": 50,
+      "target": 51,
+      "queueCount": 98,
+      "cpuCycles": 25582
+    },
+    {
+      "sequence": 179,
+      "frame": 51,
+      "target": 52,
+      "queueCount": 95,
+      "cpuCycles": 25167
+    },
+    {
+      "sequence": 180,
+      "frame": 52,
+      "target": 53,
+      "queueCount": 85,
+      "cpuCycles": 22988
+    },
+    {
+      "sequence": 181,
+      "frame": 53,
+      "target": 54,
+      "queueCount": 89,
+      "cpuCycles": 22429
+    },
+    {
+      "sequence": 182,
+      "frame": 54,
+      "target": 55,
+      "queueCount": 93,
+      "cpuCycles": 24675
+    },
+    {
+      "sequence": 183,
+      "frame": 55,
+      "target": 56,
+      "queueCount": 98,
+      "cpuCycles": 26242
+    },
+    {
+      "sequence": 184,
+      "frame": 56,
+      "target": 57,
+      "queueCount": 91,
+      "cpuCycles": 23265
+    },
+    {
+      "sequence": 185,
+      "frame": 57,
+      "target": 58,
+      "queueCount": 90,
+      "cpuCycles": 23047
+    },
+    {
+      "sequence": 186,
+      "frame": 58,
+      "target": 59,
+      "queueCount": 96,
+      "cpuCycles": 25755
+    },
+    {
+      "sequence": 187,
+      "frame": 59,
+      "target": 60,
+      "queueCount": 99,
+      "cpuCycles": 25035
+    },
+    {
+      "sequence": 188,
+      "frame": 60,
+      "target": 61,
+      "queueCount": 96,
+      "cpuCycles": 26692
+    },
+    {
+      "sequence": 189,
+      "frame": 61,
+      "target": 62,
+      "queueCount": 90,
+      "cpuCycles": 24022
+    },
+    {
+      "sequence": 190,
+      "frame": 62,
+      "target": 63,
+      "queueCount": 107,
+      "cpuCycles": 27980
+    },
+    {
+      "sequence": 191,
+      "frame": 63,
+      "target": 0,
+      "queueCount": 109,
+      "cpuCycles": 26650
+    },
+    {
+      "sequence": 192,
+      "frame": 0,
+      "target": 1,
+      "queueCount": 103,
+      "cpuCycles": 26463
+    },
+    {
+      "sequence": 193,
+      "frame": 1,
+      "target": 2,
+      "queueCount": 97,
+      "cpuCycles": 25348
+    }
+  ],
+  "flushes": [
+    {
+      "sequence": 0,
+      "target": 1,
+      "stores": 103,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3316
+    },
+    {
+      "sequence": 1,
+      "target": 2,
+      "stores": 97,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 2,
+      "target": 3,
+      "stores": 108,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3476
+    },
+    {
+      "sequence": 3,
+      "target": 4,
+      "stores": 86,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 4,
+      "target": 5,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 5,
+      "target": 6,
+      "stores": 111,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3572
+    },
+    {
+      "sequence": 6,
+      "target": 7,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 7,
+      "target": 8,
+      "stores": 81,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2612
+    },
+    {
+      "sequence": 8,
+      "target": 9,
+      "stores": 106,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3412
+    },
+    {
+      "sequence": 9,
+      "target": 10,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 10,
+      "target": 11,
+      "stores": 93,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 11,
+      "target": 12,
+      "stores": 78,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2516
+    },
+    {
+      "sequence": 12,
+      "target": 13,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 13,
+      "target": 14,
+      "stores": 70,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2260
+    },
+    {
+      "sequence": 14,
+      "target": 15,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 15,
+      "target": 16,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 16,
+      "target": 17,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 17,
+      "target": 18,
+      "stores": 86,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 18,
+      "target": 19,
+      "stores": 101,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 19,
+      "target": 20,
+      "stores": 102,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3284
+    },
+    {
+      "sequence": 20,
+      "target": 21,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 21,
+      "target": 22,
+      "stores": 86,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 22,
+      "target": 23,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 23,
+      "target": 24,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 24,
+      "target": 25,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 25,
+      "target": 26,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 26,
+      "target": 27,
+      "stores": 97,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 27,
+      "target": 28,
+      "stores": 97,
+      "worstSlack": 6540,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 28,
+      "target": 29,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 29,
+      "target": 30,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 30,
+      "target": 31,
+      "stores": 101,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 31,
+      "target": 32,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 32,
+      "target": 33,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 33,
+      "target": 34,
+      "stores": 94,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3028
+    },
+    {
+      "sequence": 34,
+      "target": 35,
+      "stores": 104,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 35,
+      "target": 36,
+      "stores": 83,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 36,
+      "target": 37,
+      "stores": 97,
+      "worstSlack": 6884,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 37,
+      "target": 38,
+      "stores": 105,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 38,
+      "target": 39,
+      "stores": 84,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2708
+    },
+    {
+      "sequence": 39,
+      "target": 40,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 40,
+      "target": 41,
+      "stores": 104,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 41,
+      "target": 42,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 42,
+      "target": 43,
+      "stores": 105,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 43,
+      "target": 44,
+      "stores": 77,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 44,
+      "target": 45,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 45,
+      "target": 46,
+      "stores": 77,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 46,
+      "target": 47,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 47,
+      "target": 48,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 48,
+      "target": 49,
+      "stores": 89,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 49,
+      "target": 50,
+      "stores": 88,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2836
+    },
+    {
+      "sequence": 50,
+      "target": 51,
+      "stores": 98,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 51,
+      "target": 52,
+      "stores": 95,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 52,
+      "target": 53,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 53,
+      "target": 54,
+      "stores": 89,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 54,
+      "target": 55,
+      "stores": 93,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 55,
+      "target": 56,
+      "stores": 98,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 56,
+      "target": 57,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 57,
+      "target": 58,
+      "stores": 90,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 58,
+      "target": 59,
+      "stores": 96,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 59,
+      "target": 60,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 60,
+      "target": 61,
+      "stores": 96,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 61,
+      "target": 62,
+      "stores": 90,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 62,
+      "target": 63,
+      "stores": 107,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 63,
+      "target": 0,
+      "stores": 109,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3508
+    },
+    {
+      "sequence": 64,
+      "target": 1,
+      "stores": 103,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3316
+    },
+    {
+      "sequence": 65,
+      "target": 2,
+      "stores": 97,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 66,
+      "target": 3,
+      "stores": 108,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3476
+    },
+    {
+      "sequence": 67,
+      "target": 4,
+      "stores": 86,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 68,
+      "target": 5,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 69,
+      "target": 6,
+      "stores": 111,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3572
+    },
+    {
+      "sequence": 70,
+      "target": 7,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 71,
+      "target": 8,
+      "stores": 81,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2612
+    },
+    {
+      "sequence": 72,
+      "target": 9,
+      "stores": 106,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3412
+    },
+    {
+      "sequence": 73,
+      "target": 10,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 74,
+      "target": 11,
+      "stores": 93,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 75,
+      "target": 12,
+      "stores": 78,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2516
+    },
+    {
+      "sequence": 76,
+      "target": 13,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 77,
+      "target": 14,
+      "stores": 70,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2260
+    },
+    {
+      "sequence": 78,
+      "target": 15,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 79,
+      "target": 16,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 80,
+      "target": 17,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 81,
+      "target": 18,
+      "stores": 86,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 82,
+      "target": 19,
+      "stores": 101,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 83,
+      "target": 20,
+      "stores": 102,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3284
+    },
+    {
+      "sequence": 84,
+      "target": 21,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 85,
+      "target": 22,
+      "stores": 86,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 86,
+      "target": 23,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 87,
+      "target": 24,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 88,
+      "target": 25,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 89,
+      "target": 26,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 90,
+      "target": 27,
+      "stores": 97,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 91,
+      "target": 28,
+      "stores": 97,
+      "worstSlack": 6540,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 92,
+      "target": 29,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 93,
+      "target": 30,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 94,
+      "target": 31,
+      "stores": 101,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 95,
+      "target": 32,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 96,
+      "target": 33,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 97,
+      "target": 34,
+      "stores": 94,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3028
+    },
+    {
+      "sequence": 98,
+      "target": 35,
+      "stores": 104,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 99,
+      "target": 36,
+      "stores": 83,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 100,
+      "target": 37,
+      "stores": 97,
+      "worstSlack": 6884,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 101,
+      "target": 38,
+      "stores": 105,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 102,
+      "target": 39,
+      "stores": 84,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2708
+    },
+    {
+      "sequence": 103,
+      "target": 40,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 104,
+      "target": 41,
+      "stores": 104,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 105,
+      "target": 42,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 106,
+      "target": 43,
+      "stores": 105,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 107,
+      "target": 44,
+      "stores": 77,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 108,
+      "target": 45,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 109,
+      "target": 46,
+      "stores": 77,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 110,
+      "target": 47,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 111,
+      "target": 48,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 112,
+      "target": 49,
+      "stores": 89,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 113,
+      "target": 50,
+      "stores": 88,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2836
+    },
+    {
+      "sequence": 114,
+      "target": 51,
+      "stores": 98,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 115,
+      "target": 52,
+      "stores": 95,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 116,
+      "target": 53,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 117,
+      "target": 54,
+      "stores": 89,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 118,
+      "target": 55,
+      "stores": 93,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 119,
+      "target": 56,
+      "stores": 98,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 120,
+      "target": 57,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 121,
+      "target": 58,
+      "stores": 90,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 122,
+      "target": 59,
+      "stores": 96,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 123,
+      "target": 60,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 124,
+      "target": 61,
+      "stores": 96,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 125,
+      "target": 62,
+      "stores": 90,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 126,
+      "target": 63,
+      "stores": 107,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 127,
+      "target": 0,
+      "stores": 109,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3508
+    },
+    {
+      "sequence": 128,
+      "target": 1,
+      "stores": 103,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3316
+    },
+    {
+      "sequence": 129,
+      "target": 2,
+      "stores": 97,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 130,
+      "target": 3,
+      "stores": 108,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3476
+    },
+    {
+      "sequence": 131,
+      "target": 4,
+      "stores": 86,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 132,
+      "target": 5,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 133,
+      "target": 6,
+      "stores": 111,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3572
+    },
+    {
+      "sequence": 134,
+      "target": 7,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 135,
+      "target": 8,
+      "stores": 81,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2612
+    },
+    {
+      "sequence": 136,
+      "target": 9,
+      "stores": 106,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3412
+    },
+    {
+      "sequence": 137,
+      "target": 10,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 138,
+      "target": 11,
+      "stores": 93,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 139,
+      "target": 12,
+      "stores": 78,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2516
+    },
+    {
+      "sequence": 140,
+      "target": 13,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 141,
+      "target": 14,
+      "stores": 70,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2260
+    },
+    {
+      "sequence": 142,
+      "target": 15,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 143,
+      "target": 16,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 144,
+      "target": 17,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 145,
+      "target": 18,
+      "stores": 86,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 146,
+      "target": 19,
+      "stores": 101,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 147,
+      "target": 20,
+      "stores": 102,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3284
+    },
+    {
+      "sequence": 148,
+      "target": 21,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 149,
+      "target": 22,
+      "stores": 86,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2772
+    },
+    {
+      "sequence": 150,
+      "target": 23,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 151,
+      "target": 24,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 152,
+      "target": 25,
+      "stores": 92,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2964
+    },
+    {
+      "sequence": 153,
+      "target": 26,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 154,
+      "target": 27,
+      "stores": 97,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 155,
+      "target": 28,
+      "stores": 97,
+      "worstSlack": 6540,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 156,
+      "target": 29,
+      "stores": 90,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 157,
+      "target": 30,
+      "stores": 87,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 158,
+      "target": 31,
+      "stores": 101,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3252
+    },
+    {
+      "sequence": 159,
+      "target": 32,
+      "stores": 99,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 160,
+      "target": 33,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 161,
+      "target": 34,
+      "stores": 94,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3028
+    },
+    {
+      "sequence": 162,
+      "target": 35,
+      "stores": 104,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 163,
+      "target": 36,
+      "stores": 83,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 164,
+      "target": 37,
+      "stores": 97,
+      "worstSlack": 6884,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    },
+    {
+      "sequence": 165,
+      "target": 38,
+      "stores": 105,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 166,
+      "target": 39,
+      "stores": 84,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2708
+    },
+    {
+      "sequence": 167,
+      "target": 40,
+      "stores": 83,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2676
+    },
+    {
+      "sequence": 168,
+      "target": 41,
+      "stores": 104,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3348
+    },
+    {
+      "sequence": 169,
+      "target": 42,
+      "stores": 87,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2804
+    },
+    {
+      "sequence": 170,
+      "target": 43,
+      "stores": 105,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3380
+    },
+    {
+      "sequence": 171,
+      "target": 44,
+      "stores": 77,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 172,
+      "target": 45,
+      "stores": 107,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 173,
+      "target": 46,
+      "stores": 77,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2484
+    },
+    {
+      "sequence": 174,
+      "target": 47,
+      "stores": 95,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 175,
+      "target": 48,
+      "stores": 90,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 176,
+      "target": 49,
+      "stores": 89,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 177,
+      "target": 50,
+      "stores": 88,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2836
+    },
+    {
+      "sequence": 178,
+      "target": 51,
+      "stores": 98,
+      "worstSlack": 6508,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 179,
+      "target": 52,
+      "stores": 95,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3060
+    },
+    {
+      "sequence": 180,
+      "target": 53,
+      "stores": 85,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2740
+    },
+    {
+      "sequence": 181,
+      "target": 54,
+      "stores": 89,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2868
+    },
+    {
+      "sequence": 182,
+      "target": 55,
+      "stores": 93,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2996
+    },
+    {
+      "sequence": 183,
+      "target": 56,
+      "stores": 98,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3156
+    },
+    {
+      "sequence": 184,
+      "target": 57,
+      "stores": 91,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2932
+    },
+    {
+      "sequence": 185,
+      "target": 58,
+      "stores": 90,
+      "worstSlack": 5940,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 186,
+      "target": 59,
+      "stores": 96,
+      "worstSlack": 6004,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 187,
+      "target": 60,
+      "stores": 99,
+      "worstSlack": 6572,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3188
+    },
+    {
+      "sequence": 188,
+      "target": 61,
+      "stores": 96,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3092
+    },
+    {
+      "sequence": 189,
+      "target": 62,
+      "stores": 90,
+      "worstSlack": 5972,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 2900
+    },
+    {
+      "sequence": 190,
+      "target": 63,
+      "stores": 107,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3444
+    },
+    {
+      "sequence": 191,
+      "target": 0,
+      "stores": 109,
+      "worstSlack": 6036,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3508
+    },
+    {
+      "sequence": 192,
+      "target": 1,
+      "stores": 103,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3316
+    },
+    {
+      "sequence": 193,
+      "target": 2,
+      "stores": 97,
+      "worstSlack": 6068,
+      "postWaitDriverCycles": 9,
+      "cpuCycles": 3124
+    }
+  ]
+}

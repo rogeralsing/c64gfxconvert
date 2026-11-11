@@ -491,3 +491,49 @@ junction differences. The existing 168-glyph font is unchanged.
 
 Primary API references: [Three.js WebGPURenderer](https://threejs.org/manual/pages/webgpurenderer),
 [Dawn for Node](https://github.com/dawn-gpu/node-webgpu).
+
+## Flagship star: very large, lit, endless rotation
+
+`demo-flagship-star.mjs` renders a six-tip stellated-cube star that occupies up
+to 272 × 196 physical pixels. It turns around its actual model-space `(1,1,1)`
+three-fold symmetry axis. The orientation is `base * periodicWobble *
+diagonalSpin`, with the spin unwrapped across periods. A 120-degree turn maps
+all 14 vertices and 24 facets onto the original geometry. The 96-frame film
+therefore repeats without resetting its physical pose; a complete revolution
+takes 288 frames, or 11.52 seconds at nominal 25 fps.
+
+The orthographic camera uses a square ±53 frustum on the 320 × 200 raster,
+retaining the existing 1.6× horizontal anamorphic projection. This small fit
+adjustment leaves every arm inside the screen throughout the corrected spin.
+An independent 960-pose geometric sweep and actual GPU masks both verify fit.
+
+Each facet follows the declared fixed world light in six exact gray levels
+(0, 51, 102, 153, 204, 255). Ordered 4 × 4 Bayer conversion produces the bitmap;
+facet densities can change as their normals turn toward the light. The film
+uses the frozen 256-glyph experimental font in `universal-font.bin` through
+`bitmap-to-chars.cjs --fixed-font`. That font is retained for reproducibility;
+its older content training predates the raster-layout correction documented
+in [the font studies](../universal/README.md).
+
+Build and verify from the repository root:
+
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-flagship-star/native \
+  --variant literal-front
+```
+
+The verifier independently reconstructs every unwrapped orientation, proves
+vertex and facet permutations plus matching endpoint lighting, and checks
+angular velocity across the symmetry boundary. Actual GPU renders at 120 and
+240 degrees must match the first image. This prevents a modulo reset from
+passing as a seamless rotation.
+
+The [measured program, actual C64 preview and receipts](results/flagship-star/README.md)
+retain the corrected source and unchanged font. The literal movie uses 20,419
+bytes, leaving 20,541 bytes in the current data arena; meaningful loaded code,
+font, tables and state total 23,710 bytes. Character error is 2.279% within
+active image bounds, with no white pixels outside the object mask. Full and
+empty source tiles remain exact.
