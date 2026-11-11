@@ -1,0 +1,8 @@
+# Local sources are downloaded and verified by fetch_sources.py.
+sources/*.mod
+sources/sid-examples/
+
+# Large generated searches, native emulator builds and raw recordings stay local.
+results/
+.venv/
+__pycache__/

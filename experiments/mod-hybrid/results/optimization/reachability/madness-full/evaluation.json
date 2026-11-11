@@ -1,0 +1,135 @@
+{
+  "source": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/more-mods/4mats-madness/full/arrangement.json",
+  "source_sha256": "111cce5b20ec5f99ead64e7475a0548db6497f4c03deec6ae56ac3b7f42975cd",
+  "candidate": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/reachability/madness-full/arrangement.json",
+  "duration_s": 407.04,
+  "stored_bank_and_marker_bytes_before": 15425,
+  "stored_bank_and_marker_bytes_after": 15346,
+  "bytes_saved": 79,
+  "dac_bytes_compared": 1566544,
+  "dac_mismatches": 0,
+  "dac_sha256": "72ff07850ca5d9846ae4720b0aabf4e8008ea01cfe30ca24003bfdd9448cbebf",
+  "samples": [
+    {
+      "id": 1,
+      "action": "unreachable_tail",
+      "maximum_read_index_plus_one": 1332,
+      "original_effective_end": 1411,
+      "before_stored_with_markers": 1412,
+      "after_stored_with_markers": 1333
+    },
+    {
+      "id": 2,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 4021,
+      "original_effective_end": 4021,
+      "before_stored_with_markers": 4024,
+      "after_stored_with_markers": 4024
+    },
+    {
+      "id": 3,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1628,
+      "original_effective_end": 1628,
+      "before_stored_with_markers": 1631,
+      "after_stored_with_markers": 1631
+    },
+    {
+      "id": 4,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 2645,
+      "original_effective_end": 2645,
+      "before_stored_with_markers": 2648,
+      "after_stored_with_markers": 2648
+    },
+    {
+      "id": 5,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 130,
+      "original_effective_end": 130,
+      "before_stored_with_markers": 388,
+      "after_stored_with_markers": 388
+    },
+    {
+      "id": 6,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 553,
+      "original_effective_end": 553,
+      "before_stored_with_markers": 554,
+      "after_stored_with_markers": 554
+    },
+    {
+      "id": 8,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 1056,
+      "original_effective_end": 1056,
+      "before_stored_with_markers": 1059,
+      "after_stored_with_markers": 1059
+    },
+    {
+      "id": 9,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 350,
+      "original_effective_end": 350,
+      "before_stored_with_markers": 351,
+      "after_stored_with_markers": 351
+    },
+    {
+      "id": 10,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 595,
+      "original_effective_end": 595,
+      "before_stored_with_markers": 596,
+      "after_stored_with_markers": 596
+    },
+    {
+      "id": 11,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 131,
+      "original_effective_end": 131,
+      "before_stored_with_markers": 132,
+      "after_stored_with_markers": 132
+    },
+    {
+      "id": 12,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 307,
+      "original_effective_end": 307,
+      "before_stored_with_markers": 308,
+      "after_stored_with_markers": 308
+    },
+    {
+      "id": 13,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 524,
+      "original_effective_end": 524,
+      "before_stored_with_markers": 525,
+      "after_stored_with_markers": 525
+    },
+    {
+      "id": 14,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 810,
+      "original_effective_end": 810,
+      "before_stored_with_markers": 811,
+      "after_stored_with_markers": 811
+    },
+    {
+      "id": 15,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 12,
+      "original_effective_end": 12,
+      "before_stored_with_markers": 267,
+      "after_stored_with_markers": 267
+    },
+    {
+      "id": 16,
+      "action": "unchanged",
+      "maximum_read_index_plus_one": 716,
+      "original_effective_end": 716,
+      "before_stored_with_markers": 719,
+      "after_stored_with_markers": 719
+    }
+  ],
+  "scope": "Exact digital equality for the complete input score, including muted reads. Actual C64 execution is a separate verification."
+}

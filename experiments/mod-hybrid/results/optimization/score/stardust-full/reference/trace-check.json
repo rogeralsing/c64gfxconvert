@@ -1,0 +1,14 @@
+{
+  "trace_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/stardust-full/vice/registers.txt",
+  "trace_sha256": "032358bcd58770904151bd5d69e8969f8f941b62ff239a5390c773ddb617dbfe",
+  "anchor_cycle": 2146257,
+  "bytes_compared": 923670,
+  "mismatched_bytes": 0,
+  "all_dac_bytes_match": true,
+  "sample_interval_min_cycles": 197,
+  "sample_interval_max_cycles": 331,
+  "sample_interval_median_cycles": 256.0,
+  "examples": [],
+  "alignment": "Only the externally supplied first sample-clock D418 write. No DAC-value matching, local shifting, time warping or audio correlation.",
+  "capture_program_sha256": "1add8d1c74878eb3c4638c40a748754fdbdafd3f6ad0e493d24573343816d462"
+}

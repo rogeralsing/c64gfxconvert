@@ -8,6 +8,13 @@ overlays, and native exports. Image processing stays in your browser.
 
 <img src="assets/images/c64-studio-layers.png" alt="C64 Studio showing a layered FLI conversion and per-layer image settings" width="960">
 
+## Sampled music experiments
+
+The [four-channel MOD player](experiments/mod-hybrid/REPRODUCE.md) builds complete
+Stardust Memories, Hyperbased and Madness programs for a PAL C64. The
+[optimization study](experiments/mod-hybrid/results/optimization/README.md)
+includes verified PRGs, full recordings and measured compression tradeoffs.
+
 ## Run locally
 
 Open `index.html` in a modern browser. No build step or server is required.

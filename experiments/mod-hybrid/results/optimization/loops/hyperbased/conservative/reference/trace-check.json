@@ -1,0 +1,13 @@
+{
+  "trace_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/loops/hyperbased/conservative/vice/registers.txt",
+  "trace_sha256": "ee6696bb544d3734ed44187131ac34e7c3bc4231ebf3c9098f8999b96e3dfc81",
+  "anchor_cycle": 2145647,
+  "bytes_compared": 192431,
+  "mismatched_bytes": 0,
+  "all_dac_bytes_match": true,
+  "sample_interval_min_cycles": 197,
+  "sample_interval_max_cycles": 352,
+  "sample_interval_median_cycles": 256.0,
+  "examples": [],
+  "alignment": "Only the externally supplied first sample-clock D418 write. No DAC-value matching, local shifting, time warping or audio correlation."
+}

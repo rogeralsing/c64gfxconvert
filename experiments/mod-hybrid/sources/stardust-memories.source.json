@@ -1,0 +1,145 @@
+{
+  "title": "Stardust Memories",
+  "composer": "Jester / Sanity (Volker Tripp)",
+  "demo": "World of Commodore, Sanity, November 1992",
+  "source_url": "https://media.demozoo.org/music/da/45/stardust.MOD",
+  "source_page": "https://demozoo.org/music/21462/",
+  "listen_page": "https://scenesat.com/track/755",
+  "format": "ProTracker MOD, M.K.",
+  "channels": 4,
+  "bytes": 152652,
+  "md5": "5fe8b898803c0c08afe317e302f64726",
+  "sha256": "e8a50357107f3e355af9380f81550445ebbd6cddd840f5f34008fa1ddda318bf",
+  "orders": 31,
+  "patterns": 19,
+  "active_samples": 16,
+  "sample_bytes": 132112,
+  "sample_headers": [
+    {
+      "id": 1,
+      "bytes": 10320,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 2,
+      "bytes": 7168,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 3,
+      "bytes": 2416,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 4,
+      "bytes": 1616,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 5,
+      "bytes": 3614,
+      "volume": 64,
+      "loop_start": 2770,
+      "loop_bytes": 844
+    },
+    {
+      "id": 6,
+      "bytes": 7904,
+      "volume": 64,
+      "loop_start": 3324,
+      "loop_bytes": 4580
+    },
+    {
+      "id": 7,
+      "bytes": 2192,
+      "volume": 48,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 8,
+      "bytes": 9936,
+      "volume": 64,
+      "loop_start": 4218,
+      "loop_bytes": 5718
+    },
+    {
+      "id": 9,
+      "bytes": 9968,
+      "volume": 64,
+      "loop_start": 4272,
+      "loop_bytes": 5696
+    },
+    {
+      "id": 10,
+      "bytes": 2158,
+      "volume": 48,
+      "loop_start": 454,
+      "loop_bytes": 1704
+    },
+    {
+      "id": 11,
+      "bytes": 43522,
+      "volume": 64,
+      "loop_start": 6194,
+      "loop_bytes": 37328
+    },
+    {
+      "id": 12,
+      "bytes": 1104,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 13,
+      "bytes": 10640,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 14,
+      "bytes": 7762,
+      "volume": 64,
+      "loop_start": 2536,
+      "loop_bytes": 5226
+    },
+    {
+      "id": 15,
+      "bytes": 2304,
+      "volume": 64,
+      "loop_start": 0,
+      "loop_bytes": 2
+    },
+    {
+      "id": 16,
+      "bytes": 9488,
+      "volume": 53,
+      "loop_start": 9362,
+      "loop_bytes": 126
+    }
+  ],
+  "effect_commands_in_stored_patterns": {
+    "0": 1,
+    "1": 19,
+    "3": 145,
+    "4": 272,
+    "6": 37,
+    "A": 743,
+    "C": 1215,
+    "D": 1,
+    "F": 4
+  },
+  "variant_note": "This is the Demozoo download: 152652 bytes, 19 stored patterns. The Mod Archive entry 59344 catalogs a different binary variant (153676 bytes, 20 patterns); its checksum does not identify this file.",
+  "analysis_scope": "Static header/pattern inspection only. Playback and C64 conversion are not yet verified. Counts describe stored patterns, not expanded song execution.",
+  "rights": "Original authorship and copyright retained. This downloaded module is not a CC0 laboratory recording."
+}

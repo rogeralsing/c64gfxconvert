@@ -1,0 +1,63 @@
+{
+  "status": "pass",
+  "recordings": [
+    {
+      "song": "hyperbased",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/audio/hyperbased-c64-full.wav",
+      "sha256": "533b782e8111b05c463a0ca718acc41ab27968af215ad94f7e8178bae9193ae4",
+      "duration_s": 333.84,
+      "frames": 7361172,
+      "sample_rate": 22050,
+      "channels": 1,
+      "peak": 0.920013427734375,
+      "rms": 0.1586664698380327,
+      "raw_vice_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/hyperbased-full-gain3/vice/vice-raw.wav",
+      "raw_vice_sha256": "470011927f8993f766d1f7f2a892b58fcb9f2b9df90319e6ae9db2e0774e1d96",
+      "program_sha256": "0434f8171b94a1c6f44d9923b2143fc91b8688443061f5db3b49090297a4a980",
+      "runtime": {
+        "registers": {
+          "played_tick_count": 16692,
+          "underrun_counter": 0
+        },
+        "audio": {
+          "played_tick_count": 16692,
+          "underrun_counter": 0
+        }
+      },
+      "crop_start_frame": 48034,
+      "constant_listening_gain": 4.4649899330539125,
+      "processed_matches_raw_crop": true,
+      "preview": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/audio/hyperbased-c64-30-50s.wav",
+      "processing": "Actual C64 program in VICE. Clock-anchored crop, DC removal and constant gain only; no old versions, EQ, limiter, pitch/timing change or host instrument mixing."
+    },
+    {
+      "song": "4mats-madness",
+      "file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/audio/4mats-madness-c64-full.wav",
+      "sha256": "c463fdf1726a81495211c306120720e4ae30071158374b27b7f9986cc959f5af",
+      "duration_s": 407.04,
+      "frames": 8975232,
+      "sample_rate": 22050,
+      "channels": 1,
+      "peak": 0.920013427734375,
+      "rms": 0.21994542507242681,
+      "raw_vice_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/combined/madness/full-vice/vice-raw.wav",
+      "raw_vice_sha256": "20c142f93f5c2082f06958bf07ad1f1e065f9df8492c23fa1fd556eb42ddfee4",
+      "program_sha256": "3961595a2efa07e0338f058dd7d56ae1006aac6210aed397c104e0884f590df6",
+      "runtime": {
+        "registers": {
+          "played_tick_count": 20352,
+          "underrun_counter": 0
+        },
+        "audio": {
+          "played_tick_count": 20352,
+          "underrun_counter": 0
+        }
+      },
+      "crop_start_frame": 48026,
+      "constant_listening_gain": 4.714342911619812,
+      "processed_matches_raw_crop": true,
+      "preview": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/audio/4mats-madness-c64-30-50s.wav",
+      "processing": "Actual C64 program in VICE. Clock-anchored crop, DC removal and constant gain only; no old versions, EQ, limiter, pitch/timing change or host instrument mixing."
+    }
+  ]
+}

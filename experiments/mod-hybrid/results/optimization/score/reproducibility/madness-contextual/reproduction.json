@@ -1,0 +1,15 @@
+{
+  "song": "madness-contextual",
+  "status": "byte_identical_current_source_reproduction",
+  "original_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/madness-contextual-dictionary8/c64/build.json",
+  "original_program_sha256": "3961595a2efa07e0338f058dd7d56ae1006aac6210aed397c104e0884f590df6",
+  "reproduced_program_sha256": "3961595a2efa07e0338f058dd7d56ae1006aac6210aed397c104e0884f590df6",
+  "program_bytes": 45039,
+  "all_named_labels_identical": true,
+  "current_source_sha256": {
+    "pcm4_build.py": "dd500df0f699924d1c1d78bd090bdb2a1d42e9593efd74cd9048d5222cabb0eb",
+    "pcm4_player.asm": "b54351e7f8387ba75756688dddab1dd9829077f6edcd41fe9be9f8f5fa003278",
+    "score_dictionary.py": "c1aa83e7d822f34db70d0bf4b1f81fed5d5474fece54dda7e7cf3bb0a69615ef"
+  },
+  "reproduced_build": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/results/optimization/score/reproducibility/madness-contextual/c64/build.json"
+}

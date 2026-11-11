@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "purpose": "Captured real inputs that exposed native SID reset state leakage; no dependency on generated search output at replay time",
+  "cases": {
+    "layered": {
+      "patch": {
+        "filter_mode": "bandpass",
+        "noise_hz": 1038.4114232152353,
+        "noise_decay": 3,
+        "noise_release": 4,
+        "noise_gate_s": 0.008173636339514906,
+        "cutoff_start": 0.2740448456441509,
+        "cutoff_end": 0.438322532101517,
+        "filter_tau_s": 0.011413561715954644,
+        "resonance": 4,
+        "body_hz": 275.1378734721477,
+        "body_pitch_start_semitones": 7.446104421309528,
+        "body_pitch_tau_s": 0.0073232139589754774,
+        "body_gate_s": 0.0199410379661208,
+        "body_decay": 3,
+        "body_release": 0,
+        "body_attack": 3
+      },
+      "duration_s": 0.7999546485260771,
+      "note_hz": 110.0,
+      "captured_from": "results/layered-snare/cmaes/results.json",
+      "captured_result_sha256": "b59054181980c9db87629ebac75c0a22e54632b467c5a43d90678e3d0298f5c2"
+    },
+    "one_voice": {
+      "patch": {
+        "waveform": "noise",
+        "filter_mode": "bandpass",
+        "attack": 0,
+        "sustain": 0,
+        "pulse_start": 0.5,
+        "pulse_end": 0.5,
+        "decay": 3,
+        "release": 3,
+        "gate_s": 0.008007990847107283,
+        "cutoff_start": 0.44430150262237234,
+        "cutoff_end": 0.2487280111381912,
+        "filter_tau_s": 0.2692745579208125,
+        "resonance": 12,
+        "pitch_start_semitones": 41.40796319682996,
+        "pitch_end_semitones": 35.82501030167586,
+        "pitch_tau_s": 0.03729282569625962
+      },
+      "duration_s": 0.7999546485260771,
+      "note_hz": 110.0,
+      "captured_from": "results/sweep/snare-cmaes-spectral-seed1/results.json",
+      "captured_result_sha256": "d090cb9468fe82cb3bd1fbe0ef890553aa4199a9ba3db9ab0b836de68f4de50a"
+    }
+  }
+}
