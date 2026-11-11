@@ -1,0 +1,28 @@
+{
+  "passed": true,
+  "accepted_excerpt_sample_banks": {
+    "2": {
+      "identical": true,
+      "sha256": "406161c4fa21ceec186d9f4c5c2857ee2834d39b14f578abe0e4f4fc71649fc0"
+    },
+    "3": {
+      "identical": true,
+      "sha256": "e6e3e13688f92364204b8a7869e27ae32820ceb11a7ce4958147011555e68aca"
+    },
+    "4": {
+      "identical": true,
+      "sha256": "4aa3fed930d2ecc7a35ce06342c06b7c1ff7e532b23adad6f1329a1782303da0"
+    },
+    "5": {
+      "identical": true,
+      "sha256": "428a3c669506876a7edd65628682af318be41b052a15d198cd0cbdcd5413aab2"
+    },
+    "6": {
+      "identical": true,
+      "sha256": "85f8ca3fa6e222a88906becee6319a9ddb61be9ce170c7048f71a78a106970de"
+    }
+  },
+  "accepted_excerpt_sid_frames": 528,
+  "sid_states_identical": true,
+  "scope": "Instrument data and per-tick SID states match the accepted source37.44\u201348.00s excerpt. Full-song sample-clock boundary phase differs from a standalone cut, so no WAV time-alignment or bit-identity claim is made."
+}

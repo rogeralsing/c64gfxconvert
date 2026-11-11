@@ -112,6 +112,30 @@ VICE audio, measured balance and CPU/memory limits.
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_hybrid.py --capture --budget
 ```
 
+The hybrid now reads separate instrument files: seven JSON SID recipes and
+three reusable assembler sample banks with JSON descriptors. See
+[INSTRUMENTS.md](INSTRUMENTS.md) for editing limits and a build that preserves
+the published results. The default library reproduces the accepted PRG
+byte-for-byte.
+
+## Second MOD: Hyperbased
+
+The [complete three-channel version](HYPERBASED-FULL.md) plays 5:33.84 from
+beginning to end, using reusable sample banks and SID instrument recipes:
+
+```sh
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_full_hyperbased.py --capture --budget
+```
+
+[HYPERBASED.md](HYPERBASED.md) documents a separate 10.56-second arrangement:
+sampled drums, pulse lead and triangle bass, each using its own instrument
+files. Its channel plan is explicit; the fourth MOD channel remains omitted.
+The accepted Cream of the Earth results are preserved.
+
+```sh
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_arrangement.py --capture --budget
+```
+
 ## Further reading
 
 - [Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php):

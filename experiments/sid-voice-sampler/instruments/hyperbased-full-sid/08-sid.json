@@ -1,0 +1,19 @@
+{
+  "program": "pulse",
+  "control": 65,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "region": "attack",
+    "sample_count": 8192,
+    "upsample": 8,
+    "period_band_samples": [
+      135,
+      150
+    ],
+    "minimum_autocorrelation": 0.75
+  },
+  "source_instrument": 8,
+  "name": "Hyperbased SID instrument 8",
+  "rest_control": 25,
+  "description": "The composite waveform repeats after about 284 samples, but its strongest audible root is about 142 samples (141.95 by FFT, 142.04 by ACF). The proposed pulse follows that audible root; the intended octave remains uncertain."
+}

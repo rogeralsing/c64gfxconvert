@@ -1,0 +1,47 @@
+{
+  "source_instrument": 3,
+  "name": "Hyperbased instrument 3",
+  "kind": "sample_gain_variants",
+  "volume_quantization_step": 16,
+  "canonical_divisor": 2,
+  "divisor": 2,
+  "real_end": 1792,
+  "loop_start": null,
+  "original_bytes": 3546,
+  "original_loop_start": 0,
+  "original_loop_length": 2,
+  "variants": [
+    {
+      "id": 1,
+      "gain": 16,
+      "stored_bytes": 512,
+      "max_read_index": 498,
+      "sha256": "7129ee5805ff51a10a18484f1b6f2bad4e3349f9510a277b58ffe86a18e973c4",
+      "asm_path": "03-gain-16.asm"
+    },
+    {
+      "id": 2,
+      "gain": 32,
+      "stored_bytes": 512,
+      "max_read_index": 332,
+      "sha256": "2abd6b6ad7e60f2786997bb137ed89cd4f5f8903e1b07ba50fab212a34da41f2",
+      "asm_path": "03-gain-32.asm"
+    },
+    {
+      "id": 3,
+      "gain": 48,
+      "stored_bytes": 512,
+      "max_read_index": 498,
+      "sha256": "73e1378d0158c46f251f011ae82a24671ff8cc5e950953ff6e3eca9f0a207d2d",
+      "asm_path": "03-gain-48.asm"
+    },
+    {
+      "id": 4,
+      "gain": 64,
+      "stored_bytes": 1792,
+      "max_read_index": 1791,
+      "sha256": "e6e3e13688f92364204b8a7869e27ae32820ceb11a7ce4958147011555e68aca",
+      "asm_path": "03-gain-64.asm"
+    }
+  ]
+}
