@@ -10,8 +10,9 @@ export const config = Object.freeze({
   loop: Object.freeze({startFrame: 1, frameCount: 96}),
   geometry: 'solid-stellated-cube-star',
   star: Object.freeze({cubeHalfExtent: 8.5, tipDistance: 54, axisTips: 6, triangles: 24,
-    cameraStretchX: 1.6, tiltRadians: 0.30,
-    shadeLevels: 6, shadeGrays: Object.freeze([0, 51, 102, 153, 204, 255]), spinTurnsPerLoop: 1 / 3}),
+    cameraStretchX: 1.6, cameraHalfExtent: 53, tiltRadians: 0.30,
+    shadeLevels: 6, shadeGrays: Object.freeze([0, 51, 102, 153, 204, 255]), spinTurnsPerLoop: 1 / 3,
+    spinAxisModelSpace: Object.freeze([1, 1, 1])}),
   phaseLabels: {blank: 'Tom startbild', star: 'Roterande flaggskeppsstjärna'},
 });
 
@@ -48,10 +49,11 @@ function makeGeometry(THREE) {
 export function createScene(THREE) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x000000);
-  // Screen-space anamorphic view: a square +-50 frustum stretched onto the
+  // Screen-space anamorphic view: a square frustum stretched onto the
   // 320x200 raster widens the projection by 1.6x at every rotation angle
   // (unlike a mesh scale, which would rotate the wide tips into the border).
-  const camera = new THREE.OrthographicCamera(-50, 50, 50, -50, 0.1, 400);
+  const extent = config.star.cameraHalfExtent;
+  const camera = new THREE.OrthographicCamera(-extent, extent, extent, -extent, 0.1, 400);
   camera.position.set(0, 0, 180);camera.lookAt(0, 0, 0);
   const geometry = makeGeometry(THREE);
   const materials = Array.from({length: 24}, (_, index) => {
@@ -64,7 +66,7 @@ export function createScene(THREE) {
   // The star's six tips point along the cube axes; its three-fold symmetry
   // axis is the (1,1,1) diagonal. Map that axis onto the view direction, then
   // tilt it so the pyramid facets stay visible throughout the spin.
-  const diagonal = new THREE.Vector3(1, 1, 1).normalize();
+  const diagonal = new THREE.Vector3(...config.star.spinAxisModelSpace).normalize();
   const toView = new THREE.Quaternion().setFromUnitVectors(diagonal, new THREE.Vector3(0, 0, 1));
   const tilt = new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), config.star.tiltRadians);
   const base = new THREE.Quaternion().multiplyQuaternions(tilt, toView);
@@ -73,10 +75,12 @@ export function createScene(THREE) {
   const normals = geometry.getAttribute('normal');
   const localNormals = Array.from({length: 24}, (_, index) => new THREE.Vector3().fromBufferAttribute(normals, index * 3));
   function orient(quaternion, progress) {
-    spin.setFromAxisAngle(new THREE.Vector3(0, 0, 1), progress * Math.PI * 2 * config.star.spinTurnsPerLoop);
+    spin.setFromAxisAngle(diagonal, progress * Math.PI * 2 * config.star.spinTurnsPerLoop);
     wobble.setFromEuler(new THREE.Euler(0.07 * Math.sin(progress * Math.PI * 2),
       0.05 * Math.cos(progress * Math.PI * 2), 0.03 * Math.sin(progress * Math.PI * 4), 'XYZ'));
-    quaternion.copy(base).multiply(spin).multiply(wobble);
+    // Keep the symmetry rotation rightmost: after one period the transform is
+    // the initial pose followed by a model-space symmetry of the entire star.
+    quaternion.copy(base).multiply(wobble).multiply(spin);
   }
   // Facet shading: each facet's gray is a pure function of its rotated normal
   // and the fixed world light, quantized to config.star.shadeGrays. At the
@@ -95,15 +99,20 @@ export function createScene(THREE) {
     lightDirectionWorld: light.toArray(),
     shadingRule: 'Facet gray = shadeGrays[round((normalWorld.dot(light)*0.5+0.5)*(shadeLevels-1))], recomputed every frame from the declared fixed light.',
     shadeLevels: config.star.shadeLevels, shadeGrays: grays,
-    spinTurnsPerLoop: config.star.spinTurnsPerLoop, symmetryTurn: '120-degree rotation maps the star onto itself',
-    cameraStretchX: config.star.cameraStretchX, expectedRGBLevels: grays};
+    spinTurnsPerLoop: config.star.spinTurnsPerLoop, spinAxisModelSpace: diagonal.toArray(),
+    rotationComposition: 'base * periodicWobble(progress) * diagonalSpin(unwrappedProgress)',
+    symmetryTurn: '120-degree rotation maps the star onto itself',
+    cameraStretchX: config.star.cameraStretchX, cameraHalfExtent: config.star.cameraHalfExtent,
+    expectedRGBLevels: grays};
 
   function update(time) {
     const t = Number.isFinite(time) ? time : 0;
     mesh.visible = t >= 1 / config.fps;
     let frame = t * config.fps - config.loop.startFrame;
     if (Math.abs(frame - Math.round(frame)) < 1e-7) frame = Math.round(frame);
-    const progress = ((frame % config.loop.frameCount) + config.loop.frameCount) % config.loop.frameCount / config.loop.frameCount;
+    // Leave the spin unwrapped. Endpoint renders therefore prove the actual
+    // 120/240-degree symmetry instead of resetting the pose before checking it.
+    const progress = frame / config.loop.frameCount;
     orient(mesh.quaternion, progress);
     for (let index = 0; index < materials.length; index++) {
       const gray = mesh.visible ? toneFor(index, mesh.quaternion) : 0;

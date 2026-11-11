@@ -105,7 +105,9 @@ function main(argv = process.argv.slice(2)) {
   const variant = literal ? 'literal-front' : 'sparse-front';
   const output = path.join(root, variant);
   const study = JSON.parse(fs.readFileSync(path.join(input, 'study.json')));
-  const metadata = study.sourceMetadata || {};
+  const metadataPath = [path.join(input, 'metadata.json'), path.join(input, '..', 'characters', 'metadata.json')]
+    .find(file => fs.existsSync(file));
+  const metadata = study.sourceMetadata || (metadataPath ? JSON.parse(fs.readFileSync(metadataPath)) : {});
   const reference = fs.readFileSync(path.join(input, 'reference.frames'));
   const font = fs.readFileSync(path.join(input, 'font.bin'));
   const movie = fs.readFileSync(path.join(input, `${codec}.bin`));
@@ -187,9 +189,9 @@ function main(argv = process.argv.slice(2)) {
   const meaningfulLoadedBytes = codeStateBytes + pointers.length + playback.bytecodeBytes + font.length + movie.length + 13;
   const result = {
     name: variant, variant, codec: literal ? 'global varint skip/length with raw literal characters' : 'four-page sparse offset/glyph pairs',
-    hidden: false, sparse: !literal, dataset: study.sourceMetadata.name || 'spiral',
-    settings: {...(study.sourceMetadata.settings || {}),
-      ...(study.sourceMetadata.checks ? {checks: study.sourceMetadata.checks, checkerRows: study.sourceMetadata.checkerRows} : {}),
+    hidden: false, sparse: !literal, dataset: metadata.name || 'spiral',
+    settings: {...(metadata.settings || {}),
+      ...(metadata.checks ? {checks: metadata.checks, checkerRows: metadata.checkerRows} : {}),
       fontGlyphs: font.length / 8},
     storedFrames: count, storedTransitions: index.length, firstSourcePose: 0,
     sourcePoseIndices: Array.from({length: count}, (_, frame) => frame),

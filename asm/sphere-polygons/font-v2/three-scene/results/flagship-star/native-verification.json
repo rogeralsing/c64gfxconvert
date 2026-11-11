@@ -2,29 +2,29 @@
   "pass": true,
   "checked_frames": 97,
   "actual_visible_fields_verified": 578,
-  "mean_fps": 25.062244498875984,
+  "mean_fps": 25.062264421417016,
   "render_cycles": {
-    "min": 2940,
-    "mean": 4418.378472222223,
-    "max": 8491
+    "min": 5074,
+    "mean": 6266.270833333333,
+    "max": 7612
   },
   "presentation_cycles": {
-    "min": 39306,
-    "mean": 39312.041666666664,
-    "max": 39317
+    "min": 39307,
+    "mean": 39312.010416666664,
+    "max": 39318
   },
   "observed_fields_per_image": [
     2
   ],
   "safe_scanout_scope": "All 289 displayed images were compared in both PAL fields using actual VIC screenshots. Playback counters and all real wrap transitions were checked.",
-  "firstPassSeconds": 3.8703544691285847,
+  "firstPassSeconds": 3.8703504092370653,
   "finiteStopVerified": false,
   "loopWrapsVerified": 2,
-  "loopPeriodSeconds": 3.8304614675695867,
-  "introSeconds": 0.03989858390983793,
+  "loopPeriodSeconds": 3.830458930137387,
+  "introSeconds": 0.039891479099678454,
   "displayedImagesVerified": 289,
   "allPlaybackCountersMatch": true,
-  "completeScriptSeconds": 11.531277404267758,
+  "completeScriptSeconds": 11.53126826951184,
   "memory": {
     "name": "literal-front",
     "variant": "literal-front",
@@ -170,17 +170,17 @@
       "totalDisplayedFrames": null,
       "nominalSeconds": null,
       "repeatsForever": true,
-      "source": "/Users/rogerjohansson/.codex/worktrees/c64-main-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star/characters/playback.json"
+      "source": "/Users/rogerjohansson/.codex/worktrees/c64-consolidate-20261111/c64/asm/sphere-polygons/font-v2/build/three-scene-flagship-star/characters/playback.json"
     },
     "abi": "Repeat skip LEB128, literalLength LEB128, literal bytes until screen position 1000. Values 0..1000 use at most two bytes.",
     "finiteClip": false,
     "closingPatchIncluded": true,
-    "introPayloadBytes": 338,
-    "loopPayloadBytes": 12999,
-    "closingPatchBytes": 418,
+    "introPayloadBytes": 311,
+    "loopPayloadBytes": 20108,
+    "closingPatchBytes": 236,
     "dataArenaBytes": 40960,
-    "payloadBytes": 13337,
-    "unusedArenaBytes": 27623,
+    "payloadBytes": 20419,
+    "unusedArenaBytes": 20541,
     "fontBytes": 2048,
     "seedScreenBytes": 0,
     "pointerBytes": 194,
@@ -192,17 +192,17 @@
     "colorRamBytes": 1024,
     "zeroPageBytes": 9,
     "basicBytes": 13,
-    "programBytes": 23578,
-    "meaningfulLoadedBytes": 16628,
+    "programBytes": 30660,
+    "meaningfulLoadedBytes": 23710,
     "addressGapPaddingBytes": 6948,
-    "animationAndFontBytes": 15579,
+    "animationAndFontBytes": 22661,
     "memoryAccounting": "Meaningful loaded bytes excludes PRG address-gap padding, working screen RAM, color RAM, and zero page. Code state excludes the separately counted pointer table and playback bytecode. The first screen is cleared at startup and has no stored seed.",
-    "nativeFps": 25.062244498875984,
+    "nativeFps": 25.062264421417016,
     "hashes": {
-      "program": "afa076bd059a20e75c4b2efde29b396dc1a20fd0a72faaafe3ebe85004c0565a",
-      "movie": "8ec012d45eda9e9cdcb9ccfe054d2c6872d9ed3e64a005222137537123b8edf2",
+      "program": "32be36dcb381f22e21aca2e4bdf41db752ec3c3c96dfbd56d5c87c7f3c2fd6b2",
+      "movie": "62ab6c3dfb32103e1b2743df72ab27e8a5c002faf28bcb425e0484f0ac23e22f",
       "font": "1560bd74d24feb0684505f714c5b3e2854b352306efde79b89621ef959e629b1",
-      "reference": "de980a5a8f292ccdd4275c395c8f23e912a9c40c8531a3fba41a563d8fda68ff",
+      "reference": "b3f362bd76744c73dee2c4fee743b8ee7abb11bcc8c5bd804cbd75f0e7fa9a01",
       "playback": "2e1e55ed59864b477c59c43524387f1540a42f3ed8610326d9891f11b5935a7e"
     },
     "addresses": {
@@ -211,7 +211,7 @@
       "font": 8192,
       "initialScreen": null,
       "source": 12288,
-      "sourceEnd": 25625,
+      "sourceEnd": 32707,
       "front": 1024,
       "hidden": null
     },

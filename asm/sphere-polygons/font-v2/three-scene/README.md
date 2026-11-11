@@ -492,49 +492,48 @@ junction differences. The existing 168-glyph font is unchanged.
 Primary API references: [Three.js WebGPURenderer](https://threejs.org/manual/pages/webgpurenderer),
 [Dawn for Node](https://github.com/dawn-gpu/node-webgpu).
 
-
-
 ## Flagship star: very large, lit, endless rotation
 
-`demo-flagship-star.mjs` renders a 276-pixel-wide six-tip stellated-cube star
-spinning continuously about its own three-fold symmetry axis. Each facet is
-flat-shaded by the declared fixed world light into six exact gray levels
-(0, 51, 102, 153, 204, 255), recomputed every frame; the exporter converts the
-film through the screen-aligned 4x4 Bayer matrix, so interior tiles are pure
-tone patterns that stay constant while the star rotates. One symmetry turn
-(120 degrees) per 96-frame loop makes the loop endpoints pixel-identical: the
-film plays forever seamlessly and a full visible revolution takes 288 frames
-(11.52 seconds). The projection uses a screen-space anamorphic camera (square
-+-50 frustum on the 320x200 raster, 1.6x horizontal), which widens the star at
-every rotation angle without rotating wide tips into the border.
+`demo-flagship-star.mjs` renders a six-tip stellated-cube star that occupies up
+to 272 × 196 physical pixels. It turns around its actual model-space `(1,1,1)`
+three-fold symmetry axis. The orientation is `base * periodicWobble *
+diagonalSpin`, with the spin unwrapped across periods. A 120-degree turn maps
+all 14 vertices and 24 facets onto the original geometry. The 96-frame film
+therefore repeats without resetting its physical pose; a complete revolution
+takes 288 frames, or 11.52 seconds at nominal 25 fps.
 
-The film runs on the fixed universal 256-glyph font (`font-v2/universal`,
-191 parametric drawing slots + 65 once-optimized content slots, d12 stride 3)
-via `bitmap-to-chars.cjs --fixed-font`. The content census now spans nine
-corpora and still holds only 271 unique tiles; every uniform tile stays exact
-and remaining error (1.63% of the whole frame, 2.74% inside the active bounds)
-is confined to mask-constrained silhouette tiles, exactly like the binary
-films.
+The orthographic camera uses a square ±53 frustum on the 320 × 200 raster,
+retaining the existing 1.6× horizontal anamorphic projection. This small fit
+adjustment leaves every arm inside the screen throughout the corrected spin.
+An independent 960-pose geometric sweep and actual GPU masks both verify fit.
+
+Each facet follows the declared fixed world light in six exact gray levels
+(0, 51, 102, 153, 204, 255). Ordered 4 × 4 Bayer conversion produces the bitmap;
+facet densities can change as their normals turn toward the light. The film
+uses the frozen 256-glyph experimental font in `universal-font.bin` through
+`bitmap-to-chars.cjs --fixed-font`. That font is retained for reproducibility;
+its older content training predates the raster-layout correction documented
+in [the font studies](../universal/README.md).
 
 Build and verify from the repository root:
 
-    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs
-    rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs --characters
-    rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py --root asm/sphere-polygons/font-v2/build/three-scene-flagship-star/native --variant literal-front
+```sh
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs
+rtk proxy node asm/sphere-polygons/font-v2/three-scene/build-flagship-star.cjs --characters
+rtk proxy python3 asm/sphere-polygons/font-v2/verify-scene.py \
+  --root asm/sphere-polygons/font-v2/build/three-scene-flagship-star/native \
+  --variant literal-front
+```
 
-Native PAL receipt (`native/literal-front/pal-proof/verification.json`): all 97
-stored frames match in both PAL fields, 578 visible fields verified, two loop
-wraps checked with 192 repeated update fields and 289 held fields, 25.06224
-fps mean (min 25.059), render mean 4418 cycles (max 8491 of 19656). The
-literal movie is 13,337 bytes - smaller than the unshaded variant, because
-screen-aligned dither interiors do not change while the star rotates - inside
-the 40,960-byte arena with 27,623 bytes unused; meaningful loaded bytes 16,628
-including the 2,048-byte universal font. The player loops forever by playback
-bytecode (`repeat`: `forever`, 11 bytes). The verifier adds an ordered-Bayer
-quantization contract (every rendered gray must be one of the six declared
-levels, every bitmap bit must equal the Bayer rule) and a shading contract
-(every facet's color must equal the declared light rule at sampled frames).
+The verifier independently reconstructs every unwrapped orientation, proves
+vertex and facet permutations plus matching endpoint lighting, and checks
+angular velocity across the symmetry boundary. Actual GPU renders at 120 and
+240 degrees must match the first image. This prevents a modulo reset from
+passing as a seamless rotation.
 
-The [published flagship package](results/flagship-star/README.md) contains the
-PRG, actual PAL VICE capture, compact verification receipts and source
-comparison.
+The [measured program, actual C64 preview and receipts](results/flagship-star/README.md)
+retain the corrected source and unchanged font. The literal movie uses 20,419
+bytes, leaving 20,541 bytes in the current data arena; meaningful loaded code,
+font, tables and state total 23,710 bytes. Character error is 2.279% within
+active image bounds, with no white pixels outside the object mask. Full and
+empty source tiles remain exact.

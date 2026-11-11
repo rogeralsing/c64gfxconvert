@@ -107,6 +107,62 @@ async function gpuProof(metadata,rgba,mask,output,options={}) {
         `Facet ${entry.index} deviates from the declared light rule at frame ${frame}`);
       shadingContract.push({frame,facetsChecked:observed.length,maxDeviation:Math.max(...observed.map(entry=>Math.abs(entry.expected-entry.got)))});
     }
+    // Prove a real, unwrapped symmetry turn. A modulo driver would make the
+    // endpoint images equal even when the final stored pose jumps to the start.
+    const contract=factory.config.star;
+    assert.deepEqual(contract.spinAxisModelSpace,[1,1,1]);
+    assert(Math.abs(contract.spinTurnsPerLoop-1/3)<1e-12);
+    const axis=new THREE.Vector3(...contract.spinAxisModelSpace).normalize();
+    const symmetry=new THREE.Quaternion().setFromAxisAngle(axis,2*Math.PI/3);
+    const positionAttribute=star.geometry.getAttribute('position');
+    const vertices=[];
+    for(let i=0;i<positionAttribute.count;i++) {
+      const vertex=new THREE.Vector3().fromBufferAttribute(positionAttribute,i);
+      if(!vertices.some(previous=>previous.distanceTo(vertex)<1e-6))vertices.push(vertex);
+    }
+    const vertexPermutation=vertices.map(vertex=>vertices.findIndex(candidate=>candidate.distanceTo(vertex.clone().applyQuaternion(symmetry))<1e-5));
+    assert(vertexPermutation.every(index=>index>=0)&&new Set(vertexPermutation).size===vertices.length);
+    const faces=Array.from({length:24},(_,index)=>[0,1,2].map(corner=>new THREE.Vector3().fromBufferAttribute(positionAttribute,index*3+corner)));
+    const facePermutation=faces.map(face=>faces.findIndex(candidate=>face.every(vertex=>candidate.some(point=>point.distanceTo(vertex.clone().applyQuaternion(symmetry))<1e-5))));
+    assert(facePermutation.every(index=>index>=0)&&new Set(facePermutation).size===24);
+    const base=new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1,0,0),contract.tiltRadians)
+      .multiply(new THREE.Quaternion().setFromUnitVectors(axis,new THREE.Vector3(0,0,1)));
+    const orientations=[],colors=[];
+    for(let step=0;step<=loop.frameCount+1;step++) {
+      const progress=step/loop.frameCount;
+      await world.update((loop.startFrame+step)/fps);
+      const wobble=new THREE.Quaternion().setFromEuler(new THREE.Euler(.07*Math.sin(progress*2*Math.PI),
+        .05*Math.cos(progress*2*Math.PI),.03*Math.sin(progress*4*Math.PI),'XYZ'));
+      const expected=base.clone().multiply(wobble).multiply(new THREE.Quaternion().setFromAxisAngle(axis,progress*2*Math.PI/3));
+      assert(star.quaternion.angleTo(expected)<1e-6,'Actual pose differs from its unwrapped diagonal spin');
+      assert(Math.abs(world.scene.userData.pose.progress-progress)<1e-9,'Loop driver reset before the symmetry endpoint');
+      orientations.push(star.quaternion.clone());colors.push(materials.map(material=>material.color.toArray()));
+    }
+    assert(orientations[loop.frameCount].angleTo(orientations[0].clone().multiply(symmetry))<1e-6);
+    assert(orientations[loop.frameCount+1].angleTo(orientations[1].clone().multiply(symmetry))<1e-6);
+    for(let face=0;face<24;face++)for(let channel=0;channel<3;channel++)assert(
+      Math.abs(colors[loop.frameCount][face][channel]-colors[0][facePermutation[face]][channel])<1e-8,
+      'Facet lighting does not repeat under the symmetry permutation');
+    const increments=[];
+    for(let i=1;i<orientations.length;i++) {
+      const delta=orientations[i].clone().multiply(orientations[i-1].clone().invert()).normalize();
+      if(delta.w<0){delta.x*=-1;delta.y*=-1;delta.z*=-1;delta.w*=-1;}
+      const sine=Math.hypot(delta.x,delta.y,delta.z),angle=2*Math.atan2(sine,delta.w);
+      increments.push(sine?[delta.x,delta.y,delta.z].map(value=>value*angle/sine):[0,0,0]);
+    }
+    const distance=(a,b)=>Math.hypot(...a.map((value,index)=>value-b[index]));
+    const steps=increments.map(value=>Math.hypot(...value));
+    const changes=increments.slice(1,loop.frameCount).map((value,index)=>distance(value,increments[index]));
+    const boundaryChange=distance(increments[loop.frameCount],increments[loop.frameCount-1]);
+    assert(Math.max(...steps)<.06,'Abrupt orientation jump at the symmetry boundary');
+    assert(boundaryChange<=Math.max(...changes)*1.05+1e-8,'Angular velocity jumps at the symmetry boundary');
+    const symmetryRotation={axisModelSpace:axis.toArray(),spinRadiansPerLoop:2*Math.PI/3,
+      vertexPermutationCount:vertexPermutation.length,facetPermutationCount:facePermutation.length,
+      actualMeshMatchesUnwrappedTransform:true,endpointEqualsInitialTimesSymmetry:true,
+      nextPoseEqualsInitialNextTimesSymmetry:true,facetLightingPermutationMatches:true,
+      angularStepRadians:{min:Math.min(...steps),max:Math.max(...steps)},
+      boundaryAngularVelocityVectorDifference:boundaryChange*fps,
+      largestOrdinaryAngularVelocityVectorDifference:Math.max(...changes)*fps,angularVelocityContinuousAtLoop:true};
     let fullRotation=null;
     if(/tumbling/i.test(metadata.name))assert(Array.isArray(factory.config.turnsPerLoop),'Full tumbling requires an explicit three-axis rotation contract');
     if(factory.config.turnsPerLoop) {
@@ -178,6 +234,7 @@ async function gpuProof(metadata,rgba,mask,output,options={}) {
     assert.equal(touchingBorder,0,'The longer arms are clipped by the screen');
     return {scene:{renderableObjects:1,meshName:star.name,opaque:true,noBall:true,noGlass:true,noWireframe:true,shaded:true},mesh,
       shadingContract:{rule:'facet gray = shadeGrays[round((rotatedNormal.dot(light)*0.5+0.5)*(levels-1))]',samples:shadingContract},
+      symmetryRotation,
       screenFit:{touchingBorderPixels:0,logicalBoundsPerFrame:bounds},movement:{maximumMatrixDifference:movement},
       ...(fullRotation?{fullRotation}:{}),
       loop:{...loop,endpointFrame,unwrappedEndpointFrame:twoPeriodFrame,

@@ -5,50 +5,41 @@
 // Compares against the pure literal codec on the same screens.
 const fs = require('node:fs');
 const path = require('node:path');
-const {buildFont, toBytes, DIRS} = require('./font.cjs');
+const assert = require('node:assert/strict');
+const {buildFont, toBytes, DIRS, CORPORA, readCorpus, tileRows, sha256} = require('./font.cjs');
+const {encodePairs, decodePairs} = require('../../precomputed/hybrid/delta.cjs');
 
 const HERE = __dirname;
-const CORPORA_ROOT = process.env.UNIVERSAL_CORPORA_ROOT || path.join(HERE, '../build');
 const SLOPE_SHIFT = 4;
 const pop = Uint8Array.from({length: 256}, (_, v) => { let c = 0; for (; v; v &= v - 1) c++; return c; });
 
-const contentRows = JSON.parse(fs.readFileSync(path.join(HERE, 'build/content-rows-stride3.json'), 'utf8'));
-const {rows: fontRows, slotMap} = buildFont({d12Stride: 3, contentRows});
-const fontBytes = toBytes({rows: fontRows});
-const bitmapOf = fontRows;
+let fontRows, slotMap, fontBytes, bitmapOf;
 
-function loadCorpus(dirName, frames) {
-  const dir = path.join(CORPORA_ROOT, dirName);
-  const idealPath = path.join(dir, 'ideal.frames');
-  const hasIdeal = fs.existsSync(idealPath);
-  const ideal = hasIdeal ? fs.readFileSync(idealPath) : null;
-  const ref = fs.readFileSync(path.join(dir, 'reference.frames'));
-  const curFont = fs.readFileSync(path.join(dir, 'font.bin'));
+function configureFont(bytes) {
+  assert.equal(bytes.length, 2048);
+  const fixed = buildFont({d12Stride: 3});
+  assert(bytes.subarray(0, fixed.fixedSlots * 8).equals(toBytes(fixed).subarray(0, fixed.fixedSlots * 8)),
+    'Ramp commands require the declared stride-3 fixed slot map.');
+  fontBytes = bytes;
+  fontRows = Array.from({length: 256}, (_, code) => Array.from(bytes.subarray(code * 8, code * 8 + 8)));
+  bitmapOf = fontRows;slotMap = fixed.slotMap;
+}
+
+function loadCorpus(dirName, root) {
+  const corpus = readCorpus(path.join(root, dirName));
   const stride = 1000;
   const target = [];
-  for (let f = 0; f < frames; f++) {
+  const cache = new Map();
+  for (let f = 0; f < corpus.frames; f++) {
     const codes = new Array(stride);
     for (let i = 0; i < stride; i++) {
-      if (hasIdeal) {
-        const base = (f * stride + i) * 8;
-        const key = Array.from(ideal.subarray(base, base + 8)).join(',');
-        const code = fontRows.findIndex(rows => rows.join(',') === key);
-        codes[i] = code >= 0 ? code : nearestCode(rows0(base, ideal));
-      } else {
-        const base = ref[f * stride + i] * 8;
-        const key = Array.from(curFont.subarray(base, base + 8)).join(',');
-        const code = fontRows.findIndex(rows => rows.join(',') === key);
-        codes[i] = code >= 0 ? code : nearestCode(rows0(base, curFont));
-      }
+      const rows = tileRows(corpus, f, i), key = rows.join(',');
+      if (!cache.has(key)) cache.set(key, nearestCode(rows));
+      codes[i] = cache.get(key);
     }
     target.push(codes);
   }
-  return {target, stride, hasIdeal, ideal};
-}
-function rows0(base, buf) {
-  const r = new Array(8);
-  for (let k = 0; k < 8; k++) r[k] = buf[base + k];
-  return r;
+  return {...corpus, target, stride};
 }
 function nearestCode(rows) {
   let best = 0, bestE = 64;
@@ -58,27 +49,6 @@ function nearestCode(rows) {
     if (e < bestE) { bestE = e; best = c; if (e === 0) break; }
   }
   return best;
-}
-
-function literalRuns(prev, target) {
-  let bytes = 0, runs = 0;
-  let skip = -1, len = 0;
-  for (let i = 0; i <= 1000; i++) {
-    const changedHere = i < 1000 && prev[i] !== target[i];
-    if (changedHere) {
-      if (len === 0) skip = i;
-      len++;
-    } else if (len > 0) {
-      while (len > 0) {
-        const part = Math.min(len, 255);
-        bytes += 2 + part;
-        runs++;
-        len -= part;
-        if (len > 0) skip = 0;
-      }
-    }
-  }
-  return {bytes, runs};
 }
 
 function encodeFrame(prev, target, pctLine) {
@@ -148,10 +118,10 @@ function encodeFrame(prev, target, pctLine) {
         let e = 0;
         for (let r = 0; r < 8; r++) e += pop[g[r] ^ t0[r]];
         err += e;
-        for (let r = 0; r < 8; r++) gain += t0[r];
-        if (scr[cells[i]] !== g) saves++;
+        for (let r = 0; r < 8; r++) gain += pop[t0[r]];
+        if (scr[cells[i]] !== info0.chain.base + s) saves++;
       }
-      const budget = Math.max(2, Math.round(pctLine * gain));
+      const budget = Math.round(pctLine * gain);
       if (err > budget) continue;
       const value = saves * 2 - 5;
       if (value >= 4) candidates.push({info0, cells, sA, slope, err, value, gain});
@@ -160,6 +130,7 @@ function encodeFrame(prev, target, pctLine) {
   candidates.sort((a, b) => b.value - a.value);
   const used = new Uint8Array(stride);
   let lineBytes = 0, lines = 0, lineCells = 0, frameErr = 0;
+  const records = [];
   for (const cand of candidates) {
     let overlap = 0;
     for (const at of cand.cells) if (used[at]) overlap++;
@@ -172,40 +143,99 @@ function encodeFrame(prev, target, pctLine) {
     }
     lineBytes += 5; lines++; lineCells += cand.cells.length;
     frameErr += cand.err;
+    records.push({start: cand.cells[0], length: cand.cells.length,
+      chain: slotMap.chains.indexOf(cand.info0.chain), step: cand.sA, slope: cand.slope});
   }
-  const lit = literalRuns(scr, target);
+  const literal = Buffer.from(encodePairs(Uint8Array.from(target), Uint8Array.from(scr)));
+  const packet = Buffer.alloc(2 + lineBytes + literal.length);
+  packet.writeUInt16LE(records.length);
+  // Five bytes: start10, lengthMinusOne6, chain4, step5, signedSlope8,
+  // followed by seven zero reserved bits. Direction comes from the chain.
+  records.forEach((record, index) => {
+    assert(record.start < 1000 && record.length <= 64 && record.chain < 16 && record.step < 32);
+    assert(record.slope >= -128 && record.slope <= 127);
+    let packed = BigInt(record.start) | BigInt(record.length - 1) << 10n | BigInt(record.chain) << 16n
+      | BigInt(record.step) << 20n | BigInt(record.slope & 255) << 25n;
+    for (let byte = 0; byte < 5; byte++) {packet[2 + index * 5 + byte] = Number(packed & 255n);packed >>= 8n;}
+  });
+  literal.copy(packet, 2 + lineBytes);
   // apply literal runs to reach target
-  for (let i = 0; i < stride; i++) scr[i] = target[i];
-  return {bytes: lineBytes + lit.bytes, lineBytes, litBytes: lit.bytes, lines, lineCells, runs: lit.runs, frameErr, scr};
+  const decoded = decodeFrame(packet, prev);
+  assert.deepEqual(Array.from(decoded), Array.from(target), 'Line and literal packet roundtrip');
+  return {packet, bytes: packet.length, lineBytes, litBytes: literal.length, framingBytes: 2,
+    lines, lineCells, frameErr, scr: Array.from(decoded)};
 }
 
-function pureLiteralBytes(target0) {
-  let total = 0;
-  for (let f = 1; f < target0.length; f++) total += literalRuns(target0[f - 1], target0[f]).bytes;
-  return total;
-}
-
-const CORPORA = [
-  ['solid-star', 'three-scene-solid-star/characters', 161],
-  ['tumbling-star', 'three-scene-tumbling-star/characters', 161],
-  ['glass-star', 'three-scene-glass-star/characters', 161],
-  ['glass-diamond', 'three-scene-glass-diamond/characters', 161],
-];
-for (const [name, dirName, frames] of CORPORA) {
-  const corpus = loadCorpus(dirName, frames);
-  const litOnly = pureLiteralBytes(corpus.target);
-  for (const pct of [0, 0.05]) {
-    let totBytes = 0, totLit = 0, totLineB = 0, lines = 0, runs = 0, err = 0, lineCells = 0;
-    const screens = [corpus.target[0].map(() => 0)]; // frame 0 drawn from blank? use target[0] as base state
-    screens[0] = corpus.target[0].slice();
-    for (let f = 1; f < frames; f++) {
-      const r = encodeFrame(screens[f - 1], corpus.target[f], pct);
-      totBytes += r.bytes; totLit += r.litBytes; totLineB += r.lineBytes;
-      lines += r.lines; runs += r.runs; err += r.frameErr; lineCells += r.lineCells;
-      screens.push(r.scr);
+function decodeFrame(packet, previous) {
+  assert(packet.length >= 2);
+  const scr = Uint8Array.from(previous), lines = packet.readUInt16LE(0);
+  let read = 2;
+  for (let line = 0; line < lines; line++) {
+    assert(read + 5 <= packet.length);
+    let packed = 0n;
+    for (let byte = 0; byte < 5; byte++) packed |= BigInt(packet[read++]) << BigInt(byte * 8);
+    assert.equal(packed >> 33n, 0n, 'Reserved line bits');
+    const start = Number(packed & 1023n), length = Number(packed >> 10n & 63n) + 1;
+    const chain = slotMap.chains[Number(packed >> 16n & 15n)], first = Number(packed >> 20n & 31n);
+    let slope = Number(packed >> 25n & 255n);if (slope & 128) slope -= 256;
+    assert(start < 1000 && first < chain.bitmaps.length);
+    const [dx, dy] = DIRS[chain.dir], x0 = start % 40, y0 = Math.floor(start / 40);
+    for (let index = 0; index < length; index++) {
+      const x = x0 + index * dx, y = y0 + index * dy;
+      assert(x >= 0 && x < 40 && y >= 0 && y < 25);
+      const step = Math.max(0, Math.min(chain.bitmaps.length - 1, first + ((slope * index) >> SLOPE_SHIFT)));
+      scr[y * 40 + x] = chain.base + step;
     }
-    const n = frames - 1;
-    console.log(`${name.padEnd(16)} budget ${Math.round(pct * 100)}%: lines+literal ${(totBytes / n).toFixed(1)} B/f vs pure literal ${(litOnly / n).toFixed(1)} B/f (${(100 * (1 - totBytes / litOnly)).toFixed(0)}%)`);
-    console.log(`${' '.repeat(16)} lines ${(lines / n).toFixed(1)}/f (mean ${(lines ? lineCells / lines : 0).toFixed(1)} cells, ${(totLineB / n).toFixed(1)} B/f), literal runs ${(runs / n).toFixed(1)}/f (${(totLit / n).toFixed(1)} B/f), err ${(err / n).toFixed(1)} px/f`);
   }
+  return decodePairs(packet.subarray(read), scr);
 }
+
+if (require.main === module) {
+  const options = {};
+  for (let index = 2; index < process.argv.length; index += 2) {
+    const key = process.argv[index];
+    assert(['--root', '--font', '--output'].includes(key) && process.argv[index + 1], 'Use [--root DIRECTORY] [--font FILE] [--output DIRECTORY].');
+    options[key] = process.argv[index + 1];
+  }
+  const root = path.resolve(options['--root'] || process.env.UNIVERSAL_CORPORA_ROOT || path.join(HERE, '../build'));
+  const file = path.resolve(options['--font'] || path.join(HERE, '../three-scene/universal-font.bin'));
+  const output = path.resolve(options['--output'] || path.join(HERE, 'build'));
+  configureFont(fs.readFileSync(file));
+  const results = [];
+  for (const [name, dirName] of CORPORA.filter(([name]) => ['solid-star', 'tumbling-star', 'glass-star', 'glass-diamond'].includes(name))) {
+    if (!fs.existsSync(path.join(root, dirName, 'reference.frames'))) continue;
+    const corpus = loadCorpus(dirName, root);
+    const edges = Array.from({length: corpus.frames - 1}, (_, from) => [from, from + 1]);
+    if (corpus.loop) edges.push([corpus.frames - 1, corpus.loop.startFrame]);
+    const litOnly = edges.reduce((sum, [from, to]) => sum + encodePairs(Uint8Array.from(corpus.target[to]), Uint8Array.from(corpus.target[from])).length, 0);
+    for (const pct of [0, 0.05]) {
+      let totBytes = 0, totLit = 0, totLineB = 0, lines = 0, err = 0, lineCells = 0;
+      const payloads = [];
+      for (const [from, to] of edges) {
+        const r = encodeFrame(corpus.target[from], corpus.target[to], pct);
+        totBytes += r.bytes;totLit += r.litBytes;totLineB += r.lineBytes;
+        lines += r.lines;err += r.frameErr;lineCells += r.lineCells;payloads.push(r.packet);
+      }
+      results.push({name, frames: corpus.frames, transitions: edges.length, closingPatchIncluded: Boolean(corpus.loop),
+        intermediateErrorBudgetFraction: pct, pureLiteralBytes: litOnly, lineLiteralBytes: totBytes,
+        pureLiteralBytesPerTransition: litOnly / edges.length, lineLiteralBytesPerTransition: totBytes / edges.length,
+        changePercent: 100 * (totBytes / litOnly - 1), lineBytes: totLineB, literalBytes: totLit,
+        framingBytes: 2 * edges.length, lines, lineCells, summedLinePixelErrors: err,
+        finalCharacterScreensExact: true, payloadSha256: sha256(Buffer.concat(payloads)), corpusHashes: corpus.hashes});
+      console.log(`${name.padEnd(16)} budget ${Math.round(pct * 100)}%: ${(totBytes / edges.length).toFixed(1)} B/f vs literal ${(litOnly / edges.length).toFixed(1)} B/f`);
+    }
+  }
+  assert(results.length > 0, 'No corpora found; generate the films or pass --root DIRECTORY.');
+  fs.mkdirSync(output, {recursive: true});
+  const report = {pass: true, scope: 'Serialized host codec study, not a C64 runtime or FPS measurement.',
+    font: path.relative(HERE, file).split(path.sep).join('/'), pathBase: 'universal script directory', fontSha256: sha256(fontBytes),
+    producerSha256: Object.fromEntries(['font.cjs', 'line-encode.cjs', '../../precomputed/hybrid/delta.cjs'].map(name => [name, sha256(fs.readFileSync(path.join(HERE, name)))])),
+    targetFitting: 'Unconstrained nearest glyph for each ideal raster tile; existing-font rendering only if ideal.frames is absent.',
+    packet: 'lineCount16LE; lineCount five-byte records; exact existing global varint skip/literal residual',
+    lineBits: 'start10, lengthMinusOne6, chain4, step5, signedSlope8, reservedZero7 (little-endian)',
+    lossless: 'Every serialized packet decodes to its entire 1000-byte target screen. Approximate line pixels are repaired by the literal pass.',
+    results};
+  fs.writeFileSync(path.join(output, 'line-study.json'), JSON.stringify(report, null, 2) + '\n');
+}
+
+module.exports = {configureFont, loadCorpus, encodeFrame, decodeFrame};

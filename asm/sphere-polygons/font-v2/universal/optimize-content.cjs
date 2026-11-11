@@ -7,22 +7,10 @@
 // The drawing sections are locked and never re-chosen.
 const fs = require('node:fs');
 const path = require('node:path');
-const {buildFont, toBytes} = require('./font.cjs');
+const assert = require('node:assert/strict');
+const {buildFont, toBytes, CORPORA, readCorpus, tileRows, sha256} = require('./font.cjs');
 
 const HERE = __dirname;
-const CORPORA_ROOT = process.env.UNIVERSAL_CORPORA_ROOT || path.join(HERE, '../build');
-
-const CORPORA = [
-  ['solid-star', 'three-scene-solid-star/characters', 161],
-  ['sphere-to-cube-zoom', 'raw-literal-storage', 250],
-  ['gradient-dither-cube', 'three-scene-gradient-c64/characters', 200],
-  ['dithered-star', 'three-scene-dithered-star/characters', 241],
-  ['tumbling-star', 'three-scene-tumbling-star/characters', 161],
-  ['glass-diamond', 'three-scene-glass-diamond/characters', 161],
-  ['glass-star', 'three-scene-glass-star/characters', 161],
-  ['glass-outline', 'three-scene-glass-outline/characters', 161],
-  ['flagship-star', 'three-scene-flagship-star/characters', 97],
-];
 
 const pop16 = Uint8Array.from({length: 65536}, (_, v) => {
   let c = 0;
@@ -36,47 +24,37 @@ const wordsOf = rows => [
 const dist = (a, b) => pop16[(a[0] ^ b[0]) >>> 0 & 0xffff] + pop16[(a[0] ^ b[0]) >>> 16]
   + pop16[(a[1] ^ b[1]) >>> 0 & 0xffff] + pop16[(a[1] ^ b[1]) >>> 16];
 
-function loadCensus() {
+function loadCensus(root = process.env.UNIVERSAL_CORPORA_ROOT || path.join(HERE, '../build')) {
   const corpora = [];
-  for (const [name, dirName, frames] of CORPORA) {
-    const dir = path.join(CORPORA_ROOT, dirName);
+  for (const [name, dirName] of CORPORA) {
+    const dir = path.join(root, dirName);
     if (!fs.existsSync(path.join(dir, 'reference.frames'))) {
       console.log(`census: skipping ${name} (no corpus at ${dir})`);
       continue;
     }
-    const ref = fs.readFileSync(path.join(dir, 'reference.frames'));
-    const idealPath = path.join(dir, 'ideal.frames');
-    const hasIdeal = fs.existsSync(idealPath);
-    const ideal = hasIdeal ? fs.readFileSync(idealPath) : null;
-    const curFont = fs.readFileSync(path.join(dir, 'font.bin'));
+    const corpus = readCorpus(dir, name);
     const stride = 1000;
     const counts = new Map();
     let total = 0;
-    for (let f = 0; f < frames; f++) {
+    for (let f = 0; f < corpus.frames; f++) {
       for (let i = 0; i < stride; i++) {
-        const rows = new Array(8);
-        if (hasIdeal) {
-          const base = (f * stride + i) * 8;
-          for (let r = 0; r < 8; r++) rows[r] = ideal[base + r];
-        } else {
-          const code = ref[f * stride + i] * 8;
-          for (let r = 0; r < 8; r++) rows[r] = curFont[code + r];
-        }
+        const rows = tileRows(corpus, f, i);
         const key = rows.join(',');
         counts.set(key, (counts.get(key) ?? 0) + 1);
         total++;
       }
     }
-    corpora.push({name, dir, counts, total, hasIdeal});
-    console.log(`census: ${name.padEnd(20)} ${counts.size} unique tiles, ${total} cells (${hasIdeal ? 'ideal' : 'film font'})`);
+    corpora.push({...corpus, counts, total});
+    console.log(`census: ${name.padEnd(20)} ${counts.size} unique tiles, ${total} cells (${corpus.hasIdeal ? 'ideal raster' : 'film font'})`);
   }
+  assert(corpora.length > 0, 'No corpora found; generate the films or pass --root DIRECTORY.');
   return corpora;
 }
 
 function optimize(corpora, options = {}) {
   const {d12Stride = 3} = options;
   const fixed = buildFont({d12Stride, contentRows: []});
-  const fixedWords = fixed.rows.map(wordsOf);
+  const fixedWords = fixed.rows.slice(0, fixed.fixedSlots).map(wordsOf);
   // merged tiles: key -> {w: [u32,u32], weight: Σ_c count/total_c}
   const tiles = new Map();
   for (const corpus of corpora) {
@@ -134,55 +112,56 @@ function optimize(corpora, options = {}) {
   return {font: buildFont({...options, contentRows}), contentRows, residual, totalWeight};
 }
 
-function measure(name, dir, frames, fontRows) {
-  const ref = fs.readFileSync(path.join(dir, 'reference.frames'));
-  const idealPath = path.join(dir, 'ideal.frames');
-  const hasIdeal = fs.existsSync(idealPath);
-  const ideal = hasIdeal ? fs.readFileSync(idealPath) : null;
-  const curFont = fs.readFileSync(path.join(dir, 'font.bin'));
-  const stride = 1000;
-  const nearest = new Map();
+function measure(corpus, fontRows) {
+  const fontWords = fontRows.map(wordsOf);
   let err = 0;
-  for (let f = 0; f < frames; f++) {
-    for (let i = 0; i < stride; i++) {
-      const rows = new Array(8);
-      if (hasIdeal) {
-        const base = (f * stride + i) * 8;
-        for (let r = 0; r < 8; r++) rows[r] = ideal[base + r];
-      } else {
-        const code = ref[f * stride + i] * 8;
-        for (let r = 0; r < 8; r++) rows[r] = curFont[code + r];
-      }
-      const key = rows.join(',');
-      let n = nearest.get(key);
-      if (!n) {
-        const w = wordsOf(rows);
-        let bestE = 64;
-        for (const fr of fontRows) {
-          const d = dist(w, wordsOf(fr));
-          if (d < bestE) bestE = d;
-        }
-        n = bestE; nearest.set(key, bestE);
-      }
-      err += n;
-    }
+  for (const [key, count] of corpus.counts) {
+    const words = wordsOf(key.split(',').map(Number));
+    let best = 64;
+    for (const candidate of fontWords) best = Math.min(best, dist(words, candidate));
+    err += best * count;
   }
-  return {name, errPerFrame: err / frames, pct: 100 * err / frames / 8000, hasIdeal};
+  return {name: corpus.name, frames: corpus.frames, cells: corpus.total, uniqueTiles: corpus.counts.size,
+    target: corpus.hasIdeal ? 'ideal-raster' : 'existing-film-font', mismatchedPixels: err,
+    errPerFrame: err / corpus.frames, pct: 100 * err / (corpus.frames * 64000), hashes: corpus.hashes};
 }
 
 if (require.main === module) {
-  const corpora = loadCensus();
-  for (const d12Stride of [2, 3]) {
+  const options = {};
+  for (let index = 2; index < process.argv.length; index += 2) {
+    const key = process.argv[index];
+    assert(['--root', '--output', '--measure-font'].includes(key) && process.argv[index + 1], 'Use [--root DIRECTORY] [--output DIRECTORY] [--measure-font FILE].');
+    options[key] = process.argv[index + 1];
+  }
+  const root = path.resolve(options['--root'] || process.env.UNIVERSAL_CORPORA_ROOT || path.join(HERE, '../build'));
+  const output = path.resolve(options['--output'] || path.join(HERE, 'build'));
+  const corpora = loadCensus(root);
+  const uniqueTiles = new Set(corpora.flatMap(corpus => [...corpus.counts.keys()])).size;
+  fs.mkdirSync(output, {recursive: true});
+  if (options['--measure-font']) {
+    const file = path.resolve(options['--measure-font']), bytes = fs.readFileSync(file);
+    assert.equal(bytes.length, 2048);
+    const rows = Array.from({length: 256}, (_, code) => Array.from(bytes.subarray(code * 8, code * 8 + 8)));
+    const report = {pass: true, mode: 'measure-frozen-font', font: path.relative(HERE, file).split(path.sep).join('/'),
+      pathBase: 'universal script directory', fontSha256: sha256(bytes),
+      producerSha256: Object.fromEntries(['font.cjs', 'optimize-content.cjs'].map(name => [name, sha256(fs.readFileSync(path.join(HERE, name)))])),
+      rasterLayout: '320x200 binary byte pixels; 64000 bytes/frame, MSB-left packed only when extracting a tile',
+      fitting: 'Unconstrained nearest-glyph Hamming distance; native mask-constrained fitting can differ.',
+      corpora: corpora.length, uniqueTiles, results: corpora.map(corpus => measure(corpus, rows))};
+    fs.writeFileSync(path.join(output, 'frozen-font-measurement.json'), JSON.stringify(report, null, 2) + '\n');
+    console.log(JSON.stringify(report, null, 2));
+  } else for (const d12Stride of [2, 3]) {
     const t0 = Date.now();
     const {font, contentRows, residual, totalWeight} = optimize(corpora, {d12Stride});
     console.log(`\n=== d12 stride ${d12Stride}: fixed ${font.fixedSlots} slots, content ${font.contentSlots} slots (used ${contentRows.length}), residual ${(residual / totalWeight).toFixed(3)} px/cell weighted`);
-    fs.mkdirSync(path.join(HERE, 'build'), {recursive: true});
-    fs.writeFileSync(path.join(HERE, `build/font-stride${d12Stride}.bin`), toBytes(font));
-    fs.writeFileSync(path.join(HERE, `build/content-rows-stride${d12Stride}.json`), JSON.stringify(contentRows));
+    fs.writeFileSync(path.join(output, `font-stride${d12Stride}.bin`), toBytes(font));
+    fs.writeFileSync(path.join(output, `content-rows-stride${d12Stride}.json`), JSON.stringify(contentRows));
     for (const corpus of corpora) {
-      const m = measure(corpus.name, corpus.dir, corpus.frames ?? 161, font.rows);
-      console.log(`${m.name.padEnd(20)} ${m.hasIdeal ? 'vs ideal' : 'vs film '} ${(m.errPerFrame).toFixed(1)} px/frame (${m.pct.toFixed(2)}%)`);
+      const m = measure(corpus, font.rows);
+      console.log(`${m.name.padEnd(20)} ${m.target} ${(m.errPerFrame).toFixed(1)} px/frame (${m.pct.toFixed(2)}%)`);
     }
     console.log(`(optimize+measure took ${((Date.now() - t0) / 1000).toFixed(1)}s)`);
   }
 }
+
+module.exports = {loadCensus, optimize, measure};

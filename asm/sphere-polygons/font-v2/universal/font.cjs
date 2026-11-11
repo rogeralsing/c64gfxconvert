@@ -19,6 +19,8 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const assert = require('node:assert/strict');
+const crypto = require('node:crypto');
 
 const HERE = __dirname;
 const ROWS = fn => Array.from({length: 8}, (_, y) => fn(y));
@@ -111,7 +113,63 @@ function toBytes(font) {
   return out;
 }
 
-module.exports = {buildFont, toBytes, chainDefs, DIRS};
+// bitmap-to-chars writes ideal.frames as a 320x200 raster of byte-valued
+// binary pixels, not eight packed row bytes per character. Keep that layout
+// in one reader so the optimizer and the line study use identical targets.
+const CORPORA = [
+  ['solid-star', 'three-scene-solid-star/characters'],
+  ['sphere-to-cube-zoom', 'raw-literal-storage'],
+  ['gradient-dither-cube', 'three-scene-gradient-c64/characters'],
+  ['dithered-star', 'three-scene-dithered-star/characters'],
+  ['tumbling-star', 'three-scene-tumbling-star/characters'],
+  ['glass-diamond', 'three-scene-glass-diamond/characters'],
+  ['glass-star', 'three-scene-glass-star/characters'],
+  ['glass-outline', 'three-scene-glass-outline/characters'],
+  ['flagship-star', 'three-scene-flagship-star/characters'],
+];
+const sha256 = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+
+function readCorpus(dir, name = path.basename(dir)) {
+  const reference = fs.readFileSync(path.join(dir, 'reference.frames'));
+  const font = fs.readFileSync(path.join(dir, 'font.bin'));
+  assert(reference.length > 0 && reference.length % 1000 === 0, `${name}: invalid 1000-byte screen frames`);
+  const frames = reference.length / 1000;
+  assert(font.length > 0 && font.length <= 2048 && font.length % 8 === 0, `${name}: invalid charset`);
+  assert(reference.every(code => code < font.length / 8), `${name}: code outside charset`);
+  const metadataPath = path.join(dir, 'metadata.json'), studyPath = path.join(dir, 'study.json');
+  const study = fs.existsSync(studyPath) ? JSON.parse(fs.readFileSync(studyPath)) : null;
+  const metadata = fs.existsSync(metadataPath) ? JSON.parse(fs.readFileSync(metadataPath)) : study?.sourceMetadata || {};
+  if (metadata.frameCount !== undefined) assert.equal(metadata.frameCount, frames, `${name}: metadata frame count`);
+  if (metadata.width !== undefined) assert.equal(metadata.width, 320, `${name}: raster width`);
+  if (metadata.height !== undefined) assert.equal(metadata.height, 200, `${name}: raster height`);
+  if (study?.frameCount !== undefined) assert.equal(study.frameCount, frames, `${name}: study frame count`);
+  const idealPath = path.join(dir, 'ideal.frames');
+  const ideal = fs.existsSync(idealPath) ? fs.readFileSync(idealPath) : null;
+  if (ideal) {
+    assert.equal(ideal.length, frames * 320 * 200, `${name}: ideal.frames must contain 64000 raster bytes per frame`);
+    assert(ideal.every(value => value === 0 || value === 1), `${name}: nonbinary raster pixel`);
+  }
+  return {name, dir, reference, font, ideal, frames, hasIdeal: Boolean(ideal),
+    metadata, loop: metadata.loop || study?.loop || null,
+    hashes: {reference: sha256(reference), font: sha256(font), ...(ideal ? {ideal: sha256(ideal)} : {})}};
+}
+
+function tileRows(corpus, frame, cell) {
+  assert(Number.isInteger(frame) && frame >= 0 && frame < corpus.frames);
+  assert(Number.isInteger(cell) && cell >= 0 && cell < 1000);
+  if (!corpus.ideal) {
+    const start = corpus.reference[frame * 1000 + cell] * 8;
+    return Array.from(corpus.font.subarray(start, start + 8));
+  }
+  const start = frame * 64000 + Math.floor(cell / 40) * 8 * 320 + (cell % 40) * 8;
+  return Array.from({length: 8}, (_, row) => {
+    let packed = 0;
+    for (let x = 0; x < 8; x++) packed |= corpus.ideal[start + row * 320 + x] << (7 - x);
+    return packed;
+  });
+}
+
+module.exports = {buildFont, toBytes, chainDefs, DIRS, CORPORA, readCorpus, tileRows, sha256};
 
 if (require.main === module) {
   const font = buildFont();
