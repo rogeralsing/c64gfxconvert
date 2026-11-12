@@ -1,0 +1,44 @@
+{
+  "source_range_s": [
+    0,
+    20
+  ],
+  "processing": "Exact PCM frame crop from the independent original MOD renders. No gain, normalization, EQ, mixing or alignment.",
+  "files": [
+    {
+      "file": "amiga-original.wav",
+      "source_sha256": "0ac96e531473072489e52222dc1097448f26fa9a9af5e7906d193546067cb65f",
+      "sha256": "2c1737eee6bc905512ec2e15168a76c8e49ba98aba3b814c34daa85f141ba5e5",
+      "duration_s": 20,
+      "sample_rate": 22050
+    },
+    {
+      "file": "amiga-channel-1.wav",
+      "source_sha256": "dceae9ab85590156d78b75fd4a19c4a49a91b23033dc9f0c0e901f3c694b3357",
+      "sha256": "d3b6b9eca4361b67b19b8b9751b4105612e76e16018cf2e552907c54c8e60328",
+      "duration_s": 20,
+      "sample_rate": 22050
+    },
+    {
+      "file": "amiga-channel-2.wav",
+      "source_sha256": "9d323eb3e37f2c37d477c2d07e6f03d53397acb9626d075e11b9de74ba201ddd",
+      "sha256": "7e0c12e3901244fb259223b6896654125a8f5040ba827523e295657fe231f923",
+      "duration_s": 20,
+      "sample_rate": 22050
+    },
+    {
+      "file": "amiga-channel-3.wav",
+      "source_sha256": "32b1931f68def9829246295bf374985bfec1792a56f92d6b3196f10c08e1ce70",
+      "sha256": "a2891afd765c6555fb6e4f1702307e7a95f5186a7df8d5ea5c80e88c476c5efe",
+      "duration_s": 20,
+      "sample_rate": 22050
+    },
+    {
+      "file": "amiga-channel-4.wav",
+      "source_sha256": "b40117368d5d73aaa86a8a737e887b67f1ac06f729dfcf784cabcc4e3a0d664c",
+      "sha256": "0ea662395fe6e2ebab6f6ebc35ecb55f2776497ba683f920afde304c317599f4",
+      "duration_s": 20,
+      "sample_rate": 22050
+    }
+  ]
+}

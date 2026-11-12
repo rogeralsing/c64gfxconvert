@@ -7,33 +7,93 @@
     "resampling": 2,
     "sample_rate": 22050
   },
-  "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
-  "trace_sha256": "cde2d3312821167645774de21fdcd88ab925d99c9d22ef94f7ac575d2e3e802c",
+  "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+  "trace_sha256": "6421bc01f00ab7823d351cc47d75b2e58947988c97153fa657c820c305bdb6a6",
+  "native_events_read": 941392,
   "expected_samples": 156389,
   "observed_latches": 156389,
   "input_codes_written": 156389,
-  "all_sample_inputs_match_independent_model": true,
-  "input_mismatches": 0,
-  "first_input_mismatches": [],
+  "sid3_register_events": 781945,
+  "sid3_complete_ordered_prefix_and_inputs_exact": true,
   "sample_gap_counts": {
     "126": 156388
   },
-  "first_latch_cycle": 2191487,
-  "last_latch_cycle": 21896375,
+  "first_latch_cycle": 2246223,
+  "last_latch_cycle": 21951111,
+  "music_end_cycle_including_sid2_phase": 21951152,
+  "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/c3/expected-high.bin",
+  "sid2_expected_high_sha256": "37426b47dd1df02925b08ac4ce50d1a36bf3bee9931d71256ca32f5a4d163de0",
+  "sid2_register_events": 156390,
+  "sid2_all_ordered_phase_events_exact": true,
+  "sid2_frequency_high_writes": 39097,
+  "sid2_latches_including_startup_neutral": 39098,
+  "sid2_latch_gap_counts": {
+    "504": 39097
+  },
+  "sid2_startup_values_exact": true,
+  "sid2_startup_registers": {
+    "11": [
+      2246014,
+      11,
+      1
+    ],
+    "8": [
+      2245956,
+      8,
+      54
+    ],
+    "7": [
+      2142688,
+      7,
+      0
+    ]
+  },
+  "sid2_startup_release_offset_from_first_sid3_latch": -209,
+  "sid2_frequency_low_unchanged_zero": true,
+  "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL17@+35,CTRL9@+41; phase2 high@+37,CTRL1@+43. Lastphase0 fullychecked.",
+  "sid2_muted": false,
+  "sid2_enable_control": 17,
+  "sid2_release_control": 1,
+  "ordinary_sid1_writes_checked": 3000,
+  "ordinary_sid1_values_and_exact_timing": true,
+  "ordinary_sid1_startup_values_exact": true,
+  "ordinary_sid1_startup_offsets_from_first_latch": [
+    -254,
+    -247,
+    -240
+  ],
+  "ordinary_sid1_frame_offsets_after_first_nmi": [
+    53,
+    60,
+    67
+  ],
+  "baseline_first_latch_cycle": 2191487,
+  "first_latch_matches_approved_absolute_phase": false,
+  "first_latch_shift_from_approved_cycles": 54736,
+  "absolute_startup_phase_is_a_gate": true,
   "generated_frames": 1000,
   "underruns": 0,
-  "ordinary_sid_writes_checked": 6000,
-  "ordinary_sid_sequence_matches": true,
-  "ordinary_sid_write_mismatches": 0,
-  "first_synth_mismatches": [],
-  "synth_frame_timing_errors": 0,
-  "synth_commit_offset_cycles_after_boundary_latch": [
-    179,
-    305
-  ],
+  "ring_counters": {},
+  "ring_error_counters": {},
+  "ring_counter_coverage": false,
+  "master_volume_start_exact": true,
   "d418_writes_during_music": [],
-  "native_events_read": 787995,
-  "retained_synth_event_bytes": 60020,
-  "scope": "Streaming verification of every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not establish original timbre, physical SID fidelity or perceived balance.",
-  "passed": true
+  "unplanned_filter_writes": [],
+  "explicit_shutdown_zero_writes": {
+    "sid1": 1,
+    "sid2": 1,
+    "sid3": 1,
+    "master": 1
+  },
+  "unexpected_duplicate_shutdown_events": [],
+  "parse_errors": [],
+  "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+  "passed": true,
+  "sid1_event_mismatches": 0,
+  "first_sid1_mismatches": [],
+  "sid2_event_mismatches": 0,
+  "first_sid2_mismatches": [],
+  "sid3_event_mismatches": 0,
+  "first_sid3_mismatches": [],
+  "required_first_latch_cycle": 2246223
 }

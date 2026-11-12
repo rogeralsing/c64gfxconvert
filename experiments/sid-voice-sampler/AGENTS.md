@@ -1,85 +1,92 @@
 # Canonical C64 music path
 
-Run every shell command through `rtk`. The user selected the Linus-style native
-mixer on 2026-11-12 and explicitly requested removal of older variants so work
-does not fall back to them. This direction supersedes the earlier experiment
-entry points and audition workflows.
+Run every shell command through `rtk`. The user selected native Linus-style SID
+sampling and mixing. Preserve that direction; do not restore `$D418` PCM4 or a
+single-partial flute approximation as a fallback.
 
 ## One entry point
-
-Use only this build command from the repository root:
 
 ```sh
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py
 ```
 
-`linus-mix-player.asm` is the runtime. Its C64 foreground loop mixes a software
-triangle bass with reusable fixed-rate drum samples; SID voice 3 emits the sum
-using the SounDemoN sample-and-hold mechanism. Two ordinary SID voices remain
-available. Four logical musical parts can therefore share three physical SID
-voices. The current mixer is not two freely pitched sampled-instrument players.
+`linus-mix-player.asm` is the self-contained runtime. `native_playback.py`
+builds, verifies and captures it; `native_instruments/` prepares its independent
+instrument assets from the pinned MOD. A fresh build needs no historical
+`work/` score, recovery recording or generated instrument directory.
 
-Do not restore the older `$D418`/PCM4 path, a single-sample-only player, an old
-audition generator, or a different SID profile as a fallback. Extend the native
-mixer deliberately when it cannot yet express an arrangement. State the missing
-capability instead of silently changing the sound architecture.
+Do not revive the old study/probe generators as public entry points. Extend the
+canonical player when an arrangement cannot fit; state unsupported behavior.
 
-## Musical decisions
+## Current Hyperbased arrangement
 
-- Keep all four original MOD channels separate in the song's working folder.
-  Preserve their common time origin and gain; do not normalize them separately.
-- Listen to complete phrases and identify their roles before assigning voices.
-  Channels can change roles during a song. Select the prominent musical parts
-  by sequence, not a fixed channel label or encoding convenience.
-- Preserve note timing, pitch, triggers, gain changes and sample lifetimes.
-  Report every omitted channel or passage and every synthesis approximation.
-- Do not turn an ambiguous pitched instrument into noise, a kick, a guessed
-  octave or an invented chord arpeggio to make it fit. Validate its isolated
-  source phrase before proposing a replacement.
-- Reuse instrument data and C64 synthesis. Never replace a song with a flattened
-  host recording. A prominence detector remains future work; do not claim one
-  exists or treat energy alone as musical importance.
+The supported proof is exactly the first twenty seconds, not the full song:
 
-The current Hyperbased proof is exactly its first 20 seconds: original channel
-1's software triangle bass plus channel 4's sampled drums on SID voice 3,
-channel 2's pulse approximation on SID voice 1, and SID voice 2 resting.
-Original channel 3 remains unselected pending listening. Do not call this a
-full song or an exact four-channel MOD conversion. A separate four-logical-part
-runtime probe proves technical capacity, not that musical arrangement.
+- SID 1: original Amiga C2, the previously accepted ordinary pulse SID part.
+- SID 2: original C3 instruments 8/9/10/11 as actual reused sample waveforms.
+  A native fractional cursor controls pitch. The clock is504 PAL cycles,
+  1,954.86 values/s. Only frequency high is written; the measured transfer is
+  `round(virtual_code*105/249)`. This has less bandwidth than the accepted
+  7.82 kHz isolated recovery reference. Do not label the new mix listening-approved.
+- SID 3: original C1 triangle bass plus original C4 sampled drums, added on C64
+  at126 PAL cycles, 7,819.43 values/s. Reused triangle run programs compile the
+  approved pitch/phase/volume oscillator; independent drum windows contain no
+  bass or mixed song recording. Every approved mixed input remains exact.
 
-## Signal path and proof
+All four original channels have assigned parts in this bounded phrase. SID 1
+and the triangle bass remain synthesis approximations. Keep all original
+channels separate, with their common gain/time origin. Select subsequent parts
+by musical phrase; tracker channel numbers do not imply a permanent role.
 
-Keep PAL, reSID, MOS8580 + digiboost, resampling method 2, and mono 22,050-Hz
-recording. Use `../mod-hybrid/vice_profile.py`. The C64 sample clock is 126 PAL
-cycles, or 7,819.43 values/s; the recording rate is a different quantity.
-Master volume stays constant during music. Do not send sample values to `$D418`.
+Never replace a song with flattened host PCM. Preserve timing, triggers, gain
+changes, pitch and sample lifetime. Report omitted passages and approximations.
+The source prominence detector is still future work.
 
-Mix on the C64. Retain independent bass and drum inputs, linear headroom and
-the native mixed output comparison. Verify every input code, every 126-cycle
-latch gap, all ordinary SID writes, terminal counters and zero underruns in
-actual VICE. Measure CPU and RAM over the complete delivered phrase after
-runtime or arrangement changes. A short probe does not prove a longer run.
+## Listening decisions
 
-The current 20-second proof checks 156,389 mixed values and 6,000 SID writes.
-Minimum measured foreground slack is 110 cycles per buffer. Screen-on operation
-and physical SID fidelity have not been verified. Digital correctness does not
-establish acceptable sound or physical analog bit resolution.
+`work/hyperbased/listening-decisions.json` records acceptance. The user accepted
+SID 1 and SID 3, and rejected SID 2's orchestral single-partial flute. Immutable
+accepted solo WAVs are in `references/hyperbased-stems/`; earlier full-song
+Cream/Hyperbased references remain under `references/`.
 
-Deliver a runnable PRG, actual VICE WAV and compact measurements. Listening
-files may use only a clock-anchored crop, DC removal and one constant gain.
-Do not hide faults with EQ, limiting, alignment, pitch correction, dynamics or
-host mixing. Distinguish listening approval from measured correctness.
+Preserve those reference bytes. Current SID 1/SID 3 register sequences and event
+phases must remain exact. A resampler-phase-preserving startup shift is 54,736 PAL
+cycles (1,225 recording samples); do not align listening files on the host. Current
+captures need not be byte-identical to older ones: their measured differences
+must remain within the documented noise comparison, with strict digital proof.
+Compare both accepted WAVs at gain 8 with no time adjustment: maximum 96 PCM16
+LSB peak and 25 LSB RMS difference. Current measurements are 80 LSB peak and at
+most 21.98 LSB RMS; do not call the WAVs byte-identical.
+The accepted sampled C3 recovery clip is not approval of the new lower-rate mix.
 
-## References and ownership
+## Required proof and delivery
 
-Approved Cream and Hyperbased WAV/PRG files are retained only under
-`references/cream/` and `references/hyperbased/`, with identities in
-`references/manifest.json`. Preserve those bytes as listening references. They
-are not build instructions or alternate player implementations.
+Keep PAL, reSID, MOS8580 + digiboost, resampling 2 and mono 22,050 Hz recording. Recording
+rate differs from both native sample clocks. Master volume stays 15 during music;
+never write sample amplitudes to `$D418`. Its voice-3-off bit may be set at startup.
+Screen-on operation and physical SID fidelity remain unverified.
 
-Keep generated instrument pages, scores, logs, raw captures and traces out of
-Git. Publish only selected listening files, runnable programs and compact
-receipts when requested. Preserve source MOD provenance.
+Deliver runnable `player.prg` and independently captured `all.wav`, `sid-1.wav`,
+`sid-2.wav`, `sid-3.wav`. Bass and drums stay together on SID 3. Use the same
+runtime, full producer workload, time origin and one gain for every capture.
+Mute SID 1 with zero-frequency TEST score states and zero sustain. Mute SID 2 by
+keeping TEST set in sampler controls, with zero sustain. Mute SID 3 with zero
+sustain and its native output-disable bit; its computed sample stream continues.
+Only declared mute constants and SID 1 score fields may differ between programs.
+The all-muted run must match an independently static SID control.
 
-Parallel HVSC and graphics work is outside this task. Do not include or rewrite
-it automatically during cleanup, commits or publication.
+Verify all 156,389 SID 3 inputs/prefixes at 126 cycles, all 39,097 SID 2 ring reads
+plus the startup neutral latch at 504 cycles, all 3,000 SID 1 writes, counters and
+constant master volume. Prove every ring generation was written before its
+matching read, including silence; matching values alone can hide underruns.
+Measure CPU and memory over the complete delivered phrase after runtime changes.
+
+Listening files allow only a clock-anchored crop, DC removal and one constant
+gain. No EQ, limiting, timing adjustment, dynamics, host mixing or noise removal.
+Digital correctness does not prove perceived quality or physical bit resolution.
+
+## Scope and ownership
+
+Keep generated banks, raw captures and traces out of Git; publish only selected
+PRGs, listening WAVs and compact receipts when requested. Preserve source MOD
+provenance. Parallel HVSC and graphics work is outside this task.

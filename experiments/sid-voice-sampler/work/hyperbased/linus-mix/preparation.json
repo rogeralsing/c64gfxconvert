@@ -1,118 +1,49 @@
 {
-  "bass": {
-    "source_channel": 1,
-    "source_instrument": 1,
-    "measured_source_period_samples": 159.63779846401047,
-    "triangle_levels": 16,
-    "peak_amplitude_codes": 15,
-    "source_volumes": [
-      0,
-      4,
-      19,
-      34,
-      49,
-      64
-    ],
-    "triggers": 91,
-    "phase_bits": 16,
-    "pitch_error_cents_range": [
-      -1.034152412171371,
-      3.638672283274871
-    ]
+  "paths": {
+    "root": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build",
+    "base": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/base",
+    "c3_model": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/c3-model",
+    "c3_windows": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/c3-windows",
+    "linked": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked",
+    "data_asm": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/data.asm",
+    "sid3_expected": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/base/expected-input.bin",
+    "c3_expected_high": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/c3/expected-high.bin",
+    "c3_expected_latches_high": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/c3/expected-latches-high.bin"
   },
-  "drums": {
-    "source_channel": 4,
-    "triggers": 150,
-    "assets": [
-      {
-        "instrument": 2,
-        "source_period": 254,
-        "source_sample_sha256": "7743035c1cb2c4f7317627b889f5bd7bd4069d2c5e2a566cb0e868418fee82a0",
-        "resampling_ratio": [
-          1891,
-          3377
-        ],
-        "resampled_frames": 1033,
-        "resampling_pitch_error_cents": 7.124756398876658e-05
-      },
-      {
-        "instrument": 3,
-        "source_period": 254,
-        "source_sample_sha256": "3c89f4331a8fd6b37f137704dfb36867c439d80ae9ef3d7aae602f91c32f55fd",
-        "resampling_ratio": [
-          1891,
-          3377
-        ],
-        "resampled_frames": 1986,
-        "resampling_pitch_error_cents": 7.124756398876658e-05
-      },
-      {
-        "instrument": 4,
-        "source_period": 214,
-        "source_sample_sha256": "8bf42384bc16bfdbfa5fc5611d2270ee4087f92d5fdb5873f366f8fb320b7b3f",
-        "resampling_ratio": [
-          1931,
-          4093
-        ],
-        "resampled_frames": 231,
-        "resampling_pitch_error_cents": 8.797112368035247e-05
-      },
-      {
-        "instrument": 5,
-        "source_period": 214,
-        "source_sample_sha256": "c3d89609c730adc989bb711d7de742bf9844f326ab414490b5becbaa38b077e2",
-        "resampling_ratio": [
-          1931,
-          4093
-        ],
-        "resampled_frames": 487,
-        "resampling_pitch_error_cents": 8.797112368035247e-05
-      },
-      {
-        "instrument": 6,
-        "source_period": 214,
-        "source_sample_sha256": "63eefd555b7357f6a57da0c802fbe99f9fc884057e281ef233a16007874517d2",
-        "resampling_ratio": [
-          1931,
-          4093
-        ],
-        "resampled_frames": 405,
-        "resampling_pitch_error_cents": 8.797112368035247e-05
-      },
-      {
-        "instrument": 9,
-        "source_period": 285,
-        "source_sample_sha256": "9bea8345084e80319be2e73557dec43b1e08f075b6951159533e0241af41c8dd",
-        "resampling_ratio": [
-          2304,
-          3667
-        ],
-        "resampled_frames": 1834,
-        "resampling_pitch_error_cents": -0.00011534232751816228
+  "verification": {
+    "passed": true,
+    "sid3_values": 156389,
+    "sid3_input_sha256": "080852a5c0cf96f0e3b00ac856d594015c92a513435ccb5e08816d54cfa267a2",
+    "c3_ring_values": 39097,
+    "c3_startup_neutral_latches": 1,
+    "c3_high_sha256": "37426b47dd1df02925b08ac4ce50d1a36bf3bee9931d71256ca32f5a4d163de0",
+    "c3_latches_high_sha256": "01e2fcbf9ca20c47b10de0d83397b7884d42807225ae21388ba22efc98282ca9",
+    "c3_bank_roundtrip_passed": true,
+    "c3_window_roundtrip_passed": true,
+    "c3_direct_roundtrip_passed": true,
+    "resident_data_bytes": 41841,
+    "data_end": 48618,
+    "scope": "Source preparation and exact data roundtrips only. No native runtime, audio capture or listening acceptance is claimed by this stage."
+  },
+  "clock_binding": {
+    "source": "Freshly prepared1000 SID3 buffers, cumulative156/157sample cuts",
+    "high_rate_total_values": 156389,
+    "high_rate_sample_period_cycles": 126,
+    "SID2_latch_high_indices": {
+      "startup_neutral": [
+        0
+      ],
+      "ring_values": {
+        "first": 4,
+        "stride": 4,
+        "last": 156388
       }
-    ],
-    "gain_peak_codes": 90,
-    "unique_pages": 89,
-    "page_references": 1000,
-    "resampling": "Each source instrument is filtered and resampled once at its declared pitch, then arranged as reusable frame pages. Original source gain is applied before the native bass sum."
+    },
+    "source_state_assignment": "cuts[t]<=future_latch_high_index<cuts[t+1]",
+    "producer_pipeline": "phase2 at highindex2 reads ring[1] for latch4; no50Hzphase reset",
+    "native_timing_confirmation": "Verified SID2 latch+35, phase2read+37/release+43, W244, last_enabled249, reference105",
+    "first_frame_ring_count": 38,
+    "second_frame_ring_count": 40
   },
-  "memory": {
-    "triangle_bytes": 1536,
-    "drum_bytes": 22784,
-    "score_bytes": 12000,
-    "program_end": 40416,
-    "unused_before_d000_bytes": 12832
-  },
-  "mix_range": [
-    18,
-    239
-  ],
-  "native_mix": "C64 16-bit software phase oscillator plus ADC of independent drum data. Linear headroom prevents overflow; no compression lookup or clipping.",
-  "mapping": {
-    "sid_voice_3": "Original C1 software triangle bass plus original C4 drums",
-    "sid_voice_1": "Existing original C2 pulse approximation",
-    "sid_voice_2": "Available; resting in this bounded musical proof",
-    "omitted": "Original C3 remains separate pending listening/arrangement decisions; its orchestral hit is not assigned an invented SID root."
-  },
-  "scope": "First 20 seconds only. Proves native two-lane mixing on a single SID voice; not four-channel MOD fidelity or full Hyperbased integration."
+  "method": "Baseline instrument analysis, globally bound C3 source model, reusable per-instrument gain windows and independent native linker; no cached generated score dependency."
 }

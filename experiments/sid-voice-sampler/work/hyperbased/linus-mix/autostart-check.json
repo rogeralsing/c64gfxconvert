@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+  "method": "Actual VICE -autostartprgmode 1 -autostart. The monitor only sets a completion breakpoint and continues normal reset/autostart; no manual load, SYS or addressed g.",
+  "samples_sid3": 156389,
+  "samples_sid2": 39097,
+  "sid1_writes": 3000,
+  "underruns": 0,
+  "generated_frames": 1000,
+  "first_latch_cycle": 3184590,
+  "monitor_sha256": "babf6a1ecf8b111fff2b0a587399de1a632f66fb5589c1b7689e89a6ced65b34",
+  "trace_sha256": "6085b8bc9ec09002a5adc997aaddd3eababa16cb6fab18adb2cd501e6a47c095",
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  }
+}

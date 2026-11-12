@@ -11,7 +11,8 @@ old audition pipeline for that implementation.
 Keep the four original MOD channels separate. Review prominent phrases and
 instrument roles before choosing C64 voice assignments. Retain melody even when
 an easier percussion channel would fit the player. Current Hyperbased mixing
-covers twenty seconds and leaves original channel 3 unassigned.
+covers twenty seconds and plays original channel 3's actual sampled waveforms
+through SID voice 2 at 1.95 kHz. Do not restore its rejected flute approximation.
 
 Shared dependencies here remain active: `mod_reader.py`, `timeline.py`,
 `protracker_periods.py`, `solo_original.py`, `vice_profile.py`, source receipts,

@@ -1,0 +1,53 @@
+{
+  "passed": true,
+  "prg_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+  "wav_sha256": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+  "capture": {
+    "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "command": [
+      "/opt/homebrew/bin/x64sc",
+      "-default",
+      "-pal",
+      "-sidengine",
+      "1",
+      "-sidmodel",
+      "2",
+      "-residsamp",
+      "2",
+      "-soundrate",
+      "22050",
+      "-soundoutput",
+      "1",
+      "-soundvolume",
+      "100",
+      "-console",
+      "-seed",
+      "1",
+      "-initbreak",
+      "ready",
+      "-moncommands",
+      "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/capture.mon",
+      "-limitcycles",
+      "34483734",
+      "-sounddev",
+      "wav",
+      "-soundarg",
+      "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/raw.wav",
+      "+warp",
+      "-speed",
+      "100"
+    ],
+    "stats_hex": "a83fd8b6e8e60000e8030263",
+    "stats_file": "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/stats.bin",
+    "media": "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/raw.wav",
+    "media_sha256": "693f96e4db621ae9ae990309694d5d5b89d51d1bbebbcd7cb6897599f1c51166"
+  }
+}

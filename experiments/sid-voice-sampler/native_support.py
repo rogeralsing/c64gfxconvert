@@ -95,7 +95,8 @@ def source_mod(source: dict, out: Path) -> dict:
         save(path.with_suffix(".source.json"), source)
     return load_mod(path)
 
-def audio(receipt: dict, proof: dict, pcm: dict, out: Path) -> dict:
+def audio_signal(receipt: dict, proof: dict, pcm: dict) -> tuple[np.ndarray, int]:
+    """Read a complete native performance on its original sample-clock axis."""
     stats = bytes.fromhex(receipt["stats_hex"])
     if int.from_bytes(stats[8:10], "little") != pcm["frames"] or stats[6]:
         raise ValueError("Hybrid audio run missed buffers")
@@ -106,14 +107,25 @@ def audio(receipt: dict, proof: dict, pcm: dict, out: Path) -> dict:
     count = round(pcm["duration_s"] * rate)
     signal = raw[start:start + count, 0].copy()
     if len(signal) != count: raise ValueError("Incomplete hybrid recording")
-    signal -= signal.mean(); peak = float(np.max(np.abs(signal)))
-    if peak < .001: raise ValueError("Hybrid recording is silent")
-    gain = min(8.0, .92 / peak)
-    sf.write(out / "hybrid.wav", signal * gain, rate, subtype="PCM_16")
+    signal -= signal.mean()
+    return signal, rate
+
+def audio(receipt: dict, proof: dict, pcm: dict, out: Path, *,
+          filename: str = "all.wav", listening_gain: float | None = None) -> dict:
+    """Write actual VICE audio, optionally locking a comparison group's gain."""
+    signal, rate = audio_signal(receipt, proof, pcm)
+    count = len(signal)
+    peak = float(np.max(np.abs(signal)))
+    if peak < .001:
+        raise ValueError("Native recording is silent")
+    gain = (min(8.0, .92 / peak) if peak else 8.0) if listening_gain is None else listening_gain
+    if not np.isfinite(gain) or gain <= 0 or peak * gain >= 1:
+        raise ValueError("Listening gain is invalid or would clip the native recording")
+    sf.write(out / filename, signal * gain, rate, subtype="PCM_16")
     result = {"frames": count, "duration_s": count / rate, "sample_rate": rate,
               "profile": receipt["profile"], "generated_frames": pcm["frames"], "underruns": 0,
               "raw_peak": peak, "raw_rms": float(np.std(signal)), "listening_gain": gain,
-              "output_sha256": digest(out / "hybrid.wav"),
+              "output_file": filename, "output_sha256": digest(out / filename),
               "processing": "Actual VICE WAV, clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, alignment, time stretching or dynamics."}
     save(out / "audio-check.json", result)
     return result

@@ -1,6 +1,6 @@
 {
   "passed": true,
-  "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
+  "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
   "profile": {
     "machine": "PAL C64",
     "sid_engine": 1,
@@ -9,80 +9,179 @@
     "resampling": 2,
     "sample_rate": 22050
   },
-  "command": [
-    "/opt/homebrew/bin/x64sc",
-    "-default",
-    "-pal",
-    "-sidengine",
-    "1",
-    "-sidmodel",
-    "2",
-    "-residsamp",
-    "2",
-    "-soundrate",
-    "22050",
-    "-soundoutput",
-    "1",
-    "-soundvolume",
-    "100",
-    "-console",
-    "-seed",
-    "1",
-    "-initbreak",
-    "ready",
-    "-moncommands",
-    "/private/tmp/c64-linus-publish-20261112-081849/native-rebuild/budget/cpu.mon",
-    "-sounddev",
-    "dump",
-    "-soundarg",
-    "/private/tmp/c64-linus-publish-20261112-081849/native-rebuild/budget/registers.txt",
-    "-warp",
-    "-limitcycles",
-    "34483734"
-  ],
   "frames": 1000,
   "samples": 156389,
+  "generated_frames": 1000,
+  "underruns": 0,
   "sample_period_cycles": 126,
   "duration_s": 20.000054808535516,
-  "buffer_sample_counts": {
-    "156": 611,
-    "157": 389
-  },
-  "nmi_full_cycles_regular": {
-    "89": 13035,
-    "90": 26387,
-    "91": 46261,
-    "92": 66328,
-    "93": 3378
-  },
-  "nmi_full_cycles_boundary": {
-    "101": 999
-  },
-  "nmi_cpu_fraction": 0.723775999132804,
-  "available_foreground_cycles_per_buffer": {
-    "156": 5429.458961045605,
-    "157": 5464.263185154871
-  },
-  "fill_wall_cycles_range_before_rts": [
-    18489,
-    18782
-  ],
-  "fill_foreground_cycles_range_before_rts": [
-    5157,
-    5201
-  ],
-  "minimum_deadline_slack_wall_cycles": 464,
-  "minimum_deadline_slack_foreground_cycles": 110,
-  "pointer_swap_cycles_range": [
-    8,
-    8
-  ],
-  "pointer_swaps_interrupted": 0,
-  "minimum_pointer_commit_margin_cycles": 6,
   "sample_gap_counts": {
     "126": 156388
   },
-  "monitor_log_sha256": "e1d8d9ce198ec63e1bab6a82219f1a20ee772640eb3a080520adc3c21a3ade6d",
-  "register_dump_sha256": "cde2d3312821167645774de21fdcd88ab925d99c9d22ef94f7ac575d2e3e802c",
-  "scope": "Unmodified native program; monitor instruction tracepoints only. Hardware-entry/RTI costs included, final non-returning NMI excluded from average. Fill timing ends at the RTS instruction; six cycles are included in deadline readiness. Variable-frame deadlines come from actual boundary NMIs. Every profiler-run latch still has a 126-cycle interval. No audio or physical SID quality claim."
+  "first_latch_cycle": 2246223,
+  "nmi_full_cycles_regular": {
+    "79": 23,
+    "80": 157,
+    "81": 3204,
+    "82": 4222,
+    "83": 8374,
+    "84": 9469,
+    "85": 17306,
+    "86": 8608,
+    "87": 11603,
+    "88": 14229,
+    "91": 43,
+    "92": 196,
+    "93": 4666,
+    "94": 5445,
+    "95": 8673,
+    "96": 19205,
+    "97": 17772,
+    "98": 10849,
+    "99": 10346
+  },
+  "nmi_full_cycles_boundary": {
+    "103": 1,
+    "104": 1,
+    "106": 67,
+    "107": 75,
+    "108": 41,
+    "109": 61,
+    "115": 1,
+    "116": 3,
+    "117": 34,
+    "118": 10,
+    "119": 73,
+    "120": 148,
+    "121": 93,
+    "122": 111,
+    "123": 177,
+    "124": 103
+  },
+  "nmi_full_cycles_sid1_pending": {
+    "120": 9,
+    "121": 92,
+    "122": 114,
+    "123": 94,
+    "124": 379,
+    "125": 311
+  },
+  "nmi_cpu_fraction": 0.724261513183937,
+  "maximum_nmi_cycles": 125,
+  "automatic_activation_events": 999,
+  "active_activations_checked": 999,
+  "unused_terminal_activations_ignored": 0,
+  "pointer_low_store_cycles": 3,
+  "pointer_shadow_read_bus_offset_cycles": 2,
+  "fill_wall_cycles_range_before_rts": [
+    8831,
+    15728
+  ],
+  "fill_foreground_cycles_range_before_rts": [
+    2507,
+    4364
+  ],
+  "minimum_deadline_slack_wall_cycles": 2002,
+  "minimum_deadline_slack_foreground_cycles": 543,
+  "minimum_fill_return_margin_before_boundary_hardware_entry": 1910,
+  "fill_restart_foreground_cycles_after_previous_activation_range": [
+    51,
+    615
+  ],
+  "minimum_pointer_commit_margin_before_next_nmi": 13,
+  "c3_completed_pump_calls": 4015,
+  "c3_terminal_interrupted_calls": 0,
+  "c3_pump_outputs": 39097,
+  "c3_required_ring_values": 39097,
+  "c3_production_count_complete": true,
+  "c3_pump_cpu_cycles_including_manager_jsr_rts": 1408098,
+  "c3_pump_cycles_per_output_including_manager": 36.015499910479065,
+  "c3_pump_call_foreground_cycles_range": [
+    48,
+    622
+  ],
+  "c3_kernel_cpu_cycles_including_jsr_rts": 1022571,
+  "c3_kernel_cycles_per_output": 26.154717753280302,
+  "c3_manager_cycles_above_kernel_calls": 385527,
+  "c3_pump_calls_by_output_count": {
+    "0": {
+      "calls": 1008,
+      "foreground_cycles_range": [
+        48,
+        217
+      ]
+    },
+    "2": {
+      "calls": 4,
+      "foreground_cycles_range": [
+        91,
+        91
+      ]
+    },
+    "3": {
+      "calls": 2,
+      "foreground_cycles_range": [
+        106,
+        106
+      ]
+    },
+    "4": {
+      "calls": 1,
+      "foreground_cycles_range": [
+        187,
+        187
+      ]
+    },
+    "6": {
+      "calls": 1,
+      "foreground_cycles_range": [
+        151,
+        151
+      ]
+    },
+    "7": {
+      "calls": 895,
+      "foreground_cycles_range": [
+        166,
+        330
+      ]
+    },
+    "8": {
+      "calls": 105,
+      "foreground_cycles_range": [
+        119,
+        307
+      ]
+    },
+    "12": {
+      "calls": 1,
+      "foreground_cycles_range": [
+        414,
+        414
+      ]
+    },
+    "13": {
+      "calls": 4,
+      "foreground_cycles_range": [
+        443,
+        456
+      ]
+    },
+    "16": {
+      "calls": 1994,
+      "foreground_cycles_range": [
+        198,
+        622
+      ]
+    }
+  },
+  "monitor_log_sha256": "abe3229dede4c6a889973af41302f17b23df0c486c47b080e35d35a2706a2517",
+  "register_dump_sha256": "6421bc01f00ab7823d351cc47d75b2e58947988c97153fa657c820c305bdb6a6",
+  "failures": [],
+  "scope": "Unmodified automatic-activation PRG. Every NMI/boundary, exact buffer length and126cycle latch clock checked. RLE fills meet the actual NMI shadow-read deadline; no foreground wait/pointer-swap gate. Costs include hardware entry/RTI and JSR/RTS as stated; final nonreturning NMI is excluded from averages. Ring generations and audio quality require separate proofs.",
+  "c3_background_entry_guard_cpu_cycles": 62502,
+  "c3_background_loop_cpu_cycles_between_calls": 20091,
+  "c3_total_foreground_cycles_including_background_control": 1490691,
+  "c3_total_foreground_cycles_per_output_including_background_control": 38.12801493720746,
+  "c3_background_control_scope": "Includes active queue/boundary guards and branches between consecutive C3 calls. RLE fills and intervening idle waits excluded; final exit into each idle wait is not charged."
 }

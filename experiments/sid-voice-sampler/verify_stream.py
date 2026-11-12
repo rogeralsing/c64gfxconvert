@@ -63,7 +63,7 @@ def verify(compiled: dict, receipt: dict, pcm: dict, rows: list[list[int]],
                                                        "expected": wanted, "observed": value})
                 input_count += 1
             if register == 24:
-                if value == 15 and master_on is None:
+                if value & 15 == 15 and master_on is None:
                     master_on = clock
                 if first_latch is not None:
                     master_events.append((clock, value))

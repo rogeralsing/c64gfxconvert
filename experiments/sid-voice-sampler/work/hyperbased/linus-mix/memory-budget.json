@@ -1,0 +1,15 @@
+{
+  "loaded_image_start": 2049,
+  "loaded_image_end_exclusive": 50185,
+  "loaded_image_bytes": 48136,
+  "independent_instrument_and_score_data_bytes": 41841,
+  "copied_zero_page_code_bytes": 199,
+  "zero_page_state_reserved_bytes": 30,
+  "native_buffers_phase_pages_ring_bytes": 1280,
+  "stack_page_reserved_bytes": 256,
+  "interrupt_vector_bytes": 2,
+  "resident_total_including_reserved_stack_bytes": 49903,
+  "contiguous_free_before_io_bytes": 3063,
+  "conservative_free_upper_ram_bytes": 7936,
+  "scope": "Conservative resident image plus separate low-RAM work areas; image alignment holes counted as occupied. SID I/O remains visible."
+}

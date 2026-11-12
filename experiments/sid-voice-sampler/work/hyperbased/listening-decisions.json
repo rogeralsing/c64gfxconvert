@@ -1,0 +1,91 @@
+{
+  "song": "Hyperbased",
+  "source_range_s": [
+    0,
+    20
+  ],
+  "sid_outputs": {
+    "1": {
+      "status": "accepted",
+      "original_mod_channel": 2,
+      "file": "../../references/hyperbased-stems/sid-1.wav",
+      "wav_sha256": "c3f9d0f295705641d96c6992fb2d6798326f63fbb34dd96e6ed42cdbe843745b",
+      "solo_program_sha256": "56fb7aefa3a1d255867db24db8cf4f73c75bbd2fcf0e8975710a1a9968209657",
+      "listening_gain": 8.0,
+      "feedback": "ok, men check p\u00e5 kanal 1 64.. den \u00e4r bra",
+      "scope": "This isolated SID1 performance only. Keep its note sequence and instrument sound while improving SID2 and SID3; this does not approve the complete mix or other outputs.",
+      "current_capture": {
+        "file": "linus-mix/sid-1.wav",
+        "wav_sha256": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+        "digital_part_preserved": true,
+        "capture_comparison": {
+          "passed": true,
+          "comparison_gain": 8,
+          "maximum_pcm16_lsb_difference": 80,
+          "rms_pcm16_lsb_difference": 21.978124609828903,
+          "peak_limit_pcm16_lsb": 96,
+          "rms_limit_pcm16_lsb": 25,
+          "wav_at_reference_gain_sha256": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+          "no_alignment_or_audio_correction": true
+        },
+        "listening_status": "Previous musical part accepted; new capture is not byte-identical."
+      }
+    },
+    "2": {
+      "status": "candidate",
+      "original_mod_channels": [
+        3
+      ],
+      "file": "linus-mix/sid-2.wav",
+      "wav_sha256": "435cfabeac2b60471d433c57502d57c8d9142fef144b8c270d57a6f691fe339e",
+      "native_sample_rate_hz": 1954.857142857143,
+      "method": "Original sample waveforms with native fractional pitch cursor on SID voice2",
+      "rejected_approximation": {
+        "wav_sha256": "ce4fcdc1f1ab292d681758595b9b4614f8e3d6ca565d34b87de94f1279e29c3f",
+        "feedback": "sid 2 \u00e4r skit... det \u00e4r ett j\u00e4ttekonstigt fl\u00f6jtljud... jag \u00e4r helt 100 p\u00e5 att vi tidigare hade en fungerande version av just den h\u00e4r st\u00e4mman",
+        "scope": "Measured single-partial orchestra approximation rejected. Recover the previous sampled timbre; do not label digital verification as listening acceptance."
+      },
+      "sampled_reference": {
+        "status": "accepted",
+        "file": "recovery/sampled-c3/source-c3-sampled.wav",
+        "wav_sha256": "869b3e6fbe65dd397c77f9551851a03a45f669dce8bc89901514513f855b1a95",
+        "source_range_s": [
+          0,
+          3.84
+        ],
+        "feedback": "det l\u00e5ter bra! forts\u00e4tt",
+        "scope": "Accepted sampled C3 timbre in isolated recovery reference; full three-voice routing and a lower-rate version are not yet listening-approved."
+      },
+      "scope": "Current lower-bandwidth sampled instrument and complete mix remain pending listening assessment."
+    },
+    "3": {
+      "status": "accepted",
+      "original_mod_channels": [
+        1,
+        4
+      ],
+      "file": "../../references/hyperbased-stems/sid-3.wav",
+      "wav_sha256": "fb1af01bf2e098ed40f65fe03f30eaa09538125626ff58ab5225a23019c8fbc7",
+      "solo_program_sha256": "0b5815c6593c220dfb709c0cf1971fc41d6c306deea9cfda3ed39402c92924ac",
+      "listening_gain": 8.0,
+      "feedback": "sid 3 \u00e4r perfekt",
+      "scope": "Preserve this output while repairing SID2.",
+      "current_capture": {
+        "file": "linus-mix/sid-3.wav",
+        "wav_sha256": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+        "digital_part_preserved": true,
+        "capture_comparison": {
+          "passed": true,
+          "comparison_gain": 8,
+          "maximum_pcm16_lsb_difference": 80,
+          "rms_pcm16_lsb_difference": 13.85868948468571,
+          "peak_limit_pcm16_lsb": 96,
+          "rms_limit_pcm16_lsb": 25,
+          "wav_at_reference_gain_sha256": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+          "no_alignment_or_audio_correction": true
+        },
+        "listening_status": "Previous musical part accepted; new capture is not byte-identical."
+      }
+    }
+  }
+}

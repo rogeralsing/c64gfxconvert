@@ -10,8 +10,8 @@
     10
   ],
   "event_semantics": "Real source triggers only; volume/effect changes without retrigger are not separate note events.",
-  "current_c64_mapping_scope": "Existing accepted Hyperbased full three-channel arrangement; descriptive only. Source channels change musical roles throughout the song.",
-  "bell_attribution": "Awaiting listening to the four isolated original channels. C3 contains snare2 at 6.00 s and orch-hit at 6.72 s; C2 lead begins at 5.76 s. Missing bright sound must not be attributed to C3 solely because it is omitted.",
+  "current_c64_mapping_scope": "Current native Linus-style arrangement, first 20 seconds only. Whole-song instrument inventories remain source analysis, not a full-song conversion claim.",
+  "bell_attribution": "Compare original C2 on SID1 and actual sampled original C3 on SID2; source note events alone do not identify which cue the listener means.",
   "channels": [
     {
       "channel": 1,
@@ -268,9 +268,8 @@
         }
       ],
       "current_c64_mapping": {
-        "kind": "sid",
-        "program": "triangle bass",
-        "sid_voice": 2
+        "kind": "software triangle mixed with C4 drums",
+        "sid_voice": 3
       },
       "musical_roles": "Mostly bass early; later lead and additional sampled sounds."
     },
@@ -371,8 +370,7 @@
         }
       ],
       "current_c64_mapping": {
-        "kind": "sid",
-        "program": "pulse lead",
+        "kind": "existing SID approximations",
         "sid_voice": 1
       },
       "musical_roles": "Lead and chords, with percussion and other later material."
@@ -598,7 +596,11 @@
         }
       ],
       "current_c64_mapping": {
-        "kind": "omitted"
+        "kind": "reused original instrument samples, native fractional pitch cursor",
+        "sid_voice": 2,
+        "sample_period_cycles": 504,
+        "sample_rate_hz": 1954.857142857143,
+        "scope": "first20seconds; reduced bandwidth, not listening-approved"
       },
       "musical_roles": "Early clap, snare and orchestral hit; later mostly bass, plus chords and leads."
     },
@@ -959,8 +961,7 @@
         }
       ],
       "current_c64_mapping": {
-        "kind": "sample",
-        "program": "eight-bit voice-3 sample-and-hold",
+        "kind": "eight-bit drum samples mixed with C1 software bass",
         "sid_voice": 3
       },
       "musical_roles": "Mostly percussion, with later bass and lead material."

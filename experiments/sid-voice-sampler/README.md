@@ -1,11 +1,16 @@
-# Native SID mixing
+# Native SID sampling and mixing
 
-This is the supported C64 music path. It follows the software oscillator and
-sample mixing described in [Linus Akesson's Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php).
-The C64 mixes a software triangle bass with reusable drum samples through SID
-voice 3. Two ordinary SID voices remain available for other musical parts.
+The supported music player combines ordinary SID synthesis with samples played
+through SID oscillators. The current Hyperbased arrangement covers its first
+twenty seconds: source C2 uses an ordinary pulse voice, C3 uses its original
+instrument samples, and software bass from C1 shares the third SID voice with
+sampled C4 drums.
 
-## Build and verify
+It follows the sample-and-hold technique described in
+[Linus Åkesson's Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php).
+The mix runs on the C64 with constant master volume.
+
+## Build and record
 
 Run from the repository root:
 
@@ -13,41 +18,34 @@ Run from the repository root:
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py
 ```
 
-Requires the pinned music environment, KickAssembler at `~/.local/bin/kickass`,
-VICE at `/opt/homebrew/bin/x64sc`, and the shared
-`experiments/mod-hybrid/vice_profile.py` profile: PAL, reSID, MOS8580 + digiboost,
-resampling method 2, mono 22,050-Hz recording.
+This is the single build entry point. It prepares instrument data from the
+original MOD, assembles the player, verifies native playback and records the
+mix and physical SID stems independently in VICE. Cached generated song data
+is not required. Use `--assemble-only` to stop before playback and recording.
 
-The current Hyperbased proof covers the first 20 seconds. It produces
-[a runnable PRG](work/hyperbased/linus-mix/player.prg),
-[actual VICE audio](work/hyperbased/linus-mix/hybrid.wav), and a full
-[verification receipt](work/hyperbased/linus-mix/verification.json).
-The [Hyperbased working folder](work/hyperbased/README.md) contains its four
-separate original channels and the current arrangement decisions.
+Requires the music Python environment, KickAssembler at `~/.local/bin/kickass`
+and VICE at `/opt/homebrew/bin/x64sc`. The fixed profile is PAL, reSID,
+MOS8580 + digiboost, resampling method 2 and mono 22,050-Hz recording.
 
-## Current capability
+## Generated outputs
 
-The output clock is one sample every 126 PAL cycles, or 7,819.43 values/s.
-Master volume stays constant during music. A sixteen-level software triangle
-and fixed-pitch sampled drums share one physical SID voice; this is not a
-general mixer for two freely pitched sampled instruments.
+After running the command:
 
-The Hyperbased proof retains source channel 1 as software bass, source channel
-4 as sampled drums, and source channel 2 as a pulse approximation. SID voice 2
-rests. Source channel 3 awaits listening and arrangement decisions. This is
-neither the full song nor an exact four-channel MOD reproduction.
+- [Runnable player](work/hyperbased/linus-mix/player.prg)
+- [All three SID voices](work/hyperbased/linus-mix/all.wav)
+- [SID 1: original C2, pulse synthesis](work/hyperbased/linus-mix/sid-1.wav)
+- [SID 2: original C3 instruments, sampled](work/hyperbased/linus-mix/sid-2.wav)
+- [SID 3: C1 software bass and C4 sampled drums](work/hyperbased/linus-mix/sid-3.wav)
+- [Verification and measurements](work/hyperbased/linus-mix/verification.json)
+- [Stem isolation checks](work/hyperbased/linus-mix/stems-check.json)
 
-The native run verifies all 156,389 mixed values, all 6,000 ordinary SID writes,
-126-cycle intervals, and zero underruns. Its minimum measured foreground margin
-is 110 cycles per buffer. Screen-on and physical SID operation remain unverified;
-listening acceptance is separate from these digital checks.
+The WAVs share one time origin and listening gain. The full mix is a separate
+native capture. Digital verification and listening approval are separate;
+the restored sampled C3 part still needs listening assessment. SID 1 and SID 3
+retain their accepted note/register sequences, with small measured capture
+differences documented in [the technical notes](DUAL-SAMPLER.md).
 
-## Working rules
-
-Follow [AGENTS.md](AGENTS.md). Keep original MOD channels separate and choose
-prominent phrases before assigning the C64 voices. Do not choose a source
-channel merely because it is easier to encode. The phrase detector is not yet
-implemented.
-
-The approved Cream and Hyperbased recordings remain as immutable listening
-[references](references/manifest.json). They are not alternate build paths.
+Read [the signal path and limits](DUAL-SAMPLER.md),
+[the Hyperbased channel comparison](work/hyperbased/README.md) and
+[project instructions](AGENTS.md) before changing the arrangement. Preserved
+[listening references](references/manifest.json) are not alternate build paths.
