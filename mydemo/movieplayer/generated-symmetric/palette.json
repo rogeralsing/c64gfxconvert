@@ -1,0 +1,106 @@
+{
+  "backgroundSlots": [
+    {
+      "slot": 0,
+      "c64Index": 0,
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "c64Index": 12,
+      "rgb": [
+        120,
+        120,
+        120
+      ]
+    },
+    {
+      "slot": 2,
+      "c64Index": 15,
+      "rgb": [
+        174,
+        174,
+        174
+      ]
+    },
+    {
+      "slot": 3,
+      "c64Index": 1,
+      "rgb": [
+        255,
+        255,
+        255
+      ]
+    }
+  ],
+  "foregroundColors": [
+    {
+      "slot": 0,
+      "c64Index": 0,
+      "rgb": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "slot": 1,
+      "c64Index": 12,
+      "rgb": [
+        120,
+        120,
+        120
+      ]
+    },
+    {
+      "slot": 2,
+      "c64Index": 15,
+      "rgb": [
+        174,
+        174,
+        174
+      ]
+    },
+    {
+      "slot": 3,
+      "c64Index": 1,
+      "rgb": [
+        255,
+        255,
+        255
+      ]
+    }
+  ],
+  "c64Colors": {
+    "0": [
+      0,
+      0,
+      0
+    ],
+    "12": [
+      120,
+      120,
+      120
+    ],
+    "15": [
+      174,
+      174,
+      174
+    ],
+    "1": [
+      255,
+      255,
+      255
+    ]
+  },
+  "source": {
+    "file": "palettes/colodore.vpl",
+    "sha256": "cfc740890e811b94a73bbbe9f38c400f6714d37c6b6167935adf4f892422b972",
+    "encoding": "VICE VPL hexadecimal RGB bytes",
+    "valuesDerivedFromFile": true
+  }
+}
