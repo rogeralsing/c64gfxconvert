@@ -8,11 +8,12 @@ from pathlib import Path
 
 import numpy as np
 
-import build_mod_hybrid as hybrid
-from mod_sample_channel import CLOCK, PAULA
+import native_support as support
+from native_support import CLOCK, PAULA
+from sid_pitch import melody_pitch
 
 HERE = Path(__file__).resolve().parent
-LIBRARY = HERE / "instruments/hyperbased-full-sid"
+LIBRARY = HERE / "instruments/hyperbased-mix"
 
 
 class SourceCursor:
@@ -87,7 +88,7 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path, *, library_dir: Path = L
     pitches = {}
     for identifier, preset in presets.items():
         if preset["program"] in {"triangle", "pulse"}:
-            pitches[identifier] = hybrid.melody_pitch(mod, preset)
+            pitches[identifier] = melody_pitch(mod, preset)
             # Physical pulse widths belong to the two voice settings, since
             # a source instrument can appear on both voices in this song.
             pitches[identifier].pop("pulse_width", None)
@@ -166,8 +167,8 @@ def prepare_full_sid(mod: dict, ticks: list, out: Path, *, library_dir: Path = L
     result = {"rows": [a + b for a, b in zip(*voices)], "voices": details,
               "voice_levels": document["voice_levels"], "voice_pulse_widths": document["voice_pulse_widths"],
               "pitch_analysis": pitches,
-              "source_sha256": {str(path.relative_to(HERE)): hybrid.base.reference.digest(path) for path in files},
+              "source_sha256": {str(path.relative_to(HERE)): support.digest(path) for path in files},
               "scope": document["scope"]}
     out.mkdir(parents=True, exist_ok=True)
-    hybrid.base.save(out / "full-synth.json", result)
+    support.save(out / "full-synth.json", result)
     return result

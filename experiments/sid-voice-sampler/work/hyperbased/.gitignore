@@ -1,0 +1,17 @@
+# Publish only the source stems, current mixed performance and compact proofs.
+*.wav
+!amiga-original.wav
+!amiga-channel-[1-4].wav
+source.mod
+linus-mix/*
+!linus-mix/player.prg
+!linus-mix/hybrid.wav
+!linus-mix/verification.json
+!linus-mix/input.json
+!linus-mix/preparation.json
+!linus-mix/player-check.json
+!linus-mix/audio-check.json
+!linus-mix/contribution-check.json
+!linus-mix/budget/
+linus-mix/budget/*
+!linus-mix/budget/cpu-budget.json

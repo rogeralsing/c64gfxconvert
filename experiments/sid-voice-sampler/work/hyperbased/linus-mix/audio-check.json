@@ -1,0 +1,20 @@
+{
+  "frames": 441001,
+  "duration_s": 20.000045351473922,
+  "sample_rate": 22050,
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "generated_frames": 1000,
+  "underruns": 0,
+  "raw_peak": 0.09310112157029814,
+  "raw_rms": 0.014982758487670398,
+  "listening_gain": 8.0,
+  "output_sha256": "713000ae2eb3c42747557f27933a7e76eb017d720eef8c7cc319065df4ed972f",
+  "processing": "Actual VICE WAV, clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, alignment, time stretching or dynamics."
+}

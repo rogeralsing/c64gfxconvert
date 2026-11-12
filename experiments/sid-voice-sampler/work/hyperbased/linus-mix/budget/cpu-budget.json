@@ -1,0 +1,88 @@
+{
+  "passed": true,
+  "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
+  "profile": {
+    "machine": "PAL C64",
+    "sid_engine": 1,
+    "sid_model": 2,
+    "digiboost": true,
+    "resampling": 2,
+    "sample_rate": 22050
+  },
+  "command": [
+    "/opt/homebrew/bin/x64sc",
+    "-default",
+    "-pal",
+    "-sidengine",
+    "1",
+    "-sidmodel",
+    "2",
+    "-residsamp",
+    "2",
+    "-soundrate",
+    "22050",
+    "-soundoutput",
+    "1",
+    "-soundvolume",
+    "100",
+    "-console",
+    "-seed",
+    "1",
+    "-initbreak",
+    "ready",
+    "-moncommands",
+    "/private/tmp/c64-linus-publish-20261112-081849/native-rebuild/budget/cpu.mon",
+    "-sounddev",
+    "dump",
+    "-soundarg",
+    "/private/tmp/c64-linus-publish-20261112-081849/native-rebuild/budget/registers.txt",
+    "-warp",
+    "-limitcycles",
+    "34483734"
+  ],
+  "frames": 1000,
+  "samples": 156389,
+  "sample_period_cycles": 126,
+  "duration_s": 20.000054808535516,
+  "buffer_sample_counts": {
+    "156": 611,
+    "157": 389
+  },
+  "nmi_full_cycles_regular": {
+    "89": 13035,
+    "90": 26387,
+    "91": 46261,
+    "92": 66328,
+    "93": 3378
+  },
+  "nmi_full_cycles_boundary": {
+    "101": 999
+  },
+  "nmi_cpu_fraction": 0.723775999132804,
+  "available_foreground_cycles_per_buffer": {
+    "156": 5429.458961045605,
+    "157": 5464.263185154871
+  },
+  "fill_wall_cycles_range_before_rts": [
+    18489,
+    18782
+  ],
+  "fill_foreground_cycles_range_before_rts": [
+    5157,
+    5201
+  ],
+  "minimum_deadline_slack_wall_cycles": 464,
+  "minimum_deadline_slack_foreground_cycles": 110,
+  "pointer_swap_cycles_range": [
+    8,
+    8
+  ],
+  "pointer_swaps_interrupted": 0,
+  "minimum_pointer_commit_margin_cycles": 6,
+  "sample_gap_counts": {
+    "126": 156388
+  },
+  "monitor_log_sha256": "e1d8d9ce198ec63e1bab6a82219f1a20ee772640eb3a080520adc3c21a3ade6d",
+  "register_dump_sha256": "cde2d3312821167645774de21fdcd88ab925d99c9d22ef94f7ac575d2e3e802c",
+  "scope": "Unmodified native program; monitor instruction tracepoints only. Hardware-entry/RTI costs included, final non-returning NMI excluded from average. Fill timing ends at the RTS instruction; six cycles are included in deadline readiness. Variable-frame deadlines come from actual boundary NMIs. Every profiler-run latch still has a 126-cycle interval. No audio or physical SID quality claim."
+}

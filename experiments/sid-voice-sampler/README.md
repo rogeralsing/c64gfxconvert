@@ -1,152 +1,53 @@
-# Sampling through an ordinary SID voice
+# Native SID mixing
 
-For MOD auditions and melody-first corrections, see [AUDITIONS.md](AUDITIONS.md).
+This is the supported C64 music path. It follows the software oscillator and
+sample mixing described in [Linus Akesson's Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php).
+The C64 mixes a software triangle bass with reusable drum samples through SID
+voice 3. Two ordinary SID voices remain available for other musical parts.
 
-Standalone research experiment based on the SounDemoN method explained by
-[Linus Akesson in Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php).
-It writes only this directory and does not change the MOD converter or the
-parallel HVSC hybrid work.
+## Build and verify
 
-## Run
-
-From the repository root, using the existing pinned music environment:
+Run from the repository root:
 
 ```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build.py --capture
+rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py
 ```
 
-Requires the existing music requirements, KickAssembler at
-`~/.local/bin/kickass`, and VICE at `/opt/homebrew/bin/x64sc`.
-The build imports the shared `mod-hybrid/vice_profile.py`: PAL, reSID,
-MOS8580 + digiboost, resampling method 2, mono 22,050 Hz recording.
+Requires the pinned music environment, KickAssembler at `~/.local/bin/kickass`,
+VICE at `/opt/homebrew/bin/x64sc`, and the shared
+`experiments/mod-hybrid/vice_profile.py` profile: PAL, reSID, MOS8580 + digiboost,
+resampling method 2, mono 22,050-Hz recording.
 
-Outputs under `results/`:
+The current Hyperbased proof covers the first 20 seconds. It produces
+[a runnable PRG](work/hyperbased/linus-mix/player.prg),
+[actual VICE audio](work/hyperbased/linus-mix/hybrid.wav), and a full
+[verification receipt](work/hyperbased/linus-mix/verification.json).
+The [Hyperbased working folder](work/hyperbased/README.md) contains its four
+separate original channels and the current arrangement decisions.
 
-- `player.prg`: resident demonstration, about 6.38 seconds.
-- `voice-sampler.wav`: actual VICE performance, first the guitar alone and then
-  the same phrase with two ordinary SID synthesizer voices.
-- `guitar-voice.wav` and `guitar-and-sid.wav`: separate crops of those sections.
-- `report.json`: build identities and completed measurements.
-- `probe-check.json`: native oscillator transfer measurement.
-- `player/player-check.json`: native clock, input and ordinary-voice checks.
-- `waveform-check.json`: solo audio compared with its intended PCM input.
+## Current capability
 
-Interactive playback:
+The output clock is one sample every 126 PAL cycles, or 7,819.43 values/s.
+Master volume stays constant during music. A sixteen-level software triangle
+and fixed-pitch sampled drums share one physical SID voice; this is not a
+general mixer for two freely pitched sampled instruments.
 
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/mod-hybrid/run_vice.py --play --prg experiments/sid-voice-sampler/results/player.prg
-```
+The Hyperbased proof retains source channel 1 as software bass, source channel
+4 as sampled drums, and source channel 2 as a pulse approximation. SID voice 2
+rests. Source channel 3 awaits listening and arrangement decisions. This is
+neither the full song nor an exact four-channel MOD reproduction.
 
-The display is disabled. The program stops in a loop after its silent tail.
+The native run verifies all 156,389 mixed values, all 6,000 ordinary SID writes,
+126-cycle intervals, and zero underruns. Its minimum measured foreground margin
+is 110 cycles per buffer. Screen-on and physical SID operation remain unverified;
+listening acceptance is separate from these digital checks.
 
-## What it demonstrates
+## Working rules
 
-Voice 3 is an oscillator-based sample-and-hold. Its waveform is briefly enabled
-to latch the triangle value, then disabled to retain that level. Resetting the
-phase and choosing the frequency controls the next level. The master volume
-remains 15 throughout playback; no sample values are written to `$D418`.
+Follow [AGENTS.md](AGENTS.md). Keep original MOD channels separate and choose
+prominent phrases before assigning the C64 voices. Do not choose a source
+channel merely because it is easier to encode. The phrase detector is not yet
+implemented.
 
-An NMI every 126 PAL cycles supplies **7,819.43 sample values/second**. A clock
-slide removes instruction-boundary interrupt jitter before each latch. Two
-156-byte buffers let foreground code compute the next frame of audio while
-the interrupt plays the current frame. These buffers are working memory, not
-stored recordings of the whole piece.
-
-The C64 computes fractional sample cursors for four pitches of the same short
-guitar recording. The bank is eight-bit data stored once, and the eight-note
-score reuses it. The second four notes add a triangle bass and a pulse harmony
-on SID voices 1 and 2. Their quiet envelopes settle before the waveforms are
-enabled, and their state is committed when the corresponding PCM buffer
-becomes active.
-
-The guitar is the existing CC0 FreePats nylon-string A3 asset, not an HVSC
-instrument or a SID approximation. Its source, preparation, original archive
-and hashes are retained in `../sid-inverse/assets/manifest.json`; this build
-copies that provenance into `results/input.json` and checks the input hash.
-
-## Proof and limits
-
-The independent native probe tries all 256 input codes and saves voice 3's
-`OSC3` readback. More than 16 distinct monotonic levels demonstrate that the
-signal is not restricted to the ordinary four-bit volume DAC. The readback is
-only eight bits; its distinct-level count is **not** a physical-chip effective
-resolution measurement.
-
-The musical proof checks every input frequency code against a separate Python
-cursor model, every latch interval, all six ordinary-voice frequency/control
-writes per frame, generated buffers, and underruns. The audio run must also
-complete all buffers without underruns. It uses a fresh matching VICE run;
-register-dump output is never substituted for emulator audio.
-
-Audio delivery uses only a clock-anchored crop, DC removal and one constant
-gain. The solo diagnostic compares spectra on their native time axis and
-reports waveform agreement with one analysis-only bounded analog latency.
-No alignment, EQ, compression, host SID mixing or time stretching is applied
-to the delivered recordings.
-
-This is an emulator-verified research prototype. It has not been tested on a
-physical SID. Screen-on operation, multiple mixed sample tracks, a complete MOD
-player, and fitting a short synthesized instrument program are separate work.
-The guitar here remains sampled data; the new mechanism changes how SID emits
-that data and leaves two oscillator voices available for synthesis.
-
-## Next experiment: a real MOD channel
-
-The next experiment plays a complete real MOD channel for 26.88 seconds, with
-three reusable banks and exact 50-Hz tracker timing over 156/157-value buffers.
-See [MOD-CHANNEL.md](MOD-CHANNEL.md) for the separate build, runnable PRG,
-actual VICE audio and full CPU/memory measurements. The original reference
-above remains unchanged.
-
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_channel.py --capture --budget
-```
-
-## MOD channel with synthesized accompaniment
-
-The separate hybrid experiment keeps that accepted sampled channel unchanged
-and adds a pulse melody and triangle/noise percussion on voices 1 and 2. It
-follows three source MOD channels; the chord channel remains outside this test.
-See [MOD-HYBRID.md](MOD-HYBRID.md) for the arrangement, runnable PRG, actual
-VICE audio, measured balance and CPU/memory limits.
-
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_hybrid.py --capture --budget
-```
-
-The hybrid now reads separate instrument files: seven JSON SID recipes and
-three reusable assembler sample banks with JSON descriptors. See
-[INSTRUMENTS.md](INSTRUMENTS.md) for editing limits and a build that preserves
-the published results. The default library reproduces the accepted PRG
-byte-for-byte.
-
-## Second MOD: Hyperbased
-
-The [complete three-channel version](HYPERBASED-FULL.md) plays 5:33.84 from
-beginning to end, using reusable sample banks and SID instrument recipes:
-
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_full_hyperbased.py --capture --budget
-```
-
-[HYPERBASED.md](HYPERBASED.md) documents a separate 10.56-second arrangement:
-sampled drums, pulse lead and triangle bass, each using its own instrument
-files. Its channel plan is explicit; the fourth MOD channel remains omitted.
-The accepted Cream of the Earth results are preserved.
-
-```sh
-rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_mod_arrangement.py --capture --budget
-```
-
-## Further reading
-
-- [Platform Hopping](https://linusakesson.net/music/platform-hopping/index.php):
-  oscillator sample-and-hold, buffering, jitter, badlines and CPU scheduling.
-  Our first proof keeps the display off and uses a simpler clock slide; it
-  does not reproduce the article's final distributed-jitter implementation.
-- [A Mind Is Born](https://linusakesson.net/scene/a-mind-is-born/): a different
-  avenue, compact procedural SID music. It explains how small scripts,
-  frequency changes, waveform combinations and envelopes create evolving
-  synthesized sounds without storing their audio waveform.
-- [SounDemon's Vicious SID explanation](https://codebase64.c64.org/doku.php?id=base:vicious_sid_demo_routine_explained):
-  original background and one/two-oscillator variants of sample playback.
+The approved Cream and Hyperbased recordings remain as immutable listening
+[references](references/manifest.json). They are not alternate build paths.

@@ -1,0 +1,175 @@
+{
+  "status": "recorded",
+  "source_range_s": [
+    0,
+    20
+  ],
+  "audio_file": "linus-mix/hybrid.wav",
+  "program_file": "linus-mix/player.prg",
+  "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
+  "audio_sha256": "713000ae2eb3c42747557f27933a7e76eb017d720eef8c7cc319065df4ed972f",
+  "program_bytes": 38369,
+  "mapping": {
+    "sid_voice_3": "Original C1 software triangle bass plus original C4 drums",
+    "sid_voice_1": "Existing original C2 pulse approximation",
+    "sid_voice_2": "Available; resting in this bounded musical proof",
+    "omitted": "Original C3 remains separate pending listening/arrangement decisions; its orchestral hit is not assigned an invented SID root."
+  },
+  "native_playback": {
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
+    "trace_sha256": "cde2d3312821167645774de21fdcd88ab925d99c9d22ef94f7ac575d2e3e802c",
+    "expected_samples": 156389,
+    "observed_latches": 156389,
+    "input_codes_written": 156389,
+    "all_sample_inputs_match_independent_model": true,
+    "input_mismatches": 0,
+    "first_input_mismatches": [],
+    "sample_gap_counts": {
+      "126": 156388
+    },
+    "first_latch_cycle": 2191487,
+    "last_latch_cycle": 21896375,
+    "generated_frames": 1000,
+    "underruns": 0,
+    "ordinary_sid_writes_checked": 6000,
+    "ordinary_sid_sequence_matches": true,
+    "ordinary_sid_write_mismatches": 0,
+    "first_synth_mismatches": [],
+    "synth_frame_timing_errors": 0,
+    "synth_commit_offset_cycles_after_boundary_latch": [
+      179,
+      305
+    ],
+    "d418_writes_during_music": [],
+    "native_events_read": 787995,
+    "retained_synth_event_bytes": 60020,
+    "scope": "Streaming verification of every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not establish original timbre, physical SID fidelity or perceived balance.",
+    "passed": true
+  },
+  "cpu": {
+    "passed": true,
+    "nmi_cpu_fraction": 0.723775999132804,
+    "minimum_deadline_slack_foreground_cycles": 110,
+    "minimum_deadline_slack_wall_cycles": 464,
+    "minimum_pointer_commit_margin_cycles": 6
+  },
+  "memory": {
+    "triangle_bytes": 1536,
+    "drum_bytes": 22784,
+    "score_bytes": 12000,
+    "program_end": 40416,
+    "unused_before_d000_bytes": 12832
+  },
+  "native_contribution_check": {
+    "passed": true,
+    "source": "Actual VICE register trace; separate bass and drum component arrays are not listening audio.",
+    "sample_values_checked": 156389,
+    "bass_nonzero_samples": 105508,
+    "drums_nonzero_samples": 76092,
+    "simultaneous_nonzero_samples": 58397,
+    "simultaneous_native_values_differ_from_both_single_lane_controls": true,
+    "all_actual_values_equal_bass_plus_drums": true,
+    "samples_differing_from_drums_only": 105508,
+    "samples_differing_from_bass_only": 76092,
+    "simultaneously_silent_samples": 33186,
+    "silence_output_code": 128,
+    "bass_center": 15,
+    "drum_center": 113,
+    "output_range": [
+      18,
+      239
+    ],
+    "mean_offset_from_neutral_codes": -0.23403819961762015,
+    "file_sha256": {
+      "expected-input.bin": "080852a5c0cf96f0e3b00ac856d594015c92a513435ccb5e08816d54cfa267a2",
+      "bass-input.bin": "64383a9986ebdf639f9f9f416cdec877db7972b5d3bc86d01e57d3a03877f51a",
+      "drum-input.bin": "6ff007065961c9f9a76a969d095699a4481892accd4e66b99e6e5204fbe9f429",
+      "player/registers.txt": "cde2d3312821167645774de21fdcd88ab925d99c9d22ef94f7ac575d2e3e802c"
+    },
+    "accepted_hyperbased_artifacts_unchanged": {
+      "experiments/sid-voice-sampler/results/hyperbased/player.prg": "41a9c6c68a9360927678f032aa1ca6fb5927d60e24f0b5fa5353fff00b318c86",
+      "experiments/sid-voice-sampler/results/hyperbased/hybrid.wav": "ee7cbe192245e69148cd7b3fabe6e58a4e9bbd389d9294b55ba01c1ba671613a",
+      "experiments/sid-voice-sampler/results/hyperbased/verification.json": "b20b17261797ba5a8b0d6068bb71895ac4ffd71db0341241d695d2bd98ce60de",
+      "experiments/sid-voice-sampler/results/hyperbased-full/player.prg": "8c25f91a807b4d5c0f74203fa9ea75ddd6317710d2ca5151e26467386e06cf5a",
+      "experiments/sid-voice-sampler/results/hyperbased-full/hybrid.wav": "f386f2a77554569cd75e61ab7c3b44734f41bfd7b5406cdde5c5accdf33c0f88",
+      "experiments/sid-voice-sampler/results/hyperbased-full/verification.json": "35aa0b66d43341158d6bdd20b53fc46ae7156bc833fef925636664905d4b89de"
+    },
+    "scope": "Every actual mixed input contains the exact arithmetic sum. During simultaneous activity both lanes alter it; when both lanes are neutral output is128. This does not prove subjective balance or source-instrument timbre."
+  },
+  "audio": {
+    "frames": 441001,
+    "duration_s": 20.000045351473922,
+    "sample_rate": 22050,
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "generated_frames": 1000,
+    "underruns": 0,
+    "raw_peak": 0.09310112157029814,
+    "raw_rms": 0.014982758487670398,
+    "listening_gain": 8.0,
+    "output_sha256": "713000ae2eb3c42747557f27933a7e76eb017d720eef8c7cc319065df4ed972f",
+    "processing": "Actual VICE WAV, clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, alignment, time stretching or dynamics.",
+    "peak": 0.744781494140625,
+    "clipped_samples": 0
+  },
+  "four_logical_lane_probe": {
+    "program_sha256": "f4765b1b072185d9070d62c7ec61e5711588d748b978df5c730d475f27bc6807",
+    "native": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "f4765b1b072185d9070d62c7ec61e5711588d748b978df5c730d475f27bc6807",
+      "trace_sha256": "a2f5cbb8f1310cd8591469e2b4dfcd273e3917fd90c886a8fcd0a436ee9c4c5e",
+      "expected_samples": 25022,
+      "observed_latches": 25022,
+      "input_codes_written": 25022,
+      "all_sample_inputs_match_independent_model": true,
+      "input_mismatches": 0,
+      "first_input_mismatches": [],
+      "sample_gap_counts": {
+        "126": 25021
+      },
+      "first_latch_cycle": 2191487,
+      "last_latch_cycle": 5344133,
+      "generated_frames": 160,
+      "underruns": 0,
+      "ordinary_sid_writes_checked": 960,
+      "ordinary_sid_sequence_matches": true,
+      "ordinary_sid_write_mismatches": 0,
+      "first_synth_mismatches": [],
+      "synth_frame_timing_errors": 0,
+      "synth_commit_offset_cycles_after_boundary_latch": [
+        179,
+        305
+      ],
+      "d418_writes_during_music": [],
+      "native_events_read": 126120,
+      "retained_synth_event_bytes": 9620,
+      "scope": "Streaming verification of every sampled input and latch, every ordered ordinary-voice frequency/control write and its frame, completed buffers and constant master volume. Does not establish original timbre, physical SID fidelity or perceived balance.",
+      "passed": true
+    },
+    "cpu_passed": true,
+    "scope": "Separate native diagnostic with both ordinary SID voices active while software triangle and drums share SID voice 3. Not the Hyperbased arrangement."
+  },
+  "scope": "First 20 seconds only. Proves native two-lane mixing on a single SID voice; not four-channel MOD fidelity or full Hyperbased integration.",
+  "listening_status": "unreviewed"
+}

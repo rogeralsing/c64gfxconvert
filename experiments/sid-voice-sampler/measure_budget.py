@@ -77,9 +77,14 @@ def measure(program: Path, labels: dict, expected_frame_counts: int | list[int],
     raw = program.read_bytes()
     load = int.from_bytes(raw[:2], "little")
     store_offset = low_store - load + 2
-    if raw[store_offset] not in (0x8C, 0x8D, 0x8E):
-        raise ValueError("Pointer completion needs an absolute STA/STX/STY instruction")
-    operand = int.from_bytes(raw[store_offset + 1:store_offset + 3], "little")
+    opcode = raw[store_offset]
+    if opcode in (0x84, 0x85, 0x86):
+        operand, store_cycles = raw[store_offset + 1], 3
+    elif opcode in (0x8C, 0x8D, 0x8E):
+        operand = int.from_bytes(raw[store_offset + 1:store_offset + 3], "little")
+        store_cycles = 4
+    else:
+        raise ValueError("Pointer completion needs a zero-page or absolute STA/STX/STY instruction")
     if operand != _label(labels, "buffer_read") + 1:
         raise ValueError("Pointer completion does not target buffer_read's low byte")
     points["pointer_low_store"] = low_store
@@ -190,7 +195,7 @@ def measure(program: Path, labels: dict, expected_frame_counts: int | list[int],
         raise ValueError("CPU trace did not cover every active buffer-pointer replacement")
     swaps = []
     for index, (start, store) in enumerate(zip(swap_starts, swap_stores)):
-        commit = store + 4
+        commit = store + store_cycles
         next_entry = bisect.bisect_left(entries, commit)
         next_nmi = entries[next_entry] - 7 if next_entry < len(entries) else None
         swaps.append({"activated_frame": index + 1, "swap_begin_cycle": start,

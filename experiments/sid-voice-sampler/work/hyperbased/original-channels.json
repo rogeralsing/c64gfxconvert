@@ -1,0 +1,114 @@
+{
+  "source": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/sources/hyperbased.mod",
+  "source_sha256": "7e47197c36d3274626b8ae6f413de10a4a51e60860cfcff47d3284764ea76f7e",
+  "decoder": "libopenmpt",
+  "library": "/opt/homebrew/lib/libopenmpt.dylib",
+  "library_sha256": "43dd9120bd500fa1578e124f8801c07f74d9e012d408f20b083221f93bea1040",
+  "renderer_sha256": "0429db02c7de211c250a3bfe9fe633c191f2e48b8042d89f441152ae257dfe63",
+  "shared_helper_sha256": "7930bf452ed0708d295451a363f7f6ca200ad377a292a02192f2e1dafba182c2",
+  "method": "Four fresh independent decoder instances, playing the unchanged original MOD from time zero. Interactive channel mutes isolate one original channel. All tracker effects continue to run.",
+  "render_settings": "Same decoder defaults as the existing Hyperbased original reference. Mono 22050 Hz, native PCM16, repeat count zero, original pitch, tempo and gain.",
+  "processing": "None. No normalization, gain, EQ, cropping, alignment or C64/SID synthesis. These are software-decoded Amiga MOD channels, not physical Amiga recordings.",
+  "channels": [
+    {
+      "source_channel": 1,
+      "file": "amiga-channel-1.wav",
+      "frames": 7361172,
+      "sample_rate": 22050,
+      "duration_s": 333.84,
+      "peak_pcm16": 8555,
+      "rms": 0.043999235860679504,
+      "sha256": "dceae9ab85590156d78b75fd4a19c4a49a91b23033dc9f0c0e901f3c694b3357",
+      "mute_status_before": [
+        0,
+        1,
+        1,
+        1
+      ],
+      "mute_status_after": [
+        0,
+        1,
+        1,
+        1
+      ]
+    },
+    {
+      "source_channel": 2,
+      "file": "amiga-channel-2.wav",
+      "frames": 7361172,
+      "sample_rate": 22050,
+      "duration_s": 333.84,
+      "peak_pcm16": 9337,
+      "rms": 0.04028701760411256,
+      "sha256": "9d323eb3e37f2c37d477c2d07e6f03d53397acb9626d075e11b9de74ba201ddd",
+      "mute_status_before": [
+        1,
+        0,
+        1,
+        1
+      ],
+      "mute_status_after": [
+        1,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "source_channel": 3,
+      "file": "amiga-channel-3.wav",
+      "frames": 7361172,
+      "sample_rate": 22050,
+      "duration_s": 333.84,
+      "peak_pcm16": 9534,
+      "rms": 0.050433159763389496,
+      "sha256": "32b1931f68def9829246295bf374985bfec1792a56f92d6b3196f10c08e1ce70",
+      "mute_status_before": [
+        1,
+        1,
+        0,
+        1
+      ],
+      "mute_status_after": [
+        1,
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "source_channel": 4,
+      "file": "amiga-channel-4.wav",
+      "frames": 7361172,
+      "sample_rate": 22050,
+      "duration_s": 333.84,
+      "peak_pcm16": 9335,
+      "rms": 0.055323766947489285,
+      "sha256": "b40117368d5d73aaa86a8a737e887b67f1ac06f729dfcf784cabcc4e3a0d664c",
+      "mute_status_before": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "mute_status_after": [
+        1,
+        1,
+        1,
+        0
+      ]
+    }
+  ],
+  "sum_check": {
+    "reference": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/amiga-original.wav",
+    "reference_sha256": "0ac96e531473072489e52222dc1097448f26fa9a9af5e7906d193546067cb65f",
+    "frames_compared": 7361172,
+    "maximum_error_pcm16_lsb": 5,
+    "rms_error_pcm16_lsb": 0.9557156793668572,
+    "waveform_correlation": 0.9999999528869851,
+    "tolerance_pcm16_lsb": 8,
+    "note": "Independent integer-output decoder runs can differ by a few dither LSBs. The sum exists only for verification; no mixed listening file is generated.",
+    "passed": true
+  },
+  "passed": true
+}

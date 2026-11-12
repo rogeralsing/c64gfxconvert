@@ -10,10 +10,10 @@ overlays, and native exports. Image processing stays in your browser.
 
 ## Sampled music experiments
 
-The [four-channel MOD player](experiments/mod-hybrid/REPRODUCE.md) builds complete
-Stardust Memories, Hyperbased and Madness programs for a PAL C64. The
-[optimization study](experiments/mod-hybrid/results/optimization/README.md)
-includes verified PRGs, full recordings and measured compression tradeoffs.
+The [native SID mixer](experiments/sid-voice-sampler/README.md) combines a
+software triangle bass and reusable drum samples through one SID voice, leaving
+two voices for ordinary synthesis. The current Hyperbased proof includes a
+runnable PRG, actual VICE audio and measured CPU deadlines.
 
 ## Run locally
 

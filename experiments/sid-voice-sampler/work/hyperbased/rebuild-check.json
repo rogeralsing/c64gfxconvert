@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "prg_byte_identical": true,
+  "wav_byte_identical": true,
+  "program_sha256": "7625dd9e408703f4c732abde0d562c27eb522355117b5d9aaa12b9ebd8ce0cbf",
+  "wav_sha256": "713000ae2eb3c42747557f27933a7e76eb017d720eef8c7cc319065df4ed972f",
+  "native_values_checked": 156389,
+  "underruns": 0,
+  "cpu_budget_passed": true,
+  "shared_parser_tests_passed": 2,
+  "scope": "Rebuilt standalone mixer in clean publication checkout, fetched verified source independently, recorded full 20-second VICE audio and measured every buffer deadline. Old players absent."
+}

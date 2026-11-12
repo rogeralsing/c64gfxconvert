@@ -1,0 +1,969 @@
+{
+  "title": "hyperbased",
+  "source": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/sources/hyperbased.mod",
+  "source_sha256": "7e47197c36d3274626b8ae6f413de10a4a51e60860cfcff47d3284764ea76f7e",
+  "duration_s": 333.84,
+  "source_ticks": 16692,
+  "channel_numbering": "Original MOD channels, one-based.",
+  "event_scope_s": [
+    4,
+    10
+  ],
+  "event_semantics": "Real source triggers only; volume/effect changes without retrigger are not separate note events.",
+  "current_c64_mapping_scope": "Existing accepted Hyperbased full three-channel arrangement; descriptive only. Source channels change musical roles throughout the song.",
+  "bell_attribution": "Awaiting listening to the four isolated original channels. C3 contains snare2 at 6.00 s and orch-hit at 6.72 s; C2 lead begins at 5.76 s. Missing bright sound must not be attributed to C3 solely because it is omitted.",
+  "channels": [
+    {
+      "channel": 1,
+      "instruments": [
+        {
+          "id": 1,
+          "name": "longbase",
+          "triggers": 618
+        },
+        {
+          "id": 8,
+          "name": "base",
+          "triggers": 153
+        },
+        {
+          "id": 9,
+          "name": "snare2",
+          "triggers": 2
+        },
+        {
+          "id": 14,
+          "name": "lead2",
+          "triggers": 70
+        },
+        {
+          "id": 17,
+          "name": "munjiga1",
+          "triggers": 11
+        },
+        {
+          "id": 18,
+          "name": "munjiga2",
+          "triggers": 12
+        },
+        {
+          "id": 19,
+          "name": "munjiga3",
+          "triggers": 13
+        },
+        {
+          "id": 20,
+          "name": "munjiga4",
+          "triggers": 14
+        },
+        {
+          "id": 21,
+          "name": "wilde thing",
+          "triggers": 4
+        },
+        {
+          "id": 23,
+          "name": "lead 3",
+          "triggers": 21
+        },
+        {
+          "id": 24,
+          "name": "lead 4",
+          "triggers": 126
+        }
+      ],
+      "total_triggers": 1044,
+      "triggered_notes_4_to_10_s": [
+        {
+          "time_s": 4.08,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 4.2,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 4.32,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 4.56,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 4.92,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 5.04,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 5.28,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 5.4,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 5.76,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 5.88,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 6.0,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 6.12,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 6.24,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 6.48,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 6.84,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 6.96,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 7.2,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 7.32,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 7.68,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 7.8,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 7.92,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 8.04,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 8.16,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 8.4,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 8.76,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 8.88,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 9.12,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 9.24,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 9.6,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 9.72,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 9.84,
+          "instrument": 1,
+          "period": 570,
+          "volume": 64
+        },
+        {
+          "time_s": 9.96,
+          "instrument": 1,
+          "period": 285,
+          "volume": 64
+        }
+      ],
+      "current_c64_mapping": {
+        "kind": "sid",
+        "program": "triangle bass",
+        "sid_voice": 2
+      },
+      "musical_roles": "Mostly bass early; later lead and additional sampled sounds."
+    },
+    {
+      "channel": 2,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "bassdrum",
+          "triggers": 50
+        },
+        {
+          "id": 3,
+          "name": "snare",
+          "triggers": 40
+        },
+        {
+          "id": 4,
+          "name": "hihat",
+          "triggers": 49
+        },
+        {
+          "id": 5,
+          "name": "wood",
+          "triggers": 48
+        },
+        {
+          "id": 6,
+          "name": "lightwood",
+          "triggers": 41
+        },
+        {
+          "id": 7,
+          "name": "lead",
+          "triggers": 61
+        },
+        {
+          "id": 9,
+          "name": "snare2",
+          "triggers": 13
+        },
+        {
+          "id": 10,
+          "name": "clap",
+          "triggers": 8
+        },
+        {
+          "id": 12,
+          "name": "accdur",
+          "triggers": 86
+        },
+        {
+          "id": 13,
+          "name": "accmol",
+          "triggers": 12
+        },
+        {
+          "id": 15,
+          "name": "acc3",
+          "triggers": 63
+        },
+        {
+          "id": 16,
+          "name": "acc4",
+          "triggers": 38
+        },
+        {
+          "id": 23,
+          "name": "lead 3",
+          "triggers": 45
+        }
+      ],
+      "total_triggers": 554,
+      "triggered_notes_4_to_10_s": [
+        {
+          "time_s": 5.76,
+          "instrument": 7,
+          "period": 570,
+          "volume": 53
+        },
+        {
+          "time_s": 7.2,
+          "instrument": 7,
+          "period": 480,
+          "volume": 53
+        },
+        {
+          "time_s": 7.68,
+          "instrument": 7,
+          "period": 570,
+          "volume": 53
+        },
+        {
+          "time_s": 9.6,
+          "instrument": 7,
+          "period": 570,
+          "volume": 53
+        }
+      ],
+      "current_c64_mapping": {
+        "kind": "sid",
+        "program": "pulse lead",
+        "sid_voice": 1
+      },
+      "musical_roles": "Lead and chords, with percussion and other later material."
+    },
+    {
+      "channel": 3,
+      "instruments": [
+        {
+          "id": 3,
+          "name": "snare",
+          "triggers": 1
+        },
+        {
+          "id": 8,
+          "name": "base",
+          "triggers": 1145
+        },
+        {
+          "id": 9,
+          "name": "snare2",
+          "triggers": 20
+        },
+        {
+          "id": 10,
+          "name": "clap",
+          "triggers": 4
+        },
+        {
+          "id": 11,
+          "name": "orch-hit",
+          "triggers": 26
+        },
+        {
+          "id": 12,
+          "name": "accdur",
+          "triggers": 28
+        },
+        {
+          "id": 15,
+          "name": "acc3",
+          "triggers": 21
+        },
+        {
+          "id": 16,
+          "name": "acc4",
+          "triggers": 23
+        },
+        {
+          "id": 17,
+          "name": "munjiga1",
+          "triggers": 4
+        },
+        {
+          "id": 18,
+          "name": "munjiga2",
+          "triggers": 3
+        },
+        {
+          "id": 19,
+          "name": "munjiga3",
+          "triggers": 3
+        },
+        {
+          "id": 20,
+          "name": "munjiga4",
+          "triggers": 4
+        },
+        {
+          "id": 21,
+          "name": "wilde thing",
+          "triggers": 4
+        },
+        {
+          "id": 22,
+          "name": "another drop",
+          "triggers": 128
+        },
+        {
+          "id": 23,
+          "name": "lead 3",
+          "triggers": 28
+        }
+      ],
+      "total_triggers": 1442,
+      "triggered_notes_4_to_10_s": [
+        {
+          "time_s": 5.28,
+          "instrument": 10,
+          "period": 170,
+          "volume": 64
+        },
+        {
+          "time_s": 5.4,
+          "instrument": 10,
+          "period": 170,
+          "volume": 64
+        },
+        {
+          "time_s": 5.52,
+          "instrument": 10,
+          "period": 170,
+          "volume": 64
+        },
+        {
+          "time_s": 5.64,
+          "instrument": 10,
+          "period": 170,
+          "volume": 64
+        },
+        {
+          "time_s": 6.0,
+          "instrument": 9,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 6.36,
+          "instrument": 9,
+          "period": 285,
+          "volume": 26
+        },
+        {
+          "time_s": 6.6,
+          "instrument": 9,
+          "period": 285,
+          "volume": 64
+        },
+        {
+          "time_s": 6.72,
+          "instrument": 11,
+          "period": 226,
+          "volume": 64
+        },
+        {
+          "time_s": 7.08,
+          "instrument": 11,
+          "period": 226,
+          "volume": 32
+        },
+        {
+          "time_s": 7.2,
+          "instrument": 11,
+          "period": 170,
+          "volume": 64
+        },
+        {
+          "time_s": 7.44,
+          "instrument": 11,
+          "period": 226,
+          "volume": 16
+        },
+        {
+          "time_s": 7.56,
+          "instrument": 11,
+          "period": 170,
+          "volume": 32
+        },
+        {
+          "time_s": 7.68,
+          "instrument": 11,
+          "period": 202,
+          "volume": 64
+        },
+        {
+          "time_s": 7.8,
+          "instrument": 11,
+          "period": 170,
+          "volume": 16
+        },
+        {
+          "time_s": 8.04,
+          "instrument": 11,
+          "period": 202,
+          "volume": 32
+        },
+        {
+          "time_s": 8.16,
+          "instrument": 11,
+          "period": 170,
+          "volume": 7
+        },
+        {
+          "time_s": 8.4,
+          "instrument": 11,
+          "period": 202,
+          "volume": 16
+        },
+        {
+          "time_s": 8.52,
+          "instrument": 11,
+          "period": 170,
+          "volume": 4
+        },
+        {
+          "time_s": 8.76,
+          "instrument": 11,
+          "period": 202,
+          "volume": 5
+        },
+        {
+          "time_s": 8.88,
+          "instrument": 11,
+          "period": 170,
+          "volume": 2
+        },
+        {
+          "time_s": 9.12,
+          "instrument": 11,
+          "period": 202,
+          "volume": 2
+        },
+        {
+          "time_s": 9.24,
+          "instrument": 11,
+          "period": 170,
+          "volume": 1
+        },
+        {
+          "time_s": 9.96,
+          "instrument": 9,
+          "period": 285,
+          "volume": 64
+        }
+      ],
+      "current_c64_mapping": {
+        "kind": "omitted"
+      },
+      "musical_roles": "Early clap, snare and orchestral hit; later mostly bass, plus chords and leads."
+    },
+    {
+      "channel": 4,
+      "instruments": [
+        {
+          "id": 2,
+          "name": "bassdrum",
+          "triggers": 244
+        },
+        {
+          "id": 3,
+          "name": "snare",
+          "triggers": 225
+        },
+        {
+          "id": 4,
+          "name": "hihat",
+          "triggers": 670
+        },
+        {
+          "id": 5,
+          "name": "wood",
+          "triggers": 89
+        },
+        {
+          "id": 6,
+          "name": "lightwood",
+          "triggers": 378
+        },
+        {
+          "id": 8,
+          "name": "base",
+          "triggers": 15
+        },
+        {
+          "id": 9,
+          "name": "snare2",
+          "triggers": 53
+        },
+        {
+          "id": 10,
+          "name": "clap",
+          "triggers": 5
+        },
+        {
+          "id": 11,
+          "name": "orch-hit",
+          "triggers": 1
+        },
+        {
+          "id": 17,
+          "name": "munjiga1",
+          "triggers": 1
+        },
+        {
+          "id": 18,
+          "name": "munjiga2",
+          "triggers": 2
+        },
+        {
+          "id": 19,
+          "name": "munjiga3",
+          "triggers": 2
+        },
+        {
+          "id": 20,
+          "name": "munjiga4",
+          "triggers": 2
+        },
+        {
+          "id": 21,
+          "name": "wilde thing",
+          "triggers": 3
+        },
+        {
+          "id": 22,
+          "name": "another drop",
+          "triggers": 81
+        },
+        {
+          "id": 23,
+          "name": "lead 3",
+          "triggers": 2
+        },
+        {
+          "id": 24,
+          "name": "lead 4",
+          "triggers": 31
+        }
+      ],
+      "total_triggers": 1804,
+      "triggered_notes_4_to_10_s": [
+        {
+          "time_s": 4.08,
+          "instrument": 5,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 4.2,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 4.32,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 4.56,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 4.68,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 4.8,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 4.92,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 5.04,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 5.16,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 5.28,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 5.52,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 5.64,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 5.76,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 5.88,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.0,
+          "instrument": 5,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.12,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.24,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 6.48,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.6,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.72,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 6.84,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 6.96,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 7.08,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 7.2,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 7.44,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 7.56,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 7.68,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 7.8,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 7.92,
+          "instrument": 5,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 8.04,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 8.16,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 8.4,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 8.52,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 8.64,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 8.76,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 8.88,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.0,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.12,
+          "instrument": 3,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 9.36,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.48,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.6,
+          "instrument": 2,
+          "period": 254,
+          "volume": 64
+        },
+        {
+          "time_s": 9.72,
+          "instrument": 4,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.84,
+          "instrument": 5,
+          "period": 214,
+          "volume": 64
+        },
+        {
+          "time_s": 9.96,
+          "instrument": 6,
+          "period": 214,
+          "volume": 64
+        }
+      ],
+      "current_c64_mapping": {
+        "kind": "sample",
+        "program": "eight-bit voice-3 sample-and-hold",
+        "sid_voice": 3
+      },
+      "musical_roles": "Mostly percussion, with later bass and lead material."
+    }
+  ]
+}
