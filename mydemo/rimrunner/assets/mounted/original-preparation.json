@@ -1,0 +1,708 @@
+{
+  "format": "Rimrunner native parallax prepared assets v1",
+  "source_captures": "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures",
+  "source_rider_ram": "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures/raster-00/ram.bin",
+  "inputs": {
+    "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures/raster-00/ram.bin": {
+      "bytes": 65536,
+      "sha256": "2201f56230069ec404b5d597dc2567bfea5f8a219a78dd1652625cf2ef31358c"
+    },
+    "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures/raster-04/ram.bin": {
+      "bytes": 65536,
+      "sha256": "f29fda4be8ceb6f167b5136d416367dd3364d944ea5856ba71176c491feaf539"
+    },
+    "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures/raster-07/ram.bin": {
+      "bytes": 65536,
+      "sha256": "17af46388d2b57806f4482fa92a20b5d373330f36429ff173407347864086763"
+    },
+    "/Users/rogerjohansson/git/asynkron/c64/asm/build/research/rimrunner/extracted/captures/raster-00/color.bin": {
+      "bytes": 1024,
+      "sha256": "acc9ef22894df0200be231b5f5fa9f32bda7ae1db35e6b9e5b95c177056e5081"
+    }
+  },
+  "world": {
+    "columns": 40,
+    "rows": 25,
+    "repeat_width_hires_pixels": 320,
+    "charset_source_addresses": [
+      "$4800",
+      "$5000",
+      "$4000"
+    ],
+    "screen_source_address": "$4000",
+    "uniform_color_rows": [
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24
+    ],
+    "raster_regions": [
+      {
+        "first_y": 0,
+        "end_y": 36,
+        "charset": 2,
+        "background": 0,
+        "multicolor_1": 14,
+        "multicolor_2": 6
+      },
+      {
+        "first_y": 36,
+        "end_y": 127,
+        "charset": 0,
+        "background": 0,
+        "multicolor_1": 14,
+        "multicolor_2": 3
+      },
+      {
+        "first_y": 127,
+        "end_y": 147,
+        "charset": 1,
+        "background": 4,
+        "multicolor_1": 14,
+        "multicolor_2": 11
+      },
+      {
+        "first_y": 147,
+        "end_y": 165,
+        "charset": 1,
+        "background": 11,
+        "multicolor_1": 14,
+        "multicolor_2": 11
+      },
+      {
+        "first_y": 165,
+        "end_y": 200,
+        "charset": 1,
+        "background": 11,
+        "multicolor_1": 0,
+        "multicolor_2": 3
+      }
+    ]
+  },
+  "mounted": {
+    "width": 72,
+    "height": 63,
+    "frames": [
+      {
+        "frame": 0,
+        "leg_base_pointer": "$80",
+        "body_pointer": "$ad",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 8,
+        "rider_bottom_y": 29,
+        "source_composite_sha256": "a2f51c4cbf4d6d6ec9c2a9e44b28c4b5ca0dd8f82077f8e8024ac93b2427f4ae",
+        "source_png": "mounted-source-pose-0.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$80",
+            "address": "$6000",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$81",
+            "address": "$6040",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$82",
+            "address": "$6080",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$83",
+            "address": "$60c0",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$84",
+            "address": "$6100",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ad",
+            "address": "$6b40",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 8
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 29
+          }
+        ],
+        "sha256": "2082d77ba6aea38155b69989913ca5a18c5124450c8e85cc964e6810438511f2"
+      },
+      {
+        "frame": 1,
+        "leg_base_pointer": "$85",
+        "body_pointer": "$ad",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 8,
+        "rider_bottom_y": 29,
+        "source_composite_sha256": "141eebcfb49d2712d6407893a2071d22ffc6896d544873e6c73f0f1be5a2924f",
+        "source_png": "mounted-source-pose-1.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$85",
+            "address": "$6140",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$86",
+            "address": "$6180",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$87",
+            "address": "$61c0",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$88",
+            "address": "$6200",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$89",
+            "address": "$6240",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ad",
+            "address": "$6b40",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 8
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 29
+          }
+        ],
+        "sha256": "d37feae168a6b1fa6863bdff8170bcd20ef4d57665f6542297b989b41591519c"
+      },
+      {
+        "frame": 2,
+        "leg_base_pointer": "$8a",
+        "body_pointer": "$ac",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 7,
+        "rider_bottom_y": 28,
+        "source_composite_sha256": "77ad01bfeab4d121ad6841e745d38121a182d32362f1febc915fcb4b670c7add",
+        "source_png": "mounted-source-pose-2.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$8a",
+            "address": "$6280",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$8b",
+            "address": "$62c0",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$8c",
+            "address": "$6300",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$8d",
+            "address": "$6340",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$8e",
+            "address": "$6380",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ac",
+            "address": "$6b00",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 7
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 28
+          }
+        ],
+        "sha256": "4f70e0c94f30e92913202cac868e3a158e1f369768e868f5695f0048cd1fd1c4"
+      },
+      {
+        "frame": 3,
+        "leg_base_pointer": "$8f",
+        "body_pointer": "$ac",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 7,
+        "rider_bottom_y": 28,
+        "source_composite_sha256": "b54c11dae9e5798fed07a6dd7303ea1fed542b44cdbbb7512f7c72710a836d2d",
+        "source_png": "mounted-source-pose-3.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$8f",
+            "address": "$63c0",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$90",
+            "address": "$6400",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$91",
+            "address": "$6440",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$92",
+            "address": "$6480",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$93",
+            "address": "$64c0",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ac",
+            "address": "$6b00",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 7
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 28
+          }
+        ],
+        "sha256": "014faf81a5d9645947524d2b9a6fd9d8da58714c6af10b7499b425818bd1d226"
+      },
+      {
+        "frame": 4,
+        "leg_base_pointer": "$94",
+        "body_pointer": "$ad",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 8,
+        "rider_bottom_y": 29,
+        "source_composite_sha256": "0992650becd136fc06860eba2abab2eb0121e585c45aef1611354de9d6b05d37",
+        "source_png": "mounted-source-pose-4.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$94",
+            "address": "$6500",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$95",
+            "address": "$6540",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$96",
+            "address": "$6580",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$97",
+            "address": "$65c0",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$98",
+            "address": "$6600",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ad",
+            "address": "$6b40",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 8
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 29
+          }
+        ],
+        "sha256": "76a8ae0959ddf95d9329176ba9756edd1306ef4607815f4e6c2bfe3a848d028b"
+      },
+      {
+        "frame": 5,
+        "leg_base_pointer": "$99",
+        "body_pointer": "$ad",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 8,
+        "rider_bottom_y": 29,
+        "source_composite_sha256": "e12ccab52bd1969ce21c7e7281c1d503bfc91f22a2be49adef3dae331c47dd9e",
+        "source_png": "mounted-source-pose-5.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$99",
+            "address": "$6640",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$9a",
+            "address": "$6680",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$9b",
+            "address": "$66c0",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$9c",
+            "address": "$6700",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$9d",
+            "address": "$6740",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ad",
+            "address": "$6b40",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 8
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 29
+          }
+        ],
+        "sha256": "7863b1fb5a0583228171d46f678fc2b083f7d8891ec3ed3342cde2d56b1e55a9"
+      },
+      {
+        "frame": 6,
+        "leg_base_pointer": "$9e",
+        "body_pointer": "$ac",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 7,
+        "rider_bottom_y": 28,
+        "source_composite_sha256": "d04026aa7db839199b2281a7f5651b9749a84c3c663a1680c5d61e19b5069d6e",
+        "source_png": "mounted-source-pose-6.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$9e",
+            "address": "$6780",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$9f",
+            "address": "$67c0",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$a0",
+            "address": "$6800",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$a1",
+            "address": "$6840",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$a2",
+            "address": "$6880",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ac",
+            "address": "$6b00",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 7
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 28
+          }
+        ],
+        "sha256": "c85f99e7ed6de155a8e178cdf81177e9ccbfcd15aed3b905ba1920eaee333d49"
+      },
+      {
+        "frame": 7,
+        "leg_base_pointer": "$a3",
+        "body_pointer": "$ac",
+        "rider_top_pointer": "$a8",
+        "rider_bottom_pointer": "$ab",
+        "rider_top_y": 7,
+        "rider_bottom_y": 28,
+        "source_composite_sha256": "f77de60ae33b91691279e3e0ea794436ab412aaeb4ada7feb59301347724ba3b",
+        "source_png": "mounted-source-pose-7.png",
+        "source_parts_in_paint_order": [
+          {
+            "pointer": "$a3",
+            "address": "$68c0",
+            "x": 0,
+            "y": 0
+          },
+          {
+            "pointer": "$a4",
+            "address": "$6900",
+            "x": 0,
+            "y": 21
+          },
+          {
+            "pointer": "$a5",
+            "address": "$6940",
+            "x": 0,
+            "y": 42
+          },
+          {
+            "pointer": "$a6",
+            "address": "$6980",
+            "x": 24,
+            "y": 42
+          },
+          {
+            "pointer": "$a7",
+            "address": "$69c0",
+            "x": 48,
+            "y": 42
+          },
+          {
+            "pointer": "$ac",
+            "address": "$6b00",
+            "x": 24,
+            "y": 21
+          },
+          {
+            "pointer": "$a8",
+            "address": "$6a00",
+            "x": 24,
+            "y": 7
+          },
+          {
+            "pointer": "$ab",
+            "address": "$6ac0",
+            "x": 24,
+            "y": 28
+          }
+        ],
+        "sha256": "f3904e9230051a04c82f7368add1d2f283bf5e383836297e63d792bf8d57aaec"
+      }
+    ],
+    "slots_per_frame": 8,
+    "bytes_per_slot": 64,
+    "bytes_per_frame": 512,
+    "enabled_sprite_mask": "$7f",
+    "multicolor_sprite_mask": "$7f",
+    "deduplicated_tiles": {
+      "file": "mounted-unique.bin",
+      "count": 41,
+      "bytes_per_tile": 64,
+      "frame_map_file": "mounted-frame-map.bin",
+      "frame_map_layout": "frame-major, seven slot indices per pose",
+      "ordering": "first occurrence across frames0..7 and slots0..6"
+    },
+    "tile_offsets": [
+      [
+        24,
+        0
+      ],
+      [
+        48,
+        0
+      ],
+      [
+        24,
+        21
+      ],
+      [
+        48,
+        21
+      ],
+      [
+        0,
+        42
+      ],
+      [
+        24,
+        42
+      ],
+      [
+        48,
+        42
+      ],
+      [
+        0,
+        0
+      ]
+    ],
+    "palette_indices": [
+      null,
+      0,
+      5,
+      13
+    ],
+    "mirrored_for_travel_direction": true,
+    "travel_direction": "right; world scrolls left",
+    "sequence": "Canonical straight-running loop from original $8c20-$8cd2 renderer",
+    "seed": {
+      "leg_base_before_first_advance": "$a3",
+      "body_pointer": "$ac",
+      "body_count": 0
+    },
+    "renderer_sha256": "e1d01594ae9ed4655b43f3d01f98379d340166f6f258b381c1f7e88ce317ea5c",
+    "rider_priority": "Rider A8 and AB paint over animal parts; opaque black is retained"
+  },
+  "outputs": {
+    "charset-0.bin": {
+      "bytes": 2048,
+      "sha256": "f482e28d50f86748985d792db388e15c84976cb395b9c4cf065f4bca0e314d39"
+    },
+    "charset-1.bin": {
+      "bytes": 2048,
+      "sha256": "3834e47f615803bcf3207f21bd6ad809af4d99da41bc991eb1874f02caeecd4d"
+    },
+    "charset-2.bin": {
+      "bytes": 2048,
+      "sha256": "9b6c5d98406547e15416aa4959bd09f103c0baedfd49124d00fc7177a7e8916c"
+    },
+    "screen.bin": {
+      "bytes": 1000,
+      "sha256": "2079f2eb92e9ad8952fe571108700848c4de49a63e955f63b6a9678eafa185bc"
+    },
+    "color.bin": {
+      "bytes": 1000,
+      "sha256": "7d74022bed424353a462d0572f6cfed1e98dc4fd44316bf34be68edc7febb8fe"
+    },
+    "mounted-frames.bin": {
+      "bytes": 4096,
+      "sha256": "021d521f67ddcfc36e0dce4992e4ead71e502f7da1733b5b11af410c919df99f"
+    },
+    "mounted-offsets.bin": {
+      "bytes": 16,
+      "sha256": "9a588b2d6c12b3941d3de85ea11cad3f37bb4b2e1ffdce7ea64ec5381830efcf"
+    },
+    "mounted-unique.bin": {
+      "bytes": 2624,
+      "sha256": "d7dd998ac49a6aab81cdcd6e41404994e907a86c654995e41126cb60eba137b5"
+    },
+    "mounted-frame-map.bin": {
+      "bytes": 56,
+      "sha256": "713e9ec6fa837b1afcdec49a6f7f34a74ee96138ea0ad6367b40a5a956e86dc1"
+    }
+  },
+  "limitations": [
+    "The world repeats one captured 40-column viewport; it is not the complete recovered level map.",
+    "Original raster palette and charset cuts are preserved as metadata; the runtime must apply them.",
+    "Running poses use a canonical original-renderer phase, not an observed initial animation phase.",
+    "The rider uses the straight-running A8 pose; aim/fire-specific A9 and AA poses are not included.",
+    "Prepared original game graphics carry no new reuse or redistribution license."
+  ]
+}

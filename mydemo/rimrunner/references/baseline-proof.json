@@ -1,0 +1,68 @@
+{
+  "origin": "Historical native PAL verification of the original asm/build/parallax.prg; not rerun during this import.",
+  "imported": "2026-11-12",
+  "proofs": [
+    {
+      "receipt_path": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-road2-fast-validation/verification.json",
+      "receipt_sha256": "2689d40da1c742530b660d26baa4b5c7edf57a57e6afd2f46675150e820508e7",
+      "results": {
+        "pass": true,
+        "checked_consecutive_frames": 641,
+        "missed_pal_frames": 0,
+        "native_background_pixels_compared": 34167864,
+        "background_pixel_mismatches": 0,
+        "source_hashes_unchanged": true,
+        "source_sha256": {
+          "rimrunner-bg": "dfafe2be8ef97b4799904e82907a2e0c413daa7d674e237dd529c113b896fc94",
+          "rimrunner-road2": "e0d5bd60667d50fe4f29158a6c432c85cd1dd31d8e9be63cdccac20b6a5fff94"
+        },
+        "displacement_over_640_fields_px": {
+          "Fence": 320,
+          "Road": 640,
+          "Front": 1280
+        },
+        "camera_wraps": {
+          "Fence": 1,
+          "Road": 2,
+          "Front": 4
+        },
+        "program_sha256": "098210caec6b138445bc40bf18dfe17e1522e0a399eae8409bbdb914bfc99ebb"
+      }
+    },
+    {
+      "receipt_path": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-road2-fast-actor-pause-validation/verification.json",
+      "receipt_sha256": "4d13fa329cdd029852387554f3f7408abac5cf484b420876ccd740ca8d418e4a",
+      "results": {
+        "pass": true,
+        "mounted_poses_seen": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7
+        ],
+        "sprite_tile_fetches_compared": 462,
+        "compared_sprite_bytes": 29568,
+        "both_vic_banks_match_original_poses": true,
+        "rider_base_y": 131,
+        "rider_upward_shift_pixels": 20,
+        "hardware_sprite_y": [
+          131,
+          131,
+          152,
+          152,
+          173,
+          173,
+          173
+        ],
+        "pause_freezes_all_three_cameras_and_gait": true,
+        "pause_keeps_mci_phases_alternating": true,
+        "resume_moves_all_three_bands": true,
+        "program_sha256": "098210caec6b138445bc40bf18dfe17e1522e0a399eae8409bbdb914bfc99ebb"
+      }
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "imported": "2026-11-12",
+  "baseline_prg_sha256": "098210caec6b138445bc40bf18dfe17e1522e0a399eae8409bbdb914bfc99ebb",
+  "inputs": {
+    "assets/rimrunner-bg.mci": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64demo/images/rimrunner-bg.mci",
+      "bytes": 19434,
+      "sha256": "dfafe2be8ef97b4799904e82907a2e0c413daa7d674e237dd529c113b896fc94"
+    },
+    "assets/rimrunner-road2.mci": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64demo/images/rimrunner-road2.mci",
+      "bytes": 19434,
+      "sha256": "e0d5bd60667d50fe4f29158a6c432c85cd1dd31d8e9be63cdccac20b6a5fff94"
+    },
+    "assets/mounted/mounted-unique.bin": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-parallax-data/mounted-unique.bin",
+      "bytes": 2624,
+      "sha256": "d7dd998ac49a6aab81cdcd6e41404994e907a86c654995e41126cb60eba137b5"
+    },
+    "assets/mounted/mounted-frame-map.bin": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-parallax-data/mounted-frame-map.bin",
+      "bytes": 56,
+      "sha256": "713e9ec6fa837b1afcdec49a6f7f34a74ee96138ea0ad6367b40a5a956e86dc1"
+    },
+    "assets/mounted/mounted-offsets.bin": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-parallax-data/mounted-offsets.bin",
+      "bytes": 16,
+      "sha256": "9a588b2d6c12b3941d3de85ea11cad3f37bb4b2e1ffdce7ea64ec5381830efcf"
+    },
+    "assets/mounted/mounted-frames.bin": {
+      "source": "/Users/rogerjohansson/git/asynkron/c64/asm/build/rimrunner-parallax-data/mounted-frames.bin",
+      "bytes": 4096,
+      "sha256": "021d521f67ddcfc36e0dce4992e4ead71e502f7da1733b5b11af410c919df99f"
+    }
+  }
+}
