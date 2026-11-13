@@ -381,11 +381,11 @@
 
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=dark-first-index-ties"></script>
+  <script src="./ifli.js?v=shared-brightness-mapper"></script>
   <script src="./talent-palette.js?v=1"></script>
   <script src="./talent-neighbors.js?v=1"></script>
-  <script src="./talent-mapping.js?v=stepwise-lightness"></script>
-  <script src="./palettes.js?v=talent-scales"></script>
+  <script src="./talent-mapping.js?v=shared-brightness-mapper"></script>
+  <script src="./palettes.js?v=all-talent-colors"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
@@ -409,7 +409,7 @@
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=talent-scales"></script>
+  <script src="./converter-controls.js?v=all-talent-colors"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=charset-dither"></script>
@@ -659,7 +659,7 @@
       paletteState.setVirtualColorMode(mode);
       virtualColorModeSelect.value = mode;
       document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
-        ? 'Each color region follows an observed Talent scale from dark to light. Dithering stays between neighboring steps. Shared by all layers.'
+        ? 'Talent uses the same brightness-first mapping as Computed, with levels measured from its 92 colors. Hue is matched within the selected level. Shared by all layers.'
         : 'Computed pairs, shared by all layers with virtual colors enabled.';
       virtualPaletteView.refreshPalette();
       layerStack.invalidate();
@@ -999,8 +999,7 @@
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
       const mapping = !usesDirectColorFit() && !isTwoColorMode() && values['virtual-colors'] !== 'off'
         ? paletteState.virtualColorMode === 'talent'
-          ? mapToTalentVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, paletteState.talentToneModel,
-            values.dither / 100, layer.settings.palette)
+          ? mapToTalentVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, layer.settings.palette, values.dither / 100)
           : mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
             values.dither / 100, layer.settings.palette) : null;
       const mapped = isTwoColorMode() ? convertTwoColorHires(pixels, C64_PALETTE, twoColorIndices, values.dither / 100)

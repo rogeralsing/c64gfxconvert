@@ -31,11 +31,15 @@ Project JSON stores `image.paletteId` as `colodore` or `pepto`; older projects
 without this field use Colodore. Native C64 exports contain hardware color
 indices, so their displayed RGB colors depend on the computer or emulator palette.
 
-In virtual modes, **Darkest level** and **Lightest level** clamp the C64 Palette
-view to the existing 17 virtual brightness rows, numbered 0–16. Row 0 is black,
-row 1 mixes black with blue/brown, row 2 uses blue/brown, and row 16 is white.
-Dithering stays inside the selected bounds. These caps do not change the source
-image; subsequent format fitting uses the capped palette image as its target.
+Computed's **Darkest level** and **Lightest level** clamp the C64 Palette view
+to its 17 brightness rows, numbered 0–16. Row 0 is black, row 1 mixes black with
+blue/brown, row 2 uses blue/brown, and row 16 is white. Talent groups its actual
+Oklab lightness values into levels spanning at most three percentage points;
+PEPTOette_a currently produces 20 levels. Both palettes use the same brightness
+selection, ordered dither, and within-level chroma matching. Talent's caps use
+actual lightness percentages. Dithering stays inside the selected bounds.
+These caps do not change the source image; subsequent format fitting uses the
+capped palette image as its target.
 
 NUFLI and PAFLI verification load `colodore.vpl` explicitly into VICE with
 neutral saturation, contrast, brightness, and gamma controls. Existing palette

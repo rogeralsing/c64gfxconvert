@@ -277,6 +277,17 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
     levels[components[0] + components[1]].push({ color, lab: rgbToOklab(...color.rgb) });
   }
 
+  return mapToVirtualPaletteLevels(source, levels, ditherAmount, { minLevel, maxLevel, excludedIndices });
+}
+
+/** Map brightness first, then chroma, using the supplied measured palette rows. */
+function mapToVirtualPaletteLevels(source, levels, ditherAmount = 0,
+    { minLevel = 0, maxLevel = levels.length - 1, excludedIndices = [] } = {}) {
+  if (!levels.length) throw new Error('Virtual palette requires at least one brightness level.');
+  if (!Number.isInteger(minLevel) || !Number.isInteger(maxLevel) ||
+      minLevel < 0 || maxLevel >= levels.length || minLevel > maxLevel) {
+    throw new RangeError(`Virtual palette brightness limits require 0 <= minLevel <= maxLevel <= ${levels.length - 1}.`);
+  }
   const levelLightness = levels.map((level, index) => {
     if (level.length === 0) {
       throw new Error(`IFLI virtual palette has no colors at brightness level ${index}.`);
@@ -284,10 +295,10 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
     return level.reduce((sum, entry) => sum + entry.lab.lightness, 0) / level.length;
   });
   const excluded = new Set(excludedIndices);
+  const availableColors = levels.map(level => level.filter(entry => !excluded.has(entry.color.index)));
   const availableLevels = [];
   for (let index = minLevel; index <= maxLevel; index += 1) {
-    levels[index] = levels[index].filter(entry => !excluded.has(entry.color.index));
-    if (levels[index].length) availableLevels.push(index);
+    if (availableColors[index].length) availableLevels.push(index);
   }
   if (availableLevels.length === 0) {
     throw new Error('At least one enabled virtual color is required in the selected brightness range.');
@@ -324,7 +335,7 @@ function mapToIfliVirtualPalette(source, virtualPalette, brightnessBands, dither
       const brighterProbability = nearestBrighter + (fraction - nearestBrighter) * ditherAmount;
       levelIndex = threshold < brighterProbability ? brighter : darker;
     }
-    const level = levels[levelIndex];
+    const level = availableColors[levelIndex];
 
     let nearest = level[0];
     let nearestChroma = Infinity;

@@ -185,7 +185,7 @@ test('project validation uses the requested virtual catalog and retains exclusio
   }
 });
 
-test('legacy Talent row caps migrate using the document palette and retain retired tone exclusions', () => {
+test('legacy Talent row caps migrate using the document palette and retain Talent color exclusions', () => {
   const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'project.js']);
   const state = runtime.createC64PaletteState('colodore');
   const catalogCodec = runtime.createC64ProjectCodec({
@@ -197,17 +197,15 @@ test('legacy Talent row caps migrate using the document palette and retain retir
       return { ...resolved.virtualPalettes, legacyTalent: resolved.legacyTalentPalette };
     }
   });
-  const active = new Set(Object.values(state.virtualPalettes).flat().map(color => color.index));
-  const retiredIndex = state.virtualColorIndices.find(index => !active.has(index));
-  assert.notEqual(retiredIndex, undefined, 'legacy Talent exclusions must outlive unsupported tone removal');
+  const talentIndex = state.virtualPalettes.talent.find(color => color.colorIndices.join('-') === '0-4').index;
   const project = fixture();
   Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: 'talent' });
-  project.layers[0].settings.palette = { minLevel: 2, maxLevel: 2, excludedIndices: [retiredIndex] };
+  project.layers[0].settings.palette = { minLevel: 2, maxLevel: 2, excludedIndices: [talentIndex] };
 
   const restored = JSON.parse(catalogCodec.stringify(project));
 
   assert.deepEqual(restored.layers[0].settings.palette, {
-    minLevel: 2, maxLevel: 2, minLightness: 33, maxLightness: 38, excludedIndices: [retiredIndex]
+    minLevel: 2, maxLevel: 2, minLightness: 33, maxLightness: 38, excludedIndices: [talentIndex]
   });
   assert.equal(restored.layers[1].settings.palette.minLightness, 0);
   assert.equal(restored.layers[1].settings.palette.maxLightness, 100);
@@ -226,16 +224,18 @@ test('legacy Talent row caps migrate using the document palette and retain retir
   project.layers[0].settings.palette = { minLevel: 10, maxLevel: 10, excludedIndices };
   const migrated = JSON.parse(catalogCodec.stringify(project)).layers[0].settings.palette;
   const newlyEnabled = state.virtualPalettes.talent.filter(color => !migrated.excludedIndices.includes(color.index));
-  assert.equal(newlyEnabled.length, 1, 'a valid legacy selection of a retired tone enables one supported replacement');
+  assert.equal(newlyEnabled.length, 1, 'a valid legacy selection retains its single chosen Talent color');
+  assert.equal(newlyEnabled[0].index, oldGreen.index);
+  assert.deepEqual(migrated.excludedIndices, Array.from(excludedIndices));
   assert.ok(newlyEnabled[0].lightness * 100 >= migrated.minLightness);
   assert.ok(newlyEnabled[0].lightness * 100 <= migrated.maxLightness);
 
   Object.assign(project.layers[0].settings.palette, { minLightness: 0, maxLightness: 100 });
+  project.layers[0].settings.palette.excludedIndices.push(oldGreen.index);
   assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,
     'explicit lightness selections remain strict');
   delete project.layers[0].settings.palette.minLightness;
   delete project.layers[0].settings.palette.maxLightness;
-  project.layers[0].settings.palette.excludedIndices.push(oldGreen.index);
   assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,
     'legacy documents with no enabled old tones remain invalid');
 });

@@ -55,26 +55,27 @@ reconstructs paths through those contacts; contacts can also mark object
 boundaries, so they do not prove deliberate gradients. The palette
 shows these scales as columns, black at the top and white at the bottom, with
 different numbers of tones. Scroll horizontally to inspect every scale.
-Only tones covered by complete observed scales are available in Talent mode.
-Their number depends on the selected C64 palette's lightness ordering.
-Talent mixes pairs in linear light using the selected C64 palette. It matches
-actual Oklab lightness; ordered dithering uses only neighboring tones from the
-displayed scales. It does not assign Talent pairs to Computed's 17 brightness rows.
-Conversion separates connected source color regions at sharp lightness or color
-edges. It scores every available scale over each region from dark to light,
-keeping candidate paths open until the whole region has been evaluated. Source
-lightness determines the step within a path; color matching chooses the path
-and cannot skip intermediate steps to find a closer hue. Dithering happens
-after path selection. Excluded tones split paths into separate fragments;
-the converter never creates a new link across a missing tone.
+All 92 Talent colors are available: the 76 retained mixed pairs and all 16
+solid C64 colors. Tones outside the example scales appear in an additional column.
+Talent mixes pairs in linear light using the selected C64 palette. It groups
+colors by their actual Oklab lightness, with at most three percentage points
+between the darkest and lightest tone in a level. The level count comes from
+the palette; PEPTOette_a currently has 20 Talent levels. Computed keeps its
+existing 17 rows. Both modes call the same mapper: select the brightness level,
+using the Dither setting to interpolate neighboring levels, then match chroma
+within that level. Hue cannot select a different brightness level.
+Graphs, neighboring pixels, scale paths, and traversal order do not restrict
+selection. Only the layer's lightness caps and explicit exclusions apply.
+The C64 Palette view receives the exact selected virtual RGB for each pixel,
+using the same ordered brightness dithering as Computed. Lines or Checkers
+resolve the selected component pairs afterward.
 Choose **PEPTOette_a** to reproduce the sampled palette's RGB values. The mode
 applies to every layer with virtual colors enabled and is saved in projects.
 Older projects default to Computed. Each layer retains its own pattern,
 brightness limits, and color exclusions. Talent's lightness limits run from
 0–100%; Computed retains levels 0–16. Layers preserve both ranges separately.
 Legacy Talent projects migrate their row limits to the measured lightness
-range of the tones those rows admitted. If an old selection contains only
-tones outside complete scales, migration enables one nearby supported tone.
+range of the tones those rows admitted. Existing color exclusions are preserved.
 A mode switch keeps at least one
 available color enabled within each layer's selected brightness range.
 

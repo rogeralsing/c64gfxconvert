@@ -124,8 +124,7 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
     legacyTalentPalette.splice(0, legacyTalentPalette.length, ...talent);
     virtualColorIndices.splice(0, virtualColorIndices.length, ...new Set([...computed, ...talent].map(color => color.index)));
     talentToneModel = buildTalentToneModel(talent, TALENT_NEIGHBOR_DATA);
-    const rampIndices = new Set(talentToneModel.ramps.flatMap(ramp => ramp.indices));
-    updateVirtualPalette('talent', talent.filter(color => rampIndices.has(color.index)));
+    updateVirtualPalette('talent', talent);
     refreshActiveVirtualPalette();
     paletteId = id;
     return preset;

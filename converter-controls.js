@@ -178,6 +178,16 @@ globalThis.C64ConverterControls = (() => {
           }
           swatches.append(column);
         }
+        const additional = palette.filter(color => !buttons.has(color.index))
+          .sort((first, second) => first.lightness - second.lightness || first.index - second.index);
+        if (additional.length) {
+          const column = document.createElement('div');
+          column.className = 'talent-palette-scale';
+          column.setAttribute('role', 'group');
+          column.setAttribute('aria-label', 'Additional Talent colors');
+          for (const color of additional) column.append(createSwatch(color));
+          swatches.append(column);
+        }
         return;
       }
       const sorted = [...palette].sort((first, second) =>
