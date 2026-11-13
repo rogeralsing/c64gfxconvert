@@ -174,7 +174,20 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .image-slider:hover::-moz-range-thumb, .image-slider:focus-visible::-moz-range-thumb { border-color: var(--accent); background: var(--accent); }
 .levels-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 24px; margin-bottom: 7px; }
 .levels-heading .framing-reset { margin-top: 0; }
-.levels-histogram { width: 100%; height: 91px; padding: 8px; border: 1px solid #424242; border-radius: 3px; background: #222; }
+.levels-histogram { width: 100%; height: auto; aspect-ratio: 256 / 220; padding: 0; border: 1px solid #494949; border-radius: 3px; background: #202020; image-rendering: auto; cursor: crosshair; touch-action: none; }
+.levels-histogram:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.levels-histogram.is-dragging { cursor: grabbing !important; }
+.levels-curve-help { margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.5; }
+.levels-curve-controls { display: flex; align-items: end; gap: 8px; margin-top: 10px; }
+.levels-curve-field { display: flex; flex: 1; flex-direction: column; gap: 4px; min-width: 0; color: #bbb; font-size: 10px; }
+.levels-curve-field input { width: 100%; min-width: 0; min-height: 27px; padding: 3px 6px; border: 1px solid #515151; border-radius: 3px; background: #222; color: #eee; font-size: 11px; font-variant-numeric: tabular-nums; }
+.levels-curve-field input:disabled { border-color: #3d3d3d; color: #888; }
+.levels-curve-controls .framing-reset { flex: none; min-height: 27px; margin-top: 0; padding-inline: 7px; }
+.levels-curve-actions { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 8px; color: var(--muted); font-size: 10px; }
+.levels-curve-actions .framing-reset { margin-top: 0; }
+.levels-input-controls { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--line); }
+.levels-input-controls > summary { color: #bbb; font-size: 11px; cursor: pointer; }
+.levels-input-controls[open] > summary { margin-bottom: 9px; }
 .levels-slider { margin-top: 5px; }
 #source-levels { margin-block: 15px; padding-block: 12px; border-block: 1px solid var(--line); }
 .background-control { min-width: 0; margin: 0; padding: 0; border: 0; }

@@ -24,6 +24,27 @@ the graphics format. Colodore remains the default. Switching updates conversion,
 previews, color swatches, and virtual colors across all layers. Projects save
 the chosen palette; older projects use Colodore. See [palette sources](palettes/README.md).
 
+## Source adjustments
+
+**Levels & curves** provides an editable tone curve over an RGB histogram.
+Click to add points, drag them to shape the curve, and use **Input**/**Output**
+for exact values. Delete or double-click an interior point to remove it.
+The focused curve also supports arrow keys, Page Up/Page Down to select points,
+and Insert to add a point. **Reset curve** clears only the custom curve;
+**Reset** also restores the black point, midtones, and white point under
+**Input levels**. The custom curve follows those input-level adjustments.
+
+**Interlace** lifts selected lines toward white at positive strength and darkens
+them toward black at negative strength. **Line spacing** sets the distance
+between lines, from 1–32 steps. Choose **Horizontal —**, **Rising diagonal /**,
+or **Falling diagonal \\**. Each line remains one 2×1 display pixel thick,
+including in hires modes. At spacing 2, both diagonal directions produce the
+same checker pattern; spacing 3 or more makes their directions distinct.
+
+Curve points, interlace spacing, and direction belong to each layer and are
+saved in projects. Older projects retain a neutral curve and the original
+horizontal interlace pattern at spacing 2.
+
 ## Graphics formats
 
 | Format | Logical pixels | Color allocation |

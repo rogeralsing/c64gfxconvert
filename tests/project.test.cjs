@@ -13,6 +13,8 @@ const codecOptions = {
     { id: 'brightness', type: 'range', min: -100, max: 300, step: 1 },
     { id: 'levels-black', type: 'range', min: 0, max: 254, step: 1 },
     { id: 'levels-white', type: 'range', min: 1, max: 255, step: 1 },
+    { id: 'interlace-spacing', type: 'range', min: 1, max: 32, step: 1 },
+    { id: 'interlace-direction', type: 'select-one', options: ['horizontal', 'diagonal-up', 'diagonal-down'] },
     { id: 'scanline-dither', type: 'checkbox' },
     { id: 'virtual-colors', type: 'select-one', options: ['off', 'lines', 'checkers'] }
   ],
@@ -32,10 +34,13 @@ const fixture = () => ({
   layers: [
     { name: 'Hidden source', visible: false, autoName: false, source,
       settings: { values: { brightness: 37, 'levels-black': 12, 'levels-white': 225,
+        'interlace-spacing': 4, 'interlace-direction': 'diagonal-up',
         'scanline-dither': true, 'virtual-colors': 'checkers' },
+      curvePoints: [{ input: 0, output: 0 }, { input: 96, output: 60 }, { input: 255, output: 255 }],
       palette: { minLevel: 1, maxLevel: 2, excludedIndices: [0, 1] } } },
     { name: 'Empty layer', visible: true, autoName: true, source: null,
       settings: { values: { brightness: -18, 'levels-black': 0, 'levels-white': 255,
+        'interlace-spacing': 2, 'interlace-direction': 'horizontal',
         'scanline-dither': false, 'virtual-colors': 'off' },
       palette: { minLevel: 0, maxLevel: 16, excludedIndices: [] } } }
   ]
@@ -59,6 +64,31 @@ test('project JSON preserves embedded sources, shared settings, and distinct ord
   const loaded = codec.parse(JSON.stringify(fixture()));
   loaded.layers[0].settings.values.brightness = 100;
   assert.equal(loaded.layers[1].settings.values.brightness, -18);
+});
+
+test('project curves and interlace settings round-trip per layer and migrate older projects', () => {
+  const project = fixture();
+  const saved = JSON.parse(codec.stringify(project));
+  assert.deepEqual(saved.layers[0].settings.curvePoints, project.layers[0].settings.curvePoints);
+  assert.equal(saved.layers[0].settings.values['interlace-spacing'], 4);
+  assert.equal(saved.layers[0].settings.values['interlace-direction'], 'diagonal-up');
+  assert.deepEqual(saved.layers[1].settings.curvePoints, [{ input: 0, output: 0 }, { input: 255, output: 255 }]);
+  const loaded = codec.parse(JSON.stringify(saved));
+  loaded.layers[0].settings.curvePoints[1].output = 30;
+  assert.equal(loaded.layers[1].settings.curvePoints[1].output, 255);
+  assert.equal(saved.layers[0].settings.curvePoints[1].output, 60);
+
+  for (const layer of project.layers) {
+    delete layer.settings.curvePoints;
+    delete layer.settings.values['interlace-spacing'];
+    delete layer.settings.values['interlace-direction'];
+  }
+  const migrated = JSON.parse(JSON.stringify(codec.parse(JSON.stringify(project))));
+  for (const layer of migrated.layers) {
+    assert.deepEqual(layer.settings.curvePoints, [{ input: 0, output: 0 }, { input: 255, output: 255 }]);
+    assert.equal(layer.settings.values['interlace-spacing'], 2);
+    assert.equal(layer.settings.values['interlace-direction'], 'horizontal');
+  }
 });
 
 test('project import rejects unsupported documents and unusable settings before replacing a document', () => {
@@ -86,6 +116,16 @@ test('project import rejects unsupported documents and unusable settings before 
     project => { project.layers[0].settings.values.brightness = 0.5; },
     project => { delete project.layers[0].settings.values['scanline-dither']; },
     project => { project.layers[0].settings.values['levels-white'] = 12; },
+    ...[0, 33, 2.5, '4', null].map(value =>
+      project => { project.layers[0].settings.values['interlace-spacing'] = value; }),
+    ...['vertical', '', 0, null].map(value =>
+      project => { project.layers[0].settings.values['interlace-direction'] = value; }),
+    ...[null, [], [{ input: 0, output: 0 }],
+      [{ input: 1, output: 0 }, { input: 255, output: 255 }],
+      [{ input: 0, output: 0 }, { input: 255, output: 256 }],
+      [{ input: 0, output: 0 }, { input: 96, output: 60 }, { input: 96, output: 90 }, { input: 255, output: 255 }],
+      [{ input: 0, output: 0 }, { input: 120, output: 60 }, { input: 96, output: 90 }, { input: 255, output: 255 }]
+    ].map(value => project => { project.layers[0].settings.curvePoints = value; }),
     project => { project.layers[0].settings.values['virtual-colors'] = 'unknown'; },
     project => { project.layers[0].settings.palette.minLevel = 3; },
     project => { project.layers[0].settings.palette.excludedIndices = [999]; },

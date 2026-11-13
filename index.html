@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=talent-scales">
+  <link rel="stylesheet" href="./editor.css?v=editable-curves">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -284,10 +284,26 @@
             </div>
             <div id="source-levels" class="image-control" role="group" aria-labelledby="levels-heading">
               <div class="levels-heading">
-                <h3 id="levels-heading">Levels</h3>
+                <h3 id="levels-heading">Levels &amp; curves</h3>
                 <button id="reset-levels" class="framing-reset" type="button" aria-label="Reset levels">Reset</button>
               </div>
-              <canvas id="levels-histogram" class="levels-histogram" width="256" height="112" role="img" aria-label="Source RGB histogram and input levels curve"></canvas>
+              <canvas id="levels-histogram" class="levels-histogram" width="256" height="220" tabindex="0" role="img" aria-label="Editable tone curve and RGB histogram" aria-describedby="levels-curve-help" title="Click to add a point; drag to shape. Arrow keys move the selected point, Page Up/Down selects points, Enter adds a point, Delete removes it."></canvas>
+              <p id="levels-curve-help" class="levels-curve-help">Click to add. Drag to shape. Delete to remove.</p>
+              <div class="levels-curve-controls">
+                <label class="levels-curve-field" for="levels-curve-input">Input
+                  <input id="levels-curve-input" type="number" min="0" max="255" step="1" value="0">
+                </label>
+                <label class="levels-curve-field" for="levels-curve-output">Output
+                  <input id="levels-curve-output" type="number" min="0" max="255" step="1" value="0">
+                </label>
+                <button id="levels-curve-delete" class="framing-reset" type="button" disabled>Remove point</button>
+              </div>
+              <div class="levels-curve-actions">
+                <span id="levels-curve-status" role="status" aria-live="polite">2 points</span>
+                <button id="reset-curve" class="framing-reset" type="button">Reset curve</button>
+              </div>
+              <details class="levels-input-controls">
+                <summary>Input levels</summary>
               <div class="levels-slider">
                 <div class="control-label"><label for="levels-black">Black point</label><output id="levels-black-value" for="levels-black">0</output></div>
                 <input id="levels-black" class="image-slider" type="range" min="0" max="254" step="1" value="0" aria-valuetext="0 input black point">
@@ -300,6 +316,7 @@
                 <div class="control-label"><label for="levels-white">White point</label><output id="levels-white-value" for="levels-white">255</output></div>
                 <input id="levels-white" class="image-slider" type="range" min="1" max="255" step="1" value="255" aria-valuetext="255 input white point">
               </div>
+              </details>
             </div>
             <div class="image-control">
               <div class="control-label"><label for="hue">Hue</label><output id="hue-value" for="hue">0°</output></div>
@@ -316,6 +333,14 @@
             <div class="image-control">
               <div class="control-label"><label for="interlace">Interlace</label><output id="interlace-value" for="interlace">0%</output></div>
               <input id="interlace" class="image-slider" type="range" min="-100" max="100" step="1" value="0" aria-valuetext="0% (off)">
+              <div class="control-label"><label for="interlace-direction">Direction</label></div>
+              <select id="interlace-direction" class="mode-select" title="At spacing 2, both diagonal directions form the same checker pattern. Use spacing 3 or more to distinguish them.">
+                <option value="horizontal">Horizontal —</option>
+                <option value="diagonal-up">Rising diagonal /</option>
+                <option value="diagonal-down">Falling diagonal \</option>
+              </select>
+              <div class="control-label"><label for="interlace-spacing">Line spacing</label><output id="interlace-spacing-value" for="interlace-spacing">2 steps</output></div>
+              <input id="interlace-spacing" class="image-slider" type="range" min="1" max="32" step="1" value="2" aria-valuetext="2 steps between interlace lines" title="Distance between lines. Each line remains one 2×1 pixel thick.">
             </div>
             <div class="image-control">
               <div class="control-label"><label for="dither">Dither</label><output id="dither-value" for="dither">100%</output></div>
@@ -408,13 +433,14 @@
   <script src="./two-color-export.js?v=1"></script>
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
-  <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=all-talent-colors"></script>
+  <script src="./source-levels.js?v=editable-curves"></script>
+  <script src="./source-interlace.js?v=patterns"></script>
+  <script src="./converter-controls.js?v=editable-curves"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=charset-dither"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=talent-lightness"></script>
+  <script src="./project.js?v=curves-interlace"></script>
   <script>
     const paletteState = createC64PaletteState();
     const C64_PALETTE = paletteState.palette;
@@ -483,6 +509,8 @@
     const rgbNoiseValue = document.getElementById('rgb-noise-value');
     const interlaceSlider = document.getElementById('interlace');
     const interlaceValue = document.getElementById('interlace-value');
+    const interlaceSpacing = document.getElementById('interlace-spacing');
+    const interlaceDirection = document.getElementById('interlace-direction');
     const ditherSlider = document.getElementById('dither');
     const ditherValue = document.getElementById('dither-value');
     const scanlineDither = document.getElementById('scanline-dither');
@@ -535,7 +563,7 @@
     let layerStack = null;
     const layerControlIds = ['source-scale', 'source-position-x', 'source-position-y',
       'brightness', 'contrast', 'levels-black', 'levels-white', 'levels-gamma', 'hue',
-      'saturation', 'rgb-noise', 'interlace', 'dither', 'scanline-dither', 'virtual-colors',
+      'saturation', 'rgb-noise', 'interlace', 'interlace-spacing', 'interlace-direction', 'dither', 'scanline-dither', 'virtual-colors',
       'sprite-match', 'sprite-dither'];
 
     const levelsControls = C64ConverterControls.createLevelsControls({
@@ -809,7 +837,7 @@
         return [id, control.type === 'checkbox' ? control.checked
           : control.type === 'range' ? control.valueAsNumber : control.value];
       }));
-      return { values, palette: virtualPaletteView.getSettings() };
+      return { values, curvePoints: levelsControls.getState().curvePoints, palette: virtualPaletteView.getSettings() };
     }
 
     function restoreLayerControls() {
@@ -821,7 +849,8 @@
         else control.value = String(value);
       }
       const values = layer.settings.values;
-      levelsControls.setState({ blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma'] });
+      levelsControls.setState({ blackPoint: values['levels-black'], whitePoint: values['levels-white'],
+        gamma: values['levels-gamma'], curvePoints: layer.settings.curvePoints });
       virtualPaletteView.setSettings(layer.settings.palette);
       spriteControls.setState({ matchAmount: values['sprite-match'] / 100, ditherAmount: values['sprite-dither'] / 100 });
       updateFramingValues();
@@ -988,12 +1017,16 @@
       const source = usesFullResolutionSource() || isFliSpriteMode() ? hires : sampleIfliPhases(hires)[0];
       const adjusted = applyBrightnessContrast(source, values.brightness, values.contrast);
       const leveled = applySourceLevels(adjusted, {
-        blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma']
+        blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma'],
+        curvePoints: layer.settings.curvePoints
       });
       const colored = applyHueSaturation(leveled, values.hue, values.saturation);
       const noise = values['rgb-noise'] / 100;
       const sourceColors = !isMulticolorInterlaceMode() ? applyRgbNoise(colored, noise) : colored;
-      const interlaced = applyInterlace(sourceColors, values.interlace / 100, 1);
+      const interlaced = applyInterlace(sourceColors, values.interlace / 100, {
+        spacing: values['interlace-spacing'], direction: values['interlace-direction'],
+        pixelWidth: usesFullResolutionSource() || isFliSpriteMode() ? 2 : 1
+      });
       const modified = isMulticolorInterlaceMode() ? applyRgbNoise(interlaced, noise) : interlaced;
       // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
@@ -1189,30 +1222,6 @@
       return noisy;
     }
 
-    function applyInterlace(source, amount, rowParity = 1) {
-      if (amount === 0) return source;
-
-      const intermediate = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
-      const pixels = intermediate.data;
-      const target = amount < 0 ? 0 : 255;
-      const strength = Math.abs(amount);
-
-      // Lift alternate logical rows toward white; preserve the source and alpha.
-      // Negative amounts darken those rows toward black instead.
-      for (let y = rowParity; y < source.height; y += 2) {
-        for (let x = 0; x < source.width; x += 1) {
-          const offset = (y * source.width + x) * 4;
-          if (pixels[offset + 3] === 0) continue;
-
-          for (let channel = 0; channel < 3; channel += 1) {
-            pixels[offset + channel] += (target - pixels[offset + channel]) * strength;
-          }
-        }
-      }
-
-      return intermediate;
-    }
-
     function mapToC64Palette(source, ditherAmount = 0) {
       const mapped = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
       const pixels = mapped.data;
@@ -1348,14 +1357,18 @@
       interlaceValue.value = `${interlace}%`;
       interlaceSlider.setAttribute('aria-valuetext', interlace === 0 ? '0% (off)'
         : interlace < 0 ? `${-interlace}% darkening` : `${interlace}% brightness lift`);
+      const spacing = interlaceSpacing.valueAsNumber;
+      document.getElementById('interlace-spacing-value').value = `${spacing} ${spacing === 1 ? 'step' : 'steps'}`;
+      interlaceSpacing.setAttribute('aria-valuetext', `${spacing} steps between interlace lines`);
       const dither = ditherSlider.valueAsNumber;
       ditherValue.value = `${dither}%`;
       ditherSlider.setAttribute('aria-valuetext', dither === 0 ? '0% (off)' : `${dither}% dither strength`);
     }
-    for (const slider of [rgbNoiseSlider, interlaceSlider, ditherSlider]) {
+    for (const slider of [rgbNoiseSlider, interlaceSlider, interlaceSpacing, ditherSlider]) {
       slider.addEventListener('input', () => { updatePatternLabels(); updatePalettePreview(); });
     }
     scanlineDither.addEventListener('change', updatePalettePreview);
+    interlaceDirection.addEventListener('change', updatePalettePreview);
 
     function stopIfliAnimation() {
       if (ifliAnimation !== null) cancelAnimationFrame(ifliAnimation);

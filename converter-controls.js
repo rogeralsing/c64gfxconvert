@@ -321,65 +321,129 @@ globalThis.C64ConverterControls = (() => {
     const white = root.querySelector('#levels-white');
     const gamma = root.querySelector('#levels-gamma');
     const chart = root.querySelector('#levels-histogram');
+    const pointInput = root.querySelector('#levels-curve-input');
+    const pointOutput = root.querySelector('#levels-curve-output');
+    const removePoint = root.querySelector('#levels-curve-delete');
+    const pointStatus = root.querySelector('#levels-curve-status');
+    const resetCurve = root.querySelector('#reset-curve');
     const context = chart.getContext('2d');
-    const histogram = new Float64Array(256);
-    const styles = root.ownerDocument.defaultView.getComputedStyle(root);
+    const histogram = Array.from({ length: 3 }, () => new Float64Array(256));
+    const view = root.ownerDocument.defaultView;
+    const styles = view.getComputedStyle(root);
     const accent = styles.getPropertyValue('--accent').trim();
-    const mint = styles.getPropertyValue('--mint').trim();
     const line = styles.getPropertyValue('--line').trim();
+    const muted = styles.getPropertyValue('--muted').trim();
+    const identity = () => [{ input: 0, output: 0 }, { input: 255, output: 255 }];
+    let curvePoints = identity();
+    let selected = 0;
+    let drag = null;
+
+    chart.tabIndex = 0;
+    chart.setAttribute('role', 'group');
+    chart.setAttribute('aria-roledescription', 'tone curve editor');
+    chart.title = 'Click to add. Drag to move. Arrow keys adjust; Page Up/Page Down select points; Insert adds; Delete removes.';
 
     function getState() {
-      return { blackPoint: black.valueAsNumber, whitePoint: white.valueAsNumber, gamma: gamma.valueAsNumber };
+      return { blackPoint: black.valueAsNumber, whitePoint: white.valueAsNumber, gamma: gamma.valueAsNumber,
+        curvePoints: curvePoints.map(point => ({ ...point })) };
+    }
+
+    function geometry() {
+      const scale = chart.width / (chart.clientWidth || 256);
+      return { scale, left: 14 * scale, right: chart.width - 12 * scale,
+        top: 12 * scale, bottom: chart.height - 23 * scale };
     }
 
     function draw() {
-      const state = getState();
-      const lookup = createSourceLevelsLookup(state);
-      const width = chart.width;
-      const bottom = chart.height - 18;
-      const top = 4;
-      const x = value => 1 + value / 255 * (width - 2);
+      const density = view.devicePixelRatio || 1;
+      const width = Math.round((chart.clientWidth || 256) * density);
+      const height = Math.round((chart.clientHeight || 220) * density);
+      if (chart.width !== width) chart.width = width;
+      if (chart.height !== height) chart.height = height;
+      const { left, right, top, bottom, scale } = geometry();
+      const x = value => left + value / 255 * (right - left);
       const y = value => bottom - value / 255 * (bottom - top);
-      const peak = Math.max(1, ...histogram);
+      const state = getState();
+      const lookup = createSourceCurveLookup(curvePoints);
+      const levelsLookup = createSourceLevelsLookup({ blackPoint: state.blackPoint,
+        whitePoint: state.whitePoint, gamma: state.gamma });
+      const leveledHistogram = histogram.map(channel => {
+        const bins = new Float64Array(256);
+        for (let value = 0; value < 256; value += 1) bins[levelsLookup[value]] += channel[value];
+        return bins;
+      });
+      const peak = Math.max(1, ...leveledHistogram.flatMap(channel => Array.from(channel)));
       context.clearRect(0, 0, chart.width, chart.height);
-      context.fillStyle = line;
-      for (let bin = 0; bin < 256; bin += 1) {
-        const height = histogram[bin] / peak * (bottom - top);
-        context.fillRect(x(bin), bottom - height, Math.max(1, width / 256), height);
-      }
-      context.strokeStyle = mint;
-      context.lineWidth = 1;
-      context.setLineDash([2, 3]);
-      for (const value of [state.blackPoint, state.whitePoint]) {
+      context.strokeStyle = line;
+      context.lineWidth = scale;
+      for (let division = 0; division <= 4; division += 1) {
+        const value = division / 4 * 255;
         context.beginPath();
         context.moveTo(x(value), top);
         context.lineTo(x(value), bottom);
+        context.moveTo(left, y(value));
+        context.lineTo(right, y(value));
         context.stroke();
       }
+      for (const [channel, color] of ['#df7878', '#82b588', '#7b9ed0'].entries()) {
+        context.fillStyle = color;
+        context.globalAlpha = 0.24;
+        context.beginPath();
+        context.moveTo(left, bottom);
+        for (let value = 0; value < 256; value += 1) {
+          context.lineTo(x(value), bottom - leveledHistogram[channel][value] / peak * (bottom - top));
+        }
+        context.lineTo(right, bottom);
+        context.closePath();
+        context.fill();
+      }
+      context.globalAlpha = 1;
+      context.strokeStyle = muted;
+      context.lineWidth = scale;
+      context.setLineDash([3 * scale, 4 * scale]);
+      context.beginPath();
+      context.moveTo(left, bottom);
+      context.lineTo(right, top);
+      context.stroke();
       context.setLineDash([]);
       context.strokeStyle = accent;
-      context.lineWidth = 2;
+      context.lineWidth = 2 * scale;
       context.beginPath();
       for (let value = 0; value < 256; value += 1) {
         if (value === 0) context.moveTo(x(value), y(lookup[value]));
         else context.lineTo(x(value), y(lookup[value]));
       }
       context.stroke();
-      const gradient = context.createLinearGradient(0, 0, width, 0);
+      for (const [index, point] of curvePoints.entries()) {
+        context.beginPath();
+        context.arc(x(point.input), y(point.output), (index === selected ? 5 : 3.5) * scale, 0, Math.PI * 2);
+        context.fillStyle = index === selected ? accent : '#222222';
+        context.fill();
+        context.strokeStyle = index === selected ? '#ffffff' : accent;
+        context.lineWidth = 1.5 * scale;
+        context.stroke();
+      }
+      const gradient = context.createLinearGradient(left, 0, right, 0);
       gradient.addColorStop(0, '#000000');
       gradient.addColorStop(1, '#ffffff');
       context.fillStyle = gradient;
-      context.fillRect(0, bottom + 5, width, 6);
-      const middle = state.blackPoint + (state.whitePoint - state.blackPoint) * 0.5 ** state.gamma;
-      for (const [value, color] of [[state.blackPoint, mint], [middle, accent], [state.whitePoint, mint]]) {
-        context.fillStyle = color;
-        context.beginPath();
-        context.moveTo(x(value), bottom + 1);
-        context.lineTo(x(value) - 3, bottom + 5);
-        context.lineTo(x(value) + 3, bottom + 5);
-        context.closePath();
-        context.fill();
-      }
+      context.fillRect(left, bottom + 8 * scale, right - left, 5 * scale);
+    }
+
+    function updatePointControls() {
+      const point = curvePoints[selected];
+      const endpoint = selected === 0 || selected === curvePoints.length - 1;
+      pointInput.min = String(endpoint ? point.input : curvePoints[selected - 1].input + 1);
+      pointInput.max = String(endpoint ? point.input : curvePoints[selected + 1].input - 1);
+      pointInput.value = String(point.input);
+      pointInput.disabled = endpoint;
+      pointOutput.value = String(point.output);
+      removePoint.disabled = endpoint;
+      resetCurve.disabled = curvePoints.length === 2 && curvePoints[0].output === 0 && curvePoints[1].output === 255;
+      pointStatus.textContent = `Point ${selected + 1} of ${curvePoints.length}`;
+      chart.setAttribute('aria-label', `Tone curve, point ${selected + 1} of ${curvePoints.length}, ` +
+        `input ${point.input}, output ${point.output}. Arrow keys adjust; Page Up and Page Down select; ` +
+        'Insert adds a point; Delete removes a point.');
     }
 
     function updateLabels() {
@@ -389,9 +453,163 @@ globalThis.C64ConverterControls = (() => {
       black.setAttribute('aria-valuetext', `${black.value} input black point`);
       white.setAttribute('aria-valuetext', `${white.value} input white point`);
       gamma.setAttribute('aria-valuetext', `${gamma.valueAsNumber.toFixed(2)} midtone gamma`);
+      updatePointControls();
       draw();
     }
 
+    function changed() {
+      updatePointControls();
+      draw();
+      onChange?.(getState());
+    }
+
+    function movePoint(input, output) {
+      const point = curvePoints[selected];
+      if (!Number.isFinite(input)) input = point.input;
+      if (!Number.isFinite(output)) output = point.output;
+      const nextInput = selected === 0 || selected === curvePoints.length - 1 ? point.input
+        : Math.max(curvePoints[selected - 1].input + 1,
+          Math.min(curvePoints[selected + 1].input - 1, Math.round(input)));
+      const nextOutput = Math.max(0, Math.min(255, Math.round(output)));
+      if (point.input === nextInput && point.output === nextOutput) return;
+      point.input = nextInput;
+      point.output = nextOutput;
+      changed();
+    }
+
+    function deleteSelectedPoint() {
+      if (selected === 0 || selected === curvePoints.length - 1) return;
+      curvePoints.splice(selected, 1);
+      selected = Math.min(selected, curvePoints.length - 1);
+      changed();
+    }
+
+    function position(event) {
+      const rect = chart.getBoundingClientRect();
+      const x = (event.clientX - rect.left - chart.clientLeft) / chart.clientWidth * chart.width;
+      const y = (event.clientY - rect.top - chart.clientTop) / chart.clientHeight * chart.height;
+      const { left, right, top, bottom } = geometry();
+      return { x, y, inside: x >= left && x <= right && y >= top && y <= bottom,
+        input: Math.max(0, Math.min(255, Math.round((x - left) / (right - left) * 255))),
+        output: Math.max(0, Math.min(255, Math.round((bottom - y) / (bottom - top) * 255))) };
+    }
+
+    function hitPoint(position) {
+      const { left, right, top, bottom, scale } = geometry();
+      let nearest = -1;
+      let minimum = (11 * scale) ** 2;
+      for (const [index, point] of curvePoints.entries()) {
+        const x = left + point.input / 255 * (right - left);
+        const y = bottom - point.output / 255 * (bottom - top);
+        const distance = (position.x - x) ** 2 + (position.y - y) ** 2;
+        if (distance < minimum) { minimum = distance; nearest = index; }
+      }
+      return nearest;
+    }
+
+    function finishDrag(event) {
+      if (!drag || event && event.pointerId !== drag.pointerId) return;
+      const pointerId = drag.pointerId;
+      drag = null;
+      chart.classList.remove('is-dragging');
+      if (chart.hasPointerCapture(pointerId)) chart.releasePointerCapture(pointerId);
+    }
+
+    chart.addEventListener('pointerdown', event => {
+      if (event.button !== 0) return;
+      const target = position(event);
+      const hit = hitPoint(target);
+      if (hit < 0 && !target.inside) return;
+      event.preventDefault();
+      event.stopPropagation();
+      chart.focus({ preventScroll: true });
+      if (hit >= 0) {
+        selected = hit;
+        updatePointControls();
+        draw();
+      } else {
+        const existing = curvePoints.findIndex(point => point.input === target.input);
+        if (existing >= 0) {
+          selected = existing;
+          movePoint(target.input, target.output);
+          updatePointControls();
+          draw();
+        } else {
+          selected = curvePoints.findIndex(point => point.input > target.input);
+          curvePoints.splice(selected, 0, { input: target.input, output: target.output });
+          changed();
+        }
+      }
+      drag = { pointerId: event.pointerId };
+      chart.classList.add('is-dragging');
+      chart.setPointerCapture(event.pointerId);
+    });
+    chart.addEventListener('pointermove', event => {
+      const target = position(event);
+      if (!drag) {
+        chart.style.cursor = hitPoint(target) >= 0 ? 'grab' : 'crosshair';
+        return;
+      }
+      if (event.pointerId !== drag.pointerId) return;
+      event.preventDefault();
+      movePoint(target.input, target.output);
+    });
+    for (const type of ['pointerup', 'pointercancel', 'lostpointercapture']) chart.addEventListener(type, finishDrag);
+    chart.addEventListener('dblclick', event => {
+      const hit = hitPoint(position(event));
+      if (hit < 0) return;
+      event.preventDefault();
+      selected = hit;
+      deleteSelectedPoint();
+    });
+    chart.addEventListener('keydown', event => {
+      const point = curvePoints[selected];
+      const step = event.shiftKey ? 10 : 1;
+      if (event.key === 'Delete' || event.key === 'Backspace') {
+        event.preventDefault();
+        deleteSelectedPoint();
+      } else if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(event.key)) {
+        event.preventDefault();
+        movePoint(point.input + (event.key === 'ArrowRight' ? step : event.key === 'ArrowLeft' ? -step : 0),
+          point.output + (event.key === 'ArrowUp' ? step : event.key === 'ArrowDown' ? -step : 0));
+      } else if (['PageUp', 'PageDown', 'Home', 'End'].includes(event.key)) {
+        event.preventDefault();
+        selected = event.key === 'Home' ? 0 : event.key === 'End' ? curvePoints.length - 1
+          : Math.max(0, Math.min(curvePoints.length - 1, selected + (event.key === 'PageDown' ? 1 : -1)));
+        updatePointControls();
+        draw();
+      } else if (event.key === 'Insert' || event.key === 'Enter') {
+        event.preventDefault();
+        const left = Math.min(selected, curvePoints.length - 2);
+        const input = Math.round((curvePoints[left].input + curvePoints[left + 1].input) / 2);
+        if (input <= curvePoints[left].input || input >= curvePoints[left + 1].input) return;
+        const output = createSourceCurveLookup(curvePoints)[input];
+        selected = left + 1;
+        curvePoints.splice(selected, 0, { input, output });
+        changed();
+      }
+    });
+    pointInput.addEventListener('input', () => {
+      const value = pointInput.valueAsNumber;
+      if (Number.isFinite(value) && value >= Number(pointInput.min) && value <= Number(pointInput.max)) {
+        movePoint(value, curvePoints[selected].output);
+      }
+    });
+    pointOutput.addEventListener('input', () => {
+      const value = pointOutput.valueAsNumber;
+      if (Number.isFinite(value) && value >= 0 && value <= 255) movePoint(curvePoints[selected].input, value);
+    });
+    for (const input of [pointInput, pointOutput]) input.addEventListener('change', () => {
+      movePoint(pointInput.valueAsNumber, pointOutput.valueAsNumber);
+      updatePointControls();
+    });
+    removePoint.addEventListener('click', deleteSelectedPoint);
+    resetCurve.addEventListener('click', () => {
+      finishDrag();
+      curvePoints = identity();
+      selected = 0;
+      changed();
+    });
     for (const input of [black, white, gamma]) {
       input.addEventListener('input', () => {
         if (black.valueAsNumber >= white.valueAsNumber) {
@@ -403,27 +621,35 @@ globalThis.C64ConverterControls = (() => {
       });
     }
     root.querySelector('#reset-levels').addEventListener('click', () => {
+      finishDrag();
       black.value = '0';
       white.value = '255';
       gamma.value = '1';
+      curvePoints = identity();
+      selected = 0;
       updateLabels();
       onChange?.(getState());
     });
     updateLabels();
+    if (view.ResizeObserver) new view.ResizeObserver(draw).observe(chart);
     return {
       getState,
-      setState({ blackPoint, whitePoint, gamma: middle }) {
+      setState({ blackPoint, whitePoint, gamma: middle, curvePoints: points = identity() }) {
+        createSourceCurveLookup(points);
+        finishDrag();
         black.value = String(blackPoint);
         white.value = String(whitePoint);
         gamma.value = String(middle);
+        curvePoints = points.map(point => ({ ...point }));
+        selected = Math.min(selected, curvePoints.length - 1);
         updateLabels();
       },
       setSource(source) {
-        histogram.fill(0);
+        for (const channel of histogram) channel.fill(0);
         if (source) {
           for (let offset = 0; offset < source.data.length; offset += 4) {
             const weight = source.data[offset + 3] / 255;
-            for (let channel = 0; channel < 3; channel += 1) histogram[source.data[offset + channel]] += weight;
+            for (let channel = 0; channel < 3; channel += 1) histogram[channel][source.data[offset + channel]] += weight;
           }
         }
         draw();

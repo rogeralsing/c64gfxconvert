@@ -5,6 +5,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
   const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
   const integer = (value, min, max) => Number.isInteger(value) && value >= min && value <= max;
   const colorIndex = value => integer(value, 0, 15);
+  const legacyControlDefaults = { 'interlace-spacing': 2, 'interlace-direction': 'horizontal' };
   const catalogs = {
     computed: virtualPalettes?.computed ?? virtualPalette,
     talent: virtualPalettes?.talent ?? virtualPalette,
@@ -75,7 +76,8 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       if (!object(settings) || !object(settings.values) || !object(settings.palette)) invalid(`${label} settings`);
       const values = {};
       for (const control of controls) {
-        const value = settings.values[control.id];
+        const value = settings.values[control.id] === undefined
+          ? legacyControlDefaults[control.id] : settings.values[control.id];
         if (control.type === 'checkbox' ? typeof value !== 'boolean'
           : control.type === 'range' ? !Number.isFinite(value) || value < control.min || value > control.max ||
             Math.abs((value - control.min) / control.step - Math.round((value - control.min) / control.step)) > 1e-7
@@ -83,6 +85,15 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         values[control.id] = value;
       }
       if (values['levels-black'] >= values['levels-white']) invalid(`${label} levels`);
+      const curvePoints = settings.curvePoints === undefined
+        ? [{ input: 0, output: 0 }, { input: 255, output: 255 }] : settings.curvePoints;
+      if (!Array.isArray(curvePoints) || curvePoints.length < 2 || curvePoints.length > 256 ||
+          curvePoints.some((point, pointIndex) => !object(point) ||
+            !integer(point.input, 0, 255) || !integer(point.output, 0, 255) ||
+            pointIndex > 0 && point.input <= curvePoints[pointIndex - 1].input) ||
+          curvePoints[0].input !== 0 || curvePoints.at(-1).input !== 255) {
+        invalid(`${label} curve points`);
+      }
       const { minLevel, maxLevel, excludedIndices } = settings.palette;
       if (!integer(minLevel, 0, 16) || !integer(maxLevel, minLevel, 16) || !Array.isArray(excludedIndices) ||
           excludedIndices.some(value => !virtualIndices.has(value))) invalid(`${label} palette`);
@@ -132,7 +143,8 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       return {
         name: layer.name, autoName: layer.autoName, visible: layer.visible,
         source: source && { fileName: source.fileName, dataUrl: source.dataUrl },
-        settings: { values, palette: { minLevel, maxLevel, ...lightnessLimits, excludedIndices: [...excluded] } }
+        settings: { values, curvePoints: curvePoints.map(point => ({ input: point.input, output: point.output })),
+          palette: { minLevel, maxLevel, ...lightnessLimits, excludedIndices: [...excluded] } }
       };
     });
     return {
