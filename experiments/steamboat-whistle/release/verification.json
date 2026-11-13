@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "program": "player.prg",
+  "programBytes": 43301,
+  "programSha256": "cfd33f3346979571e3e93ba1f37423683db3baa9e5b8529b041a1fba14f27d1e",
+  "approvedSource": {
+    "manifest.json": "e013c164956dfdaeeba64371119ad911b85d354b21fbb7e0a8fa28d5ab1f4449",
+    "screen.frames": "631fa988e77cf2713fc5ac38e8a4b54a5c69f2a4f89b035b27f4ef89344092aa",
+    "font.bin": "7fa677802cbea962c5530f0596bfe1e60dffccd6d3739ddd4cb0ff36aa06d5e6"
+  },
+  "frames": 60,
+  "sourceFPS": 10,
+  "durationSeconds": 6,
+  "pictureSource": "Approved cropped monochrome GIF; the original movie provides audio only.",
+  "rendering": "Direct front-buffer character deltas; completed matrices exact, intermediate video fields can contain transitions.",
+  "video": {
+    "completedMatricesExact": true,
+    "framesVerified": 60,
+    "allNativeFieldsExact": false,
+    "maximumDrawStartDelaySeconds": 0.014184245996946962,
+    "perFrameColorWrites": 0
+  },
+  "coldStartup": {
+    "passed": true,
+    "trueDrive": true,
+    "autostartPRGMode": 2,
+    "comparedBytes": 62122,
+    "differentBytes": 0,
+    "restoredSha256": "bc5bcc2d3a603741001cdca1403975305fe175a83f7d061b6c7f8b45c9217e80"
+  },
+  "samples": {
+    "samples": 46917,
+    "samplePeriodCycles": 126,
+    "clock": 985248,
+    "eventMismatches": 0,
+    "finalSampleWasEmitted": true,
+    "finalSampleHeldForFullPeriod": true,
+    "masterVolumeBeforeSamples": 15,
+    "masterWritesDuringSamples": []
+  },
+  "ring": {
+    "passed": true,
+    "pages": 184,
+    "counters": {
+      "boundary_count": 183,
+      "generated_pages": 184,
+      "underruns": 0,
+      "finished": 1
+    },
+    "partialFinalPageSamples": 69,
+    "completedPages": 184,
+    "consumingActivations": 183,
+    "minimumPublicationMarginCycles": 16068,
+    "everyGenerationWrittenBeforeActivation": true,
+    "traceSha256": "05786eb42d9cc0cade2e148426192acfa0d267ea68f132b1a96ca8d5a71d90d9"
+  },
+  "recording": {
+    "file": "c64-audio.wav",
+    "sha256": "12ffb9206afc504646ae58d3fe0c1c0d061f31e4601a1d1df238ea8b82ffdbeb",
+    "durationSeconds": 6.000045351473923,
+    "sampleRate": 22050,
+    "constantListeningGain": 8.0,
+    "processing": "Actual VICE audio; clock-anchored crop, DC removal and one constant gain. No host mixing, EQ, timing fit, time stretching, limiting or denoising.",
+    "medianSpectralCosine": 0.9931628690303353,
+    "minimumSpectralCosine": 0.9890942104490164
+  }
+}
