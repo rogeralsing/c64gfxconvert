@@ -113,20 +113,63 @@ test('projects preserve C64 palettes and virtual color modes while accepting leg
   assert.equal(Object.hasOwn(legacy.image, 'virtualColorMode'), false);
 });
 
+test('Talent projects retain separate lightness caps and validate enabled colors by their actual lightness', () => {
+  const toneCodec = context.createC64ProjectCodec({
+    ...codecOptions,
+    virtualPalettes: {
+      computed: codecOptions.virtualPalette,
+      talent: [
+        { index: 0, brightnessBands: [0, 0], lightness: 0 },
+        { index: 1, brightnessBands: [0, 1], lightness: 0.45 },
+        { index: 2, brightnessBands: [1, 1], lightness: 0.6 }
+      ]
+    }
+  });
+  const project = fixture();
+  project.image.virtualColorMode = 'talent';
+  for (const layer of project.layers) {
+    layer.settings.palette = {
+      minLevel: 0, maxLevel: 0, minLightness: 44, maxLightness: 46, excludedIndices: [0, 2]
+    };
+  }
+  const saved = JSON.parse(toneCodec.stringify(project));
+  assert.deepEqual(saved.layers[0].settings.palette, project.layers[0].settings.palette);
+  saved.image.virtualColorMode = 'computed';
+  saved.layers.forEach(layer => { layer.settings.palette.excludedIndices = [1, 2]; });
+  const restored = JSON.parse(toneCodec.stringify(saved));
+  assert.equal(restored.layers[0].settings.palette.minLightness, 44);
+  assert.equal(restored.layers[0].settings.palette.maxLightness, 46);
+
+  for (const [minLightness, maxLightness] of [[-1, 100], [0, 101], [45, 44], [0.5, 100], [46, 60]]) {
+    const invalid = structuredClone(project);
+    Object.assign(invalid.layers[0].settings.palette, { minLightness, maxLightness });
+    assert.throws(() => toneCodec.parse(JSON.stringify(invalid)), /Invalid C64 project/);
+  }
+});
+
 test('project validation uses the requested virtual catalog and retains exclusions from inactive catalogs', () => {
-  const runtime = createContext(['ifli.js', 'talent-palette.js', 'palettes.js', 'project.js']);
+  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'project.js']);
   const state = runtime.createC64PaletteState();
   const catalogCodec = runtime.createC64ProjectCodec({
-    ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes
+    ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes,
+    virtualColorIndices: state.virtualColorIndices,
+    legacyTalentPalette: state.legacyTalentPalette,
+    resolveVirtualPalettes: id => {
+      const resolved = runtime.createC64PaletteState(id);
+      return { ...resolved.virtualPalettes, legacyTalent: resolved.legacyTalentPalette };
+    }
   });
-  const exclusions = mode => Array.from(state.virtualPalettes[mode], color => color.index);
+  const documentCatalogs = runtime.createC64PaletteState('peptoette-a').virtualPalettes;
+  const exclusions = mode => Array.from(documentCatalogs[mode], color => color.index);
   for (const [current, requested] of [['computed', 'talent'], ['talent', 'computed']]) {
     state.setVirtualColorMode(current);
     const before = JSON.stringify(state.virtualPalette);
     const project = fixture();
     Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: requested });
     for (const layer of project.layers) {
-      layer.settings.palette = { minLevel: 0, maxLevel: 16, excludedIndices: exclusions(current) };
+      layer.settings.palette = {
+        minLevel: 0, maxLevel: 16, minLightness: 0, maxLightness: 100, excludedIndices: exclusions(current)
+      };
     }
 
     const loaded = catalogCodec.parse(catalogCodec.stringify(project));
@@ -140,6 +183,61 @@ test('project validation uses the requested virtual catalog and retains exclusio
     assert.equal(state.virtualColorMode, current);
     assert.equal(JSON.stringify(state.virtualPalette), before);
   }
+});
+
+test('legacy Talent row caps migrate using the document palette and retain retired tone exclusions', () => {
+  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'project.js']);
+  const state = runtime.createC64PaletteState('colodore');
+  const catalogCodec = runtime.createC64ProjectCodec({
+    ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes,
+    virtualColorIndices: state.virtualColorIndices,
+    legacyTalentPalette: state.legacyTalentPalette,
+    resolveVirtualPalettes: id => {
+      const resolved = runtime.createC64PaletteState(id);
+      return { ...resolved.virtualPalettes, legacyTalent: resolved.legacyTalentPalette };
+    }
+  });
+  const active = new Set(Object.values(state.virtualPalettes).flat().map(color => color.index));
+  const retiredIndex = state.virtualColorIndices.find(index => !active.has(index));
+  assert.notEqual(retiredIndex, undefined, 'legacy Talent exclusions must outlive unsupported tone removal');
+  const project = fixture();
+  Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: 'talent' });
+  project.layers[0].settings.palette = { minLevel: 2, maxLevel: 2, excludedIndices: [retiredIndex] };
+
+  const restored = JSON.parse(catalogCodec.stringify(project));
+
+  assert.deepEqual(restored.layers[0].settings.palette, {
+    minLevel: 2, maxLevel: 2, minLightness: 33, maxLightness: 38, excludedIndices: [retiredIndex]
+  });
+  assert.equal(restored.layers[1].settings.palette.minLightness, 0);
+  assert.equal(restored.layers[1].settings.palette.maxLightness, 100);
+  assert.equal(state.id, 'colodore', 'project migration must not select a palette in the live document');
+
+  state.select('peptoette-a');
+  delete project.image.paletteId;
+  const defaultPalette = JSON.parse(catalogCodec.stringify(project));
+  assert.equal(defaultPalette.layers[0].settings.palette.minLightness, 31);
+  assert.equal(defaultPalette.layers[0].settings.palette.maxLightness, 41);
+  assert.equal(state.id, 'peptoette-a', 'missing palette IDs mean Colodore, irrespective of the live document');
+
+  const oldGreen = state.legacyTalentPalette.find(color => color.colorIndices.every(index => index === 5));
+  const excludedIndices = state.legacyTalentPalette.filter(color => color.index !== oldGreen.index).map(color => color.index);
+  project.image.paletteId = 'peptoette-a';
+  project.layers[0].settings.palette = { minLevel: 10, maxLevel: 10, excludedIndices };
+  const migrated = JSON.parse(catalogCodec.stringify(project)).layers[0].settings.palette;
+  const newlyEnabled = state.virtualPalettes.talent.filter(color => !migrated.excludedIndices.includes(color.index));
+  assert.equal(newlyEnabled.length, 1, 'a valid legacy selection of a retired tone enables one supported replacement');
+  assert.ok(newlyEnabled[0].lightness * 100 >= migrated.minLightness);
+  assert.ok(newlyEnabled[0].lightness * 100 <= migrated.maxLightness);
+
+  Object.assign(project.layers[0].settings.palette, { minLightness: 0, maxLightness: 100 });
+  assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,
+    'explicit lightness selections remain strict');
+  delete project.layers[0].settings.palette.minLightness;
+  delete project.layers[0].settings.palette.maxLightness;
+  project.layers[0].settings.palette.excludedIndices.push(oldGreen.index);
+  assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,
+    'legacy documents with no enabled old tones remain invalid');
 });
 
 test('two-color projects preserve the chosen shadow and highlight without changing legacy projects', () => {

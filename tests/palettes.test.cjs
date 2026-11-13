@@ -4,8 +4,9 @@ const path = require('node:path');
 const test = require('node:test');
 const { ImageData, createContext, rgbToOklab } = require('./fixtures/sprite-images.cjs');
 
-const { createC64PaletteState, convertTwoColorHires, mapToIfliVirtualPalette, resolveVirtualPaletteColors } =
-  createContext(['ifli.js', 'talent-palette.js', 'palettes.js', 'two-color.js']);
+const { createC64PaletteState, convertTwoColorHires, mapToIfliVirtualPalette,
+  mapToTalentVirtualPalette, resolveVirtualPaletteColors } =
+  createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'two-color.js']);
 
 function referencePalette(file) {
   return fs.readFileSync(path.join(__dirname, '../palettes', file), 'utf8').split('\n')
@@ -32,24 +33,19 @@ test('palette presets match their shipped VICE references and return to the Colo
   }
 });
 
-test('Talent colors retain every pure C64 color and all brightness rows alongside observed mixed pairs', () => {
+test('Talent offers only tones covered by its complete observed scales, retaining stable pair IDs', () => {
   const state = createC64PaletteState('colodore', 'talent');
   assert.equal(state.id, 'colodore', 'choosing virtual colors must retain the selected base palette');
   assert.equal(state.virtualColorMode, 'talent');
-  assert.equal(state.virtualPalette.length, 92);
-  assert.equal(state.virtualPalette.filter(color => color.colorIndices[0] !== color.colorIndices[1]).length, 76);
-  for (const base of state.palette) {
-    const solid = state.virtualPalette.find(color => color.colorIndices.every(index => index === base.index));
-    assert.ok(solid, `pure C64 color ${base.index} must remain available`);
-    assert.deepEqual(Array.from(solid.rgb), Array.from(base.rgb));
-  }
-  const green = state.virtualPalette.find(color => color.colorIndices.every(index => index === 5));
-  assert.equal(green.index, 31, 'shared pairs retain their legacy exclusion ID');
+  const shown = new Set(state.talentToneModel.ramps.flatMap(ramp => Array.from(ramp.indices)));
+  assert.deepEqual(new Set(Array.from(state.virtualPalette, color => color.index)), shown);
+  assert.equal(state.virtualPalette.some(color => color.colorIndices.every(index => index === 5)), false,
+    'pure green has no supported brighter exit and must not receive an invented full scale');
+  const orange = state.virtualPalette.find(color => color.colorIndices.every(index => index === 8));
+  assert.equal(orange.index, 46, 'shared pairs retain their legacy exclusion ID');
   const grayShadow = state.virtualPalette.find(color => color.colorIndices.join('-') === '0-11');
   assert.ok(grayShadow, 'observed black/dark-gray dithering must be available');
   assert.ok(grayShadow.index >= 69 && grayShadow.index <= 105);
-  const rows = new Set(state.virtualPalette.map(color => color.brightnessBands[0] + color.brightnessBands[1]));
-  assert.deepEqual([...rows].sort((a, b) => a - b), Array.from({ length: 17 }, (_, index) => index));
 });
 
 test('virtual mode and base palette switches retain exclusion IDs and resolve active C64 component colors', () => {
@@ -60,7 +56,7 @@ test('virtual mode and base palette switches retain exclusion IDs and resolve ac
   const pairIndex = grayShadow.index;
   const excludedIndices = [...new Set([...computed, ...talent].map(color => color.index))]
     .filter(index => index !== pairIndex);
-  const green = talent.find(color => color.colorIndices.every(index => index === 5));
+  const orange = talent.find(color => color.colorIndices.every(index => index === 8));
   state.setVirtualColorMode('computed');
   assert.strictEqual(state.virtualPalette, active);
   assert.equal(active.some(color => color.index === pairIndex), false);
@@ -72,13 +68,13 @@ test('virtual mode and base palette switches retain exclusion IDs and resolve ac
   assert.strictEqual(state.virtualPalettes.computed, computed);
   assert.strictEqual(state.virtualPalettes.talent, talent);
   assert.strictEqual(talent.find(color => color.index === pairIndex), grayShadow);
-  assert.strictEqual(talent.find(color => color.index === green.index), green);
+  assert.strictEqual(talent.find(color => color.index === orange.index), orange);
   assert.equal(state.id, 'peptoette-a');
   assert.equal(grayShadow.index, pairIndex);
 
   const source = new ImageData(2, 2);
   source.data.set([0, 0, 0, 255, 255, 255, 255, 255, 12, 34, 56, 255, 91, 81, 71, 255]);
-  const mapped = mapToIfliVirtualPalette(source, active, state.brightnessBands, 1, { excludedIndices });
+  const mapped = mapToTalentVirtualPalette(source, active, state.talentToneModel, 1, { excludedIndices });
   assert.deepEqual(Array.from(mapped.virtualIndices), Array(4).fill(pairIndex));
   assert.deepEqual(Array.from(mapped.pixels.data), Array(4).fill([55, 55, 55, 255]).flat());
   const resolved = resolveVirtualPaletteColors(mapped, active, state.palette, 'lines');

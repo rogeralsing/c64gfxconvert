@@ -156,3 +156,26 @@ continuous or intentional gradient appears in the artwork.
 ```sh
 python3 -m unittest discover -s tests -p 'test_dither_pairs.py'
 ```
+
+## Talent converter neighbor data
+
+Export the artwork analysis into the converter's compact neighbor catalogue:
+
+```sh
+python3 tools/build-talent-neighbors.py \
+  --analysis /path/to/pair-analysis/analysis.json \
+  --output talent-neighbors.js
+```
+
+The exporter reads allowed pairs and the analysis date from `talent-palette.js`;
+`--catalog` selects another catalogue. It preserves each deduplicated image's
+ID and only exports contacts with at least 50 observations whose endpoints are
+both allowed pairs. Pair IDs use numerically sorted C64 indices, independently
+of the analysis palette's dark-first ordering. `count` combines horizontal and
+vertical contacts; directional counts, source images, pixels, and private paths
+are omitted. Images with no qualifying edges remain in the catalogue.
+
+Each exported edge therefore has evidence within one image. Joining edges into
+a black-to-white candidate scale does not establish that one continuous gradient
+appeared in the source artwork. Re-run the exporter when the source analysis or
+allowed Talent pairs change.

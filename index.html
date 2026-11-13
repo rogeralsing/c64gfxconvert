@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=charset-similarity">
+  <link rel="stylesheet" href="./editor.css?v=talent-scales">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -349,7 +349,8 @@
               </div>
             </div>
               <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
-            <h2 id="virtual-palette-heading">Virtual palette <span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
+            <h2 id="virtual-palette-heading"><span class="virtual-palette-title">Virtual palette</span><span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
+            <p class="background-value talent-palette-help" hidden>Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.</p>
             <div class="image-control">
               <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
               <input id="palette-darkest" class="image-slider" type="range" min="0" max="16" step="1" value="0" aria-valuetext="Virtual brightness level 0 of 16">
@@ -380,9 +381,11 @@
 
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=palette-exclusions"></script>
+  <script src="./ifli.js?v=dark-first-index-ties"></script>
   <script src="./talent-palette.js?v=1"></script>
-  <script src="./palettes.js?v=talent"></script>
+  <script src="./talent-neighbors.js?v=1"></script>
+  <script src="./talent-mapping.js?v=stepwise-lightness"></script>
+  <script src="./palettes.js?v=talent-scales"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
@@ -406,12 +409,12 @@
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=1"></script>
-  <script src="./converter-controls.js?v=virtual-color-modes"></script>
+  <script src="./converter-controls.js?v=talent-scales"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=charset-dither"></script>
   <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=virtual-color-modes"></script>
+  <script src="./project.js?v=talent-lightness"></script>
   <script>
     const paletteState = createC64PaletteState();
     const C64_PALETTE = paletteState.palette;
@@ -588,6 +591,9 @@
       root: virtualPalette,
       palette: IFLI_VIRTUAL_PALETTE,
       basePalette: C64_PALETTE,
+      getMode: () => paletteState.virtualColorMode,
+      getToneModel: () => paletteState.talentToneModel,
+      getTalentPalette: () => paletteState.virtualPalettes.talent,
       onChange: updatePalettePreview
     });
 
@@ -611,7 +617,13 @@
           step: Number(control.step) || 1, options: control.options && [...control.options].map(option => option.value) };
       }),
       virtualPalette: IFLI_VIRTUAL_PALETTE,
-      virtualPalettes: paletteState.virtualPalettes
+      virtualPalettes: paletteState.virtualPalettes,
+      virtualColorIndices: paletteState.virtualColorIndices,
+      legacyTalentPalette: paletteState.legacyTalentPalette,
+      resolveVirtualPalettes: id => {
+        const resolved = createC64PaletteState(id);
+        return { ...resolved.virtualPalettes, legacyTalent: resolved.legacyTalentPalette };
+      }
     });
 
     function setBackgroundColor(index) {
@@ -635,7 +647,9 @@
       spriteControls.refreshPalette();
       spriteGridControls.refreshPalette();
       charsetControls.refreshPalette();
+      reconcileLayerVirtualPalettes();
       virtualPaletteView.refreshPalette();
+      virtualPaletteView.setSettings(layerStack.active().settings.palette);
       layerStack.invalidate();
       document.dispatchEvent(new Event('c64palettechange'));
       return preset;
@@ -645,7 +659,7 @@
       paletteState.setVirtualColorMode(mode);
       virtualColorModeSelect.value = mode;
       document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
-        ? 'Talent’s observed pairs, mixed with the selected C64 palette. Shared by all layers.'
+        ? 'Each color region follows an observed Talent scale from dark to light. Dithering stays between neighboring steps. Shared by all layers.'
         : 'Computed pairs, shared by all layers with virtual colors enabled.';
       virtualPaletteView.refreshPalette();
       layerStack.invalidate();
@@ -655,10 +669,26 @@
       for (const layer of layerStack.layers) {
         const settings = layer.settings.palette;
         const excluded = new Set(settings.excludedIndices);
-        const available = IFLI_VIRTUAL_PALETTE.filter(color => {
+        if (paletteState.virtualColorMode === 'talent') {
+          Object.assign(settings, getTalentLightnessLimits(settings, IFLI_VIRTUAL_PALETTE));
+        }
+        const inRange = color => {
+          if (paletteState.virtualColorMode === 'talent') {
+            return color.lightness * 100 >= settings.minLightness - 1e-5 &&
+              color.lightness * 100 <= settings.maxLightness + 1e-5;
+          }
           const level = color.brightnessBands[0] + color.brightnessBands[1];
           return level >= settings.minLevel && level <= settings.maxLevel;
-        });
+        };
+        let available = IFLI_VIRTUAL_PALETTE.filter(inRange);
+        if (!available.length && paletteState.virtualColorMode === 'talent') {
+          const midpoint = (settings.minLightness + settings.maxLightness) / 2;
+          const nearest = IFLI_VIRTUAL_PALETTE.reduce((best, color) =>
+            Math.abs(color.lightness * 100 - midpoint) < Math.abs(best.lightness * 100 - midpoint) ? color : best);
+          settings.minLightness = Math.min(settings.minLightness, Math.floor(nearest.lightness * 100));
+          settings.maxLightness = Math.max(settings.maxLightness, Math.ceil(nearest.lightness * 100));
+          available = IFLI_VIRTUAL_PALETTE.filter(inRange);
+        }
         if (!available.some(color => !excluded.has(color.index))) {
           settings.excludedIndices = settings.excludedIndices.filter(index => index !== available[0].index);
         }
@@ -746,8 +776,8 @@
         loadingLayers.clear();
         graphicsMode = project.image.graphicsMode;
         graphicsModeSelect.value = graphicsMode;
-        setC64Palette(project.image.paletteId || 'colodore');
         setVirtualColorMode(project.image.virtualColorMode || 'computed');
+        setC64Palette(project.image.paletteId || 'colodore');
         spriteGridControls.setState(project.image.spriteConfig);
         spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
         charsetControls.setState(project.image.charsetMulticolorIndices);
@@ -968,8 +998,11 @@
       // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
       const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
       const mapping = !usesDirectColorFit() && !isTwoColorMode() && values['virtual-colors'] !== 'off'
-        ? mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
-          values.dither / 100, layer.settings.palette) : null;
+        ? paletteState.virtualColorMode === 'talent'
+          ? mapToTalentVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, paletteState.talentToneModel,
+            values.dither / 100, layer.settings.palette)
+          : mapToIfliVirtualPalette(pixels, IFLI_VIRTUAL_PALETTE, C64_BRIGHTNESS_BANDS,
+            values.dither / 100, layer.settings.palette) : null;
       const mapped = isTwoColorMode() ? convertTwoColorHires(pixels, C64_PALETTE, twoColorIndices, values.dither / 100)
         : mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
       let target = mapping ? resolveVirtualPaletteColors(mapping, IFLI_VIRTUAL_PALETTE,

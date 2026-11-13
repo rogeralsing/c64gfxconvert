@@ -251,6 +251,31 @@ test('virtual brightness caps reject invalid or inverted row bounds', () => {
   }
 });
 
+test('virtual patterns keep darker components in phase and break equal brightness classes by C64 index', () => {
+  const pixels = source(Array.from({ length: 12 }, () => [17, 33, 66]), 6);
+  const virtualIndices = Uint8Array.from([0, 0, 1, 1, 2, 2, 0, 0, 1, 1, 2, 2]);
+  const pink = [...palette[10].rgb, 255];
+  const gray = [...palette[15].rgb, 255];
+  const yellow = [...palette[7].rgb, 255];
+  const blue = [...palette[6].rgb, 255];
+  const brown = [...palette[9].rgb, 255];
+  for (const reverse of [false, true]) {
+    const pairs = [[10, 15], [7, 10], [6, 9]].map((indices, index) => ({ index,
+      colorIndices: reverse ? [...indices].reverse() : indices,
+      ...(index === 2 ? { brightnessBands: [1, 1] } : {}) }));
+    const beforePairs = JSON.stringify(pairs);
+    const lines = resolveVirtualPaletteColors({ pixels, virtualIndices }, pairs, palette, 'lines');
+    assert.deepEqual(Array.from(lines.data),
+      [pink, pink, pink, pink, blue, blue, gray, gray, yellow, yellow, brown, brown].flat(),
+      'even rows use the darker component, or lower C64 index for equal brightness classes');
+    const checkers = resolveVirtualPaletteColors({ pixels, virtualIndices }, pairs, palette, 'checkers');
+    assert.deepEqual(Array.from(checkers.data),
+      [pink, gray, pink, yellow, blue, brown, gray, pink, yellow, pink, brown, blue].flat(),
+      'even checker parity stays dark across the pair boundary');
+    assert.equal(JSON.stringify(pairs), beforePairs, 'rendering must not reorder pair identities');
+  }
+});
+
 test('virtual lines and checkers resolve retained pairs before splitting exact IFLI columns', () => {
   const width = virtualPalette.length * 2;
   const height = 4;
@@ -272,7 +297,11 @@ test('virtual lines and checkers resolve retained pairs before splitting exact I
       assert.equal(frames[phase].height, height);
       for (let y = 0; y < height; y += 1) {
         for (let x = 0; x < width / 2; x += 1) {
-          const pair = virtualPalette[(x + phase) % virtualPalette.length].colorIndices;
+          const color = virtualPalette[(x + phase) % virtualPalette.length];
+          const equalClass = color.brightnessBands[0] === color.brightnessBands[1];
+          const pair = Array.from(color.colorIndices).sort((first, second) =>
+            (equalClass ? 0 : rgbToOklab(...palette[first].rgb).lightness -
+              rgbToOklab(...palette[second].rgb).lightness) || first - second);
           const component = pattern === 'lines' ? y % 2 : (y % 2) ^ phase;
           const expected = [...palette[pair[component]].rgb, 255];
           const offset = (y * width / 2 + x) * 4;

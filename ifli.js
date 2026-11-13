@@ -46,6 +46,8 @@ function sampleIfliPhases(source) {
 /**
  * Resolve every retained virtual pair without changing image size.
  * Lines alternate components by row; checkers alternate by row and column.
+ * Actual palette lightness puts the darker component on even parity for every pair.
+ * Components in the same C64 brightness band use ascending color index instead.
  * Alpha and transparent/sentinel RGBA values remain unchanged.
  */
 function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern = 'lines') {
@@ -59,8 +61,16 @@ function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern =
     throw new Error('Virtual color source must have positive dimensions and matching pixels and indices.');
   }
 
-  const virtualByIndex = new Map(virtualPalette.map(color => [color.index, color]));
   const paletteByIndex = new Map(palette.map(color => [color.index, color]));
+  const lightness = new Map(palette.map(color => [color.index, rgbToOklab(...color.rgb).lightness]));
+  const virtualByIndex = new Map(virtualPalette.map(color => {
+    const pair = color.colorIndices;
+    if (!pair || pair.length !== 2) return [color.index, pair];
+    const equalBrightness = color.brightnessBands?.length === 2 &&
+      color.brightnessBands[0] === color.brightnessBands[1];
+    return [color.index, [pair[0], pair[1]].sort((first, second) =>
+      (equalBrightness ? 0 : lightness.get(first) - lightness.get(second)) || first - second)];
+  }));
   const resolved = new ImageData(new Uint8ClampedArray(data), width, height);
   for (let y = 0; y < height; y += 1) {
     for (let x = 0; x < width; x += 1) {
@@ -68,7 +78,7 @@ function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern =
       const offset = pixel * 4;
       const index = mapping.virtualIndices[pixel];
       if (data[offset + 3] === 0 || index === 255) continue;
-      const pair = virtualByIndex.get(index)?.colorIndices;
+      const pair = virtualByIndex.get(index);
       if (!pair || pair.length !== 2 || !paletteByIndex.has(pair[0]) || !paletteByIndex.has(pair[1])) {
         throw new Error('Virtual color pixels require valid virtual pairs and C64 color indices.');
       }

@@ -29,8 +29,11 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
   const brightnessBands = [];
   const virtualPalette = [];
   const virtualPalettes = { computed: [], talent: [] };
+  const virtualColorIndices = [];
+  const legacyTalentPalette = [];
   const virtualColorCache = { computed: new Map(), talent: new Map() };
   let paletteId;
+  let talentToneModel;
   let virtualColorMode = validateVirtualColorMode(initialVirtualColorMode);
 
   function validateVirtualColorMode(mode) {
@@ -71,7 +74,9 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
         index,
         id: `ifli-${key}`,
         colorIndices: [first, second],
+        // Earlier Talent projects stored these row numbers; conversion uses actual lightness.
         brightnessBands: [bandByColor.get(first), bandByColor.get(second)],
+        lightness: rgbToOklab(...rgb).lightness,
         rgb,
         hex: '#' + rgb.map(channel => channel.toString(16).padStart(2, '0')).join('').toUpperCase(),
         count: pair.count,
@@ -115,13 +120,19 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
     brightnessBands.splice(0, brightnessBands.length, ...bands);
     const computed = buildIfliVirtualPalette(palette, brightnessBands);
     updateVirtualPalette('computed', computed);
-    updateVirtualPalette('talent', buildTalentVirtualPalette(computed));
+    const talent = buildTalentVirtualPalette(computed);
+    legacyTalentPalette.splice(0, legacyTalentPalette.length, ...talent);
+    virtualColorIndices.splice(0, virtualColorIndices.length, ...new Set([...computed, ...talent].map(color => color.index)));
+    talentToneModel = buildTalentToneModel(talent, TALENT_NEIGHBOR_DATA);
+    const rampIndices = new Set(talentToneModel.ramps.flatMap(ramp => ramp.indices));
+    updateVirtualPalette('talent', talent.filter(color => rampIndices.has(color.index)));
     refreshActiveVirtualPalette();
     paletteId = id;
     return preset;
   }
 
   select(initialId);
-  return { palette, brightnessBands, virtualPalette, virtualPalettes, select, setVirtualColorMode,
-    get id() { return paletteId; }, get virtualColorMode() { return virtualColorMode; } };
+  return { palette, brightnessBands, virtualPalette, virtualPalettes, virtualColorIndices, legacyTalentPalette, select, setVirtualColorMode,
+    get id() { return paletteId; }, get virtualColorMode() { return virtualColorMode; },
+    get talentToneModel() { return talentToneModel; } };
 }

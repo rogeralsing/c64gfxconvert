@@ -122,7 +122,8 @@ globalThis.C64ConverterControls = (() => {
     };
   }
 
-  function createVirtualPaletteView({ root, palette, basePalette, onChange }) {
+  function createVirtualPaletteView({ root, palette, basePalette, getMode = () => 'computed', getToneModel,
+      getTalentPalette = () => palette, onChange }) {
     const document = root.ownerDocument;
     const swatches = root.querySelector('.virtual-palette-swatches');
     const darkest = root.querySelector('#palette-darkest');
@@ -130,9 +131,55 @@ globalThis.C64ConverterControls = (() => {
     const baseColors = new Map(basePalette.map(color => [color.index, color]));
     const excludedIndices = new Set();
     const buttons = new Map();
+    let settings = { minLevel: 0, maxLevel: 16, minLightness: 0, maxLightness: 100 };
+    const talent = () => getMode() === 'talent';
+    const colorLevel = color => talent() ? color.lightness * 100
+      : color.brightnessBands[0] + color.brightnessBands[1];
+
+    function createSwatch(color) {
+      const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
+      const label = `${color.index} · ${names} · ${color.hex}`;
+      const swatch = document.createElement('button');
+      swatch.type = 'button';
+      swatch.className = 'virtual-palette-swatch';
+      swatch.style.backgroundColor = color.hex;
+      swatch.dataset.virtualColor = color.id;
+      swatch.title = label;
+      swatch.setAttribute('aria-label', talent()
+        ? `Lightness ${(color.lightness * 100).toFixed(1)}% · ${label}`
+        : `Level ${colorLevel(color)} · ${label}`);
+      swatch.addEventListener('click', () => {
+        if (swatch.getAttribute('aria-disabled') === 'true') return;
+        if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
+        else excludedIndices.add(color.index);
+        updateLimits();
+        onChange?.(getSettings());
+      });
+      if (!buttons.has(color.index)) buttons.set(color.index, []);
+      buttons.get(color.index).push({ swatch, label, color });
+      return swatch;
+    }
+
     function renderSwatches() {
       swatches.replaceChildren();
       buttons.clear();
+      swatches.classList.toggle('talent-palette-scales', talent());
+      swatches.setAttribute('aria-label', talent() ? 'Observed Talent scales, black to white' : 'Virtual color brightness rows');
+      if (talent()) {
+        const byIndex = new Map(palette.map(color => [color.index, color]));
+        for (const [index, ramp] of (getToneModel?.().ramps ?? []).entries()) {
+          const column = document.createElement('div');
+          column.className = 'talent-palette-scale';
+          column.setAttribute('role', 'group');
+          column.setAttribute('aria-label', `Observed scale ${index + 1}, ${ramp.indices.length} tones, black to white`);
+          for (const colorIndex of ramp.indices) {
+            const color = byIndex.get(colorIndex);
+            if (color) column.append(createSwatch(color));
+          }
+          swatches.append(column);
+        }
+        return;
+      }
       const sorted = [...palette].sort((first, second) =>
         first.brightnessBands[0] + first.brightnessBands[1] - second.brightnessBands[0] - second.brightnessBands[1]
         || first.index - second.index);
@@ -153,62 +200,61 @@ globalThis.C64ConverterControls = (() => {
           swatches.append(row);
           previousBrightness = brightness;
         }
-        const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
-        const label = `${color.index} · ${names} · ${color.hex}`;
-        const swatch = document.createElement('button');
-        swatch.type = 'button';
-        swatch.className = 'virtual-palette-swatch';
-        swatch.style.backgroundColor = color.hex;
-        swatch.dataset.virtualColor = color.id;
-        swatch.title = label;
-        swatch.setAttribute('aria-label', `Level ${brightness} · ${label}`);
-        swatch.addEventListener('click', () => {
-          if (swatch.getAttribute('aria-disabled') === 'true') return;
-          if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
-          else excludedIndices.add(color.index);
-          updateLimits();
-          onChange?.(getSettings());
-        });
-        buttons.set(color.index, { swatch, label });
-        row.append(swatch);
+        row.append(createSwatch(color));
       }
     }
 
     function getLimits() {
-      return { minLevel: darkest.valueAsNumber, maxLevel: lightest.valueAsNumber };
+      return { min: darkest.valueAsNumber, max: lightest.valueAsNumber };
     }
 
     function getSettings() {
-      return { ...getLimits(), excludedIndices: [...excludedIndices] };
+      if (talent()) Object.assign(settings, { minLightness: darkest.valueAsNumber, maxLightness: lightest.valueAsNumber });
+      else Object.assign(settings, { minLevel: darkest.valueAsNumber, maxLevel: lightest.valueAsNumber });
+      return { ...settings, excludedIndices: [...excludedIndices] };
     }
 
-    function enabledInRange({ minLevel, maxLevel } = getLimits()) {
+    function enabledInRange({ min, max } = getLimits()) {
       return palette.filter(color => {
-        const level = color.brightnessBands[0] + color.brightnessBands[1];
-        return !excludedIndices.has(color.index) && level >= minLevel && level <= maxLevel;
+        const level = colorLevel(color);
+        return !excludedIndices.has(color.index) && level >= min - 1e-5 && level <= max + 1e-5;
       });
     }
 
     function updateLimits() {
-      const { minLevel, maxLevel } = getLimits();
+      const { min, max } = getLimits();
       const enabled = enabledInRange();
       const count = palette.filter(color => !excludedIndices.has(color.index)).length;
       root.querySelector('.virtual-palette-count').textContent = count < palette.length ? `${count} / ${palette.length}` : count;
-      root.querySelector('#palette-darkest-value').value = String(minLevel);
-      root.querySelector('#palette-lightest-value').value = String(maxLevel);
-      darkest.setAttribute('aria-valuetext', `Virtual brightness level ${minLevel} of 16`);
-      lightest.setAttribute('aria-valuetext', `Virtual brightness level ${maxLevel} of 16`);
-      for (const row of swatches.children) {
+      root.querySelector('#palette-darkest-value').value = `${min}${talent() ? '%' : ''}`;
+      root.querySelector('#palette-lightest-value').value = `${max}${talent() ? '%' : ''}`;
+      darkest.setAttribute('aria-valuetext', talent() ? `Minimum lightness ${min}%` : `Virtual brightness level ${min} of 16`);
+      lightest.setAttribute('aria-valuetext', talent() ? `Maximum lightness ${max}%` : `Virtual brightness level ${max} of 16`);
+      if (!talent()) for (const row of swatches.children) {
         const level = Number(row.dataset.brightness);
-        row.classList.toggle('is-outside-range', level < minLevel || level > maxLevel);
+        row.classList.toggle('is-outside-range', level < min || level > max);
       }
-      for (const [index, { swatch, label }] of buttons) {
+      for (const [index, entries] of buttons) {
         const excluded = excludedIndices.has(index);
         const last = enabled.length === 1 && enabled[0].index === index;
-        swatch.setAttribute('aria-pressed', String(!excluded));
-        swatch.setAttribute('aria-disabled', String(last));
-        swatch.title = `${label}${excluded ? ' · Disabled' : last ? ' · At least one color must remain enabled in this brightness range' : ''}`;
+        for (const { swatch, label, color } of entries) {
+          swatch.setAttribute('aria-pressed', String(!excluded));
+          swatch.setAttribute('aria-disabled', String(last));
+          swatch.classList.toggle('is-outside-range', colorLevel(color) < min - 1e-5 || colorLevel(color) > max + 1e-5);
+          swatch.title = `${label}${excluded ? ' · Disabled' : last ? ' · At least one color must remain enabled in this brightness range' : ''}`;
+        }
       }
+    }
+
+    function restoreLimits() {
+      for (const input of [darkest, lightest]) input.max = talent() ? '100' : '16';
+      root.querySelector('.virtual-palette-title').textContent = talent() ? 'Observed scales' : 'Virtual palette';
+      root.querySelector('.talent-palette-help').hidden = !talent();
+      root.querySelector('label[for="palette-darkest"]').textContent = talent() ? 'Darkest lightness' : 'Darkest level';
+      root.querySelector('label[for="palette-lightest"]').textContent = talent() ? 'Lightest lightness' : 'Lightest level';
+      darkest.value = String(talent() ? settings.minLightness : settings.minLevel);
+      lightest.value = String(talent() ? settings.maxLightness : settings.maxLevel);
+      previousLimits = getLimits();
     }
 
     let previousLimits = getLimits();
@@ -219,8 +265,8 @@ globalThis.C64ConverterControls = (() => {
           else lightest.value = darkest.value;
         }
         if (enabledInRange().length === 0) {
-          darkest.value = String(previousLimits.minLevel);
-          lightest.value = String(previousLimits.maxLevel);
+          darkest.value = String(previousLimits.min);
+          lightest.value = String(previousLimits.max);
           updateLimits();
           const announcement = document.getElementById('announcement');
           if (announcement) announcement.textContent = 'Enable a color in that brightness range first.';
@@ -236,12 +282,16 @@ globalThis.C64ConverterControls = (() => {
     return {
       getSettings,
       refreshPalette() {
+        restoreLimits();
         renderSwatches();
         updateLimits();
       },
-      setSettings({ minLevel, maxLevel, excludedIndices: excluded = [] }) {
-        darkest.value = String(minLevel);
-        lightest.value = String(maxLevel);
+      setSettings({ minLevel = 0, maxLevel = 16, excludedIndices: excluded = [], ...lightnessLimits }) {
+        const migrated = typeof getTalentLightnessLimits === 'function'
+          ? getTalentLightnessLimits({ minLevel, maxLevel, ...lightnessLimits }, getTalentPalette())
+          : { minLightness: 0, maxLightness: 100 };
+        settings = { minLevel, maxLevel, ...migrated, ...lightnessLimits };
+        restoreLimits();
         excludedIndices.clear();
         for (const index of excluded) excludedIndices.add(index);
         previousLimits = getLimits();
@@ -251,7 +301,7 @@ globalThis.C64ConverterControls = (() => {
         root.hidden = !visible;
         darkest.disabled = !visible;
         lightest.disabled = !visible;
-        for (const { swatch } of buttons.values()) swatch.disabled = !visible;
+        for (const entries of buttons.values()) for (const { swatch } of entries) swatch.disabled = !visible;
       }
     };
   }

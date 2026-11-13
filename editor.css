@@ -197,6 +197,11 @@ canvas { display: block; width: 100%; height: 100%; image-rendering: pixelated; 
 .virtual-palette-swatch { display: block; flex: 1; min-width: 0; height: 13px; padding: 0; border: 1px solid #ffffff30; border-radius: 1px; cursor: pointer; }
 .virtual-palette-swatch[aria-pressed="false"] { opacity: 0.2; }
 .virtual-palette-swatch:hover { border-color: #fff9; }
+.virtual-palette-swatches.talent-palette-scales { display: flex; gap: 5px; overflow-x: auto; padding: 2px 2px 8px; }
+.talent-palette-scale { display: flex; flex: 0 0 28px; flex-direction: column; gap: 2px; height: 270px; }
+.talent-palette-scale .virtual-palette-swatch { flex: 1; width: 100%; min-height: 9px; height: auto; }
+.talent-palette-scale .virtual-palette-swatch.is-outside-range { opacity: 0.2; }
+.talent-palette-scale .virtual-palette-swatch:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
 .palette-reference-swatches { display: grid; grid-template-columns: repeat(8, 1fr); gap: 5px; margin-top: 12px; }
 .palette-reference-swatch { height: 23px; border: 1px solid #666; border-radius: 2px; }
 .format { margin: 0; }

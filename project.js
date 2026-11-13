@@ -1,14 +1,16 @@
 /** Versioned JSON projects contain source images and settings, never render caches. */
-function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalettes }) {
+function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalettes, virtualColorIndices,
+    legacyTalentPalette, resolveVirtualPalettes }) {
   const invalid = detail => { throw new Error(`Invalid C64 project: ${detail}.`); };
   const object = value => value !== null && typeof value === 'object' && !Array.isArray(value);
   const integer = (value, min, max) => Number.isInteger(value) && value >= min && value <= max;
   const colorIndex = value => integer(value, 0, 15);
   const catalogs = {
     computed: virtualPalettes?.computed ?? virtualPalette,
-    talent: virtualPalettes?.talent ?? virtualPalette
+    talent: virtualPalettes?.talent ?? virtualPalette,
+    legacyTalent: legacyTalentPalette ?? virtualPalettes?.talent ?? virtualPalette
   };
-  const virtualIndices = new Set(Object.values(catalogs).flat().map(color => color.index));
+  const virtualIndices = new Set(virtualColorIndices ?? Object.values(catalogs).flat().map(color => color.index));
 
   function parse(text) {
     let project;
@@ -28,7 +30,10 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
     if (image.virtualColorMode !== undefined && !['computed', 'talent'].includes(image.virtualColorMode)) {
       invalid('unsupported virtual color mode');
     }
-    const requestedVirtualPalette = catalogs[image.virtualColorMode ?? 'computed'];
+    const documentCatalogs = resolveVirtualPalettes
+      ? resolveVirtualPalettes(image.paletteId ?? 'colodore') : catalogs;
+    const requestedVirtualPalette = documentCatalogs[image.virtualColorMode ?? 'computed'];
+    const oldTalentPalette = documentCatalogs.legacyTalent ?? documentCatalogs.talent;
     if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
@@ -82,14 +87,52 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       if (!integer(minLevel, 0, 16) || !integer(maxLevel, minLevel, 16) || !Array.isArray(excludedIndices) ||
           excludedIndices.some(value => !virtualIndices.has(value))) invalid(`${label} palette`);
       const excluded = new Set(excludedIndices);
-      if (!requestedVirtualPalette.some(color => {
+      const rowInRange = color => {
         const level = color.brightnessBands[0] + color.brightnessBands[1];
-        return level >= minLevel && level <= maxLevel && !excluded.has(color.index);
-      })) invalid(`${label} has no enabled palette colors`);
+        return level >= minLevel && level <= maxLevel;
+      };
+      const legacyTalent = image.virtualColorMode === 'talent' &&
+        settings.palette.minLightness === undefined && settings.palette.maxLightness === undefined;
+      const lightnessOf = color => (color.lightness ??
+        (color.brightnessBands[0] + color.brightnessBands[1]) / 16) * 100;
+      if (legacyTalent && !oldTalentPalette.some(color => rowInRange(color) && !excluded.has(color.index))) {
+        invalid(`${label} has no enabled palette colors`);
+      }
+      let lightnessLimits;
+      if (settings.palette.minLightness !== undefined || settings.palette.maxLightness !== undefined) {
+        const { minLightness, maxLightness } = settings.palette;
+        if (!integer(minLightness, 0, 100) || !integer(maxLightness, minLightness, 100)) {
+          invalid(`${label} palette lightness`);
+        }
+        lightnessLimits = { minLightness, maxLightness };
+      } else if (image.virtualColorMode === 'talent') {
+        lightnessLimits = typeof getTalentLightnessLimits === 'function'
+          ? getTalentLightnessLimits(settings.palette, oldTalentPalette)
+          : { minLightness: Math.floor(minLevel / 16 * 100), maxLightness: Math.ceil(maxLevel / 16 * 100) };
+      }
+      const lightnessInRange = color => lightnessOf(color) >= lightnessLimits.minLightness - 1e-6 &&
+        lightnessOf(color) <= lightnessLimits.maxLightness + 1e-6;
+      if (legacyTalent && !requestedVirtualPalette.some(color => lightnessInRange(color) && !excluded.has(color.index))) {
+        const previous = oldTalentPalette.filter(color => rowInRange(color) && !excluded.has(color.index));
+        const target = previous.reduce((sum, color) => sum + lightnessOf(color), 0) / previous.length;
+        const inRange = requestedVirtualPalette.filter(lightnessInRange);
+        const candidates = inRange.length ? inRange : requestedVirtualPalette;
+        const nearest = candidates.reduce((best, color) =>
+          Math.abs(lightnessOf(color) - target) < Math.abs(lightnessOf(best) - target) ? color : best);
+        if (!inRange.length) {
+          lightnessLimits.minLightness = Math.min(lightnessLimits.minLightness, Math.floor(lightnessOf(nearest)));
+          lightnessLimits.maxLightness = Math.max(lightnessLimits.maxLightness, Math.ceil(lightnessOf(nearest)));
+        }
+        excluded.delete(nearest.index);
+      }
+      if (!requestedVirtualPalette.some(color => !excluded.has(color.index) &&
+          (image.virtualColorMode === 'talent' ? lightnessInRange(color) : rowInRange(color)))) {
+        invalid(`${label} has no enabled palette colors`);
+      }
       return {
         name: layer.name, autoName: layer.autoName, visible: layer.visible,
         source: source && { fileName: source.fileName, dataUrl: source.dataUrl },
-        settings: { values, palette: { minLevel, maxLevel, excludedIndices: [...excluded] } }
+        settings: { values, palette: { minLevel, maxLevel, ...lightnessLimits, excludedIndices: [...excluded] } }
       };
     });
     return {
