@@ -46,15 +46,17 @@ scale is 1/2 and vertical scale is 2/5. Sampling uses the center of each output
 pixel's source region. No source map rows or columns are cropped. The unequal
 axis scales fit the complete map height into the TV; fine artwork is reduced.
 
-The original blue sky becomes black. Other original colors are mapped to the
-closest RGB color among black `$0`, brown `$9`, orange `$8`, green `$5`, and yellow `$7`,
+The original light-blue sky keeps color `$E`. Other original colors are mapped to the
+closest RGB color among brown `$9`, light blue `$E`, orange `$8`, green `$5`, and yellow `$7`,
 using the same Peptoette A palette as the surrounding picture. The local
 `peptoette-a.vpl` is an unchanged copy of `../../palettes/peptoette-a.vpl`.
-Hardware pixel codes are 0 = black, 1 = brown, 2 = orange, and 3 = the cell accent.
-The sky uses code 0 so the terrain shares the `giana4` picture's black global background.
-Swapping the previous orange/black code allocation preserves all displayed terrain colors.
+Hardware pixel codes are 0 = brown, 1 = light blue, 2 = orange, and 3 = the cell accent.
+The terrain shares the `giana5` picture's brown global background `$9` and uses
+screen colors `$E8`. Both assembler constants are derived from the packed-code mapping.
+The 2,417 sampled original black pixels become dark brown to keep three shared
+colors and the existing green/yellow accent format.
 The accent is green for bushes and yellow for pipes and bonus blocks. White
-pipe highlights map to yellow. Plain brick graphics use orange, brown, and black.
+pipe highlights map to yellow. Plain brick graphics use orange and brown.
 
 `level1-accents.bin` retains the green/yellow meaning independently of the
 deduplicated patterns. Its 512 bytes contain four 128-column fine-scroll phases.
@@ -64,16 +66,15 @@ is computed from the corresponding four-pixel-wide, eight-line window in the
 reduced source image, including wraparound and the fine-scroll phase. Yellow
 wins when its count is nonzero and at least the green count; otherwise green wins.
 
-There are 38 windows with mixed green/yellow accents across all four phases,
-covering 89 pixels that take the other accent. These small approximations occur
-in decorative details. The original green bushes and yellow pipes/bonus blocks
-remain distinct. Every accent pixel in windows without a conflict is verified
-against its independent semantic color before the patterns are deduplicated.
+There are no windows with mixed green/yellow accents across the four phases.
+All 843 reduced accent pixels retain their semantic color at every fine-scroll
+phase: 3,372 accent pixel occurrences are verified independently before the
+patterns are deduplicated. Green bushes and yellow pipes/bonus blocks remain distinct.
 
 The reduced image is divided into 4×8 multicolor-pixel storage tiles. Identical
 tiles are deduplicated. These storage tiles do not redefine the original
 objects: features can cross tile boundaries, and their positions come entirely
-from the original map. The result contains 148 tiles, 1,184 bytes of graphics,
+from the original map. The result contains 136 tiles, 1,088 bytes of graphics,
 and a 128×8 map containing 1,024 one-byte tile IDs, plus the 512-byte accent table.
 No player or enemy sprites are included.
 

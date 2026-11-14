@@ -41,8 +41,8 @@ class SceneReference:
     """Decode source files directly, independently of generated runtime tables."""
 
     def __init__(self):
-        self.source_path = ROOT / "images/giana4.koa"
-        self.project_path = ROOT / "images/giana4.json"
+        self.source_path = ROOT / "images/giana5.koa"
+        self.project_path = ROOT / "images/giana5.json"
         self.source = self.source_path.read_bytes()
         assert len(self.source) == 10003, "Expected a standard Koala image"
         self.bitmap = self.source[2:8002]
@@ -61,8 +61,8 @@ class SceneReference:
         self.game = masks["GameArea"]
         self.light = masks["ScreenLight"]
         assert self.game == {row * 40 + column for row in range(3, 11) for column in range(23, 33)}
-        assert len(self.light) == 173 and not self.game & self.light
-        assert self.background == 0
+        assert self.light and not self.game & self.light
+        assert self.background == 9
         self.tiles = (ROOT / "giana/assets/level1-tiles.bin").read_bytes()
         self.tile_map = (ROOT / "giana/assets/level1-tv-map.bin").read_bytes()
         self.accents = (ROOT / "giana/assets/level1-accents.bin").read_bytes()
@@ -109,7 +109,7 @@ class SceneReference:
             flags = self.accents[(step % 4) * 128 + (step // 4 + column) % 128]
             for row in range(8):
                 cell = (row + 3) * 40 + 23 + column
-                screen[cell] = 0x98
+                screen[cell] = 0xe8
                 colors[cell] = 7 if flags & (1 << row) else 5
         return bytes(screen), bytes(colors)
 
@@ -139,7 +139,7 @@ def breakpoint(monitor, address):
 
 def verify(args):
     reference = SceneReference()
-    output = BUILD / "giana4-check"
+    output = BUILD / "giana5-check"
     output.mkdir(parents=True, exist_ok=True)
     labels = read_labels(BUILD / "main.sym")
     program = BUILD / "giana.prg"
@@ -167,6 +167,8 @@ def verify(args):
     animation = []
     checked_levels = set()
     saved_levels = set()
+    checked_objects = set()
+    sky_blue_verified = False
     previous_cycles = None
     previous_level = None
     last_transition = -100
@@ -232,7 +234,8 @@ def verify(args):
                 # retains the previous frame. Capture only after lighting has
                 # remained stable for a complete visible frame.
                 capture = frame > 0 and frame - last_transition >= 2 and (
-                    (frame <= 257 and frame % 4 == 1) or frame == args.frames or level not in saved_levels)
+                    (frame <= 257 and frame % 4 == 1) or frame == 544 or
+                    frame == args.frames or level not in saved_levels)
                 if capture:
                     screenshot = output / f"frame-{frame:04d}.png"
                     monitor.run(f'screenshot "{screenshot}" 2')
@@ -244,10 +247,24 @@ def verify(args):
                     differences = sum(actual_rgb[offset:offset + 3] != expected_rgb[offset:offset + 3]
                                       for offset in range(0, len(actual_rgb), 3))
                     assert differences == 0, (frame, level, differences)
+                    assert display.getpixel((184, 24)) == reference.palette[14], "TV sky must be light blue"
+                    sky_blue_verified = True
+                    probes = {
+                        2: (("bush", 17, 45, 5),),
+                        225: (("bonus", 94, 11, 7),),
+                        544: (("pipe", 146, 35, 7), ("nearby_bush", 165, 46, 5)),
+                    }
+                    for name, world_x, world_y, color in probes.get(frame, ()):
+                        offset_x = (world_x - step) % 512
+                        assert offset_x < 40
+                        assert display.getpixel((184 + offset_x * 2, 24 + world_y)) == reference.palette[color], name
+                        checked_objects.add(name)
                     screenshots.append({"frame": frame, "level": level})
                     if level not in saved_levels:
-                        actual.save(BUILD / f"giana4-level-{level}.png")
+                        actual.save(BUILD / f"giana5-level-{level}.png")
                         saved_levels.add(level)
+                    if frame == 544:
+                        actual.save(BUILD / "giana5-blue-sky.png")
                     if frame <= 257 and frame % 4 == 1:
                         animation.append(actual)
                 monitor.run(f"enable {done_break}")
@@ -264,7 +281,10 @@ def verify(args):
                     print(f"Verified PAL frame {frame}/{args.frames}; world pixel {step % 512}; light {level}", flush=True)
         assert checked_levels == {0, 1, 2}, "Run at least 32 frames to exercise every automatic light level"
         assert saved_levels == {0, 1, 2}, "Run at least 35 frames to capture every light level"
-        animation[0].save(BUILD / "giana4.gif", save_all=True, append_images=animation[1:],
+        assert sky_blue_verified
+        if args.frames >= 544:
+            assert checked_objects == {"bush", "bonus", "pipe", "nearby_bush"}
+        animation[0].save(BUILD / "giana5.gif", save_all=True, append_images=animation[1:],
                           duration=80, loop=0, optimize=False, disposal=1)
         (output / "timing.json").write_text(json.dumps(samples, indent=2) + "\n")
         updates = [sample["update_cycles"] for sample in samples]
@@ -277,13 +297,14 @@ def verify(args):
                        "light_remaps_from_original_verified": True, "outside_marked_cells_changes": 0,
                        "bitmap_changes_outside_game_area": 0, "protected_multicolor_pixels_per_level": len(reference.protected_pixels),
                        "protected_color_pixel_changes": 0, "vic_mode_and_bank_verified": True,
+                       "sky_blue_verified": sky_blue_verified, "object_color_probes": sorted(checked_objects),
                        "screenshot_frames": screenshots, "screenshot_pixels_compared_each": 64000,
                        "screenshot_pixel_differences": 0, "palette": "peptoette-a",
                        "update_cycles_min": min(updates), "update_cycles_max": max(updates),
                        "completion_raster_min": min(sample["completion_raster"] for sample in samples),
                        "completion_raster_max": max(sample["completion_raster"] for sample in samples),
                        "cadence_cycles_min": min(cadences), "cadence_cycles_max": max(cadences),
-                       "animation": "giana4.gif", "animation_frames": len(animation),
+                       "animation": "giana5.gif", "animation_frames": len(animation),
                        "elapsed_seconds": round(time.monotonic() - started, 3)})
     except Exception as cause:
         result["error"] = f"{type(cause).__name__}: {cause}"
@@ -303,7 +324,7 @@ def verify(args):
             except subprocess.TimeoutExpired:
                 process.kill()
                 process.wait(timeout=5)
-        (BUILD / "giana4-verification.json").write_text(json.dumps(result, indent=2) + "\n")
+        (BUILD / "giana5-verification.json").write_text(json.dumps(result, indent=2) + "\n")
     print(json.dumps(result, indent=2))
 
 
