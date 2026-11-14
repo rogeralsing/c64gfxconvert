@@ -1,0 +1,21 @@
+{
+  "source_instrument": 12,
+  "name": "polysynth4",
+  "kind": "sid",
+  "program": "pulse",
+  "control": 65,
+  "rest_control": 25,
+  "sustain": 1,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "sample_count": 4096,
+    "upsample": 8,
+    "period_band_samples": [
+      30,
+      45
+    ],
+    "minimum_autocorrelation": 0.95
+  },
+  "description": "Full-arrangement addition: measured stable monophonic polysynth root, represented by a quiet pulse.",
+  "provenance": "Measured original Cream MOD; full-audit source, spectra and monophonic-pitch receipts. Approved instruments 1..10 remain unchanged."
+}

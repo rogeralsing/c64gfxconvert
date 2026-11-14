@@ -26,9 +26,11 @@ PAULA_CLOCK = 3546894.6
 
 
 def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: str = "song",
-            protracker_loops: bool = False) -> dict:
+            protracker_loops: bool = False, divisor_scale: float = 1.0) -> dict:
     if bank_scope not in ("song", "score"):
         raise ValueError("bank_scope must be song or score")
+    if not math.isfinite(divisor_scale) or divisor_scale < 1:
+        raise ValueError("divisor_scale must be finite and at least1")
     mod = load_mod(source)
     timeline = build_timeline(mod)
     all_ticks = timeline["ticks"]
@@ -72,6 +74,11 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
             group = component(instrument)
             maxima[group] = max(maxima.get(group, 1), divisor)
         divisors = {instrument: maxima[component(instrument)] for instrument in divisors}
+    if divisor_scale != 1:
+        # A deliberate resident-memory tradeoff, separate from lossless score
+        # packing. Linked DMA banks retain their common cursor scale.
+        divisors = {instrument: math.ceil(divisor * divisor_scale)
+                    for instrument, divisor in divisors.items()}
     used = sorted({s["playing_sample"] for t in ticks for s in t["channels"] if s["playing_sample"]}
                   | {s["loop_sample"] for t in ticks for s in t["channels"]
                      if protracker_loops and s.get("loop_sample") and
@@ -89,7 +96,9 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
             loop_copies = divisor // math.gcd(sample["loop_length"], divisor)
             start, length = sample["loop_start"], sample["loop_length"]
             raw = np.r_[raw[:start], np.tile(raw[start:start + length], loop_copies)]
-        filtered = resample_poly(raw, 1, divisor)
+        # A selected empty MOD instrument is a silent channel event, not a
+        # missing bank. Keep its cursor/trigger identity with one neutral code.
+        filtered = resample_poly(raw, 1, divisor) if len(raw) else np.zeros(1)
         values = np.clip(np.rint(filtered * 7.5 + 8), 0, 15).astype(np.uint8)
         loop_start = round(sample["loop_start"] / divisor)
         loop_length = round(sample["loop_length"] / divisor) if sample["loop_length"] > 2 else 0
@@ -104,10 +113,13 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
                      "base_divisor": divisor, "original_bytes": sample["length"],
                      "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
                      "processing": "Common gain1, polyphase downsampling, unsigned4-bit values stored one per byte"})
+        if not sample["length"]:
+            bank[-1]["processing"] = "Empty original instrument retained as one neutral unsigned4-bit value8"
         if bank_scope == "score":
             bank[-1]["source_loop_copies_before_resampling"] = loop_copies
     arranged = []
     maximum_step = 0
+    maximum_pitch_error_cents = 0.0
     by_id = {entry["id"]: entry for entry in bank}
     segment_aliases = {}
     variable_ticks = any(abs(tick["duration_s"] - 0.02) > 1e-8 for tick in ticks)
@@ -118,6 +130,12 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
             step = round(PAULA_CLOCK / period / divisors[instrument] / PCM_RATE * 256) if period and instrument else 0
             if not 0 <= step <= 255:
                 raise ValueError(f"Sample {instrument} exceeds fractional-cursor range: {step}")
+            if divisor_scale != 1 and period and instrument:
+                if not step:
+                    raise ValueError("Memory-scaled preparation would stop a pitched sample cursor")
+                actual_rate = step * divisors[instrument] * PCM_RATE / 256
+                maximum_pitch_error_cents = max(maximum_pitch_error_cents,
+                    abs(1200 * math.log2(actual_rate / (PAULA_CLOCK / period))))
             maximum_step = max(maximum_step, step)
             voice = {"sample": instrument, "step": step, "volume": state["volume"],
                      "trigger": state["trigger"]}
@@ -192,6 +210,11 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
     if bank_scope == "score":
         result["sample_bank_strategy"] = "Selected-score highest pitch only; bank and fractional steps must be prepared again for a different score"
         result["bank_scope"] = bank_scope
+    if divisor_scale != 1:
+        result["sample_preparation"] = {
+            "divisor_scale": divisor_scale,
+            "maximum_cursor_pitch_error_cents": maximum_pitch_error_cents,
+            "tradeoff": "Deliberately lower instrument bandwidth to fit resident C64 RAM. All four original note/effect tracks, sample identities and loop-pointer transitions remain. This changes sample values and is not lossless compression."}
     path = out / "arrangement.json"
     path.write_text(json.dumps(result, separators=(",", ":")) + "\n")
     summary = {"arrangement": str(path.resolve()), "arrangement_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
@@ -204,6 +227,8 @@ def prepare(source: Path, out: Path, seconds: float | None = None, bank_scope: s
                "source_sha256": mod["sha256"]}
     if bank_scope == "score":
         summary["bank_scope"] = bank_scope
+    if divisor_scale != 1:
+        summary["sample_preparation"] = result["sample_preparation"]
     (out / "prepare.json").write_text(json.dumps(summary, indent=2) + "\n")
     return summary
 
@@ -215,10 +240,13 @@ def main() -> None:
     parser.add_argument("--seconds", type=float)
     parser.add_argument("--bank-scope", choices=("song", "score"), default="song",
                         help="Derive sample-bank divisors from the whole song (default) or only the selected score; score banks must be rebuilt for a different score")
+    parser.add_argument("--divisor-scale", type=float, default=1.0,
+                        help="Deliberately reduce instrument bandwidth for resident memory;1 preserves normal preparation")
     args = parser.parse_args()
     if args.seconds is not None and args.seconds <= 0:
         parser.error("seconds must be positive")
-    print(json.dumps(prepare(args.source, args.out, args.seconds, args.bank_scope), indent=2))
+    print(json.dumps(prepare(args.source, args.out, args.seconds, args.bank_scope,
+                             divisor_scale=args.divisor_scale), indent=2))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "restored_scope": "Pre-GeoRAM optimized twenty-second native mixer",
+  "archive": "/var/folders/2s/_6fw48n95h59ks_q6mn61_5w0000gn/T/c64-reverted-georam-20261112-wjskxgw_",
+  "source_hashes_match_pre_GeoRAM": true,
+  "source_files": 30,
+  "artifacts": {
+    "player.prg": {
+      "expected": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
+      "rebuilt": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
+      "identical": true
+    },
+    "all.wav": {
+      "expected": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+      "rebuilt": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+      "identical": true
+    },
+    "sid-1.wav": {
+      "expected": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+      "rebuilt": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+      "identical": true
+    },
+    "sid-2.wav": {
+      "expected": "435cfabeac2b60471d433c57502d57c8d9142fef144b8c270d57a6f691fe339e",
+      "rebuilt": "435cfabeac2b60471d433c57502d57c8d9142fef144b8c270d57a6f691fe339e",
+      "identical": true
+    },
+    "sid-3.wav": {
+      "expected": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+      "rebuilt": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+      "identical": true
+    }
+  },
+  "all_native_variants_passed": true,
+  "underruns": 0,
+  "ring_causality_passed": true,
+  "CPU_budget_passed": true,
+  "maximum_nmi_cycles": 125,
+  "minimum_foreground_slack_cycles": 1006,
+  "muted_equals_static_control": true,
+  "unrelated_files_preserved": 60,
+  "PRG_bytes": 48138,
+  "scope_note": "Memory comparisons apply to this20second phrase only; no full-song capacity is claimed."
+}

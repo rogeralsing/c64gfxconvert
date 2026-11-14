@@ -23,8 +23,12 @@ LENGTHS = tuple(range(2, 25)) + (28, 32, 40, 48, 64, 96, 128, 192, 255)
 
 
 def encode_blocks(blocks: list[bytes], maximum: int = 255, candidate_limit: int = 8192,
-                  one_byte: bool = False) -> dict:
-    """Find profitable phrases without matching across block or token boundaries."""
+                  one_byte: bool = False, optimal_parse: bool = False) -> dict:
+    """Find profitable raw phrases without crossing block boundaries.
+
+    The default keeps sequential greedy token boundaries. ``optimal_parse``
+    finds the shortest encoding with those same phrases and drops unused ones.
+    """
     maximum = min(maximum, 255 - TOKEN_ESCAPE if one_byte else 255)
     token_bytes = 1 if one_byte else 2
 
@@ -94,6 +98,51 @@ def encode_blocks(blocks: list[bytes], maximum: int = 255, candidate_limit: int 
                         if value == ESCAPE:
                             output.append(0)
         encoded.append(bytes(output))
+    if optimal_parse:
+        # Sequential replacement fixes early phrase boundaries. A shortest
+        # path through the original bytes may reuse the same raw dictionary
+        # more efficiently when later phrases overlap those boundaries.
+        matches = {}
+        for phrase_id, phrase in enumerate(phrases, 1):
+            matches.setdefault(phrase[:2], []).append((phrase_id, phrase))
+        parsed, used = [], set()
+        for data in blocks:
+            cost, choice = [0] * (len(data) + 1), [0] * len(data)
+            for position in range(len(data) - 1, -1, -1):
+                value = data[position]
+                cost[position] = cost[position + 1] + 1 + int(
+                    value >= TOKEN_ESCAPE if one_byte else value == ESCAPE)
+                for phrase_id, phrase in matches.get(data[position:position + 2], ()):
+                    end = position + len(phrase)
+                    if data.startswith(phrase, position) and token_bytes + cost[end] < cost[position]:
+                        cost[position], choice[position] = token_bytes + cost[end], phrase_id
+            tokens, position = [], 0
+            while position < len(data):
+                phrase_id = choice[position]
+                if phrase_id:
+                    tokens.append(phrase_id)
+                    used.add(phrase_id)
+                    position += len(phrases[phrase_id - 1])
+                else:
+                    tokens.append(bytes([data[position]]))
+                    position += 1
+            parsed.append(tokens)
+        remap = {old: new for new, old in enumerate(sorted(used), 1)}
+        phrases = [phrase for index, phrase in enumerate(phrases, 1) if index in used]
+        encoded = []
+        for tokens in parsed:
+            output = bytearray()
+            for token in tokens:
+                if isinstance(token, int):
+                    output.extend((TOKEN_ESCAPE + remap[token],) if one_byte else (ESCAPE, remap[token]))
+                else:
+                    value = token[0]
+                    if one_byte and value >= TOKEN_ESCAPE:
+                        output.append(TOKEN_ESCAPE)
+                    output.append(value)
+                    if not one_byte and value == ESCAPE:
+                        output.append(0)
+            encoded.append(bytes(output))
     dictionary_bytes = sum(map(len, phrases))
     metadata_bytes = 3 * (len(phrases) + 1)
     result = {"blocks": encoded, "phrases": phrases, "one_byte": one_byte,

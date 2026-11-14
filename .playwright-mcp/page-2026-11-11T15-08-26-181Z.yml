@@ -1,0 +1,406 @@
+- main [ref=f2e2]:
+  - generic [ref=f2e3]:
+    - generic [ref=f2e4]:
+      - generic [ref=f2e5]: FONTSTUDIE / 2 × RASTER
+      - heading "Teckenzoom från 3D" [level=1] [ref=f2e6]
+      - paragraph [ref=f2e7]: Samma scen renderad i två storlekar. Jämför den stora referensen med fyra inlärda tecken för varje litet tecken.
+    - generic [ref=f2e8]:
+      - generic [ref=f2e9]:
+        - strong [ref=f2e10]: "96"
+        - text: poser
+      - generic [ref=f2e11]:
+        - strong [ref=f2e12]: "256"
+        - text: låsta tecken
+      - generic [ref=f2e13]:
+        - text: PAL
+        - strong [ref=f2e14]: 59 / 63
+  - generic [ref=f2e15]:
+    - generic [ref=f2e16]:
+      - button "Spela animationen" [ref=f2e17] [cursor=pointer]: Spela
+      - generic [ref=f2e18]:
+        - generic [ref=f2e19]: Pose
+        - slider "Pose" [ref=f2e20]: "0"
+        - status [ref=f2e21]: "01"
+      - generic [ref=f2e22]: Träning
+      - generic [ref=f2e23] [cursor=pointer]:
+        - checkbox "Teckenrutnät" [ref=f2e24]
+        - text: Teckenrutnät
+    - region "Fel på poser som inte användes i träningen" [ref=f2e25]:
+      - generic [ref=f2e26]:
+        - generic [ref=f2e27]: Direkt fontpassning · test
+        - generic [ref=f2e28]: 5,49 %
+        - generic [ref=f2e29]: "Med objektmask. Fri direktpassning: 4,24 %."
+      - generic [ref=f2e30]:
+        - generic [ref=f2e31]: Inlärt uppslag · test
+        - generic [ref=f2e32]: 8,92 %
+        - generic [ref=f2e33]: Ett 2 × 2-uppslag per källtecken.
+      - generic [ref=f2e34]:
+        - generic [ref=f2e35]: Skillnad mot maskad direktpassning
+        - generic [ref=f2e36]: +3,44 pp
+        - generic [ref=f2e37]: "Inom objektmasken. Inlärt spill utanför: 14 822 vita pixlar."
+      - generic [ref=f2e38]:
+        - generic [ref=f2e39]: Vanligaste variant · test
+        - generic [ref=f2e40]: 11,2 %
+        - generic [ref=f2e41]: Väljer den vanligaste observerade fyran.
+    - region "Jämför direkt renderad scen med teckenzoom" [ref=f2e42]:
+      - figure "Källbild 40 × 25 tecken" [ref=f2e43]:
+        - generic [ref=f2e44]:
+          - heading "Källbild" [level=2] [ref=f2e45]
+          - generic [ref=f2e46]: 40 × 25 tecken
+        - generic "Källbild. Klicka för att flytta utsnittet; använd piltangenter för att flytta en teckencell." [ref=f2e48]
+        - generic [ref=f2e49]:
+          - generic [ref=f2e50]:
+            - text: X
+            - spinbutton "Utsnittets vänstra teckenkolumn" [ref=f2e51]: "10"
+          - generic [ref=f2e52]:
+            - text: "Y"
+            - spinbutton "Utsnittets översta teckenrad" [ref=f2e53]: "6"
+          - generic [ref=f2e54]: 20 × 12 celler
+        - paragraph [ref=f2e55]: Klicka för att flytta utsnittet. Klicka i en stor bild för att undersöka källtecknet.
+      - figure "Direkt 3D-referens 320 × 192 px · utsnitt" [ref=f2e56]:
+        - generic [ref=f2e57]:
+          - heading "Direkt 3D-referens" [level=2] [ref=f2e58]
+          - generic [ref=f2e59]: 320 × 192 px · utsnitt
+        - generic "Direkt 3D-referens. Klicka på en ruta för att undersöka dess källtecken." [ref=f2e61]
+        - paragraph [ref=f2e62]: Den stora bitmappen kommer från en ny 3D-rendering med dubbelt raster.
+        - generic [ref=f2e63]:
+          - text: "Direkt fontpassning:"
+          - strong [ref=f2e64]: 1 717
+          - text: pixlar skiljer ·
+          - strong [ref=f2e65]: 1 717
+          - text: av 31 664 inom objektmasken.
+      - figure "Teckenzoom / uppslagstabell 40 × 24 utdata-tecken" [ref=f2e66]:
+        - generic [ref=f2e67]:
+          - heading "Teckenzoom / uppslagstabell" [level=2] [ref=f2e68]
+          - generic [ref=f2e69]: 40 × 24 utdata-tecken
+        - generic "Teckenzoom. Klicka på en ruta för att undersöka dess källtecken." [ref=f2e71]
+        - generic [ref=f2e72]:
+          - combobox "Välj jämförelse" [ref=f2e73] [cursor=pointer]:
+            - option "Inlärt · minsta pixel-fel" [selected]
+            - option "Vanligaste 2 × 2-variant"
+            - option "Pixelupprepning → font"
+            - option "Direkt fontpassning"
+          - generic [ref=f2e74] [cursor=pointer]:
+            - checkbox "Visa fel" [ref=f2e75]
+            - text: Visa fel
+        - generic [ref=f2e76]:
+          - strong [ref=f2e77]: 2 838
+          - text: pixlar skiljer ·
+          - strong [ref=f2e78]: 2 480
+          - text: av 31 664 inom objektmasken.
+    - region "Undersök ett källteckens varianter" [ref=f2e79]:
+      - generic [ref=f2e80]:
+        - combobox "Välj källtecken" [ref=f2e82] [cursor=pointer]:
+          - option "#000 · 59 667 träffar"
+          - option "#001 · 0 träffar"
+          - option "#002 · 80 träffar"
+          - option "#003 · 0 träffar"
+          - option "#004 · 213 träffar"
+          - option "#005 · 0 träffar"
+          - option "#006 · 12 träffar"
+          - option "#007 · 0 träffar"
+          - option "#008 · 1 669 träffar"
+          - option "#009 · 0 träffar"
+          - option "#010 · 268 träffar"
+          - option "#011 · 0 träffar"
+          - option "#012 · 79 träffar"
+          - option "#013 · 0 träffar"
+          - option "#014 · 126 träffar"
+          - option "#015 · 0 träffar"
+          - option "#016 · 0 träffar"
+          - option "#017 · 168 träffar"
+          - option "#018 · 0 träffar"
+          - option "#019 · 129 träffar"
+          - option "#020 · 0 träffar"
+          - option "#021 · 166 träffar"
+          - option "#022 · 0 träffar"
+          - option "#023 · 0 träffar"
+          - option "#024 · 0 träffar"
+          - option "#025 · 0 träffar"
+          - option "#026 · 0 träffar"
+          - option "#027 · 0 träffar"
+          - option "#028 · 0 träffar"
+          - option "#029 · 0 träffar"
+          - option "#030 · 0 träffar"
+          - option "#031 · 0 träffar"
+          - option "#032 · 75 träffar"
+          - option "#033 · 0 träffar"
+          - option "#034 · 68 träffar"
+          - option "#035 · 0 träffar"
+          - option "#036 · 33 träffar"
+          - option "#037 · 0 träffar"
+          - option "#038 · 29 träffar"
+          - option "#039 · 0 träffar"
+          - option "#040 · 63 träffar"
+          - option "#041 · 0 träffar"
+          - option "#042 · 259 träffar"
+          - option "#043 · 0 träffar"
+          - option "#044 · 0 träffar"
+          - option "#045 · 116 träffar"
+          - option "#046 · 6 träffar"
+          - option "#047 · 0 träffar"
+          - option "#048 · 25 träffar"
+          - option "#049 · 10 träffar"
+          - option "#050 · 54 träffar"
+          - option "#051 · 0 träffar"
+          - option "#052 · 17 träffar"
+          - option "#053 · 0 träffar"
+          - option "#054 · 37 träffar"
+          - option "#055 · 0 träffar"
+          - option "#056 · 64 träffar"
+          - option "#057 · 0 träffar"
+          - option "#058 · 0 träffar"
+          - option "#059 · 194 träffar"
+          - option "#060 · 29 träffar"
+          - option "#061 · 0 träffar"
+          - option "#062 · 31 träffar"
+          - option "#063 · 32 träffar"
+          - option "#064 · 19 träffar"
+          - option "#065 · 0 träffar"
+          - option "#066 · 3 träffar"
+          - option "#067 · 0 träffar"
+          - option "#068 · 57 träffar"
+          - option "#069 · 0 träffar"
+          - option "#070 · 32 träffar"
+          - option "#071 · 0 träffar"
+          - option "#072 · 0 träffar"
+          - option "#073 · 0 träffar"
+          - option "#074 · 0 träffar"
+          - option "#075 · 21 träffar"
+          - option "#076 · 0 träffar"
+          - option "#077 · 16 träffar"
+          - option "#078 · 0 träffar"
+          - option "#079 · 17 träffar"
+          - option "#080 · 126 träffar"
+          - option "#081 · 0 träffar"
+          - option "#082 · 2 träffar"
+          - option "#083 · 0 träffar"
+          - option "#084 · 376 träffar"
+          - option "#085 · 0 träffar"
+          - option "#086 · 0 träffar"
+          - option "#087 · 0 träffar"
+          - option "#088 · 0 träffar"
+          - option "#089 · 7 träffar"
+          - option "#090 · 20 träffar"
+          - option "#091 · 18 träffar"
+          - option "#092 · 0 träffar"
+          - option "#093 · 0 träffar"
+          - option "#094 · 6 träffar"
+          - option "#095 · 1 träffar"
+          - option "#096 · 5 träffar"
+          - option "#097 · 0 träffar"
+          - option "#098 · 17 träffar"
+          - option "#099 · 7 träffar"
+          - option "#100 · 0 träffar"
+          - option "#101 · 0 träffar"
+          - option "#102 · 0 träffar"
+          - option "#103 · 1 träffar"
+          - option "#104 · 16 träffar"
+          - option "#105 · 9 träffar"
+          - option "#106 · 38 träffar"
+          - option "#107 · 0 träffar"
+          - option "#108 · 3 träffar"
+          - option "#109 · 10 träffar"
+          - option "#110 · 2 träffar"
+          - option "#111 · 14 träffar"
+          - option "#112 · 14 träffar"
+          - option "#113 · 0 träffar"
+          - option "#114 · 0 träffar"
+          - option "#115 · 0 träffar"
+          - option "#116 · 0 träffar"
+          - option "#117 · 57 träffar"
+          - option "#118 · 22 träffar"
+          - option "#119 · 23 träffar"
+          - option "#120 · 44 träffar"
+          - option "#121 · 0 träffar"
+          - option "#122 · 0 träffar"
+          - option "#123 · 0 träffar"
+          - option "#124 · 44 träffar"
+          - option "#125 · 30 träffar"
+          - option "#126 · 25 träffar"
+          - option "#127 · 0 träffar"
+          - option "#128 · 0 träffar"
+          - option "#129 · 9 träffar"
+          - option "#130 · 0 träffar"
+          - option "#131 · 0 träffar"
+          - option "#132 · 21 träffar"
+          - option "#133 · 22 träffar"
+          - option "#134 · 2 träffar"
+          - option "#135 · 0 träffar"
+          - option "#136 · 0 träffar"
+          - option "#137 · 22 träffar"
+          - option "#138 · 13 träffar"
+          - option "#139 · 1 träffar"
+          - option "#140 · 10 träffar"
+          - option "#141 · 0 träffar"
+          - option "#142 · 0 träffar"
+          - option "#143 · 0 träffar"
+          - option "#144 · 0 träffar"
+          - option "#145 · 0 träffar"
+          - option "#146 · 0 träffar"
+          - option "#147 · 0 träffar"
+          - option "#148 · 0 träffar"
+          - option "#149 · 0 träffar"
+          - option "#150 · 0 träffar"
+          - option "#151 · 0 träffar"
+          - option "#152 · 16 träffar"
+          - option "#153 · 0 träffar"
+          - option "#154 · 75 träffar"
+          - option "#155 · 0 träffar"
+          - option "#156 · 88 träffar"
+          - option "#157 · 0 träffar"
+          - option "#158 · 0 träffar"
+          - option "#159 · 0 träffar"
+          - option "#160 · 0 träffar"
+          - option "#161 · 0 träffar"
+          - option "#162 · 0 träffar"
+          - option "#163 · 0 träffar"
+          - option "#164 · 0 träffar"
+          - option "#165 · 0 träffar"
+          - option "#166 · 0 träffar"
+          - option "#167 · 14 träffar"
+          - option "#168 · 0 träffar"
+          - option "#169 · 2 träffar"
+          - option "#170 · 0 träffar"
+          - option "#171 · 0 träffar"
+          - option "#172 · 0 träffar"
+          - option "#173 · 0 träffar"
+          - option "#174 · 0 träffar"
+          - option "#175 · 0 träffar"
+          - option "#176 · 0 träffar"
+          - option "#177 · 0 träffar"
+          - option "#178 · 0 träffar"
+          - option "#179 · 0 träffar"
+          - option "#180 · 0 träffar"
+          - option "#181 · 0 träffar"
+          - option "#182 · 0 träffar"
+          - option "#183 · 0 träffar"
+          - option "#184 · 0 träffar"
+          - option "#185 · 0 träffar"
+          - option "#186 · 0 träffar"
+          - option "#187 · 0 träffar"
+          - option "#188 · 0 träffar"
+          - option "#189 · 0 träffar"
+          - option "#190 · 0 träffar"
+          - option "#191 · 0 träffar"
+          - option "#192 · 0 träffar"
+          - option "#193 · 866 träffar"
+          - option "#194 · 0 träffar"
+          - option "#195 · 13 träffar"
+          - option "#196 · 0 träffar"
+          - option "#197 · 9 träffar"
+          - option "#198 · 0 träffar"
+          - option "#199 · 25 träffar"
+          - option "#200 · 1 212 träffar" [selected]
+          - option "#201 · 0 träffar"
+          - option "#202 · 0 träffar"
+          - option "#203 · 0 träffar"
+          - option "#204 · 0 träffar"
+          - option "#205 · 265 träffar"
+          - option "#206 · 165 träffar"
+          - option "#207 · 0 träffar"
+          - option "#208 · 18 träffar"
+          - option "#209 · 65 träffar"
+          - option "#210 · 9 träffar"
+          - option "#211 · 3 träffar"
+          - option "#212 · 66 träffar"
+          - option "#213 · 116 träffar"
+          - option "#214 · 112 träffar"
+          - option "#215 · 11 träffar"
+          - option "#216 · 2 157 träffar"
+          - option "#217 · 95 träffar"
+          - option "#218 · 61 träffar"
+          - option "#219 · 25 träffar"
+          - option "#220 · 23 träffar"
+          - option "#221 · 75 träffar"
+          - option "#222 · 30 träffar"
+          - option "#223 · 24 träffar"
+          - option "#224 · 24 träffar"
+          - option "#225 · 25 träffar"
+          - option "#226 · 5 träffar"
+          - option "#227 · 9 träffar"
+          - option "#228 · 19 träffar"
+          - option "#229 · 322 träffar"
+          - option "#230 · 35 träffar"
+          - option "#231 · 155 träffar"
+          - option "#232 · 0 träffar"
+          - option "#233 · 1 träffar"
+          - option "#234 · 1 träffar"
+          - option "#235 · 0 träffar"
+          - option "#236 · 121 träffar"
+          - option "#237 · 82 träffar"
+          - option "#238 · 1 träffar"
+          - option "#239 · 42 träffar"
+          - option "#240 · 4 träffar"
+          - option "#241 · 65 träffar"
+          - option "#242 · 6 träffar"
+          - option "#243 · 0 träffar"
+          - option "#244 · 29 träffar"
+          - option "#245 · 359 träffar"
+          - option "#246 · 0 träffar"
+          - option "#247 · 5 träffar"
+          - option "#248 · 1 träffar"
+          - option "#249 · 0 träffar"
+          - option "#250 · 28 träffar"
+          - option "#251 · 54 träffar"
+          - option "#252 · 8 träffar"
+          - option "#253 · 0 träffar"
+          - option "#254 · 4 träffar"
+          - option "#255 · 34 träffar"
+        - generic [ref=f2e83]:
+          - generic [ref=f2e84]:
+            - generic "Valt källtecken" [ref=f2e86]
+            - generic [ref=f2e87]: Källtecken
+          - generic [aria-hidden] [ref=f2e88]: →
+          - generic [ref=f2e89]:
+            - generic "Inlärd 2 gånger 2-teckenvariant" [ref=f2e91]
+            - generic [ref=f2e92]: Inlärt 2 × 2
+            - generic [ref=f2e93]: 200 · 200 200 · 200
+        - paragraph [ref=f2e95]: 1 212 observationer i träning · 289 i test.
+      - generic [ref=f2e96]:
+        - generic [ref=f2e97]:
+          - heading "Observerade 2 × 2-varianter" [level=2] [ref=f2e98]
+          - paragraph [ref=f2e99]: 93 varianter · vanligaste 68,81 %
+        - generic [ref=f2e100]:
+          - generic [ref=f2e101]:
+            - 'generic "Variant: 200, 200, 200, 200" [ref=f2e102]'
+            - generic [ref=f2e103]:
+              - generic [ref=f2e104]: 834 st
+              - generic [ref=f2e105]: 68,81 %
+              - generic [ref=f2e106]: 200 · 200 200 · 200
+          - generic [ref=f2e107]:
+            - 'generic "Variant: 216, 200, 200, 200" [ref=f2e108]'
+            - generic [ref=f2e109]:
+              - generic [ref=f2e110]: 23 st
+              - generic [ref=f2e111]: 1,9 %
+              - generic [ref=f2e112]: 216 · 200 200 · 200
+          - generic [ref=f2e113]:
+            - 'generic "Variant: 200, 200, 200, 217" [ref=f2e114]'
+            - generic [ref=f2e115]:
+              - generic [ref=f2e116]: 22 st
+              - generic [ref=f2e117]: 1,82 %
+              - generic [ref=f2e118]: 200 · 200 200 · 217
+          - generic [ref=f2e119]:
+            - 'generic "Variant: 200, 193, 200, 200" [ref=f2e120]'
+            - generic [ref=f2e121]:
+              - generic [ref=f2e122]: 21 st
+              - generic [ref=f2e123]: 1,73 %
+              - generic [ref=f2e124]: 200 · 193 200 · 200
+          - generic [ref=f2e125]:
+            - 'generic "Variant: 216, 200, 216, 200" [ref=f2e126]'
+            - generic [ref=f2e127]:
+              - generic [ref=f2e128]: 19 st
+              - generic [ref=f2e129]: 1,57 %
+              - generic [ref=f2e130]: 216 · 200 216 · 200
+          - generic [ref=f2e131]:
+            - 'generic "Variant: 216, 4, 216, 216" [ref=f2e132]'
+            - generic [ref=f2e133]:
+              - generic [ref=f2e134]: 16 st
+              - generic [ref=f2e135]: 1,32 %
+              - generic [ref=f2e136]: 216 · 4 216 · 216
+        - paragraph [ref=f2e137]: Uppslaget lärs på pose 1–72. Pose 73–96 används bara för att mäta hur väl det fungerar på nya vinklar. Varianterna kommer från direkt fontpassning med objektmask. Uppslaget saknar denna maskbegränsning och kan lägga till vita pixlar utanför objektet.
+        - paragraph [ref=f2e138]: "Detta tecken på testposerna: 8 412 pixel-fel totalt, varav 8 148 inom objektmasken och 264 vita pixlar utanför. Maskad direktpassning: 5 047 pixel-fel."
+    - generic [ref=f2e139]:
+      - generic [ref=f2e140]: Fonten återanvänds oförändrad. Alla scenbilder visas med PAL-pixelförhållandet 59 / 63.
+      - link "Mätdata · JSON" [ref=f2e142] [cursor=pointer]:
+        - /url: study.json

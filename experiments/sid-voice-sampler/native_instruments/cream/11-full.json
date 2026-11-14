@@ -1,0 +1,23 @@
+{
+  "source_instrument": 11,
+  "name": "geioilsound",
+  "kind": "hybrid",
+  "program": "pulse",
+  "control": 65,
+  "rest_control": 25,
+  "sustain": 1,
+  "rms_gate_ratio": 0.08,
+  "pitch_analysis": {
+    "sample_count": 4096,
+    "upsample": 8,
+    "period_band_samples": [
+      50,
+      75
+    ],
+    "minimum_autocorrelation": 0.4
+  },
+  "pcm_decimation": 2,
+  "pcm_base_scale": 127,
+  "description": "Full-arrangement addition: actual PCM where allocated to SID3; otherwise a declared pulse approximation of the measured complex tonal source.",
+  "provenance": "Measured original Cream MOD; full-audit source, spectra and monophonic-pitch receipts. Approved instruments 1..10 remain unchanged."
+}

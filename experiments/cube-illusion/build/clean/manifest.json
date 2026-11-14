@@ -1,0 +1,62 @@
+{
+  "format": "c64-multicolor-charset",
+  "version": 1,
+  "files": {
+    "charset": "charset.bin",
+    "screen": "screen.bin",
+    "colorRam": "color-ram.bin"
+  },
+  "characterCount": 77,
+  "unrestrictedCharacterCount": 77,
+  "approximatedCellCount": 0,
+  "hiresCellCount": 0,
+  "multicolorCellCount": 1000,
+  "layout": {
+    "columns": 40,
+    "rows": 25,
+    "cellWidth": 8,
+    "cellHeight": 8,
+    "bytesPerGlyph": 8,
+    "charsetByteLength": 2048,
+    "screenByteLength": 1000,
+    "colorRamByteLength": 1000,
+    "loadAddressesIncluded": false
+  },
+  "image": {
+    "width": 320,
+    "height": 200,
+    "pixelAspectRatio": [
+      1,
+      1
+    ]
+  },
+  "hardware": {
+    "bitmapMode": false,
+    "extendedColorMode": false,
+    "multicolorMode": true,
+    "backgroundColorRegister": 0,
+    "sharedMulticolorRegisters": [
+      1,
+      1
+    ],
+    "colorRamModeBit": 8,
+    "foregroundColorMask": 7,
+    "hiresCodes": [
+      "background",
+      "foreground"
+    ],
+    "multicolorCodes": [
+      "background",
+      "shared-1",
+      "shared-2",
+      "foreground"
+    ],
+    "programIncluded": false
+  },
+  "pixelRoles": {
+    "00": "background",
+    "01": "normalized cube core",
+    "10": "leading flank",
+    "11": "trailing flank"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "sourceSha256": "17d1263493ef14274c6b4121b0d606459a12a673b14fc14c953ceb4182af8958",
+  "characters": {
+    "clean": 77,
+    "bordered-vertical": 95,
+    "bordered-horizontal": 103,
+    "demo": 182
+  },
+  "foregroundMulticolorPixels": 3432,
+  "physicalPixelsAddedByMulticolorAlignment": 143,
+  "verticalBorders": {
+    "leading": 210,
+    "trailing": 210,
+    "ambiguousRemoved": 1
+  },
+  "horizontalBorders": {
+    "leading": 441,
+    "trailing": 441,
+    "ambiguousRemoved": 16
+  },
+  "checks": [
+    "all source visible foreground retained after pair alignment",
+    "all normalized foreground uses bit pair 01",
+    "border generation leaves core unchanged",
+    "charset/screen bit-pair round trips passed",
+    "all charsets fit 256 glyphs; all Color RAM bytes equal 8"
+  ]
+}

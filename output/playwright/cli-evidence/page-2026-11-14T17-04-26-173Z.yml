@@ -1,0 +1,147 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [aria-hidden] [ref=e5]: "64"
+    - generic [ref=e6]:
+      - heading "C64 Studio" [level=1] [ref=e7]
+      - strong [ref=e8]: FLI
+    - generic [ref=e9]:
+      - generic [ref=e10]: Local workspace
+      - group "Project files" [ref=e11]:
+        - button "Open project JSON" [ref=e12]
+        - button "Open project" [ref=e13] [cursor=pointer]
+        - button "Save project" [ref=e14] [cursor=pointer]
+      - button "Open image" [ref=e15] [cursor=pointer]
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - navigation "Workspace tools" [ref=e20]:
+        - button "Open source image" [ref=e21] [cursor=pointer]
+        - button "Source image settings" [disabled] [ref=e25]
+        - button "Image adjustments" [disabled] [ref=e28]
+        - button "Palette and color settings" [disabled] [ref=e31]
+        - button "Reset image framing" [disabled] [ref=e34]
+      - region "Untitled RGB / 8" [ref=e37]:
+        - generic [ref=e38]:
+          - heading "Untitled RGB / 8" [level=2] [ref=e39]:
+            - generic "Untitled" [ref=e42]
+            - generic [ref=e43]: RGB / 8
+          - generic [ref=e44]: No image open
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - tablist "Image color mode" [ref=e49]:
+              - tab "Unrestricted" [selected] [ref=e50] [cursor=pointer]
+              - tab "C64 Palette" [ref=e51] [cursor=pointer]
+              - tab "FLI" [ref=e52] [cursor=pointer]
+            - generic [ref=e54] [cursor=pointer]:
+              - checkbox "Character grid" [checked] [ref=e692]
+              - generic [ref=e56]: Character grid
+          - tabpanel "Unrestricted" [ref=e57]:
+            - img "Empty screen for tile markers" [ref=e693]: Your resized image appears here.
+            - generic [ref=e63]:
+              - generic "Preview scale" [ref=e64]: Fit
+              - generic [ref=e65]: 160 × 200 logical pixels · 2 columns reserved on the left
+      - complementary "Image settings" [ref=e66]:
+        - generic [ref=e67]: Properties
+        - group [ref=e70]:
+          - heading "Image" [level=2] [ref=e72] [cursor=pointer]
+          - generic [ref=e73]:
+            - heading "Graphics format" [level=3] [ref=e74]
+            - combobox "Graphics format" [ref=e75]:
+              - option "FLI" [selected]
+              - option "FLI + Sprites"
+              - option "IFLI"
+              - option "MCI"
+              - option "Multi Color Bitmap"
+              - option "Charset · Hires + Multicolor"
+              - option "Multicolor Sprites"
+              - option "Multicolor + Hires Sprites"
+              - option "Hires"
+              - option "Hires · 2 colors"
+              - option "AFLI"
+              - option "AFLI + Sprites"
+              - option "NUFLI"
+              - option "PAFLI"
+            - generic [ref=e76]:
+              - heading "C64 palette" [level=3] [ref=e77]
+              - combobox "C64 palette" [ref=e78]:
+                - option "Colodore (PAL)" [selected]
+                - option "Pepto (PAL)"
+                - option "PEPTOette_a"
+            - generic [ref=e79]:
+              - heading "Virtual color mode" [level=3] [ref=e80]
+              - combobox "Virtual color mode" [ref=e81]:
+                - option "Computed" [selected]
+                - option "Talent"
+              - paragraph [ref=e82]: Computed pairs, shared by all layers with virtual colors enabled.
+            - group "Background color" [ref=e84]:
+              - generic [ref=e86]:
+                - 'generic "0 · Black · #000000" [ref=e87] [cursor=pointer]':
+                  - radio "Black" [checked] [ref=e88]
+                - 'generic "1 · White · #FFFFFF" [ref=e90] [cursor=pointer]':
+                  - radio "White" [ref=e91]
+                - 'generic "2 · Red · #96282E" [ref=e93] [cursor=pointer]':
+                  - radio "Red" [ref=e94]
+                - 'generic "3 · Cyan · #5BD6CE" [ref=e96] [cursor=pointer]':
+                  - radio "Cyan" [ref=e97]
+                - 'generic "4 · Purple · #9F2DAD" [ref=e99] [cursor=pointer]':
+                  - radio "Purple" [ref=e100]
+                - 'generic "5 · Green · #41B936" [ref=e102] [cursor=pointer]':
+                  - radio "Green" [ref=e103]
+                - 'generic "6 · Blue · #2724C4" [ref=e105] [cursor=pointer]':
+                  - radio "Blue" [ref=e106]
+                - 'generic "7 · Yellow · #EFF347" [ref=e108] [cursor=pointer]':
+                  - radio "Yellow" [ref=e109]
+                - 'generic "8 · Orange · #9F4815" [ref=e111] [cursor=pointer]':
+                  - radio "Orange" [ref=e112]
+                - 'generic "9 · Brown · #5E3500" [ref=e114] [cursor=pointer]':
+                  - radio "Brown" [ref=e115]
+                - 'generic "10 · Light red · #DA5F66" [ref=e117] [cursor=pointer]':
+                  - radio "Light red" [ref=e118]
+                - 'generic "11 · Dark gray · #474747" [ref=e120] [cursor=pointer]':
+                  - radio "Dark gray" [ref=e121]
+                - 'generic "12 · Gray · #787878" [ref=e123] [cursor=pointer]':
+                  - radio "Gray" [ref=e124]
+                - 'generic "13 · Light green · #91FF84" [ref=e126] [cursor=pointer]':
+                  - radio "Light green" [ref=e127]
+                - 'generic "14 · Light blue · #6864FF" [ref=e129] [cursor=pointer]':
+                  - radio "Light blue" [ref=e130]
+                - 'generic "15 · Light gray · #AEAEAE" [ref=e132] [cursor=pointer]':
+                  - radio "Light gray" [ref=e133]
+              - status [ref=e135]: "0 · Black · #000000"
+        - group [ref=e136]:
+          - generic "Layers 2" [ref=e694] [cursor=pointer]:
+            - heading "Layers" [level=2] [ref=e138]
+            - generic [ref=e139]: "2"
+          - list "Layers" [ref=e140]:
+            - listitem [ref=e695]:
+              - button "Show Tile markers 2" [pressed] [ref=e696] [cursor=pointer]
+              - button "Select Tile markers 2" [pressed] [ref=e699] [cursor=pointer]:
+                - generic [ref=e701]: Tile markers 2
+            - listitem [ref=e702]:
+              - button "Show Layer 1" [pressed] [ref=e703] [cursor=pointer]
+              - button "Select Layer 1" [ref=e706] [cursor=pointer]:
+                - generic [ref=e708]: Layer 1
+          - toolbar "Layer actions" [ref=e148]:
+            - button "New layer" [ref=e149] [cursor=pointer]:
+              - generic [ref=e152]: New
+            - button "New tile marker layer" [active] [ref=e153] [cursor=pointer]:
+              - generic [ref=e156]: Tiles
+            - button "Duplicate layer" [ref=e157] [cursor=pointer]
+            - button "Move layer up" [disabled] [ref=e160]
+            - button "Move layer down" [ref=e163] [cursor=pointer]
+            - button "Delete layer" [ref=e166] [cursor=pointer]
+        - generic [ref=e169]:
+          - generic [ref=e170]: Layer settings
+          - strong [ref=e171]: Tile markers 2
+        - group [ref=e709]:
+          - heading "Tile markers" [level=2] [ref=e711] [cursor=pointer]
+          - generic [ref=e712]:
+            - generic [ref=e713]:
+              - generic [ref=e714]: Overlay color
+              - textbox "Overlay color" [ref=e715] [cursor=pointer]: "#ffcc00"
+            - paragraph [ref=e716]: Click a tile to toggle it. Drag to paint tiles on or off. Markers cover 8 × 8 pixels and stay fixed on the screen.
+        - group "Document info" [ref=e685]:
+          - heading "Document info" [level=2] [ref=e687] [cursor=pointer]
+    - status [ref=e688]
+  - contentinfo [ref=e689]:
+    - generic [ref=e690]: C64 · FULL-COLOR SOURCE
+    - generic [ref=e691]: 160 × 200 / 2:1

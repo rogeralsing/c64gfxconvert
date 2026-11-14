@@ -1,12 +1,12 @@
 {
   "paths": {
     "root": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build",
-    "base": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/base",
-    "c3_model": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/c3-model",
-    "c3_windows": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/c3-windows",
+    "base": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/source/base",
+    "c3_model": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/source/c3-model",
+    "c3_windows": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/source/c3-windows",
     "linked": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked",
     "data_asm": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/data.asm",
-    "sid3_expected": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/base/expected-input.bin",
+    "sid3_expected": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/rle/expected-input.bin",
     "c3_expected_high": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/c3/expected-high.bin",
     "c3_expected_latches_high": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/linus-mix/build/linked/c3/expected-latches-high.bin"
   },
@@ -21,29 +21,32 @@
     "c3_bank_roundtrip_passed": true,
     "c3_window_roundtrip_passed": true,
     "c3_direct_roundtrip_passed": true,
-    "resident_data_bytes": 41841,
-    "data_end": 48618,
-    "scope": "Source preparation and exact data roundtrips only. No native runtime, audio capture or listening acceptance is claimed by this stage."
+    "resident_data_bytes": 41316,
+    "data_end": 47990,
+    "scope": "Source preparation and exact data roundtrips only. No native runtime, audio capture or listening acceptance is claimed by this stage.",
+    "fixed_pitch": {
+      "passed": true,
+      "output_values": 39097,
+      "startup_neutral_values": 1,
+      "expected_high_sha256": "37426b47dd1df02925b08ac4ce50d1a36bf3bee9931d71256ca32f5a4d163de0",
+      "roundtrip_sha256": "37426b47dd1df02925b08ac4ce50d1a36bf3bee9931d71256ca32f5a4d163de0",
+      "source_sid3_expected_sha256": "080852a5c0cf96f0e3b00ac856d594015c92a513435ccb5e08816d54cfa267a2",
+      "source_triggers": 96,
+      "all_lifetimes_gains_and_source_reads_exact": true,
+      "held_pitch_changes": 0,
+      "all_source_sid3_sid1_score_fields_0_to_8_exact": true,
+      "logical_fixed_variants": 136,
+      "resident_nonconstant_variants": 135,
+      "neutral_variant_id": 136,
+      "raw_window_bytes": 14925,
+      "resident_fixed_wave_bytes": 14146,
+      "pointer_bytes": 274,
+      "windows_used_by_multiple_notes": 85,
+      "removed_unused_c3_score_fields_bytes": 1512,
+      "resident_data_bytes": 41316,
+      "data_end": 47990,
+      "scope": "Exact data/score/physical-read roundtrip only. Native linear producer timing, full runtime deadlines and actual audio are separately verified."
+    }
   },
-  "clock_binding": {
-    "source": "Freshly prepared1000 SID3 buffers, cumulative156/157sample cuts",
-    "high_rate_total_values": 156389,
-    "high_rate_sample_period_cycles": 126,
-    "SID2_latch_high_indices": {
-      "startup_neutral": [
-        0
-      ],
-      "ring_values": {
-        "first": 4,
-        "stride": 4,
-        "last": 156388
-      }
-    },
-    "source_state_assignment": "cuts[t]<=future_latch_high_index<cuts[t+1]",
-    "producer_pipeline": "phase2 at highindex2 reads ring[1] for latch4; no50Hzphase reset",
-    "native_timing_confirmation": "Verified SID2 latch+35, phase2read+37/release+43, W244, last_enabled249, reference105",
-    "first_frame_ring_count": 38,
-    "second_frame_ring_count": 40
-  },
-  "method": "Baseline instrument analysis, globally bound C3 source model, reusable per-instrument gain windows and independent native linker; no cached generated score dependency."
+  "method": "Source analysis and independent fractional replay compile reusable instrument/pitch/gain windows. The C64 advances an integer note cursor and copies the unchanged amplitude values. No cached score or recorded channel is used."
 }

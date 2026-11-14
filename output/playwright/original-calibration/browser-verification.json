@@ -1,0 +1,284 @@
+{
+  "url": "http://127.0.0.1:49165/?v=outlines1",
+  "browser": "Headless installed Google Chrome via Playwright library",
+  "errors": [],
+  "requestFailures": [],
+  "httpErrors": [],
+  "defaultPreset": "outlines",
+  "mutedPlayPromise": "resolved",
+  "mutedPlayback": {
+    "start": {
+      "src": "http://127.0.0.1:49165/original-outlines.mp4",
+      "time": 0.388571,
+      "paused": false,
+      "muted": true,
+      "ended": false,
+      "readyState": 4,
+      "networkState": 1,
+      "seeking": false,
+      "error": null,
+      "buffered": [
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    "end": {
+      "src": "http://127.0.0.1:49165/original-outlines.mp4",
+      "time": 1.302629,
+      "paused": false,
+      "muted": true,
+      "ended": false,
+      "readyState": 4,
+      "networkState": 1,
+      "seeking": false,
+      "error": null,
+      "buffered": [
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    "advances": true
+  },
+  "contrastOptions": [
+    {
+      "value": "cleaner",
+      "text": "Renare",
+      "src": "http://127.0.0.1:49165/original-cleaner.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 0,
+      "rgbaSha256": "e8a31e5ff44783dd4e4b6a0f3bc9c5aedd6db075edcdaa5f0c6a513b51495854",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    },
+    {
+      "value": "balance",
+      "text": "Balans",
+      "src": "http://127.0.0.1:49165/original-balance.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 0,
+      "rgbaSha256": "11ed998ccec7947bf891108ef8a204139ab5f490de2fa21724dee2d868bbcbde",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    },
+    {
+      "value": "contours",
+      "text": "Mer konturer",
+      "src": "http://127.0.0.1:49165/original-contours.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 0,
+      "rgbaSha256": "c8837a20a917332286cbcf370f95088874de4b18d53661ccb7f19a17af72ed14",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    },
+    {
+      "value": "detail",
+      "text": "Mer detaljer",
+      "src": "http://127.0.0.1:49165/original-detail.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 0,
+      "rgbaSha256": "60717806a66dfbbc36646bb41a6365978e9d9f0b6ce4ff4a00098dbd51c342f9",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    },
+    {
+      "value": "outlines",
+      "text": "Tydliga konturer",
+      "src": "http://127.0.0.1:49165/original-outlines.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 1.2,
+      "rgbaSha256": "e14ed711a17eec9d0316cf4dfb6493139309c009de9321678699c60dc38461a4",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    },
+    {
+      "value": "adaptive",
+      "text": "Kontrast per bildruta",
+      "src": "http://127.0.0.1:49165/original-adaptive.mp4",
+      "duration": 6,
+      "width": 600,
+      "height": 400,
+      "time": 0,
+      "rgbaSha256": "5e50c2479812bdfda93ec84530c1cc285b50de935ad6fcfd31d0017fbff6d1dd",
+      "ffprobe": [
+        {
+          "codec_name": "h264",
+          "codec_type": "video",
+          "width": 600,
+          "height": 400,
+          "r_frame_rate": "10/1",
+          "avg_frame_rate": "10/1",
+          "duration": "6.000000",
+          "nb_frames": "60"
+        },
+        {
+          "codec_name": "aac",
+          "codec_type": "audio",
+          "r_frame_rate": "0/0",
+          "avg_frame_rate": "0/0",
+          "duration": "6.000000",
+          "nb_frames": "283"
+        }
+      ]
+    }
+  ],
+  "allOptionsChangeVideo": true,
+  "allVideosSixSecondsTenFPS": true,
+  "unmutedPlayPromise": "resolved",
+  "soundButton": {
+    "start": {
+      "src": "http://127.0.0.1:49165/original-adaptive.mp4",
+      "time": 0.184029,
+      "paused": false,
+      "muted": false,
+      "ended": false,
+      "readyState": 4,
+      "networkState": 1,
+      "seeking": false,
+      "error": null,
+      "buffered": [
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    "end": {
+      "src": "http://127.0.0.1:49165/original-adaptive.mp4",
+      "time": 1.090708,
+      "paused": false,
+      "muted": false,
+      "ended": false,
+      "readyState": 4,
+      "networkState": 1,
+      "seeking": false,
+      "error": null,
+      "buffered": [
+        [
+          0,
+          6
+        ]
+      ]
+    },
+    "unmutes": true,
+    "advances": true
+  },
+  "reference": {
+    "src": "embedded PNG; original data URI omitted from report",
+    "width": 600,
+    "height": 400,
+    "rgbaSha256": "b4b6f7ba605a0153219db6816008a0add0e2ca19085362f5d6913f13b63ddd85"
+  },
+  "sourceDistinctFromAcceptedStill": true,
+  "mobile": {
+    "viewport": 390,
+    "clientWidth": 390,
+    "scrollWidth": 390,
+    "bodyScrollWidth": 390
+  },
+  "metadataText": "Musse fr\u00e5n originalfilmen\n\nM\u00e5let \u00e4r GIF-versionens rena svartvita uttryck, med r\u00f6relser och ljud fr\u00e5n originalfilmen.\n\nGodk\u00e4nd stilreferens\nGIF-versionens teckenbild \u00b7 ruta 28\n\nEn stillbild som visar \u00f6nskad stil. Den \u00e4r inte en synkroniserad GIF.\n\nOriginalets animation\nOriginal 32\u201338 s \u00b7 10 fps \u00b7 6 sekunder\n\nFasta niv\u00e5er och f\u00f6rst\u00e4rkta linjer i originaluppl\u00f6sningen ger tydligare konturer.\n\nKontrast\nRenare\nBalans\nMer konturer\nMer detaljer\nTydliga konturer\nKontrast per bildruta\nSpela med ljud\n\nOriginalets vissling. Ingen \u00e4ndrad hastighet eller klippning mitt i sekvensen.\n\nKontrasten korrigeras i originalets 1296 \u00d7 1080 pixlar, f\u00f6re besk\u00e4rning och nedskalning. Standardl\u00e4get anv\u00e4nder fasta niv\u00e5er och f\u00f6rst\u00e4rkta linjer. Kontrast per bildruta finns som j\u00e4mf\u00f6relse. H\u00f6gerbilden \u00e4r bitmappen f\u00f6re teckenmappning; delar av originalets skepp kan finnas kvar i bakgrunden.",
+  "passed": true
+}

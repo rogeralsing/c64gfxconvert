@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="sv">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>Musse på C64 · Bild och samplad vissling</title>
+<style>
+:root{color-scheme:dark;font-family:"Segoe UI",system-ui,sans-serif;background:#121510;color:#e9ede0}
+*{box-sizing:border-box}body{margin:0}main{max-width:960px;margin:auto;padding:30px 20px}
+h1{font-size:clamp(25px,4vw,36px);margin:0 0 10px}p{color:#bac2af;line-height:1.5}
+video{display:block;width:100%;background:#000;image-rendering:pixelated;border:1px solid #3c4433}
+.actions{display:flex;align-items:center;gap:20px;flex-wrap:wrap;margin-top:18px}
+button{font:inherit;font-weight:600;background:#ccec83;color:#18200c;border:0;border-radius:5px;padding:10px 16px;cursor:pointer}
+a{color:#d5eea0}button:focus-visible,a:focus-visible{outline:2px solid #d8f395;outline-offset:4px}
+.note{font-size:14px}
+</style>
+<main>
+<h1>Musse på C64</h1>
+<p>Inspelat från VICE med C64:ans samplade SID-ljud. Animationen använder 256 tecken och går i 10 fps.</p>
+<video id="movie" src="c64-original.mp4" poster="c64-original-poster.png" controls playsinline preload="auto"></video>
+<div class="actions"><button id="play" type="button">Spela från början med ljud</button><a href="c64-original-player.prg" download>Hämta C64-programmet</a></div>
+<p class="note">Originalfilmens sekvens 32–38 sekunder. Bilden visar den riktiga C64-uppspelningen, inklusive övergångar medan tecknen ritas.</p>
+</main>
+<script>
+const movie=document.getElementById('movie');
+document.getElementById('play').addEventListener('click',()=>{
+  movie.currentTime=0;
+  movie.muted=false;
+  movie.play().catch(()=>{});
+});
+</script>
+</html>

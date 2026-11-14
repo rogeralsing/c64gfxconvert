@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=editable-curves">
+  <link rel="stylesheet" href="./editor.css?v=tile-markers">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -87,6 +87,7 @@
                     <h2>No image open</h2><button class="empty-open" data-open-image type="button">Open image</button>
                   </div>
                   <canvas id="canvas" width="160" height="200" role="img" aria-label="Source image at 160 by 200 pixels with double-width pixels" hidden>Your resized image appears here.</canvas>
+                  <canvas id="tile-marker-overlay" width="320" height="200" aria-hidden="true" hidden></canvas>
                   <div id="tile-grid" class="tile-grid" aria-hidden="true" hidden></div>
                 </div>
               </div>
@@ -231,9 +232,10 @@
           </details>
           <details id="layer-settings" class="inspector-panel layer-panel" open>
             <summary><h2>Layers</h2><span id="layer-count" class="virtual-palette-count">1</span></summary>
-            <div id="layer-list" class="layer-list" role="list" aria-label="Image layers"></div>
+            <div id="layer-list" class="layer-list" role="list" aria-label="Layers"></div>
             <div class="layer-actions" role="toolbar" aria-label="Layer actions">
               <button type="button" data-layer-action="add" title="New layer" aria-label="New layer"><svg aria-hidden="true"><use href="#icon-plus"/></svg><span>New</span></button>
+              <button type="button" data-layer-action="add-markers" title="New tile marker layer" aria-label="New tile marker layer"><svg aria-hidden="true"><use href="#icon-color"/></svg><span>Tiles</span></button>
               <button type="button" data-layer-action="duplicate" title="Duplicate layer" aria-label="Duplicate layer"><svg aria-hidden="true"><use href="#icon-copy"/></svg></button>
               <span class="layer-actions-spacer"></span>
               <button type="button" data-layer-action="up" title="Move layer up" aria-label="Move layer up"><svg aria-hidden="true"><use href="#icon-up"/></svg></button>
@@ -242,6 +244,13 @@
             </div>
           </details>
           <div class="layer-properties-heading"><span>Layer settings</span><strong id="active-layer-name">Layer 1</strong></div>
+          <details id="tile-marker-settings" class="inspector-panel" open hidden>
+            <summary><h2>Tile markers</h2></summary>
+            <div class="panel-body">
+              <div class="control-label"><label for="tile-marker-color">Overlay color</label><input id="tile-marker-color" type="color" value="#ffcc00"></div>
+              <p class="background-value">Click a tile to toggle it. Drag to paint tiles on or off. Markers cover 8 × 8 pixels and stay fixed on the screen.</p>
+            </div>
+          </details>
           <details id="source-settings" class="source inspector-panel" open>
             <summary><h2 id="source-heading">Source image</h2></summary>
             <div class="source-body">
@@ -375,6 +384,7 @@
             </div>
               <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
             <h2 id="virtual-palette-heading"><span class="virtual-palette-title">Virtual palette</span><span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
+            <p id="palette-mapping-error" class="error" role="alert" hidden></p>
             <p class="background-value talent-palette-help" hidden>Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.</p>
             <div class="image-control">
               <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
@@ -409,7 +419,7 @@
   <script src="./ifli.js?v=shared-brightness-mapper"></script>
   <script src="./talent-palette.js?v=1"></script>
   <script src="./talent-neighbors.js?v=1"></script>
-  <script src="./talent-mapping.js?v=shared-brightness-mapper"></script>
+  <script src="./talent-mapping.js?v=paired-enabled-solids"></script>
   <script src="./palettes.js?v=all-talent-colors"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./mci-export.js?v=1"></script>
@@ -435,12 +445,13 @@
   <script src="./image-layout.js?v=sprite-grid"></script>
   <script src="./source-levels.js?v=editable-curves"></script>
   <script src="./source-interlace.js?v=patterns"></script>
-  <script src="./converter-controls.js?v=editable-curves"></script>
+  <script src="./converter-controls.js?v=palette-components"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
-  <script src="./layers.js?v=charset-dither"></script>
-  <script src="./layer-panel.js?v=1"></script>
-  <script src="./project.js?v=curves-interlace"></script>
+  <script src="./layers.js?v=tile-markers"></script>
+  <script src="./layer-panel.js?v=tile-markers"></script>
+  <script src="./tile-markers.js?v=1"></script>
+  <script src="./project.js?v=tile-markers"></script>
   <script>
     const paletteState = createC64PaletteState();
     const C64_PALETTE = paletteState.palette;
@@ -461,6 +472,7 @@
     const projectError = document.getElementById('project-error');
     const dropZone = document.getElementById('drop-zone');
     const canvas = document.getElementById('canvas');
+    const tileMarkerColor = document.getElementById('tile-marker-color');
     const tileGrid = document.getElementById('tile-grid');
     const gridToggle = document.getElementById('grid-toggle');
     const backgroundPalette = document.getElementById('background-palette');
@@ -472,6 +484,7 @@
     const preview = document.getElementById('preview');
     const previewStatus = document.getElementById('preview-status');
     const error = document.getElementById('error');
+    const paletteMappingError = document.getElementById('palette-mapping-error');
     const announcement = document.getElementById('announcement');
     const tabs = Array.from(document.querySelectorAll('.preview-tab'));
     const graphicsModeSelect = document.getElementById('graphics-mode-options');
@@ -637,6 +650,21 @@
         syncLayerInfo();
       }
     });
+    const tileMarkerEditor = createC64TileMarkerEditor({
+      canvas, overlay: document.getElementById('tile-marker-overlay'), stack: layerStack,
+      getDisplaySize: currentDisplaySize,
+      onChange() {
+        tileMarkerEditor.render();
+        layerPanel.render();
+      }
+    });
+    tileMarkerColor.addEventListener('input', () => {
+      const layer = layerStack.active();
+      if (layer.type !== 'tile-markers') return;
+      layer.markers.color = tileMarkerColor.value;
+      tileMarkerEditor.render();
+      layerPanel.render();
+    });
     const projectCodec = createC64ProjectCodec({
       modeIds: C64_GRAPHICS_MODES.map(mode => mode.id),
       controls: layerControlIds.map(id => {
@@ -677,7 +705,7 @@
       charsetControls.refreshPalette();
       reconcileLayerVirtualPalettes();
       virtualPaletteView.refreshPalette();
-      virtualPaletteView.setSettings(layerStack.active().settings.palette);
+      if (layerStack.active().settings) virtualPaletteView.setSettings(layerStack.active().settings.palette);
       layerStack.invalidate();
       document.dispatchEvent(new Event('c64palettechange'));
       return preset;
@@ -687,7 +715,7 @@
       paletteState.setVirtualColorMode(mode);
       virtualColorModeSelect.value = mode;
       document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
-        ? 'Talent uses the same brightness-first mapping as Computed, with levels measured from its 92 colors. Hue is matched within the selected level. Shared by all layers.'
+        ? 'Talent compares vertical source pixel pairs. Similar pixels share one virtual color; details map separately to enabled solid C64 colors. Palette exclusions and lightness limits apply to both. Brightness is matched before hue. Shared by all layers.'
         : 'Computed pairs, shared by all layers with virtual colors enabled.';
       virtualPaletteView.refreshPalette();
       layerStack.invalidate();
@@ -695,6 +723,7 @@
 
     function reconcileLayerVirtualPalettes() {
       for (const layer of layerStack.layers) {
+        if (layer.type === 'tile-markers') continue;
         const settings = layer.settings.palette;
         const excluded = new Set(settings.excludedIndices);
         if (paletteState.virtualColorMode === 'talent') {
@@ -762,6 +791,7 @@
           activeLayer: layerStack.layers.indexOf(layerStack.active()),
           layers: layerStack.layers.map(layer => ({
             name: layer.name, autoName: layer.autoName, visible: layer.visible, settings: layer.settings,
+            ...(layer.type === 'tile-markers' ? { type: layer.type, markers: layer.markers } : {}),
             source: layer.image ? { fileName: layer.fileName, dataUrl: layer.sourceDataUrl } : null
           }))
         });
@@ -821,7 +851,7 @@
         error.hidden = true;
         rebuildLayerComposite();
         selectPreviewTab(tabs.find(tab => tab.dataset.mode === activeMode));
-        announcement.textContent = `${name} opened. ${layers.length} image layers restored.`;
+        announcement.textContent = `${name} opened. ${layers.length} layers restored.`;
       } catch (cause) {
         projectError.textContent = `Could not open project. ${cause.message}`;
         projectError.hidden = false;
@@ -843,6 +873,12 @@
     function restoreLayerControls() {
       const layer = layerStack.active();
       sourceImage = layer.image;
+      if (layer.type === 'tile-markers') {
+        tileMarkerColor.value = layer.markers.color;
+        levelsControls.setSource(null);
+        syncLayerInfo();
+        return;
+      }
       for (const [id, value] of Object.entries(layer.settings.values)) {
         const control = document.getElementById(id);
         if (control.type === 'checkbox') control.checked = value;
@@ -863,7 +899,13 @@
 
     function syncLayerInfo() {
       const layer = layerStack.active();
+      const markers = layer.type === 'tile-markers';
       sourceImage = layer.image;
+      document.getElementById('tile-marker-settings').hidden = !markers;
+      document.getElementById('source-settings').hidden = markers;
+      document.getElementById('adjustment-settings').hidden = markers;
+      document.getElementById('color-settings').hidden = markers || usesDirectColorFit();
+      for (const button of document.querySelectorAll('[data-inspector-panel]')) button.disabled = markers;
       sourceFraming.hidden = !sourceImage;
       sourceFraming.disabled = !sourceImage;
       document.getElementById('file-info').hidden = !sourceImage;
@@ -880,6 +922,7 @@
       documentName.title = documentName.textContent;
       preview.classList.toggle('has-image', Boolean(unrestrictedPixels));
       preview.dataset.canPan = String(Boolean(sourceImage && layer.visible));
+      preview.dataset.canMark = String(markers && layer.visible);
       document.querySelector('#empty-state h2').textContent = loaded.length ? 'No visible layers' : 'No image open';
     }
 
@@ -899,6 +942,7 @@
       finishSourcePan();
       layerStack.updateSettings(readLayerSettings());
       if (action === 'add') layerStack.add();
+      else if (action === 'add-markers') layerStack.add({ type: 'tile-markers' });
       else if (action === 'duplicate') layerStack.duplicate();
       else if (action === 'remove') {
         loadingLayers.delete(layerStack.active().id);
@@ -914,7 +958,8 @@
     }
 
     function updateGridVisibility() {
-      tileGrid.hidden = activeMode === 'unrestricted' || !palettePixels || !gridToggle.checked;
+      const marking = layerStack.active().type === 'tile-markers' && layerStack.active().visible;
+      tileGrid.hidden = !gridToggle.checked || (!marking && (activeMode === 'unrestricted' || !palettePixels));
     }
 
     function currentGraphicsMode() {
@@ -1064,6 +1109,7 @@
     }
 
     function finishSourcePan(event) {
+      tileMarkerEditor.finish(event);
       if (!sourcePan || (event && event.pointerId !== sourcePan.pointerId)) return;
       const pointerId = sourcePan.pointerId;
       sourcePan = null;
@@ -1286,6 +1332,21 @@
     }
 
     function rebuildLayerComposite() {
+      try {
+        rebuildLayerCompositePixels();
+        paletteMappingError.hidden = true;
+      } catch (cause) {
+        if (cause.code !== 'TALENT_SOLID_COLOR_REQUIRED') throw cause;
+        stopIfliAnimation();
+        palettePixels = documentTargetPixels = fliResult = ifliResult = null;
+        paletteMappingError.textContent = cause.message;
+        paletteMappingError.hidden = false;
+        announcement.textContent = cause.message;
+        renderPreview();
+      }
+    }
+
+    function rebuildLayerCompositePixels() {
       const visible = layerStack.layers.filter(layer => layer.visible && layer.image);
       const { width: displayWidth, height } = currentDisplaySize();
       const width = isStandaloneSpriteMode() ? displayWidth : currentGraphicsMode().sourceWidth;
@@ -1649,7 +1710,7 @@
       ifliFrameIndex = ifliNextFrameIndex;
       context.putImageData(ifliResult.displayFrames[ifliFrameIndex], 0, 0);
       canvas.dataset.ifliFrame = String(ifliFrameIndex);
-      tileGrid.style.transform = isPafliMode() && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
+      tileGrid.style.transform = layerStack.active().type !== 'tile-markers' && isPafliMode() && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
       ifliNextFrameIndex = 1 - ifliFrameIndex;
       ifliAnimation = requestAnimationFrame(advanceIfliFrame);
     }
@@ -1686,10 +1747,11 @@
       screen.style.setProperty('--screen-fit-width', `${display.width / display.height * 100}cqh`);
       screen.dataset.displayWidth = String(display.width);
       const spriteConfig = spriteGridControls.getState();
-      tileGrid.style.backgroundSize = standaloneSprites
+      const marking = layerStack.active().type === 'tile-markers';
+      tileGrid.style.backgroundSize = marking ? `${800 / display.width}% ${800 / display.height}%` : standaloneSprites
         ? `${100 / spriteConfig.columns}% ${100 / spriteConfig.rows}%` : '';
-      document.getElementById('grid-label').textContent = standaloneSprites ? 'Sprite grid' : charset ? 'Character grid' : 'Tile grid';
-      document.getElementById('color-settings').hidden = directColorFit;
+      document.getElementById('grid-label').textContent = marking || charset ? 'Character grid' : standaloneSprites ? 'Sprite grid' : 'Tile grid';
+      document.getElementById('color-settings').hidden = directColorFit || layerStack.active().type === 'tile-markers';
       document.querySelector('[aria-label="Palette and color settings"]').dataset.inspectorPanel = directColorFit
         ? 'image-settings' : 'color-settings';
       const multicolorInterlace = isMulticolorInterlaceMode();
@@ -1704,8 +1766,8 @@
       const name = mode.label;
       const restricted = activeMode === 'restricted';
       const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
-      const singleSettings = visibleLayers[0]?.settings || layerStack.active().settings;
-      const virtualImagePalette = !directColorFit && !twoColor && singleSettings.values['virtual-colors'] !== 'off';
+      const singleSettings = visibleLayers[0]?.settings || layerStack.layers.find(layer => layer.settings)?.settings;
+      const virtualImagePalette = !directColorFit && !twoColor && singleSettings && singleSettings.values['virtual-colors'] !== 'off';
       const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
         ? `${IFLI_VIRTUAL_PALETTE.filter(color => !singleSettings.palette.excludedIndices.includes(color.index)).length} virtual colors` : '16 C64 colors';
       const widePixels = !directColorFit && !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
@@ -1890,9 +1952,17 @@
       renderSpriteLayerViews();
       renderCharsetView();
       updateGridVisibility();
-      document.getElementById('empty-state').hidden = Boolean(unrestrictedPixels);
-      canvas.hidden = !pixels;
-      if (!pixels) return;
+      const hasMarkers = layerStack.layers.some(layer => layer.type === 'tile-markers' && layer.visible);
+      document.getElementById('empty-state').hidden = Boolean(unrestrictedPixels) || hasMarkers;
+      canvas.hidden = !pixels && !hasMarkers;
+      tileMarkerEditor.render();
+      if (!pixels) {
+        const display = currentDisplaySize();
+        canvas.width = display.width;
+        canvas.height = display.height;
+        canvas.setAttribute('aria-label', 'Empty screen for tile markers');
+        return;
+      }
 
       if (canvas.width !== pixels.width) canvas.width = pixels.width;
       if (canvas.height !== pixels.height) canvas.height = pixels.height;
@@ -1912,7 +1982,7 @@
         canvas.dataset.ifliFrame = String(ifliFrameIndex);
         startIfliAnimation();
       } else delete canvas.dataset.ifliFrame;
-      tileGrid.style.transform = isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
+      tileGrid.style.transform = layerStack.active().type !== 'tile-markers' && isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
     }
 
     function selectPreviewTab(tab, moveFocus = false) {
@@ -1970,7 +2040,7 @@
       layerStack.updateSettings(readLayerSettings());
       setVirtualColorMode(virtualColorModeSelect.value);
       reconcileLayerVirtualPalettes();
-      virtualPaletteView.setSettings(layerStack.active().settings.palette);
+      if (layerStack.active().settings) virtualPaletteView.setSettings(layerStack.active().settings.palette);
       rebuildLayerComposite();
       announcement.textContent = `${virtualColorModeSelect.selectedOptions[0].textContent} virtual color mode selected for all layers.`;
     });
@@ -1983,6 +2053,11 @@
     async function loadImage(file) {
       if (!file) return;
       finishSourcePan();
+      if (layerStack.active().type === 'tile-markers') {
+        layerStack.add();
+        restoreLayerControls();
+        layerPanel.render();
+      }
       const layer = layerStack.active();
       const request = ++layer.loadRequest;
       loadingLayers.add(layer.id);

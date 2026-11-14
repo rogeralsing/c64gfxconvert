@@ -1,0 +1,59 @@
+- main [ref=f11e2]:
+  - generic [ref=f11e3]:
+    - generic [ref=f11e4]: FONTSTUDIE / 1 → 4 TECKEN
+    - heading "Normalbild, referens och slutresultat" [level=1] [ref=f11e5]
+    - paragraph [ref=f11e6]: Mitten visar den renderade zoomreferensen. Höger visar slutresultatet byggt med 1→4-tabellen. Klicka på ett tecken i normalbilden för att markera dess fyra motsvarigheter i båda zoombilderna.
+  - generic [ref=f11e7]:
+    - generic [ref=f11e8]:
+      - button "Spela" [ref=f11e9] [cursor=pointer]
+      - generic [ref=f11e10]:
+        - generic [ref=f11e11]: Pose
+        - slider "Pose" [ref=f11e12]: "0"
+        - status [ref=f11e13]: 01 / 96
+    - region "Normalbild, renderad zoomreferens och slutresultat via uppslagstabellen" [ref=f11e14]:
+      - figure "Normal scen 40 × 25 tecken · 320 × 200 px" [ref=f11e15]:
+        - generic [ref=f11e16]:
+          - heading "Normal scen" [level=2] [ref=f11e17]
+          - generic [ref=f11e18]: 40 × 25 tecken · 320 × 200 px
+        - generic "Normal scen, pose 1. Markerad cell x 20, y 12, tecken 200. Piltangenter flyttar markeringen." [ref=f11e20]
+      - figure "Renderad referens 2× Ny 3D-rendering mappad till tecken" [ref=f11e21]:
+        - generic [ref=f11e22]:
+          - heading "Renderad referens 2×" [level=2] [ref=f11e23]
+          - generic [ref=f11e24]: Ny 3D-rendering mappad till tecken
+        - generic "Renderad zoomreferens. Den markerade fyran motsvarar ett tecken i normalbilden." [ref=f11e26]
+      - figure "Slutresultat via 1 → 4 Normalbildens tecken ersatta via tabellen" [ref=f11e27]:
+        - generic [ref=f11e28]:
+          - heading "Slutresultat via 1 → 4" [level=2] [ref=f11e29]
+          - generic [ref=f11e30]: Normalbildens tecken ersatta via tabellen
+        - generic "Slutresultat byggt från normalbildens tecken och uppslagstabellen. Den markerade fyran kommer från det valda källtecknet." [ref=f11e32]
+    - region "Det valda tecknet och dess fyra motsvarigheter" [ref=f11e33]:
+      - generic [ref=f11e34]:
+        - heading "Vald cell" [level=2] [ref=f11e35]
+        - generic [ref=f11e36]: x 20, y 12
+        - generic [ref=f11e37]: Positioner räknas från 0.
+      - generic [ref=f11e38]:
+        - generic [ref=f11e39]:
+          - generic [ref=f11e40]: 1 tecken i normalbilden
+          - generic [ref=f11e41]:
+            - generic "Källtecken 200" [ref=f11e42]
+            - generic [ref=f11e43]: "#200"
+        - generic [ref=f11e44]:
+          - generic [ref=f11e45]: 4 tecken i den renderade referensen
+          - generic [ref=f11e46]:
+            - 'generic "Faktiska måltecken: 200, 200, 200, 45, i ordning övre vänster, övre höger, nedre vänster, nedre höger." [ref=f11e47]'
+            - generic "Målkolumner 40–41, målrader 24–25" [ref=f11e48]:
+              - generic [ref=f11e49]: "#200"
+              - generic [ref=f11e50]: "#200"
+              - generic [ref=f11e51]: "#200"
+              - generic [ref=f11e52]: "#045"
+        - generic [ref=f11e53]:
+          - generic [ref=f11e54]: 4 tecken från uppslagstabellen
+          - generic [ref=f11e55]:
+            - 'generic "Tecken från uppslagstabellen: 200, 200, 200, 200, i ordning övre vänster, övre höger, nedre vänster, nedre höger." [ref=f11e56]'
+            - generic [ref=f11e57]:
+              - generic [ref=f11e58]: "#200"
+              - generic [ref=f11e59]: "#200"
+              - generic [ref=f11e60]: "#200"
+              - generic [ref=f11e61]: "#200"
+      - paragraph [ref=f11e62]: Samma cell förblir markerad när du byter pose. Piltangenter flyttar markeringen när en bild har fokus.
+    - generic [ref=f11e63]: Slutresultatet byggs enbart från normalbildens tecken och den inlärda 1→4-tabellen. Samma låsta font och PAL-pixelförhållande 59 / 63 i alla tre bilder.

@@ -20,6 +20,9 @@
 .label field_flags = $55
 .label voice_mask = $56
 .label retrigger = $57
+#if RAW_SID
+.label sid_write_count = $58
+#endif
 
 BasicUpstart2(start)
 
@@ -178,6 +181,19 @@ next_block:
     rts
 
 .macro ReadSid(index, offset) {
+#if RAW_SID
+    // Replay the donor's ordered register program, including hard-restart
+    // gate edges and ADSR writes. The sample IRQ preserves X and Y.
+    jsr get_byte
+    sta sid_write_count
+!raw_write:
+    jsr get_byte
+    tax
+    jsr get_byte
+    sta SID+offset,x
+    dec sid_write_count
+    bne !raw_write-
+#else
     lda #0
     sta retrigger
     jsr get_byte
@@ -235,6 +251,7 @@ next_block:
     ora #1
 !muted:
     sta SID+offset+4
+#endif
 }
 
 .macro ReadPcm(index, state) {
@@ -361,11 +378,15 @@ sequence_tick:
 .macro MixPcm(state, destination) {
     lda state+10
     bne !active+
+#if RAW_SID
+    lda #32
+#else
     .if (PCM_COUNT == 1) {
         lda #12
     } else {
         lda #4
     }
+#endif
     sta destination
     jmp !mixed+
 !active:
@@ -431,12 +452,29 @@ irq:
         clc
         lda mix0
         adc mix1
+#if RAW_SID
+        // Round once after both fine-grained PCM contributions are mixed.
+        tax
+        lda pcm_quantize_table,x
+#endif
     } else {
         lda mix0
     }
     sta next_dac
     dec tick_samples
     bne !no_tick+
+#if RAW_SID
+    // Stop at the final sample boundary. Waiting for foreground playlist
+    // decoding would emit extra samples after the declared passage ends.
+    lda played_tick_count
+    cmp #<RAW_TICK_COUNT
+    bne !next_tick+
+    lda played_tick_count+1
+    cmp #>RAW_TICK_COUNT
+    bne !next_tick+
+    jmp done
+!next_tick:
+#endif
     lda next_tick_samples
     sta tick_samples
     inc tick_due

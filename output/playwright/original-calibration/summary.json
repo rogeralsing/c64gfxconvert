@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "url": "http://127.0.0.1:49165/?v=outlines1",
+  "contrastChoices": 6,
+  "distinctRenderedChoices": true,
+  "allVideos": {
+    "frames": 60,
+    "fps": 10,
+    "durationSeconds": 6,
+    "audioSeconds": 6
+  },
+  "soundButtonUnmutes": true,
+  "playbackAdvances": true,
+  "mobileWidths": {
+    "viewport": 390,
+    "clientWidth": 390,
+    "scrollWidth": 390,
+    "bodyScrollWidth": 390
+  },
+  "consoleOrPageErrors": 0,
+  "requestOrHTTPErrors": 0,
+  "sourceDistinctFromAcceptedStill": true,
+  "desktopScreenshot": "preview-final-desktop.png",
+  "mobileScreenshot": "preview-mobile-390.png",
+  "details": "browser-verification.json"
+}

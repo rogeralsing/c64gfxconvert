@@ -20,3 +20,5 @@ The current profile is PAL, reSID, MOS8580 + digiboost. Read the
 [mixer instructions](../sid-voice-sampler/AGENTS.md) before music changes.
 Existing converter internals remain for separate maintenance; they are not a
 fallback for the current SID-voice mixing work.
+
+- [HVSC-HYBRID.md](HVSC-HYBRID.md): experimental real SID instruments with MOD samples.

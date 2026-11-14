@@ -66,6 +66,54 @@ def _background_costs(events, overlap, calls, fill_begins):
             "c3_background_control_scope": "Includes active queue/boundary guards and branches between consecutive C3 calls. RLE fills and intervening idle waits excluded; final exit into each idle wait is not charged."}
 
 
+def _partition(events, overlap, starts, entries, rows, calls, kernels, rle_kernels):
+    """Partition actual CPU time between first and final hardware NMI entries.
+
+    Startup preparation and terminal shutdown are outside this interval.
+    The residual contains main-loop control and busy waits, not measured sleep.
+    Kernel costs are nested breakdowns, never added twice to the totals.
+    """
+    low, high = starts[0], entries[-1] - 7
+    total = high - low
+
+    def foreground(begin, end):
+        begin, end = max(begin, low), min(end, high)
+        return max(0, end - begin - overlap(begin, end)) if begin < end else 0
+
+    nmi = overlap(low, high)
+    mixer = sum(foreground(row["fill_begin_cycle"], row["fill_rts_cycle"] + 6) for row in rows)
+    producer = sum(foreground(row["begin_cycle"], row["resume_cycle"]) for row in calls)
+    decoder = sum(foreground(begin, end) for begin, end in zip(
+        events.get("score_prefetch_begin", []), events.get("score_prefetch_end", [])))
+    other = total - nmi - mixer - producer - decoder
+    if min(nmi, mixer, producer, decoder, other) < 0:
+        raise ValueError("CPU attribution overlaps or exceeds the actual measured interval")
+    table = {name: {"cycles": count, "cpu_percent": count * 100 / total}
+             for name, count in (("nmi", nmi), ("bass_drum_fill", mixer),
+                                 ("c3_producer", producer), ("score_decode", decoder),
+                                 ("main_control_and_busy_wait", other))}
+
+    def nested(records):
+        grouped = {}
+        for row in records:
+            begin, end = row["begin_cycle"], row["return_complete_cycle"]
+            if end <= low or begin >= high:
+                continue
+            if begin < low or end > high:
+                raise ValueError("A kernel straddles the profiling boundary; use an explicit clipped call trace")
+            group = grouped.setdefault(row["kind"], {"calls": 0, "cycles_including_jsr_rts": 0,
+                                                     "outputs": 0})
+            group["calls"] += 1
+            group["cycles_including_jsr_rts"] += row["foreground_cycles_including_jsr_rts"]
+            group["outputs"] += row["outputs"]
+        return grouped
+
+    return {"interval_start_hardware_cycle": low, "interval_end_hardware_cycle": high,
+            "interval_cpu_cycles": total, "cpu_partition": table,
+            "c3_kernels": nested(kernels), "bass_drum_kernels": nested(rle_kernels),
+            "scope": "Exact non-overlapping wall-cycle partition of the unchanged program, excluding startup and terminal shutdown. NMI cycles are removed from every foreground interval. Main-control/busy-wait residual is not a claim that all those cycles can meet an arbitrary new deadline."}
+
+
 def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
     """Profile all buffers and automatic activations, including C3 call costs."""
     program, out = Path(program).resolve(), Path(out).resolve()
@@ -85,11 +133,24 @@ def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
     for name in ("background_begin", "background_chunk", "c3_pump"):
         if name in labels:
             points[name] = int(labels[name])
+    for name in ("score_prefetch_begin", "score_prefetch_end"):
+        if name in labels:
+            points[name] = int(labels[name])
     kernels = {}
+    kernel_pairs = set()
     for kind, begin, end in (("slow", "c3_produce_block", "c3_produce_block_rts"),
                              ("fast", "c3_produce_fast_block", "c3_fast_block_rts"),
-                             ("ended", "c3_emit_ended_block", "c3_ended_block_rts")):
+                             ("ended", "c3_emit_ended_block", "c3_ended_block_rts"),
+                             ("ended_full8", "c3_emit_ended_full8", "c3_ended_full8_rts"),
+                             ("copy", "c3_copy_block", "c3_copy_block_rts"),
+                             ("copy16", "c3_copy16", "c3_copy16_rts"),
+                             ("ended_copy", "c3_ended_block_copy", "c3_ended_block_copy_rts"),
+                             ("ended16", "c3_ended16", "c3_ended16_rts")):
         if begin in labels and end in labels:
+            pair = int(labels[begin]), int(labels[end])
+            if pair in kernel_pairs:
+                continue
+            kernel_pairs.add(pair)
             points[begin], points[end] = int(labels[begin]), int(labels[end])
             kernels[kind] = begin, end
     writer_addresses = sorted({int(value) for name, value in labels.items()
@@ -106,6 +167,18 @@ def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
                 site = load + offset - 2
                 points[f"c3_call_{site:04x}"] = site
                 points[f"c3_resume_{site:04x}"] = site + 3
+    # mix_samples aliases the next-run label, so it executes more than once
+    # per call. Observe actual JSR/resume sites rather than that loop label.
+    for kind, label in (("regular", "mix_samples"), ("constant", "mix_constant")):
+        if label not in labels:
+            continue
+        target = int(labels[label])
+        instruction = bytes((0x20, target & 255, target >> 8))
+        for offset in range(2, len(raw) - 2):
+            if raw[offset:offset + 3] == instruction:
+                site = load + offset - 2
+                points[f"rle_call_{kind}_{site:04x}"] = site
+                points[f"rle_resume_{kind}_{site:04x}"] = site + 3
     by_address = {}
     for name, address in points.items():
         by_address.setdefault(address, []).append(name)
@@ -263,14 +336,39 @@ def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
         call_rows.append({"call": index, "begin_cycle": begin, "resume_cycle": end,
                           "outputs": values, "wall_cycles_including_jsr_rts": end - begin,
                           "foreground_cycles_including_jsr_rts": end - begin - overlap(begin, end)})
-    kernel_rows = []
-    for kind, (begin_name, end_name) in kernels.items():
-        require(len(events[begin_name]) - len(events[end_name]) in (0, 1), f"{kind} kernel entry/RTS mismatch")
-        for begin, end in zip(events[begin_name], events[end_name]):
-            require(begin < end, f"{kind} kernel reversed markers")
-            kernel_rows.append({"kind": kind, "begin_cycle": begin,
-                                "outputs": bisect.bisect_left(writes, end) - bisect.bisect_left(writes, begin),
-                                "foreground_cycles_including_jsr_rts": end + 6 - begin - overlap(begin, end + 6) + 6})
+    def kernel_costs(definitions, count_outputs):
+        result = []
+        for kind, (begin_name, end_name) in definitions.items():
+            require(len(events[begin_name]) - len(events[end_name]) in (0, 1), f"{kind} kernel entry/RTS mismatch")
+            for begin, end in zip(events[begin_name], events[end_name]):
+                require(begin < end, f"{kind} kernel reversed markers")
+                result.append({"kind": kind, "begin_cycle": begin, "return_complete_cycle": end + 6,
+                               "outputs": (bisect.bisect_left(writes, end) - bisect.bisect_left(writes, begin)) if count_outputs else 0,
+                               "foreground_cycles_including_jsr_rts": end + 6 - begin - overlap(begin, end + 6) + 6})
+        return result
+    kernel_rows = kernel_costs(kernels, True)
+    rle_kernel_rows = []
+    for kind in ("regular", "constant"):
+        begin_points = sorted(clock for name in events if name.startswith(f"rle_call_{kind}_") for clock in events[name])
+        end_points = sorted(clock for name in events if name.startswith(f"rle_resume_{kind}_") for clock in events[name])
+        for index, begin in enumerate(begin_points):
+            # The regular call resumes at the shared !mixed label, which is
+            # also reached by the constant path. Pair each real JSR with its
+            # next resume; unrelated arrivals at that label are not calls.
+            stop = bisect.bisect_right(end_points, begin)
+            require(stop < len(end_points), f"{kind} mixer JSR has no resume")
+            if stop == len(end_points):
+                continue
+            end = end_points[stop]
+            require(index + 1 == len(begin_points) or end < begin_points[index + 1],
+                    f"{kind} mixer calls overlap")
+            frame = bisect.bisect_right(begins, begin) - 1
+            require(0 <= frame < len(rows) and begin < end <= finishes[frame],
+                    f"{kind} mixer call lies outside its foreground fill")
+            rle_kernel_rows.append({"kind": kind, "begin_cycle": begin, "return_complete_cycle": end,
+                                   "outputs": counts[frame],
+                                   "foreground_cycles_including_jsr_rts": end - begin - overlap(begin, end)})
+    attribution = _partition(events, overlap, starts, entries, rows, call_rows, kernel_rows, rle_kernel_rows)
     clock, latch_count, last_latch = 0, 0, None
     gaps = Counter()
     first_latch = None
@@ -299,7 +397,7 @@ def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
     kernel_cpu = sum(row["foreground_cycles_including_jsr_rts"] for row in kernel_rows)
     background_costs = _background_costs(events, overlap, call_rows, begins)
     details = {"frames": rows, "activations": activation_rows, "c3_calls": call_rows,
-               "c3_kernels": kernel_rows, "instruction_markers": points,
+               "c3_kernels": kernel_rows, "bass_drum_kernels": rle_kernel_rows, "instruction_markers": points,
                "expected_frame_counts": counts, "observed_frame_counts": observed_counts,
                "failures": failures}
     (out / "cpu-frames.json").write_text(json.dumps(details, indent=2) + "\n")
@@ -341,6 +439,8 @@ def measure(program: Path, labels: dict, counts: list[int], out: Path) -> dict:
               "failures": failures,
               "scope": "Unmodified automatic-activation PRG. Every NMI/boundary, exact buffer length and126cycle latch clock checked. RLE fills meet the actual NMI shadow-read deadline; no foreground wait/pointer-swap gate. Costs include hardware entry/RTI and JSR/RTS as stated; final nonreturning NMI is excluded from averages. Ring generations and audio quality require separate proofs."}
     result.update(background_costs)
+    result["attribution"] = attribution
+    (out / "cpu-attribution.json").write_text(json.dumps(attribution, indent=2) + "\n")
     (out / "cpu-budget.json").write_text(json.dumps(result, indent=2) + "\n")
     if failures:
         raise ValueError(f"Automatic music CPU verification failed: {'; '.join(failures[:3])}; see {out / 'cpu-budget.json'}")

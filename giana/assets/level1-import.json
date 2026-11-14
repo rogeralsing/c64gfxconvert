@@ -26,29 +26,223 @@
     8,
     9,
     0,
-    5
+    5,
+    7
+  ],
+  "output_shared_colors": [
+    0,
+    9,
+    8
+  ],
+  "output_accent_colors": [
+    5,
+    7
+  ],
+  "source_color_to_output_color": [
+    0,
+    7,
+    8,
+    5,
+    8,
+    5,
+    5,
+    7,
+    8,
+    9,
+    8,
+    8,
+    5,
+    7,
+    0,
+    7
   ],
   "source_color_to_output_code": [
+    0,
+    3,
     2,
     3,
-    0,
-    3,
-    0,
+    2,
     3,
     3,
     3,
-    0,
+    2,
     1,
-    0,
-    0,
-    3,
-    3,
     2,
+    2,
+    3,
+    3,
+    0,
     3
   ],
+  "sampled_source_color_pixel_counts": {
+    "0": 2417,
+    "1": 85,
+    "2": 64,
+    "3": 45,
+    "5": 585,
+    "6": 18,
+    "7": 173,
+    "8": 1932,
+    "9": 3066,
+    "14": 24383
+  },
+  "semantic_output_color_pixel_counts": {
+    "0": 26800,
+    "5": 648,
+    "7": 258,
+    "8": 1996,
+    "9": 3066
+  },
   "unique_tiles": 148,
   "tile_bytes": 1184,
   "map_bytes": 1024,
+  "accent_bytes": 512,
+  "accent_layout": "offset=phase*128+world_column; bit=row; 0=green5, 1=yellow7",
+  "accent_selection": "yellow when yellow_count>0 and yellow_count>=green_count; otherwise green",
+  "accent_conflict_cells": 38,
+  "accent_conflict_cells_by_phase": {
+    "0": 7,
+    "1": 10,
+    "2": 8,
+    "3": 13
+  },
+  "accent_conflict_pixels_by_phase": {
+    "0": 20,
+    "1": 24,
+    "2": 22,
+    "3": 23
+  },
+  "accent_conflict_examples": [
+    {
+      "phase": 0,
+      "column": 42,
+      "row": 1,
+      "green_pixels": 8,
+      "yellow_pixels": 4,
+      "selected_color": 5
+    },
+    {
+      "phase": 0,
+      "column": 43,
+      "row": 1,
+      "green_pixels": 3,
+      "yellow_pixels": 4,
+      "selected_color": 7
+    },
+    {
+      "phase": 0,
+      "column": 72,
+      "row": 3,
+      "green_pixels": 2,
+      "yellow_pixels": 3,
+      "selected_color": 7
+    },
+    {
+      "phase": 0,
+      "column": 111,
+      "row": 4,
+      "green_pixels": 4,
+      "yellow_pixels": 3,
+      "selected_color": 5
+    },
+    {
+      "phase": 0,
+      "column": 112,
+      "row": 3,
+      "green_pixels": 3,
+      "yellow_pixels": 4,
+      "selected_color": 7
+    },
+    {
+      "phase": 0,
+      "column": 113,
+      "row": 2,
+      "green_pixels": 3,
+      "yellow_pixels": 2,
+      "selected_color": 5
+    },
+    {
+      "phase": 0,
+      "column": 115,
+      "row": 1,
+      "green_pixels": 4,
+      "yellow_pixels": 3,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 41,
+      "row": 1,
+      "green_pixels": 1,
+      "yellow_pixels": 1,
+      "selected_color": 7
+    },
+    {
+      "phase": 1,
+      "column": 42,
+      "row": 1,
+      "green_pixels": 7,
+      "yellow_pixels": 3,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 43,
+      "row": 1,
+      "green_pixels": 6,
+      "yellow_pixels": 4,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 72,
+      "row": 3,
+      "green_pixels": 2,
+      "yellow_pixels": 2,
+      "selected_color": 7
+    },
+    {
+      "phase": 1,
+      "column": 111,
+      "row": 4,
+      "green_pixels": 7,
+      "yellow_pixels": 3,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 112,
+      "row": 3,
+      "green_pixels": 6,
+      "yellow_pixels": 4,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 113,
+      "row": 2,
+      "green_pixels": 6,
+      "yellow_pixels": 2,
+      "selected_color": 5
+    },
+    {
+      "phase": 1,
+      "column": 114,
+      "row": 1,
+      "green_pixels": 1,
+      "yellow_pixels": 3,
+      "selected_color": 7
+    },
+    {
+      "phase": 1,
+      "column": 115,
+      "row": 0,
+      "green_pixels": 1,
+      "yellow_pixels": 1,
+      "selected_color": 7
+    }
+  ],
+  "accent_pixels_verified_without_conflict": 3360,
   "source_sha256": {
     "original-level1-map.bin": "e75d388d6b80e7ec82064fc6a9309c16dadedf34a73425b52e4712be1fe7c99c",
     "original-charset.bin": "eb453a70a5c3cdf177e19868cdb663b8e0182e90a4368d78b25edbbbe24ea668",
@@ -56,8 +250,9 @@
     "peptoette-a.vpl": "4a762159d75af98b510d43b709c4a1243f85ad706e594cf4a24fee0165f7b6ed"
   },
   "output_sha256": {
-    "level1-tiles.bin": "4cc413a65ecd242b50a35ce72dcbae665e04736389b56831422a437b881faa1b",
-    "level1-tv-map.bin": "3c1c54bfc37571053f32fcc8ea58d4727775039963e442acd09549ab4cce9631"
+    "level1-tiles.bin": "d6efa635bc270a96809effc9b07988f1cc68160e9f7724518a9adbfce4b41451",
+    "level1-tv-map.bin": "3c1c54bfc37571053f32fcc8ea58d4727775039963e442acd09549ab4cce9631",
+    "level1-accents.bin": "bcb6bdd06b2451339770583f83fd0e1542d9101368d7cce0ec0a0296c5550c5d"
   },
   "tile_usage": {
     "0": 641,

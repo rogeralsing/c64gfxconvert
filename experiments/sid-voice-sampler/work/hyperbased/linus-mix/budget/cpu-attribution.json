@@ -1,0 +1,53 @@
+{
+  "interval_start_hardware_cycle": 2246259,
+  "interval_end_hardware_cycle": 21951147,
+  "interval_cpu_cycles": 19704888,
+  "cpu_partition": {
+    "nmi": {
+      "cycles": 13976490,
+      "cpu_percent": 70.92905070051654
+    },
+    "bass_drum_fill": {
+      "cycles": 3440890,
+      "cpu_percent": 17.462113968879194
+    },
+    "c3_producer": {
+      "cycles": 846017,
+      "cpu_percent": 4.293437242576562
+    },
+    "main_control_and_busy_wait": {
+      "cycles": 1441491,
+      "cpu_percent": 7.315398088027702
+    }
+  },
+  "c3_kernels": {
+    "copy": {
+      "calls": 1646,
+      "cycles_including_jsr_rts": 528773,
+      "outputs": 32210
+    },
+    "ended_copy": {
+      "calls": 175,
+      "cycles_including_jsr_rts": 22240,
+      "outputs": 1261
+    },
+    "ended16": {
+      "calls": 336,
+      "cycles_including_jsr_rts": 44352,
+      "outputs": 5376
+    }
+  },
+  "bass_drum_kernels": {
+    "regular": {
+      "calls": 773,
+      "cycles_including_jsr_rts": 2745923,
+      "outputs": 120888
+    },
+    "constant": {
+      "calls": 226,
+      "cycles_including_jsr_rts": 511409,
+      "outputs": 35345
+    }
+  },
+  "scope": "Exact non-overlapping wall-cycle partition of the unchanged program, excluding startup and terminal shutdown. NMI cycles are removed from every foreground interval. Main-control/busy-wait residual is not a claim that all those cycles can meet an arbitrary new deadline."
+}

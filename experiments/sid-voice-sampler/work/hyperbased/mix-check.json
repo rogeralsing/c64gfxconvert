@@ -72,12 +72,12 @@
     }
   },
   "program_file": "linus-mix/player.prg",
-  "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+  "program_sha256": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
   "common_gain": 8,
   "same_clock_origin": 2246223,
   "every_capture_passed": true,
   "cpu_budget_passed": true,
-  "minimum_foreground_slack_cycles": 543,
+  "minimum_foreground_slack_cycles": 1006,
   "all_muted_equals_static_sid": true,
   "causal_ring_proof": true,
   "listening_status": "New sampled SID2 and complete mix pending user assessment"

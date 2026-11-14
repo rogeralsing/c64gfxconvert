@@ -1,0 +1,232 @@
+- banner:
+  - heading "C64 Studio" [level=1]
+  - strong: FLI
+  - text: Local workspace
+  - group "Project files":
+    - button "Open project JSON"
+    - button "Open project"
+    - button "Save project"
+  - button "Open image"
+- main:
+  - navigation "Workspace tools":
+    - button "Open source image"
+    - button "Source image settings"
+    - button "Image adjustments"
+    - button "Palette and color settings"
+    - button "Reset image framing" [disabled]
+  - region "Untitled RGB / 8":
+    - heading "Untitled RGB / 8" [level=2]
+    - text: No image open
+    - tablist "Image color mode":
+      - tab "Unrestricted" [selected]
+      - tab "C64 Palette"
+      - tab "FLI"
+    - checkbox "Tile grid" [checked]
+    - text: Tile grid
+    - tabpanel "Unrestricted":
+      - heading "No image open" [level=2]
+      - button "Open image"
+      - text: Fit 160 × 200 logical pixels · 2 columns reserved on the left
+  - complementary "Image settings":
+    - text: Properties
+    - group:
+      - heading "Image" [level=2]
+      - heading "Graphics format" [level=3]
+      - combobox "Graphics format":
+        - option "FLI" [selected]
+        - option "FLI + Sprites"
+        - option "IFLI"
+        - option "MCI"
+        - option "Multi Color Bitmap"
+        - option "Charset · Hires + Multicolor"
+        - option "Multicolor Sprites"
+        - option "Multicolor + Hires Sprites"
+        - option "Hires"
+        - option "Hires · 2 colors"
+        - option "AFLI"
+        - option "AFLI + Sprites"
+        - option "NUFLI"
+        - option "PAFLI"
+      - heading "C64 palette" [level=3]
+      - combobox "C64 palette":
+        - option "Colodore (PAL)" [selected]
+        - option "Pepto (PAL)"
+        - option "PEPTOette_a"
+      - heading "Virtual color mode" [level=3]
+      - combobox "Virtual color mode":
+        - option "Computed" [selected]
+        - option "Talent"
+      - paragraph: Computed pairs, shared by all layers with virtual colors enabled.
+      - group "Background color":
+        - text: Background color
+        - radio "Black" [checked]
+        - radio "White"
+        - radio "Red"
+        - radio "Cyan"
+        - radio "Purple"
+        - radio "Green"
+        - radio "Blue"
+        - radio "Yellow"
+        - radio "Orange"
+        - radio "Brown"
+        - radio "Light red"
+        - radio "Dark gray"
+        - radio "Gray"
+        - radio "Light green"
+        - radio "Light blue"
+        - radio "Light gray"
+        - status: "0 · Black · #000000"
+    - group:
+      - heading "Layers" [level=2]
+      - text: "1"
+      - list "Image layers":
+        - listitem:
+          - button "Show Layer 1" [pressed]
+          - button "Select Layer 1" [pressed]: Layer 1
+      - toolbar "Layer actions":
+        - button "New layer": New
+        - button "Duplicate layer"
+        - button "Move layer up" [disabled]
+        - button "Move layer down" [disabled]
+        - button "Delete layer" [disabled]
+    - text: Layer settings
+    - strong: Layer 1
+    - group:
+      - heading "Source image" [level=2]
+      - button "Upload source image"
+      - button "Choose image"
+    - group:
+      - heading "Adjustments" [level=2]
+      - text: Brightness
+      - status: 0%
+      - slider "Brightness": "0"
+      - text: Contrast
+      - status: 100%
+      - slider "Contrast": "100"
+      - group "Levels & curves":
+        - heading "Levels & curves" [level=3]
+        - button "Reset levels": Reset
+        - group "Tone curve, point 1 of 2, input 0, output 0. Arrow keys adjust; Page Up and Page Down select; Insert adds a point; Delete removes a point."
+        - paragraph: Click to add. Drag to shape. Delete to remove.
+        - text: Input
+        - spinbutton "Input" [disabled]: "0"
+        - text: Output
+        - spinbutton "Output": "0"
+        - button "Remove point" [disabled]
+        - status: Point 1 of 2
+        - button "Reset curve" [disabled]
+        - group: Input levels
+      - text: Hue
+      - status: 0°
+      - slider "Hue": "0"
+      - text: Saturation
+      - status: 100%
+      - slider "Saturation": "100"
+      - text: RGB noise
+      - status: 0%
+      - slider "RGB noise": "0"
+      - text: Interlace
+      - status: 0%
+      - slider "Interlace": "0"
+      - text: Direction
+      - combobox "Direction":
+        - option "Horizontal —" [selected]
+        - option "Rising diagonal /"
+        - option "Falling diagonal \\"
+      - text: Line spacing
+      - status: 2 steps
+      - slider "Line spacing": "2"
+      - text: Dither
+      - status: 100%
+      - slider "Dither": "100"
+      - checkbox "Dither line ends"
+      - text: Dither line ends
+    - group:
+      - heading "Color & palette" [level=2]
+      - heading "Virtual Colors" [level=2]
+      - combobox "Virtual Colors":
+        - option "Off"
+        - option "Lines" [selected]
+        - option "Checkers"
+      - region "Virtual palette 69":
+        - heading "Virtual palette 69" [level=2]
+        - text: Darkest level
+        - status: "0"
+        - slider "Darkest level": "0"
+        - text: Lightest level
+        - status: "16"
+        - slider "Lightest level": "16"
+        - group "Virtual palette 69":
+          - 'button "Level 0 · 0 · Black · #000000" [pressed]'
+          - 'button "Level 1 · 1 · Black + Blue · #141262" [pressed]'
+          - 'button "Level 1 · 2 · Black + Brown · #2F1B00" [pressed]'
+          - 'button "Level 2 · 39 · Blue · #2724C4" [pressed]'
+          - 'button "Level 2 · 41 · Blue + Brown · #432D62" [pressed]'
+          - 'button "Level 2 · 52 · Brown · #5E3500" [pressed]'
+          - 'button "Level 3 · 8 · Red + Blue · #5F2679" [pressed]'
+          - 'button "Level 3 · 10 · Red + Brown · #7A2F17" [pressed]'
+          - 'button "Level 3 · 42 · Blue + Dark gray · #373686" [pressed]'
+          - 'button "Level 3 · 53 · Brown + Dark gray · #533E24" [pressed]'
+          - 'button "Level 4 · 6 · Red · #96282E" [pressed]'
+          - 'button "Level 4 · 11 · Red + Dark gray · #6F383B" [pressed]'
+          - 'button "Level 4 · 24 · Purple + Blue · #6329B9" [pressed]'
+          - 'button "Level 4 · 26 · Purple + Brown · #7F3157" [pressed]'
+          - 'button "Level 4 · 40 · Blue + Orange · #63366D" [pressed]'
+          - 'button "Level 4 · 47 · Orange + Brown · #7F3F0B" [pressed]'
+          - 'button "Level 4 · 58 · Dark gray · #474747" [pressed]'
+          - 'button "Level 5 · 7 · Red + Purple · #9B2B6E" [pressed]'
+          - 'button "Level 5 · 9 · Red + Orange · #9B3822" [pressed]'
+          - 'button "Level 5 · 28 · Purple + Dark gray · #733A7A" [pressed]'
+          - 'button "Level 5 · 49 · Orange + Dark gray · #73482E" [pressed]'
+          - 'button "Level 6 · 12 · Red + Gray · #875053" [pressed]'
+          - 'button "Level 6 · 13 · Red + Light blue · #7F4697" [pressed]'
+          - 'button "Level 6 · 22 · Purple · #9F2DAD" [pressed]'
+          - 'button "Level 6 · 25 · Purple + Orange · #9F3B61" [pressed]'
+          - 'button "Level 6 · 46 · Orange · #9F4815" [pressed]'
+          - 'button "Level 6 · 59 · Dark gray + Gray · #606060" [pressed]'
+          - 'button "Level 6 · 60 · Dark gray + Light blue · #5856A3" [pressed]'
+          - 'button "Level 7 · 29 · Purple + Gray · #8C5393" [pressed]'
+          - 'button "Level 7 · 30 · Purple + Light blue · #8449D6" [pressed]'
+          - 'button "Level 7 · 50 · Orange + Gray · #8C6047" [pressed]'
+          - 'button "Level 7 · 51 · Orange + Light blue · #84568A" [pressed]'
+          - 'button "Level 8 · 23 · Purple + Green · #707372" [pressed]'
+          - 'button "Level 8 · 27 · Purple + Light red · #BD468A" [pressed]'
+          - 'button "Level 8 · 33 · Green + Orange · #708126" [pressed]'
+          - 'button "Level 8 · 48 · Orange + Light red · #BD543E" [pressed]'
+          - 'button "Level 8 · 61 · Gray · #787878" [pressed]'
+          - 'button "Level 8 · 62 · Gray + Light blue · #706EBC" [pressed]'
+          - 'button "Level 8 · 66 · Light blue · #6864FF" [pressed]'
+          - 'button "Level 9 · 35 · Green + Gray · #5D9957" [pressed]'
+          - 'button "Level 9 · 37 · Green + Light blue · #558F9B" [pressed]'
+          - 'button "Level 9 · 55 · Light red + Gray · #A96C6F" [pressed]'
+          - 'button "Level 9 · 56 · Light red + Light blue · #A162B3" [pressed]'
+          - 'button "Level 10 · 18 · Cyan + Gray · #6AA7A3" [pressed]'
+          - 'button "Level 10 · 20 · Cyan + Light blue · #629DE7" [pressed]'
+          - 'button "Level 10 · 31 · Green · #41B936" [pressed]'
+          - 'button "Level 10 · 34 · Green + Light red · #8E8C4E" [pressed]'
+          - 'button "Level 10 · 54 · Light red · #DA5F66" [pressed]'
+          - 'button "Level 10 · 63 · Gray + Light gray · #939393" [pressed]'
+          - 'button "Level 10 · 67 · Light blue + Light gray · #8B89D7" [pressed]'
+          - 'button "Level 11 · 15 · Cyan + Green · #4EC882" [pressed]'
+          - 'button "Level 11 · 17 · Cyan + Light red · #9B9B9A" [pressed]'
+          - 'button "Level 11 · 38 · Green + Light gray · #78B472" [pressed]'
+          - 'button "Level 11 · 57 · Light red + Light gray · #C4878A" [pressed]'
+          - 'button "Level 12 · 14 · Cyan · #5BD6CE" [pressed]'
+          - 'button "Level 12 · 21 · Cyan + Light gray · #85C2BE" [pressed]'
+          - 'button "Level 12 · 32 · Green + Yellow · #98D63F" [pressed]'
+          - 'button "Level 12 · 36 · Green + Light green · #69DC5D" [pressed]'
+          - 'button "Level 12 · 68 · Light gray · #AEAEAE" [pressed]'
+          - 'button "Level 13 · 16 · Cyan + Yellow · #A5E58B" [pressed]'
+          - 'button "Level 13 · 19 · Cyan + Light green · #76EBA9" [pressed]'
+          - 'button "Level 13 · 45 · Yellow + Light gray · #CFD17B" [pressed]'
+          - 'button "Level 13 · 65 · Light green + Light gray · #A0D799" [pressed]'
+          - 'button "Level 14 · 43 · Yellow · #EFF347" [pressed]'
+          - 'button "Level 14 · 44 · Yellow + Light green · #C0F966" [pressed]'
+          - 'button "Level 14 · 64 · Light green · #91FF84" [pressed]'
+          - 'button "Level 15 · 4 · White + Yellow · #F7F9A3" [pressed]'
+          - 'button "Level 15 · 5 · White + Light green · #C8FFC2" [pressed]'
+          - 'button "Level 16 · 3 · White · #FFFFFF" [pressed]'
+    - group "Document info":
+      - heading "Document info" [level=2]
+  - status
+- contentinfo: C64 · FULL-COLOR SOURCE 160 × 200 / 2:1

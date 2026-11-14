@@ -1,15 +1,6 @@
 {
   "passed": true,
-  "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
-  "method": "Actual VICE -autostartprgmode 1 -autostart. The monitor only sets a completion breakpoint and continues normal reset/autostart; no manual load, SYS or addressed g.",
-  "samples_sid3": 156389,
-  "samples_sid2": 39097,
-  "sid1_writes": 3000,
-  "underruns": 0,
-  "generated_frames": 1000,
-  "first_latch_cycle": 3184590,
-  "monitor_sha256": "babf6a1ecf8b111fff2b0a587399de1a632f66fb5589c1b7689e89a6ced65b34",
-  "trace_sha256": "6085b8bc9ec09002a5adc997aaddd3eababa16cb6fab18adb2cd501e6a47c095",
+  "program_sha256": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
   "profile": {
     "machine": "PAL C64",
     "sid_engine": 1,
@@ -17,5 +8,29 @@
     "digiboost": true,
     "resampling": 2,
     "sample_rate": 22050
-  }
+  },
+  "autostart_prg_mode": 1,
+  "manual_load_or_SYS_or_addressed_g": false,
+  "method": "Actual VICE -autostartprgmode 1 -autostart of the published player.prg. The reset monitor only sets the completion breakpoint, continues with unaddressed g, reads final counters and exits.",
+  "generated_frames": 1000,
+  "sid3_samples": 156389,
+  "sid3_sample_gap_counts": {
+    "126": 156388
+  },
+  "sid2_ring_values": 39097,
+  "sid2_latches_including_startup_neutral": 39098,
+  "sid2_sample_gap_counts": {
+    "504": 39097
+  },
+  "sid1_writes": 3000,
+  "sid1_values_and_event_phases_exact": true,
+  "sid2_values_and_phase_events_exact": true,
+  "sid3_inputs_and_prefixes_exact": true,
+  "underruns": 0,
+  "first_latch_cycle": 3184590,
+  "constant_master_volume": true,
+  "trace_sha256": "6085b8bc9ec09002a5adc997aaddd3eababa16cb6fab18adb2cd501e6a47c095",
+  "monitor_sha256": "1d6d3f9d74f8fbb7abda04d8a9d5ec85c9a86006e8c610c52bfa69076ce7ccff",
+  "audio_captured": false,
+  "scope": "Normal emulator autoload and complete native register/counter verification. Separate canonical receipts prove causal ring generation and listening WAV identity. No physical SID claim."
 }

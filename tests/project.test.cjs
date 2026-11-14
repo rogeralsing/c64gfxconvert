@@ -66,6 +66,45 @@ test('project JSON preserves embedded sources, shared settings, and distinct ord
   assert.equal(loaded.layers[1].settings.values.brightness, -18);
 });
 
+test('mixed projects preserve marker colors, binary tiles, visibility, and active layer alongside legacy image layers', () => {
+  const project = fixture();
+  const tiles = Array(1000).fill(0);
+  tiles[0] = tiles[41] = tiles[999] = 1;
+  project.layers.push({ type: 'tile-markers', name: 'Selected tiles', autoName: false, visible: false,
+    source: null, settings: null, markers: { color: '#00aaff', tiles } });
+  project.activeLayer = 2;
+
+  const saved = JSON.parse(codec.stringify(project));
+  assert.deepEqual(saved.layers[2], project.layers[2]);
+  assert.deepEqual(saved.layers[0].source, source);
+  assert.equal(saved.layers[0].settings.values.brightness, 37);
+  assert.equal(saved.activeLayer, 2);
+  const restored = codec.parse(JSON.stringify(saved));
+  restored.layers[2].markers.tiles[41] = 0;
+  assert.equal(saved.layers[2].markers.tiles[41], 1);
+});
+
+test('project import rejects invalid marker maps and unknown layer types', () => {
+  for (const change of [
+    layer => { layer.type = 'unknown'; },
+    layer => { layer.markers.color = 'red'; },
+    layer => { layer.markers.color = '#fff'; },
+    layer => { layer.markers.tiles.pop(); },
+    layer => { layer.markers.tiles.push(0); },
+    layer => { layer.markers.tiles[50] = 2; },
+    layer => { layer.markers.tiles[50] = true; },
+    layer => { layer.markers.tiles[50] = null; },
+    layer => { layer.source = source; },
+    layer => { layer.settings = fixture().layers[0].settings; }
+  ]) {
+    const project = fixture();
+    project.layers[1] = { type: 'tile-markers', name: 'Markers', autoName: true, visible: true,
+      source: null, settings: null, markers: { color: '#ffcc00', tiles: Array(1000).fill(0) } };
+    change(project.layers[1]);
+    assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project: layer 2/);
+  }
+});
+
 test('project curves and interlace settings round-trip per layer and migrate older projects', () => {
   const project = fixture();
   const saved = JSON.parse(codec.stringify(project));

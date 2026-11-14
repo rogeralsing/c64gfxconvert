@@ -45,11 +45,11 @@ def normalize(tick: dict, offsets: bool = False, loop_targets: bool = False) -> 
 
 
 def encode(ticks: list, offsets: bool = False, variable_ticks: bool = False,
-           loop_targets: bool = False) -> bytes:
+           loop_targets: bool = False, previous_tick: dict | None = None) -> bytes:
     result = bytearray()
-    previous = None
+    previous = normalize(previous_tick, offsets, loop_targets) if previous_tick is not None else None
     held = 0
-    previous_samples = None
+    previous_samples = previous_tick["sample_count"] if variable_ticks and previous_tick is not None else None
 
     def flush():
         nonlocal held
@@ -96,21 +96,28 @@ def encode(ticks: list, offsets: bool = False, variable_ticks: bool = False,
 
 
 def pack(ticks: list, grouping: str, offsets: bool = False, variable_ticks: bool = False,
-         loop_targets: bool = False) -> dict:
+         loop_targets: bool = False, continuous: bool = False) -> dict:
+    rows_per_block = int(grouping[5:]) if grouping.startswith("rows:") else None
+    if rows_per_block is not None and rows_per_block < 1:
+        raise ValueError("Rows per score block must be positive")
     groups = []
     for index, tick in enumerate(ticks):
-        key = ((tick["order"], tick["row"]) if grouping == "row" else tick["order"]
+        key = ((tick["order"], tick["row"] // rows_per_block) if rows_per_block else
+               (tick["order"], tick["row"]) if grouping == "row" else tick["order"]
                if grouping == "order" else index // int(grouping))
         if not groups or groups[-1][0] != key:
             groups.append((key, []))
         groups[-1][1].append(tick)
     blocks, lookup, playlist = [], {}, []
+    previous_tick = None
     for _, group in groups:
-        data = encode(group, offsets, variable_ticks, loop_targets)
+        data = encode(group, offsets, variable_ticks, loop_targets,
+                      previous_tick=previous_tick if continuous else None)
         if data not in lookup:
             lookup[data] = len(blocks)
             blocks.append(data)
         playlist.append(lookup[data])
+        previous_tick = group[-1]
     result = {"grouping": grouping, "blocks": blocks, "playlist": playlist,
               "bytes": sum(map(len, blocks)) + 2 * (len(playlist) + 1)}
     if offsets:
@@ -119,6 +126,8 @@ def pack(ticks: list, grouping: str, offsets: bool = False, variable_ticks: bool
         result["variable_ticks"] = True
     if loop_targets:
         result["loop_targets"] = True
+    if continuous:
+        result["continuous_blocks"] = True
     return result
 
 
@@ -208,9 +217,21 @@ def bytes_asm(data: bytes) -> str:
                      for i in range(0, len(data), 24))
 
 
-def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
+def build(input_path: Path, out: Path, score_codec: str = "legacy",
+          dictionary_groupings: tuple[str, ...] | None = None,
+          dictionary_optimal_parse: bool = False, minimum_loop_span: int = 256,
+          continuous_blocks: bool = False) -> dict:
     if score_codec not in ("legacy", "dictionary", "dictionary8"):
         raise ValueError("score_codec must be legacy, dictionary or dictionary8")
+    if not isinstance(minimum_loop_span, int) or not 1 <= minimum_loop_span <= 256:
+        raise ValueError("minimum_loop_span must be an integer in1..256")
+    if dictionary_groupings is not None or dictionary_optimal_parse:
+        if score_codec == "legacy":
+            raise ValueError("Dictionary optimization requires a dictionary score codec")
+        for grouping in dictionary_groupings or ():
+            count = grouping[5:] if grouping.startswith("rows:") else grouping
+            if grouping not in ("row", "order") and (not count.isdecimal() or int(count) < 1):
+                raise ValueError("Dictionary groupings must be row, order, rows:N or a positive tick count")
     arrangement = json.loads(input_path.read_text())
     mode = arrangement.get("mixing", {}).get("mode", "feedback")
     if mode not in ("feedback", "nearest"):
@@ -230,9 +251,12 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
     offsets = any(voice.get("offset", 0) or voice.get("offset_fraction", 0)
                   for tick in ticks for voice in tick["pcm"] if voice["trigger"])
     loop_targets = any("loop_sample" in voice for tick in ticks for voice in tick["pcm"])
+    if minimum_loop_span != 256 and (loop_targets or any("loop_target_id" in entry
+                                                        for entry in arrangement["pcm_bank"])):
+        raise ValueError("Shorter loop spans cannot preserve independent loop-target timing")
     if loop_targets and variable_ticks and any(tick["sample_count"] < 8 for tick in ticks):
         raise ValueError("Extended loop-pointer ticks require at least eight DAC sample slots")
-    choices = [pack(ticks, grouping, offsets, variable_ticks, loop_targets)
+    choices = [pack(ticks, grouping, offsets, variable_ticks, loop_targets, continuous_blocks)
                for grouping in ("row", "order", "16", "32", "48", "64", "96", "128")]
     packed = min(choices, key=lambda item: item["bytes"])
     baseline_score_bytes = packed["bytes"]
@@ -240,14 +264,20 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
     dictionary_choices = []
     if score_codec != "legacy":
         from score_dictionary import decode_blocks, encode_blocks
-        groupings = tuple(dict.fromkeys((packed["grouping"], "row", "order", "128")))
+        groupings = tuple(dict.fromkeys((packed["grouping"], "row", "order", "128",
+                                        *(dictionary_groupings or ()))))
         for grouping in groupings:
-            raw = next(item for item in choices if item["grouping"] == grouping)
-            candidate = encode_blocks(raw["blocks"], one_byte=score_codec == "dictionary8")
+            raw = next((item for item in choices if item["grouping"] == grouping), None)
+            if raw is None:
+                raw = pack(ticks, grouping, offsets, variable_ticks, loop_targets, continuous_blocks)
+                choices.append(raw)
+            candidate = encode_blocks(raw["blocks"], one_byte=score_codec == "dictionary8",
+                                      optimal_parse=dictionary_optimal_parse)
             if decode_blocks(candidate) != raw["blocks"]:
                 raise ValueError("Dictionary codec changed score bytes")
             total = candidate["bytes"] + 2 * (len(raw["playlist"]) + 1)
             dictionary_choices.append((total, raw, candidate))
+        baseline_score_bytes = min(item["bytes"] for item in choices)
         _, packed, dictionary = min(dictionary_choices, key=lambda item: item[0])
     if decode(packed) != [normalize(tick, offsets, loop_targets) for tick in ticks]:
         raise ValueError("Packed stream differs from the entire quantized source timeline")
@@ -283,7 +313,7 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
         if length:
             if start < 0 or start + length > len(data):
                 raise ValueError("Loop lies outside the sample")
-            copies = max(1, math.ceil(256 / length))
+            copies = max(1, math.ceil(minimum_loop_span / length))
             data = data[:start] + data[start:start + length] * copies
         else:
             start, copies = 0, 1
@@ -385,6 +415,10 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
                                        if loop_targets else "Write previous DAC; commit staged voice at tick_samples4/3/2/1; resolve marker, mix current cursors, advance8bit fractional steps. EOF skips stagger and stops at final boundary.")},
                "source_sha256": {name: sha(HERE / name) for name in ("pcm4_build.py", "pcm4_player.asm")}}
     receipt["compression"]["codec"] = score_codec
+    if continuous_blocks:
+        receipt["compression"]["continuous_blocks"] = True
+    if minimum_loop_span != 256:
+        receipt["pcm_bank"]["minimum_loop_span"] = minimum_loop_span
     if offsets or variable_ticks or loop_targets:
         receipt["extended_score"] = {"sample_offsets": bool(offsets), "variable_ticks": variable_ticks,
                                      "loop_targets": loop_targets,
@@ -405,6 +439,10 @@ def build(input_path: Path, out: Path, score_codec: str = "legacy") -> dict:
             "dictionary_byte_roundtrip_verified": True,
         })
         receipt["source_sha256"]["score_dictionary.py"] = sha(HERE / "score_dictionary.py")
+        if dictionary_groupings is not None:
+            receipt["compression"]["requested_dictionary_groupings"] = list(dictionary_groupings)
+        if dictionary_optimal_parse:
+            receipt["compression"]["optimal_dictionary_parse"] = True
     (out / "build.json").write_text(json.dumps(receipt, indent=2) + "\n")
     return receipt
 
@@ -414,8 +452,18 @@ def main():
     parser.add_argument("--input", type=Path, default=HERE / "results/pcm4-clean/arrangement.json")
     parser.add_argument("--out", type=Path, default=HERE / "results/pcm4-clean/c64")
     parser.add_argument("--score-codec", choices=("legacy", "dictionary", "dictionary8"), default="legacy")
+    parser.add_argument("--dictionary-groupings", nargs="+",
+                        help="Also search row/order/rows:N/positive tick groupings; default release search stays unchanged")
+    parser.add_argument("--dictionary-optimal-parse", action="store_true",
+                        help="Choose shortest tokenization with each raw phrase table; same decoder format")
+    parser.add_argument("--minimum-loop-span", type=int, default=256,
+                        help="Opt-in loop-copy floor; smaller spans forbid independent loop targets")
+    parser.add_argument("--continuous-blocks", action="store_true",
+                        help="Keep previous source state across score blocks; full contextual roundtrip required")
     args = parser.parse_args()
-    result = build(args.input, args.out, args.score_codec)
+    result = build(args.input, args.out, args.score_codec,
+                   tuple(args.dictionary_groupings) if args.dictionary_groupings is not None else None,
+                   args.dictionary_optimal_parse, args.minimum_loop_span, args.continuous_blocks)
     print(json.dumps({key: result[key] for key in ("program", "symbols", "program_bytes", "program_end", "compression")}))
 
 

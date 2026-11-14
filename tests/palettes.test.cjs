@@ -74,9 +74,10 @@ test('virtual mode and base palette switches retain exclusion IDs and resolve ac
   assert.equal(grayShadow.index, pairIndex);
 
   const source = new ImageData(2, 2);
-  source.data.set([0, 0, 0, 255, 255, 255, 255, 255, 12, 34, 56, 255, 91, 81, 71, 255]);
+  source.data.set([0, 0, 0, 255, 255, 255, 255, 255, 0, 0, 0, 255, 255, 255, 255, 255]);
   const mapped = mapToTalentVirtualPalette(source, active, { excludedIndices });
-  assert.deepEqual(Array.from(mapped.virtualIndices), Array(4).fill(pairIndex));
+  assert.deepEqual(Array.from(mapped.virtualIndices), Array(4).fill(pairIndex),
+    'surface-only pairs remain usable when every solid entry is disabled');
   assert.deepEqual(Array.from(mapped.pixels.data), Array(4).fill([55, 55, 55, 255]).flat());
   const resolved = resolveVirtualPaletteColors(mapped, active, state.palette, 'lines');
   assert.deepEqual(Array.from(resolved.data), [0, 0, 0, 255, 0, 0, 0, 255,

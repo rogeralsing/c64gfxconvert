@@ -1,0 +1,7081 @@
+{
+  "scope": "Complete Cream three-voice arrangement; omissions and new SID approximations are explicit.",
+  "full_song": true,
+  "source": {
+    "title_slug": "cream-of-the-earth",
+    "author": "Romeo Knight / Red Sector Inc.",
+    "source_page": "https://demozoo.org/music/21557/",
+    "download_url": "https://modland.ziphoid.com/pub/modules/Protracker/Romeo%20Knight/cream%20of%20the%20earth.mod",
+    "bytes": 130382,
+    "sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572"
+  },
+  "source_interval_s": [
+    0,
+    241.92
+  ],
+  "frames": 12096,
+  "duration_s": 241.91997953814675,
+  "nominal_duration_s": 241.92,
+  "program": {
+    "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/programs/all/player.prg",
+    "program_sha256": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184",
+    "bytes": 51201,
+    "source_sha256": "1f412f92004ca59228d9d3e25c649d4557a66f70b935c4881c07bb3dc2d49459",
+    "runtime_helper_sha256": "a05629f86b8c92160de5afdd56e87ea1c18e99ed6b10bbe28808a230fc644b25",
+    "data_asm_sha256": "fb43bd51fd052bd2c9ac29e7816c857a534f8526a48f554498708d82c382bf0a",
+    "score_asm_sha256": "d271d8f4cd4af7ed96c18fc820cc4531e60a060bc9c09328b327000b60218723",
+    "sid_programs_asm_sha256": "93b3512852975b57bca891cf10a003f46ace52dc176e61e33382c3ed1d42b2f4",
+    "enabled": [
+      true,
+      true,
+      true
+    ],
+    "tick_record_fields": {
+      "pcm_base_low": 16,
+      "pcm_base_high": 17,
+      "pcm_end_low": 18,
+      "pcm_end_high": 19,
+      "pcm_loop_low": 20,
+      "pcm_loop_high": 21,
+      "pcm_trigger": 22,
+      "ordinary_retrigger_and_PCM_shift_bits": 23,
+      "sid1_control": 2,
+      "sid1_pulse_low": 3,
+      "sid1_pulse_high": 4,
+      "sid1_sustain_release": 5,
+      "sid2_frequency_low": 6,
+      "sid2_frequency_high": 7,
+      "sid2_control": 8,
+      "sid2_pulse_low": 9,
+      "sid2_pulse_high": 10,
+      "sid2_sustain_release": 11,
+      "sid1_frequency_low": 0,
+      "sid1_frequency_high_and_continuous_flag": 1,
+      "pcm_q8_step_low": 12,
+      "pcm_q8_step_high": 13,
+      "pcm_gain_table_page": 14,
+      "pcm_fraction_reset": 15
+    },
+    "startup_loader": {
+      "native_program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/programs/all/native.prg",
+      "native_sha256": "781ea4e567114e95b3d30c85af430edc203406bc032b0e952616afefec91dd85",
+      "source_sha256": "3a9d55b97386a3dbb3a6bd51d8f913d990f3e7204491d9b36e708575743acdf6",
+      "native_bytes": 61466,
+      "native_end_exclusive": 63513,
+      "load_end_exclusive": 53248,
+      "arena": [
+        49152,
+        53248
+      ],
+      "loader_bytes": 159,
+      "staged_bytes": 2073,
+      "symbols": {
+        "loader_done": 49308,
+        "loader_payload": 49311,
+        "loader_enter": 49152,
+        "loader_end": 51384
+      },
+      "scope": "Startup only. Original entry and high code restored before playback; score, instruments and playback addresses unchanged."
+    },
+    "runtime_reserved_ranges": [
+      {
+        "start": 2049,
+        "end_exclusive": 4096,
+        "purpose": "bootstrap/main and four native mixing kernels"
+      },
+      {
+        "start": 28672,
+        "end_exclusive": 32768,
+        "purpose": "clock slide, patchers, delays and interrupt templates"
+      }
+    ],
+    "shared_low_ram": {
+      "buffers": [
+        512,
+        768
+      ],
+      "copied_handlers": [
+        1024,
+        1280
+      ],
+      "tick_record": 1536,
+      "voice_record": 1568,
+      "neutral_PCM_page": 1792
+    },
+    "startup_audio_delay_cycles": 44024,
+    "startup_initial_delay_cycles": 4867,
+    "pcm_backend": {
+      "kind": "fractional Q8 source cursor with gain tables",
+      "source_sha256": "0de0e8199d1af24aa8faf2b4538d423b50e4ff7b68765d362354423bc245a5d7"
+    }
+  },
+  "memory": {
+    "pcm_bytes_including_guards": 16896,
+    "asset_addresses": {
+      "5": 9984,
+      "1": 14848,
+      "3": 18944,
+      "4": 20224,
+      "6": 21504,
+      "7": 22784,
+      "8": 24064,
+      "2": 25344,
+      "0": 26368
+    },
+    "remaining_arenas": [
+      [
+        26880,
+        28672
+      ],
+      [
+        32768,
+        53248
+      ]
+    ],
+    "score_address": 32768,
+    "score_capacity": 20480,
+    "runtime_reserved": [
+      [
+        2049,
+        4096
+      ],
+      [
+        28672,
+        32768
+      ]
+    ],
+    "decoder_code_reserved": [
+      61440,
+      65280
+    ],
+    "decoder_history_reserved": [
+      57344,
+      61440
+    ],
+    "external_memory": false,
+    "score_bytes": 7622,
+    "score_history_bytes": 4096,
+    "gain_lookup_bytes": 5888
+  },
+  "score": {
+    "codec": "physical24-pcm-descriptors-delta-wait-long-lzss4k",
+    "frames": 12096,
+    "score_bytes": 7622,
+    "history_bytes": 4096,
+    "stream_address": 32768,
+    "stream_end": 40390,
+    "score_asm": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/score/score.asm",
+    "score_data_asm": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/score/score-data.asm",
+    "stream_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/score/score-stream.bin",
+    "rows_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/score/physical-rows.bin",
+    "sha256": "46105c427ea3428b99a6c6192fc0538984966659f644b73f1281f897787c7b38",
+    "row_sha256": "dabd55a58ed35e9ff59624d431d25530a1e5a5cdecc81b253d2b47659b899528",
+    "event_bytes": 45696,
+    "pcm_descriptors": 9,
+    "pcm_descriptor_bytes": 54,
+    "host_roundtrip_exact": true,
+    "native_code_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/full-length-score.asm",
+    "native_code_address": 61440,
+    "tick_record_address": 1536,
+    "decoder_zp": [
+      64,
+      81
+    ],
+    "history_range": [
+      57344,
+      61440
+    ],
+    "transients": "Offsets15/22 zero each tick; only bits0/1 of23 zero each tick; gain bits persist."
+  },
+  "arrangement": {
+    "source_sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572",
+    "source_range_s": [
+      0,
+      241.92
+    ],
+    "source_tick_range": [
+      0,
+      12096
+    ],
+    "ticks": 12096,
+    "duration_s": 241.92,
+    "original_source_ticks": 12096,
+    "native_rate_hz": 7819.428571428572,
+    "frame_sample_counts": {
+      "156": 7396,
+      "157": 4700
+    },
+    "pcm_cursor_kind": "fractional-q8",
+    "pcm_bank_bytes_including_guards": 16896,
+    "gain_LUT_pages": 23,
+    "gain_LUT_bytes": 5888,
+    "maximum_Q8_step": 323,
+    "held_pitch_change_ticks": [
+      6532,
+      6533,
+      6535,
+      6536
+    ],
+    "approved_PCM_banks_and_Q8_quantization_preserved": true,
+    "approved_ordinary_states_preserved": true,
+    "sid": {
+      "roots_source_samples": {
+        "10": 32.38196556895995,
+        "11": 63.82632631118641,
+        "12": 38.057018523196355,
+        "13": 32.15068493150685,
+        "14": 32.15434083601286,
+        "15": 32.1871,
+        "9": 62.20707882601437
+      },
+      "approved_frequency_control_sha256": "66c15ba0a9a1f7e01d8707efcb328557070f15a83d8fe942bab178702b57fa50",
+      "continuous_gate": [
+        true,
+        true
+      ],
+      "AD": [
+        0,
+        0
+      ],
+      "SR": [
+        16,
+        16
+      ],
+      "new_timbres": {
+        "11": "Measured complex tone approximated by pulse where not sampled.",
+        "12": "Measured monophonic polysynth root approximated by pulse.",
+        "13/14/15": "Measured major/minor/sus4 chords played as50Hz note arpeggios.",
+        "17": "Broadband noise approximation where not sampled.",
+        "9_on_C4": "Measured inharmonic tonal percussion approximated by triangle."
+      }
+    },
+    "new_PCM_gain_LUT_quantization": {
+      "11:64": {
+        "peak_code_error": 0,
+        "rms_code_error": 0.0,
+        "minimum_final_code": 16,
+        "maximum_final_code": 245
+      },
+      "11:49": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4366628424406635,
+        "minimum_final_code": 42,
+        "maximum_final_code": 218
+      },
+      "11:34": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.3530132767723818,
+        "minimum_final_code": 68,
+        "maximum_final_code": 190
+      },
+      "11:19": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.26655562495180984,
+        "minimum_final_code": 95,
+        "maximum_final_code": 163
+      },
+      "11:4": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.18401269429716927,
+        "minimum_final_code": 121,
+        "maximum_final_code": 135
+      },
+      "11:0": {
+        "peak_code_error": 0,
+        "rms_code_error": 0.0,
+        "minimum_final_code": 128,
+        "maximum_final_code": 128
+      },
+      "11:57": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.46676974397873866,
+        "minimum_final_code": 28,
+        "maximum_final_code": 232
+      },
+      "11:50": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4464060697711267,
+        "minimum_final_code": 40,
+        "maximum_final_code": 219
+      },
+      "11:43": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.40156507583509654,
+        "minimum_final_code": 53,
+        "maximum_final_code": 207
+      },
+      "11:36": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.3630903224991462,
+        "minimum_final_code": 65,
+        "maximum_final_code": 194
+      },
+      "11:29": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.3356841887086536,
+        "minimum_final_code": 77,
+        "maximum_final_code": 181
+      },
+      "11:22": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.29237701452639775,
+        "minimum_final_code": 90,
+        "maximum_final_code": 168
+      },
+      "17:64": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.5752710832052254,
+        "minimum_final_code": 0,
+        "maximum_final_code": 255
+      },
+      "17:32": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4058397249567139,
+        "minimum_final_code": 46,
+        "maximum_final_code": 207
+      },
+      "17:9": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.20769510081357428,
+        "minimum_final_code": 105,
+        "maximum_final_code": 150
+      },
+      "17:59": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.5522779130530093,
+        "minimum_final_code": 0,
+        "maximum_final_code": 255
+      },
+      "17:54": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.5417232247998803,
+        "minimum_final_code": 0,
+        "maximum_final_code": 255
+      },
+      "17:49": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4877586459838781,
+        "minimum_final_code": 2,
+        "maximum_final_code": 250
+      },
+      "17:44": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4658255725615411,
+        "minimum_final_code": 15,
+        "maximum_final_code": 237
+      },
+      "17:39": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.4575676908623825,
+        "minimum_final_code": 28,
+        "maximum_final_code": 225
+      },
+      "17:34": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.43209980288287114,
+        "minimum_final_code": 41,
+        "maximum_final_code": 212
+      },
+      "17:19": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.3240538431282483,
+        "minimum_final_code": 79,
+        "maximum_final_code": 175
+      },
+      "17:4": {
+        "peak_code_error": 1,
+        "rms_code_error": 0.1533929977694741,
+        "minimum_final_code": 118,
+        "maximum_final_code": 138
+      },
+      "17:0": {
+        "peak_code_error": 0,
+        "rms_code_error": 0.0,
+        "minimum_final_code": 128,
+        "maximum_final_code": 128
+      }
+    },
+    "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+    "source_routes": {
+      "SID1": "C3",
+      "SID2": "C4, plus C1 pulse introduction while C4 is idle",
+      "SID3": "C2, plus C1 geioilsound introduction while C2 is idle"
+    },
+    "omissions": "C1 is omitted outside its explicit introduction allocation. Quiet gaps in an allocated voice are not filled automatically.",
+    "approximations": [
+      "SID1/SID2 use quiet native pulse/triangle/noise programs.",
+      "Looped chords are50Hz major/minor/sus4 note arpeggios, not simultaneous partials.",
+      "New11/17 PCM gains use integer volume LUTs; measured code error is reported."
+    ],
+    "scope": "Complete pinned source traversal; exact approved bank data and ordinary states are preserved. Global sample-clock phase differs from the isolated26.88s preview. Perceived quality remains a listening decision.",
+    "SID_volume_policy": "AD00/SR10 and continuous GATE; zero/nonzero source-volume gating only. Nonzero SID volume slides are not reproduced. PCM gains are preserved separately."
+  },
+  "protected_hashes": {
+    "references/cream/reference.prg": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "references/hyperbased/reference.prg": "8c25f91a807b4d5c0f74203fa9ea75ddd6317710d2ca5151e26467386e06cf5a",
+    "references/hyperbased-stems/sid-3.wav": "fb1af01bf2e098ed40f65fe03f30eaa09538125626ff58ab5225a23019c8fbc7",
+    "references/hyperbased-stems/sid-1.wav": "c3f9d0f295705641d96c6992fb2d6798326f63fbb34dd96e6ed42cdbe843745b",
+    "references/cream/reference.wav": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "references/hyperbased/reference.wav": "f386f2a77554569cd75e61ab7c3b44734f41bfd7b5406cdde5c5accdf33c0f88",
+    "work/hyperbased/full-linus-mix/player.prg": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+    "work/hyperbased/full-linus-mix/all.wav": "39509fe5f4bb354ed59e04248ee5631a95c2235d741516bf86da74955b332da7",
+    "work/hyperbased/full-linus-mix/sid-3.wav": "85cc3af8170cf0899bc6cd09350fd4f767d572f81ec8b4bd3405ab2bf6d27b1e",
+    "work/hyperbased/full-linus-mix/sid-2.wav": "cb05c1ea5b7accfad19da5864e51ce7939b57555a78db9fc64db6e2533796bd4",
+    "work/hyperbased/full-linus-mix/sid-1.wav": "e04c970b1c88f83470b6602730626c36298d6c50b7358823cfa0124030c45c6a",
+    "work/hyperbased/linus-mix/player.prg": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
+    "work/hyperbased/linus-mix/all.wav": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+    "work/hyperbased/linus-mix/sid-3.wav": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+    "work/hyperbased/linus-mix/sid-2.wav": "435cfabeac2b60471d433c57502d57c8d9142fef144b8c270d57a6f691fe339e",
+    "work/hyperbased/linus-mix/sid-1.wav": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+    "work/cream/linus-mix/player.prg": "17c46c6fb45900f6024413ec52634200f2c5168dcacf6561465c527ad1333af1",
+    "work/cream/linus-mix/all.wav": "5dcd4e9e72e0e6ed0bfc9d885e2c3c8b25f0c1a67a6ee514c2f0cdf82d86cce5",
+    "work/cream/linus-mix/sid-3.wav": "b1ae830eb76687a7859db31f5df1694c4e846e3bf4dfb565b3a02d0382b13cbd",
+    "work/cream/linus-mix/sid-2.wav": "51b48bf4e201519f5748ce4812751dd3bb725c86f73c6ca1860d02f223ff7953",
+    "work/cream/linus-mix/sid-1.wav": "ee49c076621958e882c91b461df7209ca439c4e7519cc8a217c63fb36204c335"
+  },
+  "source_sha256": {
+    "cream_instruments.py": "4ef061141ed8ff3cef37b8386b427d6aa203942d8e40bca63e31791843c6bce2",
+    "cream_sid.asm": "d794a34c5db37e7b9b9d8da65d13e4fa0deec67224f3a710e7172496e1fc3d57",
+    "cream_playback.py": "b9996f028ca67f95aafd56d99d7024f1a3d176ba6f3c56365c4ee4c80c152e6f",
+    "cream_reference.py": "31ed8dd570c603af56a240d4286a6f19d793b5736db03f950984574a29b8a0b2",
+    "build_linus_mix.py": "b0a6cfa63b25b9de3ba69493b600ef6712e3a0c27eab3508e6c6028f09639933",
+    "native_instruments/cream/01-kick.json": "1c3c0c6138b431038b26eaff318cc6d8dca658dfbd288f09c9cdee60131c656a",
+    "native_instruments/cream/02-high-kick.json": "0373d1aa5ef0d7846f903534e9c6fb3608d607fce78d279a3de487f12d5044d9",
+    "native_instruments/cream/03-ring.json": "d4162be091e3364077b7f3e6a181d4c479d03106d7ec3a30ab92081c7c2c7a10",
+    "native_instruments/cream/04-snare.json": "ed6cec2be8d7f3d4af991f37920df33b1458137a486d2cef2d6f016b918345f5",
+    "native_instruments/cream/05-hi-hat.json": "5798532b5ca67ec793a861a2dd8f4c924d064769e85a27dd6c0cd2ea4c886555",
+    "native_instruments/cream/06-hi-hat.json": "3a1d1dee173e9e1e361d9317db5d4637adf1efd3698d7e8b2310657f6d9c8de8",
+    "native_instruments/cream/07-bass.json": "a87f02e8b605abd9c02683adad55b6f262187a1757a5024b81d4e2f0c5b4141b",
+    "native_instruments/cream/08-bass.json": "332efe8d3a2bd9197f68dbc2b2f3cbf1be40aadbdc3d1de3b401db8bd2b099af",
+    "native_instruments/cream/09-percussion-sample.json": "de0ba684049252695b66ab8f3820382720ccaea7fea55cdee1b3d1a2c54f9a0e",
+    "native_instruments/cream/10-pulse-melody.json": "c77c40e4378186ff77b4c3bf45dec3536301b90995d79221bd61b08faee94745",
+    "native_instruments/cream/11-full.json": "0d68ffeda02f4ce93c4be7f87d9a4e211616b4ff4637398bebc7978fca5fa0bd",
+    "native_instruments/cream/12-full.json": "faaec922f140858d827e90a0a25c5cf4132e8b273824f8a0a4654b391fdb27b9",
+    "native_instruments/cream/13-full.json": "fe250c5926171f8c1c12cb41d49b744b1c48ef682b7d468eb249011842dd0dd1",
+    "native_instruments/cream/14-full.json": "8a65f2433f84fb919ea0768bab9c4ecdf61bb0a2700d589d3d5f4bbd9c577c39",
+    "native_instruments/cream/15-full.json": "72188ab5502853b9c36b3e5fb4da2e2296921a17c72c1ea70200f98e5e526a9b",
+    "native_instruments/cream/17-full.json": "601d1dae362a4e6974ff31591235a16569eebb7b32f7022fa9acca1add473d0a",
+    "cream_fractional.py": "da8170b5aa783d86369d2f2315ae995834476e4814b1e4d2183d129d293d1def",
+    "full_length_runtime.py": "a05629f86b8c92160de5afdd56e87ea1c18e99ed6b10bbe28808a230fc644b25"
+  },
+  "native": {
+    "all": {
+      "passed": true,
+      "first_latch_cycle": 2299868,
+      "frames": 12096,
+      "underruns": 0,
+      "sample_values": 1891676,
+      "sample_period_cycles": 126,
+      "every_sample_value_and_prefix_checked": true,
+      "ordinary_voice_writes": [
+        72570,
+        84665
+      ],
+      "sid1_boundary_gate_prewrites": 12095,
+      "SID1_fixed_offsets": [
+        53,
+        60,
+        67
+      ],
+      "master_volume_constant_during_stream": true,
+      "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+      "trace_sha256": "4e6aab4256776a0316819e1f80b2a4434824e0e56b5cb1b0afd39b12430bd8fb",
+      "mismatches": 0,
+      "first_mismatches": [],
+      "shutdown": [
+        [
+          238351126,
+          4,
+          0
+        ],
+        [
+          238351130,
+          11,
+          0
+        ],
+        [
+          238351134,
+          18,
+          0
+        ]
+      ],
+      "enabled_physical_outputs": [
+        true,
+        true,
+        true
+      ]
+    },
+    "sid-1": {
+      "passed": true,
+      "first_latch_cycle": 2299868,
+      "frames": 12096,
+      "underruns": 0,
+      "sample_values": 1891676,
+      "sample_period_cycles": 126,
+      "every_sample_value_and_prefix_checked": true,
+      "ordinary_voice_writes": [
+        72570,
+        84665
+      ],
+      "sid1_boundary_gate_prewrites": 12095,
+      "SID1_fixed_offsets": [
+        53,
+        60,
+        67
+      ],
+      "master_volume_constant_during_stream": true,
+      "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+      "trace_sha256": "83e098be5badf5adfa746b5b4fbe4a09b2a4df722c7f78f31ef48cabd658fbd7",
+      "mismatches": 0,
+      "first_mismatches": [],
+      "shutdown": [
+        [
+          238351126,
+          4,
+          0
+        ],
+        [
+          238351130,
+          11,
+          0
+        ],
+        [
+          238351134,
+          18,
+          0
+        ]
+      ],
+      "enabled_physical_outputs": [
+        true,
+        false,
+        false
+      ]
+    },
+    "sid-2": {
+      "passed": true,
+      "first_latch_cycle": 2299868,
+      "frames": 12096,
+      "underruns": 0,
+      "sample_values": 1891676,
+      "sample_period_cycles": 126,
+      "every_sample_value_and_prefix_checked": true,
+      "ordinary_voice_writes": [
+        72570,
+        84665
+      ],
+      "sid1_boundary_gate_prewrites": 12095,
+      "SID1_fixed_offsets": [
+        53,
+        60,
+        67
+      ],
+      "master_volume_constant_during_stream": true,
+      "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+      "trace_sha256": "09d4a6d54373011c370ea9e8a9c0b0fddb59f4bcb29d971b7f4528975cc60619",
+      "mismatches": 0,
+      "first_mismatches": [],
+      "shutdown": [
+        [
+          238351126,
+          4,
+          0
+        ],
+        [
+          238351130,
+          11,
+          0
+        ],
+        [
+          238351134,
+          18,
+          0
+        ]
+      ],
+      "enabled_physical_outputs": [
+        false,
+        true,
+        false
+      ]
+    },
+    "sid-3": {
+      "passed": true,
+      "first_latch_cycle": 2299868,
+      "frames": 12096,
+      "underruns": 0,
+      "sample_values": 1891676,
+      "sample_period_cycles": 126,
+      "every_sample_value_and_prefix_checked": true,
+      "ordinary_voice_writes": [
+        72570,
+        84665
+      ],
+      "sid1_boundary_gate_prewrites": 12095,
+      "SID1_fixed_offsets": [
+        53,
+        60,
+        67
+      ],
+      "master_volume_constant_during_stream": true,
+      "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+      "trace_sha256": "9a7ad454d8832829e750394a8d26de917778e403c2aa43ddc0941eb116abda83",
+      "mismatches": 0,
+      "first_mismatches": [],
+      "shutdown": [
+        [
+          238351126,
+          4,
+          0
+        ],
+        [
+          238351130,
+          11,
+          0
+        ],
+        [
+          238351134,
+          18,
+          0
+        ]
+      ],
+      "enabled_physical_outputs": [
+        false,
+        false,
+        true
+      ]
+    },
+    "muted": {
+      "passed": true,
+      "first_latch_cycle": 2299868,
+      "frames": 12096,
+      "underruns": 0,
+      "sample_values": 1891676,
+      "sample_period_cycles": 126,
+      "every_sample_value_and_prefix_checked": true,
+      "ordinary_voice_writes": [
+        72570,
+        84665
+      ],
+      "sid1_boundary_gate_prewrites": 12095,
+      "SID1_fixed_offsets": [
+        53,
+        60,
+        67
+      ],
+      "master_volume_constant_during_stream": true,
+      "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+      "trace_sha256": "70d3dea5b3a29d5d87b702427c0fd79f76e0bc64bbddd7f108356e86cf4a06b2",
+      "mismatches": 0,
+      "first_mismatches": [],
+      "shutdown": [
+        [
+          238351126,
+          4,
+          0
+        ],
+        [
+          238351130,
+          11,
+          0
+        ],
+        [
+          238351134,
+          18,
+          0
+        ]
+      ],
+      "enabled_physical_outputs": [
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "deadlines": {
+    "passed": true,
+    "frames": 12096,
+    "causal_buffer_activations": 12095,
+    "minimum_wall_cycle_margin": 2391,
+    "maximum_fill_wall_cycles": 16415,
+    "underruns": 0,
+    "program_sha256": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184",
+    "scope": "Every full-song fill completes before its matching hardware pointer activation. Wall time includes NMI work; this is not a foreground CPU percentage.",
+    "log_sha256": "ab89e10d4ae8d038abc5d4f98326683eea5248160729746ec212e1a1065d3f66"
+  },
+  "autostart": {
+    "passed": true,
+    "first_latch_cycle": 129501909,
+    "frames": 12096,
+    "underruns": 0,
+    "sample_values": 1891676,
+    "sample_period_cycles": 126,
+    "every_sample_value_and_prefix_checked": true,
+    "ordinary_voice_writes": [
+      72570,
+      84665
+    ],
+    "sid1_boundary_gate_prewrites": 12095,
+    "SID1_fixed_offsets": [
+      53,
+      60,
+      67
+    ],
+    "master_volume_constant_during_stream": true,
+    "expected_input_sha256": "50974b760c33a1abbdfd7a88d14f23f6387d9a70663f5f8773a3bafc4b684dac",
+    "trace_sha256": "3ee24eb8a98ef4d49583d866dfc4db3f33c66e4fe92ae7affce9187b32eab9b4",
+    "mismatches": 0,
+    "first_mismatches": [],
+    "shutdown": [
+      [
+        238351126,
+        4,
+        0
+      ],
+      [
+        238351130,
+        11,
+        0
+      ],
+      [
+        238351134,
+        18,
+        0
+      ]
+    ],
+    "enabled_physical_outputs": [
+      true,
+      true,
+      true
+    ],
+    "mode": 2,
+    "restored_native_ram": {
+      "passed": true,
+      "bytes_compared": 53272,
+      "excluded_loader_arena": [
+        49152,
+        53248
+      ],
+      "mismatched_bytes": 0,
+      "first_mismatches": [],
+      "scope": "Native RAM at loader_done, before original player entry. I/O is excluded; the declared loader arena is the only excluded RAM."
+    }
+  },
+  "cpu": {
+    "passed": true,
+    "program_sha256": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184",
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "frames": 12096,
+    "samples": 1891676,
+    "generated_frames": 12096,
+    "underruns": 0,
+    "sample_period_cycles": 126,
+    "duration_s": 241.91997953814675,
+    "sample_gap_counts": {
+      "126": 1891675
+    },
+    "first_latch_cycle": 2299868,
+    "nmi_full_cycles_regular": {
+      "72": 160,
+      "73": 2956,
+      "74": 63536,
+      "75": 530395,
+      "76": 527834,
+      "77": 305184,
+      "78": 437420
+    },
+    "nmi_full_cycles_boundary": {
+      "106": 2,
+      "107": 5,
+      "108": 6400,
+      "109": 10,
+      "110": 15,
+      "111": 5663
+    },
+    "nmi_full_cycles_sid1_pending": {
+      "114": 8,
+      "115": 6408,
+      "116": 7,
+      "117": 11,
+      "118": 5661
+    },
+    "nmi_cpu_fraction": 0.6090727017984607,
+    "maximum_nmi_cycles": 118,
+    "automatic_activation_events": 12095,
+    "active_activations_checked": 12095,
+    "unused_terminal_activations_ignored": 0,
+    "pointer_low_store_cycles": 3,
+    "pointer_shadow_read_bus_offset_cycles": 2,
+    "fill_wall_cycles_range_before_rts": [
+      12974,
+      16409
+    ],
+    "fill_foreground_cycles_range_before_rts": [
+      5134,
+      6505
+    ],
+    "minimum_deadline_slack_wall_cycles": 2399,
+    "minimum_deadline_slack_foreground_cycles": 931,
+    "minimum_fill_return_margin_before_boundary_hardware_entry": 2303,
+    "fill_restart_foreground_cycles_after_previous_activation_range": [
+      181,
+      861
+    ],
+    "minimum_pointer_commit_margin_before_next_nmi": 26,
+    "monitor_log_sha256": "59deea15600795f4102866079b073772dd3295d17a807ea0c0561cc23111e2d7",
+    "register_dump_sha256": "4e6aab4256776a0316819e1f80b2a4434824e0e56b5cb1b0afd39b12430bd8fb",
+    "failures": [],
+    "scope": "Complete native performance. Every NMI and buffer activation measured. Foreground fill includes SID programs, native phase/cursors and PCM mixing; prefetched note decoding is counted separately. Main-control residual includes busy waits. No separate C3 sampler exists.",
+    "attribution": {
+      "interval_start_hardware_cycle": 2299906,
+      "interval_end_hardware_cycle": 240650953,
+      "interval_cpu_cycles": 238351047,
+      "cpu_partition": {
+        "nmi": {
+          "cycles": 145173118,
+          "cpu_percent": 60.907270946454034
+        },
+        "score_decode": {
+          "cycles": 4265384,
+          "cpu_percent": 1.7895386043762584
+        },
+        "main_control_and_busy_wait": {
+          "cycles": 24036075,
+          "cpu_percent": 10.084316936103075
+        },
+        "tick_synthesis_and_mix": {
+          "cycles": 64876470,
+          "cpu_percent": 27.218873513066633
+        }
+      },
+      "c3_kernels": {},
+      "bass_drum_kernels": {
+        "regular": {
+          "calls": 12095,
+          "cycles_including_jsr_rts": 58174590,
+          "outputs": 1891520
+        }
+      },
+      "scope": "Exact non-overlapping wall-cycle partition of the unchanged program, excluding startup and terminal shutdown. NMI cycles are removed from every foreground interval. Main-control/busy-wait residual is not a claim that all those cycles can meet an arbitrary new deadline."
+    }
+  },
+  "audio": {
+    "all": {
+      "file": "all.wav",
+      "sha256": "a8c9d14174966d4bea5925d837a8b8ef5e10d209f7159fb40a844b883fe2b46a",
+      "frames": 5334336,
+      "rate": 22050,
+      "duration_s": 241.92,
+      "listening_gain": 8.0,
+      "raw_capture_sha256": "1e70c49245cb59681e723307c50fc89f013bf38bb073993f4cb4b9e5b58ad87e",
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one shared constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-1": {
+      "file": "sid-1.wav",
+      "sha256": "a3875b282106bb0e773bab639bc51679143fc3c537abb8c252b144b772dad844",
+      "frames": 5334336,
+      "rate": 22050,
+      "duration_s": 241.92,
+      "listening_gain": 8.0,
+      "raw_capture_sha256": "6ed3802a3a5c619c3d8859eb0b543d08c2da579864fbab5a901d2f48b74585c1",
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one shared constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-2": {
+      "file": "sid-2.wav",
+      "sha256": "90cb66cebaacd8c0756c2abf072ec2b609d4acb3fedfc068d908b71a3b6f0c2a",
+      "frames": 5334336,
+      "rate": 22050,
+      "duration_s": 241.92,
+      "listening_gain": 8.0,
+      "raw_capture_sha256": "a676e870ffb5380fbb63ad08edbc1752351e14d9bc637b8347e16c8bbfebbe0a",
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one shared constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-3": {
+      "file": "sid-3.wav",
+      "sha256": "8433a6d7db2b618e78ab9b7b1b5fcb38c3b65a50e19d835729068c3ed6536eb6",
+      "frames": 5334336,
+      "rate": 22050,
+      "duration_s": 241.92,
+      "listening_gain": 8.0,
+      "raw_capture_sha256": "7c7a7cc8a40a4df12a074a880e1f9536bc7094392870d3c7be1ba5f2dfff8e9d",
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one shared constant gain. No host mixing, EQ, alignment or dynamics."
+    }
+  },
+  "mute_control": {
+    "passed": true,
+    "maximum_pcm16_lsb_difference": 0.0
+  },
+  "audio_reference": {
+    "passed": true,
+    "source_interval_s": [
+      17.92,
+      44.8
+    ],
+    "checked_frames": 592703,
+    "sample_rate_hz": 22050,
+    "window_seconds": 0.2,
+    "windows_checked": 135,
+    "failed_window_indices": [],
+    "rms_ratio_limits": [
+      0.8,
+      1.25
+    ],
+    "minimum_rms_ratio": 0.989458239252104,
+    "maximum_rms_ratio": 1.0135920704301746,
+    "median_rms_ratio": 0.9996811195001849,
+    "minimum_spectral_cosine_limit": 0.94,
+    "minimum_spectral_cosine": 0.9869967011096157,
+    "median_spectral_cosine": 0.9996777154774216,
+    "global_peak_ratio": 1.0007119861757698,
+    "global_peak_ratio_limit": 1.35,
+    "window_metric_columns": [
+      "rms_ratio",
+      "spectral_cosine"
+    ],
+    "window_metrics": [
+      [
+        1.0035025187338107,
+        0.9996072313987387
+      ],
+      [
+        1.0135920704301746,
+        0.9944515801425206
+      ],
+      [
+        0.9984589068945501,
+        0.9999991319977211
+      ],
+      [
+        1.0006263880447508,
+        0.9897858943990666
+      ],
+      [
+        1.0026356641923653,
+        0.9998424050237282
+      ],
+      [
+        1.002823615476917,
+        0.9988760005218342
+      ],
+      [
+        1.004726350303673,
+        0.9990391526739154
+      ],
+      [
+        0.9966374579898378,
+        0.9998367838911596
+      ],
+      [
+        0.9988019841668806,
+        0.9997531520531693
+      ],
+      [
+        1.0014132202892814,
+        0.999872051249368
+      ],
+      [
+        0.9972528377132122,
+        0.9999773714522247
+      ],
+      [
+        1.0006672137512198,
+        0.9999883450179996
+      ],
+      [
+        1.0073798671122112,
+        0.9869967011096157
+      ],
+      [
+        1.0018184109050106,
+        0.9999983246826569
+      ],
+      [
+        1.0043998892487493,
+        0.9941318599697503
+      ],
+      [
+        1.0007068039181715,
+        0.999531797899271
+      ],
+      [
+        1.0045399719429695,
+        0.9999054918204514
+      ],
+      [
+        0.9963230279561334,
+        0.99967227692781
+      ],
+      [
+        1.0015891081295245,
+        0.9995694433390887
+      ],
+      [
+        0.9986284536634193,
+        0.9997489750099146
+      ],
+      [
+        0.9928861363722364,
+        0.9993391468175569
+      ],
+      [
+        1.0011749980813769,
+        0.9994224014888905
+      ],
+      [
+        1.0002652070702795,
+        0.9999440058534917
+      ],
+      [
+        1.0030745705149104,
+        0.9996235858185066
+      ],
+      [
+        0.999796765954989,
+        0.9999992031806128
+      ],
+      [
+        1.0019644922997457,
+        0.9987109789670393
+      ],
+      [
+        0.9982755156641812,
+        0.9987612821411362
+      ],
+      [
+        0.9994458637566159,
+        0.9998137918114424
+      ],
+      [
+        0.9975466971964837,
+        0.9999627956676711
+      ],
+      [
+        0.9952540178965273,
+        0.9991831619839568
+      ],
+      [
+        1.0021381055370866,
+        0.9999985908320198
+      ],
+      [
+        0.9961432778436978,
+        0.9995023811175011
+      ],
+      [
+        0.9975105121668442,
+        0.9999117073453568
+      ],
+      [
+        0.9987958919728012,
+        0.9999737314504967
+      ],
+      [
+        1.001203899115194,
+        0.9995376193931813
+      ],
+      [
+        1.0030727881719856,
+        0.9884061914505209
+      ],
+      [
+        1.0019265896885938,
+        0.999185549262634
+      ],
+      [
+        1.0065011147880871,
+        0.9976826607375461
+      ],
+      [
+        1.000749093065467,
+        0.9999890599847414
+      ],
+      [
+        0.9942631612772962,
+        0.9999144864469881
+      ],
+      [
+        0.9945466623995247,
+        0.9991657758058362
+      ],
+      [
+        1.0032541053048696,
+        0.9999309683078339
+      ],
+      [
+        1.0085020249152143,
+        0.9985605968053138
+      ],
+      [
+        1.001840555809276,
+        0.9990309689491876
+      ],
+      [
+        0.9979153027698873,
+        0.9996451837263203
+      ],
+      [
+        1.0010651218655302,
+        0.9997764411694263
+      ],
+      [
+        0.9990152963898403,
+        0.9988177606561318
+      ],
+      [
+        0.9976101344340738,
+        0.9997134847490748
+      ],
+      [
+        0.9994340789687136,
+        0.9991626078979713
+      ],
+      [
+        0.9979200305363617,
+        0.9999732064219177
+      ],
+      [
+        0.9954513384106454,
+        0.9996791525203692
+      ],
+      [
+        0.996961407223894,
+        0.9987977820298246
+      ],
+      [
+        0.9983991679805834,
+        0.999965798920118
+      ],
+      [
+        0.9955215015514842,
+        0.9995165968140003
+      ],
+      [
+        1.0012595134407338,
+        0.9997867442100493
+      ],
+      [
+        0.997985099638549,
+        0.9999797847484134
+      ],
+      [
+        1.0022845578002169,
+        0.9999654513878259
+      ],
+      [
+        1.0053248351160602,
+        0.9949958589036358
+      ],
+      [
+        0.9995377110090508,
+        0.9999879213507816
+      ],
+      [
+        0.992982117952385,
+        0.9983743496177986
+      ],
+      [
+        1.0026398651350754,
+        0.9999074648994927
+      ],
+      [
+        0.9995253377296694,
+        0.9995686055941776
+      ],
+      [
+        0.9986659346920134,
+        0.9984585505196498
+      ],
+      [
+        1.0006912666323218,
+        0.9997170152041909
+      ],
+      [
+        0.9961289962751427,
+        0.9992454403550369
+      ],
+      [
+        0.9911950668793448,
+        0.999501694053204
+      ],
+      [
+        1.0055712714197829,
+        0.9998294999926415
+      ],
+      [
+        1.0018765346894445,
+        0.9999906599336854
+      ],
+      [
+        1.0010583353124194,
+        0.9985024722676618
+      ],
+      [
+        1.0001135184411645,
+        0.9999999071584955
+      ],
+      [
+        1.0065010200662403,
+        0.9989070754887089
+      ],
+      [
+        0.999084301133972,
+        0.999304857447857
+      ],
+      [
+        1.0026575699729063,
+        0.9999851466341992
+      ],
+      [
+        0.9971037677791024,
+        0.9995437541561306
+      ],
+      [
+        0.9955500895788937,
+        0.9992562410803156
+      ],
+      [
+        0.9965531431219598,
+        0.9999379043665171
+      ],
+      [
+        0.9992766142475076,
+        0.9997333704327205
+      ],
+      [
+        1.0007928927071694,
+        0.9999976485082205
+      ],
+      [
+        0.9996363737857513,
+        0.9999716333204985
+      ],
+      [
+        0.99217860363162,
+        0.999357368212233
+      ],
+      [
+        1.0015705097830676,
+        0.9997109124118488
+      ],
+      [
+        1.005895127918786,
+        0.9985667049312575
+      ],
+      [
+        0.9997009799784783,
+        0.9994004286408751
+      ],
+      [
+        0.9987335315269162,
+        0.9999573325510644
+      ],
+      [
+        0.9966353588858994,
+        0.9999330462943372
+      ],
+      [
+        0.9990536011477656,
+        0.9995400703368591
+      ],
+      [
+        1.0029361744073326,
+        0.9999929627887945
+      ],
+      [
+        1.0053204866734058,
+        0.9992343065771608
+      ],
+      [
+        1.0060130538004914,
+        0.9991227590507102
+      ],
+      [
+        1.0008810276786755,
+        0.9998017856380924
+      ],
+      [
+        1.0040381753276537,
+        0.9995936070004949
+      ],
+      [
+        0.9982641288398031,
+        0.9997930407512754
+      ],
+      [
+        1.0031385123964396,
+        0.9990464889679898
+      ],
+      [
+        1.0050293906588306,
+        0.9996777154774216
+      ],
+      [
+        0.9929385566939363,
+        0.999878461864301
+      ],
+      [
+        0.9982019368861831,
+        0.9998958202272855
+      ],
+      [
+        1.0027907492207093,
+        0.9995630834782235
+      ],
+      [
+        0.9994236984439022,
+        0.999969490915014
+      ],
+      [
+        1.000799481309212,
+        0.9997546824727296
+      ],
+      [
+        1.0001937378079455,
+        0.9997214175894535
+      ],
+      [
+        0.9967899918513883,
+        0.9999538823732813
+      ],
+      [
+        1.0000895528137264,
+        0.9998666551643417
+      ],
+      [
+        0.9980976858480957,
+        0.9994890246715137
+      ],
+      [
+        0.9984617502361165,
+        0.9997245689190214
+      ],
+      [
+        1.0101591988649303,
+        0.9993796236472913
+      ],
+      [
+        0.9988639636787319,
+        0.9999949687073685
+      ],
+      [
+        0.9996811195001849,
+        0.9995032247890396
+      ],
+      [
+        1.0015427901583593,
+        0.9991172937337699
+      ],
+      [
+        0.9991993181410093,
+        0.9999629790018985
+      ],
+      [
+        1.0042292477627908,
+        0.9982990880954103
+      ],
+      [
+        0.9949172515563782,
+        0.9995948064410006
+      ],
+      [
+        1.0060865127875418,
+        0.9999034506700918
+      ],
+      [
+        0.9966071106983592,
+        0.9999835357785302
+      ],
+      [
+        1.0002150001624786,
+        0.998363512820314
+      ],
+      [
+        0.9982963752981636,
+        0.9999887853924785
+      ],
+      [
+        1.0126812413998902,
+        0.9987598524573077
+      ],
+      [
+        0.9989038183039558,
+        0.9998977185347444
+      ],
+      [
+        0.9964654606541556,
+        0.9996230975688235
+      ],
+      [
+        0.9995561293358525,
+        0.9989068979649851
+      ],
+      [
+        1.0006853009745584,
+        0.9999014566461705
+      ],
+      [
+        0.9996097018163524,
+        0.9995493830310699
+      ],
+      [
+        0.9959318005344668,
+        0.9998580008059558
+      ],
+      [
+        0.9991848731416058,
+        0.9999776129664771
+      ],
+      [
+        1.000868236581475,
+        0.9999918878830836
+      ],
+      [
+        0.9901038143936954,
+        0.9988733327494782
+      ],
+      [
+        1.0006757658757155,
+        0.9999996854619205
+      ],
+      [
+        0.9895796205602766,
+        0.9976441104109318
+      ],
+      [
+        1.0039133314871738,
+        0.9996693757725135
+      ],
+      [
+        0.9899639702937225,
+        0.999957502919445
+      ],
+      [
+        0.999130876136805,
+        0.9994158774663122
+      ],
+      [
+        1.0028482702266,
+        0.9996331444373918
+      ],
+      [
+        0.9979206957939881,
+        0.9997158416542193
+      ],
+      [
+        1.0011224059502914,
+        0.9994393977978484
+      ],
+      [
+        0.9994436935897948,
+        0.9994580980358067
+      ],
+      [
+        0.989458239252104,
+        0.9999265595174187
+      ]
+    ],
+    "frequency_band_edges_hz": [
+      50.0,
+      55.57624119230138,
+      61.77437170129714,
+      68.66374762348335,
+      76.32145998180043,
+      84.83319736194237,
+      94.2942047540283,
+      104.81034932892257,
+      116.49930507507129,
+      129.49186955175327,
+      143.93342749300535,
+      159.98557763971777,
+      177.82794100389228,
+      197.66017079925317,
+      219.70418652901563,
+      244.20665722989892,
+      271.4417616594907,
+      301.7142563130208,
+      335.3628856001657,
+      372.7641723412197,
+      414.33663099768455,
+      460.54545078265795,
+      511.9077010542833,
+      568.9981172397872,
+      632.4555320336759,
+      702.9900238341774,
+      781.3908624077989,
+      868.5353406927243,
+      965.39859156753,
+      1073.064499433302,
+      1192.737828708027,
+      1325.7577049491833,
+      1473.612599456155,
+      1637.9569850277896,
+      1820.6298492503845,
+      2023.6752724768537,
+      2249.365300761397,
+      2500.225369694179,
+      2779.062563624692,
+      3088.9970264900257,
+      3433.496875730229,
+      3816.4170099719295,
+      4242.0422447320325,
+      4715.13525882318,
+      5240.98988797363,
+      5825.490362008702,
+      6475.177148448454,
+      7197.320139300992,
+      8000.0
+    ],
+    "reference_sha256": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "reference_gain": 8.0,
+    "scope": "Actual mixed native audio compared with the approved passage. Fixed reference gain only; no candidate gain fit, sample alignment or audio writing. Independent digital verification and listening remain required.",
+    "full_capture_clock_crop": {
+      "source_ticks_per_second": 50,
+      "PAL_clock_hz": 985248,
+      "native_sample_period_cycles": 126,
+      "source_tick_range": [
+        896,
+        2240
+      ],
+      "native_sample_range": [
+        140124,
+        350310
+      ],
+      "sample_clock_cycle_range": [
+        17655624,
+        44139060
+      ],
+      "recording_frame_range": [
+        395136,
+        987839
+      ],
+      "protected_sample_clock_interval_s": [
+        17.91997953814674,
+        44.79994884536685
+      ],
+      "source_tick_to_native_sample": "round(source_tick * PAL_clock / (sample_period_cycles * 50))",
+      "native_sample_to_recording_frame": "round(native_sample * sample_period_cycles * recording_rate / PAL_clock)",
+      "full_source_ticks": 12096,
+      "full_native_sample_values": 1891676,
+      "full_nominal_duration_s": 241.92,
+      "full_sample_clock_duration_s": 241.91997953814675,
+      "full_recording_frames": 5334336,
+      "observed_capture_frames": 5334336,
+      "recording_rate_hz": 22050,
+      "candidate_time_offset_fitted": false,
+      "scope": "Only the approved source passage is compared acoustically. The complete input length is checked; the remaining song audio is not compared against a listening reference."
+    }
+  },
+  "protected_unchanged": true,
+  "coverage": {
+    "source_channels": 4,
+    "omitted_channel_seconds": {
+      "1": 183.44
+    },
+    "omitted_passages": [
+      {
+        "source_channel": 1,
+        "instrument": 1,
+        "start_s": 232.96,
+        "end_s": 241.92,
+        "ticks": 448
+      },
+      {
+        "source_channel": 1,
+        "instrument": 9,
+        "start_s": 53.34,
+        "end_s": 53.76,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 17.36,
+        "end_s": 17.44,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 17.5,
+        "end_s": 17.62,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 17.64,
+        "end_s": 17.92,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 21.84,
+        "end_s": 21.92,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 21.98,
+        "end_s": 22.1,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 22.12,
+        "end_s": 22.4,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 26.32,
+        "end_s": 26.4,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 26.46,
+        "end_s": 26.58,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 26.6,
+        "end_s": 26.88,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 30.8,
+        "end_s": 30.88,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 30.94,
+        "end_s": 31.06,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 31.08,
+        "end_s": 31.36,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 35.28,
+        "end_s": 35.36,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 35.42,
+        "end_s": 35.54,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 35.56,
+        "end_s": 35.84,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 201.04,
+        "end_s": 201.12,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 201.18,
+        "end_s": 201.3,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 201.32,
+        "end_s": 201.6,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 205.52,
+        "end_s": 205.6,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 205.66,
+        "end_s": 205.78,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 205.8,
+        "end_s": 206.08,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 210.0,
+        "end_s": 210.08,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 210.14,
+        "end_s": 210.26,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 210.28,
+        "end_s": 210.56,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 214.48,
+        "end_s": 214.56,
+        "ticks": 4
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 214.62,
+        "end_s": 214.74,
+        "ticks": 6
+      },
+      {
+        "source_channel": 1,
+        "instrument": 10,
+        "start_s": 214.76,
+        "end_s": 215.04,
+        "ticks": 14
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 17.92,
+        "end_s": 18.02,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 18.2,
+        "end_s": 18.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 18.34,
+        "end_s": 18.44,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 18.62,
+        "end_s": 18.72,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 18.9,
+        "end_s": 19.0,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 19.04,
+        "end_s": 19.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 19.32,
+        "end_s": 19.42,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 19.46,
+        "end_s": 19.56,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 19.74,
+        "end_s": 19.84,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 20.16,
+        "end_s": 20.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 20.44,
+        "end_s": 20.54,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 20.58,
+        "end_s": 20.68,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 20.86,
+        "end_s": 20.96,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 21.28,
+        "end_s": 21.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 21.56,
+        "end_s": 21.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 21.7,
+        "end_s": 21.8,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 22.4,
+        "end_s": 22.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 22.68,
+        "end_s": 22.78,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 22.82,
+        "end_s": 22.92,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 23.1,
+        "end_s": 23.2,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 23.38,
+        "end_s": 23.48,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 23.52,
+        "end_s": 23.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 23.8,
+        "end_s": 23.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 23.94,
+        "end_s": 24.04,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 24.22,
+        "end_s": 24.32,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 24.64,
+        "end_s": 24.74,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 24.92,
+        "end_s": 25.02,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 25.06,
+        "end_s": 25.16,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 25.34,
+        "end_s": 25.44,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 25.76,
+        "end_s": 25.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 26.04,
+        "end_s": 26.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 26.18,
+        "end_s": 26.28,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 26.88,
+        "end_s": 26.98,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 27.16,
+        "end_s": 27.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 27.3,
+        "end_s": 27.4,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 27.58,
+        "end_s": 27.68,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 27.86,
+        "end_s": 27.96,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 28.0,
+        "end_s": 28.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 28.28,
+        "end_s": 28.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 28.42,
+        "end_s": 28.52,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 28.7,
+        "end_s": 28.8,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 29.12,
+        "end_s": 29.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 29.4,
+        "end_s": 29.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 29.54,
+        "end_s": 29.64,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 29.82,
+        "end_s": 29.92,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 30.24,
+        "end_s": 30.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 30.52,
+        "end_s": 30.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 30.66,
+        "end_s": 30.76,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 31.36,
+        "end_s": 31.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 31.64,
+        "end_s": 31.74,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 31.78,
+        "end_s": 31.88,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 32.06,
+        "end_s": 32.16,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 32.34,
+        "end_s": 32.44,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 32.48,
+        "end_s": 32.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 32.76,
+        "end_s": 32.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 32.9,
+        "end_s": 33.0,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 33.18,
+        "end_s": 33.28,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 33.6,
+        "end_s": 33.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 33.88,
+        "end_s": 33.98,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 34.02,
+        "end_s": 34.12,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 34.3,
+        "end_s": 34.4,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 34.72,
+        "end_s": 34.82,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 35.0,
+        "end_s": 35.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 35.14,
+        "end_s": 35.24,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 197.12,
+        "end_s": 197.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 197.4,
+        "end_s": 197.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 197.54,
+        "end_s": 197.64,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 197.82,
+        "end_s": 197.92,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 198.1,
+        "end_s": 198.2,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 198.24,
+        "end_s": 198.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 198.52,
+        "end_s": 198.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 198.66,
+        "end_s": 198.76,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 198.94,
+        "end_s": 199.04,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 199.36,
+        "end_s": 199.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 199.64,
+        "end_s": 199.74,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 199.78,
+        "end_s": 199.88,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 200.06,
+        "end_s": 200.16,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 200.48,
+        "end_s": 200.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 200.76,
+        "end_s": 200.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 200.9,
+        "end_s": 201.0,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 201.6,
+        "end_s": 201.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 201.88,
+        "end_s": 201.98,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 202.02,
+        "end_s": 202.12,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 202.3,
+        "end_s": 202.4,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 202.58,
+        "end_s": 202.68,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 202.72,
+        "end_s": 202.82,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 203.0,
+        "end_s": 203.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 203.14,
+        "end_s": 203.24,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 203.42,
+        "end_s": 203.52,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 203.84,
+        "end_s": 203.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 204.12,
+        "end_s": 204.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 204.26,
+        "end_s": 204.36,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 204.54,
+        "end_s": 204.64,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 204.96,
+        "end_s": 205.06,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 205.24,
+        "end_s": 205.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 205.38,
+        "end_s": 205.48,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 206.08,
+        "end_s": 206.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 206.36,
+        "end_s": 206.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 206.5,
+        "end_s": 206.6,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 206.78,
+        "end_s": 206.88,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 207.06,
+        "end_s": 207.16,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 207.2,
+        "end_s": 207.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 207.48,
+        "end_s": 207.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 207.62,
+        "end_s": 207.72,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 207.9,
+        "end_s": 208.0,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 208.32,
+        "end_s": 208.42,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 208.6,
+        "end_s": 208.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 208.74,
+        "end_s": 208.84,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 209.02,
+        "end_s": 209.12,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 209.44,
+        "end_s": 209.54,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 209.72,
+        "end_s": 209.82,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 209.86,
+        "end_s": 209.96,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 210.56,
+        "end_s": 210.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 210.84,
+        "end_s": 210.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 210.98,
+        "end_s": 211.08,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 211.26,
+        "end_s": 211.36,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 211.54,
+        "end_s": 211.64,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 211.68,
+        "end_s": 211.78,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 211.96,
+        "end_s": 212.06,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 212.1,
+        "end_s": 212.2,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 212.38,
+        "end_s": 212.48,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 212.8,
+        "end_s": 212.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 213.08,
+        "end_s": 213.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 213.22,
+        "end_s": 213.32,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 213.5,
+        "end_s": 213.6,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 213.92,
+        "end_s": 214.02,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 214.2,
+        "end_s": 214.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 11,
+        "start_s": 214.34,
+        "end_s": 214.44,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 35.84,
+        "end_s": 35.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 35.98,
+        "end_s": 36.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 36.26,
+        "end_s": 36.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 36.54,
+        "end_s": 36.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 36.82,
+        "end_s": 36.96,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 39.2,
+        "end_s": 39.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 39.34,
+        "end_s": 39.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 39.62,
+        "end_s": 39.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 40.04,
+        "end_s": 40.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 40.18,
+        "end_s": 40.32,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 41.44,
+        "end_s": 41.54,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 41.58,
+        "end_s": 41.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 41.86,
+        "end_s": 42.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 42.28,
+        "end_s": 42.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 42.42,
+        "end_s": 42.56,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 43.68,
+        "end_s": 43.78,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 43.82,
+        "end_s": 44.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 44.1,
+        "end_s": 44.26,
+        "ticks": 8
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 44.38,
+        "end_s": 44.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 44.66,
+        "end_s": 44.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 44.94,
+        "end_s": 45.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 45.22,
+        "end_s": 45.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 45.5,
+        "end_s": 45.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 45.78,
+        "end_s": 45.92,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 48.16,
+        "end_s": 48.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 48.3,
+        "end_s": 48.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 48.58,
+        "end_s": 48.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 49.0,
+        "end_s": 49.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 49.14,
+        "end_s": 49.28,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 50.4,
+        "end_s": 50.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 50.54,
+        "end_s": 50.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 50.82,
+        "end_s": 51.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 51.24,
+        "end_s": 51.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 51.38,
+        "end_s": 51.52,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 52.64,
+        "end_s": 52.74,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 52.78,
+        "end_s": 53.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 53.06,
+        "end_s": 53.22,
+        "ticks": 8
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 53.76,
+        "end_s": 53.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 53.9,
+        "end_s": 54.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 54.18,
+        "end_s": 54.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 54.46,
+        "end_s": 54.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 54.74,
+        "end_s": 54.88,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 57.12,
+        "end_s": 57.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 57.26,
+        "end_s": 57.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 57.54,
+        "end_s": 57.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 57.82,
+        "end_s": 58.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 58.1,
+        "end_s": 58.24,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 59.36,
+        "end_s": 59.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 59.5,
+        "end_s": 59.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 59.78,
+        "end_s": 60.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 60.06,
+        "end_s": 60.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 60.34,
+        "end_s": 60.48,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 61.6,
+        "end_s": 61.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 61.74,
+        "end_s": 61.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 62.02,
+        "end_s": 62.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 62.3,
+        "end_s": 62.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 62.58,
+        "end_s": 62.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 62.86,
+        "end_s": 63.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 63.14,
+        "end_s": 63.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 63.42,
+        "end_s": 63.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 63.7,
+        "end_s": 63.84,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 66.08,
+        "end_s": 66.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 66.22,
+        "end_s": 66.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 66.5,
+        "end_s": 66.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 66.78,
+        "end_s": 67.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 67.06,
+        "end_s": 67.2,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 68.32,
+        "end_s": 68.42,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 68.46,
+        "end_s": 68.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 68.74,
+        "end_s": 68.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 69.02,
+        "end_s": 69.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 69.3,
+        "end_s": 69.44,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 70.56,
+        "end_s": 70.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 70.7,
+        "end_s": 70.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 70.98,
+        "end_s": 71.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 71.26,
+        "end_s": 71.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 71.54,
+        "end_s": 71.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 71.82,
+        "end_s": 72.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 72.1,
+        "end_s": 72.8,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 75.04,
+        "end_s": 75.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 75.18,
+        "end_s": 75.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 75.46,
+        "end_s": 75.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 75.74,
+        "end_s": 75.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 76.02,
+        "end_s": 76.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 77.28,
+        "end_s": 77.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 77.42,
+        "end_s": 77.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 77.7,
+        "end_s": 77.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 77.98,
+        "end_s": 78.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 78.26,
+        "end_s": 78.4,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 78.96,
+        "end_s": 79.62,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 79.66,
+        "end_s": 79.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 79.94,
+        "end_s": 80.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 80.22,
+        "end_s": 80.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 80.5,
+        "end_s": 80.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 80.78,
+        "end_s": 81.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 81.06,
+        "end_s": 81.76,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 84.0,
+        "end_s": 84.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 84.14,
+        "end_s": 84.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 84.42,
+        "end_s": 84.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 84.7,
+        "end_s": 84.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 84.98,
+        "end_s": 85.12,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 86.24,
+        "end_s": 86.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 86.38,
+        "end_s": 86.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 86.66,
+        "end_s": 86.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 86.94,
+        "end_s": 87.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 87.22,
+        "end_s": 87.36,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 87.92,
+        "end_s": 88.58,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 88.62,
+        "end_s": 88.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 88.9,
+        "end_s": 89.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 89.18,
+        "end_s": 89.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 89.46,
+        "end_s": 89.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 89.74,
+        "end_s": 89.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 90.02,
+        "end_s": 90.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 90.58,
+        "end_s": 90.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 90.86,
+        "end_s": 91.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 91.14,
+        "end_s": 91.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 91.42,
+        "end_s": 91.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 91.7,
+        "end_s": 91.84,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 92.4,
+        "end_s": 92.82,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 92.96,
+        "end_s": 93.1,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 96.32,
+        "end_s": 96.42,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 96.46,
+        "end_s": 96.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 96.74,
+        "end_s": 96.88,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 97.3,
+        "end_s": 97.44,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 97.58,
+        "end_s": 98.1,
+        "ticks": 26
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 98.14,
+        "end_s": 98.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 98.42,
+        "end_s": 98.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 98.7,
+        "end_s": 98.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 98.98,
+        "end_s": 99.78,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 99.82,
+        "end_s": 100.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 100.1,
+        "end_s": 100.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 100.38,
+        "end_s": 100.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 100.66,
+        "end_s": 100.8,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 105.28,
+        "end_s": 105.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 105.42,
+        "end_s": 105.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 105.7,
+        "end_s": 106.5,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 106.54,
+        "end_s": 106.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 106.82,
+        "end_s": 107.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 107.1,
+        "end_s": 107.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 107.38,
+        "end_s": 107.52,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 115.36,
+        "end_s": 115.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 115.5,
+        "end_s": 115.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 115.78,
+        "end_s": 116.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 116.06,
+        "end_s": 116.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 116.34,
+        "end_s": 116.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 116.62,
+        "end_s": 116.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 116.9,
+        "end_s": 117.6,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 119.84,
+        "end_s": 119.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 119.98,
+        "end_s": 120.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 120.26,
+        "end_s": 120.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 120.54,
+        "end_s": 120.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 120.82,
+        "end_s": 120.96,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 122.08,
+        "end_s": 122.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 122.22,
+        "end_s": 122.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 122.5,
+        "end_s": 122.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 122.78,
+        "end_s": 123.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 123.06,
+        "end_s": 123.2,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 123.76,
+        "end_s": 124.42,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 124.46,
+        "end_s": 124.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 124.74,
+        "end_s": 124.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 125.02,
+        "end_s": 125.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 125.3,
+        "end_s": 125.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 125.58,
+        "end_s": 125.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 125.86,
+        "end_s": 126.56,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 128.8,
+        "end_s": 128.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 128.94,
+        "end_s": 129.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 129.22,
+        "end_s": 129.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 129.5,
+        "end_s": 129.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 129.78,
+        "end_s": 129.92,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 131.04,
+        "end_s": 131.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 131.18,
+        "end_s": 131.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 131.46,
+        "end_s": 131.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 131.74,
+        "end_s": 131.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 132.02,
+        "end_s": 132.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 132.72,
+        "end_s": 133.38,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 133.42,
+        "end_s": 133.56,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 134.4,
+        "end_s": 134.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 134.54,
+        "end_s": 134.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 134.82,
+        "end_s": 135.52,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 137.76,
+        "end_s": 137.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 137.9,
+        "end_s": 138.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 138.18,
+        "end_s": 138.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 138.46,
+        "end_s": 138.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 138.74,
+        "end_s": 138.88,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 140.0,
+        "end_s": 140.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 140.14,
+        "end_s": 140.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 140.42,
+        "end_s": 140.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 140.7,
+        "end_s": 140.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 140.98,
+        "end_s": 141.12,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 141.68,
+        "end_s": 142.34,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 142.38,
+        "end_s": 142.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 142.66,
+        "end_s": 142.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 142.94,
+        "end_s": 143.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 143.22,
+        "end_s": 143.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 143.5,
+        "end_s": 143.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 143.78,
+        "end_s": 144.48,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 146.72,
+        "end_s": 146.82,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 146.86,
+        "end_s": 147.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 147.14,
+        "end_s": 147.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 147.42,
+        "end_s": 147.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 147.7,
+        "end_s": 147.84,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 148.96,
+        "end_s": 149.06,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 149.1,
+        "end_s": 149.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 149.38,
+        "end_s": 149.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 149.66,
+        "end_s": 149.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 149.94,
+        "end_s": 150.08,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 150.64,
+        "end_s": 151.3,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 151.34,
+        "end_s": 151.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 151.62,
+        "end_s": 151.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 151.9,
+        "end_s": 152.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 152.18,
+        "end_s": 152.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 152.46,
+        "end_s": 152.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 152.74,
+        "end_s": 152.88,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 153.3,
+        "end_s": 153.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 153.58,
+        "end_s": 153.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 153.86,
+        "end_s": 154.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 154.14,
+        "end_s": 154.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 154.42,
+        "end_s": 154.56,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 155.12,
+        "end_s": 155.54,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 155.68,
+        "end_s": 155.82,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 159.04,
+        "end_s": 159.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 159.18,
+        "end_s": 159.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 159.46,
+        "end_s": 159.6,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 160.02,
+        "end_s": 160.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 160.3,
+        "end_s": 160.82,
+        "ticks": 26
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 160.86,
+        "end_s": 161.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 161.14,
+        "end_s": 161.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 161.42,
+        "end_s": 161.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 161.7,
+        "end_s": 162.5,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 162.54,
+        "end_s": 162.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 162.82,
+        "end_s": 163.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 163.1,
+        "end_s": 163.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 163.38,
+        "end_s": 163.52,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 168.0,
+        "end_s": 168.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 168.14,
+        "end_s": 168.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 168.42,
+        "end_s": 169.22,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 169.26,
+        "end_s": 169.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 169.54,
+        "end_s": 169.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 169.82,
+        "end_s": 170.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 170.1,
+        "end_s": 170.24,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 178.08,
+        "end_s": 178.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 178.22,
+        "end_s": 178.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 178.5,
+        "end_s": 178.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 178.78,
+        "end_s": 179.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 179.06,
+        "end_s": 179.2,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 187.04,
+        "end_s": 187.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 187.18,
+        "end_s": 187.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 187.46,
+        "end_s": 187.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 187.74,
+        "end_s": 187.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 188.02,
+        "end_s": 188.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 196.0,
+        "end_s": 196.1,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 196.14,
+        "end_s": 196.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 196.42,
+        "end_s": 196.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 196.7,
+        "end_s": 196.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 196.98,
+        "end_s": 197.12,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 215.04,
+        "end_s": 215.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 215.18,
+        "end_s": 215.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 215.46,
+        "end_s": 216.16,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 218.4,
+        "end_s": 218.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 218.54,
+        "end_s": 218.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 218.82,
+        "end_s": 219.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 219.1,
+        "end_s": 219.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 219.38,
+        "end_s": 219.52,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 220.64,
+        "end_s": 220.74,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 220.78,
+        "end_s": 221.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 221.06,
+        "end_s": 221.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 221.34,
+        "end_s": 221.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 221.62,
+        "end_s": 221.76,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 222.32,
+        "end_s": 222.98,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 223.02,
+        "end_s": 223.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 223.3,
+        "end_s": 223.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 223.58,
+        "end_s": 223.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 223.86,
+        "end_s": 224.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 224.14,
+        "end_s": 224.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 224.42,
+        "end_s": 225.12,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 227.36,
+        "end_s": 227.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 227.5,
+        "end_s": 227.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 227.78,
+        "end_s": 228.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 228.06,
+        "end_s": 228.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 228.34,
+        "end_s": 228.48,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 229.6,
+        "end_s": 229.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 229.74,
+        "end_s": 229.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 230.02,
+        "end_s": 230.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 230.3,
+        "end_s": 230.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 230.58,
+        "end_s": 230.72,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 231.28,
+        "end_s": 231.94,
+        "ticks": 33
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 231.98,
+        "end_s": 232.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 232.26,
+        "end_s": 232.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 232.54,
+        "end_s": 232.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 13,
+        "start_s": 232.82,
+        "end_s": 232.96,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 42.56,
+        "end_s": 42.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 42.7,
+        "end_s": 42.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 42.98,
+        "end_s": 43.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 43.26,
+        "end_s": 43.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 43.54,
+        "end_s": 43.68,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 51.52,
+        "end_s": 51.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 51.66,
+        "end_s": 51.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 51.94,
+        "end_s": 52.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 52.22,
+        "end_s": 52.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 52.5,
+        "end_s": 52.64,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 60.48,
+        "end_s": 60.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 60.62,
+        "end_s": 60.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 60.9,
+        "end_s": 61.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 61.18,
+        "end_s": 61.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 61.46,
+        "end_s": 61.6,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 69.44,
+        "end_s": 69.54,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 69.58,
+        "end_s": 69.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 69.86,
+        "end_s": 70.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 70.14,
+        "end_s": 70.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 70.42,
+        "end_s": 70.56,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 78.4,
+        "end_s": 78.5,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 78.54,
+        "end_s": 78.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 78.82,
+        "end_s": 78.96,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 87.36,
+        "end_s": 87.46,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 87.5,
+        "end_s": 87.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 87.78,
+        "end_s": 87.92,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 91.84,
+        "end_s": 91.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 91.98,
+        "end_s": 92.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 92.26,
+        "end_s": 92.4,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 92.82,
+        "end_s": 92.96,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 93.1,
+        "end_s": 93.62,
+        "ticks": 26
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 93.66,
+        "end_s": 93.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 93.94,
+        "end_s": 94.08,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 94.64,
+        "end_s": 95.06,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 100.8,
+        "end_s": 100.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 100.94,
+        "end_s": 101.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 101.22,
+        "end_s": 102.02,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 102.06,
+        "end_s": 102.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 102.34,
+        "end_s": 102.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 102.62,
+        "end_s": 102.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 102.9,
+        "end_s": 103.04,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 107.52,
+        "end_s": 107.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 107.66,
+        "end_s": 107.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 107.94,
+        "end_s": 108.74,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 108.78,
+        "end_s": 109.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 109.06,
+        "end_s": 109.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 109.34,
+        "end_s": 109.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 109.62,
+        "end_s": 109.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 109.9,
+        "end_s": 110.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 110.18,
+        "end_s": 110.98,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 111.02,
+        "end_s": 111.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 111.3,
+        "end_s": 111.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 111.58,
+        "end_s": 111.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 111.86,
+        "end_s": 112.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 112.14,
+        "end_s": 112.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 112.42,
+        "end_s": 113.22,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 113.26,
+        "end_s": 113.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 113.54,
+        "end_s": 113.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 113.82,
+        "end_s": 114.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 114.1,
+        "end_s": 114.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 114.38,
+        "end_s": 114.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 114.66,
+        "end_s": 115.36,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 123.2,
+        "end_s": 123.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 123.34,
+        "end_s": 123.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 123.62,
+        "end_s": 123.76,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 132.16,
+        "end_s": 132.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 132.3,
+        "end_s": 132.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 132.58,
+        "end_s": 132.72,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 141.12,
+        "end_s": 141.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 141.26,
+        "end_s": 141.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 141.54,
+        "end_s": 141.68,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 150.08,
+        "end_s": 150.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 150.22,
+        "end_s": 150.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 150.5,
+        "end_s": 150.64,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 154.56,
+        "end_s": 154.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 154.7,
+        "end_s": 154.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 154.98,
+        "end_s": 155.12,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 155.54,
+        "end_s": 155.68,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 155.82,
+        "end_s": 156.34,
+        "ticks": 26
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 156.38,
+        "end_s": 156.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 156.66,
+        "end_s": 156.8,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 157.36,
+        "end_s": 157.78,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 163.52,
+        "end_s": 163.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 163.66,
+        "end_s": 163.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 163.94,
+        "end_s": 164.74,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 164.78,
+        "end_s": 165.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 165.06,
+        "end_s": 165.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 165.34,
+        "end_s": 165.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 165.62,
+        "end_s": 165.76,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 170.24,
+        "end_s": 170.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 170.38,
+        "end_s": 170.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 170.66,
+        "end_s": 171.46,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 171.5,
+        "end_s": 171.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 171.78,
+        "end_s": 172.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 172.06,
+        "end_s": 172.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 172.34,
+        "end_s": 172.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 172.62,
+        "end_s": 172.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 172.9,
+        "end_s": 173.7,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 173.74,
+        "end_s": 173.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 174.02,
+        "end_s": 174.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 174.3,
+        "end_s": 174.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 174.58,
+        "end_s": 174.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 174.86,
+        "end_s": 175.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 175.14,
+        "end_s": 175.94,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 175.98,
+        "end_s": 176.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 176.26,
+        "end_s": 176.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 176.54,
+        "end_s": 176.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 176.82,
+        "end_s": 177.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 177.1,
+        "end_s": 177.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 177.38,
+        "end_s": 178.08,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 179.2,
+        "end_s": 179.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 179.34,
+        "end_s": 179.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 179.62,
+        "end_s": 180.42,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 180.46,
+        "end_s": 180.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 180.74,
+        "end_s": 180.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 181.02,
+        "end_s": 181.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 181.3,
+        "end_s": 181.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 181.58,
+        "end_s": 181.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 181.86,
+        "end_s": 182.66,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 182.7,
+        "end_s": 182.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 182.98,
+        "end_s": 183.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 183.26,
+        "end_s": 183.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 183.54,
+        "end_s": 183.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 183.82,
+        "end_s": 184.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 184.1,
+        "end_s": 184.9,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 184.94,
+        "end_s": 185.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 185.22,
+        "end_s": 185.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 185.5,
+        "end_s": 185.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 185.78,
+        "end_s": 186.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 186.06,
+        "end_s": 186.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 186.34,
+        "end_s": 187.04,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 188.16,
+        "end_s": 188.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 188.3,
+        "end_s": 188.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 188.58,
+        "end_s": 189.38,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 189.42,
+        "end_s": 189.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 189.7,
+        "end_s": 189.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 189.98,
+        "end_s": 190.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 190.26,
+        "end_s": 190.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 190.54,
+        "end_s": 190.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 190.82,
+        "end_s": 191.62,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 191.66,
+        "end_s": 191.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 191.94,
+        "end_s": 192.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 192.22,
+        "end_s": 192.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 192.5,
+        "end_s": 192.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 192.78,
+        "end_s": 193.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 193.06,
+        "end_s": 193.86,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 193.9,
+        "end_s": 194.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 194.18,
+        "end_s": 194.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 194.46,
+        "end_s": 194.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 194.74,
+        "end_s": 194.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 195.02,
+        "end_s": 195.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 195.3,
+        "end_s": 196.0,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 221.76,
+        "end_s": 221.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 221.9,
+        "end_s": 222.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 222.18,
+        "end_s": 222.32,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 230.72,
+        "end_s": 230.82,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 230.86,
+        "end_s": 231.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 14,
+        "start_s": 231.14,
+        "end_s": 231.28,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 36.96,
+        "end_s": 37.06,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 37.1,
+        "end_s": 37.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 37.38,
+        "end_s": 37.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 37.8,
+        "end_s": 37.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 37.94,
+        "end_s": 38.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 38.22,
+        "end_s": 38.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 38.5,
+        "end_s": 38.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 38.78,
+        "end_s": 39.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 39.06,
+        "end_s": 39.2,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 40.32,
+        "end_s": 40.42,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 40.46,
+        "end_s": 40.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 40.74,
+        "end_s": 40.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 41.02,
+        "end_s": 41.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 41.3,
+        "end_s": 41.44,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 45.92,
+        "end_s": 46.02,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 46.06,
+        "end_s": 46.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 46.34,
+        "end_s": 46.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 46.76,
+        "end_s": 46.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 46.9,
+        "end_s": 47.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 47.18,
+        "end_s": 47.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 47.46,
+        "end_s": 47.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 47.74,
+        "end_s": 47.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 48.02,
+        "end_s": 48.16,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 49.28,
+        "end_s": 49.38,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 49.42,
+        "end_s": 49.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 49.7,
+        "end_s": 49.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 49.98,
+        "end_s": 50.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 50.26,
+        "end_s": 50.4,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 54.88,
+        "end_s": 54.98,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 55.02,
+        "end_s": 55.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 55.3,
+        "end_s": 55.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 55.58,
+        "end_s": 55.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 55.86,
+        "end_s": 56.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 56.14,
+        "end_s": 56.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 56.42,
+        "end_s": 56.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 56.7,
+        "end_s": 56.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 56.98,
+        "end_s": 57.12,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 58.24,
+        "end_s": 58.34,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 58.38,
+        "end_s": 58.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 58.66,
+        "end_s": 58.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 58.94,
+        "end_s": 59.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 59.22,
+        "end_s": 59.36,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 63.84,
+        "end_s": 63.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 63.98,
+        "end_s": 64.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 64.26,
+        "end_s": 64.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 64.54,
+        "end_s": 64.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 64.82,
+        "end_s": 65.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 65.1,
+        "end_s": 65.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 65.38,
+        "end_s": 65.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 65.66,
+        "end_s": 65.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 65.94,
+        "end_s": 66.08,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 67.2,
+        "end_s": 67.3,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 67.34,
+        "end_s": 67.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 67.62,
+        "end_s": 67.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 67.9,
+        "end_s": 68.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 68.18,
+        "end_s": 68.32,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 72.8,
+        "end_s": 72.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 72.94,
+        "end_s": 73.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 73.22,
+        "end_s": 73.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 73.5,
+        "end_s": 73.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 73.78,
+        "end_s": 74.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 74.06,
+        "end_s": 74.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 74.34,
+        "end_s": 75.04,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 76.16,
+        "end_s": 76.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 76.3,
+        "end_s": 76.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 76.58,
+        "end_s": 77.28,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 81.76,
+        "end_s": 81.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 81.9,
+        "end_s": 82.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 82.18,
+        "end_s": 82.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 82.46,
+        "end_s": 82.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 82.74,
+        "end_s": 82.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 83.02,
+        "end_s": 83.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 83.3,
+        "end_s": 84.0,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 85.12,
+        "end_s": 85.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 85.26,
+        "end_s": 85.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 85.54,
+        "end_s": 86.24,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 90.16,
+        "end_s": 90.58,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 94.08,
+        "end_s": 94.18,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 94.22,
+        "end_s": 94.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 94.5,
+        "end_s": 94.64,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 95.06,
+        "end_s": 95.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 95.34,
+        "end_s": 95.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 95.62,
+        "end_s": 95.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 95.9,
+        "end_s": 96.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 96.18,
+        "end_s": 96.32,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 96.88,
+        "end_s": 97.3,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 97.44,
+        "end_s": 97.58,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 103.04,
+        "end_s": 103.14,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 103.18,
+        "end_s": 103.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 103.46,
+        "end_s": 104.26,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 104.3,
+        "end_s": 104.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 104.58,
+        "end_s": 104.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 104.86,
+        "end_s": 105.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 105.14,
+        "end_s": 105.28,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 117.6,
+        "end_s": 117.7,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 117.74,
+        "end_s": 117.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 118.02,
+        "end_s": 118.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 118.3,
+        "end_s": 118.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 118.58,
+        "end_s": 118.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 118.86,
+        "end_s": 119.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 119.14,
+        "end_s": 119.84,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 120.96,
+        "end_s": 121.06,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 121.1,
+        "end_s": 121.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 121.38,
+        "end_s": 122.08,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 126.56,
+        "end_s": 126.66,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 126.7,
+        "end_s": 126.94,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 126.98,
+        "end_s": 127.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 127.26,
+        "end_s": 127.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 127.54,
+        "end_s": 127.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 127.82,
+        "end_s": 128.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 128.1,
+        "end_s": 128.8,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 129.92,
+        "end_s": 130.02,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 130.06,
+        "end_s": 130.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 130.34,
+        "end_s": 131.04,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 135.52,
+        "end_s": 135.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 135.66,
+        "end_s": 135.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 135.94,
+        "end_s": 136.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 136.22,
+        "end_s": 136.46,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 136.5,
+        "end_s": 136.74,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 136.78,
+        "end_s": 137.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 137.06,
+        "end_s": 137.76,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 138.88,
+        "end_s": 138.98,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 139.02,
+        "end_s": 139.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 139.3,
+        "end_s": 140.0,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 144.48,
+        "end_s": 144.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 144.62,
+        "end_s": 144.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 144.9,
+        "end_s": 145.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 145.18,
+        "end_s": 145.42,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 145.46,
+        "end_s": 145.7,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 145.74,
+        "end_s": 145.98,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 146.02,
+        "end_s": 146.72,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 147.84,
+        "end_s": 147.94,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 147.98,
+        "end_s": 148.22,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 148.26,
+        "end_s": 148.96,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 152.88,
+        "end_s": 153.3,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 156.8,
+        "end_s": 156.9,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 156.94,
+        "end_s": 157.18,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 157.22,
+        "end_s": 157.36,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 157.78,
+        "end_s": 158.02,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 158.06,
+        "end_s": 158.3,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 158.34,
+        "end_s": 158.58,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 158.62,
+        "end_s": 158.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 158.9,
+        "end_s": 159.04,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 159.6,
+        "end_s": 160.02,
+        "ticks": 21
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 160.16,
+        "end_s": 160.3,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 165.76,
+        "end_s": 165.86,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 165.9,
+        "end_s": 166.14,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 166.18,
+        "end_s": 166.98,
+        "ticks": 40
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 167.02,
+        "end_s": 167.26,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 167.3,
+        "end_s": 167.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 167.58,
+        "end_s": 167.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 167.86,
+        "end_s": 168.0,
+        "ticks": 7
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 216.16,
+        "end_s": 216.26,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 216.3,
+        "end_s": 216.54,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 216.58,
+        "end_s": 216.82,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 216.86,
+        "end_s": 217.1,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 217.14,
+        "end_s": 217.38,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 217.42,
+        "end_s": 217.66,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 217.7,
+        "end_s": 218.4,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 219.52,
+        "end_s": 219.62,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 219.66,
+        "end_s": 219.9,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 219.94,
+        "end_s": 220.64,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 225.12,
+        "end_s": 225.22,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 225.26,
+        "end_s": 225.5,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 225.54,
+        "end_s": 225.78,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 225.82,
+        "end_s": 226.06,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 226.1,
+        "end_s": 226.34,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 226.38,
+        "end_s": 226.62,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 226.66,
+        "end_s": 227.36,
+        "ticks": 35
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 228.48,
+        "end_s": 228.58,
+        "ticks": 5
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 228.62,
+        "end_s": 228.86,
+        "ticks": 12
+      },
+      {
+        "source_channel": 1,
+        "instrument": 15,
+        "start_s": 228.9,
+        "end_s": 229.6,
+        "ticks": 35
+      }
+    ],
+    "routing_sha256": "28471ee299f0de551c9a83aa837af0bd95d05cad1e9ca84723721c79588d0f5e",
+    "scope": "Every omitted active source tick, grouped into exact contiguous passages. Channel seconds can overlap; they are not silent seconds in the complete mix."
+  },
+  "rebuild": {
+    "passed": true,
+    "variants_byte_identical": {
+      "all": true,
+      "sid-1": true,
+      "sid-2": true,
+      "sid-3": true,
+      "muted": true
+    },
+    "program_sha256": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184",
+    "temporary_output": "/var/folders/2s/_6fw48n95h59ks_q6mn61_5w0000gn/T/cream-full-rebuild-esavgrth",
+    "ticks": 12096,
+    "duration_s": 241.91997953814675
+  },
+  "reusable_asm_banks": {
+    "passed": true,
+    "exports": 8,
+    "unique_files_and_labels": true,
+    "bytes": 16384,
+    "sha256": "cc0bb25cb1a5263ced62b585927305add26dd9eb7d17fb4688b15e84a6775428",
+    "frozen_score_PCM_program_files_unchanged": true,
+    "files": [
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/11-g64.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/07-g41.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/08-g48.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/09-g28.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/17-g64.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/09-g64.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/09-g48.asm",
+      "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/full-linus-mix/instruments/pcm-asm/09-g32.asm"
+    ],
+    "scope": "Only bank ASM exports and their asset metadata were written. Existing PCM bins, note data, expected stream and five player PRGs are unchanged. All eight exported bank ASMs assemble together and reproduce the exact existing bank bytes, including256-byte guards."
+  }
+}

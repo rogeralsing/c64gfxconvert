@@ -1,10 +1,11 @@
-.label c3_fraction = $14
-.label c3_position_low = $15
-.label c3_position_high = $16
-.label c3_block_count = $17
+.label c3_source_pointer = $14
+.label c3_elapsed_low = $16
+.label c3_elapsed_high = $17
 .label c3_remaining = $18
 .label c3_active = $19
-.label c3_chunk = $1c
+.label c3_frame_offset = $1a
+.label c3_ring_write = $1b
+.label c3_block_count = $1c
 .label c3_done = $1d
 .label c3_score_ptr = $1e
 .label sid2_high_buffer = $0600
@@ -76,17 +77,10 @@ start:
     bne !copy_sid2-
     lda #$40
     sta $dd0c
-    ldx #0
-!copy_c3:
-    lda c3_producer_image,x
-    sta c3_produce_block,x
-    inx
-    cpx #(c3_producer_end-c3_produce_block)
-    bne !copy_c3-
     jsr c3_initialize
 !prefill:
     jsr c3_pump
-    lda c3_fast_write+1
+    lda c3_ring_write
     cmp #241
     bcc !prefill-
     // Startup calibration precedes all audible SID initialization.
@@ -232,7 +226,7 @@ next_frame:
 background_begin:
     lda c3_done
     bne background_done
-    lda c3_fast_write+1
+    lda c3_ring_write
     sec
     sbc sid2_read_high+1
     cmp #209
@@ -489,7 +483,14 @@ sid2_latch_load_1:
     sta $d40b
     lda #<sid2_phase1
     .byte $85, <(sid2_dispatch+1)
-    jmp sid2_finished
+    // Inline the ordinary return after its fixed SID register slots.
+    // Phase0 keeps the boundary/terminal path at its original cycle count.
+    .byte $e6, <(buffer_read+1)
+    bne !inline_return+
+    jmp frame_boundary
+!inline_return:
+    .byte $a5, <(restore_a+1)
+    jmp $dd0c
     .fill $0440-*, $ea
 sid2_phase1:
     // Only a phase1 boundary can make the next phase2 a pending SID1 commit.
@@ -515,12 +516,24 @@ sid2_release_load_2:
     sta $d40b
     lda #<sid2_phase3
     .byte $85, <(sid2_dispatch+1)
-    jmp sid2_finished
+    // Inline the ordinary return after its fixed SID register slots.
+    .byte $e6, <(buffer_read+1)
+    beq !inline_boundary+
+    .byte $a5, <(restore_a+1)
+    jmp $dd0c
+!inline_boundary:
+    jmp frame_boundary
     .fill $04c0-*, $ea
 sid2_phase3:
     lda #<sid2_phase0
     .byte $85, <(sid2_dispatch+1)
-    jmp sid2_finished
+    // Inline the ordinary return after its fixed SID register slots.
+    .byte $e6, <(buffer_read+1)
+    beq !inline_boundary+
+    .byte $a5, <(restore_a+1)
+    jmp $dd0c
+!inline_boundary:
+    jmp frame_boundary
     .fill $0500-*, $ea
 }
 
@@ -669,16 +682,17 @@ runtime_end:
 }
 
 
-.pc = $c000 "C3 bounded foreground producer"
+
+.pc = $c000 "C3 native linear cursor and unrolled copies"
 c3_initialize:
-    lda #255
-    sta c3_fraction
     lda #0
-    sta c3_position_low
-    sta c3_position_high
+    sta c3_elapsed_low
+    sta c3_elapsed_high
     sta c3_remaining
     sta c3_active
     sta c3_done
+    lda #1
+    sta c3_ring_write
     lda #<score
     sta c3_score_ptr
     lda #>score
@@ -689,67 +703,37 @@ c3_initialize:
     sta c3_frames_left+1
     rts
 
-// Dispatch directly to the current source segment. Only its one remaining
-// counter changes per block; a prepared active prefix is followed by its tail.
 c3_pump:
-    jmp c3_next_segment
+    jmp c3_open_frame
 c3_active_block:
     lda c3_remaining
     bne !active+
-    jmp c3_next_segment
+    jmp c3_finish_active
 !active:
-    cmp #16
+    cmp #32
     bcc !short+
-    sbc #16
+    sbc #32
     sta c3_remaining
-    lda #16
+    lda #32
     sta c3_block_count
-c3_active_emit:
-    lda c3_position_low
-    cmp #240
-    bcs !boundary+
-    jsr c3_produce_fast_block
-    rts
-!boundary:
-    lda c3_fast_write+1
-    sta c3_write+1
-    jsr c3_produce_block
-    lda c3_write+1
-    sta c3_fast_write+1
-    lda c3_read+2
-    sta c3_fast_read+2
+    jsr c3_copy_block
     rts
 !short:
     sta c3_block_count
     lda #0
     sta c3_remaining
-    jmp c3_active_emit
-c3_ended_block:
-    lda c3_remaining
-    bne !ended+
-    jmp c3_next_segment
-!ended:
-    cmp #16
-    bcc !smaller+
-    sbc #16
-    sta c3_remaining
-    jsr c3_emit_ended_full8
-    jsr c3_emit_ended_full8
+    jsr c3_copy_block
     rts
-!smaller:
-    cmp #8
-    bcc !short+
-    sbc #8
-    sta c3_remaining
-    jsr c3_emit_ended_full8
-    rts
-!short:
-    sta c3_block_count
-    lda #0
-    sta c3_remaining
-    jsr c3_emit_ended_block
-    rts
-c3_next_segment:
+c3_finish_active:
+    // A native16-bit elapsed-output cursor survives gain changes. Ended
+    // tails preserve it; the next trigger alone resets the instrument phase.
+    clc
+    lda c3_elapsed_low
+    adc c3_frame_active_count
+    sta c3_elapsed_low
+    bcc !position+
+    inc c3_elapsed_high
+!position:
     lda c3_active
     beq c3_open_frame
     sta c3_remaining
@@ -759,6 +743,23 @@ c3_next_segment:
     sta c3_pump+1
     lda #>c3_ended_block
     sta c3_pump+2
+    rts
+c3_ended_block:
+    lda c3_remaining
+    bne !ended+
+    jmp c3_open_frame
+!ended:
+    cmp #16
+    bcc !short+
+    sbc #16
+    sta c3_remaining
+    jsr c3_ended16
+    rts
+!short:
+    sta c3_block_count
+    lda #0
+    sta c3_remaining
+    jsr c3_ended_block_copy
     rts
 c3_open_frame:
     lda c3_done
@@ -776,9 +777,19 @@ c3_open_frame:
     dec c3_frames_left+1
 !count:
     dec c3_frames_left
+    ldy #10
+    lda (c3_score_ptr),y
+    beq !hold+
+    lda #0
+    sta c3_elapsed_low
+    sta c3_elapsed_high
+!hold:
+    lda #0
+    sta c3_frame_offset
     ldy #11
     lda (c3_score_ptr),y
     sta c3_remaining
+    sta c3_frame_active_count
     ldy #5
     lda (c3_score_ptr),y
     sec
@@ -790,7 +801,25 @@ c3_open_frame:
     sta c3_pump+1
     lda #>c3_active_block
     sta c3_pump+2
-    jmp !mode+
+    ldy #9
+    lda (c3_score_ptr),y
+    tax
+    cpx #C3_SILENT_VARIANT
+    beq !neutral+
+    clc
+    lda c3_bank_low,x
+    adc c3_elapsed_low
+    sta c3_source_pointer
+    lda c3_bank_high,x
+    adc c3_elapsed_high
+    sta c3_source_pointer+1
+    jmp !ready+
+!neutral:
+    lda #<c3_neutral
+    sta c3_source_pointer
+    lda #>c3_neutral
+    sta c3_source_pointer+1
+    jmp !ready+
 !ended:
     lda c3_active
     sta c3_remaining
@@ -800,50 +829,6 @@ c3_open_frame:
     sta c3_pump+1
     lda #>c3_ended_block
     sta c3_pump+2
-!mode:
-    ldy #9
-    lda (c3_score_ptr),y
-    sta c3_step+1
-    sta c3_fast_step+1
-    iny
-    lda (c3_score_ptr),y
-    bpl !hold+
-    ldx #255
-    stx c3_fraction
-    ldx #0
-    stx c3_position_low
-    stx c3_position_high
-!hold:
-    and #127
-    tax
-    cpx #C3_SILENT_VARIANT
-    beq !muted+
-    lda #$b9
-    sta c3_read
-    sta c3_fast_read
-    lda c3_bank_low,x
-    sta c3_read+1
-    sta c3_fast_read+1
-    lda c3_bank_high,x
-    clc
-    adc c3_position_high
-    sta c3_read+2
-    sta c3_fast_read+2
-    lda #$e6
-    sta c3_read_high_advance
-    jmp !ready+
-!muted:
-    lda #$ad
-    sta c3_read
-    sta c3_fast_read
-    lda #<c3_neutral
-    sta c3_read+1
-    sta c3_fast_read+1
-    lda #>c3_neutral
-    sta c3_read+2
-    sta c3_fast_read+2
-    lda #$24
-    sta c3_read_high_advance
 !ready:
     clc
     lda c3_score_ptr
@@ -853,285 +838,423 @@ c3_open_frame:
     inc c3_score_ptr+1
 !pointer:
     rts
-c3_neutral:
-    .byte 54
+c3_frame_active_count:
+    .byte 0
 c3_frames_left:
     .word 0
+c3_neutral:
+    .fill 40, 54
 
-// Bounded native direct-frequency producer. Caller supplies these ZP labels:
-// c3_fraction (255-phaseLow), c3_position_low/high and c3_block_count (1..16).
-// Before a block, patch c3_step+1 and c3_read to virtualBase+positionHigh,Y.
-// Active audible mode: read opcode=$b9, c3_read_high_advance opcode=$e6.
-// Muted mode: read opcode=$ad at a constant neutral byte, advance opcode=$24
-// (BIT zp). Muted active sources still advance; ended tails use step zero.
-// No per-output end test exists: caller must stop each active prefix exactly
-// at its prepared lifetime bound. The first20s proof never reaches a loop.
-// Ring write starts at1: index0 represents the separately primed neutral latch.
-c3_producer_image:
-.pseudopc $c0 {
-c3_produce_block:
-    ldx c3_fraction
-    ldy c3_position_low
-c3_produce_loop:
-c3_read:
-    lda $ffff,y
-c3_ring_store:
-c3_ring_store_slow:
-c3_write:
-    sta $0601
-    inc c3_write+1
-    txa
-c3_step:
-    .byte $cb, $00             // SBX: descending fractional phase in X.
-    bcs c3_advanced
+// Reusable fixed-pitch waveform copy. The native elapsed cursor selects a
+// per-instrument/gain window; Y is the current position within this source tick.
+// The lookup selects an exact1..32-value suffix of the unrolled block.
+c3_copy_block:
+    ldx c3_block_count
+    lda c3_copy_target_low,x
+    sta c3_copy_jump+1
+    lda c3_copy_target_high,x
+    sta c3_copy_jump+2
+    ldx c3_ring_write
+    ldy c3_frame_offset
+c3_copy_jump:
+    jmp c3_copy_values
+c3_copy_values:
+    lda (c3_source_pointer),y
+c3_ring_store_copy_00:
+    sta $0600,x
     iny
-    bne c3_advanced
-    inc c3_position_high
-c3_read_high_advance:
-    inc c3_read+2
-c3_advanced:
-    dec c3_block_count
-    bne c3_produce_loop
-    stx c3_fraction
-    sty c3_position_low
-c3_produce_block_rts:
-    rts
-c3_primary_end:
-
-// Fast entry additionally requires positionLow<256-blockLimit: below248 for
-// eight-value blocks, below240 for sixteen. These bounded unit advances cannot
-// wrap Y, so neither source-high update is needed inside.
-// Keep this write pointer canonical; only slow boundary blocks need to copy
-// its low byte to/from c3_write+1. Mirror read/step patches when frames change.
-c3_produce_fast_block:
-    ldx c3_fraction
-    ldy c3_position_low
-c3_fast_loop:
-c3_fast_read:
-    lda $ffff,y
-c3_ring_store_fast:
-c3_fast_write:
-    sta $0601
-    inc c3_fast_write+1
-    txa
-c3_fast_step:
-    .byte $cb, $00
-    bcs c3_fast_advanced
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_01:
+    sta $0600,x
     iny
-c3_fast_advanced:
-    dec c3_block_count
-    bne c3_fast_loop
-    stx c3_fraction
-    sty c3_position_low
-c3_fast_block_rts:
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_02:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_03:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_04:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_05:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_06:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_07:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_08:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_09:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_10:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_11:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_12:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_13:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_14:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_15:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_16:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_17:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_18:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_19:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_20:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_21:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_22:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_23:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_24:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_25:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_26:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_27:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_28:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_29:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_30:
+    sta $0600,x
+    iny
+    inx
+    lda (c3_source_pointer),y
+c3_ring_store_copy_31:
+    sta $0600,x
+    iny
+    inx
+c3_copy_values_end:
+    stx c3_ring_write
+    sty c3_frame_offset
+c3_copy_block_rts:
     rts
-c3_producer_end:
+c3_copy_target_low:
+.for (var count = 0; count <= 32; count++) {
+    .byte <(c3_copy_values_end - count * 7)
 }
-.assert "C3 producer must fit above the unchanged sample ISR", c3_producer_end <= $100, true
+c3_copy_target_high:
+.for (var count = 0; count <= 32; count++) {
+    .byte >(c3_copy_values_end - count * 7)
+}
 
-// Ended sources have no advancing cursor. This caller-side kernel is ordinary
-// RAM code; X indexes the ring directly. Never use it for a muted active note.
-c3_emit_ended_block:
-    ldx c3_fast_write+1
-c3_neutral_load:
+
+c3_ended_block_copy:
+    ldx c3_ring_write
     lda #54
-!ended_loop:
+!ended:
 c3_ring_store_ended:
     sta $0600,x
     inx
     dec c3_block_count
-    bne !ended_loop-
-    stx c3_fast_write+1
-    stx c3_write+1
-c3_ended_block_rts:
+    bne !ended-
+    stx c3_ring_write
+c3_ended_block_copy_rts:
     rts
-
-// Common eight-value ended block: no per-value counter/branch is necessary.
-// Short tails retain c3_emit_ended_block above. Both paths leave count zero.
-c3_emit_ended_full8:
-    ldx c3_fast_write+1
-c3_full8_neutral_load:
+c3_ended16:
+    ldx c3_ring_write
     lda #54
-c3_ring_store_ended_0:
+c3_ring_store_ended_00:
     sta $0600,x
     inx
-c3_ring_store_ended_1:
+c3_ring_store_ended_01:
     sta $0600,x
     inx
-c3_ring_store_ended_2:
+c3_ring_store_ended_02:
     sta $0600,x
     inx
-c3_ring_store_ended_3:
+c3_ring_store_ended_03:
     sta $0600,x
     inx
-c3_ring_store_ended_4:
+c3_ring_store_ended_04:
     sta $0600,x
     inx
-c3_ring_store_ended_5:
+c3_ring_store_ended_05:
     sta $0600,x
     inx
-c3_ring_store_ended_6:
+c3_ring_store_ended_06:
     sta $0600,x
     inx
-c3_ring_store_ended_7:
+c3_ring_store_ended_07:
     sta $0600,x
     inx
-    stx c3_fast_write+1
-    stx c3_write+1
-    lda #0
-    sta c3_block_count
-c3_ended_full8_rts:
+c3_ring_store_ended_08:
+    sta $0600,x
+    inx
+c3_ring_store_ended_09:
+    sta $0600,x
+    inx
+c3_ring_store_ended_10:
+    sta $0600,x
+    inx
+c3_ring_store_ended_11:
+    sta $0600,x
+    inx
+c3_ring_store_ended_12:
+    sta $0600,x
+    inx
+c3_ring_store_ended_13:
+    sta $0600,x
+    inx
+c3_ring_store_ended_14:
+    sta $0600,x
+    inx
+c3_ring_store_ended_15:
+    sta $0600,x
+    inx
+    stx c3_ring_write
+c3_ended16_rts:
     rts
-
-.assert "C3 management code must leave delay routines free", * <= $c300, true
-
+.assert "Copy manager must leave fixed calibration pages free", * <= $c300, true
 .pc = $c300 "Stable startup delay"
 startup_audio_delay:
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     ldx #255
-!rle_delay:
+!copy_delay:
     dex
-    bne !rle_delay-
-    ldx #208
-!rle_delay:
+    bne !copy_delay-
+    ldx #255
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
+    ldx #255
+!copy_delay:
+    dex
+    bne !copy_delay-
+    ldx #74
+!copy_delay:
+    dex
+    bne !copy_delay-
+    nop
     rts
-.assert "Startup delay must remain in one code page", * < $c400, true
-
+.assert "Startup delay must stay in one code page", * < $c400, true
 .pc = $c400 "Stable initial-note delay"
 startup_initial_delay:
-    ldx #252
-!rle_delay:
+    ldx #253
+!copy_delay:
     dex
-    bne !rle_delay-
+    bne !copy_delay-
     nop
     nop
     nop
     rts
-.assert "Initial delay must remain in one code page", * < $c500, true
-
-.assert "Bootstrap must not overlap resident instruments", runtime_end <= $1000, true
+.assert "Initial delay must stay in one code page", * < $c500, true
+.assert "Bootstrap must not overlap instrument data", runtime_end <= $1000, true
