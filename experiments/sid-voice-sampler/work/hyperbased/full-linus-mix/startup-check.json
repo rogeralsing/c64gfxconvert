@@ -1,0 +1,832 @@
+{
+  "passed": true,
+  "program_sha256": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+  "native_image_sha256": "2be95720636312921117ab8ae0a3d8f5688a9293f27417d91bb3e3b262b61e7b",
+  "bytes": 51201,
+  "loader": {
+    "native_program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/rebuilt/all/native.prg",
+    "native_sha256": "2be95720636312921117ab8ae0a3d8f5688a9293f27417d91bb3e3b262b61e7b",
+    "source_sha256": "3a9d55b97386a3dbb3a6bd51d8f913d990f3e7204491d9b36e708575743acdf6",
+    "native_bytes": 62816,
+    "native_end_exclusive": 64863,
+    "load_end_exclusive": 53248,
+    "arena": [
+      22720,
+      28672
+    ],
+    "loader_bytes": 189,
+    "staged_bytes": 3423,
+    "symbols": {
+      "loader_done": 22906,
+      "loader_payload": 22909,
+      "loader_enter": 22720,
+      "loader_end": 26332
+    },
+    "scope": "Startup only. Original entry and high code restored before playback; score, instruments and playback addresses unchanged."
+  },
+  "true_drive_full_performance": {
+    "passed": true,
+    "first_latch_cycle": 129478415,
+    "frames": 9000,
+    "underruns": 0,
+    "sample_values": 1407497,
+    "sample_period_cycles": 126,
+    "every_sample_value_and_prefix_checked": true,
+    "ordinary_voice_writes": [
+      53994,
+      62993
+    ],
+    "sid1_boundary_gate_prewrites": 8999,
+    "SID1_fixed_offsets": [
+      53,
+      60,
+      67
+    ],
+    "master_volume_constant_during_stream": true,
+    "expected_input_sha256": "911a4be06c335591ca60e08e9e60434e66d6eb08460de2d76c071d4ef9d62f02",
+    "trace_sha256": "29d7a342cba4a92885b88d89dc0230d9c826b3aaa03886aef8facb1b20cb2c2f",
+    "mismatches": 0,
+    "first_mismatches": [],
+    "shutdown": [
+      [
+        177344572,
+        4,
+        0
+      ],
+      [
+        177344576,
+        11,
+        0
+      ],
+      [
+        177344580,
+        18,
+        0
+      ]
+    ],
+    "enabled_physical_outputs": [
+      true,
+      true,
+      true
+    ],
+    "program_sha256": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+    "autostartprgmode": 2,
+    "manual_load_or_SYS_or_addressed_g": false
+  },
+  "true_drive_restored_ram": {
+    "passed": true,
+    "bytes_compared": 52766,
+    "excluded_loader_arena": [
+      22720,
+      28672
+    ],
+    "mismatched_bytes": 0,
+    "first_mismatches": [],
+    "scope": "Native RAM at loader_done, before original player entry. I/O is excluded; the declared loader arena is the only excluded RAM."
+  },
+  "virtual_fs_full_performance": {
+    "passed": true,
+    "first_latch_cycle": 8553385,
+    "frames": 9000,
+    "underruns": 0,
+    "sample_values": 1407497,
+    "sample_period_cycles": 126,
+    "every_sample_value_and_prefix_checked": true,
+    "ordinary_voice_writes": [
+      53994,
+      62993
+    ],
+    "sid1_boundary_gate_prewrites": 8999,
+    "SID1_fixed_offsets": [
+      53,
+      60,
+      67
+    ],
+    "master_volume_constant_during_stream": true,
+    "expected_input_sha256": "911a4be06c335591ca60e08e9e60434e66d6eb08460de2d76c071d4ef9d62f02",
+    "trace_sha256": "75dfa605119a42d93254de61416f19e9e51a7bd3e99497ea55b437cc2939eedd",
+    "mismatches": 0,
+    "first_mismatches": [],
+    "shutdown": [
+      [
+        177344572,
+        4,
+        0
+      ],
+      [
+        177344576,
+        11,
+        0
+      ],
+      [
+        177344580,
+        18,
+        0
+      ]
+    ],
+    "enabled_physical_outputs": [
+      true,
+      true,
+      true
+    ],
+    "program_sha256": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+    "autostartprgmode": 0,
+    "manual_load_or_SYS_or_addressed_g": false
+  },
+  "rebuild": {
+    "passed": true,
+    "native_variants_byte_identical": {
+      "all": true,
+      "sid-1": true,
+      "sid-2": true,
+      "sid-3": true,
+      "muted": true
+    },
+    "packed_program_sha256": {
+      "all": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+      "sid-1": "b6020860446c2a3fade925f13f94de9c7ab8859ba98dce745a6f20957ed57a24",
+      "sid-2": "ec1e6f585a44eafcebf844bd38b9ca494f2773b42f80e8be052e7485bc8f811b",
+      "sid-3": "8f1eced4f5c5bec67180d3345d9b1bd26f0578b1aa8fab34c0a40cfc73623f5d",
+      "muted": "4743af21af5629186ccc9d4b75c673e23d13f65658f3786f309d28ccc8c93bce"
+    },
+    "all_clean_rebuild_byte_identical": true
+  },
+  "actual_packed_sid1_audio": {
+    "passed": true,
+    "program_sha256": "b6020860446c2a3fade925f13f94de9c7ab8859ba98dce745a6f20957ed57a24",
+    "first_latch_cycle": 8553385,
+    "same_register_audio_start_epoch": true,
+    "captured": {
+      "registers": {
+        "program_sha256": "b6020860446c2a3fade925f13f94de9c7ab8859ba98dce745a6f20957ed57a24",
+        "command": [
+          "rtk",
+          "proxy",
+          "/opt/homebrew/bin/x64sc",
+          "-default",
+          "-pal",
+          "-sidengine",
+          "1",
+          "-sidmodel",
+          "2",
+          "-residsamp",
+          "2",
+          "-soundrate",
+          "22050",
+          "-soundoutput",
+          "1",
+          "-soundvolume",
+          "100",
+          "-console",
+          "-seed",
+          "1",
+          "-initbreak",
+          "reset",
+          "-moncommands",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-registers/boot.mon",
+          "-autostart",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1/player.prg",
+          "-autostartprgmode",
+          "0",
+          "-autostartprgdiskimage",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-registers/autostart.d64",
+          "+drive8truedrive",
+          "+autostart-warp",
+          "-sounddev",
+          "dump",
+          "-soundarg",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-registers/registers.txt",
+          "-limitcycles",
+          "177344640",
+          "-warp"
+        ],
+        "profile": {
+          "machine": "PAL C64",
+          "sid_engine": 1,
+          "sid_model": 2,
+          "digiboost": true,
+          "resampling": 2,
+          "sample_rate": 22050
+        },
+        "generated_frames": 1002,
+        "late_buffers": 0,
+        "song_started_instruction_cycle": 8553287,
+        "media": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-registers/registers.txt",
+        "media_sha256": "72cdc18b54e08690b295a9d0e1f8c73ef4af4a55e6a73a80feada1a08809aa6e",
+        "stats_hex": "78710000e9e90000ea030264",
+        "manual_LOAD_SYS_or_addressed_g": false
+      },
+      "audio": {
+        "program_sha256": "b6020860446c2a3fade925f13f94de9c7ab8859ba98dce745a6f20957ed57a24",
+        "command": [
+          "rtk",
+          "proxy",
+          "/opt/homebrew/bin/x64sc",
+          "-default",
+          "-pal",
+          "-sidengine",
+          "1",
+          "-sidmodel",
+          "2",
+          "-residsamp",
+          "2",
+          "-soundrate",
+          "22050",
+          "-soundoutput",
+          "1",
+          "-soundvolume",
+          "100",
+          "-console",
+          "-seed",
+          "1",
+          "-initbreak",
+          "reset",
+          "-moncommands",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-audio/boot.mon",
+          "-autostart",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1/player.prg",
+          "-autostartprgmode",
+          "0",
+          "-autostartprgdiskimage",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-audio/autostart.d64",
+          "+drive8truedrive",
+          "+autostart-warp",
+          "-sounddev",
+          "wav",
+          "-soundarg",
+          "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-audio/raw.wav",
+          "-limitcycles",
+          "177344640",
+          "+warp",
+          "-speed",
+          "100"
+        ],
+        "profile": {
+          "machine": "PAL C64",
+          "sid_engine": 1,
+          "sid_model": 2,
+          "digiboost": true,
+          "resampling": 2,
+          "sample_rate": 22050
+        },
+        "generated_frames": 1002,
+        "late_buffers": 0,
+        "song_started_instruction_cycle": 8553287,
+        "media": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/hyperbased/startup-regression/packed-sid1-20s-audio/raw.wav",
+        "media_sha256": "49f9cb5d9f159098d7a1ba1417fd72aa8bfa24fef5a48744c79e4134a719e4e5",
+        "stats_hex": "78710000e9e90000ea030264",
+        "manual_LOAD_SYS_or_addressed_g": false
+      }
+    },
+    "reference_comparison": {
+      "passed": true,
+      "checked_interval_s": [
+        0,
+        20.0
+      ],
+      "phrases_checked": 122,
+      "failed_phrase_indices": [],
+      "minimum_rms_ratio": 0.9990423790791052,
+      "median_rms_ratio": 1.0000065233248439,
+      "first_resumed_phrase_ratio": 1.0000098262380646,
+      "global_peak_ratio": 1.003298826462856,
+      "global_peak_ratio_limit": 1.5,
+      "reference_sha256": "c3f9d0f295705641d96c6992fb2d6798326f63fbb34dd96e6ed42cdbe843745b",
+      "fixture_sha256": "44dccbf0dded1da7fc30f8ef2818910988dd4ef648785bb08bc3d24b29e87de9",
+      "phrase_ratio_columns": [
+        "rms_ratio",
+        "spectral_amplitude_ratio"
+      ],
+      "phrase_ratios": [
+        [
+          0.9999557629435532,
+          0.9999233230861735
+        ],
+        [
+          1.0000098262380646,
+          1.000088868953226
+        ],
+        [
+          1.0001376240973374,
+          1.0001690511784986
+        ],
+        [
+          1.0000202976063726,
+          0.9998508719174382
+        ],
+        [
+          1.000035821762236,
+          1.00005927873253
+        ],
+        [
+          0.9999320046485126,
+          1.000067065342809
+        ],
+        [
+          0.9998289552550006,
+          0.9999763564154692
+        ],
+        [
+          1.0000233800574692,
+          0.999991458802004
+        ],
+        [
+          1.0000427534657639,
+          0.999897143457334
+        ],
+        [
+          1.0001311690576449,
+          1.0000230749599917
+        ],
+        [
+          0.999894055198342,
+          0.9999760334546651
+        ],
+        [
+          0.9999817979047456,
+          1.0001758777065843
+        ],
+        [
+          1.0000140639562458,
+          0.9998306314874815
+        ],
+        [
+          0.9998354847233942,
+          0.9998982512265446
+        ],
+        [
+          0.9999245377510035,
+          1.0000463624297737
+        ],
+        [
+          1.0000005658790396,
+          1.0000760776266735
+        ],
+        [
+          0.999954909003401,
+          1.0000194235810789
+        ],
+        [
+          1.0000970502016537,
+          0.9998720405077711
+        ],
+        [
+          1.0001208098648668,
+          1.0000688884523177
+        ],
+        [
+          1.0001679789531301,
+          1.000037218204713
+        ],
+        [
+          0.9999830512201079,
+          1.0000685272853242
+        ],
+        [
+          0.9998524427380734,
+          0.9998952745561082
+        ],
+        [
+          0.9999627037760568,
+          0.9998854137688897
+        ],
+        [
+          1.0001456423611692,
+          0.999940810551313
+        ],
+        [
+          1.000109151350242,
+          1.0000391304927292
+        ],
+        [
+          1.0001263863079992,
+          0.9998962826188558
+        ],
+        [
+          1.0000066131071546,
+          1.00016628773029
+        ],
+        [
+          1.0000432462045112,
+          0.9999461565149069
+        ],
+        [
+          0.9999889084558754,
+          0.999931332671057
+        ],
+        [
+          0.999901657165707,
+          0.9999323322369149
+        ],
+        [
+          1.0000064335425332,
+          0.9999448055457459
+        ],
+        [
+          1.0000429521083631,
+          0.9999848667725726
+        ],
+        [
+          0.9999671101359549,
+          0.9998628296805017
+        ],
+        [
+          0.9998947167465534,
+          0.9999855612285907
+        ],
+        [
+          0.9998635449584358,
+          0.9997258935862678
+        ],
+        [
+          1.0000212134776632,
+          1.0000732162145851
+        ],
+        [
+          0.9998745020644155,
+          0.9998605478860275
+        ],
+        [
+          1.0001330936384178,
+          1.0001276029381885
+        ],
+        [
+          1.0001969884235544,
+          1.000028798687542
+        ],
+        [
+          0.9999692262711878,
+          1.0000891718972384
+        ],
+        [
+          0.9999844495960373,
+          1.0000901807541158
+        ],
+        [
+          0.9999215040444825,
+          0.9998075207842179
+        ],
+        [
+          0.9998468110638845,
+          0.9997184719854142
+        ],
+        [
+          1.0000081485555123,
+          0.9998487283820625
+        ],
+        [
+          0.9997676058906776,
+          0.9998118511427393
+        ],
+        [
+          1.0000337211017551,
+          1.0000859271537237
+        ],
+        [
+          0.999730738849879,
+          0.9998181497359312
+        ],
+        [
+          1.0001611322852528,
+          1.0000571559740348
+        ],
+        [
+          0.999971394430206,
+          0.9999385641742958
+        ],
+        [
+          1.0000673858687226,
+          1.0001901667943938
+        ],
+        [
+          1.0001067526539602,
+          0.9999166424817223
+        ],
+        [
+          1.0000118316257423,
+          1.0000678968721963
+        ],
+        [
+          1.0001688829136852,
+          0.9999353230642233
+        ],
+        [
+          1.0000261608302756,
+          1.0000132148182692
+        ],
+        [
+          1.0001057391925636,
+          0.9998514968848804
+        ],
+        [
+          0.9999920332732622,
+          0.9999063171178828
+        ],
+        [
+          1.0002002797558753,
+          0.9999850430604043
+        ],
+        [
+          0.9999427499742377,
+          0.9998341218950453
+        ],
+        [
+          0.9999586806115555,
+          0.9998782006812688
+        ],
+        [
+          0.9999518520955792,
+          0.9998844407762847
+        ],
+        [
+          0.9999133413717356,
+          0.9999605507988988
+        ],
+        [
+          1.0000532902119674,
+          1.0001827623388662
+        ],
+        [
+          1.0000235569874736,
+          1.0000809124996262
+        ],
+        [
+          1.0000662222357943,
+          0.9999515956019317
+        ],
+        [
+          1.00017793068964,
+          1.0001691828715058
+        ],
+        [
+          0.9998747757891947,
+          0.9999990726739133
+        ],
+        [
+          1.0000033044659102,
+          0.9999502231552017
+        ],
+        [
+          1.000062403233934,
+          0.9999118811429405
+        ],
+        [
+          1.0001114385020615,
+          1.000051942934212
+        ],
+        [
+          0.9999671974271079,
+          0.9999981757242014
+        ],
+        [
+          1.0000941069102458,
+          0.9999982645433426
+        ],
+        [
+          1.0000895068241105,
+          1.0000840484419842
+        ],
+        [
+          1.0000486964471247,
+          0.9998808089803174
+        ],
+        [
+          1.0001667629892081,
+          1.00013367460805
+        ],
+        [
+          0.9999460286115137,
+          0.9997243998248427
+        ],
+        [
+          0.9999925825493319,
+          0.9997202114673492
+        ],
+        [
+          0.9998308580954622,
+          0.9999980620459418
+        ],
+        [
+          1.000046400152137,
+          0.999928485716682
+        ],
+        [
+          1.0000437910957856,
+          0.999922158079197
+        ],
+        [
+          1.0000432707946296,
+          0.9999538991100935
+        ],
+        [
+          1.0000239482870605,
+          1.000146577867198
+        ],
+        [
+          0.9997689033663103,
+          1.0000575470783237
+        ],
+        [
+          0.9997988878239872,
+          1.0000236219602352
+        ],
+        [
+          1.0000567352488505,
+          0.999750535878113
+        ],
+        [
+          1.0001119455711043,
+          0.9999505871116098
+        ],
+        [
+          1.0001654571214817,
+          1.00030435917105
+        ],
+        [
+          1.0000181794759606,
+          1.0000222431723704
+        ],
+        [
+          0.9999365856402652,
+          1.0000012942784988
+        ],
+        [
+          1.0000656103582215,
+          1.0002239298270799
+        ],
+        [
+          1.0001109807576603,
+          1.000074979898875
+        ],
+        [
+          0.9999218555616868,
+          1.0001360427600459
+        ],
+        [
+          1.0000617053951006,
+          1.0000210845341033
+        ],
+        [
+          0.9990423790791052,
+          0.99960535083259
+        ],
+        [
+          1.0011944828130153,
+          0.9999975310743004
+        ],
+        [
+          0.9996662590838475,
+          1.001304410705652
+        ],
+        [
+          0.9997140372976501,
+          1.0015521191370174
+        ],
+        [
+          0.9999320766924804,
+          1.0000778227066254
+        ],
+        [
+          0.9999243014810553,
+          0.9998688418189597
+        ],
+        [
+          0.9998229537167248,
+          0.9998794686083525
+        ],
+        [
+          1.000154080175045,
+          1.0001039807593326
+        ],
+        [
+          0.9999123117182459,
+          1.0000030686850712
+        ],
+        [
+          0.9997386856081548,
+          0.9999983944651956
+        ],
+        [
+          0.9999333883195456,
+          0.9999822317287616
+        ],
+        [
+          0.9997576230154366,
+          0.9999240252799986
+        ],
+        [
+          1.0000307841722424,
+          1.0000978766035762
+        ],
+        [
+          1.0000225880392584,
+          1.0001006949803153
+        ],
+        [
+          0.9997607883775124,
+          1.0002951028157563
+        ],
+        [
+          0.9996838919411313,
+          1.000075539080251
+        ],
+        [
+          0.9998143761165178,
+          1.0000629633068352
+        ],
+        [
+          1.0000276835887891,
+          1.0000788998507035
+        ],
+        [
+          0.9998817619304797,
+          0.9999267333666061
+        ],
+        [
+          1.0000948945546955,
+          0.9999485754629546
+        ],
+        [
+          0.9999905760030441,
+          0.9998634310958067
+        ],
+        [
+          0.999893749601293,
+          0.9999797386732743
+        ],
+        [
+          1.0000403800610091,
+          1.000063471289539
+        ],
+        [
+          1.0001515833560441,
+          0.9999011047072238
+        ],
+        [
+          0.999980620241827,
+          0.9999624257205254
+        ],
+        [
+          0.9999223844966838,
+          0.9999737740959298
+        ],
+        [
+          0.9999096852508391,
+          0.9999992368266482
+        ],
+        [
+          0.9999905693550638,
+          0.9999320480332174
+        ],
+        [
+          1.0001163447418693,
+          0.999623949607951
+        ],
+        [
+          1.0000186597071061,
+          1.000244068943366
+        ]
+      ],
+      "scope": "Actual first20s SID1 amplitude/spectral-envelope comparison. Fixed reference gain only; no candidate gain fitting, alignment, audio processing or WAV writing."
+    },
+    "measurement": "Native unscaled WAV samples, native-clock crop and DC removal only. Raw WAV unchanged; no gain fit, alignment, EQ or host mixing."
+  },
+  "preserved_wav_sha256": {
+    "all.wav": "39509fe5f4bb354ed59e04248ee5631a95c2235d741516bf86da74955b332da7",
+    "sid-1.wav": "e04c970b1c88f83470b6602730626c36298d6c50b7358823cfa0124030c45c6a",
+    "sid-2.wav": "cb05c1ea5b7accfad19da5864e51ce7939b57555a78db9fc64db6e2533796bd4",
+    "sid-3.wav": "85cc3af8170cf0899bc6cd09350fd4f767d572f81ec8b4bd3405ab2bf6d27b1e"
+  },
+  "evidence_scope": "Only startup packaging changed. Existing CPU/deadline receipts and four complete listening WAVs describe the unchanged native image. They were not regenerated. The packed image has a fresh full true-drive register proof and a separate first20s real-audio SID1 reference check.",
+  "old_flat_load_fault": {
+    "native_sha256": "2be95720636312921117ab8ae0a3d8f5688a9293f27417d91bb3e3b262b61e7b",
+    "mode": 2,
+    "true_drive": true,
+    "writer_pc": 62748,
+    "instruction": "STA ($AE),Y",
+    "native_entry_had_not_run_before_these_writes": true,
+    "writes": [
+      {
+        "cycle": 129442628,
+        "register": 53265,
+        "value": 0
+      },
+      {
+        "cycle": 129456992,
+        "register": 53272,
+        "value": 0
+      },
+      {
+        "cycle": 136893802,
+        "register": 56320,
+        "value": 0
+      },
+      {
+        "cycle": 136897826,
+        "register": 56322,
+        "value": 0
+      }
+    ],
+    "scope": "Direct VICE trace of the old PRG being loaded by KERNAL ROM. The LOAD itself clears the VIC display-enable register and changes CIA1 before native entry. No CPU jam or eventual timeout is inferred."
+  }
+}

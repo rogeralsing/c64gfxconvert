@@ -1,0 +1,37 @@
+{
+  "standardColors": 16,
+  "chips": {
+    "below": true,
+    "colors": [
+      {
+        "index": 1,
+        "rgb": "rgb(255, 255, 255)"
+      },
+      {
+        "index": 10,
+        "rgb": "rgb(167, 111, 111)"
+      }
+    ]
+  },
+  "before": {
+    "solid": 1987,
+    "mixture": 4880,
+    "canvasSolid": 1987
+  },
+  "after": {
+    "solid": 0,
+    "mixture": 4880,
+    "canvasSolid": 0
+  },
+  "scrolling": {
+    "fixed": true,
+    "scrolled": true
+  },
+  "noSolidErrorAndRecovery": true,
+  "peptoChips": [
+    "rgb(255, 255, 255)",
+    "rgb(154, 103, 89)"
+  ],
+  "computedRows": 17,
+  "pageErrors": []
+}

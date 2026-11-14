@@ -1,9 +1,28 @@
 # Hyperbased working folder
 
-The current arrangement covers the first twenty seconds. Keep original MOD
-channels separate and compare complete musical phrases before changing voices.
+The active arrangement ends at exactly 3:00, as selected by the user. Keep original
+MOD channels separate and compare complete musical phrases before changing
+voices. Read [the full-length implementation and limits](../../FULL-LENGTH.md).
 
-## Current native C64 performance
+## Complete native C64 performance
+
+- [All three SID voices](full-linus-mix/all.wav)
+- [SID 1](full-linus-mix/sid-1.wav)
+- [SID 2](full-linus-mix/sid-2.wav)
+- [SID 3: PCM and software bass](full-linus-mix/sid-3.wav)
+- [Runnable PRG](full-linus-mix/player.prg)
+- [Complete verification](full-linus-mix/verification.json)
+
+Two ordinary SID voices execute native programs, and SID3 plays reused PCM
+mixed with software bass. Physical source roles change with the passage. The
+selected three-minute interval has no active source-part allocation omissions.
+Later source sections are excluded. SID timbres and dynamics remain
+approximations rather than an exact Amiga replay.
+
+Build through the single entry point with `--full`. The sections below describe
+the preserved twenty-second reference and its listening decisions.
+
+## Preserved twenty-second performance
 
 - [All three SID voices](linus-mix/all.wav)
 - [SID 1: original channel 2](linus-mix/sid-1.wav)
@@ -12,7 +31,7 @@ channels separate and compare complete musical phrases before changing voices.
 - [Runnable PRG](linus-mix/player.prg)
 - [Complete verification](linus-mix/verification.json)
 
-SID 2 now uses original sample waveforms at 1.95 kHz, replacing the rejected
+SID 2 uses reusable instrument/pitch/gain sample variants at 1.95 kHz, replacing the rejected
 flute approximation. SID 3 mixes bass and drums on C64 at 7.82 kHz. SID 1 keeps
 the accepted pulse part. All four source parts have assigned outputs; this is
 not a full-song or exact four-channel MOD conversion.
@@ -57,6 +76,11 @@ Build, capture and measure through the sole supported command:
 ```sh
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py
 ```
+
+COPY32 and a suffix lookup remove per-sample pitch arithmetic. A native integer
+cursor preserves note position and gains. The optimized complete SID trace and
+all four WAVs are byte-identical to the preceding player. See the
+[CPU profile](../../CPU-PROFILE.md).
 
 A fresh build needs source assets, not older generated scores. Its PRG and full
 mix WAV reproduce byte for byte. Normal VICE autostart also passed. See

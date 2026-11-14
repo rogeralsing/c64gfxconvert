@@ -1,0 +1,19 @@
+{
+  "source_instrument": 9,
+  "name": "st-01:percustom",
+  "kind": "sample",
+  "volume": 28,
+  "decimation": 3,
+  "bytes": 1024,
+  "sha256": "0f9aa6c1d5fc1011b058fb5e26683392a8acaa62dc04afd11fcaedd36d606557",
+  "description": "Prepared reusable unsigned eight-bit sample bank, including neutral page padding; the enclosing player supplies labels and alignment.",
+  "provenance_commit": "8d8fa223247931bad044469fac4274b718133079",
+  "sid_role": {
+    "program": "triangle",
+    "control": 17,
+    "source_period_samples": 62.20707882601437,
+    "autocorrelation": 0.47385402716755776,
+    "rms_gate_ratio": 0.08,
+    "description": "Full arrangement C4 only: a declared tonal-percussion approximation. C2 keeps the actual sample."
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "source_instrument": 17,
+  "name": "powerclap",
+  "kind": "hybrid",
+  "program": "noise",
+  "noise_control": 129,
+  "noise_divisor": 16,
+  "rest_control": 25,
+  "sustain": 1,
+  "rms_gate_ratio": 0.08,
+  "pcm_decimation": 2,
+  "pcm_base_scale": 96,
+  "description": "Full-arrangement addition: actual PCM where allocated to SID3; otherwise quiet broadband SID noise. PCM base uses headroom before native volume-LUT restoration.",
+  "provenance": "Measured original Cream MOD; full-audit source, spectra and monophonic-pitch receipts. Approved instruments 1..10 remain unchanged."
+}

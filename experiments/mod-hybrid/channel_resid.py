@@ -1,7 +1,7 @@
 """Fast fresh-chip SID objects from the exact official VICE3.10 reSID source.
 
-Settings match installed VICE defaults: MOS6581, resampling,90% Nyquist
-passband,97% gain,500mV filter bias, internal and external filters enabled.
+The historical factory retains MOS6581 defaults. The explicit digiboost
+factory matches the current PAL/8580 profile, including external DC input.
 """
 from __future__ import annotations
 
@@ -63,6 +63,13 @@ def build_library() -> dict:
                                "passband_percent": 90, "gain_percent": 97, "filter_bias_mv": 500,
                                "internal_filter": True, "external_filter": True,
                                "voice_mask": 7, "external_input": 0},
+                  "digiboost_factory_settings": {"model": "MOS8580 + digiboost",
+                               "sampling": "SAMPLE_RESAMPLE", "clock_hz": CLOCK,
+                               "passband_percent": 90, "gain_percent": 97,
+                               "filter_bias_mv": 0, "internal_filter": True,
+                               "external_filter": True, "voice_mask": 15,
+                               "external_input": -32768,
+                               "reference": "VICE3.10 src/sid/resid.cc, resid_init model2"},
                   "installed_feature_match": "x64sc -features reports HAVE_NEW_8580_FILTER=yes; the same source variant is compiled."}
     (OUT / "provenance.json").write_text(json.dumps(provenance, indent=2) + "\n")
     return provenance
@@ -71,11 +78,16 @@ def build_library() -> dict:
 def _library():
     global _LIB
     if _LIB is None:
-        if not LIBRARY.exists():
+        provenance_path = OUT / "provenance.json"
+        provenance = json.loads(provenance_path.read_text()) if provenance_path.exists() else {}
+        current = {name: sha(HERE / name) for name in ("channel_resid.cpp", "channel_resid.py")}
+        if not LIBRARY.exists() or provenance.get("bridge_sha256") != current:
             build_library()
         _LIB = ctypes.CDLL(str(LIBRARY))
         _LIB.c64_resid_create.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double]
         _LIB.c64_resid_create.restype = ctypes.c_void_p
+        _LIB.c64_resid_create_digiboost.argtypes = [ctypes.c_double, ctypes.c_double, ctypes.c_double]
+        _LIB.c64_resid_create_digiboost.restype = ctypes.c_void_p
         _LIB.c64_resid_destroy.argtypes = [ctypes.c_void_p]
         _LIB.c64_resid_write.argtypes = [ctypes.c_void_p, ctypes.c_uint, ctypes.c_uint]
         _LIB.c64_resid_clock.argtypes = [ctypes.c_void_p, ctypes.c_int, ctypes.POINTER(ctypes.c_int16), ctypes.c_int]
@@ -84,8 +96,8 @@ def _library():
 
 
 class SID:
-    def __init__(self, rate: int, bias_mv: float = 500):
-        self.rate, self.bias_mv = rate, bias_mv
+    def __init__(self, rate: int, bias_mv: float = 500, digiboost: bool = False):
+        self.rate, self.bias_mv, self.digiboost = rate, bias_mv, digiboost
         self.library = _library()
         self.handle = None
         self.buffer = np.empty(4096, dtype=np.int16)
@@ -96,7 +108,9 @@ class SID:
         # the isolation boundary, including between repeated optimizer calls.
         if self.handle:
             self.library.c64_resid_destroy(self.handle)
-        self.handle = self.library.c64_resid_create(float(self.rate), float(CLOCK), self.bias_mv)
+        create = (self.library.c64_resid_create_digiboost if self.digiboost
+                  else self.library.c64_resid_create)
+        self.handle = create(float(self.rate), float(CLOCK), self.bias_mv)
         if not self.handle:
             raise RuntimeError("Unable to initialize the VICE reSID core")
 
@@ -128,6 +142,11 @@ class SID:
 
 def make_sid(rate: int) -> SID:
     return SID(rate)
+
+
+def make_digiboost_sid(rate: int) -> SID:
+    """Current fixed PAL/8580 + digiboost profile, matching VICE model 2."""
+    return SID(rate, bias_mv=0, digiboost=True)
 
 
 if __name__ == "__main__":

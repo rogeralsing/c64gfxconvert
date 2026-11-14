@@ -4,13 +4,12 @@
 #include <cmath>
 #include <exception>
 
-extern "C" {
-void* c64_resid_create(double rate, double clock, double bias_mv) {
+static void* create_sid(double rate, double clock, double bias_mv, bool digiboost) {
     try {
         auto* sid = new reSID::SID();
-        sid->set_chip_model(reSID::MOS6581);
-        sid->set_voice_mask(0x07);
-        sid->input(0);
+        sid->set_chip_model(digiboost ? reSID::MOS8580 : reSID::MOS6581);
+        sid->set_voice_mask(digiboost ? 0x0f : 0x07);
+        sid->input(digiboost ? -32768 : 0);
         sid->enable_filter(true);
         sid->enable_external_filter(true);
         sid->adjust_filter_bias(bias_mv / 1000.0);
@@ -21,6 +20,15 @@ void* c64_resid_create(double rate, double clock, double bias_mv) {
         }
         return sid;
     } catch (...) { return nullptr; }
+}
+
+extern "C" {
+void* c64_resid_create(double rate, double clock, double bias_mv) {
+    return create_sid(rate, clock, bias_mv, false);
+}
+
+void* c64_resid_create_digiboost(double rate, double clock, double bias_mv) {
+    return create_sid(rate, clock, bias_mv, true);
 }
 
 void c64_resid_destroy(void* handle) {

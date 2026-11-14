@@ -1,9 +1,10 @@
 {
   "passed": true,
-  "prg_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+  "prg_sha256": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
   "wav_sha256": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+  "fresh_source_without_trial_folder": true,
   "capture": {
-    "program_sha256": "299196fff1473453027191202303ab2eb691c41768bc53bf1adf0daf5a933079",
+    "program_sha256": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
     "profile": {
       "machine": "PAL C64",
       "sid_engine": 1,
@@ -34,20 +35,20 @@
       "-initbreak",
       "ready",
       "-moncommands",
-      "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/capture.mon",
+      "/private/tmp/hyperbased-cpu-no-trials-20261112/repeat-audio/capture.mon",
       "-limitcycles",
       "34483734",
       "-sounddev",
       "wav",
       "-soundarg",
-      "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/raw.wav",
+      "/private/tmp/hyperbased-cpu-no-trials-20261112/repeat-audio/raw.wav",
       "+warp",
       "-speed",
       "100"
     ],
-    "stats_hex": "a83fd8b6e8e60000e8030263",
-    "stats_file": "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/stats.bin",
-    "media": "/private/tmp/hyperbased-native-clean-20261112/repeat-audio/capture/raw.wav",
+    "stats_hex": "a83f64bae8e60000e8030263",
+    "stats_file": "/private/tmp/hyperbased-cpu-no-trials-20261112/repeat-audio/stats.bin",
+    "media": "/private/tmp/hyperbased-cpu-no-trials-20261112/repeat-audio/raw.wav",
     "media_sha256": "693f96e4db621ae9ae990309694d5d5b89d51d1bbebbcd7cb6897599f1c51166"
   }
 }

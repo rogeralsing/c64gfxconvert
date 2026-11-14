@@ -1,0 +1,15 @@
+# Keep reproducible assets and final verification receipts, not emulator scratch.
+/build/*
+!/build/clean/
+!/build/bordered-vertical/
+!/build/bordered-horizontal/
+!/build/demo/
+!/build/*.zip
+!/build/cube-illusion.prg
+!/build/comparison.png
+!/build/source.png
+!/build/preview.html
+!/build/verification.json
+!/build/native-verification.json
+!/build/baseline-cycle.json
+!/build/vice-stage-*.png

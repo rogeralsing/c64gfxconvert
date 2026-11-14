@@ -5,6 +5,7 @@ from concurrent.futures import ThreadPoolExecutor
 import io
 import hashlib
 import json
+import os
 from pathlib import Path
 import re
 import shutil
@@ -169,7 +170,7 @@ def memory_budget(build: dict, linked: dict) -> dict:
     labels = build["symbols"]
     copied = sum(labels[stop] - labels[start] for start, stop in
                  (("mix_samples", "mix_end"), ("nmi_common", "nmi_end"),
-                  ("c3_produce_block", "c3_producer_end")))
+                  ("c3_produce_block", "c3_producer_end")) if start in labels and stop in labels)
     return {"loaded_image_start": load, "loaded_image_end_exclusive": end,
             "loaded_image_bytes": len(raw) - 2,
             "independent_instrument_and_score_data_bytes": linked["resident_data_bytes"],
@@ -180,6 +181,18 @@ def memory_budget(build: dict, linked: dict) -> dict:
             "contiguous_free_before_io_bytes": 0xd000 - end,
             "conservative_free_upper_ram_bytes": 0x1f00,
             "scope": "Conservative resident image plus separate low-RAM work areas; image alignment holes counted as occupied. SID I/O remains visible."}
+
+
+def source_receipt() -> dict:
+    files = [HERE / name for name in ("build_linus_mix.py", "linus-mix-player.asm",
+                                      "native_playback.py", "native_support.py",
+                                      "sid_pitch.py", "full_sid_score.py")]
+    files += list((HERE / "native_instruments").glob("*.py"))
+    files += list((HERE / "instruments/hyperbased-mix").glob("*.json"))
+    files += [HERE.parent / "mod-hybrid" / name for name in
+              ("mod_reader.py", "timeline.py", "protracker_periods.py", "vice_profile.py",
+               "sources/hyperbased.source.json")]
+    return {os.path.relpath(path, HERE): support.digest(path) for path in sorted(files)}
 
 
 def run(out: Path, *, assemble_only: bool = False) -> dict:
@@ -204,6 +217,7 @@ def run(out: Path, *, assemble_only: bool = False) -> dict:
               "profile": support.profile().PROFILE,
               "data": prepared["verification"], "input": pcm,
               "program_sha256": support.digest(out / "player.prg"),
+              "source_sha256": source_receipt(),
               "memory": memory_budget(variants["all"][0], linked),
               "variants": {name: {"build": value[0], "isolation": value[2]}
                            for name, value in variants.items()}}

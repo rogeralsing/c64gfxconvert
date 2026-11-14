@@ -1,0 +1,68 @@
+- main [ref=f1e2]:
+  - generic [ref=f1e3]:
+    - heading "Originalfont och multicolor" [level=1] [ref=f1e4]
+    - paragraph [ref=f1e5]: Samma animation, bildruta och teckenkoder i båda bilderna. Höger visar den nya fonten med svart, två gråtoner och vit förgrund.
+  - generic [ref=f1e6]:
+    - generic [ref=f1e7]:
+      - generic [ref=f1e8]:
+        - generic [ref=f1e9]: Objekt
+        - combobox "Objekt" [ref=f1e10] [cursor=pointer]:
+          - option "Stjärna" [selected]
+          - option "Kub"
+      - button "Pausa" [pressed] [ref=f1e11] [cursor=pointer]
+      - generic [ref=f1e12]:
+        - generic [ref=f1e13]: Bild
+        - slider "Bild" [ref=f1e14] [cursor=pointer]: "1"
+        - status [ref=f1e15]: 01 / 48
+      - generic [ref=f1e16] [cursor=pointer]:
+        - checkbox "2× utsnitt" [ref=f1e17]
+        - text: 2× utsnitt
+      - generic [ref=f1e18] [cursor=pointer]:
+        - checkbox "Teckenrutnät" [ref=f1e19]
+        - text: Teckenrutnät
+    - region "Samma bild med originalfont respektive multicolorfont" [ref=f1e20]:
+      - figure "Original · svart och vitt 40 × 25 tecken · låst originalfont" [ref=f1e21]:
+        - generic [ref=f1e22]:
+          - heading "Original · svart och vitt" [level=2] [ref=f1e23]
+          - generic [ref=f1e24]: 40 × 25 tecken · låst originalfont
+        - generic "Originalbild. Klicka på en cell för att se dess tecken. Piltangenter flyttar markeringen." [ref=f1e26]
+      - figure "Multicolor · fyra färger 4 × 4 punkter per tecken · varje punkt är 2 × 2 pixlar" [ref=f1e27]:
+        - generic [ref=f1e28]:
+          - heading "Multicolor · fyra färger" [level=2] [ref=f1e29]
+          - generic [ref=f1e30]: 4 × 4 punkter per tecken · varje punkt är 2 × 2 pixlar
+        - generic "Multicolorbild. Klicka på en cell för att jämföra samma tecken i båda fonterna." [ref=f1e32]
+    - generic [ref=f1e33]:
+      - generic [ref=f1e34]:
+        - generic [ref=f1e35]: Svart bakgrund
+        - generic [ref=f1e37]: Vit förgrund
+      - generic "Multicolorpalett" [ref=f1e39]:
+        - generic [ref=f1e40]: Bakgrund · svart
+        - generic [ref=f1e42]: MC1 · ljusgrå
+        - generic [ref=f1e44]: MC2 · mörkgrå
+        - generic [ref=f1e46]: Förgrund · vit
+    - paragraph [ref=f1e48]: "Träningsbilder (96 vinklar, normal skala): gråskalefel i objektet 10 174 → 5 391 MSE, 47 % lägre."
+    - paragraph [ref=f1e49]: Klicka på en teckencell eller i fontatlasen för att jämföra tecknet förstorat. Båda bilderna stannar på samma bildruta.
+    - region "Förstoring av valt tecken" [ref=f1e50]:
+      - generic [ref=f1e51]:
+        - heading "Valt tecken" [level=2] [ref=f1e52]
+        - generic [ref=f1e53]:
+          - text: Kod
+          - spinbutton "Kod" [ref=f1e54]: "200"
+        - generic [ref=f1e55]: 30 celler i den visade bilden
+      - generic [ref=f1e56]:
+        - figure "Original" [ref=f1e57]:
+          - generic "Originaltecken 200" [ref=f1e59]
+        - figure "Multicolor" [ref=f1e60]:
+          - generic "Multicolortecken 200" [ref=f1e62]
+    - region "Båda fonternas alla teckenkoder" [ref=f1e63]:
+      - generic [ref=f1e64]:
+        - heading "Hela fonten" [level=2] [ref=f1e65]
+        - paragraph [ref=f1e66]: 256 teckenkoder. Klicka för att förstora; piltangenter byter tecken.
+      - generic [ref=f1e67]:
+        - figure "Originalfont" [ref=f1e68]:
+          - heading "Originalfont" [level=3] [ref=f1e70]
+          - generic "Originalfontens atlas med 256 tecken. Klicka eller använd piltangenter för att välja tecken." [ref=f1e72]
+        - figure "Multicolorfont" [ref=f1e73]:
+          - heading "Multicolorfont" [level=3] [ref=f1e75]
+          - generic "Multicolorfontens atlas med samma 256 teckenkoder. Klicka eller använd piltangenter för att välja tecken." [ref=f1e77]
+    - generic [ref=f1e78]: "PAL-pixelförhållande 59 / 63. Webbuppspelning: 25 bilder/s. 2× visar ett centrerat utsnitt genom animationens befintliga 1 → 4-tabell."

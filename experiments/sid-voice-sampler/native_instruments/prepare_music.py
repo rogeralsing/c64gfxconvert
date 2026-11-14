@@ -25,8 +25,8 @@ VERIFIED_C3_HIGH_SHA256 = "37426b47dd1df02925b08ac4ce50d1a36bf3bee9931d71256ca32
 VERIFIED_C3_LATCHES_SHA256 = "01e2fcbf9ca20c47b10de0d83397b7884d42807225ae21388ba22efc98282ca9"
 
 
-def prepare(out: Path) -> dict:
-    """Generate baseline, clock-bound C3 windows and linked independent data."""
+def _prepare_source(out: Path) -> dict:
+    """Compile and verify the fractional source model used by fixed banks."""
     out = Path(out).resolve()
     out.mkdir(parents=True, exist_ok=True)
     paths = {"root": out, "base": out / "base", "c3_model": out / "c3-model",
@@ -85,3 +85,29 @@ def prepare(out: Path) -> dict:
                "method": "Baseline instrument analysis, globally bound C3 source model, reusable per-instrument gain windows and independent native linker; no cached generated score dependency."}
     support.save(out / "preparation.json", receipt)
     return {"linked": linked, "paths": serialized_paths, "verification": verification}
+
+
+def prepare(out: Path) -> dict:
+    """Build reusable pitch variants and the canonical linear-cursor score.
+
+    The fractional representation is compiler input only. No alternate player
+    is assembled. Independent replay verifies the final fixed banks against
+    the same frozen source stream before any native program is built.
+    """
+    from fixed_pitch import prepare as prepare_fixed
+
+    out = Path(out).resolve()
+    source = _prepare_source(out / "source")
+    linked = prepare_fixed(out / "linked", source)
+    paths = dict(source["paths"], root=str(out), linked=str(out / "linked"),
+                 data_asm=str(out / "linked/data.asm"),
+                 sid3_expected=str(out / "linked/rle/expected-input.bin"),
+                 c3_expected_high=str(out / "linked/c3/expected-high.bin"),
+                 c3_expected_latches_high=str(out / "linked/c3/expected-latches-high.bin"))
+    verification = dict(source["verification"],
+                        resident_data_bytes=linked["resident_data_bytes"],
+                        data_end=linked["data_end"], fixed_pitch=linked["proof"])
+    receipt = {"paths": paths, "verification": verification,
+               "method": "Source analysis and independent fractional replay compile reusable instrument/pitch/gain windows. The C64 advances an integer note cursor and copies the unchanged amplitude values. No cached score or recorded channel is used."}
+    support.save(out / "preparation.json", receipt)
+    return {"linked": linked, "paths": paths, "verification": verification}

@@ -43,6 +43,34 @@ test('new and duplicated layers own independent settings while reusing the immut
   assert.deepEqual(defaults, { values: { brightness: 0 }, palette: { excludedIndices: [2] } });
 });
 
+test('tile marker layers keep independent binary maps without image settings through duplication and restore', () => {
+  const stack = createC64LayerStack({ values: { brightness: 0 } });
+  const markers = stack.add({ type: 'tile-markers' });
+  assert.equal(markers.settings, null);
+  assert.equal(markers.image, null);
+  assert.equal(markers.markers.color, '#ffcc00');
+  assert.equal(markers.markers.tiles.length, 1000);
+  assert.ok(markers.markers.tiles.every(value => value === 0));
+  markers.markers.tiles[999] = 1;
+  markers.visible = false;
+  assert.equal(stack.updateSettings({ values: { brightness: 80 } }), false);
+  assert.equal(markers.settings, null);
+  const copy = stack.duplicate();
+  assert.equal(copy.type, 'tile-markers');
+  assert.equal(copy.visible, false);
+  assert.equal(copy.markers.tiles[999], 1);
+  copy.markers.tiles[999] = 0;
+  copy.markers.color = '#00aaff';
+  assert.equal(markers.markers.tiles[999], 1);
+  assert.equal(markers.markers.color, '#ffcc00');
+  stack.replace([markers], 0);
+  assert.equal(stack.active().type, 'tile-markers');
+  assert.equal(stack.active().settings, null);
+  assert.equal(stack.active().markers.tiles[999], 1);
+  markers.markers.tiles[999] = 0;
+  assert.equal(stack.active().markers.tiles[999], 1);
+});
+
 test('selection, ordering, deletion, and cache invalidation preserve the surviving layers', () => {
   const stack = createC64LayerStack({ values: { brightness: 0 } });
   const first = stack.active();

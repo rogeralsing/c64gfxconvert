@@ -22,3 +22,9 @@ resampling method 2 and 22,050-Hz mono capture.
 
 Existing converter internals also support separate parallel research. Preserve
 that work; it does not choose the music project's canonical build route.
+
+- The user also authorized HVSC hybrid research. `hvsc_hybrid.py` may replace
+  explicitly selected tonal tracks with real SID voice programs while keeping
+  the other tracks as reusable samples. Preserve the sampled-only reference.
+  The current hybrid covers one declared phrase, not an entire MOD conversion.
+  Preserve donor provenance and reject incomplete filter/sync/ring dependencies.

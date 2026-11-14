@@ -1,0 +1,13 @@
+- group "Levels & curves":
+  - heading "Levels & curves" [level=3]
+  - button "Reset levels": Reset
+  - group "Tone curve, point 3 of 4, input 183, output 205. Arrow keys adjust; Page Up and Page Down select; Insert adds a point; Delete removes a point."
+  - paragraph: Click to add. Drag to shape. Delete to remove.
+  - text: Input
+  - spinbutton "Input": "183"
+  - text: Output
+  - spinbutton "Output": "205"
+  - button "Remove point"
+  - status: Point 3 of 4
+  - button "Reset curve"
+  - group: Input levels

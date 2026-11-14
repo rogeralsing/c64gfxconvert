@@ -67,6 +67,18 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       const label = `layer ${index + 1}`;
       if (!object(layer) || typeof layer.name !== 'string' || !layer.name.trim() ||
           typeof layer.visible !== 'boolean' || typeof layer.autoName !== 'boolean') invalid(label);
+      if (layer.type !== undefined && !['image', 'tile-markers'].includes(layer.type)) invalid(`${label} type`);
+      if (layer.type === 'tile-markers') {
+        const { markers } = layer;
+        if (!object(markers) || typeof markers.color !== 'string' || !/^#[0-9a-f]{6}$/i.test(markers.color) ||
+            !Array.isArray(markers.tiles) || markers.tiles.length !== 1000 ||
+            markers.tiles.some(value => value !== 0 && value !== 1) ||
+            layer.source != null || layer.settings != null) invalid(`${label} tile markers`);
+        return {
+          type: 'tile-markers', name: layer.name, autoName: layer.autoName, visible: layer.visible,
+          source: null, settings: null, markers: { color: markers.color, tiles: [...markers.tiles] }
+        };
+      }
       const { source, settings } = layer;
       if (source !== null && (!object(source) || typeof source.fileName !== 'string' || !source.fileName ||
           typeof source.dataUrl !== 'string' ||
@@ -141,6 +153,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         invalid(`${label} has no enabled palette colors`);
       }
       return {
+        ...(layer.type === undefined ? {} : { type: 'image' }),
         name: layer.name, autoName: layer.autoName, visible: layer.visible,
         source: source && { fileName: source.fileName, dataUrl: source.dataUrl },
         settings: { values, curvePoints: curvePoints.map(point => ({ input: point.input, output: point.output })),

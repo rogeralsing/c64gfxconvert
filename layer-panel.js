@@ -41,7 +41,16 @@ function createC64LayerPanel({ root, stack, onSelect, onAction, onRename }) {
       thumbnail.height = 40;
       thumbnail.className = 'layer-thumbnail';
       thumbnail.setAttribute('aria-hidden', 'true');
-      if (layer.cache?.source) {
+      if (layer.type === 'tile-markers') {
+        thumbnail.width = 40;
+        thumbnail.height = 25;
+        const markerContext = thumbnail.getContext('2d');
+        markerContext.fillStyle = layer.markers.color;
+        markerContext.globalAlpha = 0.6;
+        layer.markers.tiles.forEach((enabled, index) => {
+          if (enabled) markerContext.fillRect(index % 40, Math.floor(index / 40), 1, 1);
+        });
+      } else if (layer.cache?.source) {
         const source = layer.cache.source;
         const buffer = document.createElement('canvas');
         buffer.width = source.width;

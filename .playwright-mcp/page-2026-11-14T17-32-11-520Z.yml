@@ -1,0 +1,322 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [aria-hidden] [ref=e5]: "64"
+    - generic [ref=e6]:
+      - heading "C64 Studio" [level=1] [ref=e7]
+      - strong [ref=e8]: FLI
+    - generic [ref=e9]:
+      - generic [ref=e10]: Local workspace
+      - group "Project files" [ref=e11]:
+        - button "Open project JSON" [ref=e12]
+        - button "Open project" [ref=e13] [cursor=pointer]
+        - button "Save project" [ref=e14] [cursor=pointer]
+      - button "Open image" [ref=e15] [cursor=pointer]
+  - main [ref=e18]:
+    - generic [ref=e19]:
+      - navigation "Workspace tools" [ref=e20]:
+        - button "Open source image" [ref=e21] [cursor=pointer]
+        - button "Source image settings" [ref=e25] [cursor=pointer]
+        - button "Image adjustments" [ref=e28] [cursor=pointer]
+        - button "Palette and color settings" [ref=e31] [cursor=pointer]
+        - button "Reset image framing" [disabled] [ref=e34]
+      - region "Untitled RGB / 8" [ref=e37]:
+        - generic [ref=e38]:
+          - heading "Untitled RGB / 8" [level=2] [ref=e39]:
+            - generic "Untitled" [ref=e42]
+            - generic [ref=e43]: RGB / 8
+          - generic [ref=e44]: No image open
+        - generic [ref=e47]:
+          - generic [ref=e48]:
+            - tablist "Image color mode" [ref=e49]:
+              - tab "Unrestricted" [selected] [ref=e50] [cursor=pointer]
+              - tab "C64 Palette" [ref=e51] [cursor=pointer]
+              - tab "FLI" [ref=e52] [cursor=pointer]
+            - generic [ref=e54] [cursor=pointer]:
+              - checkbox "Tile grid" [checked] [ref=e55]
+              - generic [ref=e56]: Tile grid
+          - tabpanel "Unrestricted" [ref=e57]:
+            - generic [ref=e60]:
+              - heading "No image open" [level=2] [ref=e61]
+              - button "Open image" [ref=e62] [cursor=pointer]
+            - generic [ref=e63]:
+              - generic "Preview scale" [ref=e64]: Fit
+              - generic [ref=e65]: 160 × 200 logical pixels · 2 columns reserved on the left
+      - complementary "Image settings" [ref=e66]:
+        - generic [ref=e67]: Properties
+        - group [ref=e70]:
+          - heading "Image" [level=2] [ref=e72] [cursor=pointer]
+          - generic [ref=e73]:
+            - heading "Graphics format" [level=3] [ref=e74]
+            - combobox "Graphics format" [ref=e75]:
+              - option "FLI" [selected]
+              - option "FLI + Sprites"
+              - option "IFLI"
+              - option "MCI"
+              - option "Multi Color Bitmap"
+              - option "Charset · Hires + Multicolor"
+              - option "Multicolor Sprites"
+              - option "Multicolor + Hires Sprites"
+              - option "Hires"
+              - option "Hires · 2 colors"
+              - option "AFLI"
+              - option "AFLI + Sprites"
+              - option "NUFLI"
+              - option "PAFLI"
+            - generic [ref=e76]:
+              - heading "C64 palette" [level=3] [ref=e77]
+              - combobox "C64 palette" [ref=e78]:
+                - option "Colodore (PAL)" [selected]
+                - option "Pepto (PAL)"
+                - option "PEPTOette_a"
+            - generic [ref=e79]:
+              - heading "Virtual color mode" [level=3] [ref=e80]
+              - combobox "Virtual color mode" [ref=e81]:
+                - option "Computed" [selected]
+                - option "Talent"
+              - paragraph [ref=e82]: Computed pairs, shared by all layers with virtual colors enabled.
+            - group "Background color" [ref=e84]:
+              - generic [ref=e86]:
+                - 'generic "0 · Black · #000000" [ref=e87] [cursor=pointer]':
+                  - radio "Black" [checked] [ref=e88]
+                - 'generic "1 · White · #FFFFFF" [ref=e90] [cursor=pointer]':
+                  - radio "White" [ref=e91]
+                - 'generic "2 · Red · #96282E" [ref=e93] [cursor=pointer]':
+                  - radio "Red" [ref=e94]
+                - 'generic "3 · Cyan · #5BD6CE" [ref=e96] [cursor=pointer]':
+                  - radio "Cyan" [ref=e97]
+                - 'generic "4 · Purple · #9F2DAD" [ref=e99] [cursor=pointer]':
+                  - radio "Purple" [ref=e100]
+                - 'generic "5 · Green · #41B936" [ref=e102] [cursor=pointer]':
+                  - radio "Green" [ref=e103]
+                - 'generic "6 · Blue · #2724C4" [ref=e105] [cursor=pointer]':
+                  - radio "Blue" [ref=e106]
+                - 'generic "7 · Yellow · #EFF347" [ref=e108] [cursor=pointer]':
+                  - radio "Yellow" [ref=e109]
+                - 'generic "8 · Orange · #9F4815" [ref=e111] [cursor=pointer]':
+                  - radio "Orange" [ref=e112]
+                - 'generic "9 · Brown · #5E3500" [ref=e114] [cursor=pointer]':
+                  - radio "Brown" [ref=e115]
+                - 'generic "10 · Light red · #DA5F66" [ref=e117] [cursor=pointer]':
+                  - radio "Light red" [ref=e118]
+                - 'generic "11 · Dark gray · #474747" [ref=e120] [cursor=pointer]':
+                  - radio "Dark gray" [ref=e121]
+                - 'generic "12 · Gray · #787878" [ref=e123] [cursor=pointer]':
+                  - radio "Gray" [ref=e124]
+                - 'generic "13 · Light green · #91FF84" [ref=e126] [cursor=pointer]':
+                  - radio "Light green" [ref=e127]
+                - 'generic "14 · Light blue · #6864FF" [ref=e129] [cursor=pointer]':
+                  - radio "Light blue" [ref=e130]
+                - 'generic "15 · Light gray · #AEAEAE" [ref=e132] [cursor=pointer]':
+                  - radio "Light gray" [ref=e133]
+              - status [ref=e135]: "0 · Black · #000000"
+        - group [ref=e136]:
+          - generic "Layers 1" [ref=e137] [cursor=pointer]:
+            - heading "Layers" [level=2] [ref=e138]
+            - generic [ref=e139]: "1"
+          - list "Layers" [ref=e140]:
+            - listitem [ref=e141]:
+              - button "Show Layer 1" [pressed] [ref=e142] [cursor=pointer]
+              - button "Select Layer 1" [pressed] [ref=e145] [cursor=pointer]:
+                - generic [ref=e147]: Layer 1
+          - toolbar "Layer actions" [ref=e148]:
+            - button "New layer" [ref=e149] [cursor=pointer]:
+              - generic [ref=e152]: New
+            - button "New tile marker layer" [ref=e153] [cursor=pointer]:
+              - generic [ref=e156]: Tiles
+            - button "Duplicate layer" [ref=e157] [cursor=pointer]
+            - button "Move layer up" [disabled] [ref=e160]
+            - button "Move layer down" [disabled] [ref=e163]
+            - button "Delete layer" [disabled] [ref=e166]
+        - generic [ref=e169]:
+          - generic [ref=e170]: Layer settings
+          - strong [ref=e171]: Layer 1
+        - group [ref=e172]:
+          - heading "Source image" [level=2] [ref=e174] [cursor=pointer]
+          - generic [ref=e175]:
+            - button "Upload source image" [ref=e176]
+            - button "Choose image" [ref=e177] [cursor=pointer]
+        - group [ref=e181]:
+          - heading "Adjustments" [level=2] [ref=e183] [cursor=pointer]
+          - generic [ref=e184]:
+            - generic [ref=e185]:
+              - generic [ref=e186]:
+                - generic [ref=e187]: Brightness
+                - status [ref=e188]: 0%
+              - slider "Brightness" [ref=e189] [cursor=pointer]: "0"
+            - generic [ref=e190]:
+              - generic [ref=e191]:
+                - generic [ref=e192]: Contrast
+                - status [ref=e193]: 100%
+              - slider "Contrast" [ref=e194] [cursor=pointer]: "100"
+            - group "Levels & curves" [ref=e195]:
+              - generic [ref=e196]:
+                - heading "Levels & curves" [level=3] [ref=e197]
+                - button "Reset levels" [ref=e198] [cursor=pointer]: Reset
+              - group "Tone curve, point 1 of 2, input 0, output 0. Arrow keys adjust; Page Up and Page Down select; Insert adds a point; Delete removes a point." [ref=e199]
+              - paragraph [ref=e200]: Click to add. Drag to shape. Delete to remove.
+              - generic [ref=e201]:
+                - generic [ref=e202]:
+                  - text: Input
+                  - spinbutton "Input" [disabled] [ref=e203]: "0"
+                - generic [ref=e204]:
+                  - text: Output
+                  - spinbutton "Output" [ref=e205]: "0"
+                - button "Remove point" [disabled] [ref=e206]
+              - generic [ref=e207]:
+                - status [ref=e208]: Point 1 of 2
+                - button "Reset curve" [disabled] [ref=e209]
+              - group [ref=e210]:
+                - generic "Input levels" [ref=e211] [cursor=pointer]
+            - generic [ref=e212]:
+              - generic [ref=e213]:
+                - generic [ref=e214]: Hue
+                - status [ref=e215]: 0°
+              - slider "Hue" [ref=e216] [cursor=pointer]: "0"
+            - generic [ref=e217]:
+              - generic [ref=e218]:
+                - generic [ref=e219]: Saturation
+                - status [ref=e220]: 100%
+              - slider "Saturation" [ref=e221] [cursor=pointer]: "100"
+            - generic [ref=e222]:
+              - generic [ref=e223]:
+                - generic [ref=e224]: RGB noise
+                - status [ref=e225]: 0%
+              - slider "RGB noise" [ref=e226] [cursor=pointer]: "0"
+            - generic [ref=e227]:
+              - generic [ref=e228]:
+                - generic [ref=e229]: Interlace
+                - status [ref=e230]: 0%
+              - slider "Interlace" [ref=e231] [cursor=pointer]: "0"
+              - generic [ref=e232]: Direction
+              - combobox "Direction" [ref=e234]:
+                - option "Horizontal —" [selected]
+                - option "Rising diagonal /"
+                - option "Falling diagonal \\"
+              - generic [ref=e235]:
+                - generic [ref=e236]: Line spacing
+                - status [ref=e237]: 2 steps
+              - slider "Line spacing" [ref=e238] [cursor=pointer]: "2"
+            - generic [ref=e239]:
+              - generic [ref=e240]:
+                - generic [ref=e241]: Dither
+                - status [ref=e242]: 100%
+              - slider "Dither" [ref=e243] [cursor=pointer]: "100"
+            - generic [ref=e245] [cursor=pointer]:
+              - checkbox "Dither line ends" [ref=e246]
+              - text: Dither line ends
+        - group [ref=e247]:
+          - heading "Color & palette" [level=2] [ref=e249] [cursor=pointer]
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - heading "Virtual Colors" [level=2] [ref=e252]
+              - combobox "Virtual Colors" [ref=e253]:
+                - option "Off"
+                - option "Lines" [selected]
+                - option "Checkers"
+            - region "Virtual palette 69" [ref=e254]:
+              - heading "Virtual palette 69" [level=2] [ref=e255]:
+                - generic [ref=e256]: Virtual palette
+                - generic [ref=e257]: "69"
+              - generic [ref=e258]:
+                - generic [ref=e259]:
+                  - generic [ref=e260]: Darkest level
+                  - status [ref=e261]: "0"
+                - slider "Darkest level" [ref=e262] [cursor=pointer]: "0"
+              - generic [ref=e263]:
+                - generic [ref=e264]:
+                  - generic [ref=e265]: Lightest level
+                  - status [ref=e266]: "16"
+                - slider "Lightest level" [ref=e267] [cursor=pointer]: "16"
+              - group "Virtual palette 69" [ref=e268]:
+                - generic [aria-hidden] [ref=e269]: "0"
+                - 'button "Level 0 · 0 · Black · #000000" [pressed] [ref=e270] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e271]: "1"
+                - 'button "Level 1 · 1 · Black + Blue · #141262" [pressed] [ref=e272] [cursor=pointer]'
+                - 'button "Level 1 · 2 · Black + Brown · #2F1B00" [pressed] [ref=e273] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e274]: "2"
+                - 'button "Level 2 · 39 · Blue · #2724C4" [pressed] [ref=e275] [cursor=pointer]'
+                - 'button "Level 2 · 41 · Blue + Brown · #432D62" [pressed] [ref=e276] [cursor=pointer]'
+                - 'button "Level 2 · 52 · Brown · #5E3500" [pressed] [ref=e277] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e278]: "3"
+                - 'button "Level 3 · 8 · Red + Blue · #5F2679" [pressed] [ref=e279] [cursor=pointer]'
+                - 'button "Level 3 · 10 · Red + Brown · #7A2F17" [pressed] [ref=e280] [cursor=pointer]'
+                - 'button "Level 3 · 42 · Blue + Dark gray · #373686" [pressed] [ref=e281] [cursor=pointer]'
+                - 'button "Level 3 · 53 · Brown + Dark gray · #533E24" [pressed] [ref=e282] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e283]: "4"
+                - 'button "Level 4 · 6 · Red · #96282E" [pressed] [ref=e284] [cursor=pointer]'
+                - 'button "Level 4 · 11 · Red + Dark gray · #6F383B" [pressed] [ref=e285] [cursor=pointer]'
+                - 'button "Level 4 · 24 · Purple + Blue · #6329B9" [pressed] [ref=e286] [cursor=pointer]'
+                - 'button "Level 4 · 26 · Purple + Brown · #7F3157" [pressed] [ref=e287] [cursor=pointer]'
+                - 'button "Level 4 · 40 · Blue + Orange · #63366D" [pressed] [ref=e288] [cursor=pointer]'
+                - 'button "Level 4 · 47 · Orange + Brown · #7F3F0B" [pressed] [ref=e289] [cursor=pointer]'
+                - 'button "Level 4 · 58 · Dark gray · #474747" [pressed] [ref=e290] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e291]: "5"
+                - 'button "Level 5 · 7 · Red + Purple · #9B2B6E" [pressed] [ref=e292] [cursor=pointer]'
+                - 'button "Level 5 · 9 · Red + Orange · #9B3822" [pressed] [ref=e293] [cursor=pointer]'
+                - 'button "Level 5 · 28 · Purple + Dark gray · #733A7A" [pressed] [ref=e294] [cursor=pointer]'
+                - 'button "Level 5 · 49 · Orange + Dark gray · #73482E" [pressed] [ref=e295] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e296]: "6"
+                - 'button "Level 6 · 12 · Red + Gray · #875053" [pressed] [ref=e297] [cursor=pointer]'
+                - 'button "Level 6 · 13 · Red + Light blue · #7F4697" [pressed] [ref=e298] [cursor=pointer]'
+                - 'button "Level 6 · 22 · Purple · #9F2DAD" [pressed] [ref=e299] [cursor=pointer]'
+                - 'button "Level 6 · 25 · Purple + Orange · #9F3B61" [pressed] [ref=e300] [cursor=pointer]'
+                - 'button "Level 6 · 46 · Orange · #9F4815" [pressed] [ref=e301] [cursor=pointer]'
+                - 'button "Level 6 · 59 · Dark gray + Gray · #606060" [pressed] [ref=e302] [cursor=pointer]'
+                - 'button "Level 6 · 60 · Dark gray + Light blue · #5856A3" [pressed] [ref=e303] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e304]: "7"
+                - 'button "Level 7 · 29 · Purple + Gray · #8C5393" [pressed] [ref=e305] [cursor=pointer]'
+                - 'button "Level 7 · 30 · Purple + Light blue · #8449D6" [pressed] [ref=e306] [cursor=pointer]'
+                - 'button "Level 7 · 50 · Orange + Gray · #8C6047" [pressed] [ref=e307] [cursor=pointer]'
+                - 'button "Level 7 · 51 · Orange + Light blue · #84568A" [pressed] [ref=e308] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e309]: "8"
+                - 'button "Level 8 · 23 · Purple + Green · #707372" [pressed] [ref=e310] [cursor=pointer]'
+                - 'button "Level 8 · 27 · Purple + Light red · #BD468A" [pressed] [ref=e311] [cursor=pointer]'
+                - 'button "Level 8 · 33 · Green + Orange · #708126" [pressed] [ref=e312] [cursor=pointer]'
+                - 'button "Level 8 · 48 · Orange + Light red · #BD543E" [pressed] [ref=e313] [cursor=pointer]'
+                - 'button "Level 8 · 61 · Gray · #787878" [pressed] [ref=e314] [cursor=pointer]'
+                - 'button "Level 8 · 62 · Gray + Light blue · #706EBC" [pressed] [ref=e315] [cursor=pointer]'
+                - 'button "Level 8 · 66 · Light blue · #6864FF" [pressed] [ref=e316] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e317]: "9"
+                - 'button "Level 9 · 35 · Green + Gray · #5D9957" [pressed] [ref=e318] [cursor=pointer]'
+                - 'button "Level 9 · 37 · Green + Light blue · #558F9B" [pressed] [ref=e319] [cursor=pointer]'
+                - 'button "Level 9 · 55 · Light red + Gray · #A96C6F" [pressed] [ref=e320] [cursor=pointer]'
+                - 'button "Level 9 · 56 · Light red + Light blue · #A162B3" [pressed] [ref=e321] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e322]: "10"
+                - 'button "Level 10 · 18 · Cyan + Gray · #6AA7A3" [pressed] [ref=e323] [cursor=pointer]'
+                - 'button "Level 10 · 20 · Cyan + Light blue · #629DE7" [pressed] [ref=e324] [cursor=pointer]'
+                - 'button "Level 10 · 31 · Green · #41B936" [pressed] [ref=e325] [cursor=pointer]'
+                - 'button "Level 10 · 34 · Green + Light red · #8E8C4E" [pressed] [ref=e326] [cursor=pointer]'
+                - 'button "Level 10 · 54 · Light red · #DA5F66" [pressed] [ref=e327] [cursor=pointer]'
+                - 'button "Level 10 · 63 · Gray + Light gray · #939393" [pressed] [ref=e328] [cursor=pointer]'
+                - 'button "Level 10 · 67 · Light blue + Light gray · #8B89D7" [pressed] [ref=e329] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e330]: "11"
+                - 'button "Level 11 · 15 · Cyan + Green · #4EC882" [pressed] [ref=e331] [cursor=pointer]'
+                - 'button "Level 11 · 17 · Cyan + Light red · #9B9B9A" [pressed] [ref=e332] [cursor=pointer]'
+                - 'button "Level 11 · 38 · Green + Light gray · #78B472" [pressed] [ref=e333] [cursor=pointer]'
+                - 'button "Level 11 · 57 · Light red + Light gray · #C4878A" [pressed] [ref=e334] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e335]: "12"
+                - 'button "Level 12 · 14 · Cyan · #5BD6CE" [pressed] [ref=e336] [cursor=pointer]'
+                - 'button "Level 12 · 21 · Cyan + Light gray · #85C2BE" [pressed] [ref=e337] [cursor=pointer]'
+                - 'button "Level 12 · 32 · Green + Yellow · #98D63F" [pressed] [ref=e338] [cursor=pointer]'
+                - 'button "Level 12 · 36 · Green + Light green · #69DC5D" [pressed] [ref=e339] [cursor=pointer]'
+                - 'button "Level 12 · 68 · Light gray · #AEAEAE" [pressed] [ref=e340] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e341]: "13"
+                - 'button "Level 13 · 16 · Cyan + Yellow · #A5E58B" [pressed] [ref=e342] [cursor=pointer]'
+                - 'button "Level 13 · 19 · Cyan + Light green · #76EBA9" [pressed] [ref=e343] [cursor=pointer]'
+                - 'button "Level 13 · 45 · Yellow + Light gray · #CFD17B" [pressed] [ref=e344] [cursor=pointer]'
+                - 'button "Level 13 · 65 · Light green + Light gray · #A0D799" [pressed] [ref=e345] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e346]: "14"
+                - 'button "Level 14 · 43 · Yellow · #EFF347" [pressed] [ref=e347] [cursor=pointer]'
+                - 'button "Level 14 · 44 · Yellow + Light green · #C0F966" [pressed] [ref=e348] [cursor=pointer]'
+                - 'button "Level 14 · 64 · Light green · #91FF84" [pressed] [ref=e349] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e350]: "15"
+                - 'button "Level 15 · 4 · White + Yellow · #F7F9A3" [pressed] [ref=e351] [cursor=pointer]'
+                - 'button "Level 15 · 5 · White + Light green · #C8FFC2" [pressed] [ref=e352] [cursor=pointer]'
+                - generic [aria-hidden] [ref=e353]: "16"
+                - 'button "Level 16 · 3 · White · #FFFFFF" [pressed] [ref=e354] [cursor=pointer]'
+        - group "Document info" [ref=e355]:
+          - heading "Document info" [level=2] [ref=e357] [cursor=pointer]
+    - status [ref=e358]
+  - contentinfo [ref=e359]:
+    - generic [ref=e360]: C64 · FULL-COLOR SOURCE
+    - generic [ref=e361]: 160 × 200 / 2:1

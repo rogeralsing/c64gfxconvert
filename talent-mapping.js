@@ -117,7 +117,7 @@ function buildTalentBrightnessLevels(virtualPalette) {
   return levels;
 }
 
-/** Select brightness first, then chroma, using the same mapper as Computed. */
+/** Share virtual colors across similar vertical pairs; preserve detail with native C64 colors. */
 function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, ditherAmount = 0) {
   const { minLightness, maxLightness } = getTalentLightnessLimits(settings, virtualPalette);
   if (!Number.isInteger(minLightness) || !Number.isInteger(maxLightness) ||
@@ -130,6 +130,76 @@ function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, dither
       excluded.add(color.index);
     }
   }
-  return mapToVirtualPaletteLevels(source, buildTalentBrightnessLevels(virtualPalette), ditherAmount,
+
+  const nativeBands = new Map();
+  for (const color of virtualPalette) {
+    if (!color.colorIndices || color.colorIndices[0] !== color.colorIndices[1]) continue;
+    const band = color.brightnessBands[0];
+    if (!nativeBands.has(band)) nativeBands.set(band, []);
+    nativeBands.get(band).push({ color, lab: rgbToOklab(...color.rgb) });
+  }
+  if (!nativeBands.size) throw new Error('Talent mapping requires native C64 colors in its palette.');
+  // Keep native brightness calibration while filtering the enabled solid palette entries.
+  const nativeLevels = [...nativeBands.entries()].sort(([first], [second]) => first - second)
+    .map(([, entries]) => entries);
+  const pairs = new ImageData(source.width, Math.ceil(source.height / 2));
+  const similaritySquared = 0.03 ** 2;
+  let needsNative = false;
+  for (let y = 0; y + 1 < source.height; y += 2) {
+    for (let x = 0; x < source.width; x += 1) {
+      const upper = (y * source.width + x) * 4;
+      const lower = upper + source.width * 4;
+      const alpha = source.data[upper + 3];
+      if (!alpha || alpha !== source.data[lower + 3]) {
+        if (alpha || source.data[lower + 3]) needsNative = true;
+        continue;
+      }
+      const first = rgbToOklab(source.data[upper], source.data[upper + 1], source.data[upper + 2]);
+      const second = rgbToOklab(source.data[lower], source.data[lower + 1], source.data[lower + 2]);
+      const distance = (first.lightness - second.lightness) ** 2 +
+        (first.a - second.a) ** 2 + (first.b - second.b) ** 2;
+      if (distance > similaritySquared) {
+        needsNative = true;
+        continue;
+      }
+      const pair = ((y / 2) * source.width + x) * 4;
+      for (let channel = 0; channel < 3; channel += 1) {
+        pairs.data[pair + channel] = linearToSrgb((srgbToLinear(source.data[upper + channel]) +
+          srgbToLinear(source.data[lower + channel])) / 2);
+      }
+      pairs.data[pair + 3] = alpha;
+    }
+  }
+  if (source.height % 2) {
+    for (let x = 0; x < source.width; x += 1) {
+      if (source.data[((source.height - 1) * source.width + x) * 4 + 3]) needsNative = true;
+    }
+  }
+  if (needsNative && !nativeLevels.some(level => level.some(entry => !excluded.has(entry.color.index)))) {
+    const cause = new Error('Talent detail pixels require at least one enabled solid color in the selected lightness range.');
+    cause.code = 'TALENT_SOLID_COLOR_REQUIRED';
+    throw cause;
+  }
+  const mapped = needsNative
+    ? mapToVirtualPaletteLevels(source, nativeLevels, 0, { excludedIndices: [...excluded] })
+    : { pixels: new ImageData(new Uint8ClampedArray(source.data), source.width, source.height),
+      virtualIndices: new Uint8Array(source.width * source.height).fill(255) };
+
+  // One dither decision per pair keeps both displayed pixels on the same virtual tone.
+  const virtual = mapToVirtualPaletteLevels(pairs, buildTalentBrightnessLevels(virtualPalette), ditherAmount,
     { excludedIndices: [...excluded] });
+  for (let y = 0; y + 1 < source.height; y += 2) {
+    for (let x = 0; x < source.width; x += 1) {
+      const pair = (y / 2) * source.width + x;
+      if (!pairs.data[pair * 4 + 3]) continue;
+      const upper = y * source.width + x;
+      const lower = upper + source.width;
+      mapped.virtualIndices[upper] = mapped.virtualIndices[lower] = virtual.virtualIndices[pair];
+      for (let channel = 0; channel < 3; channel += 1) {
+        mapped.pixels.data[upper * 4 + channel] = mapped.pixels.data[lower * 4 + channel] =
+          virtual.pixels.data[pair * 4 + channel];
+      }
+    }
+  }
+  return mapped;
 }

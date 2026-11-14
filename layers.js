@@ -1,15 +1,21 @@
-/** Image layers are stored bottom to top. Settings are owned by each layer. */
+/** Layers are stored bottom to top. Image settings and tile markers belong to each layer. */
 function createC64LayerStack(defaultSettings) {
   let nextId = 1;
   const layers = [];
   let selectedId;
   const copy = settings => structuredClone(settings);
   const active = () => layers.find(layer => layer.id === selectedId);
-  function create({ name, autoName = !name, image = null, fileName = '', sourceDataUrl = '',
-    visible = true, settings = defaultSettings } = {}) {
+  function create({ type = 'image', name, autoName = !name, image = null, fileName = '', sourceDataUrl = '',
+    visible = true, settings = defaultSettings, markers } = {}) {
+    if (!['image', 'tile-markers'].includes(type)) throw new Error('Unknown layer type.');
+    const tileMarkers = type === 'tile-markers';
     return {
-      id: nextId++, name: name || `Layer ${nextId - 1}`, autoName, image, fileName, sourceDataUrl,
-      visible, settings: copy(settings), cache: null, loadRequest: 0
+      id: nextId++, type, name: name || `${tileMarkers ? 'Tile markers' : 'Layer'} ${nextId - 1}`, autoName,
+      image: tileMarkers ? null : image, fileName: tileMarkers ? '' : fileName,
+      sourceDataUrl: tileMarkers ? '' : sourceDataUrl, visible,
+      settings: tileMarkers ? null : copy(settings),
+      ...(tileMarkers ? { markers: copy(markers ?? { color: '#ffcc00', tiles: Array(1000).fill(0) }) } : {}),
+      cache: null, loadRequest: 0
     };
   }
   function add(options) {
@@ -30,8 +36,9 @@ function createC64LayerStack(defaultSettings) {
     add,
     duplicate() {
       const layer = active();
-      const result = add({ name: `${layer.name} copy`, image: layer.image,
-        fileName: layer.fileName, sourceDataUrl: layer.sourceDataUrl, settings: layer.settings });
+      const result = add({ type: layer.type, name: `${layer.name} copy`, image: layer.image,
+        fileName: layer.fileName, sourceDataUrl: layer.sourceDataUrl, settings: layer.settings,
+        markers: layer.markers });
       result.visible = layer.visible;
       return result;
     },
@@ -50,6 +57,7 @@ function createC64LayerStack(defaultSettings) {
     },
     updateSettings(settings) {
       const layer = active();
+      if (layer.type === 'tile-markers') return false;
       if (JSON.stringify(layer.settings) === JSON.stringify(settings)) return false;
       layer.settings = copy(settings);
       layer.cache = null;

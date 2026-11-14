@@ -12,6 +12,8 @@ linus-mix/*
 !linus-mix/memory-budget.json
 !linus-mix/rebuild-check.json
 !linus-mix/autostart-check.json
+!linus-mix/optimization-check.json
+!linus-mix/rollback-check.json
 !linus-mix/input.json
 !linus-mix/preparation.json
 !linus-mix/player-check.json
@@ -19,3 +21,4 @@ linus-mix/*
 !linus-mix/budget/
 linus-mix/budget/*
 !linus-mix/budget/cpu-budget.json
+!linus-mix/budget/cpu-attribution.json

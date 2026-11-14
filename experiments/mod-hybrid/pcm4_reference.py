@@ -51,6 +51,7 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
         raise ValueError("PCM4 output_gain other than1 requires nearest quantization")
     banks = {}
     bank_receipt = []
+    maximum_sample_index_plus_one = {}
     for entry in arrangement["pcm_bank"]:
         raw = Path(entry["data_file"]).read_bytes()
         data = np.frombuffer(raw, dtype=np.uint8)
@@ -62,6 +63,7 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
         end = start + length if length else len(data)
         banks[int(entry["id"])] = {"data": data, "start": start, "length": length, "end": end,
                                     "loop_target": int(entry.get("loop_target_id", entry["id"] if length else 0))}
+        maximum_sample_index_plus_one[int(entry["id"])] = 0
         bank_receipt.append({"id": entry["id"], "bytes": len(data), "loop_start": start,
                              "loop_length": length, "base_divisor": entry.get("base_divisor"),
                              "sha256": hashlib.sha256(raw).hexdigest()})
@@ -154,6 +156,11 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
                 crossing = np.flatnonzero(sample_index >= bank["end"])
                 prefix = int(crossing[0]) if len(crossing) else remaining
                 if prefix:
+                    # Track actual DMA reads even when volume is zero. A later
+                    # volume change can make the same running cursor audible.
+                    bank_id = loaded_ids[voice]
+                    maximum_sample_index_plus_one[bank_id] = max(
+                        maximum_sample_index_plus_one[bank_id], int(sample_index[prefix - 1]) + 1)
                     codes = bank["data"][sample_index[:prefix]]
                     mixed[output_start:output_start + prefix] += table[level, codes]
                     reads[voice] += prefix
@@ -220,6 +227,8 @@ def expected_dac(arrangement: dict) -> tuple[np.ndarray, dict]:
     dac = np.empty(frame_count, dtype=np.uint8)
     dac[0] = 8
     dac[1:] = quantized[:-1]
+    for entry in bank_receipt:
+        entry["maximum_sample_index_plus_one"] = maximum_sample_index_plus_one[int(entry["id"])]
     receipt = {"sample_rate_hz": PCM_RATE, "sample_timer_cycles": 256,
                "samples": len(dac), "duration_s": len(dac) / PCM_RATE,
                "music_ticks": len(ticks), "triggers_per_track": triggers,

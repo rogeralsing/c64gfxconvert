@@ -19,6 +19,13 @@ runnable PRG, actual VICE audio and measured CPU deadlines.
 
 Open `index.html` in a modern browser. No build step or server is required.
 
+Choose **Tiles** in the Layers toolbar to add a tile marker layer. Click an
+8 × 8 character tile to switch its marker on or off; drag to paint that same
+state across more tiles. **Layer settings → Tile markers → Overlay color**
+sets the translucent overlay color. Markers stay fixed on the screen, have no
+image adjustments or transforms, and never enter converted graphics or native
+exports. Projects preserve the markers, color, and layer visibility.
+
 Choose **Colodore (PAL)**, **Pepto (PAL)**, or **PEPTOette_a** in **Image → C64 palette**, below
 the graphics format. Colodore remains the default. Switching updates conversion,
 previews, color swatches, and virtual colors across all layers. Projects save
@@ -76,6 +83,10 @@ reconstructs paths through those contacts; contacts can also mark object
 boundaries, so they do not prove deliberate gradients. The palette
 shows these scales as columns, black at the top and white at the bottom, with
 different numbers of tones. Scroll horizontally to inspect every scale.
+Each mixed-color swatch shows its two active C64 component colors underneath.
+A separate **Standard colors** column lists all 16 solid colors in C64 index
+order. These buttons toggle the same solid entries used by detail pixels;
+disabling a solid does not disable its separately enabled mixtures.
 All 92 Talent colors are available: the 76 retained mixed pairs and all 16
 solid C64 colors. Tones outside the example scales appear in an additional column.
 Talent mixes pairs in linear light using the selected C64 palette. It groups
@@ -85,11 +96,25 @@ the palette; PEPTOette_a currently has 20 Talent levels. Computed keeps its
 existing 17 rows. Both modes call the same mapper: select the brightness level,
 using the Dither setting to interpolate neighboring levels, then match chroma
 within that level. Hue cannot select a different brightness level.
-Graphs, neighboring pixels, scale paths, and traversal order do not restrict
-selection. Only the layer's lightness caps and explicit exclusions apply.
-The C64 Palette view receives the exact selected virtual RGB for each pixel,
-using the same ordered brightness dithering as Computed. Lines or Checkers
-resolve the selected component pairs afterward.
+Talent scans two source rows at a time: 0–1, 2–3, and so on. Each vertical pair
+with equal nonzero alpha and an Oklab color distance of at most 0.03 is treated
+as one surface sample. Its linear-light RGB average selects one virtual color,
+which is written identically to both pixels. Brightness dithering runs on this
+pair grid, so it cannot split a matched pair into different virtual colors.
+Different colors, transparency edges, and an unpaired final row map each source
+pixel separately to an enabled solid color from the active C64 palette, without added
+dithering. This preserves details while limiting virtual mixtures to smooth
+surfaces. The comparison uses source pixels after the layer's adjustments.
+Graphs and observed scale paths do not restrict selection. Lightness caps and
+palette exclusions apply to both surface samples and native details. Disabling
+a solid color removes it from detail matching; separately enabled mixtures
+containing that color remain available for surfaces. If details need mapping
+but no solid color is enabled in range, the preview asks for an enabled solid
+instead of using a disabled color. Smooth-only images can still use a selection
+containing only mixed colors.
+The C64 Palette view receives exact selected RGB values: shared virtual RGB
+for surface pairs, native C64 RGB for details. Lines or Checkers resolve the
+selected component pairs afterward; native detail colors remain unchanged.
 Choose **PEPTOette_a** to reproduce the sampled palette's RGB values. The mode
 applies to every layer with virtual colors enabled and is saved in projects.
 Older projects default to Computed. Each layer retains its own pattern,

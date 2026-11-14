@@ -136,18 +136,43 @@ globalThis.C64ConverterControls = (() => {
     const colorLevel = color => talent() ? color.lightness * 100
       : color.brightnessBands[0] + color.brightnessBands[1];
 
-    function createSwatch(color) {
+    function createSwatch(color, standard = false) {
       const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
-      const label = `${color.index} · ${names} · ${color.hex}`;
+      const label = `${standard ? color.colorIndices[0] : color.index} · ${names} · ${color.hex}`;
       const swatch = document.createElement('button');
       swatch.type = 'button';
       swatch.className = 'virtual-palette-swatch';
       swatch.style.backgroundColor = color.hex;
       swatch.dataset.virtualColor = color.id;
       swatch.title = label;
-      swatch.setAttribute('aria-label', talent()
-        ? `Lightness ${(color.lightness * 100).toFixed(1)}% · ${label}`
-        : `Level ${colorLevel(color)} · ${label}`);
+      swatch.setAttribute('aria-label', standard ? `Standard color ${label}` : talent()
+        ? `Lightness ${(color.lightness * 100).toFixed(1)}% · ${label}` : `Level ${colorLevel(color)} · ${label}`);
+      const face = document.createElement('span');
+      face.className = 'virtual-palette-color';
+      face.style.backgroundColor = color.hex;
+      face.setAttribute('aria-hidden', 'true');
+      if (standard) {
+        swatch.classList.add('standard-palette-swatch');
+        swatch.dataset.nativeColor = String(color.colorIndices[0]);
+        const index = document.createElement('span');
+        index.className = 'standard-palette-index';
+        index.textContent = color.colorIndices[0];
+        index.setAttribute('aria-hidden', 'true');
+        swatch.append(index, face);
+      } else {
+        const components = document.createElement('span');
+        components.className = 'virtual-palette-components';
+        components.setAttribute('aria-hidden', 'true');
+        for (const index of color.colorIndices) {
+          const component = document.createElement('span');
+          component.className = 'virtual-palette-component';
+          component.dataset.colorIndex = String(index);
+          component.style.backgroundColor = baseColors.get(index).hex;
+          component.title = baseColors.get(index).name;
+          components.append(component);
+        }
+        swatch.append(face, components);
+      }
       swatch.addEventListener('click', () => {
         if (swatch.getAttribute('aria-disabled') === 'true') return;
         if (excludedIndices.has(color.index)) excludedIndices.delete(color.index);
@@ -163,10 +188,40 @@ globalThis.C64ConverterControls = (() => {
     function renderSwatches() {
       swatches.replaceChildren();
       buttons.clear();
-      swatches.classList.toggle('talent-palette-scales', talent());
-      swatches.setAttribute('aria-label', talent() ? 'Observed Talent scales, black to white' : 'Virtual color brightness rows');
+      swatches.setAttribute('aria-label', 'Palette colors');
+      const standards = document.createElement('div');
+      standards.className = 'standard-palette-column';
+      standards.setAttribute('role', 'group');
+      standards.setAttribute('aria-label', 'Standard colors');
+      const heading = document.createElement('h3');
+      heading.className = 'palette-column-heading';
+      heading.textContent = 'Standard colors';
+      standards.append(heading);
+      const standardList = document.createElement('div');
+      standardList.className = 'standard-palette-list';
+      const solids = new Map(palette.filter(color => color.colorIndices[0] === color.colorIndices[1])
+        .map(color => [color.colorIndices[0], color]));
+      for (const index of [...baseColors.keys()].sort((first, second) => first - second)) {
+        const color = solids.get(index);
+        if (color) standardList.append(createSwatch(color, true));
+      }
+      standards.append(standardList);
+      const collection = document.createElement('div');
+      collection.className = 'virtual-palette-collection';
+      const collectionHeading = document.createElement('h3');
+      collectionHeading.className = 'palette-column-heading';
+      collectionHeading.textContent = talent() ? 'Observed scales' : 'Virtual colors';
+      collection.append(collectionHeading);
+      const mixes = document.createElement('div');
+      mixes.className = 'virtual-palette-mixes';
+      mixes.classList.toggle('talent-palette-scales', talent());
+      mixes.setAttribute('role', 'group');
+      mixes.setAttribute('aria-label', talent() ? 'Observed Talent scales, black to white' : 'Virtual color brightness rows');
+      collection.append(mixes);
+      swatches.append(standards, collection);
       if (talent()) {
         const byIndex = new Map(palette.map(color => [color.index, color]));
+        let longest = 0;
         for (const [index, ramp] of (getToneModel?.().ramps ?? []).entries()) {
           const column = document.createElement('div');
           column.className = 'talent-palette-scale';
@@ -176,7 +231,8 @@ globalThis.C64ConverterControls = (() => {
             const color = byIndex.get(colorIndex);
             if (color) column.append(createSwatch(color));
           }
-          swatches.append(column);
+          mixes.append(column);
+          longest = Math.max(longest, ramp.indices.length);
         }
         const additional = palette.filter(color => !buttons.has(color.index))
           .sort((first, second) => first.lightness - second.lightness || first.index - second.index);
@@ -186,10 +242,13 @@ globalThis.C64ConverterControls = (() => {
           column.setAttribute('role', 'group');
           column.setAttribute('aria-label', 'Additional Talent colors');
           for (const color of additional) column.append(createSwatch(color));
-          swatches.append(column);
+          mixes.append(column);
+          longest = Math.max(longest, additional.length);
         }
+        swatches.style.setProperty('--palette-column-height', `${Math.max(480, longest * 24)}px`);
         return;
       }
+      swatches.style.removeProperty('--palette-column-height');
       const sorted = [...palette].sort((first, second) =>
         first.brightnessBands[0] + first.brightnessBands[1] - second.brightnessBands[0] - second.brightnessBands[1]
         || first.index - second.index);
@@ -207,7 +266,7 @@ globalThis.C64ConverterControls = (() => {
           level.textContent = String(brightness);
           level.setAttribute('aria-hidden', 'true');
           row.append(level);
-          swatches.append(row);
+          mixes.append(row);
           previousBrightness = brightness;
         }
         row.append(createSwatch(color));
@@ -240,7 +299,7 @@ globalThis.C64ConverterControls = (() => {
       root.querySelector('#palette-lightest-value').value = `${max}${talent() ? '%' : ''}`;
       darkest.setAttribute('aria-valuetext', talent() ? `Minimum lightness ${min}%` : `Virtual brightness level ${min} of 16`);
       lightest.setAttribute('aria-valuetext', talent() ? `Maximum lightness ${max}%` : `Virtual brightness level ${max} of 16`);
-      if (!talent()) for (const row of swatches.children) {
+      if (!talent()) for (const row of swatches.querySelectorAll('.virtual-palette-row')) {
         const level = Number(row.dataset.brightness);
         row.classList.toggle('is-outside-range', level < min || level > max);
       }

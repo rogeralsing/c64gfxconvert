@@ -1,0 +1,1433 @@
+- main [ref=f2e2]:
+  - generic [ref=f2e3]:
+    - generic [ref=f2e4]: C64 / PEPTOette_a / pixelanalys
+    - heading "Färgpar som bygger toningarna" [level=1] [ref=f2e5]
+    - paragraph [ref=f2e6]:
+      - text: Två pixlar ovanpå varandra blir en ton.
+      - strong [ref=f2e7]: Klicka på ett par för att se dess verkliga grannar.
+  - generic [ref=f2e8]:
+    - generic [ref=f2e9]:
+      - text: Bild
+      - combobox "Bild" [ref=f2e10]:
+        - option "Alla unika bilder" [selected]
+        - option "Bild 1"
+        - option "Bild 2"
+        - option "Bild 3"
+        - option "Bild 4"
+        - option "Bild 5 (även 9)"
+        - option "Bild 6"
+        - option "Bild 7"
+        - option "Bild 8"
+        - option "Bild 10"
+        - option "Bild 11"
+    - generic [ref=f2e11]:
+      - text: Minsta antal förekomster per par
+      - generic [ref=f2e12]:
+        - slider "Minsta antal förekomster per par" [ref=f2e13]: "500"
+        - spinbutton "Minsta antal förekomster per par" [ref=f2e14]: "500"
+    - generic [ref=f2e15]:
+      - text: Minsta grannkontakter
+      - spinbutton "Minsta grannkontakter" [ref=f2e16]: "50"
+    - generic [ref=f2e17]:
+      - text: Grannriktning
+      - combobox "Grannriktning" [ref=f2e18]:
+        - option "Vågrätt + lodrätt" [selected]
+        - option "Vågrätt"
+        - option "Lodrätt"
+  - figure "Fig. 1. Sällsynta par filtreras bort ur vyn. Samtliga rådata finns kvar." [ref=f2e19]:
+    - generic [ref=f2e20]:
+      - generic [ref=f2e21]:
+        - generic [ref=f2e22]: ALLA PAR ÖVER GRÄNSEN
+        - generic [ref=f2e23]: 91 / 136
+      - generic [ref=f2e26]:
+        - generic [ref=f2e27]: TÄCKNING AV ALLA FÖREKOMSTER
+        - generic [ref=f2e28]: 98,6 %
+        - generic [ref=f2e31]: 513 039 av 520 320
+      - generic [ref=f2e32]:
+        - generic [ref=f2e33]: UNIKA BILDER I VYN
+        - generic [ref=f2e34]: "10"
+        - generic [ref=f2e35]:
+          - generic "Bild 1" [ref=f2e36]: "1"
+          - generic "Bild 2" [ref=f2e37]: "2"
+          - generic "Bild 3" [ref=f2e38]: "3"
+          - generic "Bild 4" [ref=f2e39]: "4"
+          - generic "Bild 5" [ref=f2e40]: "5"
+          - generic "Bild 6" [ref=f2e41]: "6"
+          - generic "Bild 7" [ref=f2e42]: "7"
+          - generic "Bild 8" [ref=f2e43]: "8"
+          - generic "Bild 10" [ref=f2e44]: "10"
+          - generic "Bild 11" [ref=f2e45]: "11"
+  - generic [ref=f2e47]:
+    - generic [ref=f2e48]:
+      - generic [ref=f2e49]: FREKVENS OCH GRANNAR
+      - heading "Vanliga blandningar möter andra toner" [level=2] [ref=f2e50]
+    - generic [ref=f2e51]:
+      - figure "Fig. 2. Enfärgade och blandade par behandlas på samma sätt. Omvända ordningar räknas ihop; nästan lika ljusa färger sorteras på index." [ref=f2e52]:
+        - generic [ref=f2e53]:
+          - generic [ref=f2e54]:
+            - checkbox "Ta med enfärgade par (A + A)" [checked] [ref=f2e55]
+            - text: Ta med enfärgade par (A + A)
+          - generic [ref=f2e56]:
+            - text: Sortera
+            - combobox "Sortera" [ref=f2e57]:
+              - option "Flest förekomster" [selected]
+              - option "Mörkt till ljust"
+        - table [ref=f2e59]:
+          - rowgroup [ref=f2e60]:
+            - row [ref=f2e61]:
+              - columnheader "Övre / undre färg" [ref=f2e62]
+              - columnheader "Antal" [ref=f2e63]
+              - columnheader "Bilder" [ref=f2e64]
+          - rowgroup [ref=f2e65]:
+            - row [ref=f2e66]:
+              - cell [ref=f2e67]:
+                - button [ref=f2e68] [cursor=pointer]:
+                  - generic [ref=f2e72]: 0 / 0svart + svart
+              - cell "192 603" [ref=f2e73]
+              - cell "10" [ref=f2e75]
+            - row [ref=f2e76]:
+              - cell [ref=f2e77]:
+                - button [ref=f2e78] [cursor=pointer]:
+                  - generic [ref=f2e82]: 0 / 11svart + mörkgrå
+              - cell "27 225" [ref=f2e83]
+              - cell "10" [ref=f2e85]
+            - row [ref=f2e86]:
+              - cell [ref=f2e87]:
+                - button [ref=f2e88] [cursor=pointer]:
+                  - generic [ref=f2e92]: 11 / 11mörkgrå + mörkgrå
+              - cell "23 863" [ref=f2e93]
+              - cell "10" [ref=f2e95]
+            - row [ref=f2e96]:
+              - cell [ref=f2e97]:
+                - button [ref=f2e98] [cursor=pointer]:
+                  - generic [ref=f2e102]: 7 / 1gul + vit
+              - cell "21 341" [ref=f2e103]
+              - cell "10" [ref=f2e105]
+            - row [ref=f2e106]:
+              - cell [ref=f2e107]:
+                - button [ref=f2e108] [cursor=pointer]:
+                  - generic [ref=f2e112]: 0 / 6svart + blå
+              - cell "16 741" [ref=f2e113]
+              - cell "10" [ref=f2e115]
+            - row [ref=f2e116]:
+              - cell [ref=f2e117]:
+                - button [ref=f2e118] [cursor=pointer]:
+                  - generic [ref=f2e122]: 11 / 12mörkgrå + grå
+              - cell "16 288" [ref=f2e123]
+              - cell "9" [ref=f2e125]
+            - row [ref=f2e126]:
+              - cell [ref=f2e127]:
+                - button [ref=f2e128] [cursor=pointer]:
+                  - generic [ref=f2e132]: 8 / 7orange + gul
+              - cell "12 487" [ref=f2e133]
+              - cell "9" [ref=f2e135]
+            - row [ref=f2e136]:
+              - cell [ref=f2e137]:
+                - button [ref=f2e138] [cursor=pointer]:
+                  - generic [ref=f2e142]: 0 / 9svart + brun
+              - cell "11 610" [ref=f2e143]
+              - cell "10" [ref=f2e145]
+            - row [ref=f2e146]:
+              - cell [ref=f2e147]:
+                - button [ref=f2e148] [cursor=pointer]:
+                  - generic [ref=f2e152]: 8 / 8orange + orange
+              - cell "9 581" [ref=f2e153]
+              - cell "10" [ref=f2e155]
+            - row [ref=f2e156]:
+              - cell [ref=f2e157]:
+                - button [ref=f2e158] [cursor=pointer]:
+                  - generic [ref=f2e162]: 6 / 11blå + mörkgrå
+              - cell "7 478" [ref=f2e163]
+              - cell "10" [ref=f2e165]
+            - row [ref=f2e166]:
+              - cell [ref=f2e167]:
+                - button [ref=f2e168] [cursor=pointer]:
+                  - generic [ref=f2e172]: 11 / 8mörkgrå + orange
+              - cell "6 847" [ref=f2e173]
+              - cell "10" [ref=f2e175]
+            - row [ref=f2e176]:
+              - cell [ref=f2e177]:
+                - button [ref=f2e178] [cursor=pointer]:
+                  - generic [ref=f2e182]: 10 / 7ljusröd + gul
+              - cell "6 606" [ref=f2e183]
+              - cell "10" [ref=f2e185]
+            - row [ref=f2e186]:
+              - cell [ref=f2e187]:
+                - button [ref=f2e188] [cursor=pointer]:
+                  - generic [ref=f2e192]: 12 / 12grå + grå
+              - cell "6 055" [ref=f2e193]
+              - cell "10" [ref=f2e195]
+            - row [ref=f2e196]:
+              - cell [ref=f2e197]:
+                - button [ref=f2e198] [cursor=pointer]:
+                  - generic [ref=f2e202]: 4 / 10lila + ljusröd
+              - cell "5 985" [ref=f2e203]
+              - cell "2" [ref=f2e205]
+            - row [ref=f2e206]:
+              - cell [ref=f2e207]:
+                - button [ref=f2e208] [cursor=pointer]:
+                  - generic [ref=f2e212]: 11 / 14mörkgrå + ljusblå
+              - cell "5 684" [ref=f2e213]
+              - cell "9" [ref=f2e215]
+            - row [ref=f2e216]:
+              - cell [ref=f2e217]:
+                - button [ref=f2e218] [cursor=pointer]:
+                  - generic [ref=f2e222]: 0 / 8svart + orange
+              - cell "5 349" [ref=f2e223]
+              - cell "10" [ref=f2e225]
+            - row [ref=f2e226]:
+              - cell [ref=f2e227]:
+                - button [ref=f2e228] [cursor=pointer]:
+                  - generic [ref=f2e232]: 6 / 10blå + ljusröd
+              - cell "4 914" [ref=f2e233]
+              - cell "7" [ref=f2e235]
+            - row [ref=f2e236]:
+              - cell [ref=f2e237]:
+                - button [ref=f2e238] [cursor=pointer]:
+                  - generic [ref=f2e242]: 15 / 15ljusgrå + ljusgrå
+              - cell "4 769" [ref=f2e243]
+              - cell "10" [ref=f2e245]
+            - row [ref=f2e246]:
+              - cell [ref=f2e247]:
+                - button [ref=f2e248] [cursor=pointer]:
+                  - generic [ref=f2e252]: 6 / 13blå + ljusgrön
+              - cell "4 679" [ref=f2e253]
+              - cell "6" [ref=f2e255]
+            - row [ref=f2e256]:
+              - cell [ref=f2e257]:
+                - button [ref=f2e258] [cursor=pointer]:
+                  - generic [ref=f2e262]: 0 / 12svart + grå
+              - cell "4 456" [ref=f2e263]
+              - cell "10" [ref=f2e265]
+            - row [ref=f2e266]:
+              - cell [ref=f2e267]:
+                - button [ref=f2e268] [cursor=pointer]:
+                  - generic [ref=f2e272]: 1 / 1vit + vit
+              - cell "4 231" [ref=f2e273]
+              - cell "10" [ref=f2e275]
+            - row [ref=f2e276]:
+              - cell [ref=f2e277]:
+                - button [ref=f2e278] [cursor=pointer]:
+                  - generic [ref=f2e282]: 4 / 13lila + ljusgrön
+              - cell "3 799" [ref=f2e283]
+              - cell "4" [ref=f2e285]
+            - row [ref=f2e286]:
+              - cell [ref=f2e287]:
+                - button [ref=f2e288] [cursor=pointer]:
+                  - generic [ref=f2e292]: 10 / 15ljusröd + ljusgrå
+              - cell "3 781" [ref=f2e293]
+              - cell "10" [ref=f2e295]
+            - row [ref=f2e296]:
+              - cell [ref=f2e297]:
+                - button [ref=f2e298] [cursor=pointer]:
+                  - generic [ref=f2e302]: 12 / 15grå + ljusgrå
+              - cell "3 525" [ref=f2e303]
+              - cell "10" [ref=f2e305]
+            - row [ref=f2e306]:
+              - cell [ref=f2e307]:
+                - button [ref=f2e308] [cursor=pointer]:
+                  - generic [ref=f2e312]: 11 / 3mörkgrå + cyan
+              - cell "3 449" [ref=f2e313]
+              - cell "9" [ref=f2e315]
+            - row [ref=f2e316]:
+              - cell [ref=f2e317]:
+                - button [ref=f2e318] [cursor=pointer]:
+                  - generic [ref=f2e322]: 8 / 3orange + cyan
+              - cell "3 371" [ref=f2e323]
+              - cell "7" [ref=f2e325]
+            - row [ref=f2e326]:
+              - cell [ref=f2e327]:
+                - button [ref=f2e328] [cursor=pointer]:
+                  - generic [ref=f2e332]: 15 / 1ljusgrå + vit
+              - cell "3 351" [ref=f2e333]
+              - cell "10" [ref=f2e335]
+            - row [ref=f2e336]:
+              - cell [ref=f2e337]:
+                - button [ref=f2e338] [cursor=pointer]:
+                  - generic [ref=f2e342]: 8 / 15orange + ljusgrå
+              - cell "3 106" [ref=f2e343]
+              - cell "10" [ref=f2e345]
+            - row [ref=f2e346]:
+              - cell [ref=f2e347]:
+                - button [ref=f2e348] [cursor=pointer]:
+                  - generic [ref=f2e352]: 8 / 10orange + ljusröd
+              - cell "3 071" [ref=f2e353]
+              - cell "10" [ref=f2e355]
+            - row [ref=f2e356]:
+              - cell [ref=f2e357]:
+                - button [ref=f2e358] [cursor=pointer]:
+                  - generic [ref=f2e362]: 11 / 15mörkgrå + ljusgrå
+              - cell "2 683" [ref=f2e363]
+              - cell "10" [ref=f2e365]
+            - row [ref=f2e366]:
+              - cell [ref=f2e367]:
+                - button [ref=f2e368] [cursor=pointer]:
+                  - generic [ref=f2e372]: 3 / 3cyan + cyan
+              - cell "2 486" [ref=f2e373]
+              - cell "8" [ref=f2e375]
+            - row [ref=f2e376]:
+              - cell [ref=f2e377]:
+                - button [ref=f2e378] [cursor=pointer]:
+                  - generic [ref=f2e382]: 15 / 7ljusgrå + gul
+              - cell "2 457" [ref=f2e383]
+              - cell "10" [ref=f2e385]
+            - row [ref=f2e386]:
+              - cell [ref=f2e387]:
+                - button [ref=f2e388] [cursor=pointer]:
+                  - generic [ref=f2e392]: 8 / 12orange + grå
+              - cell "2 439" [ref=f2e393]
+              - cell "10" [ref=f2e395]
+            - row [ref=f2e396]:
+              - cell [ref=f2e397]:
+                - button [ref=f2e398] [cursor=pointer]:
+                  - generic [ref=f2e402]: 14 / 3ljusblå + cyan
+              - cell "2 417" [ref=f2e403]
+              - cell "7" [ref=f2e405]
+            - row [ref=f2e406]:
+              - cell [ref=f2e407]:
+                - button [ref=f2e408] [cursor=pointer]:
+                  - generic [ref=f2e412]: 2 / 8röd + orange
+              - cell "2 379" [ref=f2e413]
+              - cell "7" [ref=f2e415]
+            - row [ref=f2e416]:
+              - cell [ref=f2e417]:
+                - button [ref=f2e418] [cursor=pointer]:
+                  - generic [ref=f2e422]: 6 / 9blå + brun
+              - cell "2 202" [ref=f2e423]
+              - cell "10" [ref=f2e425]
+            - row [ref=f2e426]:
+              - cell [ref=f2e427]:
+                - button [ref=f2e428] [cursor=pointer]:
+                  - generic [ref=f2e432]: 3 / 1cyan + vit
+              - cell "2 164" [ref=f2e433]
+              - cell "8" [ref=f2e435]
+            - row [ref=f2e436]:
+              - cell [ref=f2e437]:
+                - button [ref=f2e438] [cursor=pointer]:
+                  - generic [ref=f2e442]: 9 / 9brun + brun
+              - cell "2 126" [ref=f2e443]
+              - cell "10" [ref=f2e445]
+            - row [ref=f2e446]:
+              - cell [ref=f2e447]:
+                - button [ref=f2e448] [cursor=pointer]:
+                  - generic [ref=f2e452]: 9 / 8brun + orange
+              - cell "2 113" [ref=f2e453]
+              - cell "10" [ref=f2e455]
+            - row [ref=f2e456]:
+              - cell [ref=f2e457]:
+                - button [ref=f2e458] [cursor=pointer]:
+                  - generic [ref=f2e462]: 11 / 5mörkgrå + grön
+              - cell "2 094" [ref=f2e463]
+              - cell "9" [ref=f2e465]
+            - row [ref=f2e466]:
+              - cell [ref=f2e467]:
+                - button [ref=f2e468] [cursor=pointer]:
+                  - generic [ref=f2e472]: 11 / 10mörkgrå + ljusröd
+              - cell "2 038" [ref=f2e473]
+              - cell "10" [ref=f2e475]
+            - row [ref=f2e476]:
+              - cell [ref=f2e477]:
+                - button [ref=f2e478] [cursor=pointer]:
+                  - generic [ref=f2e482]: 10 / 3ljusröd + cyan
+              - cell "1 983" [ref=f2e483]
+              - cell "9" [ref=f2e485]
+            - row [ref=f2e486]:
+              - cell [ref=f2e487]:
+                - button [ref=f2e488] [cursor=pointer]:
+                  - generic [ref=f2e492]: 8 / 5orange + grön
+              - cell "1 944" [ref=f2e493]
+              - cell "10" [ref=f2e495]
+            - row [ref=f2e496]:
+              - cell [ref=f2e497]:
+                - button [ref=f2e498] [cursor=pointer]:
+                  - generic [ref=f2e502]: 10 / 13ljusröd + ljusgrön
+              - cell "1 904" [ref=f2e503]
+              - cell "10" [ref=f2e505]
+            - row [ref=f2e506]:
+              - cell [ref=f2e507]:
+                - button [ref=f2e508] [cursor=pointer]:
+                  - generic [ref=f2e512]: 6 / 12blå + grå
+              - cell "1 904" [ref=f2e513]
+              - cell "10" [ref=f2e515]
+            - row [ref=f2e516]:
+              - cell [ref=f2e517]:
+                - button [ref=f2e518] [cursor=pointer]:
+                  - generic [ref=f2e522]: 0 / 2svart + röd
+              - cell "1 897" [ref=f2e523]
+              - cell "10" [ref=f2e525]
+            - row [ref=f2e526]:
+              - cell [ref=f2e527]:
+                - button [ref=f2e528] [cursor=pointer]:
+                  - generic [ref=f2e532]: 8 / 13orange + ljusgrön
+              - cell "1 840" [ref=f2e533]
+              - cell "9" [ref=f2e535]
+            - row [ref=f2e536]:
+              - cell [ref=f2e537]:
+                - button [ref=f2e538] [cursor=pointer]:
+                  - generic [ref=f2e542]: 10 / 10ljusröd + ljusröd
+              - cell "1 817" [ref=f2e543]
+              - cell "10" [ref=f2e545]
+            - row [ref=f2e546]:
+              - cell [ref=f2e547]:
+                - button [ref=f2e548] [cursor=pointer]:
+                  - generic [ref=f2e552]: 2 / 11röd + mörkgrå
+              - cell "1 816" [ref=f2e553]
+              - cell "9" [ref=f2e555]
+            - row [ref=f2e556]:
+              - cell [ref=f2e557]:
+                - button [ref=f2e558] [cursor=pointer]:
+                  - generic [ref=f2e562]: 12 / 10grå + ljusröd
+              - cell "1 780" [ref=f2e563]
+              - cell "10" [ref=f2e565]
+            - row [ref=f2e566]:
+              - cell [ref=f2e567]:
+                - button [ref=f2e568] [cursor=pointer]:
+                  - generic [ref=f2e572]: 2 / 10röd + ljusröd
+              - cell "1 738" [ref=f2e573]
+              - cell "6" [ref=f2e575]
+            - row [ref=f2e576]:
+              - cell [ref=f2e577]:
+                - button [ref=f2e578] [cursor=pointer]:
+                  - generic [ref=f2e582]: 13 / 1ljusgrön + vit
+              - cell "1 690" [ref=f2e583]
+              - cell "9" [ref=f2e585]
+            - row [ref=f2e586]:
+              - cell [ref=f2e587]:
+                - button [ref=f2e588] [cursor=pointer]:
+                  - generic [ref=f2e592]: 0 / 14svart + ljusblå
+              - cell "1 634" [ref=f2e593]
+              - cell "9" [ref=f2e595]
+            - row [ref=f2e596]:
+              - cell [ref=f2e597]:
+                - button [ref=f2e598] [cursor=pointer]:
+                  - generic [ref=f2e602]: 2 / 2röd + röd
+              - cell "1 626" [ref=f2e603]
+              - cell "7" [ref=f2e605]
+            - row [ref=f2e606]:
+              - cell [ref=f2e607]:
+                - button [ref=f2e608] [cursor=pointer]:
+                  - generic [ref=f2e612]: 7 / 7gul + gul
+              - cell "1 591" [ref=f2e613]
+              - cell "10" [ref=f2e615]
+            - row [ref=f2e616]:
+              - cell [ref=f2e617]:
+                - button [ref=f2e618] [cursor=pointer]:
+                  - generic [ref=f2e622]: 10 / 1ljusröd + vit
+              - cell "1 582" [ref=f2e623]
+              - cell "9" [ref=f2e625]
+            - row [ref=f2e626]:
+              - cell [ref=f2e627]:
+                - button [ref=f2e628] [cursor=pointer]:
+                  - generic [ref=f2e632]: 4 / 5lila + grön
+              - cell "1 506" [ref=f2e633]
+              - cell "7" [ref=f2e635]
+            - row [ref=f2e636]:
+              - cell [ref=f2e637]:
+                - button [ref=f2e638] [cursor=pointer]:
+                  - generic [ref=f2e642]: 6 / 8blå + orange
+              - cell "1 498" [ref=f2e643]
+              - cell "10" [ref=f2e645]
+            - row [ref=f2e646]:
+              - cell [ref=f2e647]:
+                - button [ref=f2e648] [cursor=pointer]:
+                  - generic [ref=f2e652]: 3 / 13cyan + ljusgrön
+              - cell "1 497" [ref=f2e653]
+              - cell "6" [ref=f2e655]
+            - row [ref=f2e656]:
+              - cell [ref=f2e657]:
+                - button [ref=f2e658] [cursor=pointer]:
+                  - generic [ref=f2e662]: 9 / 11brun + mörkgrå
+              - cell "1 479" [ref=f2e663]
+              - cell "10" [ref=f2e665]
+            - row [ref=f2e666]:
+              - cell [ref=f2e667]:
+                - button [ref=f2e668] [cursor=pointer]:
+                  - generic [ref=f2e672]: 10 / 5ljusröd + grön
+              - cell "1 353" [ref=f2e673]
+              - cell "9" [ref=f2e675]
+            - row [ref=f2e676]:
+              - cell [ref=f2e677]:
+                - button [ref=f2e678] [cursor=pointer]:
+                  - generic [ref=f2e682]: 9 / 2brun + röd
+              - cell "1 337" [ref=f2e683]
+              - cell "6" [ref=f2e685]
+            - row [ref=f2e686]:
+              - cell [ref=f2e687]:
+                - button [ref=f2e688] [cursor=pointer]:
+                  - generic [ref=f2e692]: 12 / 3grå + cyan
+              - cell "1 275" [ref=f2e693]
+              - cell "9" [ref=f2e695]
+            - row [ref=f2e696]:
+              - cell [ref=f2e697]:
+                - button [ref=f2e698] [cursor=pointer]:
+                  - generic [ref=f2e702]: 14 / 10ljusblå + ljusröd
+              - cell "1 271" [ref=f2e703]
+              - cell "4" [ref=f2e705]
+            - row [ref=f2e706]:
+              - cell [ref=f2e707]:
+                - button [ref=f2e708] [cursor=pointer]:
+                  - generic [ref=f2e712]: 6 / 6blå + blå
+              - cell "1 263" [ref=f2e713]
+              - cell "10" [ref=f2e715]
+            - row [ref=f2e716]:
+              - cell [ref=f2e717]:
+                - button [ref=f2e718] [cursor=pointer]:
+                  - generic [ref=f2e722]: 0 / 5svart + grön
+              - cell "1 111" [ref=f2e723]
+              - cell "8" [ref=f2e725]
+            - row [ref=f2e726]:
+              - cell [ref=f2e727]:
+                - button [ref=f2e728] [cursor=pointer]:
+                  - generic [ref=f2e732]: 4 / 4lila + lila
+              - cell "1 025" [ref=f2e733]
+              - cell "5" [ref=f2e735]
+            - row [ref=f2e736]:
+              - cell [ref=f2e737]:
+                - button [ref=f2e738] [cursor=pointer]:
+                  - generic [ref=f2e742]: 8 / 1orange + vit
+              - cell "973" [ref=f2e743]
+              - cell "9" [ref=f2e745]
+            - row [ref=f2e746]:
+              - cell [ref=f2e747]:
+                - button [ref=f2e748] [cursor=pointer]:
+                  - generic [ref=f2e752]: 0 / 3svart + cyan
+              - cell "917" [ref=f2e753]
+              - cell "7" [ref=f2e755]
+            - row [ref=f2e756]:
+              - cell [ref=f2e757]:
+                - button [ref=f2e758] [cursor=pointer]:
+                  - generic [ref=f2e762]: 15 / 13ljusgrå + ljusgrön
+              - cell "886" [ref=f2e763]
+              - cell "10" [ref=f2e765]
+            - row [ref=f2e766]:
+              - cell [ref=f2e767]:
+                - button [ref=f2e768] [cursor=pointer]:
+                  - generic [ref=f2e772]: 0 / 15svart + ljusgrå
+              - cell "844" [ref=f2e773]
+              - cell "10" [ref=f2e775]
+            - row [ref=f2e776]:
+              - cell [ref=f2e777]:
+                - button [ref=f2e778] [cursor=pointer]:
+                  - generic [ref=f2e782]: 6 / 14blå + ljusblå
+              - cell "838" [ref=f2e783]
+              - cell "9" [ref=f2e785]
+            - row [ref=f2e786]:
+              - cell [ref=f2e787]:
+                - button [ref=f2e788] [cursor=pointer]:
+                  - generic [ref=f2e792]: 6 / 5blå + grön
+              - cell "821" [ref=f2e793]
+              - cell "9" [ref=f2e795]
+            - row [ref=f2e796]:
+              - cell [ref=f2e797]:
+                - button [ref=f2e798] [cursor=pointer]:
+                  - generic [ref=f2e802]: 14 / 5ljusblå + grön
+              - cell "810" [ref=f2e803]
+              - cell "6" [ref=f2e805]
+            - row [ref=f2e806]:
+              - cell [ref=f2e807]:
+                - button [ref=f2e808] [cursor=pointer]:
+                  - generic [ref=f2e812]: 2 / 15röd + ljusgrå
+              - cell "807" [ref=f2e813]
+              - cell "7" [ref=f2e815]
+            - row [ref=f2e816]:
+              - cell [ref=f2e817]:
+                - button [ref=f2e818] [cursor=pointer]:
+                  - generic [ref=f2e822]: 3 / 7cyan + gul
+              - cell "786" [ref=f2e823]
+              - cell "7" [ref=f2e825]
+            - row [ref=f2e826]:
+              - cell [ref=f2e827]:
+                - button [ref=f2e828] [cursor=pointer]:
+                  - generic [ref=f2e832]: 4 / 14lila + ljusblå
+              - cell "777" [ref=f2e833]
+              - cell "4" [ref=f2e835]
+            - row [ref=f2e836]:
+              - cell [ref=f2e837]:
+                - button [ref=f2e838] [cursor=pointer]:
+                  - generic [ref=f2e842]: 2 / 12röd + grå
+              - cell "770" [ref=f2e843]
+              - cell "6" [ref=f2e845]
+            - row [ref=f2e846]:
+              - cell [ref=f2e847]:
+                - button [ref=f2e848] [cursor=pointer]:
+                  - generic [ref=f2e852]: 13 / 13ljusgrön + ljusgrön
+              - cell "763" [ref=f2e853]
+              - cell "9" [ref=f2e855]
+            - row [ref=f2e856]:
+              - cell [ref=f2e857]:
+                - button [ref=f2e858] [cursor=pointer]:
+                  - generic [ref=f2e862]: 0 / 4svart + lila
+              - cell "741" [ref=f2e863]
+              - cell "9" [ref=f2e865]
+            - row [ref=f2e866]:
+              - cell [ref=f2e867]:
+                - button [ref=f2e868] [cursor=pointer]:
+                  - generic [ref=f2e872]: 11 / 4mörkgrå + lila
+              - cell "730" [ref=f2e873]
+              - cell "8" [ref=f2e875]
+            - row [ref=f2e876]:
+              - cell [ref=f2e877]:
+                - button [ref=f2e878] [cursor=pointer]:
+                  - generic [ref=f2e882]: 11 / 1mörkgrå + vit
+              - cell "725" [ref=f2e883]
+              - cell "9" [ref=f2e885]
+            - row [ref=f2e886]:
+              - cell [ref=f2e887]:
+                - button [ref=f2e888] [cursor=pointer]:
+                  - generic [ref=f2e892]: 5 / 3grön + cyan
+              - cell "704" [ref=f2e893]
+              - cell "8" [ref=f2e895]
+            - row [ref=f2e896]:
+              - cell [ref=f2e897]:
+                - button [ref=f2e898] [cursor=pointer]:
+                  - generic [ref=f2e902]: 11 / 7mörkgrå + gul
+              - cell "703" [ref=f2e903]
+              - cell "9" [ref=f2e905]
+            - row [ref=f2e906]:
+              - cell [ref=f2e907]:
+                - button [ref=f2e908] [cursor=pointer]:
+                  - generic [ref=f2e912]: 12 / 7grå + gul
+              - cell "646" [ref=f2e913]
+              - cell "10" [ref=f2e915]
+            - row [ref=f2e916]:
+              - cell [ref=f2e917]:
+                - button [ref=f2e918] [cursor=pointer]:
+                  - generic [ref=f2e922]: 6 / 3blå + cyan
+              - cell "643" [ref=f2e923]
+              - cell "7" [ref=f2e925]
+            - row [ref=f2e926]:
+              - cell [ref=f2e927]:
+                - button [ref=f2e928] [cursor=pointer]:
+                  - generic [ref=f2e932]: 14 / 14ljusblå + ljusblå
+              - cell "620" [ref=f2e933]
+              - cell "9" [ref=f2e935]
+            - row [ref=f2e936]:
+              - cell [ref=f2e937]:
+                - button [ref=f2e938] [cursor=pointer]:
+                  - generic [ref=f2e942]: 0 / 10svart + ljusröd
+              - cell "613" [ref=f2e943]
+              - cell "10" [ref=f2e945]
+            - row [ref=f2e946]:
+              - cell [ref=f2e947]:
+                - button [ref=f2e948] [cursor=pointer]:
+                  - generic [ref=f2e952]: 6 / 4blå + lila
+              - cell "577" [ref=f2e953]
+              - cell "8" [ref=f2e955]
+            - row [ref=f2e956]:
+              - cell [ref=f2e957]:
+                - button [ref=f2e958] [cursor=pointer]:
+                  - generic [ref=f2e962]: 9 / 12brun + grå
+              - cell "574" [ref=f2e963]
+              - cell "9" [ref=f2e965]
+            - row [ref=f2e966]:
+              - cell [ref=f2e967]:
+                - button [ref=f2e968] [cursor=pointer]:
+                  - generic [ref=f2e972]: 12 / 5grå + grön
+              - cell "567" [ref=f2e973]
+              - cell "10" [ref=f2e975]
+      - figure "Fig. 3. Kontakter räknas där två par delar en kant. Lodräta grannar delar inga pixlar." [ref=f2e977]:
+        - generic [ref=f2e978]:
+          - generic [ref=f2e983]:
+            - heading "svart + mörkgrå" [level=3] [ref=f2e984]
+            - text: C64 0 / 11 · blandning 23.0 L*
+          - generic [ref=f2e985]:
+            - generic [ref=f2e986]: 27 225 förekomster
+            - generic [ref=f2e987]: 10 bilder
+          - generic [ref=f2e988]:
+            - generic [ref=f2e989]:
+              - generic "Randigt prov av det valda färgparet" [ref=f2e990]
+              - text: Ränder · samma färgpar
+            - generic [ref=f2e991]:
+              - generic "Schackrutigt prov av det valda färgparet" [ref=f2e992]
+              - text: Schack · samma färgpar
+          - paragraph [ref=f2e993]: Kanonisk ordning 13 665 · omvänd 13 560. Proverna visar möjliga mönster, inte en klassificering av originalet.
+          - generic [ref=f2e994]:
+            - heading "Vanligaste grannarna" [level=3] [ref=f2e995]
+            - generic [ref=f2e996]: 57 över gränsen
+          - generic [ref=f2e997]:
+            - generic [ref=f2e998]: Vågrätt
+            - generic [ref=f2e1000]: Lodrätt
+          - generic [ref=f2e1002]:
+            - button [ref=f2e1003] [cursor=pointer]:
+              - generic [ref=f2e1007]: 0 / 0svart + svart
+            - generic [ref=f2e1008]: 17 33723,52 % av behållna kontakter
+            - generic [ref=f2e1012]: 9 251 vågrätt · 8 086 lodrätt
+          - generic [ref=f2e1013]:
+            - button [ref=f2e1014] [cursor=pointer]:
+              - generic [ref=f2e1018]: 0 / 6svart + blå
+            - generic [ref=f2e1019]: 10 23113,88 % av behållna kontakter
+            - generic [ref=f2e1023]: 5 092 vågrätt · 5 139 lodrätt
+          - generic [ref=f2e1024]:
+            - button [ref=f2e1025] [cursor=pointer]:
+              - generic [ref=f2e1029]: 11 / 11mörkgrå + mörkgrå
+            - generic [ref=f2e1030]: 8 82911,98 % av behållna kontakter
+            - generic [ref=f2e1034]: 4 644 vågrätt · 4 185 lodrätt
+          - generic [ref=f2e1035]:
+            - button [ref=f2e1036] [cursor=pointer]:
+              - generic [ref=f2e1040]: 6 / 11blå + mörkgrå
+            - generic [ref=f2e1041]: 6 2778,52 % av behållna kontakter
+            - generic [ref=f2e1045]: 3 113 vågrätt · 3 164 lodrätt
+          - generic [ref=f2e1046]:
+            - button [ref=f2e1047] [cursor=pointer]:
+              - generic [ref=f2e1051]: 0 / 9svart + brun
+            - generic [ref=f2e1052]: 5 4717,42 % av behållna kontakter
+            - generic [ref=f2e1056]: 2 472 vågrätt · 2 999 lodrätt
+          - generic [ref=f2e1057]:
+            - button [ref=f2e1058] [cursor=pointer]:
+              - generic [ref=f2e1062]: 0 / 8svart + orange
+            - generic [ref=f2e1063]: 4 6616,32 % av behållna kontakter
+            - generic [ref=f2e1067]: 2 122 vågrätt · 2 539 lodrätt
+          - generic [ref=f2e1068]:
+            - button [ref=f2e1069] [cursor=pointer]:
+              - generic [ref=f2e1073]: 0 / 12svart + grå
+            - generic [ref=f2e1074]: 3 4404,67 % av behållna kontakter
+            - generic [ref=f2e1078]: 1 810 vågrätt · 1 630 lodrätt
+          - generic [ref=f2e1079]:
+            - button [ref=f2e1080] [cursor=pointer]:
+              - generic [ref=f2e1084]: 11 / 12mörkgrå + grå
+            - generic [ref=f2e1085]: 2 6053,53 % av behållna kontakter
+            - generic [ref=f2e1089]: 1 301 vågrätt · 1 304 lodrätt
+          - generic [ref=f2e1090]:
+            - button [ref=f2e1091] [cursor=pointer]:
+              - generic [ref=f2e1095]: 11 / 8mörkgrå + orange
+            - generic [ref=f2e1096]: 1 9932,7 % av behållna kontakter
+            - generic [ref=f2e1100]: 1 043 vågrätt · 950 lodrätt
+          - generic [ref=f2e1101]:
+            - button [ref=f2e1102] [cursor=pointer]:
+              - generic [ref=f2e1106]: 0 / 14svart + ljusblå
+            - generic [ref=f2e1107]: 1 0651,45 % av behållna kontakter
+            - generic [ref=f2e1111]: 514 vågrätt · 551 lodrätt
+          - generic [ref=f2e1112]:
+            - button [ref=f2e1113] [cursor=pointer]:
+              - generic [ref=f2e1117]: 9 / 11brun + mörkgrå
+            - generic [ref=f2e1118]: 9871,34 % av behållna kontakter
+            - generic [ref=f2e1122]: 497 vågrätt · 490 lodrätt
+          - generic [ref=f2e1123]:
+            - button [ref=f2e1124] [cursor=pointer]:
+              - generic [ref=f2e1128]: 6 / 9blå + brun
+            - generic [ref=f2e1129]: 6510,88 % av behållna kontakter
+            - generic [ref=f2e1133]: 339 vågrätt · 312 lodrätt
+  - generic [ref=f2e1135]:
+    - generic [ref=f2e1136]:
+      - generic [ref=f2e1137]: PLATS I BILDEN
+      - heading "Se var det valda paret finns" [level=2] [ref=f2e1138]
+    - generic [ref=f2e1139]:
+      - generic [ref=f2e1140]:
+        - checkbox "Dämpa övriga pixlar" [checked] [ref=f2e1141]
+        - text: Dämpa övriga pixlar
+      - generic [ref=f2e1142]: Upp till tre bilder med flest förekomster visas.
+    - generic [ref=f2e1143]:
+      - figure "Bild 2 · 5 525 förekomster" [ref=f2e1144]:
+        - generic "Bild 2, det valda parets positioner" [ref=f2e1145]
+      - figure "Bild 11 · 5 071 förekomster" [ref=f2e1147]:
+        - generic "Bild 11, det valda parets positioner" [ref=f2e1148]
+      - figure "Bild 10 · 4 651 förekomster" [ref=f2e1150]:
+        - generic "Bild 10, det valda parets positioner" [ref=f2e1151]
+  - generic [ref=f2e1153]:
+    - generic [ref=f2e1154]:
+      - generic [ref=f2e1155]: GRANNSKAPSMATRIS
+      - heading "Starka kontakter binder ihop tonerna" [level=2] [ref=f2e1156]
+    - figure "Fig. 4. De 24 vanligaste synliga paren jämförs. Ljusare ruta betyder fler kontakter, på en logaritmisk skala. Peka på en ruta för exakt antal." [ref=f2e1157]:
+      - img "Matris över färgparens grannkontakter" [ref=f2e1159]:
+        - generic [ref=f2e1160] [cursor=pointer]: 0 / 0
+        - generic [ref=f2e1161] [cursor=pointer]: 0 / 0
+        - 'button "0 / 0 och 0 / 11: 17337 kontakter" [ref=f2e1163] [cursor=pointer]'
+        - 'button "0 / 0 och 11 / 11: 2102 kontakter" [ref=f2e1164] [cursor=pointer]'
+        - 'button "0 / 0 och 7 / 1: 0 kontakter" [ref=f2e1165] [cursor=pointer]'
+        - 'button "0 / 0 och 0 / 6: 25928 kontakter" [ref=f2e1166] [cursor=pointer]'
+        - 'button "0 / 0 och 11 / 12: 733 kontakter" [ref=f2e1167] [cursor=pointer]'
+        - 'button "0 / 0 och 8 / 7: 0 kontakter" [ref=f2e1168] [cursor=pointer]'
+        - 'button "0 / 0 och 0 / 9: 9646 kontakter" [ref=f2e1169] [cursor=pointer]'
+        - 'button "0 / 0 och 8 / 8: 169 kontakter" [ref=f2e1170] [cursor=pointer]'
+        - 'button "0 / 0 och 6 / 11: 1444 kontakter" [ref=f2e1171] [cursor=pointer]'
+        - 'button "0 / 0 och 11 / 8: 683 kontakter" [ref=f2e1172] [cursor=pointer]'
+        - 'button "0 / 0 och 10 / 7: 0 kontakter" [ref=f2e1173] [cursor=pointer]'
+        - 'button "0 / 0 och 12 / 12: 168 kontakter" [ref=f2e1174] [cursor=pointer]'
+        - 'button "0 / 0 och 4 / 10: 0 kontakter" [ref=f2e1175] [cursor=pointer]'
+        - 'button "0 / 0 och 11 / 14: 388 kontakter" [ref=f2e1176] [cursor=pointer]'
+        - 'button "0 / 0 och 0 / 8: 1148 kontakter" [ref=f2e1177] [cursor=pointer]'
+        - 'button "0 / 0 och 6 / 10: 0 kontakter" [ref=f2e1178] [cursor=pointer]'
+        - 'button "0 / 0 och 15 / 15: 82 kontakter" [ref=f2e1179] [cursor=pointer]'
+        - 'button "0 / 0 och 6 / 13: 0 kontakter" [ref=f2e1180] [cursor=pointer]'
+        - 'button "0 / 0 och 0 / 12: 716 kontakter" [ref=f2e1181] [cursor=pointer]'
+        - 'button "0 / 0 och 1 / 1: 0 kontakter" [ref=f2e1182] [cursor=pointer]'
+        - 'button "0 / 0 och 4 / 13: 0 kontakter" [ref=f2e1183] [cursor=pointer]'
+        - 'button "0 / 0 och 10 / 15: 0 kontakter" [ref=f2e1184] [cursor=pointer]'
+        - 'button "0 / 0 och 12 / 15: 87 kontakter" [ref=f2e1185] [cursor=pointer]'
+        - generic [ref=f2e1186] [cursor=pointer]: 0 / 11
+        - generic [ref=f2e1187] [cursor=pointer]: 0 / 11
+        - 'button "0 / 11 och 0 / 0: 17337 kontakter" [ref=f2e1188] [cursor=pointer]'
+        - 'button "0 / 11 och 11 / 11: 8829 kontakter" [ref=f2e1190] [cursor=pointer]'
+        - 'button "0 / 11 och 7 / 1: 0 kontakter" [ref=f2e1191] [cursor=pointer]'
+        - 'button "0 / 11 och 0 / 6: 10231 kontakter" [ref=f2e1192] [cursor=pointer]'
+        - 'button "0 / 11 och 11 / 12: 2605 kontakter" [ref=f2e1193] [cursor=pointer]'
+        - 'button "0 / 11 och 8 / 7: 0 kontakter" [ref=f2e1194] [cursor=pointer]'
+        - 'button "0 / 11 och 0 / 9: 5471 kontakter" [ref=f2e1195] [cursor=pointer]'
+        - 'button "0 / 11 och 8 / 8: 269 kontakter" [ref=f2e1196] [cursor=pointer]'
+        - 'button "0 / 11 och 6 / 11: 6277 kontakter" [ref=f2e1197] [cursor=pointer]'
+        - 'button "0 / 11 och 11 / 8: 1993 kontakter" [ref=f2e1198] [cursor=pointer]'
+        - 'button "0 / 11 och 10 / 7: 0 kontakter" [ref=f2e1199] [cursor=pointer]'
+        - 'button "0 / 11 och 12 / 12: 426 kontakter" [ref=f2e1200] [cursor=pointer]'
+        - 'button "0 / 11 och 4 / 10: 57 kontakter" [ref=f2e1201] [cursor=pointer]'
+        - 'button "0 / 11 och 11 / 14: 577 kontakter" [ref=f2e1202] [cursor=pointer]'
+        - 'button "0 / 11 och 0 / 8: 4661 kontakter" [ref=f2e1203] [cursor=pointer]'
+        - 'button "0 / 11 och 6 / 10: 0 kontakter" [ref=f2e1204] [cursor=pointer]'
+        - 'button "0 / 11 och 15 / 15: 94 kontakter" [ref=f2e1205] [cursor=pointer]'
+        - 'button "0 / 11 och 6 / 13: 0 kontakter" [ref=f2e1206] [cursor=pointer]'
+        - 'button "0 / 11 och 0 / 12: 3440 kontakter" [ref=f2e1207] [cursor=pointer]'
+        - 'button "0 / 11 och 1 / 1: 0 kontakter" [ref=f2e1208] [cursor=pointer]'
+        - 'button "0 / 11 och 4 / 13: 0 kontakter" [ref=f2e1209] [cursor=pointer]'
+        - 'button "0 / 11 och 10 / 15: 0 kontakter" [ref=f2e1210] [cursor=pointer]'
+        - 'button "0 / 11 och 12 / 15: 174 kontakter" [ref=f2e1211] [cursor=pointer]'
+        - generic [ref=f2e1212] [cursor=pointer]: 11 / 11
+        - generic [ref=f2e1213] [cursor=pointer]: 11 / 11
+        - 'button "11 / 11 och 0 / 0: 2102 kontakter" [ref=f2e1214] [cursor=pointer]'
+        - 'button "11 / 11 och 0 / 11: 8829 kontakter" [ref=f2e1215] [cursor=pointer]'
+        - 'button "11 / 11 och 7 / 1: 0 kontakter" [ref=f2e1217] [cursor=pointer]'
+        - 'button "11 / 11 och 0 / 6: 890 kontakter" [ref=f2e1218] [cursor=pointer]'
+        - 'button "11 / 11 och 11 / 12: 6747 kontakter" [ref=f2e1219] [cursor=pointer]'
+        - 'button "11 / 11 och 8 / 7: 0 kontakter" [ref=f2e1220] [cursor=pointer]'
+        - 'button "11 / 11 och 0 / 9: 279 kontakter" [ref=f2e1221] [cursor=pointer]'
+        - 'button "11 / 11 och 8 / 8: 292 kontakter" [ref=f2e1222] [cursor=pointer]'
+        - 'button "11 / 11 och 6 / 11: 4215 kontakter" [ref=f2e1223] [cursor=pointer]'
+        - 'button "11 / 11 och 11 / 8: 4355 kontakter" [ref=f2e1224] [cursor=pointer]'
+        - 'button "11 / 11 och 10 / 7: 0 kontakter" [ref=f2e1225] [cursor=pointer]'
+        - 'button "11 / 11 och 12 / 12: 839 kontakter" [ref=f2e1226] [cursor=pointer]'
+        - 'button "11 / 11 och 4 / 10: 0 kontakter" [ref=f2e1227] [cursor=pointer]'
+        - 'button "11 / 11 och 11 / 14: 1507 kontakter" [ref=f2e1228] [cursor=pointer]'
+        - 'button "11 / 11 och 0 / 8: 668 kontakter" [ref=f2e1229] [cursor=pointer]'
+        - 'button "11 / 11 och 6 / 10: 0 kontakter" [ref=f2e1230] [cursor=pointer]'
+        - 'button "11 / 11 och 15 / 15: 151 kontakter" [ref=f2e1231] [cursor=pointer]'
+        - 'button "11 / 11 och 6 / 13: 0 kontakter" [ref=f2e1232] [cursor=pointer]'
+        - 'button "11 / 11 och 0 / 12: 1165 kontakter" [ref=f2e1233] [cursor=pointer]'
+        - 'button "11 / 11 och 1 / 1: 0 kontakter" [ref=f2e1234] [cursor=pointer]'
+        - 'button "11 / 11 och 4 / 13: 0 kontakter" [ref=f2e1235] [cursor=pointer]'
+        - 'button "11 / 11 och 10 / 15: 69 kontakter" [ref=f2e1236] [cursor=pointer]'
+        - 'button "11 / 11 och 12 / 15: 319 kontakter" [ref=f2e1237] [cursor=pointer]'
+        - generic [ref=f2e1238] [cursor=pointer]: 7 / 1
+        - generic [ref=f2e1239] [cursor=pointer]: 7 / 1
+        - 'button "7 / 1 och 0 / 0: 0 kontakter" [ref=f2e1240] [cursor=pointer]'
+        - 'button "7 / 1 och 0 / 11: 0 kontakter" [ref=f2e1241] [cursor=pointer]'
+        - 'button "7 / 1 och 11 / 11: 0 kontakter" [ref=f2e1242] [cursor=pointer]'
+        - 'button "7 / 1 och 0 / 6: 0 kontakter" [ref=f2e1244] [cursor=pointer]'
+        - 'button "7 / 1 och 11 / 12: 0 kontakter" [ref=f2e1245] [cursor=pointer]'
+        - 'button "7 / 1 och 8 / 7: 633 kontakter" [ref=f2e1246] [cursor=pointer]'
+        - 'button "7 / 1 och 0 / 9: 0 kontakter" [ref=f2e1247] [cursor=pointer]'
+        - 'button "7 / 1 och 8 / 8: 98 kontakter" [ref=f2e1248] [cursor=pointer]'
+        - 'button "7 / 1 och 6 / 11: 0 kontakter" [ref=f2e1249] [cursor=pointer]'
+        - 'button "7 / 1 och 11 / 8: 0 kontakter" [ref=f2e1250] [cursor=pointer]'
+        - 'button "7 / 1 och 10 / 7: 731 kontakter" [ref=f2e1251] [cursor=pointer]'
+        - 'button "7 / 1 och 12 / 12: 0 kontakter" [ref=f2e1252] [cursor=pointer]'
+        - 'button "7 / 1 och 4 / 10: 0 kontakter" [ref=f2e1253] [cursor=pointer]'
+        - 'button "7 / 1 och 11 / 14: 0 kontakter" [ref=f2e1254] [cursor=pointer]'
+        - 'button "7 / 1 och 0 / 8: 0 kontakter" [ref=f2e1255] [cursor=pointer]'
+        - 'button "7 / 1 och 6 / 10: 0 kontakter" [ref=f2e1256] [cursor=pointer]'
+        - 'button "7 / 1 och 15 / 15: 96 kontakter" [ref=f2e1257] [cursor=pointer]'
+        - 'button "7 / 1 och 6 / 13: 0 kontakter" [ref=f2e1258] [cursor=pointer]'
+        - 'button "7 / 1 och 0 / 12: 0 kontakter" [ref=f2e1259] [cursor=pointer]'
+        - 'button "7 / 1 och 1 / 1: 1547 kontakter" [ref=f2e1260] [cursor=pointer]'
+        - 'button "7 / 1 och 4 / 13: 0 kontakter" [ref=f2e1261] [cursor=pointer]'
+        - 'button "7 / 1 och 10 / 15: 51 kontakter" [ref=f2e1262] [cursor=pointer]'
+        - 'button "7 / 1 och 12 / 15: 0 kontakter" [ref=f2e1263] [cursor=pointer]'
+        - generic [ref=f2e1264] [cursor=pointer]: 0 / 6
+        - generic [ref=f2e1265] [cursor=pointer]: 0 / 6
+        - 'button "0 / 6 och 0 / 0: 25928 kontakter" [ref=f2e1266] [cursor=pointer]'
+        - 'button "0 / 6 och 0 / 11: 10231 kontakter" [ref=f2e1267] [cursor=pointer]'
+        - 'button "0 / 6 och 11 / 11: 890 kontakter" [ref=f2e1268] [cursor=pointer]'
+        - 'button "0 / 6 och 7 / 1: 0 kontakter" [ref=f2e1269] [cursor=pointer]'
+        - 'button "0 / 6 och 11 / 12: 227 kontakter" [ref=f2e1271] [cursor=pointer]'
+        - 'button "0 / 6 och 8 / 7: 0 kontakter" [ref=f2e1272] [cursor=pointer]'
+        - 'button "0 / 6 och 0 / 9: 7556 kontakter" [ref=f2e1273] [cursor=pointer]'
+        - 'button "0 / 6 och 8 / 8: 67 kontakter" [ref=f2e1274] [cursor=pointer]'
+        - 'button "0 / 6 och 6 / 11: 2278 kontakter" [ref=f2e1275] [cursor=pointer]'
+        - 'button "0 / 6 och 11 / 8: 284 kontakter" [ref=f2e1276] [cursor=pointer]'
+        - 'button "0 / 6 och 10 / 7: 0 kontakter" [ref=f2e1277] [cursor=pointer]'
+        - 'button "0 / 6 och 12 / 12: 58 kontakter" [ref=f2e1278] [cursor=pointer]'
+        - 'button "0 / 6 och 4 / 10: 0 kontakter" [ref=f2e1279] [cursor=pointer]'
+        - 'button "0 / 6 och 11 / 14: 92 kontakter" [ref=f2e1280] [cursor=pointer]'
+        - 'button "0 / 6 och 0 / 8: 703 kontakter" [ref=f2e1281] [cursor=pointer]'
+        - 'button "0 / 6 och 6 / 10: 0 kontakter" [ref=f2e1282] [cursor=pointer]'
+        - 'button "0 / 6 och 15 / 15: 0 kontakter" [ref=f2e1283] [cursor=pointer]'
+        - 'button "0 / 6 och 6 / 13: 0 kontakter" [ref=f2e1284] [cursor=pointer]'
+        - 'button "0 / 6 och 0 / 12: 314 kontakter" [ref=f2e1285] [cursor=pointer]'
+        - 'button "0 / 6 och 1 / 1: 0 kontakter" [ref=f2e1286] [cursor=pointer]'
+        - 'button "0 / 6 och 4 / 13: 0 kontakter" [ref=f2e1287] [cursor=pointer]'
+        - 'button "0 / 6 och 10 / 15: 0 kontakter" [ref=f2e1288] [cursor=pointer]'
+        - 'button "0 / 6 och 12 / 15: 0 kontakter" [ref=f2e1289] [cursor=pointer]'
+        - generic [ref=f2e1290] [cursor=pointer]: 11 / 12
+        - generic [ref=f2e1291] [cursor=pointer]: 11 / 12
+        - 'button "11 / 12 och 0 / 0: 733 kontakter" [ref=f2e1292] [cursor=pointer]'
+        - 'button "11 / 12 och 0 / 11: 2605 kontakter" [ref=f2e1293] [cursor=pointer]'
+        - 'button "11 / 12 och 11 / 11: 6747 kontakter" [ref=f2e1294] [cursor=pointer]'
+        - 'button "11 / 12 och 7 / 1: 0 kontakter" [ref=f2e1295] [cursor=pointer]'
+        - 'button "11 / 12 och 0 / 6: 227 kontakter" [ref=f2e1296] [cursor=pointer]'
+        - 'button "11 / 12 och 8 / 7: 0 kontakter" [ref=f2e1298] [cursor=pointer]'
+        - 'button "11 / 12 och 0 / 9: 90 kontakter" [ref=f2e1299] [cursor=pointer]'
+        - 'button "11 / 12 och 8 / 8: 0 kontakter" [ref=f2e1300] [cursor=pointer]'
+        - 'button "11 / 12 och 6 / 11: 972 kontakter" [ref=f2e1301] [cursor=pointer]'
+        - 'button "11 / 12 och 11 / 8: 2371 kontakter" [ref=f2e1302] [cursor=pointer]'
+        - 'button "11 / 12 och 10 / 7: 0 kontakter" [ref=f2e1303] [cursor=pointer]'
+        - 'button "11 / 12 och 12 / 12: 5322 kontakter" [ref=f2e1304] [cursor=pointer]'
+        - 'button "11 / 12 och 4 / 10: 0 kontakter" [ref=f2e1305] [cursor=pointer]'
+        - 'button "11 / 12 och 11 / 14: 5316 kontakter" [ref=f2e1306] [cursor=pointer]'
+        - 'button "11 / 12 och 0 / 8: 164 kontakter" [ref=f2e1307] [cursor=pointer]'
+        - 'button "11 / 12 och 6 / 10: 0 kontakter" [ref=f2e1308] [cursor=pointer]'
+        - 'button "11 / 12 och 15 / 15: 256 kontakter" [ref=f2e1309] [cursor=pointer]'
+        - 'button "11 / 12 och 6 / 13: 0 kontakter" [ref=f2e1310] [cursor=pointer]'
+        - 'button "11 / 12 och 0 / 12: 1476 kontakter" [ref=f2e1311] [cursor=pointer]'
+        - 'button "11 / 12 och 1 / 1: 0 kontakter" [ref=f2e1312] [cursor=pointer]'
+        - 'button "11 / 12 och 4 / 13: 0 kontakter" [ref=f2e1313] [cursor=pointer]'
+        - 'button "11 / 12 och 10 / 15: 51 kontakter" [ref=f2e1314] [cursor=pointer]'
+        - 'button "11 / 12 och 12 / 15: 1206 kontakter" [ref=f2e1315] [cursor=pointer]'
+        - generic [ref=f2e1316] [cursor=pointer]: 8 / 7
+        - generic [ref=f2e1317] [cursor=pointer]: 8 / 7
+        - 'button "8 / 7 och 0 / 0: 0 kontakter" [ref=f2e1318] [cursor=pointer]'
+        - 'button "8 / 7 och 0 / 11: 0 kontakter" [ref=f2e1319] [cursor=pointer]'
+        - 'button "8 / 7 och 11 / 11: 0 kontakter" [ref=f2e1320] [cursor=pointer]'
+        - 'button "8 / 7 och 7 / 1: 633 kontakter" [ref=f2e1321] [cursor=pointer]'
+        - 'button "8 / 7 och 0 / 6: 0 kontakter" [ref=f2e1322] [cursor=pointer]'
+        - 'button "8 / 7 och 11 / 12: 0 kontakter" [ref=f2e1323] [cursor=pointer]'
+        - 'button "8 / 7 och 0 / 9: 0 kontakter" [ref=f2e1325] [cursor=pointer]'
+        - 'button "8 / 7 och 8 / 8: 339 kontakter" [ref=f2e1326] [cursor=pointer]'
+        - 'button "8 / 7 och 6 / 11: 0 kontakter" [ref=f2e1327] [cursor=pointer]'
+        - 'button "8 / 7 och 11 / 8: 96 kontakter" [ref=f2e1328] [cursor=pointer]'
+        - 'button "8 / 7 och 10 / 7: 5078 kontakter" [ref=f2e1329] [cursor=pointer]'
+        - 'button "8 / 7 och 12 / 12: 0 kontakter" [ref=f2e1330] [cursor=pointer]'
+        - 'button "8 / 7 och 4 / 10: 0 kontakter" [ref=f2e1331] [cursor=pointer]'
+        - 'button "8 / 7 och 11 / 14: 0 kontakter" [ref=f2e1332] [cursor=pointer]'
+        - 'button "8 / 7 och 0 / 8: 67 kontakter" [ref=f2e1333] [cursor=pointer]'
+        - 'button "8 / 7 och 6 / 10: 0 kontakter" [ref=f2e1334] [cursor=pointer]'
+        - 'button "8 / 7 och 15 / 15: 125 kontakter" [ref=f2e1335] [cursor=pointer]'
+        - 'button "8 / 7 och 6 / 13: 0 kontakter" [ref=f2e1336] [cursor=pointer]'
+        - 'button "8 / 7 och 0 / 12: 0 kontakter" [ref=f2e1337] [cursor=pointer]'
+        - 'button "8 / 7 och 1 / 1: 0 kontakter" [ref=f2e1338] [cursor=pointer]'
+        - 'button "8 / 7 och 4 / 13: 0 kontakter" [ref=f2e1339] [cursor=pointer]'
+        - 'button "8 / 7 och 10 / 15: 207 kontakter" [ref=f2e1340] [cursor=pointer]'
+        - 'button "8 / 7 och 12 / 15: 0 kontakter" [ref=f2e1341] [cursor=pointer]'
+        - generic [ref=f2e1342] [cursor=pointer]: 0 / 9
+        - generic [ref=f2e1343] [cursor=pointer]: 0 / 9
+        - 'button "0 / 9 och 0 / 0: 9646 kontakter" [ref=f2e1344] [cursor=pointer]'
+        - 'button "0 / 9 och 0 / 11: 5471 kontakter" [ref=f2e1345] [cursor=pointer]'
+        - 'button "0 / 9 och 11 / 11: 279 kontakter" [ref=f2e1346] [cursor=pointer]'
+        - 'button "0 / 9 och 7 / 1: 0 kontakter" [ref=f2e1347] [cursor=pointer]'
+        - 'button "0 / 9 och 0 / 6: 7556 kontakter" [ref=f2e1348] [cursor=pointer]'
+        - 'button "0 / 9 och 11 / 12: 90 kontakter" [ref=f2e1349] [cursor=pointer]'
+        - 'button "0 / 9 och 8 / 7: 0 kontakter" [ref=f2e1350] [cursor=pointer]'
+        - 'button "0 / 9 och 8 / 8: 253 kontakter" [ref=f2e1352] [cursor=pointer]'
+        - 'button "0 / 9 och 6 / 11: 712 kontakter" [ref=f2e1353] [cursor=pointer]'
+        - 'button "0 / 9 och 11 / 8: 120 kontakter" [ref=f2e1354] [cursor=pointer]'
+        - 'button "0 / 9 och 10 / 7: 0 kontakter" [ref=f2e1355] [cursor=pointer]'
+        - 'button "0 / 9 och 12 / 12: 0 kontakter" [ref=f2e1356] [cursor=pointer]'
+        - 'button "0 / 9 och 4 / 10: 0 kontakter" [ref=f2e1357] [cursor=pointer]'
+        - 'button "0 / 9 och 11 / 14: 0 kontakter" [ref=f2e1358] [cursor=pointer]'
+        - 'button "0 / 9 och 0 / 8: 1502 kontakter" [ref=f2e1359] [cursor=pointer]'
+        - 'button "0 / 9 och 6 / 10: 0 kontakter" [ref=f2e1360] [cursor=pointer]'
+        - 'button "0 / 9 och 15 / 15: 0 kontakter" [ref=f2e1361] [cursor=pointer]'
+        - 'button "0 / 9 och 6 / 13: 0 kontakter" [ref=f2e1362] [cursor=pointer]'
+        - 'button "0 / 9 och 0 / 12: 205 kontakter" [ref=f2e1363] [cursor=pointer]'
+        - 'button "0 / 9 och 1 / 1: 0 kontakter" [ref=f2e1364] [cursor=pointer]'
+        - 'button "0 / 9 och 4 / 13: 0 kontakter" [ref=f2e1365] [cursor=pointer]'
+        - 'button "0 / 9 och 10 / 15: 0 kontakter" [ref=f2e1366] [cursor=pointer]'
+        - 'button "0 / 9 och 12 / 15: 0 kontakter" [ref=f2e1367] [cursor=pointer]'
+        - generic [ref=f2e1368] [cursor=pointer]: 8 / 8
+        - generic [ref=f2e1369] [cursor=pointer]: 8 / 8
+        - 'button "8 / 8 och 0 / 0: 169 kontakter" [ref=f2e1370] [cursor=pointer]'
+        - 'button "8 / 8 och 0 / 11: 269 kontakter" [ref=f2e1371] [cursor=pointer]'
+        - 'button "8 / 8 och 11 / 11: 292 kontakter" [ref=f2e1372] [cursor=pointer]'
+        - 'button "8 / 8 och 7 / 1: 98 kontakter" [ref=f2e1373] [cursor=pointer]'
+        - 'button "8 / 8 och 0 / 6: 67 kontakter" [ref=f2e1374] [cursor=pointer]'
+        - 'button "8 / 8 och 11 / 12: 0 kontakter" [ref=f2e1375] [cursor=pointer]'
+        - 'button "8 / 8 och 8 / 7: 339 kontakter" [ref=f2e1376] [cursor=pointer]'
+        - 'button "8 / 8 och 0 / 9: 253 kontakter" [ref=f2e1377] [cursor=pointer]'
+        - 'button "8 / 8 och 6 / 11: 55 kontakter" [ref=f2e1379] [cursor=pointer]'
+        - 'button "8 / 8 och 11 / 8: 1038 kontakter" [ref=f2e1380] [cursor=pointer]'
+        - 'button "8 / 8 och 10 / 7: 137 kontakter" [ref=f2e1381] [cursor=pointer]'
+        - 'button "8 / 8 och 12 / 12: 0 kontakter" [ref=f2e1382] [cursor=pointer]'
+        - 'button "8 / 8 och 4 / 10: 0 kontakter" [ref=f2e1383] [cursor=pointer]'
+        - 'button "8 / 8 och 11 / 14: 0 kontakter" [ref=f2e1384] [cursor=pointer]'
+        - 'button "8 / 8 och 0 / 8: 350 kontakter" [ref=f2e1385] [cursor=pointer]'
+        - 'button "8 / 8 och 6 / 10: 0 kontakter" [ref=f2e1386] [cursor=pointer]'
+        - 'button "8 / 8 och 15 / 15: 70 kontakter" [ref=f2e1387] [cursor=pointer]'
+        - 'button "8 / 8 och 6 / 13: 0 kontakter" [ref=f2e1388] [cursor=pointer]'
+        - 'button "8 / 8 och 0 / 12: 0 kontakter" [ref=f2e1389] [cursor=pointer]'
+        - 'button "8 / 8 och 1 / 1: 0 kontakter" [ref=f2e1390] [cursor=pointer]'
+        - 'button "8 / 8 och 4 / 13: 0 kontakter" [ref=f2e1391] [cursor=pointer]'
+        - 'button "8 / 8 och 10 / 15: 56 kontakter" [ref=f2e1392] [cursor=pointer]'
+        - 'button "8 / 8 och 12 / 15: 0 kontakter" [ref=f2e1393] [cursor=pointer]'
+        - generic [ref=f2e1394] [cursor=pointer]: 6 / 11
+        - generic [ref=f2e1395] [cursor=pointer]: 6 / 11
+        - 'button "6 / 11 och 0 / 0: 1444 kontakter" [ref=f2e1396] [cursor=pointer]'
+        - 'button "6 / 11 och 0 / 11: 6277 kontakter" [ref=f2e1397] [cursor=pointer]'
+        - 'button "6 / 11 och 11 / 11: 4215 kontakter" [ref=f2e1398] [cursor=pointer]'
+        - 'button "6 / 11 och 7 / 1: 0 kontakter" [ref=f2e1399] [cursor=pointer]'
+        - 'button "6 / 11 och 0 / 6: 2278 kontakter" [ref=f2e1400] [cursor=pointer]'
+        - 'button "6 / 11 och 11 / 12: 972 kontakter" [ref=f2e1401] [cursor=pointer]'
+        - 'button "6 / 11 och 8 / 7: 0 kontakter" [ref=f2e1402] [cursor=pointer]'
+        - 'button "6 / 11 och 0 / 9: 712 kontakter" [ref=f2e1403] [cursor=pointer]'
+        - 'button "6 / 11 och 8 / 8: 55 kontakter" [ref=f2e1404] [cursor=pointer]'
+        - 'button "6 / 11 och 11 / 8: 852 kontakter" [ref=f2e1406] [cursor=pointer]'
+        - 'button "6 / 11 och 10 / 7: 0 kontakter" [ref=f2e1407] [cursor=pointer]'
+        - 'button "6 / 11 och 12 / 12: 106 kontakter" [ref=f2e1408] [cursor=pointer]'
+        - 'button "6 / 11 och 4 / 10: 0 kontakter" [ref=f2e1409] [cursor=pointer]'
+        - 'button "6 / 11 och 11 / 14: 336 kontakter" [ref=f2e1410] [cursor=pointer]'
+        - 'button "6 / 11 och 0 / 8: 339 kontakter" [ref=f2e1411] [cursor=pointer]'
+        - 'button "6 / 11 och 6 / 10: 0 kontakter" [ref=f2e1412] [cursor=pointer]'
+        - 'button "6 / 11 och 15 / 15: 0 kontakter" [ref=f2e1413] [cursor=pointer]'
+        - 'button "6 / 11 och 6 / 13: 0 kontakter" [ref=f2e1414] [cursor=pointer]'
+        - 'button "6 / 11 och 0 / 12: 490 kontakter" [ref=f2e1415] [cursor=pointer]'
+        - 'button "6 / 11 och 1 / 1: 0 kontakter" [ref=f2e1416] [cursor=pointer]'
+        - 'button "6 / 11 och 4 / 13: 0 kontakter" [ref=f2e1417] [cursor=pointer]'
+        - 'button "6 / 11 och 10 / 15: 0 kontakter" [ref=f2e1418] [cursor=pointer]'
+        - 'button "6 / 11 och 12 / 15: 0 kontakter" [ref=f2e1419] [cursor=pointer]'
+        - generic [ref=f2e1420] [cursor=pointer]: 11 / 8
+        - generic [ref=f2e1421] [cursor=pointer]: 11 / 8
+        - 'button "11 / 8 och 0 / 0: 683 kontakter" [ref=f2e1422] [cursor=pointer]'
+        - 'button "11 / 8 och 0 / 11: 1993 kontakter" [ref=f2e1423] [cursor=pointer]'
+        - 'button "11 / 8 och 11 / 11: 4355 kontakter" [ref=f2e1424] [cursor=pointer]'
+        - 'button "11 / 8 och 7 / 1: 0 kontakter" [ref=f2e1425] [cursor=pointer]'
+        - 'button "11 / 8 och 0 / 6: 284 kontakter" [ref=f2e1426] [cursor=pointer]'
+        - 'button "11 / 8 och 11 / 12: 2371 kontakter" [ref=f2e1427] [cursor=pointer]'
+        - 'button "11 / 8 och 8 / 7: 96 kontakter" [ref=f2e1428] [cursor=pointer]'
+        - 'button "11 / 8 och 0 / 9: 120 kontakter" [ref=f2e1429] [cursor=pointer]'
+        - 'button "11 / 8 och 8 / 8: 1038 kontakter" [ref=f2e1430] [cursor=pointer]'
+        - 'button "11 / 8 och 6 / 11: 852 kontakter" [ref=f2e1431] [cursor=pointer]'
+        - 'button "11 / 8 och 10 / 7: 0 kontakter" [ref=f2e1433] [cursor=pointer]'
+        - 'button "11 / 8 och 12 / 12: 236 kontakter" [ref=f2e1434] [cursor=pointer]'
+        - 'button "11 / 8 och 4 / 10: 0 kontakter" [ref=f2e1435] [cursor=pointer]'
+        - 'button "11 / 8 och 11 / 14: 92 kontakter" [ref=f2e1436] [cursor=pointer]'
+        - 'button "11 / 8 och 0 / 8: 975 kontakter" [ref=f2e1437] [cursor=pointer]'
+        - 'button "11 / 8 och 6 / 10: 0 kontakter" [ref=f2e1438] [cursor=pointer]'
+        - 'button "11 / 8 och 15 / 15: 67 kontakter" [ref=f2e1439] [cursor=pointer]'
+        - 'button "11 / 8 och 6 / 13: 0 kontakter" [ref=f2e1440] [cursor=pointer]'
+        - 'button "11 / 8 och 0 / 12: 175 kontakter" [ref=f2e1441] [cursor=pointer]'
+        - 'button "11 / 8 och 1 / 1: 0 kontakter" [ref=f2e1442] [cursor=pointer]'
+        - 'button "11 / 8 och 4 / 13: 0 kontakter" [ref=f2e1443] [cursor=pointer]'
+        - 'button "11 / 8 och 10 / 15: 0 kontakter" [ref=f2e1444] [cursor=pointer]'
+        - 'button "11 / 8 och 12 / 15: 0 kontakter" [ref=f2e1445] [cursor=pointer]'
+        - generic [ref=f2e1446] [cursor=pointer]: 10 / 7
+        - generic [ref=f2e1447] [cursor=pointer]: 10 / 7
+        - 'button "10 / 7 och 0 / 0: 0 kontakter" [ref=f2e1448] [cursor=pointer]'
+        - 'button "10 / 7 och 0 / 11: 0 kontakter" [ref=f2e1449] [cursor=pointer]'
+        - 'button "10 / 7 och 11 / 11: 0 kontakter" [ref=f2e1450] [cursor=pointer]'
+        - 'button "10 / 7 och 7 / 1: 731 kontakter" [ref=f2e1451] [cursor=pointer]'
+        - 'button "10 / 7 och 0 / 6: 0 kontakter" [ref=f2e1452] [cursor=pointer]'
+        - 'button "10 / 7 och 11 / 12: 0 kontakter" [ref=f2e1453] [cursor=pointer]'
+        - 'button "10 / 7 och 8 / 7: 5078 kontakter" [ref=f2e1454] [cursor=pointer]'
+        - 'button "10 / 7 och 0 / 9: 0 kontakter" [ref=f2e1455] [cursor=pointer]'
+        - 'button "10 / 7 och 8 / 8: 137 kontakter" [ref=f2e1456] [cursor=pointer]'
+        - 'button "10 / 7 och 6 / 11: 0 kontakter" [ref=f2e1457] [cursor=pointer]'
+        - 'button "10 / 7 och 11 / 8: 0 kontakter" [ref=f2e1458] [cursor=pointer]'
+        - 'button "10 / 7 och 12 / 12: 0 kontakter" [ref=f2e1460] [cursor=pointer]'
+        - 'button "10 / 7 och 4 / 10: 0 kontakter" [ref=f2e1461] [cursor=pointer]'
+        - 'button "10 / 7 och 11 / 14: 0 kontakter" [ref=f2e1462] [cursor=pointer]'
+        - 'button "10 / 7 och 0 / 8: 0 kontakter" [ref=f2e1463] [cursor=pointer]'
+        - 'button "10 / 7 och 6 / 10: 0 kontakter" [ref=f2e1464] [cursor=pointer]'
+        - 'button "10 / 7 och 15 / 15: 260 kontakter" [ref=f2e1465] [cursor=pointer]'
+        - 'button "10 / 7 och 6 / 13: 0 kontakter" [ref=f2e1466] [cursor=pointer]'
+        - 'button "10 / 7 och 0 / 12: 0 kontakter" [ref=f2e1467] [cursor=pointer]'
+        - 'button "10 / 7 och 1 / 1: 0 kontakter" [ref=f2e1468] [cursor=pointer]'
+        - 'button "10 / 7 och 4 / 13: 0 kontakter" [ref=f2e1469] [cursor=pointer]'
+        - 'button "10 / 7 och 10 / 15: 2133 kontakter" [ref=f2e1470] [cursor=pointer]'
+        - 'button "10 / 7 och 12 / 15: 0 kontakter" [ref=f2e1471] [cursor=pointer]'
+        - generic [ref=f2e1472] [cursor=pointer]: 12 / 12
+        - generic [ref=f2e1473] [cursor=pointer]: 12 / 12
+        - 'button "12 / 12 och 0 / 0: 168 kontakter" [ref=f2e1474] [cursor=pointer]'
+        - 'button "12 / 12 och 0 / 11: 426 kontakter" [ref=f2e1475] [cursor=pointer]'
+        - 'button "12 / 12 och 11 / 11: 839 kontakter" [ref=f2e1476] [cursor=pointer]'
+        - 'button "12 / 12 och 7 / 1: 0 kontakter" [ref=f2e1477] [cursor=pointer]'
+        - 'button "12 / 12 och 0 / 6: 58 kontakter" [ref=f2e1478] [cursor=pointer]'
+        - 'button "12 / 12 och 11 / 12: 5322 kontakter" [ref=f2e1479] [cursor=pointer]'
+        - 'button "12 / 12 och 8 / 7: 0 kontakter" [ref=f2e1480] [cursor=pointer]'
+        - 'button "12 / 12 och 0 / 9: 0 kontakter" [ref=f2e1481] [cursor=pointer]'
+        - 'button "12 / 12 och 8 / 8: 0 kontakter" [ref=f2e1482] [cursor=pointer]'
+        - 'button "12 / 12 och 6 / 11: 106 kontakter" [ref=f2e1483] [cursor=pointer]'
+        - 'button "12 / 12 och 11 / 8: 236 kontakter" [ref=f2e1484] [cursor=pointer]'
+        - 'button "12 / 12 och 10 / 7: 0 kontakter" [ref=f2e1485] [cursor=pointer]'
+        - 'button "12 / 12 och 4 / 10: 0 kontakter" [ref=f2e1487] [cursor=pointer]'
+        - 'button "12 / 12 och 11 / 14: 103 kontakter" [ref=f2e1488] [cursor=pointer]'
+        - 'button "12 / 12 och 0 / 8: 61 kontakter" [ref=f2e1489] [cursor=pointer]'
+        - 'button "12 / 12 och 6 / 10: 0 kontakter" [ref=f2e1490] [cursor=pointer]'
+        - 'button "12 / 12 och 15 / 15: 277 kontakter" [ref=f2e1491] [cursor=pointer]'
+        - 'button "12 / 12 och 6 / 13: 0 kontakter" [ref=f2e1492] [cursor=pointer]'
+        - 'button "12 / 12 och 0 / 12: 339 kontakter" [ref=f2e1493] [cursor=pointer]'
+        - 'button "12 / 12 och 1 / 1: 0 kontakter" [ref=f2e1494] [cursor=pointer]'
+        - 'button "12 / 12 och 4 / 13: 0 kontakter" [ref=f2e1495] [cursor=pointer]'
+        - 'button "12 / 12 och 10 / 15: 52 kontakter" [ref=f2e1496] [cursor=pointer]'
+        - 'button "12 / 12 och 12 / 15: 1623 kontakter" [ref=f2e1497] [cursor=pointer]'
+        - generic [ref=f2e1498] [cursor=pointer]: 4 / 10
+        - generic [ref=f2e1499] [cursor=pointer]: 4 / 10
+        - 'button "4 / 10 och 0 / 0: 0 kontakter" [ref=f2e1500] [cursor=pointer]'
+        - 'button "4 / 10 och 0 / 11: 57 kontakter" [ref=f2e1501] [cursor=pointer]'
+        - 'button "4 / 10 och 11 / 11: 0 kontakter" [ref=f2e1502] [cursor=pointer]'
+        - 'button "4 / 10 och 7 / 1: 0 kontakter" [ref=f2e1503] [cursor=pointer]'
+        - 'button "4 / 10 och 0 / 6: 0 kontakter" [ref=f2e1504] [cursor=pointer]'
+        - 'button "4 / 10 och 11 / 12: 0 kontakter" [ref=f2e1505] [cursor=pointer]'
+        - 'button "4 / 10 och 8 / 7: 0 kontakter" [ref=f2e1506] [cursor=pointer]'
+        - 'button "4 / 10 och 0 / 9: 0 kontakter" [ref=f2e1507] [cursor=pointer]'
+        - 'button "4 / 10 och 8 / 8: 0 kontakter" [ref=f2e1508] [cursor=pointer]'
+        - 'button "4 / 10 och 6 / 11: 0 kontakter" [ref=f2e1509] [cursor=pointer]'
+        - 'button "4 / 10 och 11 / 8: 0 kontakter" [ref=f2e1510] [cursor=pointer]'
+        - 'button "4 / 10 och 10 / 7: 0 kontakter" [ref=f2e1511] [cursor=pointer]'
+        - 'button "4 / 10 och 12 / 12: 0 kontakter" [ref=f2e1512] [cursor=pointer]'
+        - 'button "4 / 10 och 11 / 14: 0 kontakter" [ref=f2e1514] [cursor=pointer]'
+        - 'button "4 / 10 och 0 / 8: 0 kontakter" [ref=f2e1515] [cursor=pointer]'
+        - 'button "4 / 10 och 6 / 10: 191 kontakter" [ref=f2e1516] [cursor=pointer]'
+        - 'button "4 / 10 och 15 / 15: 0 kontakter" [ref=f2e1517] [cursor=pointer]'
+        - 'button "4 / 10 och 6 / 13: 2579 kontakter" [ref=f2e1518] [cursor=pointer]'
+        - 'button "4 / 10 och 0 / 12: 0 kontakter" [ref=f2e1519] [cursor=pointer]'
+        - 'button "4 / 10 och 1 / 1: 0 kontakter" [ref=f2e1520] [cursor=pointer]'
+        - 'button "4 / 10 och 4 / 13: 3844 kontakter" [ref=f2e1521] [cursor=pointer]'
+        - 'button "4 / 10 och 10 / 15: 111 kontakter" [ref=f2e1522] [cursor=pointer]'
+        - 'button "4 / 10 och 12 / 15: 0 kontakter" [ref=f2e1523] [cursor=pointer]'
+        - generic [ref=f2e1524] [cursor=pointer]: 11 / 14
+        - generic [ref=f2e1525] [cursor=pointer]: 11 / 14
+        - 'button "11 / 14 och 0 / 0: 388 kontakter" [ref=f2e1526] [cursor=pointer]'
+        - 'button "11 / 14 och 0 / 11: 577 kontakter" [ref=f2e1527] [cursor=pointer]'
+        - 'button "11 / 14 och 11 / 11: 1507 kontakter" [ref=f2e1528] [cursor=pointer]'
+        - 'button "11 / 14 och 7 / 1: 0 kontakter" [ref=f2e1529] [cursor=pointer]'
+        - 'button "11 / 14 och 0 / 6: 92 kontakter" [ref=f2e1530] [cursor=pointer]'
+        - 'button "11 / 14 och 11 / 12: 5316 kontakter" [ref=f2e1531] [cursor=pointer]'
+        - 'button "11 / 14 och 8 / 7: 0 kontakter" [ref=f2e1532] [cursor=pointer]'
+        - 'button "11 / 14 och 0 / 9: 0 kontakter" [ref=f2e1533] [cursor=pointer]'
+        - 'button "11 / 14 och 8 / 8: 0 kontakter" [ref=f2e1534] [cursor=pointer]'
+        - 'button "11 / 14 och 6 / 11: 336 kontakter" [ref=f2e1535] [cursor=pointer]'
+        - 'button "11 / 14 och 11 / 8: 92 kontakter" [ref=f2e1536] [cursor=pointer]'
+        - 'button "11 / 14 och 10 / 7: 0 kontakter" [ref=f2e1537] [cursor=pointer]'
+        - 'button "11 / 14 och 12 / 12: 103 kontakter" [ref=f2e1538] [cursor=pointer]'
+        - 'button "11 / 14 och 4 / 10: 0 kontakter" [ref=f2e1539] [cursor=pointer]'
+        - 'button "11 / 14 och 0 / 8: 0 kontakter" [ref=f2e1541] [cursor=pointer]'
+        - 'button "11 / 14 och 6 / 10: 0 kontakter" [ref=f2e1542] [cursor=pointer]'
+        - 'button "11 / 14 och 15 / 15: 0 kontakter" [ref=f2e1543] [cursor=pointer]'
+        - 'button "11 / 14 och 6 / 13: 0 kontakter" [ref=f2e1544] [cursor=pointer]'
+        - 'button "11 / 14 och 0 / 12: 0 kontakter" [ref=f2e1545] [cursor=pointer]'
+        - 'button "11 / 14 och 1 / 1: 0 kontakter" [ref=f2e1546] [cursor=pointer]'
+        - 'button "11 / 14 och 4 / 13: 0 kontakter" [ref=f2e1547] [cursor=pointer]'
+        - 'button "11 / 14 och 10 / 15: 0 kontakter" [ref=f2e1548] [cursor=pointer]'
+        - 'button "11 / 14 och 12 / 15: 0 kontakter" [ref=f2e1549] [cursor=pointer]'
+        - generic [ref=f2e1550] [cursor=pointer]: 0 / 8
+        - generic [ref=f2e1551] [cursor=pointer]: 0 / 8
+        - 'button "0 / 8 och 0 / 0: 1148 kontakter" [ref=f2e1552] [cursor=pointer]'
+        - 'button "0 / 8 och 0 / 11: 4661 kontakter" [ref=f2e1553] [cursor=pointer]'
+        - 'button "0 / 8 och 11 / 11: 668 kontakter" [ref=f2e1554] [cursor=pointer]'
+        - 'button "0 / 8 och 7 / 1: 0 kontakter" [ref=f2e1555] [cursor=pointer]'
+        - 'button "0 / 8 och 0 / 6: 703 kontakter" [ref=f2e1556] [cursor=pointer]'
+        - 'button "0 / 8 och 11 / 12: 164 kontakter" [ref=f2e1557] [cursor=pointer]'
+        - 'button "0 / 8 och 8 / 7: 67 kontakter" [ref=f2e1558] [cursor=pointer]'
+        - 'button "0 / 8 och 0 / 9: 1502 kontakter" [ref=f2e1559] [cursor=pointer]'
+        - 'button "0 / 8 och 8 / 8: 350 kontakter" [ref=f2e1560] [cursor=pointer]'
+        - 'button "0 / 8 och 6 / 11: 339 kontakter" [ref=f2e1561] [cursor=pointer]'
+        - 'button "0 / 8 och 11 / 8: 975 kontakter" [ref=f2e1562] [cursor=pointer]'
+        - 'button "0 / 8 och 10 / 7: 0 kontakter" [ref=f2e1563] [cursor=pointer]'
+        - 'button "0 / 8 och 12 / 12: 61 kontakter" [ref=f2e1564] [cursor=pointer]'
+        - 'button "0 / 8 och 4 / 10: 0 kontakter" [ref=f2e1565] [cursor=pointer]'
+        - 'button "0 / 8 och 11 / 14: 0 kontakter" [ref=f2e1566] [cursor=pointer]'
+        - 'button "0 / 8 och 6 / 10: 0 kontakter" [ref=f2e1568] [cursor=pointer]'
+        - 'button "0 / 8 och 15 / 15: 0 kontakter" [ref=f2e1569] [cursor=pointer]'
+        - 'button "0 / 8 och 6 / 13: 0 kontakter" [ref=f2e1570] [cursor=pointer]'
+        - 'button "0 / 8 och 0 / 12: 1308 kontakter" [ref=f2e1571] [cursor=pointer]'
+        - 'button "0 / 8 och 1 / 1: 0 kontakter" [ref=f2e1572] [cursor=pointer]'
+        - 'button "0 / 8 och 4 / 13: 0 kontakter" [ref=f2e1573] [cursor=pointer]'
+        - 'button "0 / 8 och 10 / 15: 0 kontakter" [ref=f2e1574] [cursor=pointer]'
+        - 'button "0 / 8 och 12 / 15: 0 kontakter" [ref=f2e1575] [cursor=pointer]'
+        - generic [ref=f2e1576] [cursor=pointer]: 6 / 10
+        - generic [ref=f2e1577] [cursor=pointer]: 6 / 10
+        - 'button "6 / 10 och 0 / 0: 0 kontakter" [ref=f2e1578] [cursor=pointer]'
+        - 'button "6 / 10 och 0 / 11: 0 kontakter" [ref=f2e1579] [cursor=pointer]'
+        - 'button "6 / 10 och 11 / 11: 0 kontakter" [ref=f2e1580] [cursor=pointer]'
+        - 'button "6 / 10 och 7 / 1: 0 kontakter" [ref=f2e1581] [cursor=pointer]'
+        - 'button "6 / 10 och 0 / 6: 0 kontakter" [ref=f2e1582] [cursor=pointer]'
+        - 'button "6 / 10 och 11 / 12: 0 kontakter" [ref=f2e1583] [cursor=pointer]'
+        - 'button "6 / 10 och 8 / 7: 0 kontakter" [ref=f2e1584] [cursor=pointer]'
+        - 'button "6 / 10 och 0 / 9: 0 kontakter" [ref=f2e1585] [cursor=pointer]'
+        - 'button "6 / 10 och 8 / 8: 0 kontakter" [ref=f2e1586] [cursor=pointer]'
+        - 'button "6 / 10 och 6 / 11: 0 kontakter" [ref=f2e1587] [cursor=pointer]'
+        - 'button "6 / 10 och 11 / 8: 0 kontakter" [ref=f2e1588] [cursor=pointer]'
+        - 'button "6 / 10 och 10 / 7: 0 kontakter" [ref=f2e1589] [cursor=pointer]'
+        - 'button "6 / 10 och 12 / 12: 0 kontakter" [ref=f2e1590] [cursor=pointer]'
+        - 'button "6 / 10 och 4 / 10: 191 kontakter" [ref=f2e1591] [cursor=pointer]'
+        - 'button "6 / 10 och 11 / 14: 0 kontakter" [ref=f2e1592] [cursor=pointer]'
+        - 'button "6 / 10 och 0 / 8: 0 kontakter" [ref=f2e1593] [cursor=pointer]'
+        - 'button "6 / 10 och 15 / 15: 0 kontakter" [ref=f2e1595] [cursor=pointer]'
+        - 'button "6 / 10 och 6 / 13: 6419 kontakter" [ref=f2e1596] [cursor=pointer]'
+        - 'button "6 / 10 och 0 / 12: 0 kontakter" [ref=f2e1597] [cursor=pointer]'
+        - 'button "6 / 10 och 1 / 1: 0 kontakter" [ref=f2e1598] [cursor=pointer]'
+        - 'button "6 / 10 och 4 / 13: 2682 kontakter" [ref=f2e1599] [cursor=pointer]'
+        - 'button "6 / 10 och 10 / 15: 0 kontakter" [ref=f2e1600] [cursor=pointer]'
+        - 'button "6 / 10 och 12 / 15: 0 kontakter" [ref=f2e1601] [cursor=pointer]'
+        - generic [ref=f2e1602] [cursor=pointer]: 15 / 15
+        - generic [ref=f2e1603] [cursor=pointer]: 15 / 15
+        - 'button "15 / 15 och 0 / 0: 82 kontakter" [ref=f2e1604] [cursor=pointer]'
+        - 'button "15 / 15 och 0 / 11: 94 kontakter" [ref=f2e1605] [cursor=pointer]'
+        - 'button "15 / 15 och 11 / 11: 151 kontakter" [ref=f2e1606] [cursor=pointer]'
+        - 'button "15 / 15 och 7 / 1: 96 kontakter" [ref=f2e1607] [cursor=pointer]'
+        - 'button "15 / 15 och 0 / 6: 0 kontakter" [ref=f2e1608] [cursor=pointer]'
+        - 'button "15 / 15 och 11 / 12: 256 kontakter" [ref=f2e1609] [cursor=pointer]'
+        - 'button "15 / 15 och 8 / 7: 125 kontakter" [ref=f2e1610] [cursor=pointer]'
+        - 'button "15 / 15 och 0 / 9: 0 kontakter" [ref=f2e1611] [cursor=pointer]'
+        - 'button "15 / 15 och 8 / 8: 70 kontakter" [ref=f2e1612] [cursor=pointer]'
+        - 'button "15 / 15 och 6 / 11: 0 kontakter" [ref=f2e1613] [cursor=pointer]'
+        - 'button "15 / 15 och 11 / 8: 67 kontakter" [ref=f2e1614] [cursor=pointer]'
+        - 'button "15 / 15 och 10 / 7: 260 kontakter" [ref=f2e1615] [cursor=pointer]'
+        - 'button "15 / 15 och 12 / 12: 277 kontakter" [ref=f2e1616] [cursor=pointer]'
+        - 'button "15 / 15 och 4 / 10: 0 kontakter" [ref=f2e1617] [cursor=pointer]'
+        - 'button "15 / 15 och 11 / 14: 0 kontakter" [ref=f2e1618] [cursor=pointer]'
+        - 'button "15 / 15 och 0 / 8: 0 kontakter" [ref=f2e1619] [cursor=pointer]'
+        - 'button "15 / 15 och 6 / 10: 0 kontakter" [ref=f2e1620] [cursor=pointer]'
+        - 'button "15 / 15 och 6 / 13: 0 kontakter" [ref=f2e1622] [cursor=pointer]'
+        - 'button "15 / 15 och 0 / 12: 52 kontakter" [ref=f2e1623] [cursor=pointer]'
+        - 'button "15 / 15 och 1 / 1: 135 kontakter" [ref=f2e1624] [cursor=pointer]'
+        - 'button "15 / 15 och 4 / 13: 0 kontakter" [ref=f2e1625] [cursor=pointer]'
+        - 'button "15 / 15 och 10 / 15: 1130 kontakter" [ref=f2e1626] [cursor=pointer]'
+        - 'button "15 / 15 och 12 / 15: 1553 kontakter" [ref=f2e1627] [cursor=pointer]'
+        - generic [ref=f2e1628] [cursor=pointer]: 6 / 13
+        - generic [ref=f2e1629] [cursor=pointer]: 6 / 13
+        - 'button "6 / 13 och 0 / 0: 0 kontakter" [ref=f2e1630] [cursor=pointer]'
+        - 'button "6 / 13 och 0 / 11: 0 kontakter" [ref=f2e1631] [cursor=pointer]'
+        - 'button "6 / 13 och 11 / 11: 0 kontakter" [ref=f2e1632] [cursor=pointer]'
+        - 'button "6 / 13 och 7 / 1: 0 kontakter" [ref=f2e1633] [cursor=pointer]'
+        - 'button "6 / 13 och 0 / 6: 0 kontakter" [ref=f2e1634] [cursor=pointer]'
+        - 'button "6 / 13 och 11 / 12: 0 kontakter" [ref=f2e1635] [cursor=pointer]'
+        - 'button "6 / 13 och 8 / 7: 0 kontakter" [ref=f2e1636] [cursor=pointer]'
+        - 'button "6 / 13 och 0 / 9: 0 kontakter" [ref=f2e1637] [cursor=pointer]'
+        - 'button "6 / 13 och 8 / 8: 0 kontakter" [ref=f2e1638] [cursor=pointer]'
+        - 'button "6 / 13 och 6 / 11: 0 kontakter" [ref=f2e1639] [cursor=pointer]'
+        - 'button "6 / 13 och 11 / 8: 0 kontakter" [ref=f2e1640] [cursor=pointer]'
+        - 'button "6 / 13 och 10 / 7: 0 kontakter" [ref=f2e1641] [cursor=pointer]'
+        - 'button "6 / 13 och 12 / 12: 0 kontakter" [ref=f2e1642] [cursor=pointer]'
+        - 'button "6 / 13 och 4 / 10: 2579 kontakter" [ref=f2e1643] [cursor=pointer]'
+        - 'button "6 / 13 och 11 / 14: 0 kontakter" [ref=f2e1644] [cursor=pointer]'
+        - 'button "6 / 13 och 0 / 8: 0 kontakter" [ref=f2e1645] [cursor=pointer]'
+        - 'button "6 / 13 och 6 / 10: 6419 kontakter" [ref=f2e1646] [cursor=pointer]'
+        - 'button "6 / 13 och 15 / 15: 0 kontakter" [ref=f2e1647] [cursor=pointer]'
+        - 'button "6 / 13 och 0 / 12: 0 kontakter" [ref=f2e1649] [cursor=pointer]'
+        - 'button "6 / 13 och 1 / 1: 0 kontakter" [ref=f2e1650] [cursor=pointer]'
+        - 'button "6 / 13 och 4 / 13: 182 kontakter" [ref=f2e1651] [cursor=pointer]'
+        - 'button "6 / 13 och 10 / 15: 0 kontakter" [ref=f2e1652] [cursor=pointer]'
+        - 'button "6 / 13 och 12 / 15: 0 kontakter" [ref=f2e1653] [cursor=pointer]'
+        - generic [ref=f2e1654] [cursor=pointer]: 0 / 12
+        - generic [ref=f2e1655] [cursor=pointer]: 0 / 12
+        - 'button "0 / 12 och 0 / 0: 716 kontakter" [ref=f2e1656] [cursor=pointer]'
+        - 'button "0 / 12 och 0 / 11: 3440 kontakter" [ref=f2e1657] [cursor=pointer]'
+        - 'button "0 / 12 och 11 / 11: 1165 kontakter" [ref=f2e1658] [cursor=pointer]'
+        - 'button "0 / 12 och 7 / 1: 0 kontakter" [ref=f2e1659] [cursor=pointer]'
+        - 'button "0 / 12 och 0 / 6: 314 kontakter" [ref=f2e1660] [cursor=pointer]'
+        - 'button "0 / 12 och 11 / 12: 1476 kontakter" [ref=f2e1661] [cursor=pointer]'
+        - 'button "0 / 12 och 8 / 7: 0 kontakter" [ref=f2e1662] [cursor=pointer]'
+        - 'button "0 / 12 och 0 / 9: 205 kontakter" [ref=f2e1663] [cursor=pointer]'
+        - 'button "0 / 12 och 8 / 8: 0 kontakter" [ref=f2e1664] [cursor=pointer]'
+        - 'button "0 / 12 och 6 / 11: 490 kontakter" [ref=f2e1665] [cursor=pointer]'
+        - 'button "0 / 12 och 11 / 8: 175 kontakter" [ref=f2e1666] [cursor=pointer]'
+        - 'button "0 / 12 och 10 / 7: 0 kontakter" [ref=f2e1667] [cursor=pointer]'
+        - 'button "0 / 12 och 12 / 12: 339 kontakter" [ref=f2e1668] [cursor=pointer]'
+        - 'button "0 / 12 och 4 / 10: 0 kontakter" [ref=f2e1669] [cursor=pointer]'
+        - 'button "0 / 12 och 11 / 14: 0 kontakter" [ref=f2e1670] [cursor=pointer]'
+        - 'button "0 / 12 och 0 / 8: 1308 kontakter" [ref=f2e1671] [cursor=pointer]'
+        - 'button "0 / 12 och 6 / 10: 0 kontakter" [ref=f2e1672] [cursor=pointer]'
+        - 'button "0 / 12 och 15 / 15: 52 kontakter" [ref=f2e1673] [cursor=pointer]'
+        - 'button "0 / 12 och 6 / 13: 0 kontakter" [ref=f2e1674] [cursor=pointer]'
+        - 'button "0 / 12 och 1 / 1: 0 kontakter" [ref=f2e1676] [cursor=pointer]'
+        - 'button "0 / 12 och 4 / 13: 0 kontakter" [ref=f2e1677] [cursor=pointer]'
+        - 'button "0 / 12 och 10 / 15: 0 kontakter" [ref=f2e1678] [cursor=pointer]'
+        - 'button "0 / 12 och 12 / 15: 168 kontakter" [ref=f2e1679] [cursor=pointer]'
+        - generic [ref=f2e1680] [cursor=pointer]: 1 / 1
+        - generic [ref=f2e1681] [cursor=pointer]: 1 / 1
+        - 'button "1 / 1 och 0 / 0: 0 kontakter" [ref=f2e1682] [cursor=pointer]'
+        - 'button "1 / 1 och 0 / 11: 0 kontakter" [ref=f2e1683] [cursor=pointer]'
+        - 'button "1 / 1 och 11 / 11: 0 kontakter" [ref=f2e1684] [cursor=pointer]'
+        - 'button "1 / 1 och 7 / 1: 1547 kontakter" [ref=f2e1685] [cursor=pointer]'
+        - 'button "1 / 1 och 0 / 6: 0 kontakter" [ref=f2e1686] [cursor=pointer]'
+        - 'button "1 / 1 och 11 / 12: 0 kontakter" [ref=f2e1687] [cursor=pointer]'
+        - 'button "1 / 1 och 8 / 7: 0 kontakter" [ref=f2e1688] [cursor=pointer]'
+        - 'button "1 / 1 och 0 / 9: 0 kontakter" [ref=f2e1689] [cursor=pointer]'
+        - 'button "1 / 1 och 8 / 8: 0 kontakter" [ref=f2e1690] [cursor=pointer]'
+        - 'button "1 / 1 och 6 / 11: 0 kontakter" [ref=f2e1691] [cursor=pointer]'
+        - 'button "1 / 1 och 11 / 8: 0 kontakter" [ref=f2e1692] [cursor=pointer]'
+        - 'button "1 / 1 och 10 / 7: 0 kontakter" [ref=f2e1693] [cursor=pointer]'
+        - 'button "1 / 1 och 12 / 12: 0 kontakter" [ref=f2e1694] [cursor=pointer]'
+        - 'button "1 / 1 och 4 / 10: 0 kontakter" [ref=f2e1695] [cursor=pointer]'
+        - 'button "1 / 1 och 11 / 14: 0 kontakter" [ref=f2e1696] [cursor=pointer]'
+        - 'button "1 / 1 och 0 / 8: 0 kontakter" [ref=f2e1697] [cursor=pointer]'
+        - 'button "1 / 1 och 6 / 10: 0 kontakter" [ref=f2e1698] [cursor=pointer]'
+        - 'button "1 / 1 och 15 / 15: 135 kontakter" [ref=f2e1699] [cursor=pointer]'
+        - 'button "1 / 1 och 6 / 13: 0 kontakter" [ref=f2e1700] [cursor=pointer]'
+        - 'button "1 / 1 och 0 / 12: 0 kontakter" [ref=f2e1701] [cursor=pointer]'
+        - 'button "1 / 1 och 4 / 13: 0 kontakter" [ref=f2e1703] [cursor=pointer]'
+        - 'button "1 / 1 och 10 / 15: 0 kontakter" [ref=f2e1704] [cursor=pointer]'
+        - 'button "1 / 1 och 12 / 15: 0 kontakter" [ref=f2e1705] [cursor=pointer]'
+        - generic [ref=f2e1706] [cursor=pointer]: 4 / 13
+        - generic [ref=f2e1707] [cursor=pointer]: 4 / 13
+        - 'button "4 / 13 och 0 / 0: 0 kontakter" [ref=f2e1708] [cursor=pointer]'
+        - 'button "4 / 13 och 0 / 11: 0 kontakter" [ref=f2e1709] [cursor=pointer]'
+        - 'button "4 / 13 och 11 / 11: 0 kontakter" [ref=f2e1710] [cursor=pointer]'
+        - 'button "4 / 13 och 7 / 1: 0 kontakter" [ref=f2e1711] [cursor=pointer]'
+        - 'button "4 / 13 och 0 / 6: 0 kontakter" [ref=f2e1712] [cursor=pointer]'
+        - 'button "4 / 13 och 11 / 12: 0 kontakter" [ref=f2e1713] [cursor=pointer]'
+        - 'button "4 / 13 och 8 / 7: 0 kontakter" [ref=f2e1714] [cursor=pointer]'
+        - 'button "4 / 13 och 0 / 9: 0 kontakter" [ref=f2e1715] [cursor=pointer]'
+        - 'button "4 / 13 och 8 / 8: 0 kontakter" [ref=f2e1716] [cursor=pointer]'
+        - 'button "4 / 13 och 6 / 11: 0 kontakter" [ref=f2e1717] [cursor=pointer]'
+        - 'button "4 / 13 och 11 / 8: 0 kontakter" [ref=f2e1718] [cursor=pointer]'
+        - 'button "4 / 13 och 10 / 7: 0 kontakter" [ref=f2e1719] [cursor=pointer]'
+        - 'button "4 / 13 och 12 / 12: 0 kontakter" [ref=f2e1720] [cursor=pointer]'
+        - 'button "4 / 13 och 4 / 10: 3844 kontakter" [ref=f2e1721] [cursor=pointer]'
+        - 'button "4 / 13 och 11 / 14: 0 kontakter" [ref=f2e1722] [cursor=pointer]'
+        - 'button "4 / 13 och 0 / 8: 0 kontakter" [ref=f2e1723] [cursor=pointer]'
+        - 'button "4 / 13 och 6 / 10: 2682 kontakter" [ref=f2e1724] [cursor=pointer]'
+        - 'button "4 / 13 och 15 / 15: 0 kontakter" [ref=f2e1725] [cursor=pointer]'
+        - 'button "4 / 13 och 6 / 13: 182 kontakter" [ref=f2e1726] [cursor=pointer]'
+        - 'button "4 / 13 och 0 / 12: 0 kontakter" [ref=f2e1727] [cursor=pointer]'
+        - 'button "4 / 13 och 1 / 1: 0 kontakter" [ref=f2e1728] [cursor=pointer]'
+        - 'button "4 / 13 och 10 / 15: 0 kontakter" [ref=f2e1730] [cursor=pointer]'
+        - 'button "4 / 13 och 12 / 15: 0 kontakter" [ref=f2e1731] [cursor=pointer]'
+        - generic [ref=f2e1732] [cursor=pointer]: 10 / 15
+        - generic [ref=f2e1733] [cursor=pointer]: 10 / 15
+        - 'button "10 / 15 och 0 / 0: 0 kontakter" [ref=f2e1734] [cursor=pointer]'
+        - 'button "10 / 15 och 0 / 11: 0 kontakter" [ref=f2e1735] [cursor=pointer]'
+        - 'button "10 / 15 och 11 / 11: 69 kontakter" [ref=f2e1736] [cursor=pointer]'
+        - 'button "10 / 15 och 7 / 1: 51 kontakter" [ref=f2e1737] [cursor=pointer]'
+        - 'button "10 / 15 och 0 / 6: 0 kontakter" [ref=f2e1738] [cursor=pointer]'
+        - 'button "10 / 15 och 11 / 12: 51 kontakter" [ref=f2e1739] [cursor=pointer]'
+        - 'button "10 / 15 och 8 / 7: 207 kontakter" [ref=f2e1740] [cursor=pointer]'
+        - 'button "10 / 15 och 0 / 9: 0 kontakter" [ref=f2e1741] [cursor=pointer]'
+        - 'button "10 / 15 och 8 / 8: 56 kontakter" [ref=f2e1742] [cursor=pointer]'
+        - 'button "10 / 15 och 6 / 11: 0 kontakter" [ref=f2e1743] [cursor=pointer]'
+        - 'button "10 / 15 och 11 / 8: 0 kontakter" [ref=f2e1744] [cursor=pointer]'
+        - 'button "10 / 15 och 10 / 7: 2133 kontakter" [ref=f2e1745] [cursor=pointer]'
+        - 'button "10 / 15 och 12 / 12: 52 kontakter" [ref=f2e1746] [cursor=pointer]'
+        - 'button "10 / 15 och 4 / 10: 111 kontakter" [ref=f2e1747] [cursor=pointer]'
+        - 'button "10 / 15 och 11 / 14: 0 kontakter" [ref=f2e1748] [cursor=pointer]'
+        - 'button "10 / 15 och 0 / 8: 0 kontakter" [ref=f2e1749] [cursor=pointer]'
+        - 'button "10 / 15 och 6 / 10: 0 kontakter" [ref=f2e1750] [cursor=pointer]'
+        - 'button "10 / 15 och 15 / 15: 1130 kontakter" [ref=f2e1751] [cursor=pointer]'
+        - 'button "10 / 15 och 6 / 13: 0 kontakter" [ref=f2e1752] [cursor=pointer]'
+        - 'button "10 / 15 och 0 / 12: 0 kontakter" [ref=f2e1753] [cursor=pointer]'
+        - 'button "10 / 15 och 1 / 1: 0 kontakter" [ref=f2e1754] [cursor=pointer]'
+        - 'button "10 / 15 och 4 / 13: 0 kontakter" [ref=f2e1755] [cursor=pointer]'
+        - 'button "10 / 15 och 12 / 15: 262 kontakter" [ref=f2e1757] [cursor=pointer]'
+        - generic [ref=f2e1758] [cursor=pointer]: 12 / 15
+        - generic [ref=f2e1759] [cursor=pointer]: 12 / 15
+        - 'button "12 / 15 och 0 / 0: 87 kontakter" [ref=f2e1760] [cursor=pointer]'
+        - 'button "12 / 15 och 0 / 11: 174 kontakter" [ref=f2e1761] [cursor=pointer]'
+        - 'button "12 / 15 och 11 / 11: 319 kontakter" [ref=f2e1762] [cursor=pointer]'
+        - 'button "12 / 15 och 7 / 1: 0 kontakter" [ref=f2e1763] [cursor=pointer]'
+        - 'button "12 / 15 och 0 / 6: 0 kontakter" [ref=f2e1764] [cursor=pointer]'
+        - 'button "12 / 15 och 11 / 12: 1206 kontakter" [ref=f2e1765] [cursor=pointer]'
+        - 'button "12 / 15 och 8 / 7: 0 kontakter" [ref=f2e1766] [cursor=pointer]'
+        - 'button "12 / 15 och 0 / 9: 0 kontakter" [ref=f2e1767] [cursor=pointer]'
+        - 'button "12 / 15 och 8 / 8: 0 kontakter" [ref=f2e1768] [cursor=pointer]'
+        - 'button "12 / 15 och 6 / 11: 0 kontakter" [ref=f2e1769] [cursor=pointer]'
+        - 'button "12 / 15 och 11 / 8: 0 kontakter" [ref=f2e1770] [cursor=pointer]'
+        - 'button "12 / 15 och 10 / 7: 0 kontakter" [ref=f2e1771] [cursor=pointer]'
+        - 'button "12 / 15 och 12 / 12: 1623 kontakter" [ref=f2e1772] [cursor=pointer]'
+        - 'button "12 / 15 och 4 / 10: 0 kontakter" [ref=f2e1773] [cursor=pointer]'
+        - 'button "12 / 15 och 11 / 14: 0 kontakter" [ref=f2e1774] [cursor=pointer]'
+        - 'button "12 / 15 och 0 / 8: 0 kontakter" [ref=f2e1775] [cursor=pointer]'
+        - 'button "12 / 15 och 6 / 10: 0 kontakter" [ref=f2e1776] [cursor=pointer]'
+        - 'button "12 / 15 och 15 / 15: 1553 kontakter" [ref=f2e1777] [cursor=pointer]'
+        - 'button "12 / 15 och 6 / 13: 0 kontakter" [ref=f2e1778] [cursor=pointer]'
+        - 'button "12 / 15 och 0 / 12: 168 kontakter" [ref=f2e1779] [cursor=pointer]'
+        - 'button "12 / 15 och 1 / 1: 0 kontakter" [ref=f2e1780] [cursor=pointer]'
+        - 'button "12 / 15 och 4 / 13: 0 kontakter" [ref=f2e1781] [cursor=pointer]'
+        - 'button "12 / 15 och 10 / 15: 262 kontakter" [ref=f2e1782] [cursor=pointer]'
+  - generic [ref=f2e1785]:
+    - generic [ref=f2e1786]:
+      - generic [ref=f2e1787]: TONINGSKANDIDATER
+      - heading "Observerade länkar mot ljusare par" [level=2] [ref=f2e1788]
+    - figure "Fig. 5. Varje länk finns inom den angivna bilden. Kedjan är en kandidat; länkarna behöver inte ligga i samma sammanhängande toning." [ref=f2e1789]:
+      - generic [ref=f2e1790]:
+        - generic [ref=f2e1791]:
+          - generic [ref=f2e1792]: BILD 11 · SVAGASTE LÄNK 2 052 KONTAKTER
+          - generic [ref=f2e1793]:
+            - button [ref=f2e1794] [cursor=pointer]:
+              - generic [ref=f2e1798]: 0 / 00 L*
+            - generic [ref=f2e1799]: 3 714
+            - button [ref=f2e1800] [cursor=pointer]:
+              - generic [ref=f2e1804]: 0 / 1123 L*
+            - generic [ref=f2e1805]: 2 425
+            - button [ref=f2e1806] [cursor=pointer]:
+              - generic [ref=f2e1810]: 11 / 1133 L*
+            - generic [ref=f2e1811]: 2 052
+            - button [ref=f2e1812] [cursor=pointer]:
+              - generic [ref=f2e1816]: 11 / 1243 L*
+        - generic [ref=f2e1817]:
+          - generic [ref=f2e1818]: BILD 2 · SVAGASTE LÄNK 880 KONTAKTER
+          - generic [ref=f2e1819]:
+            - button [ref=f2e1820] [cursor=pointer]:
+              - generic [ref=f2e1824]: 0 / 00 L*
+            - generic [ref=f2e1825]: 5 921
+            - button [ref=f2e1826] [cursor=pointer]:
+              - generic [ref=f2e1830]: 0 / 617 L*
+            - generic [ref=f2e1831]: 2 050
+            - button [ref=f2e1832] [cursor=pointer]:
+              - generic [ref=f2e1836]: 0 / 1123 L*
+            - generic [ref=f2e1837]: "880"
+            - button [ref=f2e1838] [cursor=pointer]:
+              - generic [ref=f2e1842]: 0 / 1236 L*
+        - generic [ref=f2e1843]:
+          - generic [ref=f2e1844]: BILD 2 · SVAGASTE LÄNK 583 KONTAKTER
+          - generic [ref=f2e1845]:
+            - button [ref=f2e1846] [cursor=pointer]:
+              - generic [ref=f2e1850]: 0 / 617 L*
+            - generic [ref=f2e1851]: 1 004
+            - button [ref=f2e1852] [cursor=pointer]:
+              - generic [ref=f2e1856]: 0 / 918 L*
+            - generic [ref=f2e1857]: "855"
+            - button [ref=f2e1858] [cursor=pointer]:
+              - generic [ref=f2e1862]: 0 / 1123 L*
+            - generic [ref=f2e1863]: "583"
+            - button [ref=f2e1864] [cursor=pointer]:
+              - generic [ref=f2e1868]: 11 / 1243 L*
+            - generic [ref=f2e1869]: "951"
+            - button [ref=f2e1870] [cursor=pointer]:
+              - generic [ref=f2e1874]: 12 / 1250 L*
+            - generic [ref=f2e1875]: "626"
+            - button [ref=f2e1876] [cursor=pointer]:
+              - generic [ref=f2e1880]: 12 / 1559 L*
+        - generic [ref=f2e1881]:
+          - generic [ref=f2e1882]: BILD 10 · SVAGASTE LÄNK 524 KONTAKTER
+          - generic [ref=f2e1883]:
+            - button [ref=f2e1884] [cursor=pointer]:
+              - generic [ref=f2e1888]: 0 / 00 L*
+            - generic [ref=f2e1889]: 4 309
+            - button [ref=f2e1890] [cursor=pointer]:
+              - generic [ref=f2e1894]: 0 / 918 L*
+            - generic [ref=f2e1895]: 2 568
+            - button [ref=f2e1896] [cursor=pointer]:
+              - generic [ref=f2e1900]: 0 / 1123 L*
+            - generic [ref=f2e1901]: 2 669
+            - button [ref=f2e1902] [cursor=pointer]:
+              - generic [ref=f2e1906]: 0 / 828 L*
+            - generic [ref=f2e1907]: "524"
+            - button [ref=f2e1908] [cursor=pointer]:
+              - generic [ref=f2e1912]: 0 / 542 L*
+        - generic [ref=f2e1913]:
+          - generic [ref=f2e1914]: BILD 11 · SVAGASTE LÄNK 481 KONTAKTER
+          - generic [ref=f2e1915]:
+            - button [ref=f2e1916] [cursor=pointer]:
+              - generic [ref=f2e1920]: 6 / 1130 L*
+            - generic [ref=f2e1921]: 1 287
+            - button [ref=f2e1922] [cursor=pointer]:
+              - generic [ref=f2e1926]: 11 / 1133 L*
+            - generic [ref=f2e1927]: 2 052
+            - button [ref=f2e1928] [cursor=pointer]:
+              - generic [ref=f2e1932]: 11 / 1243 L*
+            - generic [ref=f2e1933]: "796"
+            - button [ref=f2e1934] [cursor=pointer]:
+              - generic [ref=f2e1938]: 12 / 1250 L*
+            - generic [ref=f2e1939]: "481"
+            - button [ref=f2e1940] [cursor=pointer]:
+              - generic [ref=f2e1944]: 12 / 1559 L*
+            - generic [ref=f2e1945]: "515"
+            - button [ref=f2e1946] [cursor=pointer]:
+              - generic [ref=f2e1950]: 15 / 1567 L*
+  - group [ref=f2e1952]:
+    - generic "Så räknas färgpar och grannskap" [ref=f2e1953] [cursor=pointer]
+  - generic [ref=f2e1954]:
+    - button "Hämta hela analysen · JSON" [ref=f2e1955] [cursor=pointer]
+    - button "Hämta synliga par · CSV" [ref=f2e1956] [cursor=pointer]
+    - button "Hämta synliga grannkontakter · CSV" [ref=f2e1957] [cursor=pointer]
+  - generic [ref=f2e1958]:
+    - text: "Palett:"
+    - link "PEPTOette_a, C64GFX" [ref=f2e1959] [cursor=pointer]:
+      - /url: https://c64gfx.com/api/palettes.json
+    - text: . Analysen använder de redan palettsnappade PNG-bilderna. Sällsynta par kan uppstå vid motivkanter eller genom tidigare JPEG-komprimering.
