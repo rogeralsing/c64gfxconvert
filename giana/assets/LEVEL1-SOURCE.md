@@ -50,6 +50,8 @@ The original blue sky becomes black. Other original colors are mapped to the
 closest RGB color among black `$0`, brown `$9`, orange `$8`, and green `$5`,
 using the same Peptoette A palette as the surrounding picture. The local
 `peptoette-a.vpl` is an unchanged copy of `../../palettes/peptoette-a.vpl`.
+Hardware pixel codes are 0 = orange, 1 = brown, 2 = black, and 3 = green.
+The sky uses code 2 so the surrounding bitmap keeps its orange global background.
 
 The reduced image is divided into 4×8 multicolor-pixel storage tiles. Identical
 tiles are deduplicated. These storage tiles do not redefine the original
