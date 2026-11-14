@@ -76,11 +76,53 @@ tiles are deduplicated. These storage tiles do not redefine the original
 objects: features can cross tile boundaries, and their positions come entirely
 from the original map. The result contains 136 tiles, 1,088 bytes of graphics,
 and a 128×8 map containing 1,024 one-byte tile IDs, plus the 512-byte accent table.
-No player or enemy sprites are included.
+The terrain payload contains no actor pixels. Tiny original characters are
+prepared separately; see [sprites-SOURCE.md](sprites-SOURCE.md).
+
+## Fixed perspective trial
+
+The TV uses four character-column regions with boundaries `[0, 3, 5, 7, 10]`.
+The top edge therefore steps at columns 3 and 7; the bottom edge keeps its step
+at column 5. All four regions share unchanged center lines 28–35.
+
+| Region | TV columns | Black mask lines | Upper sampling | Lower sampling |
+| --- | --- | --- | --- | --- |
+| 0 | 0–2 | 0, 1, 63 | Lines 2–27 read source `y-2` | Lines 36–62 read source `y+1` |
+| 1 | 3–4 | 0, 63 | Lines 1–27 read source `y-1` | Lines 36–62 read source `y+1` |
+| 2 | 5–6 | 0 | Lines 1–27 read source `y-1` | Lines 28–63 keep their source line |
+| 3 | 7–9 | None | Identity | Identity |
+
+`terrain.asm` exports four compile-time source-row lists, the five column
+boundaries, and three neighboring-region transfer lists. Each transfer row
+finds the displayed row in the right neighbor with the same original source Y;
+`-1` denotes a mask line. Every non-mask transfer is verified against both
+source-row lists. The four black-character-row masks are `[$81, $81, $01, $00]`.
+
+The regular terrain patterns, map, and accent table remain byte-for-byte unchanged.
+Three separate 512-byte phase tables recompute the accent from the vertically
+sampled semantic pixels:
+
+| Region | Asset | Verified accent pixel occurrences |
+| --- | --- | ---: |
+| 0 | `level1-perspective-accents.bin` | 3,312 |
+| 1 | `level1-perspective-middle-accents.bin` | 3,316 |
+| 2 | `level1-perspective-right-accents.bin` | 3,368 |
+| 3 | Regular `level1-accents.bin` | 3,372 |
+
+All four use the same phase/column flag layout and have zero mixed-accent
+windows. The three warped tables correct ten visible flag differences from
+using the regular table unchanged. `TERRAIN_PERSPECTIVE_ACCENT_MAPS` lists their
+assembler addresses in region order, with the regular table last.
+
+The renderer reserves code 3 and color RAM 0 only in the 12 character cells
+containing black mask lines. Their retained visible lines contain no green/yellow
+accent pixels anywhere in the complete map at any fine-scroll phase. The masks
+therefore lose no accent detail. The importer checks this condition separately
+for each warped region before writing its table.
 
 ## Rebuild
 
-From the repository root, regenerate the three binary assets, `terrain.asm`, and
+From the repository root, regenerate the six binary assets, `terrain.asm`, and
 the machine-readable `level1-import.json` receipt without network access:
 
 ```sh

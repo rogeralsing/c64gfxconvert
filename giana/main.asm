@@ -6,25 +6,50 @@
 
 .const SCREEN = $0400
 .const BITMAP = $2000
-.const SCREEN_DATA = BITMAP + 8000
+.const SCREEN_DATA = $c000
 .const COLOR_DATA = SCREEN_DATA + 1000
 .const BACKGROUND = picture.get(10002) & $0f
 .const TV_PIXELS = TV_WIDTH * 4
 .const TV_UPDATE_RASTER = 144
+.const MUSIC_UPDATE_RASTER = 64
 .const SCROLL_FRAME_INTERVAL = 4
 .const LIGHT_UPDATE_RASTER = 250
 .const LIGHT_FRAME_INTERVAL = 16
 .const TILE_POINTER = $fb
 .const COLOR_BITS = $fd
 
-* = $4800 "Terrain tiles and map"
+* = $a000 "Terrain tiles and map"
     .import source "terrain.asm"
+
+* = $41c0 "Original Giana in-game music"
+    .import source "assets/music.asm"
+.assert "Music fits below the renderer", musicOriginalEnd <= $6000, true
+
+* = $0c00 "Tiny original sprites"
+    .import source "assets/sprites.asm"
+spriteWork0: .fill 64, 0
+spriteWork1: .fill 64, 0
+spriteWork2: .fill 64, 0
+tvHighlightSprite:
+    .import binary "assets/tv-highlight.bin"
+.assert "TV highlight is one hires sprite", * - tvHighlightSprite, 64
+.assert "TV highlight is 64-byte aligned", tvHighlightSprite & $3f, 0
+.assert "Sprite atlas and working frames avoid character ROM", * <= $1000, true
 
 BasicUpstart2(start)
 
 start:
     sei
     cld
+
+    // Read the terrain RAM beneath BASIC while keeping KERNAL and I/O mapped.
+    lda $00
+    ora #7
+    sta $00
+    lda $01
+    and #$f8
+    ora #6
+    sta $01
 
     // Keep the display blank while copying the two color maps.
     lda #$0b
@@ -78,6 +103,12 @@ copyTail:
 
     jsr initTerrain
     jsr applyLight
+    jsr initSprites
+
+    // The native cue selector resets the driver itself. Cue 1 is SID subtune 3.
+    lda #MUSIC_LEVEL1_CUE
+    clc
+    jsr MUSIC_SELECT
 
     // Reveal the complete picture during the lower border.
 waitBorder:
@@ -87,9 +118,22 @@ waitBorder:
     sta $d011
 display:
     lda $d012
-    cmp #TV_UPDATE_RASTER
+    cmp #MUSIC_UPDATE_RASTER
     bne display
+musicFrameStart:
+    jsr MUSIC_PLAY
+musicFrameDone:
+waitTVUpdate:
+    lda $d012
+    cmp #TV_UPDATE_RASTER
+    bne waitTVUpdate
 frameStart:
+    // Sprite copies use a separate frame from terrain and room lighting.
+    lda frameCounter
+    and #3
+    bne !noSprites+
+    jsr updateSprites
+!noSprites:
     dec scrollCountdown
     bne checkLight
     jsr scrollTerrain
@@ -143,6 +187,20 @@ initTerrain:
     cpx #TV_WIDTH
     bne !colors-
 
+    // Mask the fixed stepped edges; code 3 becomes black in their cells.
+    lda #$ff
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .var rows = TERRAIN_PERSPECTIVE_SOURCE_ROWS.get(region)
+        .for (var line = 0; line < TV_HEIGHT * 8; line++) {
+            .if (rows.get(line) < 0) {
+                .var address = BITMAP + ((TV_ROW + floor(line / 8)) * 40 + TV_COLUMN) * 8 + (line & 7)
+                .for (var column = TERRAIN_PERSPECTIVE_COLUMNS.get(region); column < TERRAIN_PERSPECTIVE_COLUMNS.get(region + 1); column++) {
+                    sta address + column * 8
+                }
+            }
+        }
+    }
+
     // Forty incoming columns replace the white area and stray side strips.
     jsr prepareColumn
     lda #TV_PIXELS
@@ -184,26 +242,55 @@ prepareColumn:
     }
     rts
 
-.assert "Setup fits below the bitmap", * <= BITMAP, true
+.assert "Setup fits below the sprite atlas", * <= $0c00, true
 
-* = BITMAP "Koala bitmap and color maps"
-    .fill 10000, picture.get(i + 2)
+* = BITMAP "Koala bitmap"
+    .fill 8000, picture.get(i + 2)
+.assert "Bitmap fits below original music", * <= MUSIC_LOAD, true
 
-.assert "Terrain fits below the renderer", terrainDataEnd <= $6000, true
+* = SCREEN_DATA "Koala screen and color sources"
+    .fill 2000, picture.get(i + 8002)
+.assert "PRG data avoids the I/O window", * <= $d000, true
+
+.assert "Terrain fits below the color sources", terrainDataEnd <= SCREEN_DATA, true
 * = $6000 "TV scroll renderer"
 
 scrollTerrain:
+    // Feed regions left to right while each neighbor still contains old data.
+    // Only crossing a fixed seam changes the row of the pixel stream.
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS - 1; region++) {
+        .var rows = TERRAIN_PERSPECTIVE_TRANSFER_ROWS.get(region)
+        .var firstColumn = TERRAIN_PERSPECTIVE_COLUMNS.get(region)
+        .var nextColumn = TERRAIN_PERSPECTIVE_COLUMNS.get(region + 1)
+        .for (var line = 0; line < TV_HEIGHT * 8; line++) {
+            .var sourceLine = rows.get(line)
+            .if (sourceLine >= 0) {
+                .var address = BITMAP + ((TV_ROW + floor(line / 8)) * 40 + TV_COLUMN) * 8 + (line & 7)
+                .var source = BITMAP + ((TV_ROW + floor(sourceLine / 8)) * 40 + TV_COLUMN + nextColumn) * 8 + (sourceLine & 7)
+                lda source
+                asl
+                .for (var column = nextColumn - 1; column >= firstColumn; column--) {
+                    rol address + column * 8
+                }
+                asl
+                .for (var column = nextColumn - 1; column >= firstColumn; column--) {
+                    rol address + column * 8
+                }
+            }
+        }
+    }
+
     // Shift right-to-left twice. A retains the two incoming pixel bits while
-    // carry propagates through all ten bitmap bytes.
+    // carry propagates through the unwarped final region's bitmap bytes.
     .for (var line = 0; line < TV_HEIGHT * 8; line++) {
         .var address = BITMAP + ((TV_ROW + floor(line / 8)) * 40 + TV_COLUMN) * 8 + (line & 7)
         lda incomingColumn + line
         asl
-        .for (var column = TV_WIDTH - 1; column >= 0; column--) {
+        .for (var column = TV_WIDTH - 1; column >= TERRAIN_PERSPECTIVE_COLUMNS.get(TERRAIN_PERSPECTIVE_REGIONS - 1); column--) {
             rol address + column * 8
         }
         asl
-        .for (var column = TV_WIDTH - 1; column >= 0; column--) {
+        .for (var column = TV_WIDTH - 1; column >= TERRAIN_PERSPECTIVE_COLUMNS.get(TERRAIN_PERSPECTIVE_REGIONS - 1); column--) {
             rol address + column * 8
         }
         // Keep the remaining source pixels ready for the next PAL frame.
@@ -229,9 +316,9 @@ scrollTerrain:
 updateColors:
     // Reuse the finished tile fetch's pointer for the current color phase.
     ldy tilePixelX
-    lda accentPhaseLow,y
+    lda perspectiveAccentPhaseLow,y
     sta TILE_POINTER
-    lda accentPhaseHigh,y
+    lda perspectiveAccentPhaseHigh,y
     sta TILE_POINTER+1
     lda incomingTile
     sec
@@ -239,23 +326,36 @@ updateColors:
     and #TERRAIN_MAP_WIDTH - 1
     tay
 
-    // Each flag byte contains one map column's eight green/yellow choices.
-    .for (var column = 0; column < TV_WIDTH; column++) {
-        lda (TILE_POINTER),y
-        sta COLOR_BITS
-        .for (var row = 0; row < TV_HEIGHT; row++) {
-            lsr COLOR_BITS
-            lda #5
-            bcc !green+
-            lda #7
+    // Each region selects its own projected green/yellow column flags.
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var column = TERRAIN_PERSPECTIVE_COLUMNS.get(region); column < TERRAIN_PERSPECTIVE_COLUMNS.get(region + 1); column++) {
+            .if (region > 0 && column == TERRAIN_PERSPECTIVE_COLUMNS.get(region)) {
+                ldx tilePixelX
+                lda perspectiveAccentPhaseLow + region * 4,x
+                sta TILE_POINTER
+                lda perspectiveAccentPhaseHigh + region * 4,x
+                sta TILE_POINTER+1
+            }
+            lda (TILE_POINTER),y
+            sta COLOR_BITS
+            .for (var row = 0; row < TV_HEIGHT; row++) {
+                lsr COLOR_BITS
+                .if ((TERRAIN_PERSPECTIVE_BLACK_ROWS.get(region) & (1 << row)) != 0) {
+                    lda #0
+                } else {
+                    lda #5
+                    bcc !green+
+                    lda #7
 !green:
-            sta $d800 + (TV_ROW + row) * 40 + TV_COLUMN + column
-        }
-        .if (column < TV_WIDTH - 1) {
-            iny
-            tya
-            and #TERRAIN_MAP_WIDTH - 1
-            tay
+                }
+                sta $d800 + (TV_ROW + row) * 40 + TV_COLUMN + column
+            }
+            .if (column < TV_WIDTH - 1) {
+                iny
+                tya
+                and #TERRAIN_MAP_WIDTH - 1
+                tay
+            }
         }
     }
     rts
@@ -286,10 +386,18 @@ lightLevel: .byte 0
 // terrain renderer and the full room palette never share an update frame.
 lightCountdown: .byte LIGHT_FRAME_INTERVAL - 2
 
-accentPhaseLow:
-    .byte <terrainAccentMap, <(terrainAccentMap + 128), <(terrainAccentMap + 256), <(terrainAccentMap + 384)
-accentPhaseHigh:
-    .byte >terrainAccentMap, >(terrainAccentMap + 128), >(terrainAccentMap + 256), >(terrainAccentMap + 384)
+perspectiveAccentPhaseLow:
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var phase = 0; phase < 4; phase++) {
+            .byte <(TERRAIN_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+        }
+    }
+perspectiveAccentPhaseHigh:
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var phase = 0; phase < 4; phase++) {
+            .byte >(TERRAIN_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+        }
+    }
 
 frameCounter: .word 0
 scrollCountdown: .byte SCROLL_FRAME_INTERVAL
@@ -308,3 +416,14 @@ incomingColumn: .fill TV_HEIGHT * 8, 0
 .assert "Accent flags start on a page boundary", <terrainAccentMap, 0
 .assert "Accent flag bits cover the TV rows", TV_HEIGHT, 8
 .assert "Accent phases use 128 map columns", TERRAIN_MAP_WIDTH, 128
+.assert "Perspective columns cover the TV", TERRAIN_PERSPECTIVE_COLUMNS.get(TERRAIN_PERSPECTIVE_REGIONS), TV_WIDTH
+.assert "Perspective boundaries include both TV edges", TERRAIN_PERSPECTIVE_COLUMNS.size(), TERRAIN_PERSPECTIVE_REGIONS + 1
+.for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+    .var rows = TERRAIN_PERSPECTIVE_SOURCE_ROWS.get(region)
+    .assert "Perspective region covers every raster row", rows.size(), TV_HEIGHT * 8
+}
+
+.assert "Terrain renderer fits below sprite helpers", * <= $9000, true
+* = $9000 "Tiny actor movement and clipping"
+    .import source "sprites.asm"
+.assert "Sprite helpers fit below BASIC ROM", * <= $a000, true

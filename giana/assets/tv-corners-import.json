@@ -1,0 +1,65 @@
+{
+  "profile_sha256": "f1ee574a3e0b1a55ad7831c4590bab9c6bc81d9d40797cb6de21b01fab541c9f",
+  "frame_order": [
+    "top_left",
+    "top_right",
+    "bottom_left",
+    "bottom_right"
+  ],
+  "tv_size": [
+    80,
+    64
+  ],
+  "sprite_size": [
+    24,
+    21
+  ],
+  "outside_pixels_by_depth": [
+    6,
+    4,
+    3,
+    2,
+    1,
+    1,
+    0,
+    0
+  ],
+  "frame_origins": [
+    [
+      0,
+      0
+    ],
+    [
+      56,
+      0
+    ],
+    [
+      0,
+      43
+    ],
+    [
+      56,
+      43
+    ]
+  ],
+  "baseline_y": [
+    2,
+    0,
+    62,
+    63
+  ],
+  "frame_stride_bytes": 64,
+  "atlas_bytes": 256,
+  "opaque_pixels_per_frame": [
+    17,
+    17,
+    17,
+    17
+  ],
+  "total_opaque_pixels": 68,
+  "sprite_color": 0,
+  "multicolor": false,
+  "bit_rule": "set bits outside rounded opening, transparent elsewhere",
+  "decoded_pixels_verified": 2016,
+  "atlas_sha256": "1a30dbf9e366ee0d9d8b91a916f1bf6921dc5ef35728a3551936d324dbdfd89b"
+}

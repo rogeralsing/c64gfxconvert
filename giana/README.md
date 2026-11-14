@@ -6,6 +6,9 @@ The asset in `assets/giana5.koa` is an unchanged copy of `../images/giana5.koa`.
 `../images/giana5.json` supplies the `GameArea` and `ScreenLight` tile masks.
 The earlier `giana2.koa` asset remains available unchanged.
 
+Build requirements: Python 3 with Pillow, and KickAssembler. Running and native
+verification require PAL-capable VICE (`x64sc`; music reference checks use `vsid`).
+
 Build with KickAssembler:
 
 ```sh
@@ -26,11 +29,37 @@ colors at `$0400`, color RAM at `$D800`, a dark-brown global background, and a
 black border. The TV occupies the full character rectangle at physical pixels
 `[184,264) × [24,88)`, or 40×64 multicolor pixels: character columns 23–32
 and rows 3–10. These are exactly the 80 cells marked by `GameArea`, matching
-the previous demo's viewport. There are no sprites.
+the previous demo's viewport. Tiny original Giana and owl characters use three
+hardware sprites inside that area. A fourth hires sprite adds the cyan glass
+highlight at the TV's upper-left corner. Four black hires corner masks round
+the opening; all eight hardware sprites are in use.
 
-All 80 cells share brown, light blue and orange. Each cell's fourth color follows
-the map: green for bushes and yellow for pipes and bonus blocks. Terrain
-continues across the entire rectangle.
+The demo also plays Chris Hülsbeck's original first-level music, corresponding
+to subtune 3 of `Great_Giana_Sisters.sid`.
+
+The TV cells share brown, light blue and orange. Their fourth color follows
+the map: green for bushes and yellow for pipes and bonus blocks. Twelve
+top/bottom edge cells reserve that color for the black perspective mask.
+
+## Original in-game music
+
+`tools/prepare-music.py` imports the complete 7,709-byte original player and
+score module from the retained SID. The module stays at `$41C0..$5FDC` without
+byte patches. Startup selects internal cue 1 with `LDA #1; CLC; JSR $41C9`;
+the selector initializes the player itself. Its native score loops independently
+of the terrain. Source hashes and the original-game cue mapping are in
+[`assets/MUSIC-SOURCE.md`](assets/MUSIC-SOURCE.md).
+
+The scene calls `$41C0` once per PAL frame at raster 64, before the graphics
+update at raster 144. This keeps music out of the terrain renderer's next-frame
+deadline. The driver uses zero page `$A4..$B9`; graphics retain `$FB..$FE`.
+Cue 1 leaves the original optional sampler disabled and uses the SID's three
+native voices. The VICE launcher selects reSID/MOS6581, matching the source.
+
+Terrain data occupies RAM beneath BASIC at `$A000..$B0FF`; startup selects
+`$01=$36` while retaining KERNAL and I/O. The bitmap stays at `$2000..$3F3F`.
+Its startup screen/color sources live at `$C000..$C7CF`, leaving the music's
+original addresses free. The PRG ends below the I/O window at `$D000`.
 
 ## Screen light
 
@@ -77,6 +106,53 @@ python3 tools/prepare-scene.py --preview
 Light updates start at raster 250, after the final picture line. They run
 two frames apart from terrain updates, so both jobs never share a frame.
 
+## Tiny original characters
+
+Giana uses four original walking poses reduced to 12×10 physical pixels. Two
+overlaid multicolor sprite planes preserve yellow hair and blue clothes. The
+Stage 1 horned owl uses two original poses, with a 12×8 visible bounding box.
+Both use transparent padding in standard 24×21 hardware sprite containers.
+The shared colors are skin/light red 10 and red 2; individual colors are
+yellow 7, blue 6 and owl white 1. Only Giana's white highlights approximate
+skin color. Source hashes, original frame indices and reduction details are in
+[`assets/sprites-SOURCE.md`](assets/sprites-SOURCE.md).
+
+The original collision table supplies a 256-byte owl-ground lookup. Giana's
+512-byte demonstration route uses solid surfaces throughout the map, including
+floating platforms. Takeoffs require support under her feet; gravity and the
+first surface crossed on descent determine landings. The route favors walking
+and uses short jumps where obstacles or owls require them. Collision checks
+include the visible character poses and the terrain's perspective bands.
+Horizontal clipping clears pixels outside the TV in three working buffers.
+
+Sprite animation and buffer copies run on frame phase 0, terrain on phase 3,
+and room-light changes on phase 1. This keeps the larger jobs separate. Actor
+positions therefore follow a terrain step one PAL frame later.
+
+The 640-byte immutable atlas and three 64-byte work buffers occupy
+`$0C00..$0F3F`, below the VIC's character-ROM window. The 64-byte hires highlight
+follows at `$0F40..$0F7F`. It uses hardware sprite 4, at bitmap position
+`(184,27)`, three raster lines below the top edge, so its cyan pixels remain
+inside the picture and in front of the game characters. Black source pixels
+are transparent. A curved dithered patch follows the rounded corner, with
+coverage fading inward like the upper-left quadrant of shaded spherical glass.
+`tools/prepare-tv-highlight.py` rebuilds this sprite from its readable native art.
+Sprite helpers, clipping
+tables, ground lookup, demonstration route and corner masters occupy `$9000..$97FF`.
+`build.sh` regenerates the sprite assets offline with `tools/prepare-sprites.py`.
+
+Four black hires sprites in hardware slots 0–3 cover the rounded corners in
+front of the highlight and actors. The eight-row cut profile is
+`[6,4,3,2,1,1,0,0]`, offset to the existing perspective edges. Each corner masks
+17 physical pixels. These overlays preserve the unmasked bitmap stream and all
+cell colors, so hidden right-edge pixels scroll into view intact.
+
+The four 64-byte frames are copied to `$0200..$02FF` after SYS. This standalone
+part disables interrupts and never returns to BASIC, leaving that workspace
+available without moving the PRG's load address. The right masks start at VIC
+X 264, so their fixed X high bits remain set alongside the moving owl's bit.
+`tools/prepare-tv-corners.py` rebuilds the masks from the readable arc profile.
+
 ## Terrain scrolling
 
 `terrain.asm` loads 136 tiles of eight bytes each and a 128×8 map of one-byte
@@ -89,27 +165,45 @@ white highlights become yellow. The remaining colors use the shared colors
 and the cell's green or yellow accent.
 
 The 40×64-multicolor-pixel viewport scrolls left by one multicolor pixel every
-four PAL frames, four times slower than the first test. Two right-to-left carry
-shifts move each bitmap scanline and insert
-the next pair of source bits at its right edge. A 64-byte incoming column keeps
+four PAL frames, four times slower than the first test. Two carry shifts move
+each pixel stream and insert the next source bits at its right edge. Each
+region reads its old right neighbor before that neighbor changes. A 64-byte incoming column keeps
 the current tiles' eight scanlines; shifting it selects the next pixel within
 each tile. Every fourth pixel step (16 PAL frames), the player advances the map
 column and reads eight new tile IDs. The map wraps after 2,048 PAL frames,
 returning from the original level ending to its start.
 
-After every pixel step, the player updates the 80 color-RAM cells from a
-512-byte table. Four fine-scroll phases each contain 128 column bytes; each
+After every pixel step, the player updates the 80 color-RAM cells from the
+four regional 512-byte tables. Four fine-scroll phases each contain 128 column bytes; each
 byte's eight bits select green or yellow for the eight TV rows. The visible
 column is derived from the incoming column and fine-pixel state. Colors remain
 limited to character cells, so the dominant accent wins where green and yellow
 share a cell. This palette produces no green/yellow conflicts across the
 four phases of the reduced level.
 
-The map uses 1,024 bytes, the tiles use 1,088 bytes, the accent table uses 512
+## Perspective trial
+
+Two upper seams after character columns 3 and 7 (physical X=208 and X=240)
+move the upper stream down one raster line each. These are 30% and 70% of
+the TV width, rounded to character boundaries from the requested thirds.
+The lower stream keeps its single upward step at column 5 (physical X=224).
+The eight center lines stay straight.
+
+Four regions span character columns `[0,3)`, `[3,5)`, `[5,7)` and `[7,10)`.
+Their upper offsets are two, one, one and zero raster lines; their lower
+offsets are one, one, zero and zero lines. Black masks cover the resulting
+stepped edges. The mapping is fixed in screen space and does not accumulate.
+
+Twelve edge character cells use black as the accent color. Their retained
+pixels contain no green/yellow accents anywhere in the level. Each region
+has a 512-byte accent table following its shifted row windows; the final
+region retains the original unwarped table.
+
+The map uses 1,024 bytes, the tiles use 1,088 bytes, the four accent tables use 2,048
 bytes, and the incoming column uses 64 bytes. A fully expanded bitmap for the
-reduced terrain would use 8,192 bytes. Tiles and map live at `$4800`, with the
-accent table at `$5100..$52FF`; setup stays below `$2000`, while the renderer,
-color updater, lighting tables and incoming column occupy `$6000..$81F4`. Zero-page bytes
+reduced terrain would use 8,192 bytes. Tiles and map live at `$A000`, with the
+accent tables at `$A900..$B0FF`; setup stays below `$0C00`, while the renderer,
+color updater, lighting tables and incoming column occupy `$6000..$854B`. Zero-page bytes
 `$FB/$FC` address tile graphics and accent phases; `$FD` holds the color flags.
 
 Terrain updates begin at PAL raster line 144, after the TV's last visible line, and
@@ -124,14 +218,20 @@ graphics and map offline with:
 python3 tools/prepare-level1.py
 ```
 
-The source assets contain only map, character graphics and character colors.
+The retained terrain inputs contain map, character graphics and character colors.
 The player uses the generated tile map rather than running the original game.
 
 Run native verification after building:
 
 ```sh
-python3 tools/verify-scene.py
+python3 tools/verify-scene.py --frames 5205
+python3 tools/verify-scene.py --frames 35 --autostart-mode 2
 ```
+
+The first run uses `prepare-music-reference.py` to capture an independent native
+VSID reference from the retained source SID. Later runs reuse that ignored
+reference when its source identity matches. The second command checks ordinary
+1541 disk autostart with the same PRG.
 
 Native verification compares all 64,000 screen pixels with an independent
 Koala, tile-map and accent-table decode. It also checks the color-RAM choices
@@ -139,12 +239,39 @@ for all 80 TV cells and the green bush/yellow pipe in the same native frame.
 It checks automatic lighting, all protected color masks, unchanged cells outside
 both regions, all 512 scroll positions, four accent phases and the
 2,048-PAL-frame wrap. The receipt and actual VICE animation are
-`build/giana5-verification.json` and `build/giana5.gif`. The earlier verification
+`build/integrated-music-verification.json` and `build/integrated-music.gif`. The animation
+samples one terrain loop every eight PAL frames at 160 ms per image, preserving
+its actual duration. The disk-start receipt is
+`build/integrated-music-startup-verification.json`. The earlier verification
 remains in `build/giana2-color-verification.json` and `build/giana2-color.gif`.
 
 The native receipt records the checked frames, protected pixel counts and
-timing. The sky probe checks light blue directly, alongside green bushes and
-yellow pipes and bonus blocks. The giana5 pass verified 2,049 PAL checkpoints,
-the full map wrap, 129 light transitions and 69 complete screenshots with zero
-pixel differences. All 3,330 protected multicolor pixels stayed fixed. The
-longest update used 11,918 cycles; light changes finished at raster 293.
+timing. The perspective reference checks the fixed row mapping, both black
+masks, shifted accent colors and the unchanged right half. Sky and object
+probes follow the projected pixel positions. The native receipt records all
+512 states, the 2,048-frame wrap, three light levels and completion timing
+before the next music call at raster 64. Sprite verification also checks
+animation poses, work-buffer pixels, clipping, hardware X high bits and
+composited native screenshots through the actor-loop restart. It requires
+visible Giana art at every step, clearance throughout all six owl encounters,
+and contact with the rendered solid surfaces during walking and landing.
+The highlight check reads the approved native art independently and checks
+its hires mode, cyan color, fixed position, immutable data and foreground priority.
+Corner checks cover all eight hardware slots, the static black profile, the
+copied VIC-visible frames and the unchanged underlying scroll pixels.
+The integrated pass
+checked 5,206 PAL checkpoints and 354 complete screenshots with zero pixel
+differences. All actor poses and both edge clips passed, with no opaque pixels
+outside the TV or over its black masks. The longest terrain update used
+13,250 cycles and ended at raster 42; the longest actor update used 5,164
+cycles and ended at raster 226 on its separate update frame. The independent
+contact audit found 303 terrain contacts, four owl-head supports, and 205
+unsupported jump/fall states. No body penetrations, midair relaunches, or
+missed descending landings occurred. The four rounded ballistic apices each
+last four displayed steps; the former long height-clamped plateaus are gone.
+
+All 116,480 SID register writes matched the original subtune's per-call sequence,
+including the score loop at call 5,181. Mutable player state and bookmarks also
+matched. Music calls took 598–2,860 elapsed cycles and finished by raster 109,
+before the graphics update at 144. The complete normal-demo recording includes
+the music loop with terrain, actors, corner masks and lighting active.

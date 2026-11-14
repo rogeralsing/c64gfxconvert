@@ -1,0 +1,23 @@
+{
+  "source_mask_file": "tv-highlight-mask.json",
+  "source_mask_sha256": "e415851c5a36536b700a406552d268f598a6b10190ee1d105f1b36d2b1b3d57a",
+  "original_reference_png_sha256": "48361b03d5c4eaf9aab57ed7f21d0695a83359c21a6fc9fb88d52ccc7cd6a946",
+  "native_dimensions": [
+    24,
+    21
+  ],
+  "design": "Top-left spherical glass sheen, curved half-tone and quarter-tone contours fading inward.",
+  "format": "C64 hires sprite: 24x21 bits, 3 bytes/row, byte63 zero padding",
+  "set_bit": "cyan3 opaque glass shine",
+  "clear_bit": "transparent",
+  "runtime_color": 3,
+  "tv_local_origin": [
+    0,
+    3
+  ],
+  "bytes": 64,
+  "lit_pixels": 90,
+  "decoded_pixels_verified": 504,
+  "rounded_corner_overlap_pixels": 0,
+  "sprite_sha256": "10b74e6790a1ca1c5b495825569288331677333b61dc446711dee5eb9d026e8e"
+}

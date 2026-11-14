@@ -26,6 +26,17 @@ SOURCE_WIDTH = 2048
 SOURCE_HEIGHT = 160
 MAP_WIDTH = 128
 MAP_HEIGHT = 8
+PERSPECTIVE_COLUMNS = (0, 3, 5, 7, 10)
+PERSPECTIVE_SOURCE_ROWS = (
+    tuple(-1 if y in (0, 1, 63) else y - 2 if y < 28 else y if y < 36 else y + 1 for y in range(64)),
+    tuple(-1 if y in (0, 63) else y - 1 if y < 28 else y if y < 36 else y + 1 for y in range(64)),
+    tuple(-1 if y == 0 else y - 1 if y < 28 else y for y in range(64)),
+    tuple(range(64)),
+)
+PERSPECTIVE_FILES = ("level1-perspective-accents.bin", "level1-perspective-middle-accents.bin",
+                     "level1-perspective-right-accents.bin")
+PERSPECTIVE_LABELS = ("terrainPerspectiveAccentMap", "terrainPerspectiveMiddleAccentMap",
+                      "terrainPerspectiveRightAccentMap")
 TV_COLORS = (8, 9, 14, 5, 7)
 BASE_CODES = {9: 0, 14: 1, 8: 2}
 SOURCE_BACKGROUND = 14
@@ -34,6 +45,19 @@ SOURCE_MULTICOLORS = (8, 9)
 
 def digest(data):
     return hashlib.sha256(data).hexdigest()
+
+
+def assembly_list(name, values):
+    return [f".var {name} = List()", *[f".eval {name}.add({value})" for value in values]]
+
+
+def assembly_nested_list(name, rows):
+    lines = [f".var {name} = List()"]
+    for index, values in enumerate(rows):
+        child = f"{name}_{index}"
+        lines.extend(assembly_list(child, values))
+        lines.append(f".eval {name}.add({child})")
+    return lines
 
 
 def read_verified(name):
@@ -184,6 +208,77 @@ def main():
                         assert color == actual
                         accent_pixels_verified += 1
 
+    perspective_black_rows = [sum(1 << row for row in range(MAP_HEIGHT)
+                                  if -1 in source_rows[row * 8:row * 8 + 8])
+                              for source_rows in PERSPECTIVE_SOURCE_ROWS]
+    perspective_transfer_rows = []
+    for source_rows, neighbor_rows in zip(PERSPECTIVE_SOURCE_ROWS, PERSPECTIVE_SOURCE_ROWS[1:]):
+        inverse = {source_y: y for y, source_y in enumerate(neighbor_rows) if source_y >= 0}
+        assert len(inverse) == sum(source_y >= 0 for source_y in neighbor_rows)
+        transfer = [-1 if source_y < 0 else inverse[source_y] for source_y in source_rows]
+        assert all(transfer[y] == -1 if source_y < 0 else neighbor_rows[transfer[y]] == source_y
+                   for y, source_y in enumerate(source_rows))
+        perspective_transfer_rows.append(transfer)
+    perspective_masked_cells = sum((PERSPECTIVE_COLUMNS[region + 1] - PERSPECTIVE_COLUMNS[region])
+                                   * black_rows.bit_count()
+                                   for region, black_rows in enumerate(perspective_black_rows))
+    assert perspective_black_rows == [0x81, 0x81, 0x01, 0]
+    assert perspective_masked_cells == 12
+
+    perspective_tables = []
+    perspective_stats = []
+    for region, source_rows in enumerate(PERSPECTIVE_SOURCE_ROWS[:3]):
+        table = bytearray()
+        conflicts = 0
+        edge_accent_pixels = 0
+        flag_changes = Counter()
+        visible_flag_corrections = Counter()
+        for phase in range(4):
+            for column in range(MAP_WIDTH):
+                flags = 0
+                for row in range(MAP_HEIGHT):
+                    colors = Counter(semantic_pixels[source_rows[row * 8 + y]]
+                                     [(column * 4 + phase + x) % (MAP_WIDTH * 4)]
+                                     for y in range(8) if source_rows[row * 8 + y] >= 0
+                                     for x in range(4))
+                    yellow = colors[7] > 0 and colors[7] >= colors[5]
+                    flags |= int(yellow) << row
+                    conflicts += int(bool(colors[5] and colors[7]))
+                    if perspective_black_rows[region] & (1 << row):
+                        edge_accent_pixels += colors[5] + colors[7]
+                    original_yellow = bool(accent_flags[phase * MAP_WIDTH + column] & (1 << row))
+                    if yellow != original_yellow:
+                        flag_changes[row] += 1
+                        if colors[5] or colors[7]:
+                            visible_flag_corrections[row] += 1
+                table.append(flags)
+        assert len(table) == 512
+        assert edge_accent_pixels == 0, "Black edge masks would hide a terrain accent"
+
+        verified_pixels = 0
+        for phase in range(4):
+            for column in range(MAP_WIDTH):
+                for row in range(MAP_HEIGHT):
+                    actual = 7 if table[phase * MAP_WIDTH + column] & (1 << row) else 5
+                    window = [semantic_pixels[source_y][(column * 4 + phase + x) % (MAP_WIDTH * 4)]
+                              for source_y in source_rows[row * 8:row * 8 + 8] if source_y >= 0
+                              for x in range(4)]
+                    if 5 in window and 7 in window:
+                        continue
+                    for color in window:
+                        if color in (5, 7):
+                            assert color == actual
+                            verified_pixels += 1
+        perspective_tables.append(table)
+        perspective_stats.append({
+            "region": region, "columns": list(PERSPECTIVE_COLUMNS[region:region + 2]),
+            "file": PERSPECTIVE_FILES[region], "black_character_rows_mask": perspective_black_rows[region],
+            "conflict_cells": conflicts, "edge_cells_source_accent_pixels": edge_accent_pixels,
+            "flag_changes_by_row": dict(sorted(flag_changes.items())),
+            "visible_flag_corrections_by_row": dict(sorted(visible_flag_corrections.items())),
+            "accent_pixels_verified_without_conflict": verified_pixels,
+        })
+
     patterns = []
     pattern_ids = {}
     tile_map = bytearray()
@@ -211,6 +306,8 @@ def main():
     (ASSETS / "level1-tiles.bin").write_bytes(tile_bytes)
     (ASSETS / "level1-tv-map.bin").write_bytes(tile_map)
     (ASSETS / "level1-accents.bin").write_bytes(accent_flags)
+    for filename, table in zip(PERSPECTIVE_FILES, perspective_tables):
+        (ASSETS / filename).write_bytes(table)
     shared_colors = [color for color, code in sorted(BASE_CODES.items(), key=lambda item: item[1])]
     screen_byte = (shared_colors[1] << 4) | shared_colors[2]
     assembly = [
@@ -222,9 +319,16 @@ def main():
         f".const TERRAIN_MAP_WIDTH = {MAP_WIDTH}",
         f".const TERRAIN_MAP_HEIGHT = {MAP_HEIGHT}",
         f".const TERRAIN_TILE_COUNT = {len(patterns)}",
+        ".const TERRAIN_PERSPECTIVE_REGIONS = 4",
+        *assembly_list("TERRAIN_PERSPECTIVE_COLUMNS", PERSPECTIVE_COLUMNS),
+        *assembly_nested_list("TERRAIN_PERSPECTIVE_SOURCE_ROWS", PERSPECTIVE_SOURCE_ROWS),
+        *assembly_nested_list("TERRAIN_PERSPECTIVE_TRANSFER_ROWS", perspective_transfer_rows),
+        *assembly_list("TERRAIN_PERSPECTIVE_BLACK_ROWS", perspective_black_rows),
         '.var level1TilesFile = LoadBinary("assets/level1-tiles.bin")',
         '.var level1MapFile = LoadBinary("assets/level1-tv-map.bin")',
         '.var level1AccentFile = LoadBinary("assets/level1-accents.bin")',
+        *[f'.var level1PerspectiveAccentFile{index} = LoadBinary("assets/{filename}")'
+          for index, filename in enumerate(PERSPECTIVE_FILES)],
         "",
         "terrainTiles:",
         "    .fill level1TilesFile.getSize(), level1TilesFile.get(i)",
@@ -244,11 +348,20 @@ def main():
         "// Offset = phase * 128 + world column; bit 0 is row 0. Set means yellow.",
         "terrainAccentMap:",
         "    .fill level1AccentFile.getSize(), level1AccentFile.get(i)",
-        "terrainDataEnd:",
-        '.assert "Accent table has four 128-column phases", terrainDataEnd - terrainAccentMap, 512',
+        '.assert "Accent table has four 128-column phases", * - terrainAccentMap, 512',
         '.assert "Accent table is page aligned", <terrainAccentMap, 0',
         "",
     ])
+    for index, label in enumerate(PERSPECTIVE_LABELS):
+        assembly.extend([
+            ".align $100", f"{label}:",
+            f"    .fill level1PerspectiveAccentFile{index}.getSize(), level1PerspectiveAccentFile{index}.get(i)",
+            f'.assert "Perspective region {index} has four 128-column phases", * - {label}, 512',
+            f'.assert "Perspective region {index} is page aligned", <{label}, 0', "",
+        ])
+    assembly.extend(["terrainDataEnd:", ""])
+    assembly.extend(assembly_list("TERRAIN_PERSPECTIVE_ACCENT_MAPS", (*PERSPECTIVE_LABELS, "terrainAccentMap")))
+    assembly.append("")
     (PART / "terrain.asm").write_text("\n".join(assembly))
 
     receipt = {
@@ -281,10 +394,22 @@ def main():
         "accent_conflict_pixels_by_phase": {str(phase): accent_conflict_pixels[phase] for phase in range(4)},
         "accent_conflict_examples": accent_conflict_examples,
         "accent_pixels_verified_without_conflict": accent_pixels_verified,
+        "perspective_regions": 4,
+        "perspective_columns": list(PERSPECTIVE_COLUMNS),
+        "perspective_source_rows": [list(rows) for rows in PERSPECTIVE_SOURCE_ROWS],
+        "perspective_transfer_rows": perspective_transfer_rows,
+        "perspective_black_character_rows": perspective_black_rows,
+        "perspective_masked_character_cells": perspective_masked_cells,
+        "perspective_accent_bytes": sum(map(len, perspective_tables)),
+        "perspective_accent_conflict_cells": sum(region["conflict_cells"] for region in perspective_stats),
+        "perspective_edge_cells_source_accent_pixels": sum(region["edge_cells_source_accent_pixels"] for region in perspective_stats),
+        "perspective_accent_pixels_verified_without_conflict": sum(region["accent_pixels_verified_without_conflict"] for region in perspective_stats),
+        "perspective_region_proofs": perspective_stats,
         "source_sha256": INPUT_HASHES,
         "output_sha256": {"level1-tiles.bin": digest(tile_bytes),
                           "level1-tv-map.bin": digest(tile_map),
-                          "level1-accents.bin": digest(accent_flags)},
+                          "level1-accents.bin": digest(accent_flags),
+                          **{filename: digest(table) for filename, table in zip(PERSPECTIVE_FILES, perspective_tables)}},
         "tile_usage": dict(sorted(Counter(tile_map).items())),
         "reconstructed_pixel_codes_verified": MAP_WIDTH * 4 * MAP_HEIGHT * 8,
     }
