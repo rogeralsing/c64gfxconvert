@@ -15,17 +15,20 @@ horizontal sine offset for each of the 25 output rows. Map B uses a different
 vertical sine offset for each of the 40 output columns:
 
 ```text
-row_x[y]     = clamp(ax + wave_x[(wave_phase_a + 8*y) & 255], 0, 40)
-column_y[x]  = clamp(by + wave_y[(wave_phase_b + 6*x) & 255], 0, 25)
+dx[y] = wave_x[(wave_phase_a + 8*y) & 255] + wave_x[(wave_phase_b + 8*y) & 255]
+dy[x] = wave_y[(wave_phase_a + 6*x) & 255] + wave_y[(wave_phase_b + 6*x) & 255]
+row_x[y]     = clamp(ax + dx[y], 0, 40)
+column_y[x]  = clamp(by + dy[x], 0, 25)
 strength[x,y] = A[row_x[y]+x, ay+y] + B[bx+x, column_y[x]+y]
 screen[x,y]   = strength[x,y]
 color[x,y]    = foreground[strength[x,y] >> 6]
 ```
 
-The signed sine tables have amplitudes of four cells horizontally and three
-cells vertically. Their byte phases start at 0 and 64 and advance by +4 and
-−6 per update, twice the previous temporal frequency. Spatial frequency and
-amplitude are unchanged. The two wave counters repeat together after 128
+The sine tables have amplitudes of four cells horizontally and three cells
+vertically. Two shared cursors start at 0 and 64 and advance by +2 and +3 per
+update. Each axis adds both cursor samples directly, so the offsets can reach
+eight cells horizontally and six vertically. Their changing relative phase
+causes reinforcement and cancellation. The cursor pair repeats after 256
 updates. Each row or column origin is clamped before reading, so all
 samples stay within the logical 80×50 maps. The existing camera paths still
 cover the full origin ranges; near an edge, the wave flattens where clamped.
@@ -49,23 +52,23 @@ assets. KickAssembler and PAL VICE use the same installed tools as the other
 ECM experiments. The verifier uses the bundled accepted metaball font, so it
 does not need another experiment's build output.
 
-Press **SPACE** to advance through these palettes, then return to the first:
+The palette cycles automatically through a five-color window of this looping
+stream; no key press is needed:
 
-| Palette | Five colors | C64 indices |
-| --- | --- | --- |
-| 1 | Blue, dark gray, purple, medium gray, pink | `6,11,4,12,10` |
-| 2 | Blue, dark gray, purple, light blue, green | `6,11,4,14,5` |
-| 3 | Brown, dark gray, orange, medium gray, green | `9,11,8,12,5` |
-| 4 | Green, medium gray, orange, dark gray, brown | `5,12,8,11,9` |
-| 5 | Green, medium gray, orange, purple, red | `5,12,8,4,2` |
+```text
+blue, dark gray, purple, medium gray, pink, light gray, yellow, white,
+light green, cyan, light blue, purple, dark gray, [back to blue]
+```
 
-Holding SPACE does not repeat: release it before selecting the next palette.
-The native program reads SPACE directly from the CIA keyboard matrix. A press
-refills the four foreground lookup bands. The background registers change
-after screen projection finishes in the vertical border, before the next
-visible scan. A palette change can add one PAL frame to that update; normal
-animation retains its regular cadence. Numeric maps, wave amplitudes and
-movement continue without a reset.
+Its C64 indices are `6,11,4,12,10,15,7,1,13,3,14,4,11`. Each window lasts about
+five seconds (125 numeric updates), then shifts forward by one stream position.
+Wrapped windows read the beginning of the stream again. `PALETTE_HOLD_UPDATES` in
+`viewports.asm` controls the speed. The border stays blue throughout the cycle.
+
+Each shift refills the four foreground lookup bands. The background registers
+change after screen projection finishes in the vertical border, before the
+next visible scan. Animation retains its two-PAL-field cadence through both
+wave and palette updates. Numeric maps and movement continue without a reset.
 
 Each source map contains nine soft Gaussian light spots, with a mixture of
 small, medium and broad shapes. Their radii and brightness weights vary, and
@@ -108,8 +111,8 @@ origins remain inside their source maps. The accumulator state repeats after
 Screen codes and the font match the metaball experiment exactly. Screen codes
 equal the strength bytes. In the default palette, backgrounds are blue,
 dark gray, purple and medium gray (`6,11,4,12`); the corresponding foregrounds
-are dark gray, purple, medium gray and pink (`11,4,12,10`). Other palettes use their first four colors
-as backgrounds and their last four as foregrounds.
+are dark gray, purple, medium gray and pink (`11,4,12,10`). Each window uses
+its first four colors as backgrounds and its last four as foregrounds.
 The 64 glyphs have foreground coverage 0–62 pixels, then 64 pixels. Glyph zero
 is empty and glyph 32 is the original one-pixel checkerboard. All four
 64-value intervals retain their complete color transition.
@@ -126,23 +129,8 @@ carry cannot leak into the next result. It checks map padding, field, screen
 and source guards. The native animation is a finite 256-update excerpt; it
 does not show the full accumulator-state period.
 
-The native PAL proof measures **25.06 updates/s** during normal animation:
-all 256 measured intervals span two PAL frames. Composition takes
-19,536–19,690 machine clocks. Projection and its idle palette check take
-19,048–19,050 clocks, with at least 330 clocks before the next top fetch.
-All 250 sampled row-fetch windows are safe. Five palette commits finish in
-raster lines 45–46, at least 276 clocks before the next top fetch. Sixteen
-actual VIC screenshots match 1,024,000 decoded pixels with zero mismatches.
-
-The proof checks 257 natural updates, 24 injected clamp/counter/boundary
-cases, and five SPACE press/hold/release sequences through the real emulated
-CIA keyboard matrix. Selection follows `0,1,2,3,4,0`; each held key remains on
-the same palette for two checked updates. Every palette passes all 256
-strength codes and a normal-field VIC capture. Each press takes three PAL
-frames; held and released updates take two. Both logical source maps, the
-font and camera tables remain identical to the straight
-viewport version saved in the original experiment under
-`../../experiments/ecm-viewports/build/wave-review/before/`.
-
-The full native proof above used the five-palette version `b4aa1777f1`,
-including palette 2's green endpoint and palette 5's red endpoint.
+The native proof checks 257 natural updates and the injected numeric boundary
+cases while colors cycle. It checks every wrapped five-color window, all 256
+strength codes, the five-second hold, stream wraparound, actual VIC pixels,
+and safe background commits. `build/verification.json` records measured
+cadence and timing margins for the current build.

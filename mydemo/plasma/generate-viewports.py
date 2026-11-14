@@ -13,26 +13,20 @@ OUTPUT = ROOT / "build"
 VIEW_WIDTH, VIEW_HEIGHT, PITCH = 80, 50, 128
 COLUMN_PITCH = 64
 WIDTH, HEIGHT = 40, 25
-PALETTES = (
-    (6, 11, 4, 12, 10),
-    (6, 11, 4, 14, 5),
-    (9, 11, 8, 12, 5),
-    (5, 12, 8, 11, 9),
-    (5, 12, 8, 4, 2),
+COLOR_STREAM = (6, 11, 4, 12, 10, 15, 7, 1, 13, 3, 14, 4, 11)
+COLOR_NAMES = (
+    "blue", "dark gray", "purple", "medium gray", "pink", "light gray",
+    "yellow", "white", "light green", "cyan", "light blue", "purple", "dark gray",
 )
-PALETTE_NAMES = (
-    "blue / dark gray / purple / medium gray / pink",
-    "blue / dark gray / purple / light blue / green",
-    "brown / dark gray / orange / medium gray / green",
-    "green / medium gray / orange / dark gray / brown",
-    "green / medium gray / orange / purple / red",
-)
+PALETTE_HOLD_UPDATES = 125
+PALETTES = tuple(tuple(COLOR_STREAM[(offset + entry) % len(COLOR_STREAM)]
+                       for entry in range(5)) for offset in range(len(COLOR_STREAM)))
 BACKGROUNDS = PALETTES[0][:-1]
 FOREGROUNDS = PALETTES[0][1:]
 INITIAL_PHASES = (0x0000, 0x4000, 0x8000, 0xC000)
 PHASE_STEPS = (0x013D, 0x00B5, 0xFF6D, 0x0067)
 WAVE_INITIAL = (0, 64)
-WAVE_STEPS = (4, -6)
+WAVE_STEPS = (2, 3)
 WAVE_AMPLITUDES = (4, 3)
 WAVE_SPATIAL_STEPS = (8, 6)
 PADDING = 0xCD
@@ -108,10 +102,12 @@ def wave_state(frame):
 
 def warped_origins(cameras, waves=WAVE_INITIAL):
     (ax, _), (_, by) = cameras
-    row_x = [max(0, min(40, ax + round(WAVE_AMPLITUDES[0] * math.sin(
-        math.tau * ((waves[0] + y * WAVE_SPATIAL_STEPS[0]) & 255) / 256)))) for y in range(HEIGHT)]
-    column_y = [max(0, min(25, by + round(WAVE_AMPLITUDES[1] * math.sin(
-        math.tau * ((waves[1] + x * WAVE_SPATIAL_STEPS[1]) & 255) / 256)))) for x in range(WIDTH)]
+    row_x = [max(0, min(40, ax + sum(round(WAVE_AMPLITUDES[0] * math.sin(
+        math.tau * ((phase + y * WAVE_SPATIAL_STEPS[0]) & 255) / 256))
+        for phase in waves))) for y in range(HEIGHT)]
+    column_y = [max(0, min(25, by + sum(round(WAVE_AMPLITUDES[1] * math.sin(
+        math.tau * ((phase + x * WAVE_SPATIAL_STEPS[1]) & 255) / 256))
+        for phase in waves))) for x in range(WIDTH)]
     return row_x, column_y
 
 
@@ -183,7 +179,7 @@ def main():
                          ("font.bin", font), ("motion-x.bin", motion_x), ("motion-y.bin", motion_y),
                          ("wave-x.bin", make_wave(WAVE_AMPLITUDES[0])),
                          ("wave-y.bin", make_wave(WAVE_AMPLITUDES[1])),
-                         ("palettes.bin", bytes(color for ramp in PALETTES for color in ramp)),
+                         ("color-stream.bin", bytes(COLOR_STREAM + COLOR_STREAM[:4])),
                          ("color.bin", bytes(FOREGROUNDS[value >> 6] for value in range(256)))):
         (OUTPUT / name).write_bytes(values)
     for name, values, peak, lobes in (("map-a", map_a, 127, LOBES_A), ("map-b", map_b, 128, LOBES_B)):
@@ -205,12 +201,13 @@ def main():
                    "state_period_updates": 65536},
         "waves": {"initial": WAVE_INITIAL, "steps": WAVE_STEPS,
                   "amplitudes_cells": WAVE_AMPLITUDES, "spatial_phase_steps": WAVE_SPATIAL_STEPS,
+                  "combined_amplitudes_cells": [2 * amplitude for amplitude in WAVE_AMPLITUDES],
                   "lookup": "round(amplitude*sin(2*pi*index/256)), signed two's complement bytes",
                   "native_lookup_bytes_each": 512,
                   "native_wrap": "two adjacent copies let unrolled row/column offsets wrap without updating the phase index",
-                  "row_x": "clamp(ax+wave_x[(wave_phase_a+8*y)&255],0,40)",
-                  "column_y": "clamp(by+wave_y[(wave_phase_b+6*x)&255],0,25)",
-                  "state_period_updates": 128,
+                  "row_x": "clamp(ax+wave_x[(wave_phase_a+8*y)&255]+wave_x[(wave_phase_b+8*y)&255],0,40)",
+                  "column_y": "clamp(by+wave_y[(wave_phase_a+6*x)&255]+wave_y[(wave_phase_b+6*x)&255],0,25)",
+                  "state_period_updates": 256,
                   "edges": "clamp each row/column origin so every source sample remains in the logical map"},
         "strength": {"bytes": 1000, "range": [0, 255],
                      "formula": "strength[x,y]=A[row_x[y]+x,ay+y]+B[bx+x,column_y[x]+y]",
@@ -219,8 +216,10 @@ def main():
         "projection": {"screen_code": "strength byte", "backgrounds": BACKGROUNDS,
                        "foregrounds": FOREGROUNDS, "font_coverage": [*range(63), 64],
                        "ramp": "four complete 64-value intervals between five selected colors",
-                       "palettes": PALETTES, "palette_names": PALETTE_NAMES,
-                       "control": "SPACE advances one palette on press; release before advancing again; wraps 4 to 0"},
+                       "palettes": PALETTES, "color_stream": COLOR_STREAM,
+                       "color_names": COLOR_NAMES, "window_colors": 5,
+                       "hold_updates": PALETTE_HOLD_UPDATES,
+                       "control": "automatic five-color window; advances one stream position every 125 numeric updates (about five seconds); loops without keyboard input"},
         "preview": "host-preview.png is a model frame; native screen and VIC timing are verified separately",
     }, indent=2) + "\n")
     cameras = camera_positions(0, motion_x, motion_y)

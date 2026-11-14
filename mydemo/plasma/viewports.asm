@@ -4,7 +4,8 @@
 .const FIELD_ADDRESS = $3d00
 .const MAP_A_STRIDE = 128
 .const MAP_B_STRIDE = 64
-.const PALETTE_COUNT = 5
+.const PALETTE_COUNT = 13
+.const PALETTE_HOLD_UPDATES = 125
 .label map_a_row_ptrs = $02
 .label map_b_column_ptrs = map_a_row_ptrs + 25*2
 
@@ -28,6 +29,13 @@
 
 .macro prepare_a_row(row) {
     lda wave_x + row*8,x
+    .if (mod(row, 2) == 0) {
+        ldx wave_phase_b
+    } else {
+        ldx wave_phase_a
+    }
+    clc
+    adc wave_x + row*8,x
     clc
     adc camera_a_x
     bmi !zero+
@@ -50,6 +58,13 @@
 
 .macro prepare_b_column(column) {
     lda wave_y + column*6,x
+    .if (mod(column, 2) == 0) {
+        ldx wave_phase_b
+    } else {
+        ldx wave_phase_a
+    }
+    clc
+    adc wave_y + column*6,x
     clc
     adc camera_b_y
     bmi !zero+
@@ -68,10 +83,10 @@
 }
 
 .macro render_row(row) {
+    // X supplies both the screen code and foreground lookup index.
     .for (var column = 0; column < 40; column++) {
-        lda strength_field + row*40 + column
-        sta SCREEN + row*40 + column
-        tax
+        ldx strength_field + row*40 + column
+        stx SCREEN + row*40 + column
         lda color_map,x
         sta $d800 + row*40 + column
     }
@@ -102,11 +117,8 @@ start:
     sta wave_phase_a
     sta palette_index
     sta palette_pending
-    sta space_down
-    sta $dc03
-    lda #$ff
-    sta $dc02
-    sta $dc00
+    lda #PALETTE_HOLD_UPDATES
+    sta palette_ticks
     lda #64
     sta wave_phase_b
     lda #$0f
@@ -126,11 +138,11 @@ start:
     ora #3
     sta $dd00
 
-    lda palettes
+    lda color_stream
     sta $d020
     sta $d021
     .for (var background = 1; background < 4; background++) {
-        lda palettes + background
+        lda color_stream + background
         sta $d021 + background
     }
     lda #$18
@@ -144,7 +156,7 @@ start:
     .for (var page = 0; page < 4; page++) {
         sta SCREEN + page*$100,x
     }
-    lda palettes + 1
+    lda color_stream + 1
     .for (var page = 0; page < 4; page++) {
         sta $d800 + page*$100,x
     }
@@ -168,21 +180,14 @@ start:
 initialization_done:
     jmp frame_start
 
-poll_space:
-    // SPACE is keyboard column 7, row 4. Leave all columns deselected after
-    // sampling; the latch advances once until a released sample rearms it.
-    lda #$7f
-    sta $dc00
-    lda $dc01
-    and #$10
-    tax
-    lda #$ff
-    sta $dc00
-    txa
-    bne !released+
-    lda space_down
-    bne !done+
-    inc space_down
+cycle_palette:
+    // At two PAL fields per numeric update, 125 updates hold each window
+    // for about five seconds.
+    // The appended stream prefix makes every wrapped window contiguous.
+    lda palette_ticks
+    bne !countdown+
+    lda #PALETTE_HOLD_UPDATES
+    sta palette_ticks
     lda palette_index
     clc
     adc #1
@@ -194,19 +199,14 @@ poll_space:
     jsr refill_color_map
     lda #1
     sta palette_pending
-    rts
-!released:
-    lda #0
-    sta space_down
-!done:
+!countdown:
+    dec palette_ticks
     rts
 
 refill_color_map:
     ldx palette_index
-    lda palette_offsets,x
-    tax
     .for (var band = 0; band < 4; band++) {
-        lda palettes + band + 1,x
+        lda color_stream + band + 1,x
         .for (var value = 0; value < 64; value++) {
             sta color_map + band*64 + value
         }
@@ -219,13 +219,10 @@ palette_commit_start:
     // The beam-following render has finished all foreground stores. Change
     // the globals together in the next top border, before the new row fetch.
     ldx palette_index
-    lda palette_offsets,x
-    tax
-    lda palettes,x
-    sta $d020
+    lda color_stream,x
     sta $d021
     .for (var background = 1; background < 4; background++) {
-        lda palettes + background,x
+        lda color_stream + background,x
         sta $d021 + background
     }
     lda #0
@@ -279,11 +276,11 @@ advance_phases:
     sta phase_d+1
     lda wave_phase_a
     clc
-    adc #4
+    adc #2
     sta wave_phase_a
     lda wave_phase_b
-    sec
-    sbc #6
+    clc
+    adc #3
     sta wave_phase_b
     rts
 
@@ -300,8 +297,8 @@ interrupt_return:
     rti
 
 frame_start:
-    jsr poll_space
-input_polled:
+    jsr cycle_palette
+palette_cycle_done:
     jsr update_cameras
 viewports_ready:
     jsr prepare_map_pointers
@@ -335,8 +332,7 @@ wave_phase_a: .byte 0
 wave_phase_b: .byte 64
 palette_index: .byte 0
 palette_pending: .byte 0
-space_down: .byte 0
-palette_offsets: .fill PALETTE_COUNT, i*5
+palette_ticks: .byte PALETTE_HOLD_UPDATES
 a_row_low: .byte 0
 row_x: .fill 25, 0
 column_y: .fill 40, 0
@@ -376,10 +372,10 @@ color_map:
     .import binary "build/color.bin"
 .assert "Foreground lookup covers every byte strength", * - color_map, 256
 .assert "Foreground lookup is page aligned", <color_map, 0
-* = $2300 "Five SPACE-selected five-color ramps"
-palettes:
-    .import binary "build/palettes.bin"
-.assert "Five palettes contain five colors each", * - palettes, PALETTE_COUNT*5
+* = $2300 "Looping colour stream with four-colour lookahead"
+color_stream:
+    .import binary "build/color-stream.bin"
+.assert "Every stream position has a five-colour window", * - color_stream, PALETTE_COUNT+4
 
 * = $2400 "Static numeric map A, 128-byte row pitch"
 map_a:
@@ -447,7 +443,7 @@ render_row_24:
     :render_row(24)
 render_end:
     rts
-.assert "Projection contains 1000 thirteen-byte cells", render_end - render_field, 13000
+.assert "Projection contains 1000 twelve-byte cells", render_end - render_field, 12000
 .assert "Projection fits below composition", * <= $7600, true
 
 * = $7600 "Unrolled fresh viewport composition"
@@ -476,12 +472,14 @@ prepare_map_pointers:
     lda #$80
 !a_low_ready:
     sta a_row_low
+    // Alternate the summand order so X carries the second cursor into
+    // the next row or column; each sum needs only one cursor reload.
     ldx wave_phase_a
     ldy camera_a_y
     .for (var row = 0; row < 25; row++) {
         :prepare_a_row(row)
     }
-    ldx wave_phase_b
+    ldx wave_phase_a
     ldy camera_b_x
     .for (var column = 0; column < 40; column++) {
         :prepare_b_column(column)
