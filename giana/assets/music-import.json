@@ -1,0 +1,35 @@
+{
+  "source_file": "music-source.sid",
+  "source_sha256": "014764e6ee11df4b458c6b30e235ea639d702bd56766a87b5e90d4737558b1c8",
+  "source_bytes": 23445,
+  "source_subtune_one_based": 3,
+  "sid_payload_load_address": 29155,
+  "module_source_sid_address": 29155,
+  "module_source_file_offset": 126,
+  "module_file": "music-original.bin",
+  "module_sha256": "09ed883e8991e224604eda00b1ff3c7219f815f4e0de4b033ecd1d2fb5bf3c4c",
+  "module_bytes": 7709,
+  "runtime_start": 16832,
+  "runtime_end_exclusive": 24541,
+  "module_byte_mutations": 0,
+  "level1_internal_cue": 1,
+  "selector_carry": "clear",
+  "init_vector": 16835,
+  "select_vector": 16841,
+  "play_vector": 16832,
+  "init_routine": 17222,
+  "select_routine": 18918,
+  "play_routine": 17310,
+  "zero_page_workspace": [
+    164,
+    185
+  ],
+  "original_program_sha256": "0f1a720961fa52102fcfd52e46e40df07e5e307328ad087d55cc00506f904880",
+  "original_level1_cue_table_address": 5418,
+  "scope": "complete native player and score module; score-controlled looping, no excerpt or PCM",
+  "source_metadata": {
+    "title": "The Great Giana Sisters",
+    "author": "Chris H\u00fclsbeck",
+    "released": "1987 Time Warp"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "tv_size": [80, 64],
+  "sprite_size": [24, 21],
+  "outside_pixels_by_depth": [6, 4, 3, 2, 1, 1, 0, 0],
+  "frame_order": ["top_left", "top_right", "bottom_left", "bottom_right"],
+  "frame_origins": [[0, 0], [56, 0], [0, 43], [56, 43]],
+  "baseline_y": [2, 0, 62, 63],
+  "sprite_color": 0,
+  "set_bit": "opaque black outside the rounded opening",
+  "clear_bit": "transparent inside the rounded opening"
+}
