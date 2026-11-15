@@ -3,6 +3,7 @@
 
 The default rebuild uses retained, verified sprite and collision slices. An optional
 --program path re-extracts those slices from the exact original disk file 1.
+Use --level 2 after preparing the Level2 terrain to build its sibling actor route.
 """
 
 import argparse
@@ -22,12 +23,15 @@ SOURCES = {
     "original-sprites-collision.bin": (0x9c20, 0x9d20, "667526cbc31e27d88d7e5871b646f96ff904d5b76b81494f29e425f41083b22b"),
 }
 MAP_SHA256 = "e75d388d6b80e7ec82064fc6a9309c16dadedf34a73425b52e4712be1fe7c99c"
+LEVEL2_MAP_SHA256 = "2a2b29e84ae20b88172fe7ec4d23f2531360403ca8b9c8365a5a29f211bc487c"
 PALETTE_SHA256 = "4a762159d75af98b510d43b709c4a1243f85ad706e594cf4a24fee0165f7b6ed"
 MC0, MC1 = 10, 2
 GIANA_COLOR, ENEMY_COLOR = 7, 1
 GIANA_FRAME_COUNT, ENEMY_FRAME_COUNT = 4, 2
 PLAYER_X_MC, PLAYER_WIDTH_MC = 10, 6
 PLAYER_MIN_FOOT, PLAYER_MAX_FOOT = 12, 63
+LEVEL2_GIANA_HEIGHT = 8
+LEVEL2_VERTICAL_SCALE = (23, 8)
 
 
 def digest(data):
@@ -84,9 +88,10 @@ def giana_frame(data, pose):
     return image
 
 
-def reduce_frame(source, main_color, coverage_threshold, palette, output_colors):
+def reduce_frame(source, main_color, coverage_threshold, palette, output_colors, vertical_scale=(5, 2)):
     """Area-vote original pixels at horizontal 1/2 and vertical 2/5 scale."""
-    height = (len(source) * 2 + 4) // 5
+    numerator, denominator = vertical_scale
+    height = (len(source) * denominator + numerator - 1) // numerator
     quantize = {color: min(output_colors, key=lambda target: sum(
         (palette[color][channel] - palette[target][channel]) ** 2 for channel in range(3)))
                 for color in range(16)}
@@ -96,8 +101,10 @@ def reduce_frame(source, main_color, coverage_threshold, palette, output_colors)
         for x in range(6):
             votes = Counter()
             total = 0
-            for source_y in range(y * 5 // 2, min(len(source), ((y + 1) * 5 + 1) // 2)):
-                weight = max(0, min((y + 1) * 2.5, source_y + 1, len(source)) - max(y * 2.5, source_y))
+            for source_y in range(y * numerator // denominator,
+                                  min(len(source), ((y + 1) * numerator + denominator - 1) // denominator)):
+                weight = max(0, min((y + 1) * numerator / denominator, source_y + 1, len(source))
+                             - max(y * numerator / denominator, source_y))
                 for source_x in range(x * 4, x * 4 + 4):
                     total += weight
                     color = source[source_y][source_x]
@@ -128,9 +135,10 @@ def bbox(image, pixel_width=1):
             max(x for x, y in points) + pixel_width, max(y for x, y in points) + 1]
 
 
-def prepare_motion(collision, frames):
-    original_map = (ASSETS / "original-level1-map.bin").read_bytes()
-    assert len(original_map) == 5120 and digest(original_map) == MAP_SHA256
+def prepare_motion(collision, frames, level=1):
+    original_map = (ASSETS / f"original-level{level}-map.bin").read_bytes()
+    map_sha256 = MAP_SHA256 if level == 1 else LEVEL2_MAP_SHA256
+    assert len(original_map) == 5120 and digest(original_map) == map_sha256
     ground = bytearray()
     for column in range(256):
         row = 19
@@ -141,13 +149,37 @@ def prepare_motion(collision, frames):
             row -= 1
         ground.append((16 * row + 2) // 5)
 
-    path, physics = physical_route(collision, original_map, ground, frames)
-    (ASSETS / "sprite-ground.bin").write_bytes(ground)
-    (ASSETS / "sprite-player-path.bin").write_bytes(path)
+    if level == 1:
+        path, physics = physical_route(collision, original_map, ground, frames, level)
+    else:
+        original_ground = bytes(ground)
+        markers = [(base, (base + 43) >> 1) for base in range(0, 473, 64)]
+        for base, column in markers:
+            ground[column] = 0xff
+        path, physics = physical_route(collision, original_map, ground, frames, level)
+        staging = []
+        for base, column in markers:
+            foot = original_ground[column]
+            if foot == 0xff or foot < 28:
+                staging.append({"camera_section": base, "enabled": False, "reason": "No suitable original floor"})
+                continue
+            candidate = bytearray(ground)
+            candidate[column] = foot
+            try:
+                next_path, next_physics = physical_route(collision, original_map, candidate, frames, level)
+            except ValueError as failure:
+                staging.append({"camera_section": base, "enabled": False, "reason": str(failure)})
+            else:
+                ground, path, physics = candidate, next_path, next_physics
+                staging.append({"camera_section": base, "enabled": True, "source_floor_y": foot})
+        physics["owl_staging"] = staging
+    prefix = "" if level == 1 else f"level{level}-"
+    (ASSETS / f"{prefix}sprite-ground.bin").write_bytes(ground)
+    (ASSETS / f"{prefix}sprite-player-path.bin").write_bytes(path)
     return ground, path, {"player_screen_x_mc": PLAYER_X_MC, "player_width_mc": PLAYER_WIDTH_MC,
                           "player_center_offset_mc": PLAYER_X_MC + PLAYER_WIDTH_MC // 2,
                           "camera_steps": 512, "camera_step_pal_frames": 4,
-                          "ground_source_map_sha256": MAP_SHA256,
+                          "ground_source_map_sha256": map_sha256,
                           "ground_solid_flags": [1, 0x80], "ground_bytes": len(ground),
                           "ground_y_counts": dict(sorted(Counter(ground).items())),
                           "path_bytes": len(path), "hidden_steps": 0,
@@ -156,13 +188,18 @@ def prepare_motion(collision, frames):
                           **physics}
 
 
-def physical_route(collision, original_map, ground, frames):
+def physical_route(collision, original_map, ground, frames, level=1):
     # Work in projected TV coordinates so velocity does not change at a seam.
-    terrain_tiles = (ASSETS / "level1-tiles.bin").read_bytes()
-    terrain_map = (ASSETS / "level1-tv-map.bin").read_bytes()
-    geometry = json.loads((ASSETS / "level1-import.json").read_text())
+    terrain_tiles = (ASSETS / f"level{level}-tiles.bin").read_bytes()
+    terrain_map = (ASSETS / f"level{level}-tv-map.bin").read_bytes()
+    geometry = json.loads((ASSETS / f"level{level}-import.json").read_text())
+    empty_pixel_code = 1 if level == 1 else 0
+    if level == 2:
+        assert geometry["output_empty_pixel_code"] == empty_pixel_code
     columns = [column * 4 for column in geometry["perspective_columns"]]
     source_rows = geometry["perspective_source_rows"]
+    player_height = 10 if level == 1 else LEVEL2_GIANA_HEIGHT
+    final_step = 511 if level == 1 else 472
     source_solid = []
     for y in range(64):
         source_row = ((2 * y + 1) * 160 // 128) // 8
@@ -171,14 +208,14 @@ def physical_route(collision, original_map, ground, frames):
             character = original_map[source_row * 256 + x // 2]
             tile = terrain_map[y // 8 * 128 + x // 4]
             code = (terrain_tiles[tile * 8 + y % 8] >> (6 - 2 * (x % 4))) & 3
-            row.append(collision[character] in (1, 0x80) and code != 1)
+            row.append(collision[character] in (1, 0x80) and code != empty_pixel_code)
         source_solid.append(row)
 
     girl_rows = []
     girl_soles = []
     for pose in range(4):
         rows = []
-        for y in range(10):
+        for y in range(player_height):
             mask = 0
             for x in range(6):
                 offset, shift = y * 3 + x // 4, 6 - 2 * (x % 4)
@@ -186,7 +223,7 @@ def physical_route(collision, original_map, ground, frames):
                     mask |= 1 << x
             rows.append(mask)
         girl_rows.append(rows)
-        girl_soles.append(rows[9])
+        girl_soles.append(rows[player_height - 1])
     owl_pixels = []
     for pose in range(2):
         frame = frames[8 + pose]
@@ -225,10 +262,10 @@ def physical_route(collision, original_map, ground, frames):
 
     @lru_cache(maxsize=None)
     def blocked(step, foot, hold=True):
-        if not 13 <= foot <= 62:
+        if not player_height + 3 <= foot <= 62:
             return True
         terrain = terrain_both if hold else terrain_now
-        return any(mask & (terrain[step][foot - 10 + row] | enemy_rows[step][foot - 10 + row])
+        return any(mask & (terrain[step][foot - player_height + row] | enemy_rows[step][foot - player_height + row])
                    for row, mask in enumerate(girl_rows[step & 3]))
 
     @lru_cache(maxsize=None)
@@ -246,7 +283,7 @@ def physical_route(collision, original_map, ground, frames):
     costs = {initial: 0}
     history = [{}]
     strengths = tuple(range(-3, -11, -1))
-    for step in range(511):
+    for step in range(final_step):
         next_step = step + 1
         following = {}
         parents = {}
@@ -262,7 +299,7 @@ def physical_route(collision, original_map, ground, frames):
                     target_velocity = min(10, (action if action else velocity) + 1)
                     target_position = position + target_velocity
                     target_foot = target_position // 2
-                    if not 26 <= target_position <= 124:
+                    if not 2 * (player_height + 3) <= target_position <= 124:
                         continue
                     if target_velocity < 0:
                         for foot in range(old_foot - 1, target_foot - 1, -1):
@@ -298,29 +335,39 @@ def physical_route(collision, original_map, ground, frames):
         costs = following
         history.append(parents)
         if next_step % 128 == 0:
-            print(f"Physical route step {next_step}/511: {len(costs)} reachable states", flush=True)
-    if initial not in costs:
-        raise ValueError(f"Physical route does not close at the map wrap; final states={sorted(costs)[:12]}")
-    states = [initial]
+            print(f"Physical route step {next_step}/{final_step}: {len(costs)} reachable states", flush=True)
+    if level == 1:
+        if initial not in costs:
+            raise ValueError(f"Physical route does not close at the map wrap; final states={sorted(costs)[:12]}")
+        final = initial
+    else:
+        grounded_endpoints = [state for state in costs if state[1] == 0 and state[0] % 2 == 0
+                              and support(final_step, state[0] // 2) == 1]
+        if not grounded_endpoints:
+            raise ValueError(f"Level2 route has no terrain-supported endpoint at camera step {final_step}")
+        final = min(grounded_endpoints, key=lambda state: (costs[state], state))
+    states = [final]
     actions = []
-    current = initial
-    for step in range(511, 0, -1):
+    current = final
+    for step in range(final_step, 0, -1):
         previous, action = history[step][current]
         states.append(previous)
         actions.append(action)
         current = previous
     states.reverse()
     actions.reverse()
-    inverse_projection = {project_motion_foot(foot, PLAYER_X_MC): foot for foot in range(12, 64)}
-    path = bytes(inverse_projection[position // 2] for position, velocity in states)
+    inverse_projection = {project_motion_foot(foot, PLAYER_X_MC): foot for foot in range(player_height + 2, 64)}
+    prepared_path = bytes(inverse_projection[position // 2] for position, velocity in states)
+    path = prepared_path + prepared_path[-1:] * (512 - len(prepared_path))
     assert len(path) == 512 and all(value != 0xff for value in path)
-    assert path[-1] == path[0]
+    if level == 1:
+        assert path[-1] == path[0]
     contacts = Counter(support(step, position // 2) if velocity == 0 and position % 2 == 0 else 0
                        for step, (position, velocity) in enumerate(states))
     assert all(not blocked(step, position // 2) for step, (position, velocity) in enumerate(states))
     jumps = [{"step": step, "launch_velocity_half_pixels": action}
              for step, action in enumerate(actions, 1) if action]
-    return path, {"physics_position_units": "half projected physical pixels", "gravity_half_pixels": 1,
+    report = {"physics_position_units": "half projected physical pixels", "gravity_half_pixels": 1,
                   "jump_velocity_choices_half_pixels": list(strengths), "jumps": jumps,
                   "terrain_supported_steps": contacts[1], "owl_supported_steps": contacts[2],
                   "airborne_steps": contacts[0], "support_kind_by_step": [support(step, position // 2)
@@ -328,7 +375,17 @@ def physical_route(collision, original_map, ground, frames):
                   "projected_position_half_pixels": [position for position, velocity in states],
                   "vertical_velocity_half_pixels": [velocity for position, velocity in states],
                   "full_body_solid_and_owl_overlap_states": 0, "phase0_next_camera_checked": True,
-                  "route_cost": costs[initial]}
+                  "route_cost": costs[final]}
+    if level == 2:
+        report.update({"camera_steps": 472, "runtime_camera_steps": 472,
+                       "prepared_last_camera_step": final_step,
+                       "prepared_state_count": len(states), "prepared_endpoint_terrain_supported": True,
+                       "inactive_path_entries": [472, 511], "padding_entries": [473, 511],
+                       "runtime_terrain_supported_steps": sum(kind == 1 for kind in report["support_kind_by_step"][:472]),
+                       "runtime_owl_supported_steps": sum(kind == 2 for kind in report["support_kind_by_step"][:472]),
+                       "runtime_airborne_steps": sum(kind == 0 for kind in report["support_kind_by_step"][:472]),
+                       "route_domain": "Physics prepared for 0..472 inclusive; runtime actor updates use 0..471 and transition; 473..511 are padding"})
+    return path, report
 
 
 def project_motion_foot(foot, x_mc):
@@ -362,6 +419,7 @@ def preview(originals, reduced, palette):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--program", type=Path, help="Re-extract the retained frames from original disk file 1")
+    parser.add_argument("--level", type=int, choices=(1, 2), default=1, help="Terrain route to prepare; Level2 reuses the unchanged sprite atlas")
     args = parser.parse_args()
     if args.program:
         extract_sources(args.program)
@@ -377,7 +435,8 @@ def main():
                      for pose in range(ENEMY_FRAME_COUNT))
     reduced = [reduce_frame(source, GIANA_COLOR if index < 4 else ENEMY_COLOR,
                             0.2 if index < 4 else 0.5, palette,
-                            (MC0, GIANA_COLOR, 6, MC1) if index < 4 else (MC0, ENEMY_COLOR, MC1))
+                            (MC0, GIANA_COLOR, 6, MC1) if index < 4 else (MC0, ENEMY_COLOR, MC1),
+                            LEVEL2_VERTICAL_SCALE if args.level == 2 and index < 4 else (5, 2))
                for index, source in enumerate(originals)]
     frame_images = []
     frame_main_colors = []
@@ -408,9 +467,35 @@ def main():
                 actual = base[y][x] if base[y][x] is not None else overlay[y][x]
                 expected = reduced[pose][y][x // 2] if y < len(reduced[pose]) and x < 12 else None
                 assert actual == expected
-    ground, player_path, motion = prepare_motion(sources["original-sprites-collision.bin"], frames)
     atlas = b"".join(frames)
     assert len(atlas) == 640
+    if args.level == 2:
+        shared_atlas = (ASSETS / "sprites.bin").read_bytes()
+        assert digest(shared_atlas) == "292d8db35cf6fc87d9b93d317674edfcbc34e06970f0404e431f33624fdeb199"
+        assert atlas[512:] == shared_atlas[512:], "Level2 must reuse the original owl art unchanged"
+        ground, player_path, motion = prepare_motion(sources["original-sprites-collision.bin"], frames, 2)
+        level2_atlas = atlas[:512]
+        (ASSETS / "level2-sprites.bin").write_bytes(level2_atlas)
+        receipt = {
+            "level": 2, "original_map_sha256": LEVEL2_MAP_SHA256,
+            "shared_atlas_file": "sprites.bin", "shared_atlas_sha256": digest(shared_atlas),
+            "actor_art": "Original Giana poses resampled to 8 rows; unchanged shared Stage1 horned owl",
+            "giana_atlas_file": "level2-sprites.bin", "giana_atlas_bytes": len(level2_atlas),
+            "giana_atlas_sha256": digest(level2_atlas), "giana_height": LEVEL2_GIANA_HEIGHT,
+            "giana_source_vertical_pixels_per_row": list(LEVEL2_VERTICAL_SCALE),
+            "giana_composite_bounding_boxes_physical": [bbox(image, 2) for image in reduced[:4]],
+            "giana_blue_pixels_per_pose": [sum(c == 6 for row in image for c in row) for image in reduced[:4]],
+            "giana_sampling": "Area vote all 23 original composite rows into 8 rows; horizontal groups of 4 source pixels; coverage 20%; same palette and tie rules as Level1",
+            "collision_source_sha256": digest(sources["original-sprites-collision.bin"]),
+            "rendered_empty_pixel_code": 0,
+            "motion": motion,
+            "motion_output_sha256": {"level2-sprite-ground.bin": digest(ground),
+                                     "level2-sprite-player-path.bin": digest(player_path)},
+        }
+        (ASSETS / "level2-sprites-import.json").write_text(json.dumps(receipt, indent=2) + "\n")
+        print(f"Level2 actors prepared: {len(level2_atlas)} Giana atlas bytes, {len(ground)} ground bytes and {len(player_path)} route bytes; Level1 and owl art unchanged.")
+        return
+    ground, player_path, motion = prepare_motion(sources["original-sprites-collision.bin"], frames)
     (ASSETS / "sprites.bin").write_bytes(atlas)
     assembly = [
         "// Original C64 Giana and Stage 1 owl, reduced by tools/prepare-sprites.py.",

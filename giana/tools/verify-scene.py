@@ -71,7 +71,13 @@ def read_sid_events(path):
 class SceneReference:
     """Decode source files directly, independently of generated runtime tables."""
 
-    def __init__(self):
+    def __init__(self, source_level=1):
+        self.source_level = source_level
+        self.terrain_colors = (9, 14, 8) if source_level == 1 else (9, 10, 2)
+        self.source_colors = (14, 8, 9) if source_level == 1 else (0, 10, 2)
+        self.game_screen = self.terrain_colors[1] * 16 + self.terrain_colors[2]
+        self.empty_code = 1 if source_level == 1 else 0
+        self.player_height = 10 if source_level == 1 else 8
         self.source_path = ROOT / "images/giana5.koa"
         self.project_path = ROOT / "images/giana5.json"
         self.source = self.source_path.read_bytes()
@@ -94,18 +100,24 @@ class SceneReference:
         assert self.game == {row * 40 + column for row in range(3, 11) for column in range(23, 33)}
         assert self.light and not self.game & self.light
         assert self.background == 9
-        self.tiles = (ROOT / "giana/assets/level1-tiles.bin").read_bytes()
-        self.tile_map = (ROOT / "giana/assets/level1-tv-map.bin").read_bytes()
-        self.accents = (ROOT / "giana/assets/level1-accents.bin").read_bytes()
+        self.tiles = (ROOT / f"giana/assets/level{source_level}-tiles.bin").read_bytes()
+        self.tile_map = (ROOT / f"giana/assets/level{source_level}-tv-map.bin").read_bytes()
+        self.accents = (ROOT / f"giana/assets/level{source_level}-accents.bin").read_bytes()
         self.accent_tables = tuple((ROOT / "giana/assets" / name).read_bytes() for name in (
-            "level1-perspective-accents.bin", "level1-perspective-middle-accents.bin",
-            "level1-perspective-right-accents.bin", "level1-accents.bin"))
+            f"level{source_level}-perspective-accents.bin", f"level{source_level}-perspective-middle-accents.bin",
+            f"level{source_level}-perspective-right-accents.bin", f"level{source_level}-accents.bin"))
         assert len(self.tiles) % 8 == 0 and len(self.tile_map) == 128 * 8 and len(self.accents) == 512
         assert all(len(table) == 512 for table in self.accent_tables)
-        self.sprite_atlas = (ROOT / "giana/assets/sprites.bin").read_bytes()
-        self.player_path = (ROOT / "giana/assets/sprite-player-path.bin").read_bytes()
-        self.actor_ground = (ROOT / "giana/assets/sprite-ground.bin").read_bytes()
-        self.original_map = (ROOT / "giana/assets/original-level1-map.bin").read_bytes()
+        self.shared_sprite_atlas = (ROOT / "giana/assets/sprites.bin").read_bytes()
+        self.level2_player_planes = (ROOT / "giana/assets/level2-sprites.bin").read_bytes() if source_level == 2 else None
+        self.sprite_atlas = (self.level2_player_planes + self.shared_sprite_atlas[512:]
+                             if source_level == 2 else self.shared_sprite_atlas)
+        actor_prefix = "" if source_level == 1 else "level2-"
+        self.player_path = (ROOT / f"giana/assets/{actor_prefix}sprite-player-path.bin").read_bytes()
+        self.actor_ground = (ROOT / f"giana/assets/{actor_prefix}sprite-ground.bin").read_bytes()
+        self.original_map = (ROOT / f"giana/assets/original-level{source_level}-map.bin").read_bytes()
+        if source_level == 2:
+            assert self.original_map == self.decode_level2_stream(), "Level2 source map differs from the original block stream"
         self.collision_flags = (ROOT / "giana/assets/original-sprites-collision.bin").read_bytes()
         assert (len(self.sprite_atlas), len(self.player_path), len(self.actor_ground)) == (640, 512, 256)
         assert (len(self.original_map), len(self.collision_flags)) == (5120, 256)
@@ -149,22 +161,25 @@ class SceneReference:
         assert self.music_reference["subtune_one_based"] == 3
         for frame in range(10):
             data = self.sprite_atlas[frame * 64:(frame + 1) * 64]
-            height = 10 if frame < 8 else 9
+            height = self.player_height if frame < 8 else 9
             assert data[63] == 0
             for row in range(21):
                 for pair in range(12):
                     if row >= height or pair >= 6:
                         assert self.sprite_code(data, pair, row) == 0, (frame, pair, row)
-        for region, source_rows in enumerate(REGION_SOURCE_ROWS):
-            for target_y, source_y in enumerate(source_rows):
-                if source_y >= 0 and REGION_MASK_ROWS[region] & (1 << (target_y // 8)):
-                    assert all(self.terrain_pixel(x, source_y) != 3 for x in range(512)), (
-                        "Black edge-cell masks must not erase source accents", region, target_y)
         self.palette_path = ROOT / "palettes/peptoette-a.vpl"
         self.palette = [tuple(int(value, 16) for value in line.split()[:3])
                         for line in self.palette_path.read_text().splitlines()
                         if line.strip() and not line.lstrip().startswith("#")]
         assert len(self.palette) == 16
+        if source_level == 2:
+            assert self.level2_player_planes == self.decode_level2_player_art(), "Level2 Giana differs from original area-sampled art"
+        self.decode_original_terrain()
+        for region, source_rows in enumerate(REGION_SOURCE_ROWS):
+            for target_y, source_y in enumerate(source_rows):
+                if source_level == 1 and source_y >= 0 and REGION_MASK_ROWS[region] & (1 << (target_y // 8)):
+                    assert all(self.terrain_pixel(x, source_y) != 3 for x in range(512)), (
+                        "Black edge-cell masks must not erase source accents", region, target_y)
         self.protected_pixels = []
         for cell in self.light:
             colors = (self.background, self.screen[cell] >> 4, self.screen[cell] & 15, self.colors[cell])
@@ -175,12 +190,130 @@ class SceneReference:
                     if color in PROTECTED_COLORS:
                         self.protected_pixels.append((cell, offset, shift, color))
 
-    def terrain_pixel(self, world_x, source_y):
-        tile = self.tile_map[(source_y // 8) * 128 + world_x // 4]
-        source = self.tiles[tile * 8 + source_y % 8]
-        return (source >> (6 - 2 * (world_x % 4))) & 3
+    def decode_level2_player_art(self):
+        """Composite the original three planes, then area-vote them at23/8.
 
-    @lru_cache(maxsize=512)
+        Integer area weights keep this independent of the builder's floating
+        point reduction. Each output multicolor pixel covers4 source pixels.
+        """
+        original = (ROOT / "giana/assets/original-sprites-giana.bin").read_bytes()
+        assert digest(original) == "00cc787a7bed3d67516782d9eb2816088844317a714d2e27d5c8e45beafc2944"
+        result = bytearray()
+        candidates = (10, 7, 6, 2)
+        quantized = {color: min(candidates, key=lambda target: sum(
+            (a - b) ** 2 for a, b in zip(self.palette[color], self.palette[target]))) for color in range(16)}
+        for pose in range(4):
+            pixels = [[None] * 24 for _ in range(23)]
+            for layer in (2, 1, 0):
+                source = original[(pose * 3 + layer) * 64:(pose * 3 + layer + 1) * 64]
+                for y in range(21):
+                    for x in range(24):
+                        byte = source[y * 3 + x // 8]
+                        if layer == 2:
+                            color = 1 if byte & (0x80 >> (x % 8)) else None
+                        else:
+                            color = (None, 10, (7, 6)[layer], 2)[(byte >> (6 - 2 * ((x % 8) // 2))) & 3]
+                        if color is not None:
+                            pixels[y + layer][x] = color
+            planes = [bytearray(64), bytearray(64)]
+            for y in range(8):
+                for x in range(6):
+                    weights = Counter()
+                    total = 0
+                    for source_y in range(23):
+                        weight = max(0, min((y + 1) * 23, (source_y + 1) * 8) - max(y * 23, source_y * 8))
+                        for source_x in range(x * 4, x * 4 + 4):
+                            total += weight
+                            color = pixels[source_y][source_x]
+                            if color is not None:
+                                weights[quantized[color]] += weight
+                    if 5 * sum(weights.values()) < total:
+                        continue
+                    color = max(weights, key=lambda candidate: (weights[candidate], candidate == 7, candidate))
+                    plane, code = (1, 2) if color == 6 else (0, {10: 1, 7: 2, 2: 3}[color])
+                    planes[plane][y * 3 + x // 4] |= code << (6 - 2 * (x % 4))
+            result.extend(planes[0])
+            result.extend(planes[1])
+        return bytes(result)
+
+    @staticmethod
+    def decode_level2_stream():
+        """Expand original block records independently of the asset builder."""
+        assets = ROOT / "giana/assets"
+        source_files = (
+            ("original-level2-stream.bin", "c8a93fc534bcea121b4632a417e3582797246e083dd9496641681929b8e71ce1"),
+            ("original-level2-block-pointers.bin", "2f8b7e4a97adbb557db2495b599f5a57106647681f8c1d6f1c0d675e9e0b4caf"),
+            ("original-level2-block-data.bin", "49b9c157f3180a60ae3adbafddf054991604c310bd6367d50b39e9df82e816e6"),
+        )
+        source = []
+        for name, expected_hash in source_files:
+            data = (assets / name).read_bytes()
+            assert digest(data) == expected_hash, f"Original Level2 source changed: {name}"
+            source.append(data)
+        stream, pointers, blocks = source
+        result = bytearray(256 * 20)
+        assert stream[-1] == 255 and (len(stream) - 1) % 5 == 0
+        for offset in range(0, len(stream) - 1, 5):
+            block, low, high, across, down = stream[offset:offset + 5]
+            assert block * 2 + 2 <= len(pointers) and across and down
+            source_offset = int.from_bytes(pointers[block * 2:block * 2 + 2], "little") - 0x9286
+            assert 0 <= source_offset < len(blocks) - 1
+            width, height = blocks[source_offset] + 1, blocks[source_offset + 1] + 1
+            pattern = blocks[source_offset + 2:source_offset + 2 + width * height]
+            assert len(pattern) == width * height
+            for y in range(height * down):
+                for x in range(width * across):
+                    destination = low + high * 256 + y * 256 + x
+                    assert 0 <= destination < len(result)
+                    result[destination] = pattern[(y % height) * width + x % width]
+        return bytes(result)
+
+    def decode_original_terrain(self):
+        """Sample the original character scene, never the generated TV tile data."""
+        charset = (ROOT / "giana/assets/original-charset.bin").read_bytes()
+        attributes = (ROOT / "giana/assets/original-char-colors.bin").read_bytes()
+        assert len(charset) == 2048 and len(attributes) == 256
+        destinations = (8, 9, 14, 5, 7) if self.source_level == 1 else (*self.terrain_colors, 5, 7)
+        quantized = []
+        for rgb in self.palette:
+            errors = [sum((a - b) ** 2 for a, b in zip(rgb, self.palette[color]))
+                      for color in destinations]
+            quantized.append(destinations[errors.index(min(errors))])
+        quantized[self.source_colors[0]] = self.terrain_colors[0] if self.source_level == 2 else 14
+        semantic = []
+        for y in range(64):
+            source_y = (10 * y + 5) // 4
+            row = []
+            for x in range(512):
+                source_x = x * 4 + 2
+                character = self.original_map[(source_y // 8) * 256 + x // 2]
+                bits = charset[character * 8 + source_y % 8]
+                attribute = attributes[character]
+                if attribute & 8:
+                    code = (bits >> (6 - 2 * ((source_x % 8) // 2))) & 3
+                    original = (*self.source_colors, attribute & 7)[code]
+                else:
+                    original = attribute if bits & (0x80 >> (source_x % 8)) else self.source_colors[0]
+                row.append(quantized[original])
+            semantic.append(tuple(row))
+        self.semantic_rows = tuple(semantic)
+
+    def terrain_pixel(self, world_x, source_y):
+        color = self.semantic_rows[source_y][world_x]
+        return self.terrain_colors.index(color) if color in self.terrain_colors else 3
+
+    @lru_cache(maxsize=4096)
+    def expected_accent_flags(self, region, phase, column):
+        flags = 0
+        for row in range(8):
+            samples = Counter(self.semantic_rows[y][(column * 4 + phase + x) % 512]
+                              for y in REGION_SOURCE_ROWS[region][row * 8:row * 8 + 8] if y >= 0
+                              for x in range(4))
+            if samples[7] and samples[7] >= samples[5]:
+                flags |= 1 << row
+        return flags
+
+    @lru_cache(maxsize=1024)
     def expected_bitmap(self, step):
         bitmap = bytearray(self.bitmap)
         for y in range(64):
@@ -195,7 +328,7 @@ class SceneReference:
                 bitmap[cell * 8 + y % 8] = packed
         return bytes(bitmap)
 
-    def expected_colors(self, step, level):
+    def expected_colors(self, step, level, hidden=False):
         mapping = LIGHT_MAPS[level]
         screen = bytearray(self.screen)
         colors = bytearray(self.colors)
@@ -205,12 +338,11 @@ class SceneReference:
             colors[cell] = mapping[self.colors[cell]]
         for column in range(10):
             region = REGION_COLUMNS[column]
-            accent_table = self.accent_tables[region]
-            flags = accent_table[(step % 4) * 128 + (step // 4 + column) % 128]
+            flags = self.expected_accent_flags(region, step % 4, (step // 4 + column) % 128)
             for row in range(8):
                 cell = (row + 3) * 40 + 23 + column
-                screen[cell] = 0xe8
-                colors[cell] = 0 if REGION_MASK_ROWS[region] & (1 << row) else 7 if flags & (1 << row) else 5
+                screen[cell] = 0x99 if hidden else self.game_screen
+                colors[cell] = 9 if hidden else 0 if REGION_MASK_ROWS[region] & (1 << row) else 7 if flags & (1 << row) else 5
         return bytes(screen), bytes(colors)
 
     def decode(self, bitmap, screen, color_ram):
@@ -260,11 +392,12 @@ class SceneReference:
                     data[row * 3 + pair // 4] &= ~(3 << (6 - 2 * (pair % 4)))
         return bytes(data)
 
-    def expected_sprites(self, frame):
-        step = 0 if frame == 0 else ((frame - 1) // 4) % 512
+    def expected_sprites(self, frame, step=None):
+        if step is None:
+            step = 0 if frame == 0 else ((frame - 1) // 4) % 512
         foot = self.player_path[step]
         player_visible = foot != 255
-        player_y = 74 + self.project_actor_foot(foot, 10) - 10 if player_visible else 0
+        player_y = 74 + self.project_actor_foot(foot, 10) - self.player_height if player_visible else 0
         enemy_x = 40 - (step & 63)
         enemy_ground = self.actor_ground[(((step & ~63) + 43) % 512) // 2]
         enemy_visible = player_visible and -5 <= enemy_x <= 39 and enemy_ground != 255 and enemy_ground >= 28
@@ -278,16 +411,18 @@ class SceneReference:
                 "enabled": (3 if player_visible else 0) | (4 if enemy_visible else 0),
                 "x_high": 0x0a | (0x80 if enemy_x >= 24 else 0), "buffers": buffers}
 
-    def verify_sprites(self, frame, ram, vic, work_addresses):
-        actors = self.expected_sprites(frame)
-        expected_enables = 0x1f | actors["enabled"] << 5
+    def verify_sprites(self, frame, ram, vic, work_addresses, step=None, hidden=False):
+        actors = self.expected_sprites(frame, step)
+        expected_enables = 0x0f if hidden else 0x1f | actors["enabled"] << 5
         assert vic[0x15] == expected_enables, (frame, "sprite enables", vic[0x15], expected_enables)
-        assert vic[0x10] == actors["x_high"], (frame, "sprite X high bits")
+        assert vic[0x10] == (0x0a if hidden else actors["x_high"]), (frame, "sprite X high bits")
         assert all(vic[register] == 0 for register in (0x17, 0x1b, 0x1d)), "Sprites must be foreground and unexpanded"
         assert vic[0x1c] == 0xe0, "Four corner masks and highlight must be hires; actors must be multicolor"
         assert tuple(vic[register] & 15 for register in range(0x25, 0x2f)) == (10, 2, 0, 0, 0, 0, 3, 7, 6, 1)
         assert ram[0x07f8:0x0800] == bytes((8, 9, 10, 11, 0x3d, *(address // 64 for address in work_addresses)))
-        assert ram[0x0c00:0x0e80] == self.sprite_atlas, "Immutable sprite atlas changed"
+        assert ram[0x0c00:0x0e80] == self.shared_sprite_atlas, "Immutable original sprite atlas changed"
+        if self.source_level == 2:
+            assert ram[0x1a00:0x1c00] == self.level2_player_planes, "Immutable Level2 Giana art changed"
         assert ram[0x0f40:0x0f80] == self.highlight_data, "Highlight differs from retained source grid"
         assert ram[0x0200:0x0300] == self.corner_data, "Corner masks differ from the fixed physical-pixel radius profile"
         for slot, position in enumerate(self.corner_positions):
@@ -347,7 +482,7 @@ class SceneReference:
         world_x = (camera_step + x_mc) % 512
         character = self.original_map[((10 * source_y + 5) // 32) * 256 + world_x // 2]
         solid = self.collision_flags[character] in (1, 0x80)
-        return solid and (not visible or self.terrain_pixel(world_x, source_y) != 1)
+        return solid and (not visible or self.terrain_pixel(world_x, source_y) != self.empty_code)
 
     def player_support(self, camera_step, actors):
         player = self.sprite_opaque_pixels(actors, 0) | self.sprite_opaque_pixels(actors, 1)
@@ -374,13 +509,16 @@ class SceneReference:
                 "visible_support_gap": min(visible_below) if visible_below else None}
 
     def route_support_states(self):
-        return [self.player_support(step, self.expected_sprites(step * 4 + 1)) for step in range(512)]
+        count = 512 if self.source_level == 1 else 472
+        return [self.player_support(step, self.expected_sprites(step * 4 + 1)) for step in range(count)]
 
     def route_motion_diagnostics(self, states):
+        count = len(states)
+        cyclic = self.source_level == 1
         supported = [bool(state["visible_contact_pixels"] or state["owl_contact_pixels"])
                      and not state["visible_body_penetration_pixels"] for state in states]
         feet = [state["foot_y"] for state in states]
-        deltas = [feet[step] - feet[step - 1] for step in range(512)]
+        deltas = [feet[step] - feet[step - 1] if step or cyclic else 0 for step in range(count)]
         launches = []
         landings = []
         hover_runs = []
@@ -389,9 +527,9 @@ class SceneReference:
         missed_landings = []
         anchor = next((step for step, contact in enumerate(supported) if contact), 0)
         descending = False
-        for offset in range(1, 513):
-            step = (anchor + offset) % 512
-            previous = (step - 1) % 512
+        steps = ((anchor + offset) % count for offset in range(1, count + 1)) if cyclic else range(1, count)
+        for step in steps:
+            previous = (step - 1) % count
             if supported[step]:
                 if not supported[previous]:
                     landings.append(step)
@@ -412,16 +550,17 @@ class SceneReference:
                            if self.rendered_solid(step, x, y, True)]
                 if crossed:
                     missed_landings.append({"step": step, "first_crossed_pixel": list(crossed[0])})
-        for start in range(512):
-            if supported[start] or (not supported[start - 1] and feet[start - 1] == feet[start]):
+        for start in range(count):
+            if supported[start] or ((start or cyclic) and not supported[start - 1] and feet[start - 1] == feet[start]):
                 continue
             length = 0
-            while length < 512 and not supported[(start + length) % 512] and feet[(start + length) % 512] == feet[start]:
+            while (length < count if cyclic else start + length < count) and not supported[(start + length) % count] and feet[(start + length) % count] == feet[start]:
                 length += 1
             if length > 3:
-                rounded_apex = (length == 4 and feet[start - 1] == feet[start] + 1
-                                and (feet[(start + length) % 512] == feet[start] + 1
-                                     or supported[(start + length) % 512]))
+                following = (start + length) % count
+                rounded_apex = ((cyclic or 0 < start and start + length < count)
+                                and length == 4 and feet[start - 1] == feet[start] + 1
+                                and (feet[following] == feet[start] + 1 or supported[following]))
                 hover_runs.append({"start": start, "length": length, "foot_y": feet[start],
                                    "rounded_ballistic_apex": rounded_apex})
         counts = Counter(state["visible_state"] for state in states)
@@ -442,18 +581,18 @@ class SceneReference:
         draw.text((8, 17), "Terrain beneath player center; dots show actual opaque feet: green=contact, yellow=air, red=penetration", fill=(220, 220, 220))
         for step, state in enumerate(states):
             column = (step // 4 + 3) % 128
-            flags = self.accent_tables[1][(step % 4) * 128 + column]
+            flags = self.expected_accent_flags(1, step % 4, column)
             world_x = (step + 13) % 512
             for y, source_y in enumerate(REGION_SOURCE_ROWS[1]):
                 accent = 0 if REGION_MASK_ROWS[1] & (1 << (y // 8)) else 7 if flags & (1 << (y // 8)) else 5
-                color = 0 if source_y < 0 else (9, 14, 8, accent)[self.terrain_pixel(world_x, source_y)]
+                color = 0 if source_y < 0 else (*self.terrain_colors, accent)[self.terrain_pixel(world_x, source_y)]
                 draw.rectangle((step * 2, 32 + y * 2, step * 2 + 1, 33 + y * 2), fill=self.palette[color])
             point_color = {"grounded": (40, 255, 70), "airborne": (255, 255, 0), "penetrating": (255, 30, 30)}[state["visible_state"]]
             y = max(0, min(63, state["foot_y"]))
             draw.rectangle((step * 2, 32 + y * 2, step * 2 + 1, 33 + y * 2), fill=point_color)
         for step in range(0, 512, 64):
             draw.text((step * 2, 163), str(step), fill="white")
-        draw.text((8, 178), "Horizontal axis: camera/actor step 0..511; source world column wraps at the level end.", fill=(220, 220, 220))
+        draw.text((8, 178), f"Horizontal axis: active camera/actor steps 0..{len(states) - 1}; terrain sampled beneath Giana.", fill=(220, 220, 220))
         image.save(destination)
 
     def verify_actor_clearance(self, actors):
@@ -485,22 +624,30 @@ def breakpoint(monitor, address):
 
 
 def verify(args):
-    reference = SceneReference()
+    references = (SceneReference(1), SceneReference(2))
+    reference = references[0]
     assert args.frames < len(reference.music_reference["calls"]), "Capture the independent original SID reference for this complete frame range"
-    prefix = "integrated-music-startup" if args.autostart_mode == 2 else "integrated-music"
+    prefix = "levels-startup" if args.autostart_mode == 2 else "levels"
     output = BUILD / f"{prefix}-check"
     output.mkdir(parents=True, exist_ok=True)
-    support_states = reference.route_support_states()
-    motion = reference.route_motion_diagnostics(support_states)
-    reference.ground_diagnostic(support_states, BUILD / f"{prefix}-strip.png", "Ground-contact route with original music")
-    (BUILD / f"{prefix}-motion.json").write_text(json.dumps(motion, indent=2) + "\n")
-    assert not motion["body_penetration_states"], motion["body_penetration_states"]
-    assert not motion["missed_landings"], motion["missed_landings"]
-    assert not motion["midair_relaunch_steps"], motion["midair_relaunch_steps"]
-    assert not motion["upward_acceleration_resets"], motion["upward_acceleration_resets"]
-    assert all(run["rounded_ballistic_apex"] for run in motion["hover_runs"]), motion["hover_runs"]
-    event_steps = set(motion["launch_steps"]) | set(motion["landing_steps"]) | set(range(80, 101)) | {215, 230, 300, 430, 440, 470}
-    event_frames = {step * 4 + 1 for step in event_steps} | {2, 225, 544, 1637, 1681, 1761, 1921, 2045, 2049}
+    motions = []
+    event_steps = []
+    for level_reference in references:
+        support_states = level_reference.route_support_states()
+        motion = level_reference.route_motion_diagnostics(support_states)
+        motions.append(motion)
+        level_reference.ground_diagnostic(support_states, BUILD / f"{prefix}-level{level_reference.source_level}-strip.png",
+                                         f"Level{level_reference.source_level} ground-contact route")
+        assert not motion["body_penetration_states"], (level_reference.source_level, motion["body_penetration_states"])
+        assert not motion["missed_landings"], (level_reference.source_level, motion["missed_landings"])
+        assert not motion["midair_relaunch_steps"], (level_reference.source_level, motion["midair_relaunch_steps"])
+        assert not motion["upward_acceleration_resets"], (level_reference.source_level, motion["upward_acceleration_resets"])
+        assert all(run["rounded_ballistic_apex"] for run in motion["hover_runs"]), (level_reference.source_level, motion["hover_runs"])
+        event_steps.append(set(motion["launch_steps"]) | set(motion["landing_steps"]) | {0, 1, 470, 471})
+    event_steps[0].update(set(range(80, 101)) | {215, 230, 300, 430, 440})
+    (BUILD / f"{prefix}-motion.json").write_text(json.dumps({"levels": motions}, indent=2) + "\n")
+    motion = motions[0]
+    event_frames = {2, 225, 544, 1637, 1681, 1761, 1921, 2045, 2049}
     labels = read_labels(BUILD / "main.sym")
     program = BUILD / "giana.prg"
     required = ("frameStart", "frameDone", "frameCounter", "lightLevel", "incomingTile", "tilePixelX",
@@ -508,11 +655,16 @@ def verify(args):
                 "terrainAccentMap", "terrainPerspectiveAccentMap", "terrainPerspectiveMiddleAccentMap",
                 "terrainPerspectiveRightAccentMap", "tinySpriteFrames", "spriteWork0", "spriteWork1", "spriteWork2",
                 "actorGround", "actorPlayerPath", "tvHighlightSprite", "cornerMaskFrames",
-                "musicFrameStart", "musicFrameDone")
+                "musicFrameStart", "musicFrameDone", "activeLevel", "levelTransition", "levelCameraStep",
+                "actorStepLo", "actorStepHi", "actorGround2", "actorPlayerPath2", "terrain2Tiles",
+                "terrain2TilesEnd", "terrain2MapStart", "terrain2MapEnd", "terrain2AccentMap",
+                "terrain2PerspectiveAccentMap", "terrain2PerspectiveMiddleAccentMap", "terrain2PerspectiveRightAccentMap",
+                "tinySpriteFrames2", "actorPlayerHeight")
     assert all(name in labels for name in required), "Build the scene before verifying it"
     work_addresses = tuple(labels[name] for name in ("spriteWork0", "spriteWork1", "spriteWork2"))
     assert labels["tinySpriteFrames"] == 0x0c00 and work_addresses == (0x0e80, 0x0ec0, 0x0f00)
     assert labels["tvHighlightSprite"] == 0x0f40
+    assert labels["tinySpriteFrames2"] == 0x1a00
     assert all(address % 64 == 0 and address + 64 <= 0x1000 for address in work_addresses), "VIC work buffers must avoid the character-ROM window"
     with socket.socket() as reserve:
         reserve.bind(("127.0.0.1", 0))
@@ -545,10 +697,15 @@ def verify(args):
     animation = []
     checked_levels = set()
     saved_levels = set()
+    saved_source_levels = set()
     checked_objects = set()
     sky_blue_verified = False
     blue_clothes_verified = False
-    seen_actor_steps = set()
+    level_actor_steps = [set(), set()]
+    level_camera_steps = [set(), set()]
+    level_world_columns = [set(), set()]
+    level_changes = []
+    transition_frames = []
     seen_player_poses = set()
     seen_enemy_poses = set()
     seen_sprite_enables = set()
@@ -559,11 +716,19 @@ def verify(args):
     previous_actor_step = None
     previous_player_y = None
     maximum_actor_y_delta = 0
-    actor_wrap_y_delta = None
+    previous_actor_level = None
     previous_cycles = None
     previous_music_cycles = None
     previous_level = None
     last_transition = -100
+    last_scene_change = -100
+    previous_scene = None
+    expected_active = 0
+    expected_transition = 0
+    expected_camera = 0
+    expected_scroll_countdown = 4
+    expected_actor_level = 0
+    expected_actor_step = 0
     process = None
     connection = None
     monitor = None
@@ -609,7 +774,9 @@ def verify(args):
                 assert raster == 144, (frame, raster)
                 cadence = None if previous_cycles is None else cycles - previous_cycles
                 if cadence is not None:
-                    assert abs(cadence - 19656) <= 9, (frame, cadence)
+                    # Transparent sprite rows still perform DMA. Their moving
+                    # end positions can stall the raster poll within line144.
+                    assert abs(cadence - 19656) < 63, (frame, cadence)
                 previous_cycles = cycles
                 monitor.run("bank ram")
                 ram = monitor.memory(output / "ram.bin", 0, 0xffff)
@@ -623,23 +790,47 @@ def verify(args):
                     transitions.append({"frame": frame, "level": level})
                     last_transition = frame
                     previous_level = level
-                step = frame // 4
-                assert ram[labels["incomingTile"]] == (10 + step // 4) % 128
-                assert ram[labels["tilePixelX"]] == step % 4
-                assert ram[labels["scrollCountdown"]] == 4 - frame % 4
+                active = ram[labels["activeLevel"]]
+                transition = ram[labels["levelTransition"]]
+                step = int.from_bytes(ram[labels["levelCameraStep"]:labels["levelCameraStep"] + 2], "little")
+                assert (active, transition, step) == (expected_active, expected_transition, expected_camera), (
+                    frame, "Level/camera transition", (active, transition, step),
+                    (expected_active, expected_transition, expected_camera))
+                assert ram[labels["scrollCountdown"]] == expected_scroll_countdown, (frame, "Scroll cadence")
+                visible = transition in (0, 255)
+                incoming = 40 + step if visible else 40 if transition == 254 else 40 - transition
+                assert ram[labels["incomingTile"]] == incoming // 4 % 128, (frame, "Incoming map column")
+                assert ram[labels["tilePixelX"]] == incoming % 4, (frame, "Incoming tile pixel")
+                scene = (active, visible)
+                if scene != previous_scene:
+                    last_scene_change = frame
+                    if previous_scene is not None and active != previous_scene[0]:
+                        level_changes.append({"frame": frame, "from": previous_scene[0] + 1, "to": active + 1})
+                    previous_scene = scene
+                reference = references[active]
+                assert ram[labels["actorPlayerHeight"]] == reference.player_height, (frame, "Active Giana height")
                 bitmap = reference.expected_bitmap(step % 512)
-                screen, expected_colors = reference.expected_colors(step % 512, level)
-                assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: bitmap differs from independent terrain decode"
+                if visible or transition == 254:
+                    assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: Level{active + 1} bitmap differs from original source decode"
+                else:
+                    outside = bytearray(ram[0x2000:0x3f40])
+                    for cell in reference.game:
+                        outside[cell * 8:cell * 8 + 8] = reference.bitmap[cell * 8:cell * 8 + 8]
+                    assert outside == reference.bitmap, (frame, "Refill changed bitmap outside TV")
+                screen, expected_colors = reference.expected_colors(step % 512, level, hidden=not visible)
                 assert ram[0x0400:0x07e8] == screen, f"Frame {frame}: scene screen colors differ at level {level}"
                 if frame == 0:
-                    assert ram[labels["terrainTiles"]:labels["terrainTilesEnd"]] == reference.tiles
-                    assert ram[labels["terrainMapStart"]:labels["terrainMapEnd"]] == reference.tile_map
-                    assert ram[labels["terrainAccentMap"]:labels["terrainAccentMap"] + 512] == reference.accents
-                    for name, table in zip(("terrainPerspectiveAccentMap", "terrainPerspectiveMiddleAccentMap",
-                                            "terrainPerspectiveRightAccentMap", "terrainAccentMap"), reference.accent_tables):
-                        assert ram[labels[name]:labels[name] + 512] == table
-                    assert ram[labels["actorGround"]:labels["actorGround"] + 256] == reference.actor_ground
-                    assert ram[labels["actorPlayerPath"]:labels["actorPlayerPath"] + 512] == reference.player_path
+                    for index, source_reference in enumerate(references):
+                        stem, suffix = ("terrain", "") if index == 0 else ("terrain2", "2")
+                        assert ram[labels[stem + "Tiles"]:labels[stem + "TilesEnd"]] == source_reference.tiles
+                        assert ram[labels[stem + "MapStart"]:labels[stem + "MapEnd"]] == source_reference.tile_map
+                        for name, table in zip(("PerspectiveAccentMap", "PerspectiveMiddleAccentMap",
+                                                "PerspectiveRightAccentMap", "AccentMap"), source_reference.accent_tables):
+                            assert ram[labels[stem + name]:labels[stem + name] + 512] == table
+                        for name, data in (("actorGround", source_reference.actor_ground), ("actorPlayerPath", source_reference.player_path)):
+                            address = labels[name + suffix]
+                            assert ram[address:address + len(data)] == data
+                    assert ram[0x1a00:0x1c00] == references[1].level2_player_planes
                     assert ram[labels["cornerMaskFrames"]:labels["cornerMaskFrames"] + 256] == reference.corner_data
                 monitor.run("bank io")
                 colors = bytes(value & 15 for value in monitor.memory(output / "colors.bin", 0xd800, 0xdbe7))
@@ -647,29 +838,39 @@ def verify(args):
                 vic = monitor.memory(output / "vic.bin", 0xd000, 0xd03f)
                 assert vic[0x11] & 0x7f == 0x3b and vic[0x16] & 0x3f == 0x18 and vic[0x18] & 0xfe == 0x18
                 assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == reference.background
-                actors = reference.verify_sprites(frame, ram, vic, work_addresses)
-                sprite_pixels = reference.sprite_pixels(actors)
-                clearance = reference.verify_actor_clearance(actors)
-                support = reference.player_support(step % 512, actors)
-                assert support["visible_body_penetration_pixels"] == 0, (frame, "Opaque body entered rendered solid", support)
-                if previous_actor_step is not None and actors["step"] != previous_actor_step:
-                    assert actors["step"] == (previous_actor_step + 1) % 512
+                actual_actor_step = ram[labels["actorStepLo"]] + 256 * ram[labels["actorStepHi"]]
+                assert actual_actor_step == expected_actor_step, (frame, "Actor camera phase", actual_actor_step, expected_actor_step)
+                actor_reference = references[expected_actor_level]
+                actors = actor_reference.verify_sprites(frame, ram, vic, work_addresses,
+                                                        step=expected_actor_step, hidden=not visible)
+                sprite_pixels = reference.sprite_pixels(actors) if visible else reference.corner_pixels
+                clearance = reference.verify_actor_clearance(actors) if visible else None
+                if visible:
+                    assert expected_actor_level == active, (frame, "Revealed actors use the old level route")
+                    support = reference.player_support(step % 512, actors)
+                    assert support["visible_body_penetration_pixels"] == 0, (frame, "Opaque body entered rendered solid", support)
+                    level_camera_steps[active].add(step)
+                    level_world_columns[active].update((step + x) % 512 for x in range(40))
+                    level_actor_steps[active].add(actors["step"])
+                else:
+                    transition_frames.append(frame)
+                if visible and previous_actor_level == active and previous_actor_step is not None and actors["step"] != previous_actor_step:
+                    assert actors["step"] == (previous_actor_step + 1) % 512, (frame, "Actor step skipped")
                     delta = abs(vic[11] - previous_player_y)
                     maximum_actor_y_delta = max(maximum_actor_y_delta, delta)
-                    if previous_actor_step == 511 and actors["step"] == 0:
-                        actor_wrap_y_delta = delta
-                previous_actor_step = actors["step"]
-                previous_player_y = vic[11]
-                if clearance is not None:
+                if visible:
+                    previous_actor_level = active
+                    previous_actor_step = actors["step"]
+                    previous_player_y = vic[11]
+                if clearance is not None and active == 0:
                     section, gap = clearance
                     owl_overlap_steps.add(actors["step"])
                     cleared_owl_sections.add(section)
                     owl_clearances.append(gap)
-                seen_actor_steps.add(actors["step"])
                 seen_sprite_enables.add(vic[0x15])
-                if actors["visible"][0]:
+                if visible and actors["visible"][0]:
                     seen_player_poses.add(actors["poses"][0] // 2)
-                if actors["visible"][2]:
+                if visible and actors["visible"][2]:
                     seen_enemy_poses.add(actors["poses"][2])
                     enemy_x = actors["positions"][2][0]
                     if enemy_x < 0:
@@ -690,9 +891,10 @@ def verify(args):
                 # At raster 144 the upper display is current and the lower display
                 # retains the previous frame. Capture only after lighting has
                 # remained stable for a complete visible frame.
-                capture = frame > 0 and frame - last_transition >= 2 and (
-                    (frame <= 2042 and frame % 8 == 2) or frame in event_frames or
-                    frame == args.frames or level not in saved_levels)
+                capture = frame > 0 and frame - last_transition >= 2 and frame - last_scene_change >= 2 and (
+                    (frame <= 4096 and frame % 8 == 2) or frame in event_frames or
+                    (visible and frame % 4 == 1 and actors["step"] in event_steps[active]) or
+                    frame == args.frames or level not in saved_levels or visible and active not in saved_source_levels)
                 if capture:
                     screenshot = output / f"frame-{frame:04d}.png"
                     monitor.run(f'screenshot "{screenshot}" 2')
@@ -704,12 +906,14 @@ def verify(args):
                     differences = sum(actual_rgb[offset:offset + 3] != expected_rgb[offset:offset + 3]
                                       for offset in range(0, len(actual_rgb), 3))
                     assert differences == 0, (frame, level, differences)
-                    if actors["visible"][0]:
+                    if visible and actors["visible"][0]:
                         blue_pixels = [position for position, color in sprite_pixels.items() if color == 6]
                         assert all(display.getpixel(position) == reference.palette[6] for position in blue_pixels)
                         blue_clothes_verified |= bool(blue_pixels)
-                    assert display.getpixel((240, 24)) == reference.palette[14], "TV sky must be light blue"
-                    for column, region in enumerate(REGION_COLUMNS):
+                    if visible and active == 0:
+                        assert display.getpixel((240, 24)) == reference.palette[14], "Level1 TV sky must be light blue"
+                        sky_blue_verified = True
+                    for column, region in enumerate(REGION_COLUMNS) if visible else ():
                         for y, source_y in enumerate(REGION_SOURCE_ROWS[region]):
                             if source_y < 0:
                                 for x in range(8):
@@ -717,7 +921,6 @@ def verify(args):
                                     assert position not in reference.highlight_pixels, "Highlight must avoid perspective masks"
                                     assert display.getpixel(position) == reference.palette[0], (
                                         "Perspective masks must stay black", position)
-                    sky_blue_verified = True
                     probes = {
                         2: (("bush", 17, 44, 5),),
                         225: (("bonus", 94, 11, 7),),
@@ -730,7 +933,11 @@ def verify(args):
                         if position not in sprite_pixels:
                             assert display.getpixel(position) == reference.palette[color], name
                             checked_objects.add(name)
-                    screenshots.append({"frame": frame, "level": level})
+                    screenshots.append({"frame": frame, "light": level, "source_level": active + 1,
+                                        "camera_step": step, "transition": transition})
+                    if visible and active not in saved_source_levels:
+                        actual.save(BUILD / f"level{active + 1}-selected.png")
+                        saved_source_levels.add(active)
                     if level not in saved_levels:
                         actual.save(BUILD / f"{prefix}-level-{level}.png")
                         saved_levels.add(level)
@@ -738,7 +945,7 @@ def verify(args):
                         actual.save(BUILD / f"{prefix}.png")
                     if frame in (1637, 1681, 1761, 1921, 2045, 2049):
                         actual.save(BUILD / f"{prefix}-end-{actors['step']:03d}.png")
-                    if frame <= 2042 and frame % 8 == 2:
+                    if frame <= 4096 and frame % 8 == 2:
                         animation.append(actual)
                 monitor.run(f"enable {done_break}")
                 monitor.run("x")
@@ -748,6 +955,7 @@ def verify(args):
                 update_cycles = done_cycles - cycles
                 assert 0 < update_cycles < (312 + 64 - 144) * 63, (frame, update_cycles, done_raster)
                 samples.append({"frame": frame, "level": level, "start_cycles": cycles, "start_raster": raster,
+                                "source_level": active + 1, "level_camera_step": step, "level_transition": transition,
                                 "cadence_cycles": cadence, "update_cycles": update_cycles,
                                 "completion_raster": done_raster, "actor_step": actors["step"],
                                 "sprite_enables": vic[0x15], "music_start_cycles": music_start_cycles,
@@ -755,8 +963,34 @@ def verify(args):
                                 "music_start_raster": music_raster, "music_completion_raster": music_done_raster,
                                 "music_cadence_cycles": music_cadence,
                                 "music_sequence_position": ram[0x41e4]})
+                # Model the visible scheduler contract from the sampled state.
+                # Each refill consumes one normal PAL frame and never suppresses
+                # a music call. Room-light frames deliberately hold the refill.
+                if transition == 255:
+                    expected_active ^= 1
+                    expected_camera = 0
+                    expected_transition = 40
+                elif transition == 254:
+                    if frame % 16 != 13:
+                        expected_actor_level = active
+                        expected_actor_step = 0
+                        expected_scroll_countdown = (3 - frame % 4) or 4
+                        expected_transition = 0
+                elif transition:
+                    if frame % 16 != 13:
+                        expected_transition = transition - 1 or 254
+                else:
+                    if frame % 4 == 0:
+                        expected_actor_level = active
+                        expected_actor_step = step % 512
+                    expected_scroll_countdown -= 1
+                    if expected_scroll_countdown == 0:
+                        expected_scroll_countdown = 4
+                        expected_camera += 1
+                        if expected_camera == (512 if active == 0 else 472):
+                            expected_transition = 255
                 if frame % 256 == 0:
-                    print(f"Verified PAL frame {frame}/{args.frames}; world pixel {step % 512}; light {level}", flush=True)
+                    print(f"Verified PAL frame {frame}/{args.frames}; Level{active + 1} pixel {step}; light {level}; transition {transition}", flush=True)
         assert checked_levels == {0, 1, 2}, "Run at least 32 frames to exercise every automatic light level"
         # Flush the real SID write sink before comparing every complete call.
         connection.sendall(b"quit\n")
@@ -786,21 +1020,33 @@ def verify(args):
         if args.frames >= 544:
             assert checked_objects == {"bush", "bonus", "pipe", "nearby_bush"}
         if args.frames >= 2052:
-            assert len(seen_actor_steps) == 512
+            assert level_actor_steps[0] == set(range(512))
             assert seen_player_poses == {0, 1, 2, 3} and seen_enemy_poses == {8, 9}
-            assert seen_sprite_enables == {0x7f, 0xff}
+            assert seen_sprite_enables == {0x0f, 0x7f, 0xff}
             assert seen_clip_modes == {"left", "right", "inside", "x-high"}
             assert cleared_owl_sections == {0, 64, 128, 192, 320, 448}
             assert len(owl_overlap_steps) == 66
-            assert actor_wrap_y_delta is not None
+        if args.frames >= 4096:
+            assert [(change["from"], change["to"]) for change in level_changes[:2]] == [(1, 2), (2, 1)]
+            assert level_camera_steps == [set(range(513)), set(range(473))]
+            assert level_actor_steps == [set(range(512)), set(range(472))]
+            assert all(columns == set(range(512)) for columns in level_world_columns), "Both complete original maps must reach the TV"
+            assert saved_source_levels == {0, 1}
+            assert samples[-1]["source_level"] == 1 and samples[-1]["level_transition"] == 0
         animation[0].save(BUILD / f"{prefix}.gif", save_all=True, append_images=animation[1:],
                           duration=160, loop=0, optimize=False, disposal=1)
         (output / "timing.json").write_text(json.dumps(samples, indent=2) + "\n")
         updates = [sample["update_cycles"] for sample in samples]
         cadences = [sample["cadence_cycles"] for sample in samples if sample["cadence_cycles"] is not None]
         result.update({"passed": True, "frame_range": [0, args.frames], "frames_verified": len(samples),
-                       "unique_scroll_states": min(512, args.frames // 4 + 1),
-                       "map_loop_tested": args.frames >= 2048, "map_loop_frames": 2048,
+                       "unique_scroll_states_per_level": [len(states) for states in level_camera_steps],
+                       "map_columns_visible_per_level": [len(columns) for columns in level_world_columns],
+                       "level_end_camera_steps": [512, 472], "level_transitions": level_changes,
+                       "level1_level2_level1_verified": args.frames >= 4096,
+                       "transition_hidden_pal_frames": transition_frames,
+                       "per_level_screen_bytes": [source.game_screen for source in references],
+                       "expected_terrain_from_original_character_sources": True,
+                       "level2_source_block_stream_independently_expanded": True,
                        "automatic_light_sequence": list(LIGHT_SEQUENCE), "light_interval_pal_frames": 16,
                        "light_transitions": transitions, "light_levels_verified": sorted(checked_levels),
                        "light_remaps_from_original_verified": True, "outside_marked_cells_changes": 0,
@@ -808,7 +1054,8 @@ def verify(args):
                        "protected_color_pixel_changes": 0, "vic_mode_and_bank_verified": True,
                        "sky_blue_verified": sky_blue_verified, "object_color_probes": sorted(checked_objects),
                        "blue_clothes_verified": blue_clothes_verified,
-                       "actor_steps_verified": len(seen_actor_steps), "actor_reset_tested": args.frames >= 2052,
+                       "actor_steps_verified_per_level": [len(steps) for steps in level_actor_steps],
+                       "actor_reset_tested": args.frames >= 4096,
                        "giana_poses_verified": sorted(seen_player_poses), "owl_frames_verified": sorted(seen_enemy_poses),
                        "sprite_enable_states": sorted(seen_sprite_enables), "sprite_clip_modes": sorted(seen_clip_modes),
                        "sprite_pixels_outside_tv": 0, "moving_actor_pixels_over_perspective_masks": 0,
@@ -835,16 +1082,17 @@ def verify(args):
                        "music_completion_raster_min": min(sample["music_completion_raster"] for sample in samples),
                        "music_completion_raster_max": max(sample["music_completion_raster"] for sample in samples),
                        "music_sampler_cia2_disabled": True,
-                       "giana_visible_all_actor_steps": len(seen_actor_steps) == 512, "opaque_actor_collision_pixels": 0,
+                       "giana_visible_all_actor_steps": [len(steps) == count for steps, count in zip(level_actor_steps, (512, 472))],
+                       "opaque_actor_collision_pixels": 0,
                        "owl_encounters_cleared": sorted(cleared_owl_sections),
                        "owl_overlap_states_verified": len(owl_overlap_steps),
                        "minimum_owl_clearance_pixels": min(owl_clearances) if owl_clearances else None,
                        "owl_clearance_policy": "Exact opaque pixel separation; bounding-box clearance is diagnostic only",
                        "rendered_ground_contacts": motion["terrain_contact_steps"], "owl_head_support_steps": motion["owl_support_steps"],
                        "unsupported_actor_steps": motion["unsupported_steps"], "ground_contact_motion": motion,
+                       "ground_contact_motion_per_level": motions,
                        "opaque_body_terrain_penetration_pixels": 0,
                        "maximum_actor_y_step_pixels": maximum_actor_y_delta,
-                       "actor_wrap_y_delta_pixels": actor_wrap_y_delta,
                        "black_perspective_masks_verified": True,
                        "screenshot_frames": screenshots, "screenshot_pixels_compared_each": 64000,
                        "screenshot_pixel_differences": 0, "palette": "peptoette-a",

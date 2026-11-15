@@ -1,7 +1,7 @@
 # Giana demo part
 
-Standalone C64 part showing `giana5` with the original Giana Sisters Level 1
-scrolling inside the TV and automatic screen light on the room.
+Standalone C64 part showing `giana5` with the original Giana Sisters Levels 1
+and 2 scrolling inside the TV and automatic screen light on the room.
 The asset in `assets/giana5.koa` is an unchanged copy of `../images/giana5.koa`.
 `../images/giana5.json` supplies the `GameArea` and `ScreenLight` tile masks.
 The earlier `giana2.koa` asset remains available unchanged.
@@ -22,7 +22,16 @@ Run the resulting `build/giana.prg` in PAL VICE:
 ```
 
 `KICKASS` and `VICE` can override the executable paths. The PRG starts with
-`RUN` after loading and loops the terrain indefinitely.
+`RUN` after loading and repeats Level 1, Level 2, then Level 1 again.
+
+Both stages use the original maps and character graphics at the same reduced
+scale and scroll speed. Level 1 retains its 512-step camera cycle. Level 2
+ends at step 472, when the last map column reaches the right edge of the TV;
+this keeps Giana in front of the original solid end wall. During each change,
+the TV briefly fills with brown while forty incoming columns replace the old
+terrain. The refill runs across PAL frames and skips room-light update frames,
+so music continues at one native tick per frame. Giana and the glass highlight
+return when the complete next stage is ready.
 
 The picture uses standard multicolor bitmap mode: bitmap at `$2000`, screen
 colors at `$0400`, color RAM at `$D800`, a dark-brown global background, and a
@@ -60,6 +69,29 @@ Terrain data occupies RAM beneath BASIC at `$A000..$B0FF`; startup selects
 `$01=$36` while retaining KERNAL and I/O. The bitmap stays at `$2000..$3F3F`.
 Its startup screen/color sources live at `$C000..$C7CF`, leaving the music's
 original addresses free. The PRG ends below the I/O window at `$D000`.
+
+Level 2 uses the same original music cue. Its source background is black and
+its shared terrain colors are light red and red. The TV maps that background
+to the room's fixed brown color and uses screen byte `$A2`, retaining the
+green/yellow cell accents. In the twelve cells reserved for the stepped black
+edges, accent pixels appear black because the hardware color slot is shared
+with the edge mask. Level 1's pixels and accent tables remain unchanged.
+Level 2's tiles and map occupy CPU RAM at `$1000..$19FF`; its four accent tables
+occupy `$B200..$B9FF`. Its owl-ground and Giana-route tables use `$BA00..$BCFF`.
+The first region is data for the CPU, not sprite art: VIC bank 0 sees character
+ROM at `$1000..$1FFF`. Source extraction and hashes are documented in
+[`assets/LEVEL2-SOURCE.md`](assets/LEVEL2-SOURCE.md).
+
+The upper perspective step reduces one of Level 2's 24-source-pixel tunnels
+below the first stage's 10-pixel Giana. Level 2 therefore uses eight-row area
+samples of the same four original poses; Level 1's accepted sprite atlas and
+route stay unchanged. The extra eight sprite planes occupy `$1A00..$1BFF` as
+CPU source data and reuse the same VIC-visible work buffers. Owl markers are
+omitted where the real tunnel has no room for a supported jump over them.
+
+The current layout leaves a conservative 9,116 bytes (8.90 KiB) directly
+available across its unused RAM ranges. The 2,000-byte startup color sources
+at `$C000..$C7CF` could also be reused after initialization.
 
 ## Screen light
 
@@ -194,16 +226,17 @@ Their upper offsets are two, one, one and zero raster lines; their lower
 offsets are one, one, zero and zero lines. Black masks cover the resulting
 stepped edges. The mapping is fixed in screen space and does not accumulate.
 
-Twelve edge character cells use black as the accent color. Their retained
-pixels contain no green/yellow accents anywhere in the level. Each region
+Twelve edge character cells use black as the accent color. In Level 1, their
+retained pixels contain no green/yellow accents anywhere in the level. Each region
 has a 512-byte accent table following its shifted row windows; the final
 region retains the original unwarped table.
 
-The map uses 1,024 bytes, the tiles use 1,088 bytes, the four accent tables use 2,048
+The Level 1 map uses 1,024 bytes, its tiles use 1,088 bytes, its four accent tables use 2,048
 bytes, and the incoming column uses 64 bytes. A fully expanded bitmap for the
 reduced terrain would use 8,192 bytes. Tiles and map live at `$A000`, with the
-accent tables at `$A900..$B0FF`; setup stays below `$0C00`, while the renderer,
-color updater, lighting tables and incoming column occupy `$6000..$854B`. Zero-page bytes
+accent tables at `$A900..$B0FF`; the entry and frame controller stay below `$0C00`.
+The shared renderer, color updater, lighting tables and incoming column start
+at `$6000`, and level selection/refill code starts at `$9800`. Zero-page bytes
 `$FB/$FC` address tile graphics and accent phases; `$FD` holds the color flags.
 
 Terrain updates begin at PAL raster line 144, after the TV's last visible line, and
@@ -234,32 +267,38 @@ reference when its source identity matches. The second command checks ordinary
 1541 disk autostart with the same PRG.
 
 Native verification compares all 64,000 screen pixels with an independent
-Koala, tile-map and accent-table decode. It also checks the color-RAM choices
+Koala and original character/map decode. It also checks the color-RAM choices
 for all 80 TV cells and the green bush/yellow pipe in the same native frame.
 It checks automatic lighting, all protected color masks, unchanged cells outside
-both regions, all 512 scroll positions, four accent phases and the
-2,048-PAL-frame wrap. The receipt and actual VICE animation are
-`build/integrated-music-verification.json` and `build/integrated-music.gif`. The animation
-samples one terrain loop every eight PAL frames at 160 ms per image, preserving
-its actual duration. The disk-start receipt is
-`build/integrated-music-startup-verification.json`. The earlier verification
+both regions, all 512 Level 1 scroll positions, the 473 visible Level 2 camera
+positions, four accent phases and both automatic level changes. It verifies
+the uniform-brown refill frames and continuous native music/light scheduling.
+The receipt and actual VICE animation are `build/levels-verification.json` and
+`build/levels.gif`; `build/level2-selected.png` shows the second stage.
+The disk-start receipt is `build/levels-startup-verification.json`. The earlier verification
 remains in `build/giana2-color-verification.json` and `build/giana2-color.gif`.
 
 The native receipt records the checked frames, protected pixel counts and
 timing. The perspective reference checks the fixed row mapping, both black
 masks, shifted accent colors and the unchanged right half. Sky and object
 probes follow the projected pixel positions. The native receipt records all
-512 states, the 2,048-frame wrap, three light levels and completion timing
+camera states, both level changes, three light levels and completion timing
 before the next music call at raster 64. Sprite verification also checks
 animation poses, work-buffer pixels, clipping, hardware X high bits and
 composited native screenshots through the actor-loop restart. It requires
-visible Giana art at every step, clearance throughout all six owl encounters,
+visible Giana art in every active stage frame, clearance throughout staged owl encounters,
 and contact with the rendered solid surfaces during walking and landing.
 The highlight check reads the approved native art independently and checks
 its hires mode, cyan color, fixed position, immutable data and foreground priority.
 Corner checks cover all eight hardware slots, the static black profile, the
 copied VIC-visible frames and the unchanged underlying scroll pixels.
-The integrated pass
+The two-stage native pass checked 5,206 PAL checkpoints and 706 complete
+screenshots with zero pixel differences. It covered both full maps and both
+level changes, with 512 Level 1 actor states and 472 Level 2 actor states.
+All 5,206 music calls and 116,480 SID register writes matched the original,
+including the full score loop. The longest graphics job used 13,297 cycles.
+
+The preserved Level 1 integration reference
 checked 5,206 PAL checkpoints and 354 complete screenshots with zero pixel
 differences. All actor poses and both edge clips passed, with no opaque pixels
 outside the TV or over its black masks. The longest terrain update used
