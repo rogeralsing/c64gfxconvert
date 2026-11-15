@@ -1,0 +1,115 @@
+{
+  "original_program_sha256": "0f1a720961fa52102fcfd52e46e40df07e5e307328ad087d55cc00506f904880",
+  "stage_spawn_pointer_address": 15650,
+  "stage_spawn_pointer": 15738,
+  "descriptor_types": [
+    0,
+    2,
+    5,
+    7
+  ],
+  "inputs": {
+    "original-level2-enemies-bee.bin": {
+      "frames": [
+        102,
+        103
+      ],
+      "source_addresses": [
+        55680,
+        55744
+      ],
+      "bytes": 128,
+      "sha256": "a2c34ddf77cd07e43012d87cad47744ed4800df25a6c978fa1f0ae2d62cd9ebd"
+    },
+    "original-level2-enemies-crab.bin": {
+      "frames": [
+        113,
+        114,
+        116,
+        117
+      ],
+      "source_addresses": [
+        56384,
+        56448,
+        56576,
+        56640
+      ],
+      "bytes": 256,
+      "sha256": "8c59673f5994afc9d5b2aeeebbb96dfdbc33785fed46b3608d9eabeb926562dc"
+    },
+    "original-level2-enemies-slinky.bin": {
+      "frames": [
+        154,
+        155,
+        156,
+        159,
+        160,
+        161
+      ],
+      "source_addresses": [
+        59008,
+        59072,
+        59136,
+        59328,
+        59392,
+        59456
+      ],
+      "bytes": 384,
+      "sha256": "342ab3465ac4f1cd639b032eee7db8e5eb8fdcaa3f726ad5b78a3f87e7e4fcf0"
+    },
+    "original-level2-enemies-spawns.bin": {
+      "source_spans": [
+        [
+          15738,
+          15769
+        ]
+      ],
+      "bytes": 31,
+      "sha256": "96103e1b46bf536997a7871cca1570266099c97faf87252f351861ed4cfe8a04"
+    },
+    "original-level2-enemies-descriptors.bin": {
+      "source_spans": [
+        [
+          12395,
+          12418
+        ],
+        [
+          12429,
+          12452
+        ],
+        [
+          12480,
+          12503
+        ],
+        [
+          12514,
+          12537
+        ]
+      ],
+      "bytes": 92,
+      "sha256": "3f1429b36ee027126c65517f3a93037bd7db50c0b56d17dd1dcca8bc21bdc30d"
+    },
+    "original-level2-enemies-y-table.bin": {
+      "source_spans": [
+        [
+          12805,
+          12833
+        ]
+      ],
+      "bytes": 28,
+      "sha256": "cc541aa2465e4315a984ccceb9dfea8cbfc932f1891a4f58dc86a4b73626213c"
+    },
+    "original-level2-enemies-bee-right.bin": {
+      "frames": [
+        105,
+        106
+      ],
+      "source_addresses": [
+        55872,
+        55936
+      ],
+      "bytes": 128,
+      "sha256": "31be654991c6c6b291e6d0bdf638bed5be0f602b51c1d8bf9db87e4e9db66a11"
+    }
+  }
+}

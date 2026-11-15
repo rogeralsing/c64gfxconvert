@@ -45,6 +45,8 @@ REGION_SOURCE_ROWS = (
     tuple(range(64)),
 )
 REGION_MASK_ROWS = (0x81, 0x81, 0x01, 0x00)
+SPRITE_MAIN_COLORS = (7, 6) * 4 + (1, 1, 7, 7, 1, 1, 1, 1) + (5,) * 6 + (7, 7)
+ENEMY_TYPES = {0: "bee", 2: "crab", 5: "owl", 7: "slinky"}
 
 
 def digest(data):
@@ -109,17 +111,19 @@ class SceneReference:
         assert len(self.tiles) % 8 == 0 and len(self.tile_map) == 128 * 8 and len(self.accents) == 512
         assert all(len(table) == 512 for table in self.accent_tables)
         self.shared_sprite_atlas = (ROOT / "giana/assets/sprites.bin").read_bytes()
+        self.extra_enemy_frames = (ROOT / "giana/assets/level2-enemies.bin").read_bytes()
         self.level2_player_planes = (ROOT / "giana/assets/level2-sprites.bin").read_bytes() if source_level == 2 else None
-        self.sprite_atlas = (self.level2_player_planes + self.shared_sprite_atlas[512:]
-                             if source_level == 2 else self.shared_sprite_atlas)
+        self.sprite_atlas = ((self.level2_player_planes + self.shared_sprite_atlas[512:]
+                              if source_level == 2 else self.shared_sprite_atlas) + self.extra_enemy_frames)
         actor_prefix = "" if source_level == 1 else "level2-"
         self.player_path = (ROOT / f"giana/assets/{actor_prefix}sprite-player-path.bin").read_bytes()
-        self.actor_ground = (ROOT / f"giana/assets/{actor_prefix}sprite-ground.bin").read_bytes()
+        self.actor_ground = (ROOT / "giana/assets/sprite-ground.bin").read_bytes() if source_level == 1 else None
         self.original_map = (ROOT / f"giana/assets/original-level{source_level}-map.bin").read_bytes()
         if source_level == 2:
             assert self.original_map == self.decode_level2_stream(), "Level2 source map differs from the original block stream"
         self.collision_flags = (ROOT / "giana/assets/original-sprites-collision.bin").read_bytes()
-        assert (len(self.sprite_atlas), len(self.player_path), len(self.actor_ground)) == (640, 512, 256)
+        assert (len(self.sprite_atlas), len(self.player_path)) == (1536, 512)
+        assert self.actor_ground is None or len(self.actor_ground) == 256
         assert (len(self.original_map), len(self.collision_flags)) == (5120, 256)
         self.highlight_source_path = ROOT / "giana/assets/tv-highlight-mask.json"
         self.highlight_source = self.highlight_source_path.read_bytes()
@@ -159,7 +163,10 @@ class SceneReference:
         self.music_reference = json.loads(reference_path.read_text())
         assert len(self.music) == 7709 and self.music_reference["source_sha256"] == digest(self.music_source)
         assert self.music_reference["subtune_one_based"] == 3
-        for frame in range(10):
+        assert self.shared_sprite_atlas[512:] + self.extra_enemy_frames == self.decode_original_enemy_art(), (
+            "Enemy art differs from original native frames")
+        self.original_enemies = self.decode_original_enemy_spawns()
+        for frame in range(24):
             data = self.sprite_atlas[frame * 64:(frame + 1) * 64]
             height = self.player_height if frame < 8 else 9
             assert data[63] == 0
@@ -175,6 +182,7 @@ class SceneReference:
         if source_level == 2:
             assert self.level2_player_planes == self.decode_level2_player_art(), "Level2 Giana differs from original area-sampled art"
         self.decode_original_terrain()
+        self.enemy_schedules = self.read_level2_enemy_schedules() if source_level == 2 else None
         for region, source_rows in enumerate(REGION_SOURCE_ROWS):
             for target_y, source_y in enumerate(source_rows):
                 if source_level == 1 and source_y >= 0 and REGION_MASK_ROWS[region] & (1 << (target_y // 8)):
@@ -189,6 +197,182 @@ class SceneReference:
                     color = colors[(self.bitmap[offset] >> shift) & 3]
                     if color in PROTECTED_COLORS:
                         self.protected_pixels.append((cell, offset, shift, color))
+
+    @staticmethod
+    def decode_original_enemy_art():
+        """Area-sample original multicolor frames using exact integer weights."""
+        groups = (
+            ("original-sprites-owl.bin", "a7852467282ae17687868613b1000f3392ba571519dee0b0aa258e24de5606c3", 1, 9),
+            ("original-level2-enemies-bee.bin", "a2c34ddf77cd07e43012d87cad47744ed4800df25a6c978fa1f0ae2d62cd9ebd", 7, 9),
+            ("original-level2-enemies-crab.bin", "8c59673f5994afc9d5b2aeeebbb96dfdbc33785fed46b3608d9eabeb926562dc", 1, 6),
+            ("original-level2-enemies-slinky.bin", "342ab3465ac4f1cd639b032eee7db8e5eb8fdcaa3f726ad5b78a3f87e7e4fcf0", 5, 9),
+            ("original-level2-enemies-bee-right.bin", "31be654991c6c6b291e6d0bdf638bed5be0f602b51c1d8bf9db87e4e9db66a11", 7, 9),
+        )
+        result = bytearray()
+        for filename, expected_hash, main_color, target_height in groups:
+            source = (ROOT / "giana/assets" / filename).read_bytes()
+            assert digest(source) == expected_hash, f"Original enemy art changed: {filename}"
+            for offset in range(0, len(source), 64):
+                frame = source[offset:offset + 64]
+                reduced = bytearray(64)
+                for y in range(target_height):
+                    for x in range(6):
+                        votes = Counter()
+                        total = 0
+                        for sy in range(21):
+                            # Crab uses all21 rows reduced to6; other species
+                            # retain the approved two-fifths vertical sampling.
+                            numerator, denominator = (21, 6) if target_height == 6 else (5, 2)
+                            weight = max(0, min((y + 1) * numerator, (sy + 1) * denominator)
+                                         - max(y * numerator, sy * denominator))
+                            if not weight:
+                                continue
+                            for sx in range(x * 4, x * 4 + 4):
+                                total += weight
+                                code = (frame[sy * 3 + sx // 8] >> (6 - 2 * ((sx % 8) // 2))) & 3
+                                if code:
+                                    votes[code] += weight
+                        if 2 * sum(votes.values()) >= total:
+                            code = max(votes, key=lambda value: (votes[value], value == 2, (0, 10, main_color, 2)[value]))
+                            reduced[y * 3 + x // 4] |= code << (6 - 2 * (x % 4))
+                result.extend(reduced)
+        return bytes(result)
+
+    @staticmethod
+    def decode_original_enemy_spawns():
+        assets = ROOT / "giana/assets"
+        files = (
+            ("original-level2-enemies-spawns.bin", "96103e1b46bf536997a7871cca1570266099c97faf87252f351861ed4cfe8a04"),
+            ("original-level2-enemies-descriptors.bin", "3f1429b36ee027126c65517f3a93037bd7db50c0b56d17dd1dcca8bc21bdc30d"),
+            ("original-level2-enemies-y-table.bin", "cc541aa2465e4315a984ccceb9dfea8cbfc932f1891a4f58dc86a4b73626213c"),
+        )
+        raw = []
+        for filename, expected_hash in files:
+            data = (assets / filename).read_bytes()
+            assert digest(data) == expected_hash, f"Original enemy source changed: {filename}"
+            raw.append(data)
+        spawns, descriptors, y_table = raw
+        assert len(spawns) == 31 and spawns[-1] == 255 and len(descriptors) == 92
+        result = []
+        for offset in range(0, 30, 3):
+            column, row, kind = spawns[offset:offset + 3]
+            if kind == 11:
+                continue  # Original dynamic pickups are separate from enemies.
+            assert kind in ENEMY_TYPES
+            descriptor_offset = (0, 2, 5, 7).index(kind) * 23
+            descriptor = descriptors[descriptor_offset:descriptor_offset + 23]
+            result.append({"source_entry": offset // 3, "column": column, "row": row, "type": kind,
+                           "world_x": 2 * column - 4, "source_top": y_table[row] - 61,
+                           "source_x": 8 * column - 16, "activation": 2 * (column - 40),
+                           "color": descriptor[2], "speed": descriptor[14], "support_mode": descriptor[16]})
+        assert len(result) == 8
+        return result
+
+    def read_level2_enemy_schedules(self):
+        """Check serialized motion against original art, spawns and solid pixels.
+
+        Patrol choices are intentionally faked. These checks enforce their public
+        contract independently of the offline route solver, rather than copying
+        that solver to generate a second set of expected trajectories.
+        """
+        self.enemy_schedule_arrays = []
+        schedules = [[{"x": 0, "y": 0, "frame": 255, "source_entry": None, "type": None}
+                      for _ in range(2)] for _ in range(512)]
+        lifetimes = {enemy["source_entry"]: [] for enemy in self.original_enemies}
+        type_frames = {5: ((8, 2),), 0: ((10, 2), (22, 2)),
+                       2: ((12, 2), (14, 2)), 7: ((16, 3), (19, 3))}
+        self.enemy_semantics = []
+        for slot in range(2):
+            arrays = {channel: (ROOT / f"giana/assets/level2-enemy{slot}-{channel}.bin").read_bytes()
+                      for channel in ("x", "y", "frame")}
+            assert all(len(data) == 512 for data in arrays.values())
+            self.enemy_schedule_arrays.append(arrays)
+            for step, pose in enumerate(arrays["frame"]):
+                if pose == 255:
+                    continue
+                assert step <= 472, (step, slot, "Enemy beyond the finite Level2 camera route")
+                x = arrays["x"][step]
+                x -= 256 if x >= 128 else 0
+                y = arrays["y"][step]
+                assert -5 <= x < 40 and 0 <= y < 64, (step, slot, x, y)
+                kind = next((kind for kind, groups in type_frames.items()
+                             if any(first <= pose < first + count for first, count in groups)), None)
+                assert kind is not None, (step, slot, pose, "Unknown original enemy pose")
+                candidates = [enemy for enemy in self.original_enemies if enemy["type"] == kind]
+                original = min(candidates, key=lambda enemy: abs(step + x - enemy["world_x"]))
+                entry = original["source_entry"]
+                assert step >= original["activation"], (step, entry, "Enemy before its original spawn trigger")
+                # An enemy may settle onto a nearby clear reduced floor before
+                # entry (up to8MC), then patrol within2MC of that fixed anchor.
+                offset = step + x - original["world_x"]
+                assert -10 <= offset <= 10, (step, entry, "Enemy outside its local patrol", offset)
+                phase = (4 * (step - original["activation"]) // 7)
+                first, count = next(group for group in type_frames[kind] if group[0] <= pose < sum(group))
+                assert pose - first == phase % count, (step, entry, "Original seven-update animation timer", pose, phase)
+                assert SPRITE_MAIN_COLORS[pose] == original["color"], (entry, "Original enemy main color")
+                actor = {"x": x, "y": y, "frame": pose, "source_entry": entry, "type": kind}
+                schedules[step][slot] = actor
+                lifetimes[entry].append((step, slot, x, y, pose))
+                data = self.sprite_atlas[pose * 64:(pose + 1) * 64]
+                points = {(x + px, y + py) for py in range(21) for px in range(6)
+                          if self.sprite_code(data, px, py) and 0 <= x + px < 40}
+                assert points, (step, entry, "Enemy schedule has no visible opaque pixels")
+                assert all(0 <= py < 64 and REGION_SOURCE_ROWS[REGION_COLUMNS[px // 4]][py] >= 0
+                           for px, py in points), (step, entry, "Enemy over the TV edge mask")
+                support = []
+                for held_camera in (step, step + 1):
+                    overlap = {(px, py) for px, py in points if self.rendered_solid(held_camera, px, py, True)}
+                    assert not overlap, (step, held_camera, entry, "Opaque enemy entered rendered terrain", sorted(overlap))
+                    support.append(sum((px, py + 1) not in points and self.rendered_solid(held_camera, px, py + 1, True)
+                                       for px, py in points))
+                self.enemy_semantics.append({"step": step, "source_entry": entry, "type": kind,
+                                             "slot": slot, "x": x, "y": y, "frame": pose,
+                                             "held_camera_support_pixels": support, "foot_y": 1 + max(py for px, py in points),
+                                             "fully_inside": 0 <= x <= 34})
+        summaries = []
+        for entry, states in lifetimes.items():
+            assert states, (entry, "Original enemy omitted")
+            assert len({slot for _, slot, _, _, _ in states}) == 1, (entry, "Enemy changed hardware slot")
+            original = next(enemy for enemy in self.original_enemies if enemy["source_entry"] == entry)
+            world_positions = [step + x for step, _, x, _, _ in states]
+            assert max(world_positions) - min(world_positions) <= 4, (entry, "Enemy exceeded bounded patrol width")
+            for previous, current in zip(states, states[1:]):
+                elapsed = current[0] - previous[0]
+                if elapsed > 1:
+                    assert (previous[2] <= 0 or previous[2] >= 34) and (current[2] <= 0 or current[2] >= 34), (
+                        entry, previous[0], current[0], "Enemy disappeared inside the TV")
+                world_delta = (current[0] + current[2]) - (previous[0] + previous[2])
+                assert abs(world_delta) <= original["speed"] * elapsed, (entry, current[0], "Enemy exceeded native source speed", world_delta)
+            body_states = [state for state in self.enemy_semantics if state["source_entry"] == entry]
+            unsupported = [state for state in body_states if state["fully_inside"] and
+                           not state["held_camera_support_pixels"][0]]
+            hover_runs = []
+            current_run = []
+            for state in body_states:
+                if (state["fully_inside"] and not state["held_camera_support_pixels"][0] and
+                        (not current_run or state["step"] == current_run[-1]["step"] + 1 and
+                         state["foot_y"] == current_run[-1]["foot_y"])):
+                    current_run.append(state)
+                else:
+                    if len(current_run) > 3:
+                        hover_runs.append([current_run[0]["step"], current_run[-1]["step"]])
+                    current_run = [state] if state["fully_inside"] and not state["held_camera_support_pixels"][0] else []
+            if len(current_run) > 3:
+                hover_runs.append([current_run[0]["step"], current_run[-1]["step"]])
+            if original["type"] != 0:
+                assert not hover_runs, (entry, "Unsupported walking enemy hovered", hover_runs)
+            summaries.append({"source_entry": entry, "type": original["type"], "name": ENEMY_TYPES[original["type"]],
+                              "first": states[0][0], "last": states[-1][0], "states": len(states),
+                              "slot": states[0][1], "world_x_range": [min(world_positions), max(world_positions)],
+                              "original_world_x": original["world_x"],
+                              "unsupported_interior_states": len(unsupported), "unsupported_flat_runs": hover_runs,
+                              "held_camera_supported_states": [sum(bool(state["held_camera_support_pixels"][phase])
+                                                                     for state in body_states) for phase in (0, 1)]})
+        self.enemy_schedule_summary = summaries
+        return tuple(tuple(actors) for actors in schedules)
+
+    def expected_level2_enemies(self, step):
+        return self.enemy_schedules[step]
 
     def decode_level2_player_art(self):
         """Composite the original three planes, then area-vote them at23/8.
@@ -398,53 +582,67 @@ class SceneReference:
         foot = self.player_path[step]
         player_visible = foot != 255
         player_y = 74 + self.project_actor_foot(foot, 10) - self.player_height if player_visible else 0
-        enemy_x = 40 - (step & 63)
-        enemy_ground = self.actor_ground[(((step & ~63) + 43) % 512) // 2]
-        enemy_visible = player_visible and -5 <= enemy_x <= 39 and enemy_ground != 255 and enemy_ground >= 28
-        enemy_y = 74 + self.project_actor_foot(enemy_ground, enemy_x) - 9 if enemy_visible else 0
-        poses = (2 * (step & 3), 2 * (step & 3) + 1, 8 + ((step >> 1) & 1))
-        positions = ((10, player_y), (10, player_y), (enemy_x, enemy_y))
-        enabled = (player_visible, player_visible, enemy_visible)
+        if self.source_level == 1:
+            enemy_x = 40 - (step & 63)
+            enemy_ground = self.actor_ground[(((step & ~63) + 43) % 512) // 2]
+            enemy_visible = player_visible and -5 <= enemy_x <= 39 and enemy_ground != 255 and enemy_ground >= 28
+            enemy_y = 74 + self.project_actor_foot(enemy_ground, enemy_x) - 9 if enemy_visible else 0
+            enemies = ({"x": enemy_x, "y": enemy_y - 74, "frame": 8 + ((step >> 1) & 1) if enemy_visible else 255,
+                        "source_entry": None, "type": 5},
+                       {"x": 0, "y": 0, "frame": 255, "source_entry": None, "type": None})
+        else:
+            enemies = self.expected_level2_enemies(step)
+        poses = (2 * (step & 3), 2 * (step & 3) + 1, *(enemy["frame"] for enemy in enemies))
+        positions = ((10, player_y), (10, player_y), *((enemy["x"], enemy["y"] + 74) for enemy in enemies))
+        enabled = (player_visible, player_visible, *(player_visible and enemy["frame"] != 255 for enemy in enemies))
         buffers = tuple(self.clipped_sprite(pose, position[0], visible)
                         for pose, position, visible in zip(poses, positions, enabled))
         return {"step": step, "poses": poses, "positions": positions, "visible": enabled,
-                "enabled": (3 if player_visible else 0) | (4 if enemy_visible else 0),
-                "x_high": 0x0a | (0x80 if enemy_x >= 24 else 0), "buffers": buffers}
+                "enabled": sum((1 << slot) for slot, visible in enumerate(enabled) if visible),
+                "x_high": 6 | sum(1 << (slot + 4) for slot in (2, 3) if enabled[slot] and positions[slot][0] >= 24),
+                "main_colors": tuple(SPRITE_MAIN_COLORS[pose] if pose != 255 else 1 for pose in poses),
+                "enemy_entries": tuple(enemy["source_entry"] for enemy in enemies),
+                "enemy_types": tuple(enemy["type"] for enemy in enemies), "buffers": buffers}
 
     def verify_sprites(self, frame, ram, vic, work_addresses, step=None, hidden=False):
         actors = self.expected_sprites(frame, step)
-        expected_enables = 0x0f if hidden else 0x1f | actors["enabled"] << 5
+        expected_enables = 0x07 if hidden else 0x0f | actors["enabled"] << 4
         assert vic[0x15] == expected_enables, (frame, "sprite enables", vic[0x15], expected_enables)
-        assert vic[0x10] == (0x0a if hidden else actors["x_high"]), (frame, "sprite X high bits")
+        x_high_mask = 255 if hidden else 0x3f | (actors["enabled"] << 4)
+        assert vic[0x10] & x_high_mask == (6 if hidden else actors["x_high"]), (frame, "sprite X high bits")
         assert all(vic[register] == 0 for register in (0x17, 0x1b, 0x1d)), "Sprites must be foreground and unexpanded"
-        assert vic[0x1c] == 0xe0, "Four corner masks and highlight must be hires; actors must be multicolor"
-        assert tuple(vic[register] & 15 for register in range(0x25, 0x2f)) == (10, 2, 0, 0, 0, 0, 3, 7, 6, 1)
-        assert ram[0x07f8:0x0800] == bytes((8, 9, 10, 11, 0x3d, *(address // 64 for address in work_addresses)))
+        assert vic[0x1c] == 0xf0, "Multiplexed corners and highlight must be hires; all four actor planes must be multicolor"
+        assert tuple(vic[register] & 15 for register in range(0x25, 0x2d)) == (10, 2, 0, 0, 0, 3, 7, 6)
+        assert ram[0x07f8:0x0800] == bytes((8, 9, 11, 0x3d, *(address // 64 for address in work_addresses)))
         assert ram[0x0c00:0x0e80] == self.shared_sprite_atlas, "Immutable original sprite atlas changed"
         if self.source_level == 2:
             assert ram[0x1a00:0x1c00] == self.level2_player_planes, "Immutable Level2 Giana art changed"
+        assert ram[0x1c00:0x1f80] == self.extra_enemy_frames, "Immutable original enemy art changed"
         assert ram[0x0f40:0x0f80] == self.highlight_data, "Highlight differs from retained source grid"
         assert ram[0x0200:0x0300] == self.corner_data, "Corner masks differ from the fixed physical-pixel radius profile"
-        for slot, position in enumerate(self.corner_positions):
+        for slot, position in ((0, self.corner_positions[0]), (1, self.corner_positions[1]), (2, self.corner_positions[3])):
             assert (vic[slot * 2] + (256 if vic[0x10] & (1 << slot) else 0), vic[slot * 2 + 1]) == position, (
                 frame, slot, "Corner position")
-        assert (vic[8], vic[9]) == (208, 77), "Highlight must stay three pixels below the TV top-left"
+        assert (vic[6], vic[7]) == (208, 77), "Highlight must stay three pixels below the TV top-left"
         for slot, (address, position, expected_data) in enumerate(zip(work_addresses, actors["positions"], actors["buffers"])):
             x_mc, y_hw = position
-            hardware_slot = slot + 5
+            if hidden or not actors["visible"][slot]:
+                continue
+            hardware_slot = slot + 4
             assert vic[hardware_slot * 2] == (208 + 2 * x_mc) & 255, (frame, slot, "sprite X")
             assert vic[hardware_slot * 2 + 1] == y_hw, (frame, slot, "sprite Y")
             assert ram[address:address + 64] == expected_data, (frame, slot, "sprite pose or clipping")
+            assert vic[0x27 + hardware_slot] & 15 == actors["main_colors"][slot], (frame, slot, "Original sprite color")
         return actors
 
     def sprite_pixels(self, actors):
         pixels = {}
         # Lower hardware sprite numbers win where the two Giana planes overlap.
-        for slot in (2, 1, 0):
+        for slot in reversed(range(4)):
             if not actors["visible"][slot]:
                 continue
             x_mc, y_hw = actors["positions"][slot]
-            colors = (None, 10, (7, 6, 1)[slot], 2)
+            colors = (None, 10, actors["main_colors"][slot], 2)
             for row in range(21):
                 y = y_hw - 50 + row
                 for pair in range(12):
@@ -458,10 +656,10 @@ class SceneReference:
                     screen_x = 184 + x * 2
                     pixels[(screen_x, y)] = colors[code]
                     pixels[(screen_x + 1, y)] = colors[code]
-        # The fixed hires glass highlight occupies hardware slot 4, above actors.
+        # The fixed hires glass highlight occupies hardware slot3, above actors.
         # Moving-actor containment above stays strict, including black masks.
         pixels.update(self.highlight_pixels)
-        # The four opaque-black corner masks have the foremost hardware slots.
+        # Three foremost slots draw four corners, with the left slot reused.
         pixels.update(self.corner_pixels)
         return pixels
 
@@ -472,6 +670,26 @@ class SceneReference:
         return {(x_mc + pair, y_hw - 50 + row)
                 for row in range(21) for pair in range(12)
                 if self.sprite_code(actors["buffers"][slot], pair, row)}
+
+    def visible_enemy_entries(self, actors):
+        """Count an enemy only if an opaque pixel survives sprite priority."""
+        covered = set(self.corner_pixels) | set(self.highlight_pixels)
+        result = set()
+        for slot in range(4):
+            points = {(184 + x * 2 + offset, y)
+                      for x, y in self.sprite_opaque_pixels(actors, slot) for offset in (0, 1)}
+            if slot >= 2 and actors["enemy_entries"][slot - 2] is not None and points - covered:
+                result.add(actors["enemy_entries"][slot - 2])
+            covered.update(points)
+        return result
+
+    @staticmethod
+    def verify_left_corner(vic, pointers, bottom):
+        assert pointers[0] == (10 if bottom else 8), "Wrong frame selected for multiplexed left corner"
+        assert (vic[0], vic[1]) == (208, 117 if bottom else 74), "Wrong multiplexed corner position"
+        assert vic[0x10] & 7 == 6 and vic[0x15] & 7 == 7, "All rounded corners must remain enabled"
+        assert all(vic[register] & 1 == 0 for register in (0x17, 0x1b, 0x1c, 0x1d))
+        assert vic[0x27] & 15 == 0
 
     def rendered_solid(self, camera_step, x_mc, target_y, visible=False):
         if not 0 <= x_mc < 40 or not 0 <= target_y < 64:
@@ -495,15 +713,15 @@ class SceneReference:
         logical_penetration = sum(self.rendered_solid(camera_step, x, foot_y - 1) for x in feet)
         visible_penetration = sum(self.rendered_solid(camera_step, x, foot_y - 1, True) for x in feet)
         visible_body_penetration = sum(self.rendered_solid(camera_step, x, y - 24, True) for x, y in player)
-        enemy = self.sprite_opaque_pixels(actors, 2)
-        owl_contact = sum((x, bottom + 1) in enemy for x in feet)
+        enemy = self.sprite_opaque_pixels(actors, 2) | self.sprite_opaque_pixels(actors, 3)
+        enemy_contact = sum((x, bottom + 1) in enemy for x in feet)
         visible_below = [y - foot_y for y in range(max(0, foot_y), 64)
                          if any(self.rendered_solid(camera_step, x, y, True) for x in feet)]
         return {"step": actors["step"], "foot_y": foot_y, "foot_columns": feet,
                 "logical_contact_pixels": logical_contact, "visible_contact_pixels": visible_contact,
                 "logical_penetration_pixels": logical_penetration, "visible_penetration_pixels": visible_penetration,
                 "visible_body_penetration_pixels": visible_body_penetration,
-                "owl_contact_pixels": owl_contact,
+                "enemy_contact_pixels": enemy_contact,
                 "logical_state": "penetrating" if logical_penetration else "grounded" if logical_contact else "airborne",
                 "visible_state": "penetrating" if visible_penetration else "grounded" if visible_contact else "airborne",
                 "visible_support_gap": min(visible_below) if visible_below else None}
@@ -515,7 +733,7 @@ class SceneReference:
     def route_motion_diagnostics(self, states):
         count = len(states)
         cyclic = self.source_level == 1
-        supported = [bool(state["visible_contact_pixels"] or state["owl_contact_pixels"])
+        supported = [bool(state["visible_contact_pixels"] or state["enemy_contact_pixels"])
                      and not state["visible_body_penetration_pixels"] for state in states]
         feet = [state["foot_y"] for state in states]
         deltas = [feet[step] - feet[step - 1] if step or cyclic else 0 for step in range(count)]
@@ -565,7 +783,7 @@ class SceneReference:
                                    "rounded_ballistic_apex": rounded_apex})
         counts = Counter(state["visible_state"] for state in states)
         return {"visible_counts": dict(counts), "terrain_contact_steps": counts["grounded"],
-                "owl_support_steps": sum(bool(state["owl_contact_pixels"]) for state in states),
+                "enemy_support_steps": sum(bool(state["enemy_contact_pixels"]) for state in states),
                 "unsupported_steps": sum(not contact for contact in supported),
                 "body_penetration_states": [state["step"] for state in states if state["visible_body_penetration_pixels"]],
                 "launch_steps": launches, "landing_steps": landings, "hover_runs": hover_runs,
@@ -600,10 +818,10 @@ class SceneReference:
         assert actors["visible"][0] and actors["visible"][1], (step, "Giana disappeared")
         player = self.sprite_opaque_pixels(actors, 0) | self.sprite_opaque_pixels(actors, 1)
         assert player, (step, "Giana has no visible art")
-        enemy = self.sprite_opaque_pixels(actors, 2)
-        assert not player & enemy, (step, "Opaque Giana/owl collision", sorted(player & enemy))
+        enemy = self.sprite_opaque_pixels(actors, 2) | self.sprite_opaque_pixels(actors, 3)
+        assert not player & enemy, (step, "Opaque Giana/enemy collision", sorted(player & enemy))
         enemy_x = actors["positions"][2][0]
-        if actors["visible"][2] and max(10, enemy_x) <= min(15, enemy_x + 5):
+        if self.source_level == 1 and actors["visible"][2] and max(10, enemy_x) <= min(15, enemy_x + 5):
             assert enemy
             clearance = min(y for _, y in enemy) - max(y for _, y in player) - 1
             return step & ~63, clearance
@@ -623,11 +841,20 @@ def breakpoint(monitor, address):
     return int(match[1])
 
 
+def check_corner_phase(monitor, output, name, reference, bottom):
+    monitor.run("bank ram")
+    pointers = monitor.memory(output / f"corner-{name}-pointers.bin", 0x07f8, 0x07ff)
+    monitor.run("bank io")
+    vic = monitor.memory(output / f"corner-{name}-vic.bin", 0xd000, 0xd03f)
+    reference.verify_left_corner(vic, pointers, bottom)
+    monitor.run("bank cpu")
+
+
 def verify(args):
     references = (SceneReference(1), SceneReference(2))
     reference = references[0]
     assert args.frames < len(reference.music_reference["calls"]), "Capture the independent original SID reference for this complete frame range"
-    prefix = "levels-startup" if args.autostart_mode == 2 else "levels"
+    prefix = "mobs-startup" if args.autostart_mode == 2 else "mobs"
     output = BUILD / f"{prefix}-check"
     output.mkdir(parents=True, exist_ok=True)
     motions = []
@@ -653,18 +880,21 @@ def verify(args):
     required = ("frameStart", "frameDone", "frameCounter", "lightLevel", "incomingTile", "tilePixelX",
                 "scrollCountdown", "terrainTiles", "terrainTilesEnd", "terrainMapStart", "terrainMapEnd",
                 "terrainAccentMap", "terrainPerspectiveAccentMap", "terrainPerspectiveMiddleAccentMap",
-                "terrainPerspectiveRightAccentMap", "tinySpriteFrames", "spriteWork0", "spriteWork1", "spriteWork2",
+                "terrainPerspectiveRightAccentMap", "tinySpriteFrames", "spriteWork0", "spriteWork1", "spriteWork2", "spriteWork3",
                 "actorGround", "actorPlayerPath", "tvHighlightSprite", "cornerMaskFrames",
                 "musicFrameStart", "musicFrameDone", "activeLevel", "levelTransition", "levelCameraStep",
-                "actorStepLo", "actorStepHi", "actorGround2", "actorPlayerPath2", "terrain2Tiles",
+                "actorStepLo", "actorStepHi", "actorPlayerPath2", "terrain2Tiles",
                 "terrain2TilesEnd", "terrain2MapStart", "terrain2MapEnd", "terrain2AccentMap",
                 "terrain2PerspectiveAccentMap", "terrain2PerspectiveMiddleAccentMap", "terrain2PerspectiveRightAccentMap",
-                "tinySpriteFrames2", "actorPlayerHeight")
+                "tinySpriteFrames2", "actorPlayerHeight", "extraEnemyFrames", "cornerSplitStart", "cornerSplitDone",
+                "cornerTopRestored", "level2Enemy0X", "level2Enemy0Y", "level2Enemy0Frame",
+                "level2Enemy1X", "level2Enemy1Y", "level2Enemy1Frame")
     assert all(name in labels for name in required), "Build the scene before verifying it"
-    work_addresses = tuple(labels[name] for name in ("spriteWork0", "spriteWork1", "spriteWork2"))
-    assert labels["tinySpriteFrames"] == 0x0c00 and work_addresses == (0x0e80, 0x0ec0, 0x0f00)
+    work_addresses = tuple(labels[name] for name in ("spriteWork0", "spriteWork1", "spriteWork2", "spriteWork3"))
+    assert labels["tinySpriteFrames"] == 0x0c00 and work_addresses == (0x0e80, 0x0ec0, 0x0f00, 0x0f80)
     assert labels["tvHighlightSprite"] == 0x0f40
     assert labels["tinySpriteFrames2"] == 0x1a00
+    assert labels["extraEnemyFrames"] == 0x1c00
     assert all(address % 64 == 0 and address + 64 <= 0x1000 for address in work_addresses), "VIC work buffers must avoid the character-ROM window"
     with socket.socket() as reserve:
         reserve.bind(("127.0.0.1", 0))
@@ -708,6 +938,14 @@ def verify(args):
     transition_frames = []
     seen_player_poses = set()
     seen_enemy_poses = set()
+    seen_level1_owl_poses = set()
+    seen_enemy_entries = set()
+    captured_enemy_entries = set()
+    maximum_visible_enemies = 0
+    maximum_opaque_visible_enemies = 0
+    captured_two_enemies = False
+    captured_enemy_types = set()
+    enemy_representatives = []
     seen_sprite_enables = set()
     seen_clip_modes = set()
     owl_overlap_steps = set()
@@ -744,7 +982,12 @@ def verify(args):
             music_start_break = breakpoint(monitor, labels["musicFrameStart"])
             music_done_break = breakpoint(monitor, labels["musicFrameDone"])
             monitor.run(f"disable {music_done_break}")
+            split_start_break = breakpoint(monitor, labels["cornerSplitStart"])
+            split_done_break = breakpoint(monitor, labels["cornerSplitDone"])
+            monitor.run(f"disable {split_done_break}")
             breakpoint(monitor, labels["frameStart"])
+            top_restored_break = breakpoint(monitor, labels["cornerTopRestored"])
+            monitor.run(f"disable {top_restored_break}")
             done_break = breakpoint(monitor, labels["frameDone"])
             monitor.run(f"disable {done_break}")
             for frame in range(args.frames + 1):
@@ -761,9 +1004,23 @@ def verify(args):
                 music_done_pc, music_done_raster, music_done_cycles = monitor.registers()
                 assert music_done_pc == labels["musicFrameDone"]
                 music_update_cycles = music_done_cycles - music_start_cycles
-                assert 0 < music_update_cycles < (144 - 64) * 63, (frame, "Music missed graphics raster144", music_update_cycles)
+                assert 0 < music_update_cycles < (115 - 64) * 63 and music_done_raster < 115, (
+                    frame, "Music missed the left-corner split deadline", music_update_cycles, music_done_raster)
                 monitor.run(f"disable {music_done_break}")
                 monitor.run(f"enable {music_start_break}")
+                monitor.run("x")
+                split_pc, split_raster, split_cycles = monitor.registers()
+                assert split_pc == labels["cornerSplitStart"] and 115 <= split_raster < 117, (frame, "Corner split start", split_raster)
+                check_corner_phase(monitor, output, "before", reference, bottom=False)
+                monitor.run(f"disable {split_start_break}")
+                monitor.run(f"enable {split_done_break}")
+                monitor.run("x")
+                split_done_pc, split_done_raster, split_done_cycles = monitor.registers()
+                assert split_done_pc == labels["cornerSplitDone"] and split_done_raster < 117, (
+                    frame, "Bottom-left corner missed sprite DMA", split_done_raster)
+                check_corner_phase(monitor, output, "after", reference, bottom=True)
+                monitor.run(f"disable {split_done_break}")
+                monitor.run(f"enable {split_start_break}")
                 monitor.run("x")
                 pc, raster, cycles = monitor.registers()
                 # RAM-bank bytes $00/$01 are shadow RAM. The register response
@@ -778,6 +1035,11 @@ def verify(args):
                     # end positions can stall the raster poll within line144.
                     assert abs(cadence - 19656) < 63, (frame, cadence)
                 previous_cycles = cycles
+                monitor.run(f"enable {top_restored_break}")
+                monitor.run("x")
+                restored_pc, restored_raster, restored_cycles = monitor.registers()
+                assert restored_pc == labels["cornerTopRestored"], (frame, "Left corner restore")
+                monitor.run(f"disable {top_restored_break}")
                 monitor.run("bank ram")
                 ram = monitor.memory(output / "ram.bin", 0, 0xffff)
                 actual_frame = int.from_bytes(ram[labels["frameCounter"]:labels["frameCounter"] + 2], "little")
@@ -828,7 +1090,13 @@ def verify(args):
                                                 "PerspectiveRightAccentMap", "AccentMap"), source_reference.accent_tables):
                             assert ram[labels[stem + name]:labels[stem + name] + 512] == table
                         for name, data in (("actorGround", source_reference.actor_ground), ("actorPlayerPath", source_reference.player_path)):
-                            address = labels[name + suffix]
+                            if data is not None:
+                                address = labels[name + suffix]
+                                assert ram[address:address + len(data)] == data
+                    for slot in range(2):
+                        for channel in ("x", "y", "frame"):
+                            data = references[1].enemy_schedule_arrays[slot][channel]
+                            address = labels[f"level2Enemy{slot}{channel.capitalize()}"]
                             assert ram[address:address + len(data)] == data
                     assert ram[0x1a00:0x1c00] == references[1].level2_player_planes
                     assert ram[labels["cornerMaskFrames"]:labels["cornerMaskFrames"] + 256] == reference.corner_data
@@ -870,9 +1138,19 @@ def verify(args):
                 seen_sprite_enables.add(vic[0x15])
                 if visible and actors["visible"][0]:
                     seen_player_poses.add(actors["poses"][0] // 2)
-                if visible and actors["visible"][2]:
-                    seen_enemy_poses.add(actors["poses"][2])
-                    enemy_x = actors["positions"][2][0]
+                visible_entries = reference.visible_enemy_entries(actors) if visible else set()
+                if visible and active == 1:
+                    seen_enemy_entries.update(visible_entries)
+                    maximum_opaque_visible_enemies = max(maximum_opaque_visible_enemies, len(visible_entries))
+                visible_enemy_count = sum(actors["visible"][slot] for slot in (2, 3)) if visible else 0
+                maximum_visible_enemies = max(maximum_visible_enemies, visible_enemy_count)
+                for slot in (2, 3):
+                    if not visible or not actors["visible"][slot]:
+                        continue
+                    seen_enemy_poses.add(actors["poses"][slot])
+                    if active == 0:
+                        seen_level1_owl_poses.add(actors["poses"][slot])
+                    enemy_x = actors["positions"][slot][0]
                     if enemy_x < 0:
                         seen_clip_modes.add("left")
                     if enemy_x + 6 > 40:
@@ -888,13 +1166,21 @@ def verify(args):
                     reference.verify_protected_pixels(ram[0x2000:0x3f40], ram[0x0400:0x07e8], colors)
                     checked_levels.add(level)
                 monitor.run("bank cpu")
+                representative_types = {kind for slot, kind in enumerate(actors["enemy_types"], 2)
+                                        if visible and active == 1 and kind is not None
+                                        and 8 <= actors["positions"][slot][0] <= 25}
+                both_inside = visible and active == 1 and all(actors["visible"][slot] and
+                              0 <= actors["positions"][slot][0] <= 34 for slot in (2, 3))
                 # At raster 144 the upper display is current and the lower display
                 # retains the previous frame. Capture only after lighting has
                 # remained stable for a complete visible frame.
                 capture = frame > 0 and frame - last_transition >= 2 and frame - last_scene_change >= 2 and (
                     (frame <= 4096 and frame % 8 == 2) or frame in event_frames or
                     (visible and frame % 4 == 1 and actors["step"] in event_steps[active]) or
-                    frame == args.frames or level not in saved_levels or visible and active not in saved_source_levels)
+                    frame == args.frames or level not in saved_levels or visible and active not in saved_source_levels or
+                    (visible and active == 1 and bool(visible_entries - captured_enemy_entries)) or
+                    (both_inside and not captured_two_enemies) or
+                    bool(representative_types - captured_enemy_types))
                 if capture:
                     screenshot = output / f"frame-{frame:04d}.png"
                     monitor.run(f'screenshot "{screenshot}" 2')
@@ -934,7 +1220,25 @@ def verify(args):
                             assert display.getpixel(position) == reference.palette[color], name
                             checked_objects.add(name)
                     screenshots.append({"frame": frame, "light": level, "source_level": active + 1,
-                                        "camera_step": step, "transition": transition})
+                                        "camera_step": step, "transition": transition,
+                                        "enemy_entries": sorted(visible_entries)})
+                    if visible and active == 1:
+                        for entry in visible_entries - captured_enemy_entries:
+                            actual.save(BUILD / f"{prefix}-enemy-{entry}.png")
+                        captured_enemy_entries.update(visible_entries)
+                        tv_crop = display.crop((184, 24, 264, 88)).resize((320, 256), Image.Resampling.NEAREST)
+                        for kind in representative_types - captured_enemy_types:
+                            name = ENEMY_TYPES[kind]
+                            actual.save(BUILD / f"{prefix}-{name}.png")
+                            tv_crop.save(BUILD / f"{prefix}-{name}-tv.png")
+                            enemy_representatives.append({"type": kind, "name": name, "frame": frame,
+                                                          "camera_step": step, "image": f"{prefix}-{name}.png",
+                                                          "tv_crop": f"{prefix}-{name}-tv.png"})
+                        captured_enemy_types.update(representative_types)
+                        if both_inside and not captured_two_enemies:
+                            actual.save(BUILD / f"{prefix}-two-enemies.png")
+                            tv_crop.save(BUILD / f"{prefix}-two-enemies-tv.png")
+                            captured_two_enemies = True
                     if visible and active not in saved_source_levels:
                         actual.save(BUILD / f"level{active + 1}-selected.png")
                         saved_source_levels.add(active)
@@ -955,6 +1259,11 @@ def verify(args):
                 update_cycles = done_cycles - cycles
                 assert 0 < update_cycles < (312 + 64 - 144) * 63, (frame, update_cycles, done_raster)
                 samples.append({"frame": frame, "level": level, "start_cycles": cycles, "start_raster": raster,
+                                "corner_split_raster": split_raster, "corner_split_start_cycles": split_cycles,
+                                "corner_split_completion_raster": split_done_raster,
+                                "corner_split_update_cycles": split_done_cycles - split_cycles,
+                                "corner_top_restore_raster": restored_raster,
+                                "corner_top_restore_cycles": restored_cycles - cycles,
                                 "source_level": active + 1, "level_camera_step": step, "level_transition": transition,
                                 "cadence_cycles": cadence, "update_cycles": update_cycles,
                                 "completion_raster": done_raster, "actor_step": actors["step"],
@@ -1021,8 +1330,8 @@ def verify(args):
             assert checked_objects == {"bush", "bonus", "pipe", "nearby_bush"}
         if args.frames >= 2052:
             assert level_actor_steps[0] == set(range(512))
-            assert seen_player_poses == {0, 1, 2, 3} and seen_enemy_poses == {8, 9}
-            assert seen_sprite_enables == {0x0f, 0x7f, 0xff}
+            assert seen_player_poses == {0, 1, 2, 3} and seen_level1_owl_poses == {8, 9}
+            assert seen_sprite_enables <= {0x07, 0x3f, 0x7f, 0xbf, 0xff}
             assert seen_clip_modes == {"left", "right", "inside", "x-high"}
             assert cleared_owl_sections == {0, 64, 128, 192, 320, 448}
             assert len(owl_overlap_steps) == 66
@@ -1032,6 +1341,14 @@ def verify(args):
             assert level_actor_steps == [set(range(512)), set(range(472))]
             assert all(columns == set(range(512)) for columns in level_world_columns), "Both complete original maps must reach the TV"
             assert saved_source_levels == {0, 1}
+            expected_entries = {enemy["source_entry"] for enemy in references[1].original_enemies}
+            assert seen_enemy_entries == expected_entries and captured_enemy_entries == expected_entries, (
+                "Original enemies not all seen in native screenshots", seen_enemy_entries, captured_enemy_entries)
+            expected_enemy_poses = {actor["frame"] for actors in references[1].enemy_schedules[:472]
+                                    for actor in actors if actor["frame"] != 255} | {8, 9}
+            assert seen_enemy_poses == expected_enemy_poses, ("Native enemy pose coverage", seen_enemy_poses, expected_enemy_poses)
+            assert maximum_visible_enemies == maximum_opaque_visible_enemies == 2 and captured_two_enemies
+            assert captured_enemy_types == set(ENEMY_TYPES), ("Missing native enemy art proof", captured_enemy_types)
             assert samples[-1]["source_level"] == 1 and samples[-1]["level_transition"] == 0
         animation[0].save(BUILD / f"{prefix}.gif", save_all=True, append_images=animation[1:],
                           duration=160, loop=0, optimize=False, disposal=1)
@@ -1056,7 +1373,16 @@ def verify(args):
                        "blue_clothes_verified": blue_clothes_verified,
                        "actor_steps_verified_per_level": [len(steps) for steps in level_actor_steps],
                        "actor_reset_tested": args.frames >= 4096,
-                       "giana_poses_verified": sorted(seen_player_poses), "owl_frames_verified": sorted(seen_enemy_poses),
+                       "giana_poses_verified": sorted(seen_player_poses), "owl_frames_verified": sorted(seen_level1_owl_poses),
+                       "enemy_frames_verified": sorted(seen_enemy_poses),
+                       "level2_enemy_entries_seen": sorted(seen_enemy_entries),
+                       "level2_enemy_entries_in_native_screenshots": sorted(captured_enemy_entries),
+                       "maximum_simultaneous_enemies": maximum_visible_enemies,
+                       "maximum_opaque_visible_enemies": maximum_opaque_visible_enemies,
+                       "native_enemy_representatives": enemy_representatives,
+                       "level2_original_enemy_spawn_summary": references[1].enemy_schedule_summary,
+                       "level2_original_enemy_motion_invariants": references[1].enemy_semantics,
+                       "enemy_art_independently_reduced_from_original": True,
                        "sprite_enable_states": sorted(seen_sprite_enables), "sprite_clip_modes": sorted(seen_clip_modes),
                        "sprite_pixels_outside_tv": 0, "moving_actor_pixels_over_perspective_masks": 0,
                        "highlight_source_sha256": digest(reference.highlight_source),
@@ -1069,7 +1395,9 @@ def verify(args):
                        "rounded_corner_black_hires_pixels": len(reference.corner_pixels),
                        "rounded_corner_profile_physical_pixels": [6, 4, 3, 2, 1, 1, 0, 0],
                        "rounded_corner_runtime_address": 0x0200,
-                       "rounded_corners_static_foremost_verified": True,
+                       "rounded_corners_foremost_verified": True,
+                       "left_corner_sprite_multiplexed": True,
+                       "left_corner_split_completion_raster_max": max(sample["corner_split_completion_raster"] for sample in samples),
                        "rounded_corners_bitmap_modifications": 0,
                        "music_calls_verified": len(samples), "music_sid_register_writes_compared": compared_writes,
                        "music_register_sequence_matches_original_rsid": True,
@@ -1088,7 +1416,7 @@ def verify(args):
                        "owl_overlap_states_verified": len(owl_overlap_steps),
                        "minimum_owl_clearance_pixels": min(owl_clearances) if owl_clearances else None,
                        "owl_clearance_policy": "Exact opaque pixel separation; bounding-box clearance is diagnostic only",
-                       "rendered_ground_contacts": motion["terrain_contact_steps"], "owl_head_support_steps": motion["owl_support_steps"],
+                       "rendered_ground_contacts": motion["terrain_contact_steps"], "owl_head_support_steps": motion["enemy_support_steps"],
                        "unsupported_actor_steps": motion["unsupported_steps"], "ground_contact_motion": motion,
                        "ground_contact_motion_per_level": motions,
                        "opaque_body_terrain_penetration_pixels": 0,

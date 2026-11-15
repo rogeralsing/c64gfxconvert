@@ -4,6 +4,7 @@ cd "$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
 mkdir -p build
 python3 tools/prepare-scene.py
 python3 tools/prepare-level2.py
+python3 tools/prepare-enemies.py
 python3 tools/prepare-sprites.py
 python3 tools/prepare-sprites.py --level 2
 python3 tools/prepare-tv-highlight.py

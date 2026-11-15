@@ -1,11 +1,8 @@
-// Eight hardware sprites: four black corners, a highlight, two Giana planes and an owl.
+// Eight hardware sprites: three corner slots (one reused), a highlight, two Giana planes and two enemies.
 // Moving art occupies only 12x10 or 12x9 pixels of each 24x21 container.
-.const ACTOR_X_BASE = TV_COLUMN * 8 + 24
-.const ACTOR_Y_BASE = TV_ROW * 8 + 50
 .const ACTOR_DEST_POINTER = $fd
 // The standalone loop never returns to BASIC or services keyboard interrupts.
 // Copy here after SYS; keep the PRG load address at the BASIC entry point.
-.const CORNER_SPRITES = $0200
 .assert "Corner frames avoid the stack and screen", CORNER_SPRITES >= $0200 && CORNER_SPRITES + $100 <= SCREEN, true
 .assert "Corner frames are 64-byte aligned", CORNER_SPRITES & $3f, 0
 
@@ -25,8 +22,7 @@ initSprites:
     sta $d027
     sta $d028
     sta $d029
-    sta $d02a
-    lda #$e0
+    lda #$f0
     sta $d01c
     lda #SPRITE_MC0
     sta $d025
@@ -34,47 +30,50 @@ initSprites:
     sta $d026
     // Black corners clip both the glass highlight and the game characters.
     lda #3
-    sta $d02b
+    sta $d02a
     lda #SPRITE_GIANA_COLOR
-    sta $d02c
+    sta $d02b
     lda #SPRITE_GIANA_LAYER1_COLOR
-    sta $d02d
+    sta $d02c
     lda #SPRITE_ENEMY_COLOR
+    sta $d02d
     sta $d02e
-    .for (var corner = 0; corner < 4; corner++) {
-        lda #CORNER_SPRITES / 64 + corner
-        sta SCREEN + $3f8 + corner
-    }
+    lda #CORNER_SPRITES / 64
+    sta SCREEN + $3f8
+    lda #(CORNER_SPRITES / 64) + 1
+    sta SCREEN + $3f9
+    lda #(CORNER_SPRITES / 64) + 3
+    sta SCREEN + $3fa
     lda #tvHighlightSprite / 64
-    sta SCREEN + $3fc
+    sta SCREEN + $3fb
     lda #spriteWork0 / 64
-    sta SCREEN + $3fd
+    sta SCREEN + $3fc
     lda #spriteWork1 / 64
-    sta SCREEN + $3fe
+    sta SCREEN + $3fd
     lda #spriteWork2 / 64
+    sta SCREEN + $3fe
+    lda #spriteWork3 / 64
     sta SCREEN + $3ff
     lda #ACTOR_X_BASE
     sta $d000
-    sta $d004
-    sta $d008
+    sta $d006
     lda #<(ACTOR_X_BASE + TV_WIDTH * 8 - 24)
     sta $d002
-    sta $d006
+    sta $d004
     lda #ACTOR_Y_BASE
     sta $d001
     sta $d003
     lda #ACTOR_Y_BASE + TV_HEIGHT * 8 - 21
     sta $d005
-    sta $d007
     lda #ACTOR_Y_BASE + 3
-    sta $d009
+    sta $d007
     jmp updateSprites
 
 updateSprites:
     // Recover the nine-bit camera position after the incoming-column prefill.
     lda #0
     sta actorStepHi
-    lda #$1f
+    lda #$0f
     sta actorEnabled
     lda incomingTile
     sec
@@ -111,7 +110,7 @@ actorPlayerPathFirstRead:
     lda #$ff
     sta actorMask0
     sta actorMask1
-    lda #$7f
+    lda #$3f
     sta actorEnabled
     bne !playerFrame+
 !hidePlayer:
@@ -132,11 +131,18 @@ actorPlayerPathFirstRead:
     ldx #1
     jsr copyTinySprite
     lda #ACTOR_X_BASE + SPRITE_PLAYER_X_MC * 2
+    sta $d008
     sta $d00a
-    sta $d00c
     lda actorPlayerY
+    sta $d009
     sta $d00b
-    sta $d00d
+
+    lda activeLevel
+    beq !legacyEnemy+
+    jmp updateLevel2Enemies
+!legacyEnemy:
+    lda #SPRITE_ENEMY_COLOR
+    sta $d02d
 
     // A repeating world marker supplies a small, staged enemy encounter.
     lda actorStepLo
@@ -160,7 +166,7 @@ actorGroundRead:
     cmp #28
     bcc !hideEnemy+
     lda actorEnabled
-    and #$60
+    and #$30
     beq !hideEnemy+
     jsr setActorClip
     beq !hideEnemy+
@@ -171,7 +177,7 @@ actorGroundRead:
     adc #ACTOR_Y_BASE
     sta actorEnemyY
     lda actorEnabled
-    ora #$80
+    ora #$40
     sta actorEnabled
     bne !enemyFrame+
 !hideEnemy:
@@ -191,17 +197,17 @@ actorGroundRead:
     asl
     clc
     adc #ACTOR_X_BASE
-    sta $d00e
+    sta $d00c
     lda actorEnemyY
-    sta $d00f
+    sta $d00d
     lda actorX
     bmi !lowEnemyX+
     cmp #24
     bcc !lowEnemyX+
-    lda #$8a
+    lda #$46
     bne !enemyXHigh+
 !lowEnemyX:
-    lda #$0a
+    lda #$06
 !enemyXHigh:
     sta $d010
     lda actorEnabled
@@ -306,10 +312,20 @@ copyTinySprite:
 
 actorClipByte0: .fill 45, actorClipMask(i - 5, 0)
 actorClipByte1: .fill 45, actorClipMask(i - 5, 4)
-actorWorkLow: .byte <spriteWork0, <spriteWork1, <spriteWork2
-actorWorkHigh: .byte >spriteWork0, >spriteWork1, >spriteWork2
+actorWorkLow: .byte <spriteWork0, <spriteWork1, <spriteWork2, <spriteWork3
+actorWorkHigh: .byte >spriteWork0, >spriteWork1, >spriteWork2, >spriteWork3
 actorFrameLow: .fill SPRITE_FRAME_COUNT, <(tinySpriteFrames + i * 64)
+    .fill LEVEL2_ENEMY_FRAME_COUNT, <(extraEnemyFrames + i * 64)
 actorFrameHigh: .fill SPRITE_FRAME_COUNT, >(tinySpriteFrames + i * 64)
+    .fill LEVEL2_ENEMY_FRAME_COUNT, >(extraEnemyFrames + i * 64)
+actorFrameColor:
+    .fill 8, (i & 1) == 0 ? SPRITE_GIANA_COLOR : SPRITE_GIANA_LAYER1_COLOR
+    .fill 2, SPRITE_ENEMY_COLOR
+    .fill 2, 7
+    .fill 4, 1
+    .fill 6, 5
+    .fill 2, 7
+.assert "Every actor frame has an individual color", * - actorFrameColor, SPRITE_FRAME_COUNT + LEVEL2_ENEMY_FRAME_COUNT
 
 actorStepLo: .byte 0
 actorStepHi: .byte 0
