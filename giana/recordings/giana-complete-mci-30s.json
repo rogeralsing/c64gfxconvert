@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "bytes": 14837088,
+  "sha256": "19957080eae3535cfd4f91c37de50bd06e98dfb7b3a97d1966b51b33ab119902",
+  "video_frames": 9746,
+  "native_pal_fps": "13684/273",
+  "video_time_base": "1/13684",
+  "video_duration_ticks": 2660586,
+  "duration_seconds": 194.43042969891843,
+  "mci_start_frame": 8242,
+  "mci_start_seconds": 164.43042969891843,
+  "mci_duration_seconds": 30,
+  "mci_actual_native_fields": 1504,
+  "last_video_packet_duration_ticks": 201,
+  "audio_samples": 8574382,
+  "audio_rate": 44100,
+  "audio_duration_seconds": 194.43043083900227,
+  "audio_video_duration_difference_seconds": 1.1400838388908596e-06,
+  "source_disk_sha256": "db4b849d288ba0816d542014b24ffd00ee973cc447cd95b93c01f1bbe0f40554",
+  "processing": "Actual consecutive VICE fields, nearest-neighbor 4x, native PAL timing. Same-instance guest-clock audio cropped to MCI + 30 s. Only final field duration shortened by 72/13684 s; no fade, freeze, temporal averaging, audio fitting, or synthesized frames.",
+  "video": "giana-complete-mci-30s.mp4",
+  "poster": "giana-complete-mci-30s.png",
+  "poster_sha256": "37ebd6bb88130b60ad578cb23a190c443e52ff594f12da4d8fb19ca2e19ec411",
+  "source_commit": "8ae53416be49e91ae73e5d0a7e315d582d80e046",
+  "runtime_prg_sha256": "bb2ed5db9044c39cfe90c285276c3bdf3553140583721f1f0e33110edb41c19d",
+  "capture": {
+    "true_drive_demo_disk": true,
+    "cpu_hz": 985248,
+    "pal_cycles": 19656,
+    "sample_raster": 44,
+    "guest_start_cycle": 13801284,
+    "guest_end_cycle": 205368660,
+    "guest_flush_cycle": 205388319,
+    "actual_guest_cycle_interval": 191567376,
+    "mci_phase_rgb_sha256": {
+      "0": "0c142fb340c60c63ffbad79a3d9fcf4580f179b7fe8bcf1859c2a808e33a48bc",
+      "1": "a255bcf17d86e5e660c3bf41ee33652999a8840ae2bc8f586524e95771b51945"
+    },
+    "raw_audio_vs_guest_clock_error_samples": -28,
+    "audio_peak_pcm16": 22123,
+    "audio_rms_pcm16": 2401.9405388734363,
+    "longest_zero_pcm_run_samples": 154
+  },
+  "validation": [
+    "All 9746 consecutive native PAL fields retained.",
+    "All 1504 MCI fields alternate A/B and match the tracked original field images.",
+    "Native VICE WAV cropped on the same guest clock.",
+    "Every MP4 video packet timestamp and duration checked.",
+    "Full final MP4 decoded without errors."
+  ]
+}
