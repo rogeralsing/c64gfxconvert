@@ -42,6 +42,10 @@ tinySpriteFrames2:
     .import source "assets/enemies.asm"
 .assert "Extra enemy art stays below the bitmap", * <= $2000, true
 
+* = $e000 "Packed giana7 room beneath KERNAL"
+    .import source "assets/ending.asm"
+.assert "Ending archive leaves hardware vectors free", endingPackedEnd <= $fffa, true
+
 * = $41c0 "Original Giana in-game music"
     .import source "assets/music.asm"
 .assert "Music fits below the renderer", musicOriginalEnd <= $6000, true
@@ -56,6 +60,7 @@ tvHighlightSprite:
 .assert "TV highlight is one hires sprite", * - tvHighlightSprite, 64
 .assert "TV highlight is 64-byte aligned", tvHighlightSprite & $3f, 0
 spriteWork3: .fill 64, 0
+spriteWorkEnd:
 .assert "Sprite atlas and working frames avoid character ROM", * <= $1000, true
 
 BasicUpstart2(start)
@@ -88,13 +93,9 @@ start:
     lda #$0f
     sta $d019
 
-    // Select VIC bank 0 without changing the other CIA2 port bits.
-    lda $dd02
-    ora #3
+    // Spindle owns the serial port latch. Select VIC bank 0 through its DDR.
+    lda #$3c
     sta $dd02
-    lda $dd00
-    ora #3
-    sta $dd00
 
     ldx #0
 copyPages:
@@ -163,9 +164,18 @@ waitTVUpdate:
 frameStart:
     jsr restoreLeftTopCorner
 cornerTopRestored:
+    lda endingState
+    cmp #1
+    bne !gameFrame+
+    jsr updateEnding
+    jmp countFrame
+!gameFrame:
     lda levelTransition
     beq !normalFrame+
     jsr advanceLevelTransition
+    lda endingState
+    cmp #1
+    beq countFrame
     jmp checkLight
 !normalFrame:
     // Sprite copies use a separate frame from terrain and room lighting.
@@ -209,7 +219,14 @@ checkLight:
     lda $d012
     cmp #LIGHT_UPDATE_RASTER
     bne !waitLightBorder-
+    lda endingState
+    cmp #2
+    beq !secondRoomLight+
     jsr applyLight
+    jmp !lightDone+
+!secondRoomLight:
+    jsr applyRoom7Light
+!lightDone:
     lda #LIGHT_FRAME_INTERVAL
     sta lightCountdown
 countFrame:
@@ -258,6 +275,7 @@ prepareColumn:
     }
     rts
 
+setupEnd:
 .assert "Setup fits below the sprite atlas", * <= $0c00, true
 
 * = BITMAP "Koala bitmap"
@@ -266,7 +284,7 @@ prepareColumn:
 
 * = SCREEN_DATA "Koala screen and color sources"
     .fill 2000, picture.get(i + 8002)
-.assert "PRG data avoids the I/O window", * <= $d000, true
+.assert "Startup color sources avoid the I/O window", * <= $d000, true
 
 .assert "Terrain fits below the color sources", terrainDataEnd <= SCREEN_DATA, true
 * = $6000 "TV scroll renderer"
@@ -446,6 +464,7 @@ actorPlayerHeight: .byte SPRITE_GIANA_HEIGHT
     .assert "Perspective region covers every raster row", rows.size(), TV_HEIGHT * 8
 }
 
+rendererEnd:
 .assert "Terrain renderer fits below enemy schedules", * <= $8600, true
 * = $9000 "Tiny actor movement and clipping"
     .import source "sprites.asm"
@@ -459,6 +478,19 @@ initTerrain:
     ldy #5
     jsr setTVColors
 
+    jsr maskTVEdges
+    // Forty incoming columns replace the white area and stray side strips.
+    jsr prepareColumn
+    lda #TV_PIXELS
+    sta prefillLeft
+!prefill:
+    jsr scrollTerrain
+    dec prefillLeft
+    bne !prefill-
+    jsr updateColors
+    rts
+
+maskTVEdges:
     // Mask the fixed stepped edges; code 3 becomes black in their cells.
     lda #$ff
     .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
@@ -473,15 +505,6 @@ initTerrain:
         }
     }
 
-    // Forty incoming columns replace the white area and stray side strips.
-    jsr prepareColumn
-    lda #TV_PIXELS
-    sta prefillLeft
-!prefill:
-    jsr scrollTerrain
-    dec prefillLeft
-    bne !prefill-
-    jsr updateColors
     rts
 
 setTVColors:
@@ -567,6 +590,15 @@ advanceLevelTransition:
     rts
 !begin:
     lda activeLevel
+    beq !nextLevel+
+    lda endingState
+    cmp #2
+    bne !changeRoom+
+    jmp beginMciPart
+!changeRoom:
+    jmp beginEnding
+!nextLevel:
+    lda activeLevel
     eor #1
     sta activeLevel
     jsr selectLevel
@@ -631,10 +663,11 @@ levelAccentHigh:
             .byte >(TERRAIN2_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
         }
     }
+levelControllerEnd:
 .assert "Level switching fits below terrain", * <= $a000, true
 
-.assert "Level switching avoids the enemy renderer", * <= $9b00, true
-* = $9b00 "Corner reuse and original enemy display"
+.assert "Level switching avoids the enemy renderer", * <= $9b40, true
+* = $9b40 "Corner reuse and original enemy display"
 restoreLeftTopCorner:
     // The lower-left mask has finished before the next top-left DMA begins.
     lda #CORNER_SPRITES / 64
@@ -729,6 +762,7 @@ level2EnemyXs: .fill 2, 0
 level2EnemyYs: .fill 2, 0
 level2EnemyFrames: .fill 2, $ff
 actorXHigh: .byte $06
+enemyDisplayEnd:
 .assert "Enemy display code fits below terrain", * <= $a000, true
 
 * = $bb00 "Level 2 Giana route"
@@ -760,3 +794,20 @@ level2Enemy1Frame:
     .import binary "assets/level2-enemy1-frame.bin"
 .assert "Second enemy art covers the camera", * - level2Enemy1Frame, 512
 .assert "Enemy schedules avoid the I/O window", * <= $d000, true
+
+* = $bd00 "Ending transition and incremental unpacker"
+    .import source "ending.asm"
+roomControllerEnd:
+.assert "Ending controller avoids startup colors", * <= SCREEN_DATA, true
+
+* = $8c00 "Second room screen-light tables"
+    .import source "assets/scene7-lighting.asm"
+.assert "Second room light tables avoid sprite helpers", * <= $9000, true
+
+* = $3f40 "Second room screen-light updater"
+    .import source "lighting-room7.asm"
+.assert "Second room light updater avoids music", * <= MUSIC_LOAD, true
+
+* = $3f90 "Fastload handoff and MCI viewer"
+    .import source "mci.asm"
+.assert "MCI handoff avoids original music", * <= MUSIC_LOAD, true

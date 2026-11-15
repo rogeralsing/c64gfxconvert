@@ -70,18 +70,110 @@ def read_sid_events(path):
     return result
 
 
+def vic_bank(cia):
+    """CIA2 input bits are pulled high; DDR-based banking preserves IEC pins."""
+    pins = (cia[0] | (~cia[2] & 0xff)) & 3
+    return (~pins) & 3
+
+
+class MciReference:
+    """Decode both original True Paint fields independently of part generation."""
+
+    def __init__(self, palette):
+        self.path = ROOT / "images/giana-man.mci"
+        self.source = self.path.read_bytes()
+        assert len(self.source) == 19434 and self.source[:2] == b"\x00\x9c", "Expected the original True Paint MCI"
+        self.project_path = ROOT / "images/giana-man.json"
+        self.project = json.loads(self.project_path.read_text())
+        assert self.project["image"]["graphicsMode"] == "mci" and self.project["image"]["paletteId"] == "peptoette-a"
+        self.bitmaps = (self.source[1026:9026], self.source[9218:17218])
+        self.screens = (self.source[2:1002], self.source[17410:18410])
+        self.colors = self.source[18434:19434]
+        self.background = self.source[1002]
+        assert self.background < 16 and all(color < 16 for color in self.colors)
+        self.palette = palette
+        self.images = []
+        for phase in range(2):
+            pixels = []
+            for y in range(200):
+                row = []
+                for x in range(160):
+                    cell = y // 8 * 40 + x // 4
+                    bits = self.bitmaps[phase][cell * 8 + y % 8]
+                    code = bits >> (6 - 2 * (x % 4)) & 3
+                    screen = self.screens[phase][cell]
+                    color = (self.background, screen >> 4, screen & 15, self.colors[cell])[code]
+                    row.extend((palette[color], palette[color]))
+                pixels.extend(([palette[self.background]] + row[:-1]) if phase else row)
+            image = Image.new("RGB", (320, 200))
+            image.putdata(pixels)
+            self.images.append(image)
+
+    def verify_field(self, phase, ram, vic, colors, cia):
+        assert phase in (0, 1)
+        bank = vic_bank(cia)
+        assert bank == (0, 2)[phase], ("MCI field bank", phase, bank)
+        screen = bank * 0x4000 + (vic[0x18] >> 4) * 0x400
+        bitmap = bank * 0x4000 + (0x2000 if vic[0x18] & 8 else 0)
+        assert (screen, bitmap) == ((0x0400, 0x2000), (0x8400, 0xa000))[phase]
+        assert vic[0x11] & 0x7f == 0x3b and vic[0x16] & 0x3f == 0x18 + phase
+        assert vic[0x18] & 0xfe == 0x18 and vic[0x15] == 0
+        assert vic[0x21] & 15 == self.background
+        assert ram[bitmap:bitmap + 8000] == self.bitmaps[phase], (phase, "MCI bitmap differs from source")
+        assert ram[screen:screen + 1000] == self.screens[phase], (phase, "MCI screen colors differ from source")
+        assert colors == self.colors, (phase, "MCI Color RAM differs from source")
+        return {"phase": phase, "vic_bank": bank, "screen_address": screen, "bitmap_address": bitmap,
+                "horizontal_scroll": vic[0x16] & 7}
+
+
+class RoomArchiveReference:
+    """Independently decode the retained second-room image archive."""
+
+    def __init__(self):
+        self.path = ROOT / "images/giana7.koa"
+        self.source = self.path.read_bytes()
+        assert len(self.source) == 10003, "Expected a standard ending Koala image"
+        self.bitmap = self.source[2:8002]
+        self.screen = self.source[8002:9002]
+        self.colors = bytes(value & 15 for value in self.source[9002:10002])
+        self.background = self.source[10002] & 15
+        self.packed = (ROOT / "giana/assets/ending-packbits.bin").read_bytes()
+        reverse = bytearray()
+        cursor = len(self.packed)
+        while cursor:
+            cursor -= 1
+            tag = self.packed[cursor]
+            count = (tag & 127) + 1
+            if tag & 128:
+                assert cursor, "Ending repeat has no source byte"
+                cursor -= 1
+                reverse.extend((self.packed[cursor],) * count)
+            else:
+                assert cursor >= count, "Ending literal packet exceeds its source"
+                for _ in range(count):
+                    cursor -= 1
+                    reverse.append(self.packed[cursor])
+        unpacked = bytes(reversed(reverse))
+        assert len(unpacked) == 9500, "Second room must contain bitmap, screen and packed color nibbles"
+        assert unpacked[:9000] == self.source[2:9002], "Packed room bitmap/screen differs from original Koala"
+        color_nibbles = bytes(nibble for pair in unpacked[9000:] for nibble in (pair >> 4, pair & 15))
+        assert color_nibbles == self.colors, "Packed room colors differ from original Koala"
+
+
 class SceneReference:
     """Decode source files directly, independently of generated runtime tables."""
 
-    def __init__(self, source_level=1):
+    def __init__(self, source_level=1, room=0):
+        self.room = room
         self.source_level = source_level
         self.terrain_colors = (9, 14, 8) if source_level == 1 else (9, 10, 2)
         self.source_colors = (14, 8, 9) if source_level == 1 else (0, 10, 2)
         self.game_screen = self.terrain_colors[1] * 16 + self.terrain_colors[2]
         self.empty_code = 1 if source_level == 1 else 0
         self.player_height = 10 if source_level == 1 else 8
-        self.source_path = ROOT / "images/giana5.koa"
-        self.project_path = ROOT / "images/giana5.json"
+        image_number = 5 if room == 0 else 7
+        self.source_path = ROOT / f"images/giana{image_number}.koa"
+        self.project_path = ROOT / f"images/giana{image_number}.json"
         self.source = self.source_path.read_bytes()
         assert len(self.source) == 10003, "Expected a standard Koala image"
         self.bitmap = self.source[2:8002]
@@ -850,11 +942,136 @@ def check_corner_phase(monitor, output, name, reference, bottom):
     monitor.run("bank cpu")
 
 
+def verify_mci_tail(monitor, output, labels, reference, mci, args, handoff, frozen_image, old_breaks, prefix):
+    """Follow the real loader and its music IRQ, then capture complete MCI fields."""
+    for identifier in old_breaks:
+        monitor.run(f"disable {identifier}")
+    music_start_break = breakpoint(monitor, labels["mciMusicStart"])
+    music_done_break = breakpoint(monitor, labels["mciMusicDone"])
+    monitor.run(f"disable {music_done_break}")
+    field_break = breakpoint(monitor, labels["mciFrameComplete"])
+    music_samples = []
+    fields = []
+    stage_samples = []
+    stage_frames = {}
+    field_images = []
+    previous_music_cycles = handoff["music_start_cycles"]
+    previous_frame = handoff["frame"]
+    frozen_captures = []
+    first_field_cycles = None
+    first_field_frame = None
+    while previous_frame < args.frames or len(fields) < 120:
+        monitor.run("x")
+        pc, raster, cycles = monitor.registers()
+        monitor.run("bank ram")
+        control = monitor.memory(output / "mci-control.bin", labels["mciState"], labels["mciResidentEnd"] - 1)
+        def value(name):
+            return control[labels[name] - labels["mciState"]]
+        frame_offset = labels["mciMusicFrame"] - labels["mciState"]
+        actual_frame = int.from_bytes(control[frame_offset:frame_offset + 2], "little")
+        state, stage = value("mciState"), value("mciLoadStage")
+        assert state in (1, 2) and stage in (1, 2, 3, 4), (actual_frame, "Invalid MCI loader state", state, stage)
+        stage_frames.setdefault(stage, actual_frame)
+        monitor.run("bank cpu")
+        if pc == labels["mciMusicStart"]:
+            assert actual_frame == previous_frame + 1, ("MCI music tick skipped/repeated", actual_frame, previous_frame)
+            assert actual_frame < len(reference.music_reference["calls"]), "Extend the actual VSID reference for the measured loader window"
+            cadence = cycles - previous_music_cycles
+            # The first IRQ replaces a polling call. Its entry/save instructions
+            # may move that one call within the same raster line.
+            allowed = 63 if not music_samples else 9
+            assert abs(cadence - 19656) <= allowed, (actual_frame, "MCI music cadence", cadence)
+            assert 64 <= raster <= 65, (actual_frame, "MCI music raster", raster)
+            monitor.run(f"disable {music_start_break}")
+            monitor.run(f"enable {music_done_break}")
+            monitor.run("x")
+            done_pc, done_raster, done_cycles = monitor.registers()
+            assert done_pc == labels["mciMusicDone"] and done_raster < 115, (actual_frame, "MCI music deadline", done_pc, done_raster)
+            monitor.run(f"disable {music_done_break}")
+            monitor.run(f"enable {music_start_break}")
+            monitor.run("bank ram")
+            ram = monitor.memory(output / "mci-ram.bin", 0, 0xffff)
+            reference.verify_music_state(actual_frame, ram)
+            sample = {"frame": actual_frame, "music_start_cycles": cycles, "music_done_cycles": done_cycles,
+                      "music_update_cycles": done_cycles - cycles, "music_start_raster": raster,
+                      "music_completion_raster": done_raster, "music_cadence_cycles": cadence,
+                      "music_sequence_position": ram[0x41e4], "mci_state": state, "load_stage": stage}
+            music_samples.append(sample)
+            stage_samples.append({"frame": actual_frame, "state": state, "stage": stage, "cycles": cycles})
+            previous_frame, previous_music_cycles = actual_frame, cycles
+            assert actual_frame - handoff["frame"] <= 512 or first_field_cycles is not None, "MCI loading exceeded ten PAL seconds"
+            if state == 1 and stage == 1 and len(frozen_captures) < 3:
+                monitor.run("bank io")
+                vic = monitor.memory(output / "mci-loading-vic.bin", 0xd000, 0xd03f)
+                assert vic[0x11] & 0x10, "The old room must remain visible during the first load job"
+                monitor.run("bank cpu")
+                screenshot = output / f"frozen-{actual_frame:04d}.png"
+                monitor.run(f'screenshot "{screenshot}" 2')
+                actual = Image.open(screenshot).convert("RGB").crop((32, 35, 352, 235))
+                assert actual.tobytes() == frozen_image.tobytes(), (actual_frame, "First load job changed the frozen room")
+                frozen_captures.append(actual_frame)
+            monitor.run("bank cpu")
+        elif pc == labels["mciFrameComplete"]:
+            assert state == 2 and stage == 4 and raster == 256, (actual_frame, "Incomplete MCI field", state, stage, raster)
+            monitor.run("bank ram")
+            ram = monitor.memory(output / "mci-ram.bin", 0, 0xffff)
+            phase = ram[labels["mciPhase"]]
+            count = int.from_bytes(ram[labels["mciFieldCounter"]:labels["mciFieldCounter"] + 2], "little")
+            assert count == len(fields), (actual_frame, "MCI completed-field counter", count, len(fields))
+            assert phase == len(fields) % 2, (actual_frame, "MCI phase did not alternate", phase)
+            if fields:
+                assert abs(cycles - fields[-1]["cycles"] - 19656) <= 9, (actual_frame, "MCI field cadence", cycles - fields[-1]["cycles"])
+            monitor.run("bank io")
+            vic = monitor.memory(output / "mci-vic.bin", 0xd000, 0xd03f)
+            colors = bytes(color & 15 for color in monitor.memory(output / "mci-colors.bin", 0xd800, 0xdbe7))
+            cia = monitor.memory(output / "mci-cia.bin", 0xdd00, 0xdd03)
+            layout = mci.verify_field(phase, ram, vic, colors, cia)
+            monitor.run("bank cpu")
+            screenshot = output / f"mci-field-{len(fields):04d}.png"
+            monitor.run(f'screenshot "{screenshot}" 2')
+            with Image.open(screenshot) as image:
+                actual = image.convert("RGB").crop((32, 35, 352, 235))
+            actual_bytes, expected_bytes = actual.tobytes(), mci.images[phase].tobytes()
+            differences = sum(actual_bytes[offset:offset + 3] != expected_bytes[offset:offset + 3]
+                              for offset in range(0, len(actual_bytes), 3))
+            assert differences == 0, (actual_frame, phase, "MCI native pixel differences", differences)
+            fields.append({"music_frame": actual_frame, "cycles": cycles, "raster": raster,
+                           "field": count, "pixel_differences": differences, **layout})
+            if first_field_cycles is None:
+                first_field_cycles, first_field_frame = cycles, actual_frame
+            if count < 2:
+                actual.save(BUILD / f"{prefix}-mci-phase-{phase}.png")
+                actual.resize((1280, 800), Image.Resampling.NEAREST).save(BUILD / f"{prefix}-mci-phase-{phase}-4x.png")
+            if len(field_images) < 120:
+                field_images.append(actual)
+        else:
+            raise AssertionError(("Unexpected post-game checkpoint", hex(pc), actual_frame))
+    monitor.run(f"disable {music_start_break}")
+    monitor.run(f"disable {field_break}")
+    assert len(fields) >= 120 and {field["phase"] for field in fields} == {0, 1}
+    assert frozen_captures, "The real first load job never showed its frozen-room stage"
+    field_images[0].save(BUILD / f"{prefix}-mci.gif", save_all=True, append_images=field_images[1:],
+                         duration=20, loop=0, optimize=False, disposal=1)
+    (output / "mci-fields.json").write_text(json.dumps(fields, indent=2) + "\n")
+    (output / "mci-music-timing.json").write_text(json.dumps(music_samples, indent=2) + "\n")
+    return {"music_samples": music_samples, "fields": fields, "stage_samples": stage_samples,
+            "first_field_frame": first_field_frame, "first_field_cycles": first_field_cycles,
+            "first_field_delay_pal_frames": first_field_frame - handoff["frame"],
+            "frozen_room_screenshot_frames": frozen_captures, "stage_first_music_frames": stage_frames}
+
+
 def verify(args):
-    references = (SceneReference(1), SceneReference(2))
+    reference_path = BUILD / "music-discovery/original-call-reference.json"
+    if not reference_path.exists() or len(json.loads(reference_path.read_text())["calls"]) <= args.frames:
+        subprocess.run([sys.executable, str(ROOT / "giana/tools/prepare-music-reference.py"),
+                        "--frames", str(max(5206, args.frames + 1))], check=True)
+    room_references = tuple(tuple(SceneReference(level, room) for level in (1, 2)) for room in (0, 1))
+    references = room_references[0]
     reference = references[0]
+    ending_reference = RoomArchiveReference()
+    mci_reference = MciReference(reference.palette)
     assert args.frames < len(reference.music_reference["calls"]), "Capture the independent original SID reference for this complete frame range"
-    prefix = "mobs-startup" if args.autostart_mode == 2 else "mobs"
+    prefix = "mci-chain-startup" if args.autostart_mode == 2 else "mci-chain"
     output = BUILD / f"{prefix}-check"
     output.mkdir(parents=True, exist_ok=True)
     motions = []
@@ -876,8 +1093,9 @@ def verify(args):
     motion = motions[0]
     event_frames = {2, 225, 544, 1637, 1681, 1761, 1921, 2045, 2049}
     labels = read_labels(BUILD / "main.sym")
-    program = BUILD / "giana.prg"
-    required = ("frameStart", "frameDone", "frameCounter", "lightLevel", "incomingTile", "tilePixelX",
+    program = BUILD / "giana.d64"
+    runtime = BUILD / "giana-unpacked.prg"
+    required = ("initTerrain", "frameStart", "frameDone", "frameCounter", "lightLevel", "incomingTile", "tilePixelX",
                 "scrollCountdown", "terrainTiles", "terrainTilesEnd", "terrainMapStart", "terrainMapEnd",
                 "terrainAccentMap", "terrainPerspectiveAccentMap", "terrainPerspectiveMiddleAccentMap",
                 "terrainPerspectiveRightAccentMap", "tinySpriteFrames", "spriteWork0", "spriteWork1", "spriteWork2", "spriteWork3",
@@ -888,13 +1106,16 @@ def verify(args):
                 "terrain2PerspectiveAccentMap", "terrain2PerspectiveMiddleAccentMap", "terrain2PerspectiveRightAccentMap",
                 "tinySpriteFrames2", "actorPlayerHeight", "extraEnemyFrames", "cornerSplitStart", "cornerSplitDone",
                 "cornerTopRestored", "level2Enemy0X", "level2Enemy0Y", "level2Enemy0Frame",
-                "level2Enemy1X", "level2Enemy1Y", "level2Enemy1Frame")
+                "level2Enemy1X", "level2Enemy1Y", "level2Enemy1Frame", "endingState", "endingPacked", "endingPackedEnd",
+                "beginMciPart", "mciState", "mciLoadStage", "mciMusicFrame", "mciMusicStart", "mciMusicDone",
+                "mciFrameComplete", "mciPhase", "mciFieldCounter", "mciResidentEnd")
     assert all(name in labels for name in required), "Build the scene before verifying it"
     work_addresses = tuple(labels[name] for name in ("spriteWork0", "spriteWork1", "spriteWork2", "spriteWork3"))
     assert labels["tinySpriteFrames"] == 0x0c00 and work_addresses == (0x0e80, 0x0ec0, 0x0f00, 0x0f80)
     assert labels["tvHighlightSprite"] == 0x0f40
     assert labels["tinySpriteFrames2"] == 0x1a00
     assert labels["extraEnemyFrames"] == 0x1c00
+    assert labels["endingPacked"] == 0xe000 and labels["endingPackedEnd"] - labels["endingPacked"] == len(ending_reference.packed)
     assert all(address % 64 == 0 and address + 64 <= 0x1000 for address in work_addresses), "VIC work buffers must avoid the character-ROM window"
     with socket.socket() as reserve:
         reserve.bind(("127.0.0.1", 0))
@@ -902,12 +1123,15 @@ def verify(args):
     executable = args.vice or os.environ.get("VICE") or shutil.which("x64sc")
     assert executable, "Set VICE or --vice to a PAL-capable x64sc executable"
     command = vice_command(executable, program, port, reference.palette_path)
-    command[command.index("-autostartprgmode") + 1] = str(args.autostart_mode)
+    # The real demo disk contains the drive loader and both later image jobs.
+    # Host PRG injection or a generated one-file autostart disk cannot prove it.
+    option = command.index("-autostartprgmode")
+    del command[option:option + 2]
     command += ["-initbreak", "reset", "-warp", "-sidengine", "1", "-sidmodel", "0", "-residsamp", "2",
                 "-sounddev", "dump", "-soundarg", str(output / "sid-registers.txt")]
-    if args.autostart_mode == 2:
-        command += ["-drive8truedrive", "-autostartprgdiskimage", str(output / "autostart.d64")]
-    result = {"passed": False, "emulator": "PAL VICE x64sc", "prg_sha256": digest(program.read_bytes()),
+    command += ["-drive8truedrive"]
+    result = {"passed": False, "emulator": "PAL VICE x64sc", "disk_sha256": digest(program.read_bytes()),
+              "runtime_prg_sha256": digest(runtime.read_bytes()),
               "source_sha256": digest(reference.source),
               "project_sha256": digest(reference.project_path.read_bytes()),
               "game_area_cells": len(reference.game), "screen_light_cells": len(reference.light),
@@ -916,7 +1140,7 @@ def verify(args):
               "perspective_region_bounds_chars": list(REGION_BOUNDS),
               "perspective_source_rows": [list(rows) for rows in REGION_SOURCE_ROWS],
               "perspective_black_mask_rows": list(REGION_MASK_ROWS)}
-    result.update({"autostart_prg_mode": args.autostart_mode, "command": command,
+    result.update({"startup_check": args.autostart_mode == 2, "true_drive_demo_disk": True, "command": command,
                    "music_original_module_sha256": digest(reference.music),
                    "music_original_sid_sha256": digest(reference.music_source), "music_subtune": 3,
                    "music_sid_model": "PAL reSID MOS6581"})
@@ -967,6 +1191,25 @@ def verify(args):
     expected_scroll_countdown = 4
     expected_actor_level = 0
     expected_actor_step = 0
+    ending_expected = False
+    ending_states = []
+    ending_blank_frames = []
+    ending_visible_frames = []
+    ending_screenshots = []
+    ending_previous_state = 0
+    ending_layout = {"vic_bank": 0, "bitmap_address": 0x2000, "screen_address": 0x0400}
+    room7_first_game_frame = None
+    room7_selected_saved = False
+    expected_light_countdown = 14
+    expected_light_phase = 0
+    previous_actor_room = None
+    room_level_actor_steps = [[set(), set()], [set(), set()]]
+    room_level_camera_steps = [[set(), set()], [set(), set()]]
+    room_level_world_columns = [[set(), set()], [set(), set()]]
+    room_seen_enemy_entries = [set(), set()]
+    room_checked_light_levels = [set(), set()]
+    mci_tail = None
+    handoff_sample = None
     process = None
     connection = None
     monitor = None
@@ -979,17 +1222,35 @@ def verify(args):
                 connection.settimeout(180)
             monitor.run("r")
             monitor.run("sidefx off")
+            # Spindle's temporary boot code also executes in the BASIC area.
+            # Its PCs can equal the later game's music/frame labels before job0
+            # restores those bytes. Gate on a real high-RAM game routine first.
+            startup_break = breakpoint(monitor, labels["initTerrain"])
+            monitor.run("x")
+            startup_pc, _, _ = monitor.registers()
+            assert startup_pc == labels["initTerrain"], "Spindle did not reach the restored game"
+            monitor.run(f"disable {startup_break}")
+            monitor.run("bank ram")
+            initial_ram = monitor.memory(output / "restored-startup-ram.bin", 0, 0xffff)
+            assert initial_ram[0x41c0:0x5fdd] == reference.music, "Disk job0 did not restore the original music module"
+            runtime_bytes = runtime.read_bytes()
+            runtime_begin = int.from_bytes(runtime_bytes[:2], "little")
+            first, end = labels["beginMciPart"], labels["mciResidentEnd"]
+            assert initial_ram[first:end] == runtime_bytes[2 + first - runtime_begin:2 + end - runtime_begin], "Disk job0 did not restore the MCI controller"
+            assert any(initial_ram[0xce00:0xcf00]), "Spindle resident loader is missing"
+            monitor.run("bank cpu")
             music_start_break = breakpoint(monitor, labels["musicFrameStart"])
             music_done_break = breakpoint(monitor, labels["musicFrameDone"])
             monitor.run(f"disable {music_done_break}")
             split_start_break = breakpoint(monitor, labels["cornerSplitStart"])
             split_done_break = breakpoint(monitor, labels["cornerSplitDone"])
             monitor.run(f"disable {split_done_break}")
-            breakpoint(monitor, labels["frameStart"])
+            frame_start_break = breakpoint(monitor, labels["frameStart"])
             top_restored_break = breakpoint(monitor, labels["cornerTopRestored"])
             monitor.run(f"disable {top_restored_break}")
             done_break = breakpoint(monitor, labels["frameDone"])
             monitor.run(f"disable {done_break}")
+            handoff_break = breakpoint(monitor, labels["beginMciPart"])
             for frame in range(args.frames + 1):
                 monitor.run("x")
                 music_pc, music_raster, music_start_cycles = monitor.registers()
@@ -1011,14 +1272,16 @@ def verify(args):
                 monitor.run("x")
                 split_pc, split_raster, split_cycles = monitor.registers()
                 assert split_pc == labels["cornerSplitStart"] and 115 <= split_raster < 117, (frame, "Corner split start", split_raster)
-                check_corner_phase(monitor, output, "before", reference, bottom=False)
+                if not ending_expected:
+                    check_corner_phase(monitor, output, "before", reference, bottom=False)
                 monitor.run(f"disable {split_start_break}")
                 monitor.run(f"enable {split_done_break}")
                 monitor.run("x")
                 split_done_pc, split_done_raster, split_done_cycles = monitor.registers()
                 assert split_done_pc == labels["cornerSplitDone"] and split_done_raster < 117, (
                     frame, "Bottom-left corner missed sprite DMA", split_done_raster)
-                check_corner_phase(monitor, output, "after", reference, bottom=True)
+                if not ending_expected:
+                    check_corner_phase(monitor, output, "after", reference, bottom=True)
                 monitor.run(f"disable {split_done_break}")
                 monitor.run(f"enable {split_start_break}")
                 monitor.run("x")
@@ -1044,217 +1307,277 @@ def verify(args):
                 ram = monitor.memory(output / "ram.bin", 0, 0xffff)
                 actual_frame = int.from_bytes(ram[labels["frameCounter"]:labels["frameCounter"] + 2], "little")
                 assert actual_frame == frame, (frame, actual_frame)
+                assert ram[labels["endingPacked"]:labels["endingPackedEnd"]] == ending_reference.packed, (frame, "Retained ending data under KERNAL changed")
                 reference.verify_music_state(frame, ram)
                 level = ram[labels["lightLevel"]]
-                expected_phase = 0 if frame < 14 else (1 + (frame - 14) // 16) % 4
-                assert level == LIGHT_SEQUENCE[expected_phase], (frame, level, expected_phase)
-                if level != previous_level:
-                    transitions.append({"frame": frame, "level": level})
-                    last_transition = frame
-                    previous_level = level
                 active = ram[labels["activeLevel"]]
                 transition = ram[labels["levelTransition"]]
                 step = int.from_bytes(ram[labels["levelCameraStep"]:labels["levelCameraStep"] + 2], "little")
-                assert (active, transition, step) == (expected_active, expected_transition, expected_camera), (
-                    frame, "Level/camera transition", (active, transition, step),
-                    (expected_active, expected_transition, expected_camera))
-                assert ram[labels["scrollCountdown"]] == expected_scroll_countdown, (frame, "Scroll cadence")
-                visible = transition in (0, 255)
-                incoming = 40 + step if visible else 40 if transition == 254 else 40 - transition
-                assert ram[labels["incomingTile"]] == incoming // 4 % 128, (frame, "Incoming map column")
-                assert ram[labels["tilePixelX"]] == incoming % 4, (frame, "Incoming tile pixel")
-                scene = (active, visible)
-                if scene != previous_scene:
-                    last_scene_change = frame
-                    if previous_scene is not None and active != previous_scene[0]:
-                        level_changes.append({"frame": frame, "from": previous_scene[0] + 1, "to": active + 1})
-                    previous_scene = scene
-                reference = references[active]
-                assert ram[labels["actorPlayerHeight"]] == reference.player_height, (frame, "Active Giana height")
-                bitmap = reference.expected_bitmap(step % 512)
-                if visible or transition == 254:
-                    assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: Level{active + 1} bitmap differs from original source decode"
-                else:
-                    outside = bytearray(ram[0x2000:0x3f40])
-                    for cell in reference.game:
-                        outside[cell * 8:cell * 8 + 8] = reference.bitmap[cell * 8:cell * 8 + 8]
-                    assert outside == reference.bitmap, (frame, "Refill changed bitmap outside TV")
-                screen, expected_colors = reference.expected_colors(step % 512, level, hidden=not visible)
-                assert ram[0x0400:0x07e8] == screen, f"Frame {frame}: scene screen colors differ at level {level}"
-                if frame == 0:
-                    for index, source_reference in enumerate(references):
-                        stem, suffix = ("terrain", "") if index == 0 else ("terrain2", "2")
-                        assert ram[labels[stem + "Tiles"]:labels[stem + "TilesEnd"]] == source_reference.tiles
-                        assert ram[labels[stem + "MapStart"]:labels[stem + "MapEnd"]] == source_reference.tile_map
-                        for name, table in zip(("PerspectiveAccentMap", "PerspectiveMiddleAccentMap",
-                                                "PerspectiveRightAccentMap", "AccentMap"), source_reference.accent_tables):
-                            assert ram[labels[stem + name]:labels[stem + name] + 512] == table
-                        for name, data in (("actorGround", source_reference.actor_ground), ("actorPlayerPath", source_reference.player_path)):
-                            if data is not None:
-                                address = labels[name + suffix]
-                                assert ram[address:address + len(data)] == data
-                    for slot in range(2):
-                        for channel in ("x", "y", "frame"):
-                            data = references[1].enemy_schedule_arrays[slot][channel]
-                            address = labels[f"level2Enemy{slot}{channel.capitalize()}"]
-                            assert ram[address:address + len(data)] == data
-                    assert ram[0x1a00:0x1c00] == references[1].level2_player_planes
-                    assert ram[labels["cornerMaskFrames"]:labels["cornerMaskFrames"] + 256] == reference.corner_data
-                monitor.run("bank io")
-                colors = bytes(value & 15 for value in monitor.memory(output / "colors.bin", 0xd800, 0xdbe7))
-                assert colors == expected_colors, f"Frame {frame}: color RAM differs at level {level}"
-                vic = monitor.memory(output / "vic.bin", 0xd000, 0xd03f)
-                assert vic[0x11] & 0x7f == 0x3b and vic[0x16] & 0x3f == 0x18 and vic[0x18] & 0xfe == 0x18
-                assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == reference.background
+                ending_state = ram[labels["endingState"]]
                 actual_actor_step = ram[labels["actorStepLo"]] + 256 * ram[labels["actorStepHi"]]
-                assert actual_actor_step == expected_actor_step, (frame, "Actor camera phase", actual_actor_step, expected_actor_step)
-                actor_reference = references[expected_actor_level]
-                actors = actor_reference.verify_sprites(frame, ram, vic, work_addresses,
-                                                        step=expected_actor_step, hidden=not visible)
-                sprite_pixels = reference.sprite_pixels(actors) if visible else reference.corner_pixels
-                clearance = reference.verify_actor_clearance(actors) if visible else None
-                if visible:
-                    assert expected_actor_level == active, (frame, "Revealed actors use the old level route")
-                    support = reference.player_support(step % 512, actors)
-                    assert support["visible_body_penetration_pixels"] == 0, (frame, "Opaque body entered rendered solid", support)
-                    level_camera_steps[active].add(step)
-                    level_world_columns[active].update((step + x) % 512 for x in range(40))
-                    level_actor_steps[active].add(actors["step"])
+                room = 1 if ending_state == 2 else 0
+                assert ending_state in (0, 1, 2) and ending_state >= ending_previous_state, (frame, "Room transition regressed", ending_state)
+                if ending_state != ending_previous_state:
+                    ending_states.append({"frame": frame, "state": ending_state})
+                    ending_previous_state = ending_state
+                if ending_state == 1:
+                    assert ending_expected, (frame, "Second room appeared before both first-room levels completed")
+                    assert (active, step) in ((1, 472), (0, 0)), (frame, "Unexpected camera while preparing second room", active, step)
+                    ending_blank_frames.append(frame)
+                    assert len(ending_blank_frames) <= 110, (frame, "Second room stayed blank too long")
+                    monitor.run("bank io")
+                    vic = monitor.memory(output / "vic.bin", 0xd000, 0xd03f)
+                    assert vic[0x15] == 0, (frame, "Sprites remained enabled during room transition")
+                    assert not vic[0x11] & 0x10, (frame, "Partially prepared room was revealed")
+                    monitor.run("bank cpu")
                 else:
-                    transition_frames.append(frame)
-                if visible and previous_actor_level == active and previous_actor_step is not None and actors["step"] != previous_actor_step:
-                    assert actors["step"] == (previous_actor_step + 1) % 512, (frame, "Actor step skipped")
-                    delta = abs(vic[11] - previous_player_y)
-                    maximum_actor_y_delta = max(maximum_actor_y_delta, delta)
-                if visible:
-                    previous_actor_level = active
-                    previous_actor_step = actors["step"]
-                    previous_player_y = vic[11]
-                if clearance is not None and active == 0:
-                    section, gap = clearance
-                    owl_overlap_steps.add(actors["step"])
-                    cleared_owl_sections.add(section)
-                    owl_clearances.append(gap)
-                seen_sprite_enables.add(vic[0x15])
-                if visible and actors["visible"][0]:
-                    seen_player_poses.add(actors["poses"][0] // 2)
-                visible_entries = reference.visible_enemy_entries(actors) if visible else set()
-                if visible and active == 1:
-                    seen_enemy_entries.update(visible_entries)
-                    maximum_opaque_visible_enemies = max(maximum_opaque_visible_enemies, len(visible_entries))
-                visible_enemy_count = sum(actors["visible"][slot] for slot in (2, 3)) if visible else 0
-                maximum_visible_enemies = max(maximum_visible_enemies, visible_enemy_count)
-                for slot in (2, 3):
-                    if not visible or not actors["visible"][slot]:
-                        continue
-                    seen_enemy_poses.add(actors["poses"][slot])
-                    if active == 0:
-                        seen_level1_owl_poses.add(actors["poses"][slot])
-                    enemy_x = actors["positions"][slot][0]
-                    if enemy_x < 0:
-                        seen_clip_modes.add("left")
-                    if enemy_x + 6 > 40:
-                        seen_clip_modes.add("right")
-                    if 0 <= enemy_x and enemy_x + 6 <= 40:
-                        seen_clip_modes.add("inside")
-                    if enemy_x >= 24:
-                        seen_clip_modes.add("x-high")
-                if frame == 0:
-                    cia = monitor.memory(output / "cia2.bin", 0xdd00, 0xdd03)
-                    assert cia[0] & 3 == 3 and cia[2] & 3 == 3
-                if level not in checked_levels:
-                    reference.verify_protected_pixels(ram[0x2000:0x3f40], ram[0x0400:0x07e8], colors)
-                    checked_levels.add(level)
-                monitor.run("bank cpu")
-                representative_types = {kind for slot, kind in enumerate(actors["enemy_types"], 2)
-                                        if visible and active == 1 and kind is not None
-                                        and 8 <= actors["positions"][slot][0] <= 25}
-                both_inside = visible and active == 1 and all(actors["visible"][slot] and
-                              0 <= actors["positions"][slot][0] <= 34 for slot in (2, 3))
-                # At raster 144 the upper display is current and the lower display
-                # retains the previous frame. Capture only after lighting has
-                # remained stable for a complete visible frame.
-                capture = frame > 0 and frame - last_transition >= 2 and frame - last_scene_change >= 2 and (
-                    (frame <= 4096 and frame % 8 == 2) or frame in event_frames or
-                    (visible and frame % 4 == 1 and actors["step"] in event_steps[active]) or
-                    frame == args.frames or level not in saved_levels or visible and active not in saved_source_levels or
-                    (visible and active == 1 and bool(visible_entries - captured_enemy_entries)) or
-                    (both_inside and not captured_two_enemies) or
-                    bool(representative_types - captured_enemy_types))
-                if capture:
-                    screenshot = output / f"frame-{frame:04d}.png"
-                    monitor.run(f'screenshot "{screenshot}" 2')
-                    with Image.open(screenshot) as image:
-                        actual = image.convert("RGB")
-                    display = actual.crop((32, 35, 352, 235))
-                    expected = reference.composite_sprites(reference.decode(bitmap, screen, colors), sprite_pixels)
-                    actual_rgb, expected_rgb = display.tobytes(), expected.tobytes()
-                    differences = sum(actual_rgb[offset:offset + 3] != expected_rgb[offset:offset + 3]
-                                      for offset in range(0, len(actual_rgb), 3))
-                    assert differences == 0, (frame, level, differences)
+                    if room == 1 and room7_first_game_frame is None:
+                        assert ending_expected and ending_blank_frames, (frame, "Second room skipped its transition")
+                        room7_first_game_frame = frame
+                        ending_expected = False
+                        expected_active = expected_actor_level = 0
+                        expected_camera = expected_actor_step = 0
+                        expected_transition = 0
+                        expected_scroll_countdown = ((4 - frame % 4) % 4) or 4
+                        expected_light_phase = 0
+                        expected_light_countdown = ((14 - frame % 16) % 16) or 16
+                        last_transition = frame
+                    if room == 0:
+                        assert not ending_expected and room7_first_game_frame is None, (frame, "Demo restarted first room instead of switching to giana7")
+                    else:
+                        ending_visible_frames.append(frame)
+                    level = ram[labels["lightLevel"]]
+                    light_countdown = ram[labels["lightCountdown"]]
+                    light_phase = ram[labels["lightPhase"]]
+                    assert (light_countdown, light_phase, level) == (expected_light_countdown, expected_light_phase,
+                                                                           LIGHT_SEQUENCE[expected_light_phase]), (
+                        frame, "Room lighting clock", (light_countdown, light_phase, level),
+                        (expected_light_countdown, expected_light_phase, LIGHT_SEQUENCE[expected_light_phase]))
+                    if light_countdown == 1:
+                        assert frame % 4 == 1, (frame, "Lighting shares a sprite or terrain update frame")
+                    if level != previous_level:
+                        transitions.append({"frame": frame, "level": level})
+                        last_transition = frame
+                        previous_level = level
+                    active = ram[labels["activeLevel"]]
+                    transition = ram[labels["levelTransition"]]
+                    step = int.from_bytes(ram[labels["levelCameraStep"]:labels["levelCameraStep"] + 2], "little")
+                    assert (active, transition, step) == (expected_active, expected_transition, expected_camera), (
+                        frame, "Level/camera transition", (active, transition, step),
+                        (expected_active, expected_transition, expected_camera))
+                    assert ram[labels["scrollCountdown"]] == expected_scroll_countdown, (frame, "Scroll cadence")
+                    visible = transition in (0, 255)
+                    incoming = 40 + step if visible else 40 if transition == 254 else 40 - transition
+                    assert ram[labels["incomingTile"]] == incoming // 4 % 128, (frame, "Incoming map column")
+                    assert ram[labels["tilePixelX"]] == incoming % 4, (frame, "Incoming tile pixel")
+                    scene = (room, active, visible)
+                    if scene != previous_scene:
+                        last_scene_change = frame
+                        if previous_scene is not None and (room, active) != previous_scene[:2]:
+                            level_changes.append({"frame": frame, "from_room": previous_scene[0] + 1,
+                                                  "room": room + 1, "from": previous_scene[1] + 1, "to": active + 1})
+                        previous_scene = scene
+                    reference = room_references[room][active]
+                    assert ram[labels["actorPlayerHeight"]] == reference.player_height, (frame, "Active Giana height")
+                    bitmap = reference.expected_bitmap(step % 512)
+                    if visible or transition == 254:
+                        assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: Level{active + 1} bitmap differs from original source decode"
+                    else:
+                        outside = bytearray(ram[0x2000:0x3f40])
+                        for cell in reference.game:
+                            outside[cell * 8:cell * 8 + 8] = reference.bitmap[cell * 8:cell * 8 + 8]
+                        assert outside == reference.bitmap, (frame, "Refill changed bitmap outside TV")
+                    screen, expected_colors = reference.expected_colors(step % 512, level, hidden=not visible)
+                    assert ram[0x0400:0x07e8] == screen, f"Frame {frame}: scene screen colors differ at level {level}"
+                    if frame == 0:
+                        for index, source_reference in enumerate(references):
+                            stem, suffix = ("terrain", "") if index == 0 else ("terrain2", "2")
+                            assert ram[labels[stem + "Tiles"]:labels[stem + "TilesEnd"]] == source_reference.tiles
+                            assert ram[labels[stem + "MapStart"]:labels[stem + "MapEnd"]] == source_reference.tile_map
+                            for name, table in zip(("PerspectiveAccentMap", "PerspectiveMiddleAccentMap",
+                                                    "PerspectiveRightAccentMap", "AccentMap"), source_reference.accent_tables):
+                                assert ram[labels[stem + name]:labels[stem + name] + 512] == table
+                            for name, data in (("actorGround", source_reference.actor_ground), ("actorPlayerPath", source_reference.player_path)):
+                                if data is not None:
+                                    address = labels[name + suffix]
+                                    assert ram[address:address + len(data)] == data
+                        for slot in range(2):
+                            for channel in ("x", "y", "frame"):
+                                data = references[1].enemy_schedule_arrays[slot][channel]
+                                address = labels[f"level2Enemy{slot}{channel.capitalize()}"]
+                                assert ram[address:address + len(data)] == data
+                        assert ram[0x1a00:0x1c00] == references[1].level2_player_planes
+                        assert ram[labels["cornerMaskFrames"]:labels["cornerMaskFrames"] + 256] == reference.corner_data
+                    monitor.run("bank io")
+                    colors = bytes(value & 15 for value in monitor.memory(output / "colors.bin", 0xd800, 0xdbe7))
+                    assert colors == expected_colors, f"Frame {frame}: color RAM differs at level {level}"
+                    vic = monitor.memory(output / "vic.bin", 0xd000, 0xd03f)
+                    assert vic[0x11] & 0x7f == 0x3b and vic[0x16] & 0x3f == 0x18 and vic[0x18] & 0xfe == 0x18
+                    assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == reference.background
+                    actual_actor_step = ram[labels["actorStepLo"]] + 256 * ram[labels["actorStepHi"]]
+                    assert actual_actor_step == expected_actor_step, (frame, "Actor camera phase", actual_actor_step, expected_actor_step)
+                    actor_reference = room_references[room][expected_actor_level]
+                    actors = actor_reference.verify_sprites(frame, ram, vic, work_addresses,
+                                                            step=expected_actor_step, hidden=not visible)
+                    sprite_pixels = reference.sprite_pixels(actors) if visible else reference.corner_pixels
+                    clearance = reference.verify_actor_clearance(actors) if visible else None
+                    if visible:
+                        assert expected_actor_level == active, (frame, "Revealed actors use the old level route")
+                        support = reference.player_support(step % 512, actors)
+                        assert support["visible_body_penetration_pixels"] == 0, (frame, "Opaque body entered rendered solid", support)
+                        level_camera_steps[active].add(step)
+                        level_world_columns[active].update((step + x) % 512 for x in range(40))
+                        level_actor_steps[active].add(actors["step"])
+                        room_level_camera_steps[room][active].add(step)
+                        room_level_actor_steps[room][active].add(actors["step"])
+                        room_level_world_columns[room][active].update((step + x) % 512 for x in range(40))
+                    else:
+                        transition_frames.append(frame)
+                    if visible and previous_actor_room == room and previous_actor_level == active and previous_actor_step is not None and actors["step"] != previous_actor_step:
+                        assert actors["step"] == (previous_actor_step + 1) % 512, (frame, "Actor step skipped")
+                        delta = abs(vic[11] - previous_player_y)
+                        maximum_actor_y_delta = max(maximum_actor_y_delta, delta)
+                    if visible:
+                        previous_actor_room = room
+                        previous_actor_level = active
+                        previous_actor_step = actors["step"]
+                        previous_player_y = vic[11]
+                    if clearance is not None and active == 0:
+                        section, gap = clearance
+                        owl_overlap_steps.add(actors["step"])
+                        cleared_owl_sections.add(section)
+                        owl_clearances.append(gap)
+                    seen_sprite_enables.add(vic[0x15])
                     if visible and actors["visible"][0]:
-                        blue_pixels = [position for position, color in sprite_pixels.items() if color == 6]
-                        assert all(display.getpixel(position) == reference.palette[6] for position in blue_pixels)
-                        blue_clothes_verified |= bool(blue_pixels)
-                    if visible and active == 0:
-                        assert display.getpixel((240, 24)) == reference.palette[14], "Level1 TV sky must be light blue"
-                        sky_blue_verified = True
-                    for column, region in enumerate(REGION_COLUMNS) if visible else ():
-                        for y, source_y in enumerate(REGION_SOURCE_ROWS[region]):
-                            if source_y < 0:
-                                for x in range(8):
-                                    position = (184 + column * 8 + x, 24 + y)
-                                    assert position not in reference.highlight_pixels, "Highlight must avoid perspective masks"
-                                    assert display.getpixel(position) == reference.palette[0], (
-                                        "Perspective masks must stay black", position)
-                    probes = {
-                        2: (("bush", 17, 44, 5),),
-                        225: (("bonus", 94, 11, 7),),
-                        544: (("pipe", 146, 35, 7), ("nearby_bush", 165, 46, 5)),
-                    }
-                    for name, world_x, world_y, color in probes.get(frame, ()):
-                        offset_x = (world_x - step) % 512
-                        assert offset_x < 40
-                        position = (184 + offset_x * 2, 24 + world_y)
-                        if position not in sprite_pixels:
-                            assert display.getpixel(position) == reference.palette[color], name
-                            checked_objects.add(name)
-                    screenshots.append({"frame": frame, "light": level, "source_level": active + 1,
-                                        "camera_step": step, "transition": transition,
-                                        "enemy_entries": sorted(visible_entries)})
+                        seen_player_poses.add(actors["poses"][0] // 2)
+                    visible_entries = reference.visible_enemy_entries(actors) if visible else set()
                     if visible and active == 1:
-                        for entry in visible_entries - captured_enemy_entries:
-                            actual.save(BUILD / f"{prefix}-enemy-{entry}.png")
-                        captured_enemy_entries.update(visible_entries)
-                        tv_crop = display.crop((184, 24, 264, 88)).resize((320, 256), Image.Resampling.NEAREST)
-                        for kind in representative_types - captured_enemy_types:
-                            name = ENEMY_TYPES[kind]
-                            actual.save(BUILD / f"{prefix}-{name}.png")
-                            tv_crop.save(BUILD / f"{prefix}-{name}-tv.png")
-                            enemy_representatives.append({"type": kind, "name": name, "frame": frame,
-                                                          "camera_step": step, "image": f"{prefix}-{name}.png",
-                                                          "tv_crop": f"{prefix}-{name}-tv.png"})
-                        captured_enemy_types.update(representative_types)
-                        if both_inside and not captured_two_enemies:
-                            actual.save(BUILD / f"{prefix}-two-enemies.png")
-                            tv_crop.save(BUILD / f"{prefix}-two-enemies-tv.png")
-                            captured_two_enemies = True
-                    if visible and active not in saved_source_levels:
-                        actual.save(BUILD / f"level{active + 1}-selected.png")
-                        saved_source_levels.add(active)
-                    if level not in saved_levels:
-                        actual.save(BUILD / f"{prefix}-level-{level}.png")
-                        saved_levels.add(level)
-                    if frame == 544 or (args.frames < 544 and frame == args.frames):
-                        actual.save(BUILD / f"{prefix}.png")
-                    if frame in (1637, 1681, 1761, 1921, 2045, 2049):
-                        actual.save(BUILD / f"{prefix}-end-{actors['step']:03d}.png")
-                    if frame <= 4096 and frame % 8 == 2:
-                        animation.append(actual)
+                        seen_enemy_entries.update(visible_entries)
+                        room_seen_enemy_entries[room].update(visible_entries)
+                        maximum_opaque_visible_enemies = max(maximum_opaque_visible_enemies, len(visible_entries))
+                    visible_enemy_count = sum(actors["visible"][slot] for slot in (2, 3)) if visible else 0
+                    maximum_visible_enemies = max(maximum_visible_enemies, visible_enemy_count)
+                    for slot in (2, 3):
+                        if not visible or not actors["visible"][slot]:
+                            continue
+                        seen_enemy_poses.add(actors["poses"][slot])
+                        if active == 0:
+                            seen_level1_owl_poses.add(actors["poses"][slot])
+                        enemy_x = actors["positions"][slot][0]
+                        if enemy_x < 0:
+                            seen_clip_modes.add("left")
+                        if enemy_x + 6 > 40:
+                            seen_clip_modes.add("right")
+                        if 0 <= enemy_x and enemy_x + 6 <= 40:
+                            seen_clip_modes.add("inside")
+                        if enemy_x >= 24:
+                            seen_clip_modes.add("x-high")
+                    cia = monitor.memory(output / "cia2.bin", 0xdd00, 0xdd03)
+                    assert vic_bank(cia) == 0 and cia[2] & 3 == 0, (frame, "Room must retain loader-safe VIC bank0")
+                    if level not in room_checked_light_levels[room]:
+                        reference.verify_protected_pixels(ram[0x2000:0x3f40], ram[0x0400:0x07e8], colors)
+                        checked_levels.add(level)
+                        room_checked_light_levels[room].add(level)
+                    monitor.run("bank cpu")
+                    representative_types = {kind for slot, kind in enumerate(actors["enemy_types"], 2)
+                                            if visible and active == 1 and kind is not None
+                                            and 8 <= actors["positions"][slot][0] <= 25}
+                    both_inside = visible and active == 1 and all(actors["visible"][slot] and
+                                  0 <= actors["positions"][slot][0] <= 34 for slot in (2, 3))
+                    # At raster 144 the upper display is current and the lower display
+                    # retains the previous frame. Capture only after lighting has
+                    # remained stable for a complete visible frame.
+                    capture = frame > 0 and frame - last_transition >= 2 and frame - last_scene_change >= 2 and (
+                        (frame % 8 == 2) or frame in event_frames or
+                        (visible and frame % 4 == 1 and actors["step"] in event_steps[active]) or
+                        frame == args.frames or level not in saved_levels or visible and (room, active) not in saved_source_levels or
+                        (visible and active == 1 and bool(visible_entries - captured_enemy_entries)) or
+                        (both_inside and not captured_two_enemies) or
+                        bool(representative_types - captured_enemy_types))
+                    if capture:
+                        screenshot = output / f"frame-{frame:04d}.png"
+                        monitor.run(f'screenshot "{screenshot}" 2')
+                        with Image.open(screenshot) as image:
+                            actual = image.convert("RGB")
+                        display = actual.crop((32, 35, 352, 235))
+                        expected = reference.composite_sprites(reference.decode(bitmap, screen, colors), sprite_pixels)
+                        actual_rgb, expected_rgb = display.tobytes(), expected.tobytes()
+                        differences = sum(actual_rgb[offset:offset + 3] != expected_rgb[offset:offset + 3]
+                                          for offset in range(0, len(actual_rgb), 3))
+                        assert differences == 0, (frame, level, differences)
+                        if visible and actors["visible"][0]:
+                            blue_pixels = [position for position, color in sprite_pixels.items() if color == 6]
+                            assert all(display.getpixel(position) == reference.palette[6] for position in blue_pixels)
+                            blue_clothes_verified |= bool(blue_pixels)
+                        if visible and active == 0:
+                            assert display.getpixel((240, 24)) == reference.palette[14], "Level1 TV sky must be light blue"
+                            sky_blue_verified = True
+                        for column, region in enumerate(REGION_COLUMNS) if visible else ():
+                            for y, source_y in enumerate(REGION_SOURCE_ROWS[region]):
+                                if source_y < 0:
+                                    for x in range(8):
+                                        position = (184 + column * 8 + x, 24 + y)
+                                        assert position not in reference.highlight_pixels, "Highlight must avoid perspective masks"
+                                        assert display.getpixel(position) == reference.palette[0], (
+                                            "Perspective masks must stay black", position)
+                        probes = {
+                            2: (("bush", 17, 44, 5),),
+                            225: (("bonus", 94, 11, 7),),
+                            544: (("pipe", 146, 35, 7), ("nearby_bush", 165, 46, 5)),
+                        }
+                        for name, world_x, world_y, color in probes.get(frame, ()):
+                            offset_x = (world_x - step) % 512
+                            assert offset_x < 40
+                            position = (184 + offset_x * 2, 24 + world_y)
+                            if position not in sprite_pixels:
+                                assert display.getpixel(position) == reference.palette[color], name
+                                checked_objects.add(name)
+                        screenshots.append({"frame": frame, "room": room + 1, "light": level, "source_level": active + 1,
+                                            "camera_step": step, "transition": transition,
+                                            "enemy_entries": sorted(visible_entries)})
+                        if visible and active == 1:
+                            for entry in visible_entries - captured_enemy_entries:
+                                actual.save(BUILD / f"{prefix}-enemy-{entry}.png")
+                            captured_enemy_entries.update(visible_entries)
+                            tv_crop = display.crop((184, 24, 264, 88)).resize((320, 256), Image.Resampling.NEAREST)
+                            for kind in representative_types - captured_enemy_types:
+                                name = ENEMY_TYPES[kind]
+                                actual.save(BUILD / f"{prefix}-{name}.png")
+                                tv_crop.save(BUILD / f"{prefix}-{name}-tv.png")
+                                enemy_representatives.append({"type": kind, "name": name, "frame": frame,
+                                                              "camera_step": step, "image": f"{prefix}-{name}.png",
+                                                              "tv_crop": f"{prefix}-{name}-tv.png"})
+                            captured_enemy_types.update(representative_types)
+                            if both_inside and not captured_two_enemies:
+                                actual.save(BUILD / f"{prefix}-two-enemies.png")
+                                tv_crop.save(BUILD / f"{prefix}-two-enemies-tv.png")
+                                captured_two_enemies = True
+                        if visible and (room, active) not in saved_source_levels:
+                            actual.save(BUILD / f"{prefix}-room{room + 1}-level{active + 1}-selected.png")
+                            saved_source_levels.add((room, active))
+                        if level not in saved_levels:
+                            actual.save(BUILD / f"{prefix}-level-{level}.png")
+                            saved_levels.add(level)
+                        if frame == 544 or (args.frames < 544 and frame == args.frames):
+                            actual.save(BUILD / f"{prefix}.png")
+                        if frame in (1637, 1681, 1761, 1921, 2045, 2049):
+                            actual.save(BUILD / f"{prefix}-end-{actors['step']:03d}.png")
+                        if frame % 8 == 2 and (frame <= 4096 or room == 1 and frame <= room7_first_game_frame + 320):
+                            animation.append(actual)
+                        if room == 1:
+                            ending_screenshots.append(frame)
+                            if not room7_selected_saved:
+                                actual.save(BUILD / f"{prefix}-selected.png")
+                                display.resize((1280, 800), Image.Resampling.NEAREST).save(BUILD / f"{prefix}-selected-4x.png")
+                                room7_selected_saved = True
                 monitor.run(f"enable {done_break}")
                 monitor.run("x")
                 done_pc, done_raster, done_cycles = monitor.registers()
-                assert done_pc == labels["frameDone"]
+                handoff_now = done_pc == labels["beginMciPart"]
+                assert done_pc == labels["frameDone"] or handoff_now
+                if handoff_now:
+                    assert (room, active, step, transition) == (1, 1, 472, 255), (
+                        frame, "MCI part started before both stages in both rooms finished")
                 monitor.run(f"disable {done_break}")
                 update_cycles = done_cycles - cycles
                 assert 0 < update_cycles < (312 + 64 - 144) * 63, (frame, update_cycles, done_raster)
@@ -1264,29 +1587,42 @@ def verify(args):
                                 "corner_split_update_cycles": split_done_cycles - split_cycles,
                                 "corner_top_restore_raster": restored_raster,
                                 "corner_top_restore_cycles": restored_cycles - cycles,
+                                "room": room + 1 if ending_state != 1 else None,
                                 "source_level": active + 1, "level_camera_step": step, "level_transition": transition,
                                 "cadence_cycles": cadence, "update_cycles": update_cycles,
-                                "completion_raster": done_raster, "actor_step": actors["step"],
+                                "completion_raster": done_raster, "actor_step": actual_actor_step, "ending_state": ending_state,
                                 "sprite_enables": vic[0x15], "music_start_cycles": music_start_cycles,
                                 "music_done_cycles": music_done_cycles, "music_update_cycles": music_update_cycles,
                                 "music_start_raster": music_raster, "music_completion_raster": music_done_raster,
                                 "music_cadence_cycles": music_cadence,
                                 "music_sequence_position": ram[0x41e4]})
+                if handoff_now:
+                    handoff_sample = samples[-1]
+                    frozen_image = reference.composite_sprites(reference.decode(bitmap, screen, colors), sprite_pixels)
+                    mci_tail = verify_mci_tail(
+                        monitor, output, labels, reference, mci_reference, args, handoff_sample, frozen_image,
+                        (music_start_break, music_done_break, split_start_break, split_done_break,
+                         frame_start_break, top_restored_break, done_break, handoff_break), prefix)
+                    break
                 # Model the visible scheduler contract from the sampled state.
                 # Each refill consumes one normal PAL frame and never suppresses
                 # a music call. Room-light frames deliberately hold the refill.
-                if transition == 255:
+                if ending_state == 1:
+                    pass
+                elif transition == 255 and active == 1 and room == 0:
+                    ending_expected = True
+                elif transition == 255:
                     expected_active ^= 1
                     expected_camera = 0
                     expected_transition = 40
                 elif transition == 254:
-                    if frame % 16 != 13:
+                    if light_countdown != 1:
                         expected_actor_level = active
                         expected_actor_step = 0
                         expected_scroll_countdown = (3 - frame % 4) or 4
                         expected_transition = 0
                 elif transition:
-                    if frame % 16 != 13:
+                    if light_countdown != 1:
                         expected_transition = transition - 1 or 254
                 else:
                     if frame % 4 == 0:
@@ -1298,8 +1634,13 @@ def verify(args):
                         expected_camera += 1
                         if expected_camera == (512 if active == 0 else 472):
                             expected_transition = 255
+                if ending_state != 1:
+                    expected_light_countdown -= 1
+                    if expected_light_countdown == 0:
+                        expected_light_countdown = 16
+                        expected_light_phase = (expected_light_phase + 1) % 4
                 if frame % 256 == 0:
-                    print(f"Verified PAL frame {frame}/{args.frames}; Level{active + 1} pixel {step}; light {level}; transition {transition}", flush=True)
+                    print(f"Verified PAL frame {frame}/{args.frames}; Level{active + 1} pixel {step}; light {level}; transition {transition}; ending {ending_state}", flush=True)
         assert checked_levels == {0, 1, 2}, "Run at least 32 frames to exercise every automatic light level"
         # Flush the real SID write sink before comparing every complete call.
         connection.sendall(b"quit\n")
@@ -1309,7 +1650,8 @@ def verify(args):
         sid_events = read_sid_events(output / "sid-registers.txt")
         event_index = 0
         compared_writes = 0
-        for sample in samples:
+        all_music_samples = samples + (mci_tail["music_samples"] if mci_tail else [])
+        for sample in all_music_samples:
             while event_index < len(sid_events) and sid_events[event_index][0] < sample["music_start_cycles"]:
                 event_index += 1
             values = []
@@ -1319,7 +1661,10 @@ def verify(args):
             expected_values = reference.music_reference["calls"][sample["frame"]]["events"]
             assert values == expected_values, (sample["frame"], "SID writes differ from original RSID call", values, expected_values)
             compared_writes += len(values)
-        sequence_wraps = [sample["frame"] for previous, sample in zip(samples, samples[1:])
+        total_playback_writes = sum(clock >= all_music_samples[0]["music_start_cycles"]
+                                    for clock, _, _ in sid_events)
+        assert total_playback_writes == compared_writes, "Unexpected SID writes outside the original music calls"
+        sequence_wraps = [sample["frame"] for previous, sample in zip(all_music_samples, all_music_samples[1:])
                           if previous["music_sequence_position"] == 0x5d and sample["music_sequence_position"] == 0x28]
         if args.frames >= reference.music_reference["first_sequence_wrap_tick"]:
             assert sequence_wraps and sequence_wraps[0] == reference.music_reference["first_sequence_wrap_tick"]
@@ -1335,12 +1680,13 @@ def verify(args):
             assert seen_clip_modes == {"left", "right", "inside", "x-high"}
             assert cleared_owl_sections == {0, 64, 128, 192, 320, 448}
             assert len(owl_overlap_steps) == 66
-        if args.frames >= 4096:
-            assert [(change["from"], change["to"]) for change in level_changes[:2]] == [(1, 2), (2, 1)]
+        if args.frames >= 4250:
+            assert [(change["from_room"], change["from"], change["room"], change["to"])
+                    for change in level_changes[:2]] == [(1, 1, 1, 2), (1, 2, 2, 1)]
             assert level_camera_steps == [set(range(513)), set(range(473))]
             assert level_actor_steps == [set(range(512)), set(range(472))]
             assert all(columns == set(range(512)) for columns in level_world_columns), "Both complete original maps must reach the TV"
-            assert saved_source_levels == {0, 1}
+            assert {(0, 0), (0, 1), (1, 0)} <= saved_source_levels
             expected_entries = {enemy["source_entry"] for enemy in references[1].original_enemies}
             assert seen_enemy_entries == expected_entries and captured_enemy_entries == expected_entries, (
                 "Original enemies not all seen in native screenshots", seen_enemy_entries, captured_enemy_entries)
@@ -1349,30 +1695,66 @@ def verify(args):
             assert seen_enemy_poses == expected_enemy_poses, ("Native enemy pose coverage", seen_enemy_poses, expected_enemy_poses)
             assert maximum_visible_enemies == maximum_opaque_visible_enemies == 2 and captured_two_enemies
             assert captured_enemy_types == set(ENEMY_TYPES), ("Missing native enemy art proof", captured_enemy_types)
-            assert samples[-1]["source_level"] == 1 and samples[-1]["level_transition"] == 0
+            assert ending_states and ending_blank_frames and ending_visible_frames and ending_screenshots
+            assert ending_visible_frames[0] - ending_blank_frames[0] <= 110
+            assert ending_visible_frames[-1] == (handoff_sample["frame"] if handoff_sample else args.frames) and len(ending_visible_frames) >= 16
+            assert samples[-1]["ending_state"] == 2, "Second room did not remain active"
+        if args.frames >= 8200:
+            assert handoff_sample is not None, "The second room repeated instead of loading the MCI part"
+        if handoff_sample is not None:
+            assert [(change["from_room"], change["from"], change["room"], change["to"])
+                    for change in level_changes] == [(1, 1, 1, 2), (1, 2, 2, 1), (2, 1, 2, 2)]
+            assert handoff_sample is not None and mci_tail and len(mci_tail["fields"]) >= 120, "MCI handoff/fields not verified"
+            assert saved_source_levels == {(0, 0), (0, 1), (1, 0), (1, 1)}
+            for room in range(2):
+                assert room_level_actor_steps[room] == [set(range(512)), set(range(472))], (room, "Both complete actor paths must replay")
+                assert room_level_camera_steps[room] == [set(range(513)), set(range(473))], (room, "Both complete camera paths must replay")
+                assert all(columns == set(range(512)) for columns in room_level_world_columns[room]), (room, "Original map columns missing")
+                assert room_seen_enemy_entries[room] == expected_entries, (room, "Original enemy missing")
+                assert room_checked_light_levels[room] == {0, 1, 2}, (room, "Room lighting levels missing")
         animation[0].save(BUILD / f"{prefix}.gif", save_all=True, append_images=animation[1:],
                           duration=160, loop=0, optimize=False, disposal=1)
         (output / "timing.json").write_text(json.dumps(samples, indent=2) + "\n")
         updates = [sample["update_cycles"] for sample in samples]
         cadences = [sample["cadence_cycles"] for sample in samples if sample["cadence_cycles"] is not None]
-        result.update({"passed": True, "frame_range": [0, args.frames], "frames_verified": len(samples),
+        result.update({"passed": True, "frame_range": [0, all_music_samples[-1]["frame"]], "frames_verified": len(all_music_samples),
+                       "game_checkpoints_verified": len(samples),
                        "unique_scroll_states_per_level": [len(states) for states in level_camera_steps],
                        "map_columns_visible_per_level": [len(columns) for columns in level_world_columns],
                        "level_end_camera_steps": [512, 472], "level_transitions": level_changes,
-                       "level1_level2_level1_verified": args.frames >= 4096,
+                       "both_stages_in_both_rooms_verified": handoff_sample is not None,
+                       "second_room_source_sha256": digest(ending_reference.source),
+                       "second_room_packed_sha256": digest(ending_reference.packed),
+                       "second_room_packed_bytes": len(ending_reference.packed),
+                       "second_room_nibble_archive_independently_decoded_to_source": True,
+                       "second_room_archive_preserved_under_kernal_each_game_frame": True,
+                       "second_room_source": str(ending_reference.path.relative_to(ROOT)),
+                       "second_room_background": ending_reference.background,
+                       "second_room_layout": ending_layout,
+                       "second_room_blank_frames": ending_blank_frames,
+                       "second_room_first_game_frame": room7_first_game_frame,
+                       "second_room_game_frames_verified": len(ending_visible_frames),
+                       "second_room_native_screenshot_frames": ending_screenshots,
+                       "second_room_source_and_game_pixels_verified": bool(ending_screenshots),
+                       "second_room_game_and_lighting_running": bool(ending_visible_frames),
+                       "screen_light_cells_per_room": [len(row[0].light) for row in room_references],
+                       "actor_steps_verified_per_room_and_level": [[len(states) for states in row] for row in room_level_actor_steps],
+                       "camera_steps_verified_per_room_and_level": [[len(states) for states in row] for row in room_level_camera_steps],
+                       "level2_enemy_entries_seen_per_room": [sorted(entries) for entries in room_seen_enemy_entries],
+                       "light_levels_verified_per_room": [sorted(levels) for levels in room_checked_light_levels],
                        "transition_hidden_pal_frames": transition_frames,
                        "per_level_screen_bytes": [source.game_screen for source in references],
                        "expected_terrain_from_original_character_sources": True,
                        "level2_source_block_stream_independently_expanded": True,
                        "automatic_light_sequence": list(LIGHT_SEQUENCE), "light_interval_pal_frames": 16,
                        "light_transitions": transitions, "light_levels_verified": sorted(checked_levels),
-                       "light_remaps_from_original_verified": True, "outside_marked_cells_changes": 0,
-                       "bitmap_changes_outside_game_area": 0, "protected_multicolor_pixels_per_level": len(reference.protected_pixels),
+                       "light_remaps_from_original_verified": True, "game_outside_marked_cells_changes": 0,
+                       "game_bitmap_changes_outside_game_area": 0, "protected_multicolor_pixels_per_level": len(reference.protected_pixels),
                        "protected_color_pixel_changes": 0, "vic_mode_and_bank_verified": True,
                        "sky_blue_verified": sky_blue_verified, "object_color_probes": sorted(checked_objects),
                        "blue_clothes_verified": blue_clothes_verified,
                        "actor_steps_verified_per_level": [len(steps) for steps in level_actor_steps],
-                       "actor_reset_tested": args.frames >= 4096,
+                       "actor_level_switch_tested": args.frames >= 4250,
                        "giana_poses_verified": sorted(seen_player_poses), "owl_frames_verified": sorted(seen_level1_owl_poses),
                        "enemy_frames_verified": sorted(seen_enemy_poses),
                        "level2_enemy_entries_seen": sorted(seen_enemy_entries),
@@ -1399,16 +1781,18 @@ def verify(args):
                        "left_corner_sprite_multiplexed": True,
                        "left_corner_split_completion_raster_max": max(sample["corner_split_completion_raster"] for sample in samples),
                        "rounded_corners_bitmap_modifications": 0,
-                       "music_calls_verified": len(samples), "music_sid_register_writes_compared": compared_writes,
+                       "music_calls_verified": len(all_music_samples), "music_sid_register_writes_compared": compared_writes,
+                       "music_sid_register_writes_total_after_first_call": total_playback_writes,
+                       "music_unexpected_sid_register_writes_between_calls": 0,
                        "music_register_sequence_matches_original_rsid": True,
                        "music_mutable_state_matches_original_rsid_each_call": True,
                        "music_structural_score_wrap_frames": sequence_wraps,
                        "music_complete_first_loop_verified": bool(sequence_wraps),
-                       "music_sequence_positions": sorted({sample["music_sequence_position"] for sample in samples}),
-                       "music_update_cycles_min": min(sample["music_update_cycles"] for sample in samples),
-                       "music_update_cycles_max": max(sample["music_update_cycles"] for sample in samples),
-                       "music_completion_raster_min": min(sample["music_completion_raster"] for sample in samples),
-                       "music_completion_raster_max": max(sample["music_completion_raster"] for sample in samples),
+                       "music_sequence_positions": sorted({sample["music_sequence_position"] for sample in all_music_samples}),
+                       "music_update_cycles_min": min(sample["music_update_cycles"] for sample in all_music_samples),
+                       "music_update_cycles_max": max(sample["music_update_cycles"] for sample in all_music_samples),
+                       "music_completion_raster_min": min(sample["music_completion_raster"] for sample in all_music_samples),
+                       "music_completion_raster_max": max(sample["music_completion_raster"] for sample in all_music_samples),
                        "music_sampler_cia2_disabled": True,
                        "giana_visible_all_actor_steps": [len(steps) == count for steps, count in zip(level_actor_steps, (512, 472))],
                        "opaque_actor_collision_pixels": 0,
@@ -1430,6 +1814,24 @@ def verify(args):
                        "cadence_cycles_min": min(cadences), "cadence_cycles_max": max(cadences),
                        "animation": f"{prefix}.gif", "animation_frames": len(animation), "animation_frame_duration_ms": 160,
                        "elapsed_seconds": round(time.monotonic() - started, 3)})
+        if mci_tail:
+            result.update({"mci_source": str(mci_reference.path.relative_to(ROOT)),
+                           "mci_source_sha256": digest(mci_reference.source),
+                           "mci_project_sha256": digest(mci_reference.project_path.read_bytes()),
+                           "mci_handoff_after_game_frame": handoff_sample["frame"],
+                           "mci_load_stage_first_music_frames": mci_tail["stage_first_music_frames"],
+                           "mci_first_completed_field_music_frame": mci_tail["first_field_frame"],
+                           "mci_first_field_delay_pal_frames": mci_tail["first_field_delay_pal_frames"],
+                           "mci_frozen_room_screenshot_frames": mci_tail["frozen_room_screenshot_frames"],
+                           "mci_music_calls_verified": len(mci_tail["music_samples"]),
+                           "mci_fields_verified": len(mci_tail["fields"]),
+                           "mci_field_phases_verified": sorted({field["phase"] for field in mci_tail["fields"]}),
+                           "mci_original_field_bytes_and_colors_verified": True,
+                           "mci_native_screenshot_pixel_differences": 0,
+                           "mci_phase_b_physical_pixel_offset": 1,
+                           "mci_field_cadence_cycles_min": min(right["cycles"] - left["cycles"] for left, right in zip(mci_tail["fields"], mci_tail["fields"][1:])),
+                           "mci_field_cadence_cycles_max": max(right["cycles"] - left["cycles"] for left, right in zip(mci_tail["fields"], mci_tail["fields"][1:])),
+                           "mci_animation": f"{prefix}-mci.gif"})
     except Exception as cause:
         result["error"] = f"{type(cause).__name__}: {cause}"
         raise
@@ -1455,8 +1857,8 @@ def verify(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", help="Path to x64sc; defaults to VICE or PATH")
-    parser.add_argument("--frames", type=int, default=5205, help="PAL frame range endpoint; minimum 35")
-    parser.add_argument("--autostart-mode", type=int, choices=(1, 2), default=1, help="VICE PRG load mode; 2 exercises true-drive disk autostart")
+    parser.add_argument("--frames", type=int, default=8505, help="PAL music-frame endpoint; minimum 35; 8505 covers both rooms and the loaded MCI part")
+    parser.add_argument("--autostart-mode", type=int, choices=(1, 2), default=1, help="Use 2 for separately named startup proof; both modes boot the real true-drive demo disk")
     args = parser.parse_args()
     if args.frames < 35:
         parser.error("--frames must be at least 35 to capture every lighting state")

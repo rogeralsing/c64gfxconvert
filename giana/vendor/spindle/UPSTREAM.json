@@ -1,0 +1,41 @@
+{
+  "name": "Spindle",
+  "version": "3.1",
+  "author": "Linus Akesson (lft)",
+  "url": "https://www.linusakesson.net/software/spindle/v3.php",
+  "archive_url": "https://hd0.linusakesson.net/files/spindle-3.1.zip",
+  "archive_sha256": "4abbf757ed550d1da7aac3d9f04cf10566a1f6e9079780e02f84cfd4a164431b",
+  "license": "MIT (src); COPYING retained",
+  "vendored_sha256": {
+    "COPYING": "7aa1ce11b08f8ffb01db7a61187beb21f839e60847c03ec86844fb7a50534b95",
+    "README": "86bf395ede7ce44ec5fc819b0313494c21fff375815f7fb37cef3120fa499d70",
+    "src/Makefile": "ec24665ff4df7e5b913876927297792d18331a34003796709edb8357e3b8a6a9",
+    "src/common.h": "54c26c5b93a57c018d54d12eca242809bcaefb51b3f2494c358fe9cf9aa3b6f3",
+    "src/datatables.h": "842e86f0649efcb725b82072e0ad44f541a5065fbf29045250a021d79a45b32d",
+    "src/disk.c": "397f18a002fc887fe45f8557cf1996797cebec671c41f78ef9e1e022dc0ca1b6",
+    "src/disk.h": "ccf7a514121affd427591e96b659951a7cfc06bea1248c770b1957bb4f15d9e5",
+    "src/drivecode.s": "a20a21fda68cfad2982d59ac122543daa8e5de7c67a92c01a9a8fcf18a2c52e3",
+    "src/eflagwarning.s": "3adfc14bc5e22c3f794d2dacda6f898e771e728abd2f95d1c1dce9c2fcbe923d",
+    "src/mkheader.c": "1514f6d320938e8e5b41d41327724a44bdba2657d95fe2d595ac0ac063001245",
+    "src/pack.c": "ce06c4c49a4cfd193ffbbaf5ec9e3622b9ec1f928a9bc3e28e77ee9f5c5be9df",
+    "src/pack.h": "3afd6b7dc1386603b2c32e74750bd41c55dd7f2ec3690dca30872f67611ac2ef",
+    "src/patch-offsets.h": "27f35b3ca98ed520219de02b37a1956c7009ee78096cd4961dca1fd1f756b0be",
+    "src/silence.s": "d170a787c6e124cfa8bf0bb940053c28af64893333b11c278e4e31c5e4ac0a2e",
+    "src/spin.c": "260ae39ed72cbdacfbd444f6f3b9898b4dcc3bbe10487b8c906ba04da75165c9",
+    "src/stage1.s": "fef9998937c8bff5ad18f7cc146e8e727946c72fa2a5cb5d688a98e7da2c82e1",
+    "src/util.c": "4e37a934de475ac8e9739d44b40699859194c5567d886f27cd323c637d85309d",
+    "src/util.h": "78fc663948b305f3228b370e0bcb3fa41e525ce48f2f6bf21fe5f8a039f5864e"
+  },
+  "generated_tables": {
+    "path": "src/datatables.h",
+    "sha256": "842e86f0649efcb725b82072e0ad44f541a5065fbf29045250a021d79a45b32d",
+    "generator": "Upstream mkheader and native loader sources, assembled with xa 2.4.1",
+    "xa_source_url": "https://www.floodgap.com/retrotech/xa/dists/xa-2.4.1.tar.gz",
+    "xa_source_sha256": "63c12a6a32a8e364f34f049d8b2477f4656021418f08b8d6b462be0ed3be3ac3",
+    "commands": [
+      "make mkheader CC=cc",
+      "make datatables.h CC=cc XA65=/path/to/xa-2.4.1/xa"
+    ]
+  },
+  "scope": "Minimal upstream source subset for the low-level Spin tool; prebuilt host binaries, examples, framework tools and manuals omitted"
+}

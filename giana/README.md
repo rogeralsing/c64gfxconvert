@@ -1,12 +1,18 @@
 # Giana demo part
 
-Standalone C64 part showing `giana5` with the original Giana Sisters Levels 1
-and 2 scrolling inside the TV and automatic screen light on the room.
+Standalone C64 demo showing `giana5` with the original Giana Sisters Levels 1
+and 2 scrolling inside the TV and automatic screen light on the room. After
+Level 2, the room changes to `giana7`. The same game restarts in its marked TV,
+with sprites, rounded corners, perspective and the new room's screen lighting.
+After both levels finish in that room, Spindle loads the full-screen
+`giana-man.mci` part. The original music continues through loading and interlace.
 The asset in `assets/giana5.koa` is an unchanged copy of `../images/giana5.koa`.
 `../images/giana5.json` supplies the `GameArea` and `ScreenLight` tile masks.
 The earlier `giana2.koa` asset remains available unchanged.
 
-Build requirements: Python 3 with Pillow, and KickAssembler. Running and native
+Build requirements: Python 3 with Pillow, KickAssembler and a C compiler (`cc`).
+The vendored Spindle tool builds locally without a network connection.
+Running and native
 verification require PAL-capable VICE (`x64sc`; music reference checks use `vsid`).
 
 Build with KickAssembler:
@@ -15,14 +21,14 @@ Build with KickAssembler:
 ./build.sh
 ```
 
-Run the resulting `build/giana.prg` in PAL VICE:
+Run the resulting `build/giana.d64` in PAL VICE with 1541 emulation:
 
 ```sh
 ./run-vice.sh
 ```
 
-`KICKASS` and `VICE` can override the executable paths. The PRG starts with
-`RUN` after loading and repeats Level 1, Level 2, then Level 1 again.
+`KICKASS`, `CC` and `VICE` can override the executable paths. The disk boots
+automatically, plays both levels in each room, then displays the MCI picture.
 
 Both stages use the original maps and character graphics at the same reduced
 scale and scroll speed. Level 1 retains its 512-step camera cycle. Level 2
@@ -69,7 +75,9 @@ native voices. The VICE launcher selects reSID/MOS6581, matching the source.
 Terrain data occupies RAM beneath BASIC at `$A000..$B0FF`; startup selects
 `$01=$36` while retaining KERNAL and I/O. The bitmap stays at `$2000..$3F3F`.
 Its startup screen/color sources live at `$C000..$C7CF`, leaving the music's
-original addresses free. The PRG ends below the I/O window at `$D000`.
+original addresses free. Spindle restores the declared runtime segments from
+disk, including the second room beneath KERNAL. Its resident loader and scratch
+page occupy `$CE00..$CFFF`; loader calls use zero page `$02..$06`.
 
 Level 2 uses the same original music cue. Its source background is black and
 its shared terrain colors are light red and red. The TV maps that background
@@ -107,8 +115,62 @@ an enemy throughout its visible lifetime, and both are used where enemies
 appear together. The 2,000-byte startup color sources at `$C000..$C7CF` could
 also be reused after initialization.
 
-The current layout leaves 5,009 bytes (4.89 KiB) directly available across its
-unused RAM ranges, excluding internal alignment padding and the startup colors.
+The second room archive occupies 7,995 bytes at `$E000..$FF3A`. Its 332-byte
+controller starts at `$BD00`. The game layout leaves 2,751 bytes directly available, separate
+from the 2,000 bytes of startup colors and internal alignment padding.
+
+## Second room and startup
+
+`tools/prepare-ending.py` copies `images/giana7.koa` unchanged and retains the
+JSON source identity and marker masks in `assets/ending-import.json`. The
+80-cell `GameArea` has the same geometry as the first room. Its entire white
+opening and colored side strips are replaced by the game. The 121-cell
+`ScreenLight` mask uses the same protected colors and brightness cycle as the
+first room. Marker-layer visibility in the editor does not disable these
+user-selected regions.
+
+Suffix-tag PackBits stores the 8,000 bitmap bytes, 1,000 screen bytes and 500
+packed color-nibble pairs in 7,995 bytes beneath KERNAL. After both stages finish, the demo
+blanks the display, disables sprites and stops the terrain and lighting jobs.
+It restores 160 output bytes per PAL frame over the existing bitmap, screen
+matrix and Color RAM, expands both color nibbles, then refills forty terrain
+columns across separate frames. Level 1 and its sprites restart when the new
+TV is complete. Music continues once per frame throughout, with no disk access.
+The temporary `$01=$35` mapping keeps SID and Color RAM visible while reading
+the archive; ordinary runtime returns to `$36` before the next music call.
+
+The new lighting uses a 968-byte cell-address/phase table at `$8C00` and a
+76-byte updater at `$3F40`. It changes only the new room's marked cells.
+Terrain, actors and the lighting clock retain their separate PAL frame phases.
+
+The build first assembles the internal `build/giana-unpacked.prg`, then
+`tools/build-disk.py` creates `build/giana.d64`. The disk is the runnable
+distribution. Its first Spindle job restores 22 declared runtime ranges, skips
+the loader pages and I/O gap, and enters the game at `$080E`. The build rejects
+any omitted nonzero runtime bytes. `build/disk-manifest.json` records source
+identities, ranges and loader jobs. Runtime symbols remain in `build/main.sym`.
+
+## MCI part and fast loading
+
+After Level 2 in the second room, the last game picture freezes. A raster-64
+IRQ continues the unchanged SID player while Spindle first loads the invisible
+MCI field B and stages its shared colors. The lower-left rounded corner uses
+an otherwise idle sprite during this freeze. The screen then blanks for field A
+to load, and the complete MCI image is revealed in the lower border.
+
+The MCI viewer preserves both 8,000-byte bitmaps, both 1,000-byte screen matrices
+and the shared 1,000-byte Color RAM from `images/giana-man.mci`. Field A uses
+`$0400/$2000`; field B uses `$8400/$A000`, protecting the music module.
+It alternates complete PAL fields at raster 256, with field B shifted one hires
+pixel right. CIA2 bank selection uses `$DD02`, as required by Spindle.
+Source provenance and native field semantics are in
+[`assets/MCI-SOURCE.md`](assets/MCI-SOURCE.md).
+
+Loader by lft: [Spindle 3.1](https://www.linusakesson.net/software/spindle/v3manual.pdf).
+The exact MIT-licensed source and generated loader tables are retained under
+`vendor/spindle/`; ordinary builds need only the C compiler. The native verifier
+boots the real D64 with true-drive emulation, then checks consecutive actual
+VIC-II MCI fields and every continuing SID call.
 
 ## Screen light
 
@@ -277,55 +339,69 @@ The player uses the generated tile map rather than running the original game.
 Run native verification after building:
 
 ```sh
-python3 tools/verify-scene.py --frames 5205
+python3 tools/verify-scene.py --frames 8505
 python3 tools/verify-scene.py --frames 35 --autostart-mode 2
 ```
 
 The first run uses `prepare-music-reference.py` to capture an independent native
 VSID reference from the retained source SID. Later runs reuse that ignored
-reference when its source identity matches. The second command checks ordinary
-1541 disk autostart with the same PRG.
+reference when its source identity matches. Both commands boot the actual D64
+with true 1541 emulation; the second checks the first 35 frames only.
 
 Native verification compares all 64,000 screen pixels with an independent
 Koala and original character/map decode. It also checks the color-RAM choices
 for all 80 TV cells and the green bush/yellow pipe in the same native frame.
 It checks automatic lighting, all protected color masks, unchanged cells outside
 both regions, all 512 Level 1 scroll positions, the 473 visible Level 2 camera
-positions, four accent phases and both automatic level changes. It verifies
+positions, four accent phases and both levels in both rooms. It verifies
 the uniform-brown refill frames and continuous native music/light scheduling.
-The receipt and actual VICE animation are `build/mobs-verification.json` and
-`build/mobs.gif`. Native TV crops are `build/mobs-crab-tv.png`,
-`build/mobs-slinky-tv.png`, `build/mobs-bee-tv.png` and
-`build/mobs-two-enemies-tv.png`. The disk-start receipt is
-`build/mobs-startup-verification.json`. The earlier verification
+The current receipt is `build/mci-chain-verification.json`, with the game and
+MCI animations in `build/mci-chain.gif` and `build/mci-chain-mci.gif`.
+The disk-start receipt is `build/mci-chain-startup-verification.json`.
+`build/mci-chain-mci-phase-0.png` and `build/mci-chain-mci-phase-1.png` are actual
+completed native fields. The optional `mci-chain-mci-native-average-4x.png` is
+a temporal average of those two captures, not an extra native display mode.
+The earlier second-room replay proof remains in `build/room7-verification.json`.
+The earlier two-stage loop proof remains in `build/mobs-verification.json`.
+The earlier verification
 remains in `build/giana2-color-verification.json` and `build/giana2-color.gif`.
 
 The native receipt records the checked frames, protected pixel counts and
 timing. The perspective reference checks the fixed row mapping, both black
 masks, shifted accent colors and the unchanged right half. Sky and object
 probes follow the projected pixel positions. The native receipt records all
-camera states, both level changes, three light levels and completion timing
+camera states, room and stage changes, three light levels and completion timing
 before the next music call at raster 64. Sprite verification also checks
 animation poses, work-buffer pixels, clipping, hardware X high bits and
-composited native screenshots through the actor-loop restart. It requires
+composited native screenshots through the second room's last Level 2 camera. It requires
 visible Giana art in every active stage frame, clearance throughout enemy encounters,
 and contact with the rendered solid surfaces during walking and landing.
 The highlight check reads the approved native art independently and checks
 its hires mode, cyan color, fixed position, immutable data and foreground priority.
 Corner checks cover all eight hardware slots, the static black profile, the
 copied VIC-visible frames and the unchanged underlying scroll pixels.
-The two-stage native pass checked 5,206 PAL checkpoints and 727 complete
-screenshots with zero pixel differences. It covered both full maps and both
-level changes, with 512 Level 1 actor states and 472 Level 2 actor states.
-All eight original Level 2 enemies and all sixteen enemy poses were checked;
+The native pass checked 8,506 music calls, 8,065 game checkpoints, 1,293 game
+screenshots and 263 consecutive MCI fields with zero pixel differences.
+It covered both full maps in both
+rooms, with 512 Level 1 actor states and 472 Level 2 actor states per room.
+All eight original Level 2 enemies were checked in each room, with all sixteen enemy poses;
 two opaque enemies appeared together. The independent Level 2 contact audit
 found 363 terrain contacts, six enemy-head contacts and 103 unsupported
 jump/fall states, with no body penetrations, missed landings or midair relaunches.
-All 5,206 music calls and 116,480 SID register writes matched the original,
-including the full score loop. The longest graphics job used 13,317 cycles.
+All 8,506 music calls and 190,321 SID register writes matched the original,
+including the full score loop. The complete SID dump contains no additional
+writes between calls, including no loader mute or volume changes.
+The second room's game first appears at checkpoint 4,086 after 105 blank PAL
+frames. Both stages and all three lighting levels run before the MCI handoff
+after game frame 8,064. Pixels outside the TV follow the original
+room7 bitmap and its 121-cell lighting mask. The compressed archive is
+checked beneath KERNAL throughout the game, including real disk startup.
 The left corner switch completed by raster 116, before the lower mask starts
 at 117. Ordinary disk autostart also passed 36 checkpoints and nine native
-screenshots with zero pixel differences.
+screenshots with zero pixel differences. The first complete MCI field follows
+the handoff after 3.56 seconds; approximately 1.66 seconds are blank, while the
+earlier load job retains the exact frozen game picture. All 441 IRQ music calls
+start at raster 64. The MCI field cadence remains one phase per PAL frame.
 
 The preserved Level 1 integration reference
 checked 5,206 PAL checkpoints and 354 complete screenshots with zero pixel
@@ -338,8 +414,8 @@ unsupported jump/fall states. No body penetrations, midair relaunches, or
 missed descending landings occurred. The four rounded ballistic apices each
 last four displayed steps; the former long height-clamped plateaus are gone.
 
-All 116,480 SID register writes matched the original subtune's per-call sequence,
+All 190,321 SID register writes matched the original subtune's per-call sequence,
 including the score loop at call 5,181. Mutable player state and bookmarks also
-matched. Music calls took 598–2,871 elapsed cycles and finished by raster 109,
+matched. Game music calls took 598–2,872 elapsed cycles and finished by raster 109,
 before the graphics update at 144. The complete normal-demo recording includes
-the music loop with terrain, actors, corner masks and lighting active.
+the full game run in both rooms, both disk jobs and the continuing MCI/music loop.
