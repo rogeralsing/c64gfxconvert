@@ -5,6 +5,7 @@ The pinned RSID wrapper calls $41C0 and returns to $CCF4. Capture each call
 through the score-position $5D to $28 wrap and24 further PAL frames.
 """
 
+import argparse
 import hashlib
 import json
 import os
@@ -24,6 +25,12 @@ from vice_support import Monitor, connect_monitor
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--frames", type=int, help="Capture at least this many original calls; default ends 24 calls after the first score wrap")
+    args = parser.parse_args()
+    if args.frames is not None and args.frames < 1:
+        parser.error("--frames must be positive")
+    maximum_calls = max(6500, args.frames or 0)
     OUT.mkdir(parents=True, exist_ok=True)
     assert hashlib.sha256(SOURCE.read_bytes()).hexdigest() == SOURCE_SHA256
     trace = OUT / "original-subtune3-call-registers.txt"
@@ -32,11 +39,11 @@ def main():
     with socket.socket() as reserve:
         reserve.bind(("127.0.0.1", 0))
         port = reserve.getsockname()[1]
-    command = [executable, "-default", "+saveres", "-console", "-tune", "3", "-seed", "1",
+    command = [executable, "-default", "+saveres", "-minimized", "-tune", "3", "-seed", "1",
                "-pal", "-sidmodel", "0", "-sidengine", "1", "-residsamp", "2",
                "-sounddev", "dump", "-soundarg", str(trace), "-warp", "-initbreak", "reset",
                "-remotemonitor", "-remotemonitoraddress", f"ip4://127.0.0.1:{port}",
-               "-limitcycles", str(150 * 985248), str(SOURCE)]
+               "-limitcycles", str(max(150, (maximum_calls + 99) // 50) * 985248), str(SOURCE)]
     process = connection = monitor = None
     calls = []
     previous_position = wrapped = None
@@ -52,7 +59,7 @@ def main():
             monitor.run("break 41c0")
             monitor.run("break ccf4")
             monitor.run("disable 2")
-            for tick in range(6500):
+            for tick in range(maximum_calls):
                 monitor.run("x")
                 pc, _, entry = monitor.registers()
                 assert pc == 0x41c0, (tick, hex(pc))
@@ -76,7 +83,7 @@ def main():
                 monitor.run("bank cpu")
                 if tick % 512 == 0:
                     print(f"Original SID tick {tick}; position ${position:02x}; wrap={wrapped}", flush=True)
-                if wrapped is not None and tick >= wrapped + 24:
+                if wrapped is not None and tick >= wrapped + 24 and (args.frames is None or tick + 1 >= args.frames):
                     break
     finally:
         if monitor:
@@ -125,7 +132,10 @@ def main():
               "sequence_positions": sorted({call["sequence_position"] for call in calls}),
               "trace_sha256": hashlib.sha256(trace.read_bytes()).hexdigest(),
               "elapsed_seconds": round(time.monotonic() - started, 3)}
-    (OUT / "original-call-reference.json").write_text(json.dumps(result, separators=(",", ":")) + "\n")
+    destination = OUT / "original-call-reference.json"
+    temporary = destination.with_suffix(".json.tmp")
+    temporary.write_text(json.dumps(result, separators=(",", ":")) + "\n")
+    temporary.replace(destination)
     print(f"Captured {len(calls)} original calls; score wraps at tick {wrapped}", flush=True)
 
 

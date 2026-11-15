@@ -1,0 +1,86 @@
+{
+  "format": "giana-third-part-truepaint-mci-v1",
+  "source": {
+    "path": "images/giana-man.mci",
+    "bytes": 19434,
+    "sha256": "fdcd1028fdbbd71f7c2c86e70d6291d8c7c4828213cb24c8e9a0cc5a3e1a0b55",
+    "load_address": 39936
+  },
+  "project": {
+    "path": "images/giana-man.json",
+    "sha256": "9074057c33d6098d14580739db48473e1c3940452e3cbd6da91a0a6734bfbbe6",
+    "graphics_mode": "mci",
+    "palette_id": "peptoette-a"
+  },
+  "components": {
+    "screen-a": {
+      "path": "assets/mci-screen-a.bin",
+      "source_offset": 2,
+      "bytes": 1000,
+      "sha256": "3b5d40d6bd9bf396c5b7e10d1d53cfb90a6fae76262187874935409e61201be8"
+    },
+    "bitmap-a": {
+      "path": "assets/mci-bitmap-a.bin",
+      "source_offset": 1026,
+      "bytes": 8000,
+      "sha256": "1d72a444272bc76989aaf14ff896182a5a93ab38b7bf792ab413d01cc3fbbc9f"
+    },
+    "bitmap-b": {
+      "path": "assets/mci-bitmap-b.bin",
+      "source_offset": 9218,
+      "bytes": 8000,
+      "sha256": "966ee2f729ebe7c5e2f2b6dc36d85f39076a12b3ce532007a644280391972965"
+    },
+    "screen-b": {
+      "path": "assets/mci-screen-b.bin",
+      "source_offset": 17410,
+      "bytes": 1000,
+      "sha256": "12e27e23433fa2bde8c0370a6eb50f373f556ff44a5f06965f62a52d6fb6a21e"
+    },
+    "colors": {
+      "path": "assets/mci-colors.bin",
+      "source_offset": 18434,
+      "bytes": 1000,
+      "sha256": "6bd4799d6133fde3744b788f1423db497a433132dd08ef76c72e6358a3346a41"
+    },
+    "background": {
+      "path": "assets/mci-background.bin",
+      "source_offset": 1002,
+      "bytes": 1,
+      "sha256": "2b4c342f5433ebe591a1da77e013d1b72475562d48578dca8b84bac6651c3cb9"
+    }
+  },
+  "display": {
+    "width": 320,
+    "height": 200,
+    "fields": 2,
+    "field_b_offset_physical_pixels": 1,
+    "field_change_raster": 256,
+    "field_rate": "one per PAL frame",
+    "background": 9
+  },
+  "memory": {
+    "screen_a": 1024,
+    "bitmap_a": 8192,
+    "screen_b": 33792,
+    "bitmap_b": 40960,
+    "color_source": 49152,
+    "color_ram": 55296,
+    "vic_memory_pointer": 24,
+    "cia2_direction_values": [
+      60,
+      62
+    ],
+    "scroll_values": [
+      24,
+      25
+    ]
+  },
+  "preservation": {
+    "source_files_modified": false,
+    "mci_copy_is_exact": true,
+    "pixel_or_palette_conversion": false,
+    "phase_bytes_preserved": true,
+    "json_embedded_images_not_imported": true
+  }
+}
