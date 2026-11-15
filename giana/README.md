@@ -30,6 +30,10 @@ Run the resulting `build/giana.d64` in PAL VICE with 1541 emulation:
 `KICKASS`, `CC` and `VICE` can override the executable paths. The disk boots
 automatically, plays both levels in each room, then displays the MCI picture.
 
+The [complete recording with sound](recordings/giana-complete-mci-30s.mp4)
+runs for 3:14.43 and ends after 30 seconds of the MCI picture. Capture commands
+and timing verification are in [recordings/README.md](recordings/README.md).
+
 Both stages use the original maps and character graphics at the same reduced
 scale and scroll speed. Level 1 retains its 512-step camera cycle. Level 2
 ends at step 472, when the last map column reaches the right edge of the TV;
