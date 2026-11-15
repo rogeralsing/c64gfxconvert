@@ -38,10 +38,11 @@ colors at `$0400`, color RAM at `$D800`, a dark-brown global background, and a
 black border. The TV occupies the full character rectangle at physical pixels
 `[184,264) × [24,88)`, or 40×64 multicolor pixels: character columns 23–32
 and rows 3–10. These are exactly the 80 cells marked by `GameArea`, matching
-the previous demo's viewport. Tiny original Giana and owl characters use three
-hardware sprites inside that area. A fourth hires sprite adds the cyan glass
-highlight at the TV's upper-left corner. Four black hires corner masks round
-the opening; all eight hardware sprites are in use.
+the previous demo's viewport. Giana uses two overlaid hardware sprites, and two
+more slots display enemies. A hires sprite adds the cyan glass highlight at the
+TV's upper-left corner. Three hardware slots display four black corner masks by
+reusing the left slot between the upper and lower edges. All eight hardware
+sprites are in use.
 
 The demo also plays Chris Hülsbeck's original first-level music, corresponding
 to subtune 3 of `Great_Giana_Sisters.sid`.
@@ -77,7 +78,7 @@ green/yellow cell accents. In the twelve cells reserved for the stepped black
 edges, accent pixels appear black because the hardware color slot is shared
 with the edge mask. Level 1's pixels and accent tables remain unchanged.
 Level 2's tiles and map occupy CPU RAM at `$1000..$19FF`; its four accent tables
-occupy `$B200..$B9FF`. Its owl-ground and Giana-route tables use `$BA00..$BCFF`.
+occupy `$B200..$B9FF`. Its Giana route uses `$BB00..$BCFF`.
 The first region is data for the CPU, not sprite art: VIC bank 0 sees character
 ROM at `$1000..$1FFF`. Source extraction and hashes are documented in
 [`assets/LEVEL2-SOURCE.md`](assets/LEVEL2-SOURCE.md).
@@ -86,12 +87,28 @@ The upper perspective step reduces one of Level 2's 24-source-pixel tunnels
 below the first stage's 10-pixel Giana. Level 2 therefore uses eight-row area
 samples of the same four original poses; Level 1's accepted sprite atlas and
 route stay unchanged. The extra eight sprite planes occupy `$1A00..$1BFF` as
-CPU source data and reuse the same VIC-visible work buffers. Owl markers are
-omitted where the real tunnel has no room for a supported jump over them.
+CPU source data and reuse the same VIC-visible work buffers.
 
-The current layout leaves a conservative 9,116 bytes (8.90 KiB) directly
-available across its unused RAM ranges. The 2,000-byte startup color sources
-at `$C000..$C7CF` could also be reused after initialization.
+Level 2 retains its eight original enemy spawn records: one owl, two crabs,
+four green spring creatures and one bee. Fourteen extra original poses use
+896 bytes at `$1C00..$1F7F`. The two dynamic pickup sites are not enemies and
+are not simulated. Enemy movement is deliberately simplified to local patrols,
+falling onto the reduced terrain, and a clear bee flight lane. Original art,
+facing, animation timing and source speed are retained; this is not the original
+game's AI. Crabs use a shorter six-row canvas so Giana can pass them in the
+reduced tunnels. Source records and reduction details are in
+[`assets/level2-enemies-SOURCE.md`](assets/level2-enemies-SOURCE.md).
+The settled positions, motion tables and Giana route are documented in
+[`assets/LEVEL2-SPRITES.md`](assets/LEVEL2-SPRITES.md).
+
+Six 512-byte tables store each enemy slot's X, Y and animation frame, avoiding
+per-frame game AI. They occupy `$8600..$8BFF` and `$C800..$CDFF`. The slots retain
+an enemy throughout its visible lifetime, and both are used where enemies
+appear together. The 2,000-byte startup color sources at `$C000..$C7CF` could
+also be reused after initialization.
+
+The current layout leaves 5,009 bytes (4.89 KiB) directly available across its
+unused RAM ranges, excluding internal alignment padding and the startup colors.
 
 ## Screen light
 
@@ -155,15 +172,16 @@ floating platforms. Takeoffs require support under her feet; gravity and the
 first surface crossed on descent determine landings. The route favors walking
 and uses short jumps where obstacles or owls require them. Collision checks
 include the visible character poses and the terrain's perspective bands.
-Horizontal clipping clears pixels outside the TV in three working buffers.
+Horizontal clipping clears pixels outside the TV in four working buffers.
 
 Sprite animation and buffer copies run on frame phase 0, terrain on phase 3,
 and room-light changes on phase 1. This keeps the larger jobs separate. Actor
 positions therefore follow a terrain step one PAL frame later.
 
-The 640-byte immutable atlas and three 64-byte work buffers occupy
+The 640-byte immutable atlas and first three 64-byte work buffers occupy
 `$0C00..$0F3F`, below the VIC's character-ROM window. The 64-byte hires highlight
-follows at `$0F40..$0F7F`. It uses hardware sprite 4, at bitmap position
+follows at `$0F40..$0F7F`, and the fourth work buffer uses `$0F80..$0FBF`.
+The highlight uses hardware sprite 3, at bitmap position
 `(184,27)`, three raster lines below the top edge, so its cyan pixels remain
 inside the picture and in front of the game characters. Black source pixels
 are transparent. A curved dithered patch follows the rounded corner, with
@@ -173,8 +191,10 @@ Sprite helpers, clipping
 tables, ground lookup, demonstration route and corner masters occupy `$9000..$97FF`.
 `build.sh` regenerates the sprite assets offline with `tools/prepare-sprites.py`.
 
-Four black hires sprites in hardware slots 0–3 cover the rounded corners in
-front of the highlight and actors. The eight-row cut profile is
+Four black hires masks in hardware slots 0–2 cover the rounded corners in
+front of the highlight and actors. Slot 0 shows the upper-left mask, then
+switches to the lower-left mask at raster 115, ahead of its first line at 117.
+The frame update restores the upper-left mask at raster 144. The eight-row cut profile is
 `[6,4,3,2,1,1,0,0]`, offset to the existing perspective edges. Each corner masks
 17 physical pixels. These overlays preserve the unmasked bitmap stream and all
 cell colors, so hidden right-edge pixels scroll into view intact.
@@ -182,7 +202,7 @@ cell colors, so hidden right-edge pixels scroll into view intact.
 The four 64-byte frames are copied to `$0200..$02FF` after SYS. This standalone
 part disables interrupts and never returns to BASIC, leaving that workspace
 available without moving the PRG's load address. The right masks start at VIC
-X 264, so their fixed X high bits remain set alongside the moving owl's bit.
+X 264, so their fixed X high bits remain set alongside the moving enemies' bits.
 `tools/prepare-tv-corners.py` rebuilds the masks from the readable arc profile.
 
 ## Terrain scrolling
@@ -273,9 +293,11 @@ It checks automatic lighting, all protected color masks, unchanged cells outside
 both regions, all 512 Level 1 scroll positions, the 473 visible Level 2 camera
 positions, four accent phases and both automatic level changes. It verifies
 the uniform-brown refill frames and continuous native music/light scheduling.
-The receipt and actual VICE animation are `build/levels-verification.json` and
-`build/levels.gif`; `build/level2-selected.png` shows the second stage.
-The disk-start receipt is `build/levels-startup-verification.json`. The earlier verification
+The receipt and actual VICE animation are `build/mobs-verification.json` and
+`build/mobs.gif`. Native TV crops are `build/mobs-crab-tv.png`,
+`build/mobs-slinky-tv.png`, `build/mobs-bee-tv.png` and
+`build/mobs-two-enemies-tv.png`. The disk-start receipt is
+`build/mobs-startup-verification.json`. The earlier verification
 remains in `build/giana2-color-verification.json` and `build/giana2-color.gif`.
 
 The native receipt records the checked frames, protected pixel counts and
@@ -286,17 +308,24 @@ camera states, both level changes, three light levels and completion timing
 before the next music call at raster 64. Sprite verification also checks
 animation poses, work-buffer pixels, clipping, hardware X high bits and
 composited native screenshots through the actor-loop restart. It requires
-visible Giana art in every active stage frame, clearance throughout staged owl encounters,
+visible Giana art in every active stage frame, clearance throughout enemy encounters,
 and contact with the rendered solid surfaces during walking and landing.
 The highlight check reads the approved native art independently and checks
 its hires mode, cyan color, fixed position, immutable data and foreground priority.
 Corner checks cover all eight hardware slots, the static black profile, the
 copied VIC-visible frames and the unchanged underlying scroll pixels.
-The two-stage native pass checked 5,206 PAL checkpoints and 706 complete
+The two-stage native pass checked 5,206 PAL checkpoints and 727 complete
 screenshots with zero pixel differences. It covered both full maps and both
 level changes, with 512 Level 1 actor states and 472 Level 2 actor states.
+All eight original Level 2 enemies and all sixteen enemy poses were checked;
+two opaque enemies appeared together. The independent Level 2 contact audit
+found 363 terrain contacts, six enemy-head contacts and 103 unsupported
+jump/fall states, with no body penetrations, missed landings or midair relaunches.
 All 5,206 music calls and 116,480 SID register writes matched the original,
-including the full score loop. The longest graphics job used 13,297 cycles.
+including the full score loop. The longest graphics job used 13,317 cycles.
+The left corner switch completed by raster 116, before the lower mask starts
+at 117. Ordinary disk autostart also passed 36 checkpoints and nine native
+screenshots with zero pixel differences.
 
 The preserved Level 1 integration reference
 checked 5,206 PAL checkpoints and 354 complete screenshots with zero pixel
@@ -311,6 +340,6 @@ last four displayed steps; the former long height-clamped plateaus are gone.
 
 All 116,480 SID register writes matched the original subtune's per-call sequence,
 including the score loop at call 5,181. Mutable player state and bookmarks also
-matched. Music calls took 598–2,860 elapsed cycles and finished by raster 109,
+matched. Music calls took 598–2,871 elapsed cycles and finished by raster 109,
 before the graphics update at 144. The complete normal-demo recording includes
 the music loop with terrain, actors, corner masks and lighting active.

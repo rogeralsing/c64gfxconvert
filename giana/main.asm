@@ -12,11 +12,15 @@
 .const TV_PIXELS = TV_WIDTH * 4
 .const TV_UPDATE_RASTER = 144
 .const MUSIC_UPDATE_RASTER = 64
+.const CORNER_SPLIT_RASTER = 115
 .const SCROLL_FRAME_INTERVAL = 4
 .const LIGHT_UPDATE_RASTER = 250
 .const LIGHT_FRAME_INTERVAL = 16
 .const TILE_POINTER = $fb
 .const COLOR_BITS = $fd
+.const ACTOR_X_BASE = TV_COLUMN * 8 + 24
+.const ACTOR_Y_BASE = TV_ROW * 8 + 50
+.const CORNER_SPRITES = $0200
 
 * = $a000 "Terrain tiles and map"
     .import source "terrain.asm"
@@ -34,6 +38,10 @@ tinySpriteFrames2:
 .assert "Level 2 map avoids its actor atlas", terrain2MapEnd <= tinySpriteFrames2, true
 .assert "Level 2 actor sources stay below the bitmap", * <= $2000, true
 
+* = $1c00 "Original crab, spring and bee frames"
+    .import source "assets/enemies.asm"
+.assert "Extra enemy art stays below the bitmap", * <= $2000, true
+
 * = $41c0 "Original Giana in-game music"
     .import source "assets/music.asm"
 .assert "Music fits below the renderer", musicOriginalEnd <= $6000, true
@@ -47,6 +55,7 @@ tvHighlightSprite:
     .import binary "assets/tv-highlight.bin"
 .assert "TV highlight is one hires sprite", * - tvHighlightSprite, 64
 .assert "TV highlight is 64-byte aligned", tvHighlightSprite & $3f, 0
+spriteWork3: .fill 64, 0
 .assert "Sprite atlas and working frames avoid character ROM", * <= $1000, true
 
 BasicUpstart2(start)
@@ -136,11 +145,24 @@ display:
 musicFrameStart:
     jsr MUSIC_PLAY
 musicFrameDone:
+waitCornerSplit:
+    lda $d012
+    cmp #CORNER_SPLIT_RASTER
+    bne waitCornerSplit
+cornerSplitStart:
+    // The top-left DMA has finished; reuse its slot for the bottom-left mask.
+    lda #(CORNER_SPRITES / 64) + 2
+    sta SCREEN + $3f8
+    lda #ACTOR_Y_BASE + TV_HEIGHT * 8 - 21
+    sta $d001
+cornerSplitDone:
 waitTVUpdate:
     lda $d012
     cmp #TV_UPDATE_RASTER
     bne waitTVUpdate
 frameStart:
+    jsr restoreLeftTopCorner
+cornerTopRestored:
     lda levelTransition
     beq !normalFrame+
     jsr advanceLevelTransition
@@ -424,7 +446,7 @@ actorPlayerHeight: .byte SPRITE_GIANA_HEIGHT
     .assert "Perspective region covers every raster row", rows.size(), TV_HEIGHT * 8
 }
 
-.assert "Terrain renderer fits below sprite helpers", * <= $9000, true
+.assert "Terrain renderer fits below enemy schedules", * <= $8600, true
 * = $9000 "Tiny actor movement and clipping"
     .import source "sprites.asm"
 .assert "Sprite helpers fit below BASIC ROM", * <= $a000, true
@@ -515,8 +537,6 @@ selectLevel:
     .for (var frame = 4; frame < 8; frame++) {
         sta actorFrameHigh + frame
     }
-    lda levelGroundHigh,x
-    sta actorGroundRead + 2
     lda levelPathHigh,x
     sta actorPlayerPathFirstRead + 2
     clc
@@ -553,9 +573,9 @@ advanceLevelTransition:
     lda #$99
     ldy #9
     jsr setTVColors
-    lda #$0f
+    lda #$07
     sta $d015
-    lda #$0a
+    lda #$06
     sta $d010
     jsr prepareColumn
     lda #TV_PIXELS
@@ -588,7 +608,6 @@ levelEndStepHigh: .byte >512, >(512 - TV_PIXELS)
 levelScreenColors: .byte TERRAIN_SCREEN_COLORS, TERRAIN2_SCREEN_COLORS
 levelPlayerHeight: .byte SPRITE_GIANA_HEIGHT, 8
 levelSpriteHigh: .byte >tinySpriteFrames, >tinySpriteFrames2
-levelGroundHigh: .byte >actorGround, >actorGround2
 levelPathHigh: .byte >actorPlayerPath, >actorPlayerPath2
 levelMapLow:
     .for (var row = 0; row < TV_HEIGHT; row++) {
@@ -614,11 +633,130 @@ levelAccentHigh:
     }
 .assert "Level switching fits below terrain", * <= $a000, true
 
-* = $ba00 "Level 2 actor ground and route"
-actorGround2:
-    .import binary "assets/level2-sprite-ground.bin"
-.assert "Level 2 ground covers original character columns", * - actorGround2, 256
+.assert "Level switching avoids the enemy renderer", * <= $9b00, true
+* = $9b00 "Corner reuse and original enemy display"
+restoreLeftTopCorner:
+    // The lower-left mask has finished before the next top-left DMA begins.
+    lda #CORNER_SPRITES / 64
+    sta SCREEN + $3f8
+    lda #ACTOR_Y_BASE
+    sta $d001
+    rts
+
+updateLevel2Enemies:
+    // Three compact schedules per slot replace per-frame game AI.
+    ldy actorStepLo
+    lda actorStepHi
+    beq !firstPage+
+    .for (var enemy = 0; enemy < 2; enemy++) {
+        .var xSource = enemy == 0 ? level2Enemy0X : level2Enemy1X
+        .var ySource = enemy == 0 ? level2Enemy0Y : level2Enemy1Y
+        .var frameSource = enemy == 0 ? level2Enemy0Frame : level2Enemy1Frame
+        lda xSource + $100,y
+        sta level2EnemyXs + enemy
+        lda ySource + $100,y
+        sta level2EnemyYs + enemy
+        lda frameSource + $100,y
+        sta level2EnemyFrames + enemy
+    }
+    jmp !loaded+
+!firstPage:
+    .for (var enemy = 0; enemy < 2; enemy++) {
+        .var xSource = enemy == 0 ? level2Enemy0X : level2Enemy1X
+        .var ySource = enemy == 0 ? level2Enemy0Y : level2Enemy1Y
+        .var frameSource = enemy == 0 ? level2Enemy0Frame : level2Enemy1Frame
+        lda xSource,y
+        sta level2EnemyXs + enemy
+        lda ySource,y
+        sta level2EnemyYs + enemy
+        lda frameSource,y
+        sta level2EnemyFrames + enemy
+    }
+!loaded:
+    lda #$06
+    sta actorXHigh
+    .for (var enemy = 0; enemy < 2; enemy++) {
+        lda level2EnemyXs + enemy
+        sta actorX
+        lda level2EnemyFrames + enemy
+        cmp #$ff
+        beq !hidden+
+        jsr setActorClip
+        beq !hidden+
+        lda level2EnemyFrames + enemy
+        ldx #enemy + 2
+        jsr copyTinySprite
+        ldx actorSourceFrame
+        lda actorFrameColor,x
+        sta $d02d + enemy
+        lda level2EnemyYs + enemy
+        clc
+        adc #ACTOR_Y_BASE
+        sta $d00d + enemy * 2
+        lda actorEnabled
+        ora #(1 << (6 + enemy))
+        sta actorEnabled
+        lda actorX
+        bmi !plotX+
+        cmp #24
+        bcc !plotX+
+        lda actorXHigh
+        ora #(1 << (6 + enemy))
+        sta actorXHigh
+        jmp !plotX+
+!hidden:
+        lda #0
+        sta actorMask0
+        sta actorMask1
+        sta $d00d + enemy * 2
+        lda #SPRITE_ENEMY_FRAME_OFFSET
+        ldx #enemy + 2
+        jsr copyTinySprite
+!plotX:
+        lda actorX
+        asl
+        clc
+        adc #ACTOR_X_BASE
+        sta $d00c + enemy * 2
+    }
+    lda actorXHigh
+    sta $d010
+    lda actorEnabled
+    sta $d015
+    rts
+
+level2EnemyXs: .fill 2, 0
+level2EnemyYs: .fill 2, 0
+level2EnemyFrames: .fill 2, $ff
+actorXHigh: .byte $06
+.assert "Enemy display code fits below terrain", * <= $a000, true
+
+* = $bb00 "Level 2 Giana route"
 actorPlayerPath2:
     .import binary "assets/level2-sprite-player-path.bin"
 .assert "Level 2 route covers the complete map", * - actorPlayerPath2, 512
 .assert "Level 2 actors fit below color sources", * <= SCREEN_DATA, true
+
+* = $8600 "Level 2 first enemy schedules"
+level2Enemy0X:
+    .import binary "assets/level2-enemy0-x.bin"
+.assert "First enemy X covers the camera", * - level2Enemy0X, 512
+level2Enemy0Y:
+    .import binary "assets/level2-enemy0-y.bin"
+.assert "First enemy Y covers the camera", * - level2Enemy0Y, 512
+level2Enemy0Frame:
+    .import binary "assets/level2-enemy0-frame.bin"
+.assert "First enemy art covers the camera", * - level2Enemy0Frame, 512
+.assert "First enemy schedules avoid sprite helpers", * <= $9000, true
+
+* = $c800 "Level 2 second enemy schedules"
+level2Enemy1X:
+    .import binary "assets/level2-enemy1-x.bin"
+.assert "Second enemy X covers the camera", * - level2Enemy1X, 512
+level2Enemy1Y:
+    .import binary "assets/level2-enemy1-y.bin"
+.assert "Second enemy Y covers the camera", * - level2Enemy1Y, 512
+level2Enemy1Frame:
+    .import binary "assets/level2-enemy1-frame.bin"
+.assert "Second enemy art covers the camera", * - level2Enemy1Frame, 512
+.assert "Enemy schedules avoid the I/O window", * <= $d000, true

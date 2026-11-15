@@ -32,6 +32,10 @@ PLAYER_X_MC, PLAYER_WIDTH_MC = 10, 6
 PLAYER_MIN_FOOT, PLAYER_MAX_FOOT = 12, 63
 LEVEL2_GIANA_HEIGHT = 8
 LEVEL2_VERTICAL_SCALE = (23, 8)
+# Offscreen settling keeps the tiny bodies on real surfaces and leaves a
+# physically traversable route through the vertically compressed caverns.
+# Keys are original spawn-record indices; values are multicolor pixels.
+LEVEL2_ENEMY_SETTLING_MC = {0: -3, 2: 2, 5: 1, 9: -6}
 
 
 def digest(data):
@@ -135,6 +139,208 @@ def bbox(image, pixel_width=1):
             max(x for x, y in points) + pixel_width, max(y for x, y in points) + 1]
 
 
+def motion_collision(collision, original_map, level):
+    """Actual reduced solid pixels, including the fixed TV perspective seams."""
+    tiles = (ASSETS / f"level{level}-tiles.bin").read_bytes()
+    tile_map = (ASSETS / f"level{level}-tv-map.bin").read_bytes()
+    geometry = json.loads((ASSETS / f"level{level}-import.json").read_text())
+    bounds = [value * 4 for value in geometry["perspective_columns"]]
+    source_rows = geometry["perspective_source_rows"]
+    empty = 1 if level == 1 else 0
+    source = []
+    for y in range(64):
+        row = []
+        for x in range(512):
+            character = original_map[((2 * y + 1) * 160 // 128) // 8 * 256 + x // 2]
+            tile = tile_map[y // 8 * 128 + x // 4]
+            code = tiles[tile * 8 + y % 8] >> (6 - 2 * (x % 4)) & 3
+            row.append(collision[character] in (1, 0x80) and code != empty)
+        source.append(row)
+
+    def solid(step, screen_x, y, future=False):
+        if not 0 <= y < 64:
+            return True
+        region = next((index for index in range(4)
+                       if bounds[index] <= screen_x < bounds[index + 1]),
+                      0 if screen_x < 0 else 3)
+        source_y = source_rows[region][y]
+        if source_y < 0:
+            return True
+        return source[source_y][(step + screen_x + int(future)) % 512]
+    return solid
+
+
+def prepare_level2_enemies(collision, original_map, frames):
+    """Original placements/art with deliberately small, supported patrols."""
+    source = json.loads((ASSETS / "level2-enemies-import.json").read_text())
+    solid = motion_collision(collision, original_map, 2)
+    pixels = [[(x, y) for y in range(21) for x in range(6)
+               if frame[y * 3 + x // 4] >> (6 - 2 * (x % 4)) & 3]
+              for frame in frames]
+    heights = [max(y for x, y in image) + 1 for image in pixels]
+    schedules = [[] for _ in range(512)]
+    reports = []
+
+    def blocked(step, x, top, frame):
+        return any(solid(step, x + px, top + py) or solid(step, x + px, top + py, True)
+                   for px, py in pixels[frame])
+
+    def supported(step, x, foot, frame):
+        image = set(pixels[frame])
+        top = foot - heights[frame]
+        return any((px, py + 1) not in image and solid(step, x + px, top + py + 1)
+                   for px, py in pixels[frame])
+
+    def frame_for(kind, direction, tick):
+        phase = tick // 7
+        if kind == 5:
+            return 8 + phase % 2
+        if kind == 0:
+            return (10 if direction < 0 else 22) + phase % 2
+        if kind == 2:
+            return (12 if direction < 0 else 14) + phase % 2
+        return (16 if direction < 0 else 19) + phase % 3
+
+    for record in source["enemies"]:
+        kind = record["type"]
+        anchor = record["source_world_left_x_at_fine7"]
+        activation = 2 * (record["stored_column"] - 40)
+        world_x, direction, tick = anchor + 4 * LEVEL2_ENEMY_SETTLING_MC.get(record["source_entry_index"], 0), -1, 0
+        speed = record["descriptor"]["speed_source_pixels_per_tick"]
+        patrol_min, patrol_max = world_x - 8, world_x + 8
+        initial_frame = frame_for(kind, direction, tick)
+        hint = record["scaled_top_y_floor"] + 9
+        start_x = world_x // 4 - activation
+        if kind == 0:
+            # The source's 21px bee intersects the reduced cavern ceiling.
+            # Pick one clear source-space lane for its entire bounded patrol.
+            candidates = []
+            for raw_top in range(record["scaled_top_y_floor"], 54):
+                clear = True
+                for world in range(world_x // 4 - 2, world_x // 4 + 3):
+                    for x in range(-5, 40):
+                        step = world - x
+                        if not 0 <= step <= 472:
+                            continue
+                        top = project_motion_foot(raw_top + 9, x) - 9
+                        if any(blocked(step, x, top, frame) for frame in (10, 11, 22, 23)):
+                            clear = False
+                            break
+                    if not clear:
+                        break
+                if clear:
+                    candidates.append(raw_top)
+            if not candidates:
+                raise ValueError(f"No clear bee flight lane at source record {record['source_entry_index']}")
+            flight_top = candidates[0]
+            foot = flight_top + 9
+        else:
+            initial_feet = [foot for foot in sorted(range(12, 64), key=lambda value: (abs(value - hint), value))
+                            if not blocked(activation, start_x, foot - heights[initial_frame], initial_frame)
+                            and supported(activation, start_x, foot, initial_frame)]
+            if not initial_feet:
+                raise ValueError(f"No supported floor near source record {record['source_entry_index']}")
+            foot = initial_feet[0]
+        initial_foot = foot
+        events = []
+        for step in range(activation, 473):
+            # Keep original source-pixel speeds: four PAL updates per scroll step.
+            for substep in range(4 if step > activation else 0):
+                tick += 1
+                frame = frame_for(kind, direction, tick)
+                x = world_x // 4 - step
+                if kind == 0:
+                    foot = project_motion_foot(flight_top + 9, x)
+                else:
+                    # A perspective seam and the compressed spring pose can move
+                    # a quantized support face by one physical pixel.
+                    if blocked(step, x, foot - heights[frame], frame):
+                        fixes = [value for value in (foot - 1, foot + 1)
+                                 if not blocked(step, x, value - heights[frame], frame)]
+                        if not fixes and x >= 40:
+                            fixes = sorted((value for value in range(12, 64)
+                                            if not blocked(step, x, value - heights[frame], frame)
+                                            and supported(step, x, value, frame)),
+                                           key=lambda value: (abs(value - foot), value))
+                            if not fixes:
+                                fixes = sorted((value for value in range(12, 64)
+                                                if not blocked(step, x, value - heights[frame], frame)),
+                                               key=lambda value: (abs(value - foot), value))
+                        if not fixes:
+                            raise ValueError(f"Enemy {record['source_entry_index']} pose cannot fit at camera {step}: x={x}, foot={foot}, frame={frame}")
+                        foot = fixes[0]
+                old_direction = direction
+                proposed = world_x + direction * speed
+                if not patrol_min <= proposed <= patrol_max:
+                    direction = -direction
+                    proposed = world_x + direction * speed
+                    frame = frame_for(kind, direction, tick)
+                next_x = proposed // 4 - step
+                next_foot = project_motion_foot(flight_top + 9, next_x) if kind == 0 else foot
+                if blocked(step, next_x, next_foot - heights[frame] if kind != 0 else next_foot - 9, frame):
+                    direction = -direction
+                    frame = frame_for(kind, direction, tick)
+                    proposed = world_x + direction * speed
+                    next_x = proposed // 4 - step
+                    next_foot = project_motion_foot(flight_top + 9, next_x) if kind == 0 else foot
+                top = next_foot - (9 if kind == 0 else heights[frame])
+                if patrol_min <= proposed <= patrol_max and not blocked(step, next_x, top, frame):
+                    world_x, foot = proposed, next_foot
+                else:
+                    direction = old_direction
+                    frame = frame_for(kind, direction, tick)
+                if kind != 0:
+                    x = world_x // 4 - step
+                    if not supported(step, x, foot, frame):
+                        # Native mode0 falls four source pixels per update.
+                        for target in range(foot + 1, min(63, foot + 2) + 1):
+                            if blocked(step, x, target - heights[frame], frame):
+                                break
+                            foot = target
+                            if supported(step, x, foot, frame):
+                                break
+            if step < 0:
+                continue
+            frame = frame_for(kind, direction, tick)
+            x = world_x // 4 - step
+            top = project_motion_foot(flight_top + 9, x) - 9 if kind == 0 else foot - heights[frame]
+            if not -5 <= x < 40:
+                if x < -5:
+                    break
+                continue
+            if blocked(step, x, top, frame):
+                raise ValueError(f"Enemy {record['source_entry_index']} overlaps terrain at camera {step}")
+            actor = {"step": step, "id": record["source_entry_index"], "type": kind, "x": x, "y": top,
+                     "frame": frame, "direction": direction, "pixels": pixels[frame],
+                     "supported": kind != 0 and supported(step, x, foot, frame)}
+            schedules[step].append(actor)
+            events.append({key: value for key, value in actor.items() if key != "pixels"})
+        if not events:
+            raise ValueError(f"Original enemy {record['source_entry_index']} never becomes visible")
+        reports.append({"source_entry_index": record["source_entry_index"], "type": kind,
+                        "world_left_x_mc": anchor // 4, "activation_camera_step": activation,
+                        "settling_offset_mc": LEVEL2_ENEMY_SETTLING_MC.get(record["source_entry_index"], 0),
+                        "patrol_center_world_x_mc": (patrol_min + patrol_max) // 8,
+                        "patrol_source_x_bounds": [patrol_min, patrol_max],
+                        "source_scaled_foot_hint": hint, "initial_projected_foot_y": initial_foot,
+                        "supported_visible_steps": sum(event["supported"] for event in events),
+                        "unsupported_visible_steps": sum(not event["supported"] for event in events),
+                        "visible_first": events[0]["step"], "visible_last": events[-1]["step"],
+                        "states": events,
+                        **({"flight_top_source_space": flight_top,
+                            "flight_top_shift_from_scaled_source": flight_top - record["scaled_top_y_floor"]}
+                           if kind == 0 else {})})
+    if max(map(len, schedules)) > 2:
+        conflicts = [step for step, actors in enumerate(schedules) if len(actors) > 2]
+        raise ValueError(f"More than two visible original enemies at camera steps {conflicts}")
+    return schedules, {"native_updates_per_camera_step": 4, "animation_hold_updates": 7,
+                       "patrol_half_width_source_pixels": 8,
+                       "settling_offsets_mc": LEVEL2_ENEMY_SETTLING_MC,
+                       "initial_walker_surface": "Nearest body-clear, sole-supported projected foot to scaled source spawn hint; may be above or below it",
+                       "motion_kind": "Faked bounded local patrol and flight near original spawn anchors, with explicit offscreen settling, original art, speed and facing; reduced solid-pixel wall turns/support/swept falls",
+                       "enemies": reports, "maximum_visible_enemies": max(map(len, schedules))}
+
+
 def prepare_motion(collision, frames, level=1):
     original_map = (ASSETS / f"original-level{level}-map.bin").read_bytes()
     map_sha256 = MAP_SHA256 if level == 1 else LEVEL2_MAP_SHA256
@@ -152,27 +358,32 @@ def prepare_motion(collision, frames, level=1):
     if level == 1:
         path, physics = physical_route(collision, original_map, ground, frames, level)
     else:
-        original_ground = bytes(ground)
-        markers = [(base, (base + 43) >> 1) for base in range(0, 473, 64)]
-        for base, column in markers:
-            ground[column] = 0xff
-        path, physics = physical_route(collision, original_map, ground, frames, level)
-        staging = []
-        for base, column in markers:
-            foot = original_ground[column]
-            if foot == 0xff or foot < 28:
-                staging.append({"camera_section": base, "enabled": False, "reason": "No suitable original floor"})
-                continue
-            candidate = bytearray(ground)
-            candidate[column] = foot
-            try:
-                next_path, next_physics = physical_route(collision, original_map, candidate, frames, level)
-            except ValueError as failure:
-                staging.append({"camera_section": base, "enabled": False, "reason": str(failure)})
-            else:
-                ground, path, physics = candidate, next_path, next_physics
-                staging.append({"camera_section": base, "enabled": True, "source_floor_y": foot})
-        physics["owl_staging"] = staging
+        schedules, enemy_motion = prepare_level2_enemies(collision, original_map, frames)
+        path, physics = physical_route(collision, original_map, ground, frames, level, schedules)
+        physics["enemy_motion"] = enemy_motion
+        ends = [-1, -1]
+        assignments = {}
+        for actor in sorted(enemy_motion["enemies"], key=lambda actor: actor["visible_first"]):
+            slot = next((index for index, end in enumerate(ends) if end < actor["visible_first"]), None)
+            if slot is None:
+                raise ValueError("Two slots cannot retain complete original-enemy lifetimes")
+            assignments[actor["source_entry_index"]] = slot
+            ends[slot] = actor["visible_last"]
+            actor["hardware_schedule_slot"] = slot
+        output_hashes = {}
+        for slot in range(2):
+            arrays = {"x": bytearray(512), "y": bytearray(512), "frame": bytearray([255]) * 512}
+            for step, actors in enumerate(schedules):
+                for actor in actors:
+                    if assignments[actor["id"]] == slot:
+                        arrays["x"][step] = actor["x"] & 255
+                        arrays["y"][step] = actor["y"]
+                        arrays["frame"][step] = actor["frame"]
+            for channel, data in arrays.items():
+                filename = f"level2-enemy{slot}-{channel}.bin"
+                (ASSETS / filename).write_bytes(data)
+                output_hashes[filename] = digest(data)
+        physics["enemy_motion"]["schedule_output_sha256"] = output_hashes
     prefix = "" if level == 1 else f"level{level}-"
     (ASSETS / f"{prefix}sprite-ground.bin").write_bytes(ground)
     (ASSETS / f"{prefix}sprite-player-path.bin").write_bytes(path)
@@ -183,12 +394,13 @@ def prepare_motion(collision, frames, level=1):
                           "ground_solid_flags": [1, 0x80], "ground_bytes": len(ground),
                           "ground_y_counts": dict(sorted(Counter(ground).items())),
                           "path_bytes": len(path), "hidden_steps": 0,
-                          "enemy_world_center": "(camera_step & ~63) + 43; hide if ground==255 or ground<28",
+                          **({"enemy_world_center": "(camera_step & ~63) + 43; hide if ground==255 or ground<28"}
+                             if level == 1 else {"enemy_position_model": "Original spawn anchors plus recorded offscreen settling and bounded local patrols"}),
                           "motion_kind": "finite offline gravity/support route, not original game physics",
                           **physics}
 
 
-def physical_route(collision, original_map, ground, frames, level=1):
+def physical_route(collision, original_map, ground, frames, level=1, enemy_schedule=None):
     # Work in projected TV coordinates so velocity does not change at a seam.
     terrain_tiles = (ASSETS / f"level{level}-tiles.bin").read_bytes()
     terrain_map = (ASSETS / f"level{level}-tv-map.bin").read_bytes()
@@ -250,11 +462,18 @@ def physical_route(collision, original_map, ground, frames, level=1):
         terrain_now.append(current)
         terrain_both.append(both)
         enemy = [0] * 64
-        enemy_ground = ground[((step & ~63) + 43) >> 1]
-        enemy_x = 40 - (step & 63)
-        if enemy_ground != 0xff and enemy_ground >= 28:
-            top = project_motion_foot(enemy_ground, enemy_x) - 9
-            for x, y in owl_pixels[(step >> 1) & 1]:
+        if enemy_schedule is None:
+            enemy_ground = ground[((step & ~63) + 43) >> 1]
+            enemy_x = 40 - (step & 63)
+            actors = []
+            if enemy_ground != 0xff and enemy_ground >= 28:
+                actors.append((enemy_x, project_motion_foot(enemy_ground, enemy_x) - 9,
+                               owl_pixels[(step >> 1) & 1]))
+        else:
+            actors = [(actor["x"], actor["y"], actor["pixels"])
+                      for actor in enemy_schedule[step]]
+        for enemy_x, top, pixels in actors:
+            for x, y in pixels:
                 column, row = enemy_x + x - PLAYER_X_MC, top + y
                 if 0 <= column < 6 and 0 <= row < 64:
                     enemy[row] |= 1 << column
@@ -377,12 +596,14 @@ def physical_route(collision, original_map, ground, frames, level=1):
                   "full_body_solid_and_owl_overlap_states": 0, "phase0_next_camera_checked": True,
                   "route_cost": costs[final]}
     if level == 2:
+        report["enemy_supported_steps"] = report.pop("owl_supported_steps")
+        report["full_body_solid_and_enemy_overlap_states"] = report.pop("full_body_solid_and_owl_overlap_states")
         report.update({"camera_steps": 472, "runtime_camera_steps": 472,
                        "prepared_last_camera_step": final_step,
                        "prepared_state_count": len(states), "prepared_endpoint_terrain_supported": True,
                        "inactive_path_entries": [472, 511], "padding_entries": [473, 511],
                        "runtime_terrain_supported_steps": sum(kind == 1 for kind in report["support_kind_by_step"][:472]),
-                       "runtime_owl_supported_steps": sum(kind == 2 for kind in report["support_kind_by_step"][:472]),
+                       "runtime_enemy_supported_steps": sum(kind == 2 for kind in report["support_kind_by_step"][:472]),
                        "runtime_airborne_steps": sum(kind == 0 for kind in report["support_kind_by_step"][:472]),
                        "route_domain": "Physics prepared for 0..472 inclusive; runtime actor updates use 0..471 and transition; 473..511 are padding"})
     return path, report
@@ -473,13 +694,17 @@ def main():
         shared_atlas = (ASSETS / "sprites.bin").read_bytes()
         assert digest(shared_atlas) == "292d8db35cf6fc87d9b93d317674edfcbc34e06970f0404e431f33624fdeb199"
         assert atlas[512:] == shared_atlas[512:], "Level2 must reuse the original owl art unchanged"
-        ground, player_path, motion = prepare_motion(sources["original-sprites-collision.bin"], frames, 2)
+        enemy_atlas = (ASSETS / "level2-enemies.bin").read_bytes()
+        assert len(enemy_atlas) == 14 * 64
+        motion_frames = frames + [enemy_atlas[offset:offset + 64]
+                                  for offset in range(0, len(enemy_atlas), 64)]
+        ground, player_path, motion = prepare_motion(sources["original-sprites-collision.bin"], motion_frames, 2)
         level2_atlas = atlas[:512]
         (ASSETS / "level2-sprites.bin").write_bytes(level2_atlas)
         receipt = {
             "level": 2, "original_map_sha256": LEVEL2_MAP_SHA256,
             "shared_atlas_file": "sprites.bin", "shared_atlas_sha256": digest(shared_atlas),
-            "actor_art": "Original Giana poses resampled to 8 rows; unchanged shared Stage1 horned owl",
+            "actor_art": "Original Giana poses resampled to 8 rows; unchanged shared owl; original Level2 crab, slinky and bee art from the separate enemy atlas",
             "giana_atlas_file": "level2-sprites.bin", "giana_atlas_bytes": len(level2_atlas),
             "giana_atlas_sha256": digest(level2_atlas), "giana_height": LEVEL2_GIANA_HEIGHT,
             "giana_source_vertical_pixels_per_row": list(LEVEL2_VERTICAL_SCALE),
