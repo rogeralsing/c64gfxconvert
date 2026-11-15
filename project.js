@@ -106,6 +106,9 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
           curvePoints[0].input !== 0 || curvePoints.at(-1).input !== 255) {
         invalid(`${label} curve points`);
       }
+      let crop;
+      try { crop = cloneSourceCrop(settings.crop); }
+      catch { invalid(`${label} crop mask`); }
       const { minLevel, maxLevel, excludedIndices } = settings.palette;
       if (!integer(minLevel, 0, 16) || !integer(maxLevel, minLevel, 16) || !Array.isArray(excludedIndices) ||
           excludedIndices.some(value => !virtualIndices.has(value))) invalid(`${label} palette`);
@@ -156,7 +159,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         ...(layer.type === undefined ? {} : { type: 'image' }),
         name: layer.name, autoName: layer.autoName, visible: layer.visible,
         source: source && { fileName: source.fileName, dataUrl: source.dataUrl },
-        settings: { values, curvePoints: curvePoints.map(point => ({ input: point.input, output: point.output })),
+        settings: { values, curvePoints: curvePoints.map(point => ({ input: point.input, output: point.output })), crop,
           palette: { minLevel, maxLevel, ...lightnessLimits, excludedIndices: [...excluded] } }
       };
     });

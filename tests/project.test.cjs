@@ -6,6 +6,7 @@ const vm = require('node:vm');
 const { createContext } = require('./fixtures/sprite-images.cjs');
 
 const context = vm.createContext({});
+vm.runInContext(fs.readFileSync(path.join(__dirname, '../source-crop.js'), 'utf8'), context);
 vm.runInContext(fs.readFileSync(path.join(__dirname, '../project.js'), 'utf8'), context);
 const codecOptions = {
   modeIds: ['fli', 'afli-sprites', 'hires-2color', 'sprites', 'sprites-hires', 'charset'],
@@ -105,29 +106,60 @@ test('project import rejects invalid marker maps and unknown layer types', () =>
   }
 });
 
-test('project curves and interlace settings round-trip per layer and migrate older projects', () => {
+test('project curves, crops, and interlace settings round-trip per layer and migrate older projects', () => {
   const project = fixture();
+  project.layers[0].settings.crop = { mode: 'polygon', points: [
+    { x: 0.1, y: 0.2 }, { x: 0.9, y: 0.2 }, { x: 0.6, y: 0.55 }, { x: 0.8, y: 0.9 }, { x: 0.1, y: 0.9 }
+  ] };
   const saved = JSON.parse(codec.stringify(project));
   assert.deepEqual(saved.layers[0].settings.curvePoints, project.layers[0].settings.curvePoints);
+  assert.deepEqual(saved.layers[0].settings.crop, project.layers[0].settings.crop);
+  assert.equal(saved.layers[1].settings.crop, null);
+  assert.deepEqual(saved.layers[0].source, source, 'crop keeps the full embedded source image');
   assert.equal(saved.layers[0].settings.values['interlace-spacing'], 4);
   assert.equal(saved.layers[0].settings.values['interlace-direction'], 'diagonal-up');
   assert.deepEqual(saved.layers[1].settings.curvePoints, [{ input: 0, output: 0 }, { input: 255, output: 255 }]);
   const loaded = codec.parse(JSON.stringify(saved));
+  loaded.layers[0].settings.crop.points[0].x = 0.3;
+  assert.equal(saved.layers[0].settings.crop.points[0].x, 0.1);
   loaded.layers[0].settings.curvePoints[1].output = 30;
   assert.equal(loaded.layers[1].settings.curvePoints[1].output, 255);
   assert.equal(saved.layers[0].settings.curvePoints[1].output, 60);
 
   for (const layer of project.layers) {
     delete layer.settings.curvePoints;
+    delete layer.settings.crop;
     delete layer.settings.values['interlace-spacing'];
     delete layer.settings.values['interlace-direction'];
   }
   const migrated = JSON.parse(JSON.stringify(codec.parse(JSON.stringify(project))));
   for (const layer of migrated.layers) {
+    assert.equal(layer.settings.crop, null);
     assert.deepEqual(layer.settings.curvePoints, [{ input: 0, output: 0 }, { input: 255, output: 255 }]);
     assert.equal(layer.settings.values['interlace-spacing'], 2);
     assert.equal(layer.settings.values['interlace-direction'], 'horizontal');
   }
+});
+
+test('project import rejects malformed crop masks before replacing a document', () => {
+  const rectangle = { mode: 'rectangle', points: [
+    { x: 0.1, y: 0.2 }, { x: 0.8, y: 0.2 }, { x: 0.8, y: 0.9 }, { x: 0.1, y: 0.9 }
+  ] };
+  for (const crop of [
+    false, {}, { mode: 'triangle', points: rectangle.points },
+    { mode: 'polygon', points: [] },
+    { mode: 'polygon', points: [{ x: 0, y: 0 }, { x: 1, y: 0 }] },
+    { mode: 'polygon', points: [{ x: 0, y: 0 }, { x: 0.5, y: 0.5 }, { x: 1, y: 1 }] },
+    { mode: 'polygon', points: [{ x: -0.1, y: 0 }, { x: 1, y: 0 }, { x: 1, y: 1 }] },
+    { mode: 'rectangle', points: rectangle.points.map((point, index) => index === 1 ? { ...point, y: 0.4 } : point) }
+  ]) {
+    const project = fixture();
+    project.layers[0].settings.crop = crop;
+    assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project: layer 1 crop mask/);
+  }
+  const project = fixture();
+  project.layers[0].settings.crop = rectangle;
+  assert.deepEqual(JSON.parse(codec.stringify(project)).layers[0].settings.crop, rectangle);
 });
 
 test('project import rejects unsupported documents and unusable settings before replacing a document', () => {
@@ -227,7 +259,7 @@ test('Talent projects retain separate lightness caps and validate enabled colors
 });
 
 test('project validation uses the requested virtual catalog and retains exclusions from inactive catalogs', () => {
-  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'project.js']);
+  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'source-crop.js', 'project.js']);
   const state = runtime.createC64PaletteState();
   const catalogCodec = runtime.createC64ProjectCodec({
     ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes,
@@ -265,7 +297,7 @@ test('project validation uses the requested virtual catalog and retains exclusio
 });
 
 test('legacy Talent row caps migrate using the document palette and retain Talent color exclusions', () => {
-  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'project.js']);
+  const runtime = createContext(['ifli.js', 'talent-palette.js', 'talent-neighbors.js', 'talent-mapping.js', 'palettes.js', 'source-crop.js', 'project.js']);
   const state = runtime.createC64PaletteState('colodore');
   const catalogCodec = runtime.createC64ProjectCodec({
     ...codecOptions, virtualPalette: state.virtualPalette, virtualPalettes: state.virtualPalettes,

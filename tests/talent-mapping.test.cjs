@@ -54,7 +54,7 @@ test('brightness dither makes one virtual choice per vertical pair on smooth sur
   }
 });
 
-test('detail pairs and an odd final row use independent native colors without crossing pair boundaries', () => {
+test('different pairs and an odd final row choose virtual colors independently without crossing pair boundaries', () => {
   const state = runtime.createC64PaletteState('peptoette-a', 'talent');
   const source = image([
     [35, 35, 95], [52, 51, 131],
@@ -63,23 +63,15 @@ test('detail pairs and an odd final row use independent native colors without cr
     [255, 255, 255], [82, 62, 0],
     [90, 47, 98], [35, 35, 95]
   ], 2);
-  const native = index => state.virtualPalette.find(color => color.colorIndices.every(component => component === index)).index;
-  const expectedNative = [6, 6, 2, 9, 2, 6, 1, 9, 6, 6];
-  const expectedIndices = expectedNative.map(native);
-  const expectedPixels = expectedNative.flatMap(index => [...state.palette[index].rgb, 255]);
   for (const amount of [0, 1]) {
     const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, limits, amount);
-    assert.deepEqual(Array.from(mapped.virtualIndices), expectedIndices,
-      'pair boundaries and equal-brightness blue/brown details must not become virtual surfaces');
-    assert.deepEqual(Array.from(mapped.pixels.data), expectedPixels);
-    for (const pattern of ['lines', 'checkers']) {
-      const resolved = runtime.resolveVirtualPaletteColors(mapped, state.virtualPalette, state.palette, pattern);
-      assert.deepEqual(Array.from(resolved.data), expectedPixels, 'physical patterns must not alter native detail pixels');
-    }
+    assert.deepEqual(Array.from(mapped.virtualIndices), [1, 39, 10, 52, 10, 39, 3, 52, 71, 1],
+      'detail matching retains black + blue, red + brown, and black + purple instead of forcing solids');
+    assert.deepEqual(mapped.pixels.data, source.data, 'exact virtual colors retain the individual source details');
   }
 });
 
-test('disabled solid colors stay out of details without disabling enabled mixtures containing that color', () => {
+test('disabled solids do not exclude separately enabled mixtures from either mapping branch', () => {
   for (const paletteId of ['colodore', 'pepto', 'peptoette-a']) {
     const state = runtime.createC64PaletteState(paletteId, 'talent');
     const brown = state.virtualPalette.find(color => color.colorIndices.join('-') === '9-9');
@@ -90,26 +82,42 @@ test('disabled solid colors stay out of details without disabling enabled mixtur
       { ...limits, excludedIndices: [brown.index] }, 1);
     for (const pixel of [0, 2]) {
       const color = state.virtualPalette.find(color => color.index === mapped.virtualIndices[pixel]);
-      assert.notEqual(color.index, brown.index, `${paletteId}: disabling the solid brown swatch must exclude native brown details`);
-      assert.equal(color.colorIndices[0], color.colorIndices[1]);
+      assert.notEqual(color.index, brown.index, `${paletteId}: disabling solid brown excludes that entry from individual matching`);
       assert.deepEqual(Array.from(mapped.pixels.data.slice(pixel * 4, pixel * 4 + 3)),
-        Array.from(state.palette[color.colorIndices[0]].rgb));
+        Array.from(color.rgb));
     }
     assert.equal(mapped.virtualIndices[1], shadow.index,
       'disabling solid brown must not disable a separately enabled black + brown mixture');
     assert.equal(mapped.virtualIndices[3], shadow.index);
-    for (const pattern of ['lines', 'checkers']) {
-      const resolved = runtime.resolveVirtualPaletteColors(mapped, state.virtualPalette, state.palette, pattern);
-      for (const pixel of [0, 2]) {
-        assert.deepEqual(Array.from(resolved.data.slice(pixel * 4, pixel * 4 + 4)),
-          Array.from(mapped.pixels.data.slice(pixel * 4, pixel * 4 + 4)));
+    assert.deepEqual(source.data, before);
+  }
+});
+
+test('disabling gray replaces different source pixels with the next enabled virtual colors', () => {
+  for (const [paletteId, expectedIndices, expectedPixels] of [
+    ['pepto', [50, 105], [110, 95, 82, 255, 117, 117, 117, 255]],
+    ['peptoette-a', [59, 78], [100, 100, 100, 255, 119, 119, 119, 255]],
+    ['colodore', [59, 50], [99, 99, 99, 255, 141, 100, 88, 255]]
+  ]) {
+    const state = runtime.createC64PaletteState(paletteId, 'talent');
+    const source = image([[100, 100, 100], [116, 116, 116]], 1);
+    const before = new Uint8ClampedArray(source.data);
+    for (const amount of [0, 1]) {
+      const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette,
+        { ...limits, excludedIndices: [61] }, amount);
+      assert.deepEqual(Array.from(mapped.virtualIndices), expectedIndices,
+        `${paletteId}: a differing pair maps each source separately through the complete enabled palette`);
+      assert.deepEqual(Array.from(mapped.pixels.data), expectedPixels);
+      for (const index of mapped.virtualIndices) {
+        const components = state.virtualPalette.find(color => color.index === index).colorIndices;
+        assert.notEqual(components[0], components[1], 'disabled gray can be replaced by a mixed color');
       }
     }
     assert.deepEqual(source.data, before);
   }
 });
 
-test('native detail colors obey the palette lightness limits as well as explicit exclusions', () => {
+test('individually mapped pixels obey lightness limits as well as explicit exclusions', () => {
   for (const paletteId of ['colodore', 'pepto', 'peptoette-a']) {
     const state = runtime.createC64PaletteState(paletteId, 'talent');
     const gray = state.virtualPalette.find(color => color.colorIndices.join('-') === '12-12');
@@ -118,30 +126,37 @@ test('native detail colors obey the palette lightness limits as well as explicit
       { minLightness: 40, maxLightness: 80, excludedIndices: [gray.index] }, 1);
     for (const index of mapped.virtualIndices) {
       const color = state.virtualPalette.find(color => color.index === index);
-      assert.equal(color.colorIndices[0], color.colorIndices[1]);
       assert.ok(color.lightness >= 0.4 && color.lightness <= 0.8, `${paletteId}: detail lightness must stay inside the enabled range`);
       assert.notEqual(index, gray.index);
     }
   }
 });
 
-test('visible details require an enabled solid while transparent pixels do not require a fallback color', () => {
-  const state = runtime.createC64PaletteState('peptoette-a', 'talent');
-  const excludedIndices = state.virtualPalette.filter(color => color.colorIndices[0] === color.colorIndices[1])
-    .map(color => color.index);
-  const settings = { ...limits, excludedIndices };
-  for (const source of [
-    image([[0, 0, 0], [255, 255, 255]], 1),
-    image([[82, 62, 0]], 1),
-    image([[82, 62, 0, 127], [82, 62, 0, 255]], 1)
-  ]) {
-    assert.throws(() => runtime.mapToTalentVirtualPalette(source, state.virtualPalette, settings),
-      /detail pixels require at least one enabled solid color/i);
+test('visible detail, alpha boundaries, and an odd final row work when only mixtures are enabled', () => {
+  for (const paletteId of ['colodore', 'pepto', 'peptoette-a']) {
+    const state = runtime.createC64PaletteState(paletteId, 'talent');
+    const shadow = state.virtualPalette.find(color => color.index === 1);
+    const highlight = state.virtualPalette.find(color => color.index === 10);
+    const source = image([
+      [0, 0, 0, 255], [0, 0, 0, 127], [12, 34, 56, 0],
+      [255, 255, 255, 255], [255, 255, 255, 255], [67, 89, 101, 0],
+      [0, 0, 0, 80], [255, 255, 255, 255], [11, 22, 33, 0]
+    ], 3);
+    const before = new Uint8ClampedArray(source.data);
+    const excludedIndices = state.virtualPalette.filter(color => ![1, 10].includes(color.index)).map(color => color.index);
+    const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette,
+      { ...limits, excludedIndices }, 1);
+    assert.deepEqual(Array.from(mapped.virtualIndices), [1, 1, 255, 10, 10, 255, 1, 10, 255]);
+    for (let pixel = 0; pixel < mapped.virtualIndices.length; pixel += 1) {
+      const offset = pixel * 4;
+      const index = mapped.virtualIndices[pixel];
+      assert.equal(mapped.pixels.data[offset + 3], before[offset + 3]);
+      const expected = index === 255 ? Array.from(before.slice(offset, offset + 3))
+        : Array.from((index === 1 ? shadow : highlight).rgb);
+      assert.deepEqual(Array.from(mapped.pixels.data.slice(offset, offset + 3)), expected);
+    }
+    assert.deepEqual(source.data, before);
   }
-  const transparent = image([[12, 34, 56, 0]], 1);
-  const mapped = runtime.mapToTalentVirtualPalette(transparent, state.virtualPalette, settings);
-  assert.deepEqual(Array.from(mapped.virtualIndices), [255]);
-  assert.deepEqual(mapped.pixels.data, transparent.data);
 });
 
 test('Talent chooses brightness before hue, then retains hue choices at similar brightness', () => {
@@ -184,7 +199,7 @@ test('flat fields contain one actual virtual color with no ordered or tiled dith
   assert.deepEqual(Array.from(mapped.pixels.data), Array.from({ length: 64 }, () => [...grays[index].rgb, 255]).flat());
 });
 
-test('transparency boundaries and an unpaired last row stay native while matching partial-alpha pairs share a tone', () => {
+test('transparency boundaries and an unpaired last row map independently while matching partial-alpha pairs share a tone', () => {
   const state = runtime.createC64PaletteState('peptoette-a', 'talent');
   const source = image([
     [35, 35, 95, 127], [12, 34, 56, 0], [101, 62, 42, 63], [19, 87, 123, 0],
@@ -196,10 +211,8 @@ test('transparency boundaries and an unpaired last row stay native while matchin
   const byIndex = new Map(state.virtualPalette.map(color => [color.index, color]));
   assert.equal(mapped.virtualIndices[0], mapped.virtualIndices[4]);
   assert.deepEqual(Array.from(byIndex.get(mapped.virtualIndices[0]).colorIndices), [0, 6]);
-  for (const pixel of [2, 5, 6, 8, 10]) {
-    const components = byIndex.get(mapped.virtualIndices[pixel]).colorIndices;
-    assert.equal(components[0], components[1], 'alpha edges and unpaired pixels must remain native');
-  }
+  assert.deepEqual(Array.from(mapped.virtualIndices), [1, 255, 10, 255, 1, 10, 10, 255, 1, 255, 39, 255],
+    'alpha boundaries and the odd final row keep individual virtual choices');
   for (let pixel = 0; pixel < mapped.virtualIndices.length; pixel += 1) {
     assert.equal(mapped.pixels.data[pixel * 4 + 3], before[pixel * 4 + 3]);
     if (before[pixel * 4 + 3] === 0) {
@@ -226,25 +239,6 @@ test('Talent mapping writes actual palette RGB values and preserves source pixel
       assert.equal(mapped.pixels.data[pixel * 4 + 3], before[pixel * 4 + 3]);
     }
     assert.deepEqual(source.data, before);
-  }
-});
-
-test('native detail pixels follow each active C64 palette rather than using blended RGB colors', () => {
-  for (const paletteId of ['colodore', 'pepto', 'peptoette-a']) {
-    const state = runtime.createC64PaletteState(paletteId, 'talent');
-    const source = image([
-      ...Array.from(state.palette, color => color.rgb),
-      ...Array.from(state.palette, (_, index) => state.palette[(index + 8) % 16].rgb)
-    ], 16);
-    const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, limits, 1);
-    for (let pixel = 0; pixel < mapped.virtualIndices.length; pixel += 1) {
-      const color = state.virtualPalette.find(color => color.index === mapped.virtualIndices[pixel]);
-      assert.equal(color.colorIndices[0], color.colorIndices[1]);
-      assert.deepEqual(Array.from(mapped.pixels.data.slice(pixel * 4, pixel * 4 + 3)),
-        Array.from(state.palette[color.colorIndices[0]].rgb));
-    }
-    assert.deepEqual(Array.from(mapped.pixels.data.slice(8, 11)), Array.from(state.palette[2].rgb),
-      'red detail uses the selected palette preset');
   }
 });
 

@@ -117,7 +117,7 @@ function buildTalentBrightnessLevels(virtualPalette) {
   return levels;
 }
 
-/** Share virtual colors across similar vertical pairs; preserve detail with native C64 colors. */
+/** Share one palette choice across similar pairs; map differing pixels independently. */
 function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, ditherAmount = 0) {
   const { minLightness, maxLightness } = getTalentLightnessLimits(settings, virtualPalette);
   if (!Number.isInteger(minLightness) || !Number.isInteger(maxLightness) ||
@@ -131,27 +131,17 @@ function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, dither
     }
   }
 
-  const nativeBands = new Map();
-  for (const color of virtualPalette) {
-    if (!color.colorIndices || color.colorIndices[0] !== color.colorIndices[1]) continue;
-    const band = color.brightnessBands[0];
-    if (!nativeBands.has(band)) nativeBands.set(band, []);
-    nativeBands.get(band).push({ color, lab: rgbToOklab(...color.rgb) });
-  }
-  if (!nativeBands.size) throw new Error('Talent mapping requires native C64 colors in its palette.');
-  // Keep native brightness calibration while filtering the enabled solid palette entries.
-  const nativeLevels = [...nativeBands.entries()].sort(([first], [second]) => first - second)
-    .map(([, entries]) => entries);
+  const levels = buildTalentBrightnessLevels(virtualPalette);
+  const options = { excludedIndices: [...excluded] };
+  const mapped = mapToVirtualPaletteLevels(source, levels, 0, options);
   const pairs = new ImageData(source.width, Math.ceil(source.height / 2));
   const similaritySquared = 0.03 ** 2;
-  let needsNative = false;
   for (let y = 0; y + 1 < source.height; y += 2) {
     for (let x = 0; x < source.width; x += 1) {
       const upper = (y * source.width + x) * 4;
       const lower = upper + source.width * 4;
       const alpha = source.data[upper + 3];
       if (!alpha || alpha !== source.data[lower + 3]) {
-        if (alpha || source.data[lower + 3]) needsNative = true;
         continue;
       }
       const first = rgbToOklab(source.data[upper], source.data[upper + 1], source.data[upper + 2]);
@@ -159,7 +149,6 @@ function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, dither
       const distance = (first.lightness - second.lightness) ** 2 +
         (first.a - second.a) ** 2 + (first.b - second.b) ** 2;
       if (distance > similaritySquared) {
-        needsNative = true;
         continue;
       }
       const pair = ((y / 2) * source.width + x) * 4;
@@ -170,24 +159,8 @@ function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, dither
       pairs.data[pair + 3] = alpha;
     }
   }
-  if (source.height % 2) {
-    for (let x = 0; x < source.width; x += 1) {
-      if (source.data[((source.height - 1) * source.width + x) * 4 + 3]) needsNative = true;
-    }
-  }
-  if (needsNative && !nativeLevels.some(level => level.some(entry => !excluded.has(entry.color.index)))) {
-    const cause = new Error('Talent detail pixels require at least one enabled solid color in the selected lightness range.');
-    cause.code = 'TALENT_SOLID_COLOR_REQUIRED';
-    throw cause;
-  }
-  const mapped = needsNative
-    ? mapToVirtualPaletteLevels(source, nativeLevels, 0, { excludedIndices: [...excluded] })
-    : { pixels: new ImageData(new Uint8ClampedArray(source.data), source.width, source.height),
-      virtualIndices: new Uint8Array(source.width * source.height).fill(255) };
-
   // One dither decision per pair keeps both displayed pixels on the same virtual tone.
-  const virtual = mapToVirtualPaletteLevels(pairs, buildTalentBrightnessLevels(virtualPalette), ditherAmount,
-    { excludedIndices: [...excluded] });
+  const virtual = mapToVirtualPaletteLevels(pairs, levels, ditherAmount, options);
   for (let y = 0; y + 1 < source.height; y += 2) {
     for (let x = 0; x < source.width; x += 1) {
       const pair = (y / 2) * source.width + x;
