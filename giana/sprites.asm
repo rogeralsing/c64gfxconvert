@@ -92,9 +92,11 @@ updateSprites:
     ldy actorStepLo
     lda actorStepHi
     beq !firstPathPage+
+actorPlayerPathSecondRead:
     lda actorPlayerPath + $100,y
     jmp !playerFoot+
 !firstPathPage:
+actorPlayerPathFirstRead:
     lda actorPlayerPath,y
 !playerFoot:
     sta actorFoot
@@ -102,7 +104,7 @@ updateSprites:
     beq !hidePlayer+
     jsr projectActorFoot
     sec
-    sbc #SPRITE_GIANA_HEIGHT
+    sbc actorPlayerHeight
     clc
     adc #ACTOR_Y_BASE
     sta actorPlayerY
@@ -150,6 +152,7 @@ updateSprites:
     ora #43
     ror
     tay
+actorGroundRead:
     lda actorGround,y
     sta actorFoot
     cmp #$ff

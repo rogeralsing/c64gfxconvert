@@ -20,6 +20,19 @@
 
 * = $a000 "Terrain tiles and map"
     .import source "terrain.asm"
+    .import source "terrain-level2.asm"
+.assert "Both stages share the map width", TERRAIN2_MAP_WIDTH, TERRAIN_MAP_WIDTH
+.assert "Both stages share the TV height", TERRAIN2_MAP_HEIGHT, TERRAIN_MAP_HEIGHT
+.assert "Both stages share the picture background", TERRAIN2_BACKGROUND, TERRAIN_BACKGROUND
+.assert "Level 2 tile IDs fit in one byte", TERRAIN2_TILE_COUNT <= 256, true
+.assert "Level 2 tile addresses start on a page boundary", <terrain2Tiles, 0
+
+* = $1a00 "Level 2 original Giana poses"
+tinySpriteFrames2:
+    .import binary "assets/level2-sprites.bin"
+.assert "Level 2 has eight Giana sprite planes", * - tinySpriteFrames2, 512
+.assert "Level 2 map avoids its actor atlas", terrain2MapEnd <= tinySpriteFrames2, true
+.assert "Level 2 actor sources stay below the bitmap", * <= $2000, true
 
 * = $41c0 "Original Giana in-game music"
     .import source "assets/music.asm"
@@ -128,6 +141,11 @@ waitTVUpdate:
     cmp #TV_UPDATE_RASTER
     bne waitTVUpdate
 frameStart:
+    lda levelTransition
+    beq !normalFrame+
+    jsr advanceLevelTransition
+    jmp checkLight
+!normalFrame:
     // Sprite copies use a separate frame from terrain and room lighting.
     lda frameCounter
     and #3
@@ -140,6 +158,19 @@ frameStart:
     jsr updateColors
     lda #SCROLL_FRAME_INTERVAL
     sta scrollCountdown
+    inc levelCameraStep
+    bne !checkLevelEnd+
+    inc levelCameraStep + 1
+!checkLevelEnd:
+    ldx activeLevel
+    lda levelCameraStep
+    cmp levelEndStepLow,x
+    bne checkLight
+    lda levelCameraStep + 1
+    cmp levelEndStepHigh,x
+    bne checkLight
+    lda #$ff
+    sta levelTransition
 checkLight:
     dec lightCountdown
     bne countFrame
@@ -171,51 +202,13 @@ frameDone:
     beq !leaveRaster-
     jmp display
 
-initTerrain:
-    // Initialize shared colors; the map selects each cell's accent below.
-    ldx #0
-!colors:
-    lda #TERRAIN_SCREEN_COLORS
-    .for (var row = 0; row < TV_HEIGHT; row++) {
-        sta SCREEN + (TV_ROW + row) * 40 + TV_COLUMN,x
-    }
-    lda #$05
-    .for (var row = 0; row < TV_HEIGHT; row++) {
-        sta $d800 + (TV_ROW + row) * 40 + TV_COLUMN,x
-    }
-    inx
-    cpx #TV_WIDTH
-    bne !colors-
-
-    // Mask the fixed stepped edges; code 3 becomes black in their cells.
-    lda #$ff
-    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
-        .var rows = TERRAIN_PERSPECTIVE_SOURCE_ROWS.get(region)
-        .for (var line = 0; line < TV_HEIGHT * 8; line++) {
-            .if (rows.get(line) < 0) {
-                .var address = BITMAP + ((TV_ROW + floor(line / 8)) * 40 + TV_COLUMN) * 8 + (line & 7)
-                .for (var column = TERRAIN_PERSPECTIVE_COLUMNS.get(region); column < TERRAIN_PERSPECTIVE_COLUMNS.get(region + 1); column++) {
-                    sta address + column * 8
-                }
-            }
-        }
-    }
-
-    // Forty incoming columns replace the white area and stray side strips.
-    jsr prepareColumn
-    lda #TV_PIXELS
-    sta prefillLeft
-!prefill:
-    jsr scrollTerrain
-    dec prefillLeft
-    bne !prefill-
-    jsr updateColors
-    rts
-
+.var terrainMapReadOperands = List()
+.var terrainTileHighOperands = List()
 prepareColumn:
     // Map rows contain tile IDs; each ID selects eight packed bitmap bytes.
     ldx incomingTile
     .for (var row = 0; row < TV_HEIGHT; row++) {
+        .eval terrainMapReadOperands.add(* + 1)
         lda terrainMapStart + row * TERRAIN_MAP_WIDTH,x
         tay
         asl
@@ -229,6 +222,7 @@ prepareColumn:
         lsr
         lsr
         clc
+        .eval terrainTileHighOperands.add(* + 1)
         adc #>terrainTiles
         sta TILE_POINTER+1
         ldy #0
@@ -405,6 +399,13 @@ incomingTile: .byte 0
 tilePixelX: .byte 0
 prefillLeft: .byte 0
 incomingColumn: .fill TV_HEIGHT * 8, 0
+activeLevel: .byte 0
+levelTransition: .byte 0
+levelCameraStep: .word 0
+terrainScreenColors: .byte TERRAIN_SCREEN_COLORS
+tvFillScreen: .byte 0
+tvFillAccent: .byte 0
+actorPlayerHeight: .byte SPRITE_GIANA_HEIGHT
 
 .assert "Renderer fits below BASIC ROM", * <= $a000, true
 .assert "Light tables contain three screen and color-RAM levels", lighting.getSize(), LIGHT_TILE_COUNT * 6
@@ -427,3 +428,197 @@ incomingColumn: .fill TV_HEIGHT * 8, 0
 * = $9000 "Tiny actor movement and clipping"
     .import source "sprites.asm"
 .assert "Sprite helpers fit below BASIC ROM", * <= $a000, true
+
+* = $9800 "Level selection and transitions"
+initTerrain:
+    jsr selectLevel
+    // Initialize shared colors; the map selects each cell's accent below.
+    lda terrainScreenColors
+    ldy #5
+    jsr setTVColors
+
+    // Mask the fixed stepped edges; code 3 becomes black in their cells.
+    lda #$ff
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .var rows = TERRAIN_PERSPECTIVE_SOURCE_ROWS.get(region)
+        .for (var line = 0; line < TV_HEIGHT * 8; line++) {
+            .if (rows.get(line) < 0) {
+                .var address = BITMAP + ((TV_ROW + floor(line / 8)) * 40 + TV_COLUMN) * 8 + (line & 7)
+                .for (var column = TERRAIN_PERSPECTIVE_COLUMNS.get(region); column < TERRAIN_PERSPECTIVE_COLUMNS.get(region + 1); column++) {
+                    sta address + column * 8
+                }
+            }
+        }
+    }
+
+    // Forty incoming columns replace the white area and stray side strips.
+    jsr prepareColumn
+    lda #TV_PIXELS
+    sta prefillLeft
+!prefill:
+    jsr scrollTerrain
+    dec prefillLeft
+    bne !prefill-
+    jsr updateColors
+    rts
+
+setTVColors:
+    sta tvFillScreen
+    sty tvFillAccent
+    ldx #0
+!colors:
+    lda tvFillScreen
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        sta SCREEN + (TV_ROW + row) * 40 + TV_COLUMN,x
+    }
+    lda tvFillAccent
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        sta $d800 + (TV_ROW + row) * 40 + TV_COLUMN,x
+    }
+    inx
+    cpx #TV_WIDTH
+    bne !colors-
+    rts
+
+selectLevel:
+    // Patch only source addresses; both levels share the raster-time renderer.
+    ldx activeLevel
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        lda levelMapLow + row * 2,x
+        sta terrainMapReadOperands.get(row)
+        lda levelMapHigh + row * 2,x
+        sta terrainMapReadOperands.get(row) + 1
+    }
+    lda levelTileHigh,x
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        sta terrainTileHighOperands.get(row)
+    }
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var phase = 0; phase < 4; phase++) {
+            .var entry = region * 4 + phase
+            lda levelAccentLow + entry * 2,x
+            sta perspectiveAccentPhaseLow + entry
+            lda levelAccentHigh + entry * 2,x
+            sta perspectiveAccentPhaseHigh + entry
+        }
+    }
+    lda levelScreenColors,x
+    sta terrainScreenColors
+    lda levelPlayerHeight,x
+    sta actorPlayerHeight
+    lda levelSpriteHigh,x
+    .for (var frame = 0; frame < 4; frame++) {
+        sta actorFrameHigh + frame
+    }
+    clc
+    adc #1
+    .for (var frame = 4; frame < 8; frame++) {
+        sta actorFrameHigh + frame
+    }
+    lda levelGroundHigh,x
+    sta actorGroundRead + 2
+    lda levelPathHigh,x
+    sta actorPlayerPathFirstRead + 2
+    clc
+    adc #1
+    sta actorPlayerPathSecondRead + 2
+    lda #0
+    sta incomingTile
+    sta tilePixelX
+    sta levelCameraStep
+    sta levelCameraStep + 1
+    rts
+
+advanceLevelTransition:
+    // Spread the refill over PAL frames so the SID still ticks every frame.
+    cmp #$ff
+    beq !begin+
+    cmp #$fe
+    beq !reveal+
+    lda lightCountdown
+    cmp #1
+    beq !done+
+    jsr scrollTerrain
+    dec levelTransition
+    bne !done+
+    lda #$fe
+    sta levelTransition
+!done:
+    rts
+!begin:
+    lda activeLevel
+    eor #1
+    sta activeLevel
+    jsr selectLevel
+    lda #$99
+    ldy #9
+    jsr setTVColors
+    lda #$0f
+    sta $d015
+    lda #$0a
+    sta $d010
+    jsr prepareColumn
+    lda #TV_PIXELS
+    sta levelTransition
+    rts
+!reveal:
+    lda lightCountdown
+    cmp #1
+    beq !done-
+    lda terrainScreenColors
+    ldy #5
+    jsr setTVColors
+    jsr updateColors
+    jsr updateSprites
+    // Keep scrolling, sprite copies and room lighting on separate frames.
+    lda frameCounter
+    and #3
+    eor #3
+    bne !countdown+
+    lda #SCROLL_FRAME_INTERVAL
+!countdown:
+    sta scrollCountdown
+    lda #0
+    sta levelTransition
+    rts
+
+levelTileHigh: .byte >terrainTiles, >terrain2Tiles
+levelEndStepLow: .byte <512, <(512 - TV_PIXELS)
+levelEndStepHigh: .byte >512, >(512 - TV_PIXELS)
+levelScreenColors: .byte TERRAIN_SCREEN_COLORS, TERRAIN2_SCREEN_COLORS
+levelPlayerHeight: .byte SPRITE_GIANA_HEIGHT, 8
+levelSpriteHigh: .byte >tinySpriteFrames, >tinySpriteFrames2
+levelGroundHigh: .byte >actorGround, >actorGround2
+levelPathHigh: .byte >actorPlayerPath, >actorPlayerPath2
+levelMapLow:
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        .byte <(terrainMapStart + row * TERRAIN_MAP_WIDTH), <(terrain2MapStart + row * TERRAIN_MAP_WIDTH)
+    }
+levelMapHigh:
+    .for (var row = 0; row < TV_HEIGHT; row++) {
+        .byte >(terrainMapStart + row * TERRAIN_MAP_WIDTH), >(terrain2MapStart + row * TERRAIN_MAP_WIDTH)
+    }
+levelAccentLow:
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var phase = 0; phase < 4; phase++) {
+            .byte <(TERRAIN_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+            .byte <(TERRAIN2_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+        }
+    }
+levelAccentHigh:
+    .for (var region = 0; region < TERRAIN_PERSPECTIVE_REGIONS; region++) {
+        .for (var phase = 0; phase < 4; phase++) {
+            .byte >(TERRAIN_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+            .byte >(TERRAIN2_PERSPECTIVE_ACCENT_MAPS.get(region) + phase * 128)
+        }
+    }
+.assert "Level switching fits below terrain", * <= $a000, true
+
+* = $ba00 "Level 2 actor ground and route"
+actorGround2:
+    .import binary "assets/level2-sprite-ground.bin"
+.assert "Level 2 ground covers original character columns", * - actorGround2, 256
+actorPlayerPath2:
+    .import binary "assets/level2-sprite-player-path.bin"
+.assert "Level 2 route covers the complete map", * - actorPlayerPath2, 512
+.assert "Level 2 actors fit below color sources", * <= SCREEN_DATA, true
