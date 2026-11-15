@@ -69,6 +69,9 @@ horizontal interlace pattern at spacing 2.
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+New documents start with **PEPTOette_a**, **Talent**, and **Checkers**. New image
+layers enable black and white solid entries and all mixed colors; the other
+14 solid entries start disabled. Opening a project restores its saved settings.
 Pairs use actual palette lightness to put the darker component on even parity
 and the lighter component on odd parity. Checkers use `(x + y) & 1` throughout
 the image; Lines use row parity. Pair IDs and catalogue ordering do not change
@@ -85,7 +88,7 @@ shows these scales as columns, black at the top and white at the bottom, with
 different numbers of tones. Scroll horizontally to inspect every scale.
 Each mixed-color swatch shows its two active C64 component colors underneath.
 A separate **Standard colors** column lists all 16 solid colors in C64 index
-order. These buttons toggle the same solid entries used by detail pixels;
+order. These buttons toggle solid entries in the virtual palette;
 disabling a solid does not disable its separately enabled mixtures.
 All 92 Talent colors are available: the 76 retained mixed pairs and all 16
 solid C64 colors. Tones outside the example scales appear in an additional column.
@@ -102,19 +105,17 @@ as one surface sample. Its linear-light RGB average selects one virtual color,
 which is written identically to both pixels. Brightness dithering runs on this
 pair grid, so it cannot split a matched pair into different virtual colors.
 Different colors, transparency edges, and an unpaired final row map each source
-pixel separately to an enabled solid color from the active C64 palette, without added
-dithering. This preserves details while limiting virtual mixtures to smooth
-surfaces. The comparison uses source pixels after the layer's adjustments.
+pixel separately through the same enabled virtual palette, without averaging
+the pixels or adding brightness dithering. Both paths can select solid or mixed
+colors. The comparison uses source pixels after the layer's adjustments.
 Graphs and observed scale paths do not restrict selection. Lightness caps and
-palette exclusions apply to both surface samples and native details. Disabling
-a solid color removes it from detail matching; separately enabled mixtures
-containing that color remain available for surfaces. If details need mapping
-but no solid color is enabled in range, the preview asks for an enabled solid
-instead of using a disabled color. Smooth-only images can still use a selection
-containing only mixed colors.
-The C64 Palette view receives exact selected RGB values: shared virtual RGB
-for surface pairs, native C64 RGB for details. Lines or Checkers resolve the
-selected component pairs afterward; native detail colors remain unchanged.
+palette exclusions apply to both surface samples and individual pixels. Disabling
+a solid color removes that entry from both paths; separately enabled mixtures
+containing that color remain available. Images can use a selection containing
+only mixed colors, including where source pixels differ.
+The C64 Palette view receives exact selected virtual RGB values: shared across
+similar pairs or chosen individually for differing pixels. Lines or Checkers
+resolve the selected component pairs afterward.
 Choose **PEPTOette_a** to reproduce the sampled palette's RGB values. The mode
 applies to every layer with virtual colors enabled and is saved in projects.
 Older projects default to Computed. Each layer retains its own pattern,
@@ -254,6 +255,17 @@ independently.
 - Double-click a selected layer name, or press **F2**, to rename it.
 - Drag the preview to move the selected layer, or use **Scale**, **Position X**,
   and **Position Y** for precise placement.
+
+Select an image layer and click the **Crop selected layer** tool, or **Crop
+source…** under Source image. The crop editor shows the original image. Drag
+rectangle corners to resize the mask, or choose **Polygon** to move each point
+independently. Click an edge to add a point; select a point and press **Delete**
+to remove it. Arrow keys move the selected point one source pixel, or ten with
+**Shift**. **Insert** adds a point; **Page Up/Down** selects another point.
+Click **Apply crop** to keep the visible area, or **Cancel** to discard edits.
+**Reset crop**, then **Apply crop**, restores the full image. Crops preserve the
+original source and its placement, reveal lower layers outside the mask, and remain editable in
+saved projects. Duplicated layers have independent crop masks.
 
 Visible layers combine into one image before the final C64 tile restrictions
 are applied. The preview and native export use that same fitted result.

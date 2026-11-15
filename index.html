@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=tile-markers">
+  <link rel="stylesheet" href="./editor.css?v=source-crop">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -17,6 +17,7 @@
       <symbol id="icon-adjust" viewBox="0 0 24 24"><path d="M4 6h6m4 0h6M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></symbol>
       <symbol id="icon-color" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
       <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
+      <symbol id="icon-crop" viewBox="0 0 24 24"><path d="M6 3v15h15M3 6h15v15M9 3v3M21 15h-3"/></symbol>
       <symbol id="icon-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M15 4v16"/></symbol>
       <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
       <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M16 8V3H3v13h5"/></symbol>
@@ -48,6 +49,7 @@
           <button class="tool-button" data-open-image type="button" aria-label="Open source image" title="Open image (Ctrl/⌘ O)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg></button>
           <span class="tool-separator" aria-hidden="true"></span>
           <button class="tool-button" data-inspector-panel="source-settings" type="button" aria-label="Source image settings" title="Source image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-image"/></svg></button>
+          <button id="tool-crop" class="tool-button" type="button" aria-label="Crop selected layer" aria-haspopup="dialog" title="Crop selected layer" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-crop"/></svg></button>
           <button class="tool-button" data-inspector-panel="adjustment-settings" type="button" aria-label="Image adjustments" title="Adjustments"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-adjust"/></svg></button>
           <button class="tool-button" data-inspector-panel="color-settings" type="button" aria-label="Palette and color settings" title="Color & palette"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-color"/></svg></button>
           <button id="tool-reset-framing" class="tool-button tool-bottom" type="button" aria-label="Reset image framing" title="Reset framing" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-reset"/></svg></button>
@@ -277,6 +279,7 @@
                   <div class="control-label"><label for="source-position-y">Position Y</label><output id="source-position-y-value" for="source-position-y">0 px</output></div>
                   <input id="source-position-y" class="image-slider" type="range" min="-200" max="200" step="1" value="0" aria-valuetext="0 pixels">
                 </div>
+                <button id="source-crop" class="framing-reset" type="button" aria-haspopup="dialog">Crop source…</button>
                 <button id="reset-framing" class="framing-reset" type="button">Reset framing</button>
               </fieldset>
               <p id="error" class="error" role="alert" hidden></p>
@@ -367,8 +370,8 @@
               <h2><label for="virtual-colors">Virtual Colors</label></h2>
               <select id="virtual-colors" class="mode-select">
                 <option value="off">Off</option>
-                <option value="lines" selected>Lines</option>
-                <option value="checkers">Checkers</option>
+                <option value="lines">Lines</option>
+                <option value="checkers" selected>Checkers</option>
               </select>
             </div>
               <div id="palette-reference" hidden><h3 class="palette-reference-heading">C64 palette<span class="virtual-palette-count">16</span></h3><div class="palette-reference-swatches" role="list" aria-label="C64 palette"></div></div>
@@ -385,7 +388,6 @@
             </div>
               <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
             <h2 id="virtual-palette-heading"><span class="virtual-palette-title">Virtual palette</span><span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
-            <p id="palette-mapping-error" class="error" role="alert" hidden></p>
             <p class="background-value talent-palette-help" hidden>Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.</p>
             <div class="image-control">
               <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
@@ -415,12 +417,14 @@
     <footer><span id="footer-mode">C64 · FULL-COLOR SOURCE</span><span id="footer-format">160 × 200 / 2:1</span></footer>
   </div>
 
+  <dialog id="source-crop-dialog"></dialog>
+
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
   <script src="./ifli.js?v=shared-brightness-mapper"></script>
   <script src="./talent-palette.js?v=1"></script>
   <script src="./talent-neighbors.js?v=1"></script>
-  <script src="./talent-mapping.js?v=paired-enabled-solids"></script>
+  <script src="./talent-mapping.js?v=paired-full-palette"></script>
   <script src="./palettes.js?v=all-talent-colors"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./fli-export.js?v=1"></script>
@@ -445,6 +449,8 @@
   <script src="./two-color-export.js?v=1"></script>
   <script src="./multicolor-export.js?v=1"></script>
   <script src="./image-layout.js?v=sprite-grid"></script>
+  <script src="./source-crop.js?v=1"></script>
+  <script src="./source-crop-editor.js?v=1"></script>
   <script src="./source-levels.js?v=editable-curves"></script>
   <script src="./source-interlace.js?v=patterns"></script>
   <script src="./converter-controls.js?v=palette-components"></script>
@@ -453,9 +459,9 @@
   <script src="./layers.js?v=tile-markers"></script>
   <script src="./layer-panel.js?v=tile-markers"></script>
   <script src="./tile-markers.js?v=1"></script>
-  <script src="./project.js?v=tile-markers"></script>
+  <script src="./project.js?v=source-crop"></script>
   <script>
-    const paletteState = createC64PaletteState();
+    const paletteState = createC64PaletteState('peptoette-a', 'talent');
     const C64_PALETTE = paletteState.palette;
     const C64_BRIGHTNESS_BANDS = paletteState.brightnessBands;
     const IFLI_VIRTUAL_PALETTE = paletteState.virtualPalette;
@@ -486,7 +492,6 @@
     const preview = document.getElementById('preview');
     const previewStatus = document.getElementById('preview-status');
     const error = document.getElementById('error');
-    const paletteMappingError = document.getElementById('palette-mapping-error');
     const announcement = document.getElementById('announcement');
     const tabs = Array.from(document.querySelectorAll('.preview-tab'));
     const graphicsModeSelect = document.getElementById('graphics-mode-options');
@@ -577,6 +582,8 @@
     let projectLoading = false;
     let dragDepth = 0;
     let layerStack = null;
+    let cropEditor = null;
+    let cropEditingLayerId = null;
     const layerControlIds = ['source-scale', 'source-position-x', 'source-position-y',
       'brightness', 'contrast', 'levels-black', 'levels-white', 'levels-gamma', 'hue',
       'saturation', 'rgb-noise', 'interlace', 'interlace-spacing', 'interlace-direction', 'dither', 'scanline-dither', 'virtual-colors',
@@ -641,6 +648,10 @@
       onChange: updatePalettePreview
     });
 
+    virtualPaletteView.setSettings({
+      excludedIndices: IFLI_VIRTUAL_PALETTE.filter(color =>
+        color.colorIndices[0] === color.colorIndices[1] && color.colorIndices[0] > 1).map(color => color.index)
+    });
     layerStack = createC64LayerStack(readLayerSettings());
     const layerPanel = createC64LayerPanel({
       root: document.getElementById('layer-settings'), stack: layerStack,
@@ -661,6 +672,35 @@
         layerPanel.render();
       }
     });
+    cropEditor = createSourceCropEditor({
+      dialog: document.getElementById('source-crop-dialog'),
+      onApply(crop) {
+        const layer = layerStack.layers.find(layer => layer.id === cropEditingLayerId);
+        if (!layer?.image) return;
+        layer.settings.crop = cloneSourceCrop(crop);
+        layer.cache = null;
+        rebuildLayerComposite();
+        syncLayerInfo();
+        announcement.textContent = crop ? `Crop applied to ${layer.name}.` : `Crop removed from ${layer.name}.`;
+      }
+    });
+    function openSourceCrop() {
+      const layer = layerStack.active();
+      if (layer.type !== 'image' || !layer.image || loadingLayers.has(layer.id) || projectLoading) return;
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      cropEditingLayerId = layer.id;
+      cropEditor.open({ image: layer.image, crop: layer.settings.crop, name: layer.name });
+    }
+    document.getElementById('tool-crop').addEventListener('click', openSourceCrop);
+    document.getElementById('source-crop').addEventListener('click', openSourceCrop);
+    function updateCropButtons() {
+      const layer = layerStack?.active();
+      const canCrop = Boolean(layer?.image && !loadingLayers.has(layer.id) && !projectLoading);
+      document.getElementById('tool-crop').disabled = !canCrop;
+      document.getElementById('source-crop').disabled = !canCrop;
+      document.getElementById('source-crop').textContent = layer?.settings?.crop ? 'Edit crop…' : 'Crop source…';
+    }
     tileMarkerColor.addEventListener('input', () => {
       const layer = layerStack.active();
       if (layer.type !== 'tile-markers') return;
@@ -718,7 +758,7 @@
       paletteState.setVirtualColorMode(mode);
       virtualColorModeSelect.value = mode;
       document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
-        ? 'Talent compares vertical source pixel pairs. Similar pixels share one virtual color; details map separately to enabled solid C64 colors. Palette exclusions and lightness limits apply to both. Brightness is matched before hue. Shared by all layers.'
+        ? 'Talent compares vertical source pixel pairs. Similar pixels share one palette choice; differing pixels map individually. Both use the full enabled virtual palette, matching brightness before hue. Shared by all layers.'
         : 'Computed pairs, shared by all layers with virtual colors enabled.';
       virtualPaletteView.refreshPalette();
       layerStack.invalidate();
@@ -756,6 +796,7 @@
     }
 
     function syncLoadingState() {
+      updateCropButtons();
       preview.setAttribute('aria-busy', String(projectLoading || loadingLayers.size > 0));
       projectSave.disabled = projectLoading || loadingLayers.size > 0;
       projectOpen.disabled = projectLoading;
@@ -870,7 +911,8 @@
         return [id, control.type === 'checkbox' ? control.checked
           : control.type === 'range' ? control.valueAsNumber : control.value];
       }));
-      return { values, curvePoints: levelsControls.getState().curvePoints, palette: virtualPaletteView.getSettings() };
+      return { values, curvePoints: levelsControls.getState().curvePoints,
+        crop: cloneSourceCrop(layerStack?.active()?.settings?.crop), palette: virtualPaletteView.getSettings() };
     }
 
     function restoreLayerControls() {
@@ -917,6 +959,7 @@
         ? `${sourceImage.naturalWidth} × ${sourceImage.naturalHeight} original pixels` : '';
       document.getElementById('active-layer-name').textContent = layer.name;
       document.getElementById('tool-reset-framing').disabled = !sourceImage;
+      updateCropButtons();
       dropZone.querySelector('.choose').textContent = sourceImage ? 'Change image' : 'Choose image';
       const loaded = layerStack.layers.filter(layer => layer.image);
       imageName = loaded[0]?.fileName || '';
@@ -1063,7 +1106,10 @@
       hiresContext.imageSmoothingQuality = 'high';
 
       // Fit in display space, then halve X to account for double-width pixels.
+      hiresContext.save();
+      applySourceCrop(hiresContext, placement, layer.settings.crop);
       hiresContext.drawImage(layer.image, placement.x, placement.y, placement.width, placement.height);
+      hiresContext.restore();
       hiresContext.clearRect(0, 0, placement.leftInset, placement.canvasHeight);
       const hires = hiresContext.getImageData(0, 0, placement.canvasWidth, placement.canvasHeight);
       const source = usesFullResolutionSource() || isFliSpriteMode() ? hires : sampleIfliPhases(hires)[0];
@@ -1116,6 +1162,7 @@
     }
 
     function finishSourcePan(event) {
+      if (!event) cropEditor?.close();
       tileMarkerEditor.finish(event);
       if (!sourcePan || (event && event.pointerId !== sourcePan.pointerId)) return;
       const pointerId = sourcePan.pointerId;
@@ -1339,21 +1386,6 @@
     }
 
     function rebuildLayerComposite() {
-      try {
-        rebuildLayerCompositePixels();
-        paletteMappingError.hidden = true;
-      } catch (cause) {
-        if (cause.code !== 'TALENT_SOLID_COLOR_REQUIRED') throw cause;
-        stopIfliAnimation();
-        palettePixels = documentTargetPixels = fliResult = ifliResult = null;
-        paletteMappingError.textContent = cause.message;
-        paletteMappingError.hidden = false;
-        announcement.textContent = cause.message;
-        renderPreview();
-      }
-    }
-
-    function rebuildLayerCompositePixels() {
       const visible = layerStack.layers.filter(layer => layer.visible && layer.image);
       const { width: displayWidth, height } = currentDisplaySize();
       const width = isStandaloneSpriteMode() ? displayWidth : currentGraphicsMode().sourceWidth;
@@ -2095,6 +2127,7 @@
           layer.autoName = false;
         }
         Object.assign(layer.settings.values, { 'source-scale': 100, 'source-position-x': 0, 'source-position-y': 0 });
+        layer.settings.crop = null;
         layer.cache = null;
         if (layerStack.active() === layer) restoreLayerControls();
         rebuildLayerComposite();
@@ -2141,6 +2174,7 @@
       loadImage(event.dataTransfer.files[0]);
     });
 
+    setVirtualColorMode(paletteState.virtualColorMode);
     restoreLayerControls();
     rebuildLayerComposite();
 

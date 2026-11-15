@@ -39,10 +39,10 @@ PEPTOette_a currently produces 20 levels. Both palettes use the same brightness
 selection, ordered dither, and within-level chroma matching. Talent's caps use
 actual lightness percentages. Talent selects virtual colors for similar
 vertical source pairs and writes one choice to both pixels. Other pairs use
-individual enabled solid C64 colors from the active palette. Lightness caps and
-exclusions constrain both branches. Disabling a solid entry does not disable
-its separately selected mixed entries. Detail mapping requires at least one
-enabled solid color in range; smooth-only sources can use only mixed entries.
+individual choices from the same full enabled virtual palette. Lightness caps
+and exclusions constrain both branches. Disabling a solid entry does not disable
+its separately selected mixed entries. Either branch can use a mixed-only
+selection; no separate solid-color candidate list restricts individual pixels.
 Brightness dithering stays inside the selected virtual bounds.
 These caps do not change the source image; subsequent format fitting uses the
 capped palette image as its target.
