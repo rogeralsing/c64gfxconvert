@@ -208,6 +208,12 @@ mode. The 10,003-byte file contains a `$6000` load address, bitmap, screen color
 color RAM, and the selected background color. Export uses the fitted composition
 from all visible layers, regardless of the selected preview tab.
 
+**Save FLI** downloads a native `.fli` image in **FLI** mode. The 17,666-byte
+uncompressed FLI Graph file loads at `$3B00` and preserves the fitted bitmap,
+eight screen-color banks, color RAM, and selected background color. Export uses
+the fitted composition from all visible layers, regardless of the preview tab.
+The file contains image data; it does not include a runnable C64 player.
+
 **Save MCI** downloads a native True Paint `.mci` image containing both fitted
 bitmaps, their separate screen colors, shared color RAM, and background color.
 The 19,434-byte file loads at `$9C00`. Like other exports, it uses the fitted

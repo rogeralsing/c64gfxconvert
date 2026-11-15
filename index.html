@@ -67,6 +67,7 @@
               <div class="preview-actions">
                 <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked><span id="grid-label">Tile grid</span></label>
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
+                <button id="fli-save" class="afli-save" type="button" title="Save the converted FLI bitmap and fitted colors as a .fli image" disabled hidden>Save FLI</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="mci-save" class="ifli-save" type="button" title="Save both converted frames as a True Paint (.mci) image" disabled hidden>Save MCI</button>
                 <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
@@ -422,6 +423,7 @@
   <script src="./talent-mapping.js?v=paired-enabled-solids"></script>
   <script src="./palettes.js?v=all-talent-colors"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
+  <script src="./fli-export.js?v=1"></script>
   <script src="./mci-export.js?v=1"></script>
   <script src="./afli-export.js?v=afli"></script>
   <script src="./pafli.js?v=black-bottom-row"></script>
@@ -528,6 +530,7 @@
     const ditherValue = document.getElementById('dither-value');
     const scanlineDither = document.getElementById('scanline-dither');
     const ifliPlayback = document.getElementById('ifli-playback');
+    const fliSave = document.getElementById('fli-save');
     const ifliSave = document.getElementById('ifli-save');
     const mciSave = document.getElementById('mci-save');
     const afliSave = document.getElementById('afli-save');
@@ -964,6 +967,10 @@
 
     function currentGraphicsMode() {
       return getC64GraphicsMode(graphicsMode);
+    }
+
+    function isFliMode() {
+      return graphicsMode === 'fli';
     }
 
     function isIfliMode() {
@@ -1467,6 +1474,15 @@
       return ifliResult;
     }
 
+    function ensureFliResult() {
+      if (!isFliMode() || !palettePixels) return null;
+      if (!fliResult) {
+        fliResult = optimizeFliImage(getRestrictedTarget(), C64_PALETTE,
+          C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+      }
+      return fliResult;
+    }
+
     function ensureAfliResult() {
       if (!isAfliMode() || !palettePixels) return null;
       if (!fliResult) {
@@ -1534,6 +1550,8 @@
     }
 
     function updateIfliSaveState() {
+      fliSave.hidden = !isFliMode();
+      fliSave.disabled = !isFliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       charsetSave.hidden = !isCharsetMode();
       charsetSave.disabled = !isCharsetMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       spriteGridSave.hidden = !isStandaloneSpriteMode();
@@ -1562,6 +1580,7 @@
     }
 
     for (const [button, encode, extension, ensureResult, name] of [
+      [fliSave, encodeFli, 'fli', ensureFliResult, 'FLI'],
       [mciSave, encodeTruePaintMci, 'mci', ensureMulticolorInterlaceResult, 'MCI'],
       [charsetSave, result => encodeC64Charset(result, {
         backgroundColorIndex, multicolorIndices: charsetControls.getState(),
@@ -1936,7 +1955,7 @@
           } else if (currentGraphicsMode().format === 'hires') {
             fliResult = optimizeHiresBitmapImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
           } else {
-            fliResult = optimizeFliImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+            ensureFliResult();
           }
         }
       }
