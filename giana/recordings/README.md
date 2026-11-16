@@ -3,11 +3,11 @@
 The [opening-animation preview](intro-opening-tv.gif) shows small Giana collecting
 the beachball and transforming into punk Giana. Its [capture data](intro-opening-tv.json)
 records the source identity and native verification. The full video below
-preserves the earlier version before this opening was added.
+preserves the earlier four-stage version before this opening was added.
 
 [Watch the video with sound](giana-complete-mci-30s.mp4).
 
-The recording includes both levels in both rooms, the disk loading transition,
+The historical recording includes both levels in both rooms, the disk loading transition,
 and 30 seconds of the full-screen MCI picture with the continuing original SID
 music. Its total duration is 3:14.43. The MP4 contains H.264 video at 1280×800
 and mono AAC audio at 44.1 kHz.

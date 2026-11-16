@@ -1,4 +1,4 @@
-// The second room replaces the picture after both finite stage runs.
+// The second room replaces the boy's picture after Level 1 and begins Level 2.
 // Decode a bounded number of output bytes per PAL frame so music keeps ticking.
 .const ENDING_BYTES_PER_FRAME = 160
 .const ENDING_INPUT = $fb
@@ -128,7 +128,7 @@ endingNmi:
     rti
 
 prepareSecondRoom:
-    lda #0
+    lda #1
     sta activeLevel
     jsr selectLevel
     lda terrainScreenColors
@@ -143,6 +143,7 @@ prepareSecondRoom:
     rts
 
 refillSecondRoom:
+    // Spread the refill over PAL frames so the SID still ticks every frame.
     lda levelTransition
     beq revealSecondRoom
     jsr scrollTerrain
@@ -164,6 +165,7 @@ revealSecondRoom:
     lda #LIGHT_FRAME_INTERVAL
 !lightCountdown:
     sta lightCountdown
+    // Keep scrolling, sprite copies and room lighting on separate frames.
     lda frameCounter
     and #3
     eor #3

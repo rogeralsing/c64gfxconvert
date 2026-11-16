@@ -585,66 +585,13 @@ selectLevel:
     rts
 
 advanceLevelTransition:
-    // Spread the refill over PAL frames so the SID still ticks every frame.
-    cmp #$ff
-    beq !begin+
-    cmp #$fe
-    beq !reveal+
-    lda lightCountdown
-    cmp #1
-    beq !done+
-    jsr scrollTerrain
-    dec levelTransition
-    bne !done+
-    lda #$fe
-    sta levelTransition
-!done:
-    rts
-!begin:
-    lda activeLevel
-    beq !nextLevel+
+    // Each room shows one stage: the boy's Level 1, then the man's Level 2.
     lda endingState
     cmp #2
     bne !changeRoom+
     jmp beginMciPart
 !changeRoom:
     jmp beginEnding
-!nextLevel:
-    lda activeLevel
-    eor #1
-    sta activeLevel
-    jsr selectLevel
-    lda #$99
-    ldy #9
-    jsr setTVColors
-    lda #$07
-    sta $d015
-    lda #$06
-    sta $d010
-    jsr prepareColumn
-    lda #TV_PIXELS
-    sta levelTransition
-    rts
-!reveal:
-    lda lightCountdown
-    cmp #1
-    beq !done-
-    lda terrainScreenColors
-    ldy #5
-    jsr setTVColors
-    jsr updateColors
-    jsr updateSprites
-    // Keep scrolling, sprite copies and room lighting on separate frames.
-    lda frameCounter
-    and #3
-    eor #3
-    bne !countdown+
-    lda #SCROLL_FRAME_INTERVAL
-!countdown:
-    sta scrollCountdown
-    lda #0
-    sta levelTransition
-    rts
 
 levelTileHigh: .byte >terrainTiles, >terrain2Tiles
 levelEndStepLow: .byte <512, <(512 - TV_PIXELS)

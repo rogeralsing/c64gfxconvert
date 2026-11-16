@@ -10,7 +10,9 @@ import subprocess
 import tempfile
 
 
-def build(source, output, assembler, force=False, wave=False):
+def build(source, output, assembler, force=False, wave=False, borders=False):
+    if wave and borders:
+        raise ValueError("Choose either the rubber wave or the open-border test.")
     source = source.resolve()
     output = output.resolve()
     if source == output:
@@ -30,7 +32,8 @@ def build(source, output, assembler, force=False, wave=False):
         if target.exists() and not force:
             raise FileExistsError(f"Refusing to replace {target}; use --force to replace build artifacts.")
 
-    player = Path(__file__).with_name("wave-player.asm" if wave else "player.asm")
+    player_name = "border-player.asm" if borders else "wave-player.asm" if wave else "player.asm"
+    player = Path(__file__).with_name(player_name)
     with tempfile.TemporaryDirectory(prefix="c64-mci-") as temporary:
         stage = Path(temporary)
         (stage / "image.mci").write_bytes(data)
@@ -62,6 +65,17 @@ def build(source, output, assembler, force=False, wave=False):
                 "amplitude_step_phase_pairs": 64,
                 "crop": "normal 200-line viewport clips the stretched picture at the bottom",
             }
+        if borders:
+            receipt["effect"] = {
+                "name": "PAL open-border checker sprites",
+                "bitmap": "original 320x200 MCI picture with its original phase offset",
+                "top_bottom_sprite_count": 8,
+                "horizontal_sprite_expansion": 2,
+                "side_sprite_slots": [3, 4],
+                "placeholder": "checkerboard sprites multiplexed around the picture",
+                "extent": "PAL border area; sprite coverage is measured separately in native VICE",
+                "audio": "none; standalone graphics test",
+            }
         payloads = [program, (stage / "player.sym").read_bytes(),
                     (stage / "player.vs").read_bytes(),
                     (json.dumps(receipt, indent=2) + "\n").encode()]
@@ -78,6 +92,8 @@ if __name__ == "__main__":
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--assembler", type=Path, default=Path.home() / ".local/bin/kickass")
     parser.add_argument("--force", action="store_true", help="replace existing build artifacts")
-    parser.add_argument("--wave", action="store_true", help="add a growing vertical rubber wave")
+    effect = parser.add_mutually_exclusive_group()
+    effect.add_argument("--wave", action="store_true", help="add a growing vertical rubber wave")
+    effect.add_argument("--borders", action="store_true", help="test open PAL borders with checkerboard sprites")
     args = parser.parse_args()
-    build(args.source, args.output, args.assembler, args.force, args.wave)
+    build(args.source, args.output, args.assembler, args.force, args.wave, args.borders)

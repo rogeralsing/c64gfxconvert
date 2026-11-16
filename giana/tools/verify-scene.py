@@ -53,6 +53,7 @@ INTRO_BALL_Y = (9, 7, 5, 5, 5, 5, 6, 8, 11, 14, 18, 23)
 SPRITE_MAIN_COLORS = ((7, 6) * 4 + (1, 1, 7, 7, 1, 1, 1, 1) + (5,) * 6 + (7, 7)
                       + INTRO_MAIN_COLORS)
 ENEMY_TYPES = {0: "bee", 2: "crab", 5: "owl", 7: "slinky"}
+PLAYBACK_ORDER = ((0, 0), (1, 1))  # Boy room Level1, then man room Level2.
 
 
 def digest(data):
@@ -1255,13 +1256,13 @@ def verify(args):
     if not reference_path.exists() or len(json.loads(reference_path.read_text())["calls"]) <= args.frames:
         subprocess.run([sys.executable, str(ROOT / "giana/tools/prepare-music-reference.py"),
                         "--frames", str(max(5206, args.frames + 1))], check=True)
-    room_references = tuple(tuple(SceneReference(level, room) for level in (1, 2)) for room in (0, 1))
-    references = room_references[0]
+    references = tuple(SceneReference(level + 1, room) for room, level in PLAYBACK_ORDER)
+    scene_references = dict(zip(PLAYBACK_ORDER, references))
     reference = references[0]
     ending_reference = RoomArchiveReference()
     mci_reference = MciReference(reference.palette)
     assert args.frames < len(reference.music_reference["calls"]), "Capture the independent original SID reference for this complete frame range"
-    prefix = args.name or ("mci-chain-startup" if args.autostart_mode == 2 else "mci-chain")
+    prefix = args.name or ("boy-man-startup" if args.autostart_mode == 2 else "boy-man-chain")
     output = BUILD / f"{prefix}-check"
     output.mkdir(parents=True, exist_ok=True)
     motions = []
@@ -1345,6 +1346,7 @@ def verify(args):
     checked_levels = set()
     saved_levels = set()
     saved_source_levels = set()
+    observed_scene_order = []
     checked_objects = set()
     sky_blue_verified = False
     blue_clothes_verified = False
@@ -1516,8 +1518,8 @@ def verify(args):
                     ending_states.append({"frame": frame, "state": ending_state})
                     ending_previous_state = ending_state
                 if ending_state == 1:
-                    assert ending_expected, (frame, "Second room appeared before both first-room levels completed")
-                    assert (active, step) in ((1, 472), (0, 0)), (frame, "Unexpected camera while preparing second room", active, step)
+                    assert ending_expected, (frame, "Second room appeared before boy-room Level1 completed")
+                    assert (active, step) in ((0, 512), (1, 0)), (frame, "Unexpected camera while preparing second room", active, step)
                     ending_blank_frames.append(frame)
                     assert len(ending_blank_frames) <= 110, (frame, "Second room stayed blank too long")
                     monitor.run("bank io")
@@ -1530,7 +1532,7 @@ def verify(args):
                         assert ending_expected and ending_blank_frames, (frame, "Second room skipped its transition")
                         room7_first_game_frame = frame
                         ending_expected = False
-                        expected_active = expected_actor_level = 0
+                        expected_active = expected_actor_level = 1
                         expected_camera = expected_actor_step = 0
                         expected_transition = 0
                         expected_scroll_countdown = ((4 - frame % 4) % 4) or 4
@@ -1538,7 +1540,7 @@ def verify(args):
                         expected_light_countdown = ((14 - frame % 16) % 16) or 16
                         last_transition = frame
                     if room == 0:
-                        assert not ending_expected and room7_first_game_frame is None, (frame, "Demo restarted first room instead of switching to giana7")
+                        assert not ending_expected and room7_first_game_frame is None, (frame, "Boy room continued instead of changing to the man room")
                     else:
                         ending_visible_frames.append(frame)
                     level = ram[labels["lightLevel"]]
@@ -1562,6 +1564,13 @@ def verify(args):
                         (expected_active, expected_transition, expected_camera))
                     assert ram[labels["scrollCountdown"]] == expected_scroll_countdown, (frame, "Scroll cadence")
                     visible = transition in (0, 255)
+                    assert visible, (frame, "Unexpected same-room level refill", room, active, transition)
+                    pair = (room, active)
+                    assert pair in PLAYBACK_ORDER, (frame, "Unexpected room/level pair", pair)
+                    if not observed_scene_order or observed_scene_order[-1] != pair:
+                        assert len(observed_scene_order) < len(PLAYBACK_ORDER), (frame, "Scene replayed", pair)
+                        assert pair == PLAYBACK_ORDER[len(observed_scene_order)], (frame, "Scene order", observed_scene_order, pair)
+                        observed_scene_order.append(pair)
                     incoming = 40 + step if visible else 40 if transition == 254 else 40 - transition
                     assert ram[labels["incomingTile"]] == incoming // 4 % 128, (frame, "Incoming map column")
                     assert ram[labels["tilePixelX"]] == incoming % 4, (frame, "Incoming tile pixel")
@@ -1572,7 +1581,7 @@ def verify(args):
                             level_changes.append({"frame": frame, "from_room": previous_scene[0] + 1,
                                                   "room": room + 1, "from": previous_scene[1] + 1, "to": active + 1})
                         previous_scene = scene
-                    reference = room_references[room][active]
+                    reference = scene_references[pair]
                     bitmap = reference.expected_bitmap(step % 512, actual_actor_step if visible else None)
                     if visible or transition == 254:
                         assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: Level{active + 1} bitmap differs from original source decode"
@@ -1612,7 +1621,7 @@ def verify(args):
                     assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == reference.background
                     actual_actor_step = ram[labels["actorStepLo"]] + 256 * ram[labels["actorStepHi"]]
                     assert actual_actor_step == expected_actor_step, (frame, "Actor camera phase", actual_actor_step, expected_actor_step)
-                    actor_reference = room_references[room][expected_actor_level]
+                    actor_reference = scene_references[(room, expected_actor_level)]
                     actors = actor_reference.verify_sprites(frame, ram, vic, work_addresses,
                                                             step=expected_actor_step, hidden=not visible)
                     expected_height = actors["height"] if visible else reference.player_height
@@ -1785,7 +1794,7 @@ def verify(args):
                 assert done_pc == labels["frameDone"] or handoff_now
                 if handoff_now:
                     assert (room, active, step, transition) == (1, 1, 472, 255), (
-                        frame, "MCI part started before both stages in both rooms finished")
+                        frame, "MCI part started before man-room Level2 finished")
                 monitor.run(f"disable {done_break}")
                 update_cycles = done_cycles - cycles
                 assert 0 < update_cycles < (312 + 64 - 144) * 63, (frame, update_cycles, done_raster)
@@ -1817,21 +1826,10 @@ def verify(args):
                 # a music call. Room-light frames deliberately hold the refill.
                 if ending_state == 1:
                     pass
-                elif transition == 255 and active == 1 and room == 0:
+                elif transition == 255 and (room, active) == PLAYBACK_ORDER[0]:
                     ending_expected = True
                 elif transition == 255:
-                    expected_active ^= 1
-                    expected_camera = 0
-                    expected_transition = 40
-                elif transition == 254:
-                    if light_countdown != 1:
-                        expected_actor_level = active
-                        expected_actor_step = 0
-                        expected_scroll_countdown = (3 - frame % 4) or 4
-                        expected_transition = 0
-                elif transition:
-                    if light_countdown != 1:
-                        expected_transition = transition - 1 or 254
+                    raise AssertionError((frame, "The final scene returned instead of entering MCI", room, active))
                 else:
                     if frame % 4 == 0:
                         expected_actor_level = active
@@ -1888,13 +1886,21 @@ def verify(args):
             assert seen_clip_modes == {"left", "right", "inside", "x-high"}
             assert cleared_owl_sections == {0, 64, 128, 192, 320, 448}
             assert len(owl_overlap_steps) == 66
-        if args.frames >= 4250:
+        if (1, 1) in observed_scene_order:
             assert [(change["from_room"], change["from"], change["room"], change["to"])
-                    for change in level_changes[:2]] == [(1, 1, 1, 2), (1, 2, 2, 1)]
+                    for change in level_changes] == [(1, 1, 2, 2)]
+            assert ending_states and ending_blank_frames and ending_visible_frames and ending_screenshots
+            assert ending_visible_frames[0] - ending_blank_frames[0] <= 110
+            assert ending_visible_frames[-1] == (handoff_sample["frame"] if handoff_sample else args.frames)
+            assert samples[-1]["ending_state"] == 2, "Second room did not remain active"
+        if args.frames >= 4605:
+            assert handoff_sample is not None, "The man-room Level2 did not end in the MCI part"
+        if handoff_sample is not None:
+            assert observed_scene_order == list(PLAYBACK_ORDER), ("Wrong playable scene sequence", observed_scene_order)
             assert level_camera_steps == [set(range(513)), set(range(473))]
             assert level_actor_steps == [set(range(512)), set(range(472))]
             assert all(columns == set(range(512)) for columns in level_world_columns), "Both complete original maps must reach the TV"
-            assert {(0, 0), (0, 1), (1, 0)} <= saved_source_levels
+            assert saved_source_levels == set(PLAYBACK_ORDER), ("Unexpected room/level screenshot", saved_source_levels)
             expected_entries = {enemy["source_entry"] for enemy in references[1].original_enemies}
             assert seen_enemy_entries == expected_entries and captured_enemy_entries == expected_entries, (
                 "Original enemies not all seen in native screenshots", seen_enemy_entries, captured_enemy_entries)
@@ -1903,32 +1909,24 @@ def verify(args):
             assert seen_enemy_poses == expected_enemy_poses, ("Native enemy pose coverage", seen_enemy_poses, expected_enemy_poses)
             assert maximum_visible_enemies == maximum_opaque_visible_enemies == 2 and captured_two_enemies
             assert captured_enemy_types == set(ENEMY_TYPES), ("Missing native enemy art proof", captured_enemy_types)
-            assert ending_states and ending_blank_frames and ending_visible_frames and ending_screenshots
-            assert ending_visible_frames[0] - ending_blank_frames[0] <= 110
-            assert ending_visible_frames[-1] == (handoff_sample["frame"] if handoff_sample else args.frames) and len(ending_visible_frames) >= 16
-            assert samples[-1]["ending_state"] == 2, "Second room did not remain active"
-        if args.frames >= 8200:
-            assert handoff_sample is not None, "The second room repeated instead of loading the MCI part"
-        if handoff_sample is not None:
-            assert [(change["from_room"], change["from"], change["room"], change["to"])
-                    for change in level_changes] == [(1, 1, 1, 2), (1, 2, 2, 1), (2, 1, 2, 2)]
             assert handoff_sample is not None and mci_tail and len(mci_tail["fields"]) >= 120, "MCI handoff/fields not verified"
-            assert saved_source_levels == {(0, 0), (0, 1), (1, 0), (1, 1)}
+            assert len(ending_visible_frames) >= 16
+            assert room_level_actor_steps == [[set(range(512)), set()], [set(), set(range(472))]], "Unexpected actor coverage by scene"
+            assert room_level_camera_steps == [[set(range(513)), set()], [set(), set(range(473))]], "Unexpected camera coverage by scene"
+            assert room_level_world_columns == [[set(range(512)), set()], [set(), set(range(512))]], "Unexpected original-map coverage by scene"
+            assert room_seen_enemy_entries == [set(), expected_entries], "Level2 enemies must appear only in the man room"
             for room in range(2):
-                assert room_level_actor_steps[room] == [set(range(512)), set(range(472))], (room, "Both complete actor paths must replay")
-                assert room_level_camera_steps[room] == [set(range(513)), set(range(473))], (room, "Both complete camera paths must replay")
-                assert all(columns == set(range(512)) for columns in room_level_world_columns[room]), (room, "Original map columns missing")
-                assert room_seen_enemy_entries[room] == expected_entries, (room, "Original enemy missing")
                 assert room_checked_light_levels[room] == {0, 1, 2}, (room, "Room lighting levels missing")
-        opening_reports = [room_references[room][0].verify_opening_contract(states)
-                           if all(step in states for step in range(105)) else None
+        opening_reports = [scene_references[(room, 0)].verify_opening_contract(states)
+                           if (room, 0) in scene_references and all(step in states for step in range(105)) else None
                            for room, states in enumerate(opening_native_states)]
         assert opening_native_states[0][0]["form"] == "small", "Native startup did not show small Giana"
+        assert not opening_native_states[1] and not opening_saved_steps[1], "The man room replayed the Level1 opening"
         if args.frames >= 425:
             assert opening_reports[0] is not None, "The first-room opening was not fully verified"
         if handoff_sample is not None:
-            assert all(opening_reports), "The complete opening must replay in both rooms"
-            assert all(steps == set(range(115)) for steps in opening_saved_steps), "Native opening screenshots must cover both rooms"
+            assert opening_reports[0] is not None and opening_reports[1] is None, "The opening belongs only to boy-room Level1"
+            assert opening_saved_steps == [set(range(115)), set()], "Native opening screenshots must cover the boy room only"
         animation[0].save(BUILD / f"{prefix}.gif", save_all=True, append_images=animation[1:],
                           duration=160, loop=0, optimize=False, disposal=1)
         (output / "timing.json").write_text(json.dumps(samples, indent=2) + "\n")
@@ -1939,7 +1937,10 @@ def verify(args):
                        "unique_scroll_states_per_level": [len(states) for states in level_camera_steps],
                        "map_columns_visible_per_level": [len(columns) for columns in level_world_columns],
                        "level_end_camera_steps": [512, 472], "level_transitions": level_changes,
-                       "both_stages_in_both_rooms_verified": handoff_sample is not None,
+                       "ordered_scene_sequence_verified": handoff_sample is not None and observed_scene_order == list(PLAYBACK_ORDER),
+                       "expected_scene_order": [[room + 1, level + 1] for room, level in PLAYBACK_ORDER],
+                       "observed_scene_order": [[room + 1, level + 1] for room, level in observed_scene_order],
+                       "both_original_maps_in_selected_rooms_verified": handoff_sample is not None,
                        "opening_sequence_verified_per_room": [report is not None for report in opening_reports],
                        "opening_sequence_per_room": opening_reports,
                        "opening_original_art_independently_decoded": True,
@@ -1959,7 +1960,7 @@ def verify(args):
                        "second_room_native_screenshot_frames": ending_screenshots,
                        "second_room_source_and_game_pixels_verified": bool(ending_screenshots),
                        "second_room_game_and_lighting_running": bool(ending_visible_frames),
-                       "screen_light_cells_per_room": [len(row[0].light) for row in room_references],
+                       "screen_light_cells_per_room": [len(scene.light) for scene in references],
                        "actor_steps_verified_per_room_and_level": [[len(states) for states in row] for row in room_level_actor_steps],
                        "camera_steps_verified_per_room_and_level": [[len(states) for states in row] for row in room_level_camera_steps],
                        "level2_enemy_entries_seen_per_room": [sorted(entries) for entries in room_seen_enemy_entries],
@@ -1976,7 +1977,7 @@ def verify(args):
                        "sky_blue_verified": sky_blue_verified, "object_color_probes": sorted(checked_objects),
                        "blue_clothes_verified": blue_clothes_verified,
                        "actor_steps_verified_per_level": [len(steps) for steps in level_actor_steps],
-                       "actor_level_switch_tested": args.frames >= 4250,
+                       "actor_level_switch_tested": (1, 1) in observed_scene_order,
                        "giana_poses_verified": sorted(seen_player_poses), "owl_frames_verified": sorted(seen_level1_owl_poses),
                        "enemy_frames_verified": sorted(seen_enemy_poses),
                        "level2_enemy_entries_seen": sorted(seen_enemy_entries),
@@ -2079,9 +2080,9 @@ def verify(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", help="Path to x64sc; defaults to VICE or PATH")
-    parser.add_argument("--frames", type=int, default=8505, help="PAL music-frame endpoint; minimum 35; 8505 covers both rooms and the loaded MCI part")
+    parser.add_argument("--frames", type=int, default=5205, help="PAL music-frame endpoint; minimum 35; 5205 covers boy-room Level1, man-room Level2, MCI and the original SID score loop")
     parser.add_argument("--autostart-mode", type=int, choices=(1, 2), default=1, help="Use 2 for separately named startup proof; both modes boot the real true-drive demo disk")
-    parser.add_argument("--name", help="Output prefix beneath giana/build; existing default proof names are retained")
+    parser.add_argument("--name", help="Output prefix beneath giana/build; defaults to boy-man-chain or boy-man-startup")
     args = parser.parse_args()
     if args.frames < 35:
         parser.error("--frames must be at least 35 to capture every lighting state")
