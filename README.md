@@ -191,6 +191,50 @@ positions, hardware slots, and VIC enable/multicolor masks. Hires overlays occup
 lower-numbered slots so they appear in front. The ZIP does not include a player.
 Saved projects preserve the sprite grid and every chosen color.
 
+## Border sprites
+
+**Image → Border sprites** extends bitmap and charset pictures into the PAL
+borders. Enable **Vertical borders · top / bottom**, **Side borders · left / right**,
+or both. These settings belong to the whole image and are saved in projects.
+Standalone sprite, sprite overlay, NUFLI and PAFLI formats keep the settings but
+disable the borders.
+
+Each group has its own **Hires / Multicolor** mode and sprite color. Multicolor
+sprites also use two shared colors, chosen below the groups. Transparent sprite
+pixels show the existing image **Background color**, shared with the bitmap.
+All color choices follow the selected C64 palette.
+
+Border sprites use each layer's **Talent / Computed**, virtual-color pattern,
+brightness limits, color exclusions and dither settings. Available virtual
+colors are limited to mixtures of the group's background, sprite color and
+shared multicolors. Patterns resolve at the sprite's native pixel size before
+expansion, so multicolor and expanded sprites retain their mixtures too.
+The C64 Palette preview shows the selected virtual RGB values; the restricted
+preview and exported sprite bytes show the resolved native colors. **Off**
+retains the solid-color fit.
+
+The source fits the extended picture: 320 × 272 with vertical borders,
+368 × 200 with side borders, or 368 × 272 with both. The bitmap stays 320 × 200
+inside it. Top and bottom sprites are horizontally expanded, giving two display
+pixels per hires bit or four per multicolor pixel; side sprites use one or two.
+Side sprites keep their normal 21-pixel height and are reused down the raster,
+preserving single-line vertical detail. A spare pair handles the final eleven
+visible side rows so every slot is free for the bottom border.
+The restricted preview shows the fitted sprite colors and resolution.
+
+MCI and IFLI also alternate two independently fitted sprite fields. The second
+field shifts every sprite one hires pixel right, synchronized with the bitmap.
+The preview preserves sprite priority at the left edge and the bitmap's
+one-pixel spill into the right border.
+
+**Save border sprites** downloads a ZIP with native 64-byte frames in
+`sprites.bin` and a `manifest.json` containing colors, PAL positions, expansion,
+and multiplexing metadata. This is a data export without a raster player. Save
+the central bitmap separately with its normal format button.
+Both border groups use 36 native frames (2,304 bytes) per field. MCI and IFLI
+exports include both fields: 72 frames (4,608 bytes), with their phase and
+one-pixel offset recorded in the manifest.
+
 For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
 and **Highlight color** from the normal C64 palette. Adjust **Brightness**,
 **Contrast**, **Levels**, and **Dither** to shape the result. Dither at 0% uses a

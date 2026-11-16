@@ -31,6 +31,11 @@
     .return offset >= 63 ? 0 : (floor(offset / 3) & 1) == 0 ? $aa : $55
 }
 
+.function lastSideByte(offset) {
+    // Spare slots start ten lines early, underneath the preceding side strip.
+    .return offset < 30 ? 0 : checkerByte(offset)
+}
+
 BasicUpstart2(start)
 
 start:
@@ -184,11 +189,15 @@ firstBorderStrobe:
                 :setSideY(50)                 // 10 cycles.
                 :waitCycles(26)
             } else .if (raster == 251) {
+                ldy #240
+                sty $d00c                     // Restore slot 6 before its new X match.
+                ldy #$90
+                sty $d010
                 ldy #$ff
-                sty $d01d                     // The new right row is expanded.
+                sty $d01d
                 ldy #80                       // Move after the last bitmap line.
                 sty $d008                     // Sprite 4 returns to X=336.
-                :waitCycles(24)
+                :waitCycles(12)
             } else .if (raster == 280) {
                 :setAllY(8)                   // 34 cycles.
                 :waitCycles(2)
@@ -202,8 +211,10 @@ firstBorderStrobe:
             stx $d016                         // Starts at cycle 11.
             ldy #$f7
             sty $d01d
+            ldy #$e7
+            sty $d017                         // Side sprites now use normal height.
             ldy #88                           // Sprite 4: X=344, high bit stays set.
-            :waitCycles(30)
+            :waitCycles(24)
             sta $d016                         // Narrow at cycle 56.
             sty $d008                         // After the old X=336 match.
         } else .if (raster == 51) {
@@ -213,14 +224,47 @@ firstBorderStrobe:
             sta $cfbe,y
             stx $d016                         // Wide at cycle 60.
         } else .if (raster == 250) {
-            // End the shortened final side tile before reusing all eight slots.
-            :waitCycles(12)                   // Cycles 5..16.
+            // The spare pair's normal-height DMA ends at cycle 16. Its first
+            // ten rows were transparent; the last eleven finish the side.
             ldy #$ff
-            sty $d017                         // After MCBASE ends at cycle 16.
-            ldy #$ef
+            sty $d017                         // Normal-height advance is already set.
+            ldy #$bf
             sty $d01d
-            :waitCycles(22)
+            ldy #192
+            sty $d00a                         // Restore slot 5 after its left pixels.
+            ldy #$10
+            sty screenA + $3fd
+            sty screenA + $3fe
+            sty screenB + $3fd
+            sty screenB + $3fe
+            :waitCycles(6)
             asl $d016                         // Eight DMAs begin at cycle 55.
+        } else .if (raster >= 230 && raster <= 249) {
+            // Slots 5/6 extend the early DMA block: the CPU resumes at 9.
+            .if ((raster & 7) == 3) {
+                // Y stays 88: the indexed dummy read waits from 12 through 55.
+                sta $cfbe,y
+            } else {
+                .if (raster == 240) {
+                    :setAllY(250)
+                    ldy #88
+                    :waitCycles(8)
+                } else .if (raster == 248) {
+                    ldy #$b3
+                    sty $d011
+                    ldy #88
+                    :waitCycles(36)
+                } else {
+                    :waitCycles(44)
+                }
+                sta $d016                     // Narrow at cycle 56.
+            }
+            stx $d016                         // Wide at cycle 60.
+            .if (raster >= 239) {
+                // Slots 3/4 have finished. Use the four free cycles before
+                // slots 5/6 assert BA, so the next row still resumes at 9.
+                :waitCycles(4)
+            }
         } else {
             // Only sprite 3/4 DMA: the next opcode resumes at cycle 5.
             .if ((raster & 7) == 3) {
@@ -231,21 +275,34 @@ firstBorderStrobe:
                 ldy #$e7
                 sty $d01d
                 :waitCycles(42)
-            } else .if (raster == 90 || raster == 132 || raster == 174 || raster == 216) {
+            } else .if (raster == 69 || raster == 90 || raster == 111 || raster == 132 || raster == 153 || raster == 174 || raster == 216) {
                 :setSideY(raster + 2)
                 :waitCycles(38)
-            } else .if (raster == 230) {
-                :setAllY(250)
-                :waitCycles(14)
-            } else .if (raster == 240) {
-                :waitCycles(12)
-                ldy #$e7
-                sty $d017                     // After cycle 16: final tile is 32 lines.
-                :waitCycles(30)
-            } else .if (raster == 248) {
-                ldy #$b3
-                sty $d011                     // Skip both lower-border comparisons.
-                :waitCycles(42)
+            } else .if (raster == 194) {
+                :setSideY(197)                 // Avoid the badline at 195.
+                :waitCycles(38)
+            } else .if (raster == 220) {
+                ldy #$11
+                sty screenA + $3fd
+                sty screenA + $3fe
+                sty screenB + $3fd
+                sty screenB + $3fe
+                ldy #0
+                sty $d00a
+                ldy #88
+                sty $d00c
+                ldy #$d0
+                sty $d010
+                ldy #$87
+                sty $d01d
+                sty $d017
+                :waitCycles(2)
+            } else .if (raster == 222) {
+                ldy #229
+                sty $d00b
+                sty $d00d
+                ldy #88                       // Retain this through both badlines.
+                :waitCycles(36)
             } else {
                 :waitCycles(48)
             }
@@ -288,6 +345,8 @@ screenA:
 * = $4400 "Phase A checker sprite"
 spriteChecker:
     .fill 64, checkerByte(i)
+spriteLastSide:
+    .fill 64, lastSideByte(i)
 * = $6000 "Phase A bitmap"
 bitmapA:
     .fill 8000, image.get(1026 + i)
@@ -299,6 +358,7 @@ screenB:
     .fill 8, $10
 * = $8400 "Phase B checker sprite"
     .fill 64, checkerByte(i)
+    .fill 64, lastSideByte(i)
 * = $a000 "Phase B bitmap"
 bitmapB:
     .fill 8000, image.get(9218 + i)

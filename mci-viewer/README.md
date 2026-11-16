@@ -31,6 +31,29 @@ Each build also writes KickAssembler `.sym`, VICE `.vs`, and a JSON build receip
 Existing artifacts are preserved unless `--force` is supplied. The source MCI
 file remains unchanged.
 
+## Exported side-border sprites
+
+Build a standalone picture from an MCI export and its border-sprite ZIP:
+
+```sh
+rtk proxy python3 mci-viewer/build-prg.py images/borders/Cyberpunk.mci --border-sprites images/borders/Cyberpunk-borders.zip --output images/borders/Cyberpunk.prg
+rtk proxy x64sc -pal -speed 100 +warp +autostart-warp -VICIIborders 0 -autostartprgmode 1 -autostart images/borders/Cyberpunk.prg
+```
+
+This player accepts side-only exports with normal 21-line sprite bands. It
+embeds the supplied bitmap and sprite bytes unchanged, including both MCI
+sprite fields and the second field's one-pixel X offset. The upper and lower
+areas stay blank. The final eleven side rows use the ZIP's padded spare pair.
+
+The build receipt is `Cyberpunk.build.json`, leaving the source project
+`Cyberpunk.json` intact. Add `--force` to replace existing build artifacts.
+
+Verify the exported bytes against completed native PAL fields:
+
+```sh
+rtk proxy python3 mci-viewer/verify-border-assets.py --program images/borders/Cyberpunk.prg --source images/borders/Cyberpunk.mci --border-sprites images/borders/Cyberpunk-borders.zip --frames 16 --output-dir giana/build/cyberpunk-border-check
+```
+
 ## Smooth sine wave on a stock C64
 
 The sine player samples every picture row from a continuous vertical warp. Its

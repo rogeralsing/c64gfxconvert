@@ -396,6 +396,56 @@ test('sprite projects preserve grid geometry and independent shared, sprite, and
   assert.equal(codec.parse(JSON.stringify(fixture())).image.spriteConfig, undefined);
 });
 
+test('projects preserve global border sprite modes and colors without adding settings to legacy documents', () => {
+  for (const borderSprites of [
+    { vertical: { enabled: false, mode: 'hires', colorIndex: 3 },
+      sides: { enabled: false, mode: 'hires', colorIndex: 3 },
+      multicolorIndices: [1, 14] },
+    { vertical: { enabled: true, mode: 'hires', colorIndex: 0 },
+      sides: { enabled: false, mode: 'multicolor', colorIndex: 15 },
+      multicolorIndices: [2, 13] }
+  ]) {
+    const project = fixture();
+    project.image.borderSprites = borderSprites;
+    const saved = JSON.parse(codec.stringify(project));
+    assert.deepEqual(saved.image, project.image);
+    const loaded = codec.parse(JSON.stringify(saved));
+    loaded.image.borderSprites.vertical.enabled = !borderSprites.vertical.enabled;
+    loaded.image.borderSprites.sides.colorIndex = 1;
+    loaded.image.borderSprites.multicolorIndices[0] = 7;
+    assert.deepEqual(saved.image.borderSprites, borderSprites);
+  }
+  assert.equal(Object.hasOwn(codec.parse(JSON.stringify(fixture())).image, 'borderSprites'), false);
+});
+
+test('project import rejects incomplete border sprite settings and invalid modes, flags, or colors', () => {
+  for (const change of [
+    image => { image.borderSprites = null; },
+    image => { image.borderSprites = []; },
+    image => { delete image.borderSprites.vertical; },
+    image => { image.borderSprites.sides = null; },
+    image => { image.borderSprites.vertical.mode = 'bitmap'; },
+    image => { image.borderSprites.sides.mode = 'Hires'; },
+    image => { image.borderSprites.vertical.enabled = 1; },
+    image => { image.borderSprites.sides.enabled = 'false'; },
+    image => { image.borderSprites.vertical.colorIndex = -1; },
+    image => { image.borderSprites.sides.colorIndex = 16; },
+    image => { image.borderSprites.multicolorIndices = [1]; },
+    image => { image.borderSprites.multicolorIndices = [1, 2, 3]; },
+    image => { image.borderSprites.multicolorIndices = ['1', 2]; },
+    image => { image.borderSprites.multicolorIndices[1] = 16; }
+  ]) {
+    const project = fixture();
+    project.image.borderSprites = {
+      vertical: { enabled: true, mode: 'hires', colorIndex: 3 },
+      sides: { enabled: true, mode: 'multicolor', colorIndex: 15 },
+      multicolorIndices: [1, 14]
+    };
+    change(project.image);
+    assert.throws(() => codec.parse(JSON.stringify(project)), /Invalid C64 project: border sprites/);
+  }
+});
+
 test('sprite project import rejects invalid colors, dimensions, and hardware sprite budgets', () => {
   for (const change of [
     config => { config.columns = 0; },

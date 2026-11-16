@@ -56,6 +56,16 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         invalid('sprite grids require at most eight sprites and valid C64 colors');
       }
     }
+    const borderSprites = image.borderSprites;
+    if (borderSprites !== undefined) {
+      const group = value => object(value) && typeof value.enabled === 'boolean' &&
+        ['hires', 'multicolor'].includes(value.mode) && colorIndex(value.colorIndex);
+      if (!object(borderSprites) || !group(borderSprites.vertical) || !group(borderSprites.sides) ||
+          !Array.isArray(borderSprites.multicolorIndices) ||
+          borderSprites.multicolorIndices.length !== 2 || !borderSprites.multicolorIndices.every(colorIndex)) {
+        invalid('border sprites require valid modes, enabled flags and C64 colors');
+      }
+    }
     if (!object(view) || !['unrestricted', 'palette', 'restricted'].includes(view.previewMode) ||
         typeof view.grid !== 'boolean' || typeof view.paused !== 'boolean') {
       invalid('unsupported preview settings');
@@ -181,6 +191,13 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
           multicolorIndices: [...spriteConfig.multicolorIndices],
           spriteColorIndices: [...spriteConfig.spriteColorIndices],
           overlayColorIndices: [...spriteConfig.overlayColorIndices]
+        } }),
+        ...(borderSprites === undefined ? {} : { borderSprites: {
+          vertical: { enabled: borderSprites.vertical.enabled, mode: borderSprites.vertical.mode,
+            colorIndex: borderSprites.vertical.colorIndex },
+          sides: { enabled: borderSprites.sides.enabled, mode: borderSprites.sides.mode,
+            colorIndex: borderSprites.sides.colorIndex },
+          multicolorIndices: [...borderSprites.multicolorIndices]
         } }) },
       view: { previewMode: view.previewMode, grid: view.grid, paused: view.paused },
       activeLayer, layers: restored
