@@ -63,6 +63,11 @@
     }
 }
 
+.macro setSpriteColor(slot, index) {
+    ldy #spriteColors.get(index)
+    sty $d027 + slot
+}
+
 .macro paintRow(raster) {
         .if (raster <= 49 || raster >= 251) {
             // Eight sprite DMAs: the previous read waits until cycle 11.
@@ -76,12 +81,28 @@
                 // Select their second-band pointers before the next fetch.
                 ldy #(raster == 29 ? $78 : $68)
                 sty $d018
-                :waitCycles(30)
+                // The four left sprites have finished their old-row pixels.
+                .var next = raster == 29 ? 8 : 24
+                :setSpriteColor(3, next)
+                :setSpriteColor(0, next + 1)
+                :setSpriteColor(1, next + 2)
+                :setSpriteColor(2, next + 3)
+                :waitCycles(6)
+            } else .if (raster == 30 || raster == 272) {
+                // Right-hand colors change before their new-row X matches.
+                .var next = raster == 30 ? 8 : 24
+                :setSpriteColor(5, next + 4)
+                :setSpriteColor(6, next + 5)
+                :setSpriteColor(7, next + 6)
+                :setSpriteColor(4, next + 7)
+                :waitCycles(12)
             } else .if (raster == 40) {
                 :setSideY(50)                 // 10 cycles.
                 :setBandPointers(0, false)    // The second top matrix is active.
                 :waitCycles(6)
             } else .if (raster == 251) {
+                // Slot 6's final side pixels finished on the previous row.
+                sty $d02d
                 ldy bottomSixXs,x
                 sty $d00c                     // Restore slot 6 before its new X match.
                 ldy #$90
@@ -90,7 +111,7 @@
                 sty $d01d
                 ldy bottomFourXs,x             // Move after the last bitmap line.
                 sty $d008                     // Sprite 4 returns to X=336.
-                :waitCycles(8)
+                :waitCycles(4)
             } else .if (raster == 280) {
                 :setAllY(8)                   // 34 cycles.
                 :waitCycles(2)
@@ -106,15 +127,14 @@
             ldy #$08
             sty $d018
             ldy leftXs,x
-            :waitCycles(4)
             sty $d002                         // Left side moves to slot 1.
             stx $d004                         // X=$58/$59; right side uses slot 2.
             ldy #$94
             sty $d010
+            :setSpriteColor(2, 42)             // Old top slot 2 finished by cycle 38.
             ldy #$f9
             sty $d01d
-            ldy #88
-            :waitCycles(2)
+            ldy #spriteColors.get(32)         // Carries the new left color into row 51.
             sta $d016                         // Narrow at cycle 56.
             stx $d016                         // BA delays this until next row cycle 4.
         } else .if (raster == 155) {
@@ -130,7 +150,9 @@
             sty $d01d
             ldy bottomFiveXs,x
             sty $d00a                         // Restore slot 5 after its left pixels.
-            :waitCycles(22)
+            :setSpriteColor(5, 20)
+            ldy #spriteColors.get(21)         // Preload slot 6's first lower-row color.
+            :waitCycles(14)
             asl $d016                         // Eight DMAs begin at cycle 55.
         } else .if (raster >= 230 && raster <= 249) {
             // Slots 5/6 extend the early DMA block: the CPU resumes at 9.
@@ -160,6 +182,16 @@
                     sty $d011
                     ldy #88
                     :waitCycles(36)
+                } else .if (raster == 242) {
+                    // These six slots are inactive; spare slots 5/6 still draw.
+                    :setSpriteColor(3, 16)
+                    :setSpriteColor(0, 17)
+                    :setSpriteColor(1, 18)
+                    :setSpriteColor(2, 19)
+                    :setSpriteColor(7, 22)
+                    :setSpriteColor(4, 23)
+                    ldy #88
+                    :waitCycles(6)
                 } else {
                     :waitCycles(44)
                 }
@@ -187,8 +219,17 @@
                 ldy #$18
                 :waitCycles(46)
             } else .if (raster == 156) {
+                // The preceding band boundary is a badline. Both colors fit
+                // here before the left sprite starts at X=0.
+                :setSpriteColor(1, 37)
+                :setSpriteColor(2, 47)
                 ldy #88
-                :waitCycles(46)
+                :waitCycles(34)
+            } else .if (raster == 72 || raster == 93 || raster == 114 || raster == 135 || raster == 177 || raster == 198) {
+                .var band = (raster - 51) / 21
+                :setSpriteColor(2, 42 + band)
+                ldy #88
+                :waitCycles(40)
             } else .if (raster == 71 || raster == 92 || raster == 113 || raster == 134 || raster == 176 || raster == 197 || raster == 218) {
                 .var band = (raster - 50) / 21
                 .if (raster == 218) {
@@ -201,7 +242,12 @@
                 } else {
                     :setBandPointers(band, raster > 155)
                 }
-                :waitCycles(28)
+                .if (raster != 218) {
+                    :setSpriteColor(1, 32 + band)
+                    :waitCycles(22)
+                } else {
+                    :waitCycles(28)
+                }
             } else .if (raster == 69 || raster == 90 || raster == 111 || raster == 132 || raster == 153 || raster == 174 || raster == 216) {
                 .if (raster == 216) {
                     // Move the final primary band to early-DMA slots 3/4 so
@@ -221,7 +267,9 @@
                 sty $d008
                 ldy #$e1
                 sty $d01d
-                :waitCycles(34)
+                :setSpriteColor(3, 40)
+                :setSpriteColor(4, 50)
+                :waitCycles(22)
             } else .if (raster == 220) {
                 ldy leftXs,x
                 sty $d00a
@@ -231,7 +279,9 @@
                 sty $d010
                 ldy #$87
                 sty $d01d
-                :waitCycles(20)
+                :setSpriteColor(5, 41)
+                :setSpriteColor(6, 51)
+                :waitCycles(8)
             } else .if (raster == 222) {
                 ldy #229
                 sty $d00b
@@ -341,7 +391,8 @@ start:
         sta $d000 + sprite * 2
         lda #8
         sta $d001 + sprite * 2
-        lda #SPRITE_COLOR
+        .var column = List().add(1, 2, 3, 0, 7, 4, 5, 6).get(sprite)
+        lda #spriteColors.get(column)
         sta $d027 + sprite
     }
     lda #$90
@@ -423,6 +474,10 @@ frameComplete:
     sty $d018
     :setPrimaryRow(0, 7, 0)
     :setBandPointers(5, true)
+    .for (var slot = 0; slot < 8; slot++) {
+        .var column = List().add(1, 2, 3, 0, 7, 4, 5, 6).get(slot)
+        :setSpriteColor(slot, column)
+    }
     ldy phase
     lda wideValues,y
     tax
@@ -430,20 +485,37 @@ frameComplete:
     stx $d016
 
     // Phase preparation runs entirely below the picture, with no sprite DMA.
-    :waitCycles(913)
+    :waitCycles(865)
 firstBorderStrobe:
     asl $d016
 
-    .for (var raster = 9; raster <= 50; raster++) {
+    .for (var raster = 9; raster <= 49; raster++) {
         :paintRow(raster)
     }
+row50:
+    :paintRow(50)
     // Sprite slots 1/2 leave cycles 55/56 free even on a badline. Their late
     // DMA delays the preceding wide write until cycle 4; this row resumes at 5.
-    stx $d016
+    sty $d028                          // Row 50 preloaded the new left sprite color.
 firstSideIndexed:
-    sta $cfbe,y
+    sta $d016 - spriteColors.get(32),y
     stx $d016
-    .for (var raster = 52; raster <= 292; raster++) {
+    .for (var raster = 52; raster <= 209; raster++) {
+        :paintRow(raster)
+    }
+row210:
+    :paintRow(210)
+    .for (var raster = 211; raster <= 219; raster++) {
+        :paintRow(raster)
+    }
+row220:
+    :paintRow(220)
+    .for (var raster = 221; raster <= 249; raster++) {
+        :paintRow(raster)
+    }
+row250:
+    :paintRow(250)
+    .for (var raster = 251; raster <= 292; raster++) {
         :paintRow(raster)
     }
 
@@ -460,12 +532,13 @@ firstSideIndexed:
 
 nmi:
     rti
-.align 8
+.align $100
 bankBits: .byte 2, 0
 fullX:
     .for (var slot = 0; slot < 8; slot++) {
         .byte <fullRowX.get(slot), <(fullRowX.get(slot) + 1)
     }
+.align $80
 sideXValues: .byte 88, 89
 .label sideXs = sideXValues - $58
 leftXValues: .byte 0, 1

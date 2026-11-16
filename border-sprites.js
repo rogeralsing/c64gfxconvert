@@ -8,17 +8,23 @@ function normalizeC64BorderSprites(value) {
     const setting = input[name] ?? {};
     if (!object(setting) || setting.enabled !== undefined && typeof setting.enabled !== 'boolean' ||
         setting.mode !== undefined && !['hires', 'multicolor'].includes(setting.mode) ||
-        setting.colorIndex !== undefined && !color(setting.colorIndex)) {
+        setting.colorIndex !== undefined && !color(setting.colorIndex) ||
+        name === 'vertical' && setting.xExpanded !== undefined && typeof setting.xExpanded !== 'boolean') {
       throw new Error('Border sprite groups require enabled, hires/multicolor, and a C64 color.');
     }
-    return { enabled: setting.enabled ?? false, mode: setting.mode ?? 'hires', colorIndex: setting.colorIndex ?? 3 };
+    return { enabled: setting.enabled ?? false, mode: setting.mode ?? 'hires', colorIndex: setting.colorIndex ?? 3,
+      ...(name === 'vertical' && setting.xExpanded === false ? { xExpanded: false } : {}) };
   };
   if (input.multicolorIndices !== undefined && (!Array.isArray(input.multicolorIndices) ||
         input.multicolorIndices.length !== 2 || !input.multicolorIndices.every(color))) {
     throw new Error('Border sprites require two shared C64 colors.');
   }
+  if (input.optimizeColors !== undefined && typeof input.optimizeColors !== 'boolean') {
+    throw new Error('Border sprite color optimization must be a boolean.');
+  }
   return { vertical: group('vertical'), sides: group('sides'),
-    multicolorIndices: [...(input.multicolorIndices ?? [1, 14])] };
+    multicolorIndices: [...(input.multicolorIndices ?? [1, 14])],
+    ...(input.optimizeColors ? { optimizeColors: true } : {}) };
 }
 
 function getC64BorderLayout(value) {
@@ -30,6 +36,69 @@ function getC64BorderLayout(value) {
     width: 320 + left * 2, height: 200 + top + bottom,
     coreX: left, coreY: top, coreWidth: 320, coreHeight: 200,
     left, right: left, top, bottom };
+}
+
+/** Sample one native sprite region through the document's existing virtual mapper. */
+function prepareC64BorderSpriteRegion(source, palette, config, layout, offsetX, group, indices, cellWidth, virtualOptions, alignment = 0) {
+  const { width, height, coreX, coreY } = layout;
+  const virtualLayers = virtualOptions?.layers ?? [];
+  if (!virtualLayers.some(layer => layer.pattern !== 'off')) return null;
+  const vertical = group === 'top' || group === 'bottom';
+  const gridWidth = vertical ? 384 / cellWidth : 24 / cellWidth;
+  const gridHeight = vertical ? 42 : 200;
+  const stepY = 1;
+  const left = (group === 'right' ? coreX + 320 : 0) + offsetX + alignment;
+  const top = group === 'top' ? -7 : group === 'bottom' ? coreY + 200 : coreY;
+  const clip = { x: left, y: group === 'top' ? 0 : top,
+    width: vertical ? width : 24, height: group === 'top' ? layout.top : group === 'bottom' ? layout.bottom : 200 };
+  const originX = Math.floor((left - coreX) / cellWidth);
+  const originY = Math.floor((top - coreY) / stepY);
+  let mappedAny = false;
+  const layers = virtualLayers.map(layer => {
+    const sampled = new ImageData(gridWidth, gridHeight);
+    for (let y = 0; y < gridHeight; y += 1) {
+      for (let x = 0; x < gridWidth; x += 1) {
+        const x0 = Math.max(0, clip.x, left + x * cellWidth);
+        const x1 = Math.min(width, clip.x + clip.width, left + (x + 1) * cellWidth);
+        const y0 = Math.max(0, clip.y, top + y * stepY);
+        const y1 = Math.min(height, clip.y + clip.height, top + (y + 1) * stepY);
+        let alpha = 0, count = 0;
+        const linear = [0, 0, 0];
+        for (let yy = y0; yy < y1; yy += 1) {
+          for (let xx = x0; xx < x1; xx += 1) {
+            const offset = (yy * width + xx) * 4;
+            const coverage = layer.source.data[offset + 3] / 255;
+            for (let channel = 0; channel < 3; channel += 1) {
+              linear[channel] += srgbToLinear(layer.source.data[offset + channel]) * coverage;
+            }
+            alpha += coverage;
+            count += 1;
+          }
+        }
+        if (alpha > 0) {
+          const offset = (y * gridWidth + x) * 4;
+          for (let channel = 0; channel < 3; channel += 1) {
+            sampled.data[offset + channel] = linearToSrgb(linear[channel] / alpha);
+          }
+          sampled.data[offset + 3] = 255 * alpha / count;
+        }
+      }
+    }
+    const mapped = mapC64VirtualColors(sampled, {
+      virtualPalette: virtualOptions.virtualPalette, virtualColorMode: virtualOptions.virtualColorMode,
+      palette, brightnessBands: virtualOptions.brightnessBands,
+      paletteSettings: layer.paletteSettings, pattern: layer.pattern, dither: layer.dither,
+      allowedColorIndices: indices, originX, originY
+    });
+    mappedAny ||= mapped !== null;
+    return { target: mapped?.target ?? sampled, palette: mapped?.mapping.pixels ?? sampled };
+  });
+  const prepared = mappedAny ? {
+    pixels: compositeC64LayerPixels(layers.map(layer => layer.target), gridWidth, gridHeight),
+    palette: compositeC64LayerPixels(layers.map(layer => layer.palette), gridWidth, gridHeight),
+    left, top, cellWidth, stepY
+  } : null;
+  return prepared;
 }
 
 function convertC64BorderSprites(source, palette, settings, backgroundColorIndex = 0, interlaced = false, virtualOptions) {
@@ -48,6 +117,33 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
   }
   if (!Number.isInteger(backgroundColorIndex) || backgroundColorIndex < 0 || backgroundColorIndex > 15) {
     throw new Error('Border sprites require a valid shared image background color.');
+  }
+  const colorPlan = virtualOptions?.colorPlan;
+  const normalVertical = config.vertical.enabled && config.vertical.xExpanded === false;
+  if (normalVertical && colorPlan) {
+    const positions = colorPlan.verticalPositions;
+    const count = 32 + (config.sides.enabled ? 20 : 0);
+    if (!Array.isArray(positions) || positions.length !== 32 || positions.some((x, index) =>
+        !Number.isInteger(x) || x < 0 || x > width - 24 || index % 8 && x < positions[index - 1] + 24) ||
+        colorPlan.spriteCount !== count || colorPlan.phaseCount !== (interlaced ? 2 : 1) ||
+        colorPlan.backgroundColorIndex !== backgroundColorIndex ||
+        !config.optimizeColors && (JSON.stringify(colorPlan.multicolorIndices) !== JSON.stringify(config.multicolorIndices) ||
+          !Array.isArray(colorPlan.colorIndices) || colorPlan.colorIndices.length !== count ||
+          colorPlan.colorIndices.some((color, index) => color !== (index < 32 ? config.vertical : config.sides).colorIndex))) {
+      throw new Error('Normal vertical sprites require a matching nonoverlapping placement plan.');
+    }
+  }
+  if (config.optimizeColors) {
+    const count = (config.vertical.enabled ? 32 : 0) + (config.sides.enabled ? 20 : 0);
+    const color = value => Number.isInteger(value) && value >= 0 && value < 16;
+    if (!colorPlan || !Array.isArray(colorPlan.multicolorIndices) || colorPlan.multicolorIndices.length !== 2 ||
+        !colorPlan.multicolorIndices.every(color) || !Array.isArray(colorPlan.colorIndices) ||
+        colorPlan.colorIndices.length !== count || !colorPlan.colorIndices.every(color) ||
+        colorPlan.spriteCount !== count || colorPlan.phaseCount !== (interlaced ? 2 : 1) ||
+        colorPlan.backgroundColorIndex !== backgroundColorIndex) {
+      throw new Error('Optimized border colors require a completed color plan matching the current image.');
+    }
+    config.multicolorIndices = [...colorPlan.multicolorIndices];
   }
   const background = palette[backgroundColorIndex].rgb;
   const labs = palette.map(entry => rgbToOklab(...entry.rgb));
@@ -83,67 +179,15 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
     const regionTargets = new Map();
     let hasVirtualMapping = false;
 
-    function regionTarget(group, indices, cellWidth) {
-      if (regionTargets.has(group)) return regionTargets.get(group);
-      if (!virtualLayers.some(layer => layer.pattern !== 'off')) return null;
-      const vertical = group === 'top' || group === 'bottom';
-      const gridWidth = vertical ? 384 / cellWidth : 24 / cellWidth;
-      const gridHeight = vertical ? 42 : 200;
-      const stepY = 1;
-      const left = (group === 'right' ? coreX + 320 : 0) + offsetX;
-      const top = group === 'top' ? -7 : group === 'bottom' ? coreY + 200 : coreY;
-      const clip = { x: left, y: group === 'top' ? 0 : top,
-        width: vertical ? width : 24, height: group === 'top' ? layout.top : group === 'bottom' ? layout.bottom : 200 };
-      const originX = Math.floor((left - coreX) / cellWidth);
-      const originY = Math.floor((top - coreY) / stepY);
-      let mappedAny = false;
-      const layers = virtualLayers.map(layer => {
-        const sampled = new ImageData(gridWidth, gridHeight);
-        for (let y = 0; y < gridHeight; y += 1) {
-          for (let x = 0; x < gridWidth; x += 1) {
-            const x0 = Math.max(0, clip.x, left + x * cellWidth);
-            const x1 = Math.min(width, clip.x + clip.width, left + (x + 1) * cellWidth);
-            const y0 = Math.max(0, clip.y, top + y * stepY);
-            const y1 = Math.min(height, clip.y + clip.height, top + (y + 1) * stepY);
-            let alpha = 0, count = 0;
-            const linear = [0, 0, 0];
-            for (let yy = y0; yy < y1; yy += 1) {
-              for (let xx = x0; xx < x1; xx += 1) {
-                const offset = (yy * width + xx) * 4;
-                const coverage = layer.source.data[offset + 3] / 255;
-                for (let channel = 0; channel < 3; channel += 1) {
-                  linear[channel] += srgbToLinear(layer.source.data[offset + channel]) * coverage;
-                }
-                alpha += coverage;
-                count += 1;
-              }
-            }
-            if (alpha > 0) {
-              const offset = (y * gridWidth + x) * 4;
-              for (let channel = 0; channel < 3; channel += 1) {
-                sampled.data[offset + channel] = linearToSrgb(linear[channel] / alpha);
-              }
-              sampled.data[offset + 3] = 255 * alpha / count;
-            }
-          }
-        }
-        const mapped = mapC64VirtualColors(sampled, {
-          virtualPalette: virtualOptions.virtualPalette, virtualColorMode: virtualOptions.virtualColorMode,
-          palette, brightnessBands: virtualOptions.brightnessBands,
-          paletteSettings: layer.paletteSettings, pattern: layer.pattern, dither: layer.dither,
-          allowedColorIndices: indices, originX, originY
-        });
-        mappedAny ||= mapped !== null;
-        return { target: mapped?.target ?? sampled, palette: mapped?.mapping.pixels ?? sampled };
-      });
-      const prepared = mappedAny ? {
-        pixels: compositeC64LayerPixels(layers.map(layer => layer.target), gridWidth, gridHeight),
-        palette: compositeC64LayerPixels(layers.map(layer => layer.palette), gridWidth, gridHeight),
-        left, top, cellWidth, stepY
-      } : null;
-      hasVirtualMapping ||= mappedAny;
-      regionTargets.set(group, prepared);
-      return prepared;
+    function regionTarget(group, indices, cellWidth, alignment) {
+      const key = `${group}:${indices.join(',')}:${cellWidth}:${alignment}`;
+      if (!regionTargets.has(key)) {
+        const prepared = prepareC64BorderSpriteRegion(source, palette, config, layout,
+          offsetX, group, indices, cellWidth, virtualOptions, alignment);
+        hasVirtualMapping ||= prepared !== null;
+        regionTargets.set(key, prepared);
+      }
+      return regionTargets.get(key);
     }
 
     function addSprite(group, band, hardwareSlot, x, y, clip) {
@@ -151,24 +195,26 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
       clip = { ...clip, x: clip.x + offsetX };
       const vertical = group === 'top' || group === 'bottom';
       const setting = vertical ? config.vertical : config.sides;
+      const colorIndex = config.optimizeColors ? colorPlan.colorIndices[sprites.length] : setting.colorIndex;
       const multicolor = setting.mode === 'multicolor';
-      const xExpanded = vertical;
+      const xExpanded = vertical && config.vertical.xExpanded !== false;
       const rowHeights = Array(21).fill(1);
       const vicY = y + 50 - coreY;
       const sprite = { index: sprites.length, group, band, hardwareSlot, x, y,
         vicX: x + 24 - coreX, vicY,
         ...(vertical ? { vicYRegister: vicY & 0xff } : {}),
-        mode: setting.mode, multicolor, colorIndex: setting.colorIndex,
-        xExpanded, yExpanded: false, displayWidth: vertical ? 48 : 24,
+        mode: setting.mode, multicolor, colorIndex,
+        xExpanded, yExpanded: false, displayWidth: xExpanded ? 48 : 24,
         displayHeight: rowHeights.reduce((sum, value) => sum + value, 0), rowHeights, clip: { ...clip },
         data: new Uint8Array(64) };
       // Native multicolor sprite codes: transparent, $D025, individual, $D026.
       const indices = multicolor
-        ? [backgroundColorIndex, config.multicolorIndices[0], setting.colorIndex, config.multicolorIndices[1]]
-        : [backgroundColorIndex, setting.colorIndex];
+        ? [backgroundColorIndex, config.multicolorIndices[0], colorIndex, config.multicolorIndices[1]]
+        : [backgroundColorIndex, colorIndex];
       const cellWidth = (multicolor ? 2 : 1) * (xExpanded ? 2 : 1);
       const cells = multicolor ? 12 : 24;
-      const prepared = regionTarget(group, indices, cellWidth);
+      const prepared = regionTarget(group, indices, cellWidth,
+        normalVertical && vertical ? (x - offsetX) % cellWidth : 0);
       let rowY = y;
       for (let row = 0; row < 21; row += 1) {
         for (let column = 0; column < cells; column += 1) {
@@ -227,7 +273,9 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
         const clip = { x: 0, y: group === 'top' ? 0 : coreY + 200,
           width, height: group === 'top' ? layout.top : layout.bottom };
         for (let band = 0; band < 2; band += 1) {
-          slots.forEach((slot, column) => addSprite(group, band, slot, column * 48, y + band * 21, clip));
+          slots.forEach((slot, column) => addSprite(group, band, slot,
+            normalVertical ? colorPlan?.verticalPositions[sprites.length] ?? Math.round(column * (width - 24) / 7)
+              : column * 48, y + band * 21, clip));
         }
       }
     }
@@ -246,6 +294,7 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
       }
     }
     return { config, backgroundColorIndex, layout, width, height, pixels, opaqueMask, sprites,
+      ...(config.optimizeColors || normalVertical && colorPlan ? { colorPlan } : {}),
       ...(hasVirtualMapping ? { palettePixels } : {}) };
   }
   const first = fitFrame(0);

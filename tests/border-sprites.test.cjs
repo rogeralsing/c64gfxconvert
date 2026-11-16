@@ -220,7 +220,7 @@ test('settings default to off, copy shared colors, and reject malformed source o
   assert.equal(config.multicolorIndices[0], 5);
   assert.equal(config.vertical.enabled, true);
   for (const malformed of [
-    { vertical: { enabled: 'true' } }, { sides: { mode: 'overlay' } },
+    { vertical: { enabled: 'true' } }, { sides: { mode: 'overlay' } }, { optimizeColors: 'true' },
     { sides: { colorIndex: 16 } }, { multicolorIndices: [1] }, { multicolorIndices: [1, -1] }
   ]) assert.throws(() => normalizeC64BorderSprites(malformed), /Border sprite/);
   assert.throws(() => convertC64BorderSprites(new ImageData(320, 200), palette, config), /physical-pixel source/);

@@ -18,6 +18,10 @@ runnable PRG, actual VICE audio and measured CPU deadlines.
 ## Run locally
 
 Open `index.html` in a modern browser. No build step or server is required.
+Automatic sprite-color and normal-width placement searches use a background
+worker and require HTTP(S).
+Use the hosted converter or serve the folder locally with
+`rtk proxy python3 -m http.server 8768` and open `http://127.0.0.1:8768/`.
 
 Choose **Tiles** in the Layers toolbar to add a tile marker layer. Click an
 8 × 8 character tile to switch its marker on or off; drag to paint that same
@@ -69,6 +73,12 @@ horizontal interlace pattern at spacing 2.
 | **NUFLI** | 320 × 200, square pixels | A hires bitmap with 8 × 2 color cells and a sprite underlay for additional color choices. |
 
 Virtual colors are a separate layer setting: **Off**, **Lines**, or **Checkers**.
+The **C64 Palette** tab shows the whole image at full physical resolution,
+including enabled borders. Each layer maps to its virtual colors before any
+bitmap, character or sprite limits apply. Hardware conversion uses this mapped
+image; changing sprite colors or sprite resolution leaves the palette view
+unchanged.
+
 New documents start with **PEPTOette_a**, **Talent**, and **Checkers**. New image
 layers enable black and white solid entries and all mixed colors; the other
 14 solid entries start disabled. Opening a project restores its saved settings.
@@ -168,8 +178,8 @@ and VIC mode settings. It contains raw data without load addresses or a player.
 Projects preserve shared colors, tile similarity, source layers, and conversion
 settings. `screen.bin` places the glyphs in row-major order, and `color-ram.bin`
 stores each position's foreground and hires/multicolor flag.
-Source adjustments and per-layer dithering remain available; virtual colors and
-line-end dithering do not apply to charset conversion.
+Source adjustments, virtual colors and per-layer dithering apply before charset
+conversion fits the mapped image into its shared colors and character patterns.
 
 For standalone sprites, choose **Multicolor Sprites** or **Multicolor + Hires
 Sprites**. Set **Sprite grid · columns × rows** to a layout such as 1 × 1,
@@ -180,8 +190,8 @@ four hires overlays. Switching to overlays reduces an oversized grid to 2 × 2.
 Choose the background and two shared multicolors, then use **Edit sprite colors**
 to choose each cell's multicolor sprite color and optional hires overlay color.
 The restricted preview fits only these colors. Source framing, adjustments,
-layers, and per-layer dithering remain available. Virtual colors and line-end
-dithering do not apply to standalone sprites. Overlay mode also shows the
+layers, virtual colors and per-layer dithering remain available. Sprite fitting
+uses the mapped image shown in **C64 Palette**. Overlay mode also shows the
 multicolor and hires layers separately.
 
 **Save sprites** downloads a ZIP containing `sprites.bin` and `manifest.json`.
@@ -204,25 +214,51 @@ sprites also use two shared colors, chosen below the groups. Transparent sprite
 pixels show the existing image **Background color**, shared with the bitmap.
 All color choices follow the selected C64 palette.
 
-Border sprites use each layer's **Talent / Computed**, virtual-color pattern,
-brightness limits, color exclusions and dither settings. Available virtual
-colors are limited to mixtures of the group's background, sprite color and
-shared multicolors. Patterns resolve at the sprite's native pixel size before
-expansion, so multicolor and expanded sprites retain their mixtures too.
-The C64 Palette preview shows the selected virtual RGB values; the restricted
-preview and exported sprite bytes show the resolved native colors. **Off**
-retains the solid-color fit.
+Enable **Automatic sprite colors** to choose one shared multicolor pair and an
+individual foreground for each logical sprite. The search minimizes squared
+Oklab error against the full-resolution mapped image, preserving each layer's virtual-color
+mode, exclusions, lightness limits and dither. Both MCI/IFLI fields use the same
+color plan. The search runs in the background, reports progress and measured
+error reduction, and restarts when source or color settings change. Border ZIP
+export becomes available when the current search finishes. Turning automatic
+colors off restores the manual choices; projects preserve both the mode and
+those manual choices.
+
+Borders share the same full-resolution **Talent / Computed** mapping as the
+bitmap core, including each layer's brightness limits, exclusions and dither.
+The sprite fitter then approximates those mapped colors with mixtures of the
+available background, sprite color and shared multicolors. Patterns resolve at
+the sprite's native pixel size before expansion. Only the restricted preview
+and exported sprite bytes show those hardware limits. **Off** uses the mapped
+solid C64 colors as its fitting source.
 
 The source fits the extended picture: 320 × 272 with vertical borders,
 368 × 200 with side borders, or 368 × 272 with both. The bitmap stays 320 × 200
-inside it. Top and bottom sprites are horizontally expanded, giving two display
-pixels per hires bit or four per multicolor pixel; side sprites use one or two.
+inside it. **Vertical sprite width** defaults to **X-expanded · 48 pixels**,
+giving two display pixels per hires bit or four per multicolor pixel.
+Choose **Normal · 24 pixels, optimized placement** for normal-width sprites:
+one display pixel per hires bit or two per multicolor pixel. Side sprites
+always use normal width.
+
+Normal mode searches the horizontal positions of eight nonoverlapping sprites
+in each top/bottom row. The error includes the background visible in the gaps;
+eight sprites cover 192 pixels per row. Positions can differ between the four
+rows but remain tied between MCI fields, with the usual one-pixel field shift.
+With automatic colors enabled, the search chooses colors and positions jointly.
+With manual colors, it optimizes positions for those colors. The reported error
+reduction compares against evenly spaced normal sprites with the manual colors.
+The search runs in a worker; the border ZIP becomes available when it finishes.
+The palette preview and bitmap conversion keep their existing mapped image.
+
 Each top/bottom border uses two rows of eight normal-height sprites, preserving
 single-line vertical detail. Their 42-line span is clipped to the 35 visible
 top rows and 37 bottom rows. Side sprites also keep their normal 21-pixel height
 and are reused down the raster. A spare pair handles the final eleven visible
 side rows so every slot is free for the bottom border.
 The restricted preview shows the fitted sprite colors and resolution.
+Normal-mode exports include the optimized positions. A raster player must
+schedule the X-coordinate and high-bit register changes between rows; the
+fixed-placement Batman player supports expanded layouts only.
 
 MCI and IFLI also alternate two independently fitted sprite fields. The second
 field shifts every sprite one hires pixel right, synchronized with the bitmap.
@@ -236,6 +272,9 @@ the central bitmap separately with its normal format button.
 Both border groups use 52 native frames (3,328 bytes) per field. MCI and IFLI
 exports include both fields: 104 frames (6,656 bytes), with their phase and
 one-pixel offset recorded in the manifest.
+Automatic exports include the selected shared pair, each sprite's individual
+`colorIndex`, and the measured optimization result. The native player must apply
+those individual colors as it reuses the hardware sprite slots.
 
 For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
 and **Highlight color** from the normal C64 palette. Adjust **Brightness**,
