@@ -1,10 +1,10 @@
 # Giana demo part
 
-Standalone C64 demo showing `giana5` with the original Giana Sisters Levels 1
-and 2 scrolling inside the TV and automatic screen light on the room. After
-Level 2, the room changes to `giana7`. The same game restarts in its marked TV,
-with sprites, rounded corners, perspective and the new room's screen lighting.
-After both levels finish in that room, Spindle loads the full-screen
+Standalone C64 demo showing the original Giana Sisters Level 1 inside the boy's
+TV in `giana5`, with automatic screen light on the room. When Level 1 finishes,
+the room changes to the man in `giana7`, where Level 2 starts in the marked TV.
+Both scenes use sprites, rounded corners, perspective and their own screen lighting.
+After Level 2 finishes, Spindle loads the full-screen
 `giana-man.mci` part. The original music continues through loading and interlace.
 The asset in `assets/giana5.koa` is an unchanged copy of `../images/giana5.koa`.
 `../images/giana5.json` supplies the `GameArea` and `ScreenLight` tile masks.
@@ -28,25 +28,37 @@ Run the resulting `build/giana.d64` in PAL VICE with 1541 emulation:
 ```
 
 `KICKASS`, `CC` and `VICE` can override the executable paths. The disk boots
-automatically, plays both levels in each room, then displays the MCI picture.
+automatically, plays Level 1 with the boy, Level 2 with the man, then the MCI picture.
+
+To run the MCI picture separately, use this command from the repository root:
+
+```sh
+./giana/run-mci-vice.sh
+```
+
+The launcher builds `giana/build/giana-mci.prg` with the original viewer and
+`giana/build/giana-mci-borders.prg` with the border experiment, then starts the
+latter in PAL VICE at 100% speed with warp disabled. This is a silent graphics
+test. All four borders contain cyan checkerboard placeholder sprites; the central
+320×200 MCI picture retains both original fields. Native VICE verification covers
+a 368×272 region, including all four borders, across 16 consecutive PAL fields.
 
 The [complete recording with sound](recordings/giana-complete-mci-30s.mp4)
-runs for 3:14.43 and preserves the version before the opening animation. It
+runs for 3:14.43 and preserves the earlier four-stage version before the opening animation. It
 ends after 30 seconds of the MCI picture. Capture commands
 and timing verification are in [recordings/README.md](recordings/README.md).
 
-Level 1 starts with small Giana in both rooms. She jumps onto the first
+Level 1 starts with small Giana in the boy's room. She jumps onto the first
 platform, strikes the first power-up brick, and collects the released beachball.
 The original electrical flash then transforms her into the familiar punk Giana.
 
 Both stages use the original maps and character graphics at the same reduced
 scale and scroll speed. Level 1 retains its 512-step camera cycle. Level 2
 ends at step 472, when the last map column reaches the right edge of the TV;
-this keeps Giana in front of the original solid end wall. During each change,
-the TV briefly fills with brown while forty incoming columns replace the old
-terrain. The refill runs across PAL frames and skips room-light update frames,
-so music continues at one native tick per frame. Giana and the glass highlight
-return when the complete next stage is ready.
+this keeps Giana in front of the original solid end wall. The change to the man's
+room briefly blanks the display while its picture and Level 2 terrain are prepared
+across PAL frames. Music continues at one native tick per frame. Giana and the
+glass highlight return when the complete next scene is ready.
 
 The picture uses standard multicolor bitmap mode: bitmap at `$2000`, screen
 colors at `$0400`, color RAM at `$D800`, a dark-brown global background, and a
@@ -125,7 +137,7 @@ appear together. The 2,000-byte startup color sources at `$C000..$C7CF` could
 also be reused after initialization.
 
 The second room archive occupies 7,995 bytes at `$E000..$FF3A`. Its 332-byte
-controller starts at `$BD00`. The game layout leaves 1,566 bytes directly available, separate
+controller starts at `$BD00`. The game layout leaves 1,678 bytes directly available, separate
 from the 2,000 bytes of startup colors and internal alignment padding.
 
 ## Level 1 opening animation
@@ -150,7 +162,7 @@ from the actual TV output during the full VICE verification.
 72 bytes of bitmap-patch data. The controller uses `$BE50..$BF29`, and its
 block patcher uses `$9C80..$9CEC`. Source identities and sprite reduction are
 documented in [`assets/intro-SOURCE.md`](assets/intro-SOURCE.md). Native
-verification checks the complete sequence in each room, including platform
+verification checks the complete sequence in the boy's room, including platform
 contact, the upward block strike, ball collection, and the supported flash.
 
 ## Second room and startup
@@ -164,11 +176,11 @@ first room. Marker-layer visibility in the editor does not disable these
 user-selected regions.
 
 Suffix-tag PackBits stores the 8,000 bitmap bytes, 1,000 screen bytes and 500
-packed color-nibble pairs in 7,995 bytes beneath KERNAL. After both stages finish, the demo
+packed color-nibble pairs in 7,995 bytes beneath KERNAL. After Level 1 finishes, the demo
 blanks the display, disables sprites and stops the terrain and lighting jobs.
 It restores 160 output bytes per PAL frame over the existing bitmap, screen
 matrix and Color RAM, expands both color nibbles, then refills forty terrain
-columns across separate frames. Level 1 and its sprites restart when the new
+columns across separate frames. Level 2 and its sprites start when the new
 TV is complete. Music continues once per frame throughout, with no disk access.
 The temporary `$01=$35` mapping keeps SID and Color RAM visible while reading
 the archive; ordinary runtime returns to `$36` before the next music call.
@@ -373,8 +385,8 @@ The player uses the generated tile map rather than running the original game.
 Run native verification after building:
 
 ```sh
-python3 tools/verify-scene.py --frames 8505 --name intro-chain-final
-python3 tools/verify-scene.py --frames 35 --autostart-mode 2 --name intro-startup-final
+python3 tools/verify-scene.py --frames 5205 --name boy-man-chain
+python3 tools/verify-scene.py --frames 35 --autostart-mode 2 --name boy-man-startup
 ```
 
 The first run uses `prepare-music-reference.py` to capture an independent native
@@ -387,12 +399,17 @@ Koala and original character/map decode. It also checks the color-RAM choices
 for all 80 TV cells and the green bush/yellow pipe in the same native frame.
 It checks automatic lighting, all protected color masks, unchanged cells outside
 both regions, all 512 Level 1 scroll positions, the 473 visible Level 2 camera
-positions, four accent phases and both levels in both rooms. It verifies
-the uniform-brown refill frames and continuous native music/light scheduling.
-The opening-animation receipt is `build/intro-chain-final-verification.json`.
-It checks the complete small-Giana sequence independently in both rooms and
-captures every camera step through the opening. The startup receipt is
-`build/intro-startup-final-verification.json`.
+positions, four accent phases and exactly the ordered scene pairs boy/Level 1
+and man/Level 2. It verifies the room refill and continuous native music/light scheduling.
+The scene-order receipt is `build/boy-man-chain-verification.json`.
+It checks the complete small-Giana sequence in the boy's room and captures
+every camera step through the opening. The startup receipt is
+`build/boy-man-startup-verification.json`.
+The man-room Level 2 starts at checkpoint 2,154, after 105 blank PAL frames.
+The MCI handoff follows game frame 4,040, and its first complete field is at
+music tick 4,200. The full pass checks 5,206 music calls, 4,041 game checkpoints,
+1,005 consecutive MCI fields and 116,480 original SID writes, including the
+score loop while the MCI IRQ is active.
 The retained MCI integration receipt is `build/mci-chain-verification.json`, with the game and
 MCI animations in `build/mci-chain.gif` and `build/mci-chain-mci.gif`.
 The disk-start receipt is `build/mci-chain-startup-verification.json`.
@@ -418,7 +435,7 @@ The highlight check reads the approved native art independently and checks
 its hires mode, cyan color, fixed position, immutable data and foreground priority.
 Corner checks cover all eight hardware slots, the static black profile, the
 copied VIC-visible frames and the unchanged underlying scroll pixels.
-The native pass checked 8,506 music calls, 8,065 game checkpoints, 1,293 game
+The retained four-stage native pass checked 8,506 music calls, 8,065 game checkpoints, 1,293 game
 screenshots and 263 consecutive MCI fields with zero pixel differences.
 It covered both full maps in both
 rooms, with 512 Level 1 actor states and 472 Level 2 actor states per room.
@@ -429,7 +446,7 @@ jump/fall states, with no body penetrations, missed landings or midair relaunche
 All 8,506 music calls and 190,321 SID register writes matched the original,
 including the full score loop. The complete SID dump contains no additional
 writes between calls, including no loader mute or volume changes.
-The second room's game first appears at checkpoint 4,086 after 105 blank PAL
+In that four-stage reference, the second room's game first appears at checkpoint 4,086 after 105 blank PAL
 frames. Both stages and all three lighting levels run before the MCI handoff
 after game frame 8,064. Pixels outside the TV follow the original
 room7 bitmap and its 121-cell lighting mask. The compressed archive is
