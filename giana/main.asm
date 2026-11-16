@@ -42,6 +42,18 @@ tinySpriteFrames2:
     .import source "assets/enemies.asm"
 .assert "Extra enemy art stays below the bitmap", * <= $2000, true
 
+* = $9d80 "Original small Giana, electric flash and beachball"
+    .import source "assets/intro-sprites.asm"
+.assert "Opening art fits below terrain", * <= $a000, true
+
+* = $b100 "Opening choreography samples"
+    .import source "assets/intro-motion.asm"
+.assert "Opening samples avoid Level 2 accents", * <= $b200, true
+
+* = $ba00 "Opening bonus block patches"
+    .import source "assets/intro-block.asm"
+.assert "Opening block patches avoid the Level 2 route", * <= $bb00, true
+
 * = $e000 "Packed giana7 room beneath KERNAL"
     .import source "assets/ending.asm"
 .assert "Ending archive leaves hardware vectors free", endingPackedEnd <= $fffa, true
@@ -764,6 +776,10 @@ level2EnemyFrames: .fill 2, $ff
 actorXHigh: .byte $06
 enemyDisplayEnd:
 .assert "Enemy display code fits below terrain", * <= $a000, true
+.assert "Enemy display leaves the opening block patcher free", * <= $9c80, true
+
+* = $9c80 "Opening bonus block patcher"
+    .import source "intro-block.asm"
 
 * = $bb00 "Level 2 Giana route"
 actorPlayerPath2:
@@ -799,6 +815,10 @@ level2Enemy1Frame:
     .import source "ending.asm"
 roomControllerEnd:
 .assert "Ending controller avoids startup colors", * <= SCREEN_DATA, true
+.assert "Room controller leaves the opening choreography free", * <= $be50, true
+
+* = $be50 "Level 1 opening choreography"
+    .import source "intro.asm"
 
 * = $8c00 "Second room screen-light tables"
     .import source "assets/scene7-lighting.asm"

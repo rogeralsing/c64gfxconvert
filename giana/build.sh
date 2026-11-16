@@ -9,6 +9,8 @@ python3 tools/prepare-ending.py
 python3 tools/prepare-mci.py
 python3 tools/prepare-sprites.py
 python3 tools/prepare-sprites.py --level 2
+python3 tools/prepare-intro.py
+python3 tools/prepare-intro-motion.py
 python3 tools/prepare-tv-highlight.py
 python3 tools/prepare-tv-corners.py
 python3 tools/prepare-music.py

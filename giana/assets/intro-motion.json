@@ -1,0 +1,421 @@
+{
+  "format": "giana-level1-opening-motion-v1",
+  "clock": "Recovered actor camera step; four PAL frames per sample",
+  "player_screen_x_mc": 10,
+  "first_platform_world_mc": [
+    80,
+    116
+  ],
+  "first_platform_top_y": 32,
+  "player_screen_x_overrides_mc": {
+    "64": 9,
+    "65": 9,
+    "66": 9,
+    "79": 11,
+    "80": 11,
+    "81": 11
+  },
+  "player_screen_x_override_reason": "The left adjustment at steps64..66 clears the first platform in both held camera phases; the right adjustment at79..81 clears the adjacent hanging brick while striking the power-up block.",
+  "pose_overrides": {
+    "66": {
+      "relative_pose": 2,
+      "reason": "The small walking silhouette clears the first platform edge; the jump pose overlaps one opaque solid pixel."
+    }
+  },
+  "first_bonus_brick_original_chars": {
+    "columns": [
+      46,
+      49
+    ],
+    "rows": [
+      3,
+      5
+    ],
+    "center_character": 242
+  },
+  "first_bonus_brick_reduced_mc": {
+    "x": [
+      92,
+      98
+    ],
+    "y": [
+      10,
+      16
+    ]
+  },
+  "spent_characters": [
+    [
+      76,
+      77,
+      78
+    ],
+    [
+      79,
+      80,
+      81
+    ]
+  ],
+  "constants": {
+    "INTRO_HIT_STEP": 80,
+    "INTRO_SPENT_STEP": 81,
+    "INTRO_BALL_FIRST": 81,
+    "INTRO_BALL_COUNT": 12,
+    "INTRO_ELECTRIC_FIRST": 93,
+    "INTRO_END_STEP": 100,
+    "INTRO_JUMP_FIRST": 78,
+    "INTRO_JUMP_COUNT": 6
+  },
+  "arrays": {
+    "introPose": [
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      2,
+      0,
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      4,
+      4,
+      4,
+      4,
+      4,
+      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      2,
+      0,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "introJumpFoot": [
+      28,
+      25,
+      24,
+      25,
+      27,
+      30
+    ],
+    "introBallX": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      16,
+      15,
+      14,
+      13,
+      12
+    ],
+    "introBallY": [
+      9,
+      7,
+      5,
+      5,
+      5,
+      5,
+      6,
+      8,
+      11,
+      14,
+      18,
+      23
+    ],
+    "introBallRows": [
+      2,
+      4,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6,
+      6
+    ],
+    "introFlashColor": [
+      7,
+      1,
+      3,
+      1
+    ]
+  },
+  "small_height": 8,
+  "electric_height": 10,
+  "ball_height": 6,
+  "ball_top_y_is_projected": true,
+  "jump_feet_are_unprojected": true,
+  "block_bump_camera": 80,
+  "spent_block_camera": 81,
+  "bump_patch": [
+    {
+      "address": 9682,
+      "value": 170,
+      "previous_value": 85,
+      "screen_byte_column": 3,
+      "projected_y": 10
+    },
+    {
+      "address": 9690,
+      "value": 133,
+      "previous_value": 85,
+      "screen_byte_column": 4,
+      "projected_y": 10
+    },
+    {
+      "address": 9683,
+      "value": 174,
+      "previous_value": 170,
+      "screen_byte_column": 3,
+      "projected_y": 11
+    },
+    {
+      "address": 9684,
+      "value": 175,
+      "previous_value": 174,
+      "screen_byte_column": 3,
+      "projected_y": 12
+    },
+    {
+      "address": 9685,
+      "value": 191,
+      "previous_value": 175,
+      "screen_byte_column": 3,
+      "projected_y": 13
+    },
+    {
+      "address": 9686,
+      "value": 170,
+      "previous_value": 191,
+      "screen_byte_column": 3,
+      "projected_y": 14
+    },
+    {
+      "address": 9687,
+      "value": 0,
+      "previous_value": 170,
+      "screen_byte_column": 3,
+      "projected_y": 15
+    },
+    {
+      "address": 9695,
+      "value": 10,
+      "previous_value": 138,
+      "screen_byte_column": 4,
+      "projected_y": 15
+    },
+    {
+      "address": 10000,
+      "value": 85,
+      "previous_value": 0,
+      "screen_byte_column": 3,
+      "projected_y": 16
+    },
+    {
+      "address": 10008,
+      "value": 80,
+      "previous_value": 0,
+      "screen_byte_column": 4,
+      "projected_y": 16
+    }
+  ],
+  "spent_patch": [
+    {
+      "address": 9682,
+      "value": 85,
+      "previous_value": 170,
+      "screen_byte_column": 3,
+      "projected_y": 10
+    },
+    {
+      "address": 9690,
+      "value": 85,
+      "previous_value": 21,
+      "screen_byte_column": 4,
+      "projected_y": 10
+    },
+    {
+      "address": 9675,
+      "value": 85,
+      "previous_value": 86,
+      "screen_byte_column": 2,
+      "projected_y": 11
+    },
+    {
+      "address": 9683,
+      "value": 0,
+      "previous_value": 186,
+      "screen_byte_column": 3,
+      "projected_y": 11
+    },
+    {
+      "address": 9676,
+      "value": 32,
+      "previous_value": 34,
+      "screen_byte_column": 2,
+      "projected_y": 12
+    },
+    {
+      "address": 9684,
+      "value": 0,
+      "previous_value": 190,
+      "screen_byte_column": 3,
+      "projected_y": 12
+    },
+    {
+      "address": 9677,
+      "value": 160,
+      "previous_value": 162,
+      "screen_byte_column": 2,
+      "projected_y": 13
+    },
+    {
+      "address": 9685,
+      "value": 0,
+      "previous_value": 254,
+      "screen_byte_column": 3,
+      "projected_y": 13
+    },
+    {
+      "address": 9678,
+      "value": 0,
+      "previous_value": 2,
+      "screen_byte_column": 2,
+      "projected_y": 14
+    },
+    {
+      "address": 9686,
+      "value": 0,
+      "previous_value": 170,
+      "screen_byte_column": 3,
+      "projected_y": 14
+    },
+    {
+      "address": 9679,
+      "value": 32,
+      "previous_value": 34,
+      "screen_byte_column": 2,
+      "projected_y": 15
+    },
+    {
+      "address": 10000,
+      "value": 0,
+      "previous_value": 85,
+      "screen_byte_column": 3,
+      "projected_y": 16
+    },
+    {
+      "address": 10008,
+      "value": 0,
+      "previous_value": 64,
+      "screen_byte_column": 4,
+      "projected_y": 16
+    },
+    {
+      "address": 9993,
+      "value": 0,
+      "previous_value": 1,
+      "screen_byte_column": 2,
+      "projected_y": 17
+    }
+  ],
+  "motion_bytes": 146,
+  "block_patch_bytes": 72,
+  "source_sha256": {
+    "original-level1-map.bin": "e75d388d6b80e7ec82064fc6a9309c16dadedf34a73425b52e4712be1fe7c99c",
+    "original-charset.bin": "eb453a70a5c3cdf177e19868cdb663b8e0182e90a4368d78b25edbbbe24ea668",
+    "original-char-colors.bin": "74ccc485e71ad8505c1c30932f07f728624f822e9277fecb659f63209287966a",
+    "peptoette-a.vpl": "4a762159d75af98b510d43b709c4a1243f85ad706e594cf4a24fee0165f7b6ed"
+  },
+  "accepted_terrain_codes_checked": 32768,
+  "patch_method": "Original first brick rises one reduced source row, then original used-brick characters replace it. The spent patch compares against the actual seam-aware scroll of the bumped frame, clearing every stale pixel while preserving adjacent art.",
+  "output_sha256": {
+    "intro-motion.asm": "64dcde06071bec1ccd184103c920fe32d921a0c692387099add8d949b4197d49",
+    "intro-block.asm": "ebae8d67b0153ae3de407968fcd5b36e964040428e507516dda3103f894028b2"
+  }
+}

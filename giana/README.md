@@ -31,8 +31,13 @@ Run the resulting `build/giana.d64` in PAL VICE with 1541 emulation:
 automatically, plays both levels in each room, then displays the MCI picture.
 
 The [complete recording with sound](recordings/giana-complete-mci-30s.mp4)
-runs for 3:14.43 and ends after 30 seconds of the MCI picture. Capture commands
+runs for 3:14.43 and preserves the version before the opening animation. It
+ends after 30 seconds of the MCI picture. Capture commands
 and timing verification are in [recordings/README.md](recordings/README.md).
+
+Level 1 starts with small Giana in both rooms. She jumps onto the first
+platform, strikes the first power-up brick, and collects the released beachball.
+The original electrical flash then transforms her into the familiar punk Giana.
 
 Both stages use the original maps and character graphics at the same reduced
 scale and scroll speed. Level 1 retains its 512-step camera cycle. Level 2
@@ -120,8 +125,33 @@ appear together. The 2,000-byte startup color sources at `$C000..$C7CF` could
 also be reused after initialization.
 
 The second room archive occupies 7,995 bytes at `$E000..$FF3A`. Its 332-byte
-controller starts at `$BD00`. The game layout leaves 2,751 bytes directly available, separate
+controller starts at `$BD00`. The game layout leaves 1,566 bytes directly available, separate
 from the 2,000 bytes of startup colors and internal alignment padding.
+
+## Level 1 opening animation
+
+`tools/prepare-intro.py` reduces the original small-Giana, jumping, electrical,
+and beachball graphics into a separate 640-byte source atlas at `$9D80`.
+Two Giana sprite planes retain her clothes and transformation colors. The
+beachball reuses Level 1's spare enemy slot and appears progressively above
+the brick before falling into Giana.
+
+The sequence follows the existing camera clock. Small Giana lands on the
+original first platform and jumps against the first power-up brick at camera
+step 80. The brick rises one pixel, then changes to the original spent-block
+graphic. Source-derived patches scroll with the rest of the bitmap. The ball
+touches Giana at step 92; the electrical flash lasts 28 PAL frames, and punk
+Giana continues along the existing route from step 100.
+
+Watch the [native opening preview](recordings/intro-opening-tv.gif), captured
+from the actual TV output during the full VICE verification.
+
+`tools/prepare-intro-motion.py` generates 146 bytes of choreography tables and
+72 bytes of bitmap-patch data. The controller uses `$BE50..$BF29`, and its
+block patcher uses `$9C80..$9CEC`. Source identities and sprite reduction are
+documented in [`assets/intro-SOURCE.md`](assets/intro-SOURCE.md). Native
+verification checks the complete sequence in each room, including platform
+contact, the upward block strike, ball collection, and the supported flash.
 
 ## Second room and startup
 
@@ -149,7 +179,7 @@ Terrain, actors and the lighting clock retain their separate PAL frame phases.
 
 The build first assembles the internal `build/giana-unpacked.prg`, then
 `tools/build-disk.py` creates `build/giana.d64`. The disk is the runnable
-distribution. Its first Spindle job restores 22 declared runtime ranges, skips
+distribution. Its first Spindle job restores 27 declared runtime ranges, skips
 the loader pages and I/O gap, and enters the game at `$080E`. The build rejects
 any omitted nonzero runtime bytes. `build/disk-manifest.json` records source
 identities, ranges and loader jobs. Runtime symbols remain in `build/main.sym`.
@@ -343,8 +373,8 @@ The player uses the generated tile map rather than running the original game.
 Run native verification after building:
 
 ```sh
-python3 tools/verify-scene.py --frames 8505
-python3 tools/verify-scene.py --frames 35 --autostart-mode 2
+python3 tools/verify-scene.py --frames 8505 --name intro-chain-final
+python3 tools/verify-scene.py --frames 35 --autostart-mode 2 --name intro-startup-final
 ```
 
 The first run uses `prepare-music-reference.py` to capture an independent native
@@ -359,7 +389,11 @@ It checks automatic lighting, all protected color masks, unchanged cells outside
 both regions, all 512 Level 1 scroll positions, the 473 visible Level 2 camera
 positions, four accent phases and both levels in both rooms. It verifies
 the uniform-brown refill frames and continuous native music/light scheduling.
-The current receipt is `build/mci-chain-verification.json`, with the game and
+The opening-animation receipt is `build/intro-chain-final-verification.json`.
+It checks the complete small-Giana sequence independently in both rooms and
+captures every camera step through the opening. The startup receipt is
+`build/intro-startup-final-verification.json`.
+The retained MCI integration receipt is `build/mci-chain-verification.json`, with the game and
 MCI animations in `build/mci-chain.gif` and `build/mci-chain-mci.gif`.
 The disk-start receipt is `build/mci-chain-startup-verification.json`.
 `build/mci-chain-mci-phase-0.png` and `build/mci-chain-mci-phase-1.png` are actual

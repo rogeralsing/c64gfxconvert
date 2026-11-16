@@ -99,6 +99,12 @@ actorPlayerPathFirstRead:
     lda actorPlayerPath,y
 !playerFoot:
     sta actorFoot
+    lda actorStepLo
+    and #3
+    asl
+    sta actorPoseBase
+    jsr updateIntroPlayer
+    lda actorFoot
     cmp #$ff
     beq !hidePlayer+
     jsr projectActorFoot
@@ -119,10 +125,7 @@ actorPlayerPathFirstRead:
     sta actorMask0
     sta actorMask1
 !playerFrame:
-    lda actorStepLo
-    and #3
-    asl
-    sta actorPoseBase
+    lda actorPoseBase
     ldx #0
     jsr copyTinySprite
     lda actorPoseBase
@@ -130,7 +133,10 @@ actorPlayerPathFirstRead:
     adc #1
     ldx #1
     jsr copyTinySprite
-    lda #ACTOR_X_BASE + SPRITE_PLAYER_X_MC * 2
+    lda actorX
+    asl
+    clc
+    adc #ACTOR_X_BASE
     sta $d008
     sta $d00a
     lda actorPlayerY
@@ -210,6 +216,8 @@ actorGroundRead:
     lda #$06
 !enemyXHigh:
     sta $d010
+    jsr updateIntroBlock
+    jsr updateIntroBall
     lda actorEnabled
     sta $d015
     rts
@@ -316,8 +324,10 @@ actorWorkLow: .byte <spriteWork0, <spriteWork1, <spriteWork2, <spriteWork3
 actorWorkHigh: .byte >spriteWork0, >spriteWork1, >spriteWork2, >spriteWork3
 actorFrameLow: .fill SPRITE_FRAME_COUNT, <(tinySpriteFrames + i * 64)
     .fill LEVEL2_ENEMY_FRAME_COUNT, <(extraEnemyFrames + i * 64)
+    .fill INTRO_PLANE_COUNT, <(introSpriteFrames + i * 64)
 actorFrameHigh: .fill SPRITE_FRAME_COUNT, >(tinySpriteFrames + i * 64)
     .fill LEVEL2_ENEMY_FRAME_COUNT, >(extraEnemyFrames + i * 64)
+    .fill INTRO_PLANE_COUNT, >(introSpriteFrames + i * 64)
 actorFrameColor:
     .fill 8, (i & 1) == 0 ? SPRITE_GIANA_COLOR : SPRITE_GIANA_LAYER1_COLOR
     .fill 2, SPRITE_ENEMY_COLOR
@@ -325,7 +335,8 @@ actorFrameColor:
     .fill 4, 1
     .fill 6, 5
     .fill 2, 7
-.assert "Every actor frame has an individual color", * - actorFrameColor, SPRITE_FRAME_COUNT + LEVEL2_ENEMY_FRAME_COUNT
+    .fill INTRO_PLANE_COUNT, INTRO_PLANE_COLORS.get(i)
+.assert "Every actor frame has an individual color", * - actorFrameColor, SPRITE_FRAME_COUNT + LEVEL2_ENEMY_FRAME_COUNT + INTRO_PLANE_COUNT
 
 actorStepLo: .byte 0
 actorStepHi: .byte 0

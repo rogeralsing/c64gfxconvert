@@ -1,0 +1,38 @@
+{
+  "format": "giana-opening-preview-v1",
+  "file": "intro-opening-tv.gif",
+  "sha256": "7689b78458034782f3ec29fd60a72eb531cb09a2642592c2962dc2c2f7715a67",
+  "bytes": 341850,
+  "source_disk_sha256": "6dad3b24397bc12424a484106810642ecec8c4b0bed989706acd8fd3197d86f9",
+  "native_capture": "Actual VICE screenshots from the full native demo verification",
+  "camera_steps": [
+    52,
+    114
+  ],
+  "sample_interval_pal_fields": 4,
+  "native_pal_fps": "13684/273",
+  "frames": 63,
+  "duration_ms": 5030,
+  "size": [
+    480,
+    384
+  ],
+  "native_crop": [
+    216,
+    59,
+    296,
+    123
+  ],
+  "scale": 6,
+  "timing": "Four PAL fields per screenshot, quantized to the GIF format's 10 ms duration units.",
+  "full_demo_validation": {
+    "passed": true,
+    "music_calls": 8506,
+    "game_checkpoints": 8065,
+    "native_screenshots": 1456,
+    "mci_fields": 280,
+    "different_pixels": 0,
+    "sid_writes_matched": 190321,
+    "intro_verified_in_both_rooms": true
+  }
+}
