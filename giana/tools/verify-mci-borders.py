@@ -91,6 +91,8 @@ class Reference:
             self.extended.append(self.extended_image(phase))
         self.checker = bytes((0xaa if line % 2 == 0 else 0x55)
                              for line in range(21) for _ in range(3)) + bytes(1)
+        # The spare pair starts ten lines early behind the preceding side band.
+        self.last_checker = bytes(30) + self.checker[30:]
 
     @staticmethod
     def checker_pixel(x, source_y):
@@ -114,9 +116,9 @@ class Reference:
                             pixels[y][x] = 3
             else:
                 offset = y - 35
-                band = min(4, offset // 42)
-                within = offset - band * 42
-                source_y = within // 2 if band < 4 or within < 22 else within - 11
+                # Nine complete 21-line bands are followed by the spare pair's
+                # final eleven rows. Its first ten rows stay transparent.
+                source_y = offset % 21 if offset < 189 else offset - 179
                 for left in (8, 352):
                     for x in range(left, left + 24):
                         # The right sprite keeps X expansion for the first side
@@ -146,6 +148,7 @@ class Reference:
             assert ram[bitmap:bitmap + 8000] == self.bitmaps[index], (index, "Original bitmap changed")
             assert ram[screen + 0x3f8:screen + 0x400] == bytes([0x10]) * 8
             assert ram[checker:checker + 64] == self.checker, (index, "Checker frame changed")
+            assert ram[checker + 64:checker + 128] == self.last_checker, (index, "Final side frame changed")
         assert ram[0x7fff] == ram[0xbfff] == 0, "Idle-state bitmap bytes must remain zero"
         return {"phase": phase, "vic_bank": bank,
                 "screen": (0x4000, 0x8000)[phase], "bitmap": (0x6000, 0xa000)[phase]}
@@ -167,6 +170,14 @@ def empty_side_rows(image, cyan):
     pixels = image.load()
     return {name: [y for y in range(image.height)
                    if not any(pixels[x, y] == cyan for x in range(left, right))]
+            for name, left, right in (("left", 8, 32), ("right", 352, 376))}
+
+
+def side_row_changes(image):
+    """Report visible vertical detail over the bitmap's 200 side-border rows."""
+    pixels = image.load()
+    return {name: sum(any(pixels[x, y] != pixels[x, y - 1] for x in range(left, right))
+                      for y in range(36, 235))
             for name, left, right in (("left", 8, 32), ("right", 352, 376))}
 
 
@@ -244,7 +255,7 @@ def verify(args):
                 row = {"field": len(fields), "counter": count, "raster": raster, "line_cycle": line_cycle,
                        "cycles": cycles, **layout, "central_pixel_differences": len(central),
                        "extended_pixel_differences": len(extended), "checker_pixels_by_border": counts,
-                       "empty_side_rows": gaps,
+                       "empty_side_rows": gaps, "side_row_changes": side_row_changes(actual),
                        "first_central_differences": central[:12], "first_extended_differences": extended[:12],
                        "actual_rgb_sha256": digest(actual.tobytes())}
                 if len(fields) < 2:

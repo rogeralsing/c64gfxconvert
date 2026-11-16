@@ -18,7 +18,10 @@ function editorFixture(display = { width: 320, height: 200 }) {
   const canvas = new Canvas();
   const layer = { type: 'tile-markers', visible: true, markers: { color: '#ffcc00', tiles: Array(1000).fill(0) } };
   const stack = { layers: [layer], active: () => stack.layers[0] };
-  const editor = context.createC64TileMarkerEditor({ canvas, overlay: {}, stack, getDisplaySize: () => display,
+  const rectangles = [];
+  const overlay = { getContext: () => ({ clearRect() {}, save() {}, restore() {},
+    fillRect(...rectangle) { rectangles.push(rectangle); } }) };
+  const editor = context.createC64TileMarkerEditor({ canvas, overlay, stack, getDisplaySize: () => display,
     onChange() {} });
   function pointer(type, x, y, props = {}) {
     const event = new Event(type, { cancelable: true });
@@ -27,7 +30,7 @@ function editorFixture(display = { width: 320, height: 200 }) {
     canvas.dispatchEvent(event);
     return event;
   }
-  return { canvas, layer, stack, editor, pointer };
+  return { canvas, layer, stack, editor, pointer, overlay, rectangles };
 }
 
 test('drag strokes fill skipped tiles and keep one on/off value when revisiting cells', () => {
@@ -78,4 +81,27 @@ test('tile hit testing stays eight display pixels wide when the preview shows a 
   pointer('pointerup', 17, 9);
   assert.equal(layer.markers.tiles[42], 1);
   assert.equal(layer.markers.tiles.filter(Boolean).length, 1);
+});
+
+test('extended borders stay outside marker hit testing and the overlay follows the bitmap origin', () => {
+  const { layer, pointer, editor, overlay, rectangles } = editorFixture({
+    width: 368, height: 272, coreX: 24, coreY: 35
+  });
+  for (const [x, y] of [[0, 0], [23.5, 36], [25, 34.5], [344, 36], [25, 235]]) {
+    pointer('pointerdown', x, y);
+    pointer('pointerup', x, y);
+  }
+  assert.equal(layer.markers.tiles.some(Boolean), false);
+
+  pointer('pointerdown', 25, 36);
+  pointer('pointerup', 25, 36);
+  pointer('pointerdown', 343, 234);
+  pointer('pointerup', 343, 234);
+  assert.deepEqual(layer.markers.tiles.flatMap((value, index) => value ? [index] : []), [0, 999]);
+
+  editor.render();
+  assert.equal(overlay.width, 368);
+  assert.equal(overlay.height, 272);
+  assert.equal(overlay.hidden, false);
+  assert.deepEqual(rectangles, [[24, 35, 8, 8], [336, 227, 8, 8]]);
 });

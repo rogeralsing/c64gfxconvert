@@ -6,7 +6,7 @@ function createC64TileMarkerEditor({ canvas, overlay, stack, getDisplaySize, onC
   let stroke = null;
 
   function render() {
-    const { width, height } = getDisplaySize();
+    const { width, height, coreX = 0, coreY = 0 } = getDisplaySize();
     if (overlay.width !== width) overlay.width = width;
     if (overlay.height !== height) overlay.height = height;
     const context = overlay.getContext('2d');
@@ -18,7 +18,7 @@ function createC64TileMarkerEditor({ canvas, overlay, stack, getDisplaySize, onC
     for (const layer of layers) {
       context.fillStyle = layer.markers.color;
       layer.markers.tiles.forEach((enabled, index) => {
-        if (enabled) context.fillRect(index % columns * tileSize, Math.floor(index / columns) * tileSize,
+        if (enabled) context.fillRect(coreX + index % columns * tileSize, coreY + Math.floor(index / columns) * tileSize,
           tileSize, tileSize);
       });
     }
@@ -29,10 +29,10 @@ function createC64TileMarkerEditor({ canvas, overlay, stack, getDisplaySize, onC
     const bounds = canvas.getBoundingClientRect();
     if (!bounds.width || !bounds.height || event.clientX < bounds.left || event.clientY < bounds.top ||
         event.clientX >= bounds.right || event.clientY >= bounds.bottom) return null;
-    const { width, height } = getDisplaySize();
-    const x = Math.floor((event.clientX - bounds.left) * width / bounds.width / tileSize);
-    const y = Math.floor((event.clientY - bounds.top) * height / bounds.height / tileSize);
-    return x < columns && y < rows ? { x, y } : null;
+    const { width, height, coreX = 0, coreY = 0 } = getDisplaySize();
+    const x = Math.floor(((event.clientX - bounds.left) * width / bounds.width - coreX) / tileSize);
+    const y = Math.floor(((event.clientY - bounds.top) * height / bounds.height - coreY) / tileSize);
+    return x >= 0 && y >= 0 && x < columns && y < rows ? { x, y } : null;
   }
 
   function finish(event) {

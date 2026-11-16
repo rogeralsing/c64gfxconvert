@@ -4,15 +4,16 @@
 import argparse
 import hashlib
 import json
+import importlib.util
 from pathlib import Path
 import shutil
 import subprocess
 import tempfile
 
 
-def build(source, output, assembler, force=False, wave=False, borders=False):
-    if wave and borders:
-        raise ValueError("Choose either the rubber wave or the open-border test.")
+def build(source, output, assembler, force=False, wave=False, borders=False, border_sprites=None):
+    if sum(bool(value) for value in (wave, borders, border_sprites)) > 1:
+        raise ValueError("Choose one MCI effect or border-sprite asset package.")
     source = source.resolve()
     output = output.resolve()
     if source == output:
@@ -22,21 +23,33 @@ def build(source, output, assembler, force=False, wave=False, borders=False):
         raise ValueError("Expected a 19,434-byte uncompressed True Paint MCI loading at $9c00.")
     if data[1002] > 15 or any(color > 15 for color in data[18434:19434]):
         raise ValueError("MCI background and shared color RAM must use C64 color indices 0–15.")
+    border_assets = None
+    if border_sprites is not None:
+        border_sprites = border_sprites.resolve()
+        spec = importlib.util.spec_from_file_location("mci_border_assets", Path(__file__).with_name("border-assets.py"))
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        border_assets = module.read_border_assets(border_sprites, data[1002])
     targets = [output, output.with_suffix(".sym"), output.with_suffix(".vs"),
-               output.with_suffix(".json")]
+               output.with_suffix(".build.json" if border_assets else ".json")]
     if len(set(targets)) != len(targets):
         raise ValueError("Use a .prg extension for the output.")
     for target in targets:
         if target == source:
             raise ValueError("Build artifacts must not replace the source MCI file.")
+        if border_assets and target in (border_sprites, source.with_suffix(".json")):
+            raise ValueError("Build artifacts must not replace the border ZIP or source project JSON.")
         if target.exists() and not force:
             raise FileExistsError(f"Refusing to replace {target}; use --force to replace build artifacts.")
 
-    player_name = "border-player.asm" if borders else "wave-player.asm" if wave else "player.asm"
+    player_name = "asset-border-player.asm" if border_assets else "border-player.asm" if borders else "wave-player.asm" if wave else "player.asm"
     player = Path(__file__).with_name(player_name)
     with tempfile.TemporaryDirectory(prefix="c64-mci-") as temporary:
         stage = Path(temporary)
         (stage / "image.mci").write_bytes(data)
+        if border_assets:
+            (stage / "sprites.bin").write_bytes(border_assets["data"])
+            (stage / "border-settings.asm").write_text(border_assets["constants"])
         shutil.copyfile(player, stage / "player.asm")
         subprocess.run([str(assembler.expanduser()), "player.asm", "-o", "image.prg",
                         "-odir", str(stage), "-symbolfile", "-vicesymbols"],
@@ -76,6 +89,17 @@ def build(source, output, assembler, force=False, wave=False, borders=False):
                 "extent": "PAL border area; sprite coverage is measured separately in native VICE",
                 "audio": "none; standalone graphics test",
             }
+        if border_assets:
+            receipt["display"].update({"width": 368, "core_x": 24, "side_borders": True,
+                                       "vertical_borders": False})
+            receipt["memory"].update({"sprites_a": "$4400", "sprites_b": "$8400",
+                                      "tail_screen_a": "$4c00", "tail_screen_b": "$8c00"})
+            receipt["border_sprites"] = {"source": str(border_sprites),
+                "source_sha256": border_assets["sha256"],
+                "data_sha256": border_assets["sprite_sha256"],
+                "field_count": 2, "sprites_per_field": 20, "native_bytes": 2560,
+                "phase_b_offset_pixels": 1, "side_height": 21,
+                "settings": border_assets["manifest"]["settings"]}
         payloads = [program, (stage / "player.sym").read_bytes(),
                     (stage / "player.vs").read_bytes(),
                     (json.dumps(receipt, indent=2) + "\n").encode()]
@@ -95,5 +119,6 @@ if __name__ == "__main__":
     effect = parser.add_mutually_exclusive_group()
     effect.add_argument("--wave", action="store_true", help="add a growing vertical rubber wave")
     effect.add_argument("--borders", action="store_true", help="test open PAL borders with checkerboard sprites")
+    effect.add_argument("--border-sprites", type=Path, help="display an exported two-field side-border sprite ZIP")
     args = parser.parse_args()
-    build(args.source, args.output, args.assembler, args.force, args.wave, args.borders)
+    build(args.source, args.output, args.assembler, args.force, args.wave, args.borders, args.border_sprites)
