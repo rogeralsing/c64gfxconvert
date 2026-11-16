@@ -31,6 +31,23 @@ Each build also writes KickAssembler `.sym`, VICE `.vs`, and a JSON build receip
 Existing artifacts are preserved unless `--force` is supplied. The source MCI
 file remains unchanged.
 
+## Open PAL borders
+
+The checker experiment uses two rows of eight normal-height sprites in each
+top/bottom border. X expansion covers the width; Y expansion stays disabled.
+The 42-line spans are clipped to 35 visible rows above and 37 below. Alternating
+single-raster checker rows expose skipped, repeated or mistimed sprite rows.
+
+```sh
+rtk proxy python3 mci-viewer/build-prg.py giana/assets/giana-man.mci --borders --output giana/build/vertical-normal/giana-mci-borders.prg
+rtk proxy python3 giana/tools/verify-mci-borders.py --program giana/build/vertical-normal/giana-mci-borders.prg --frames 16 --output-dir giana/build/vertical-normal/proof
+```
+
+The verifier compares all 384 × 272 captured PAL pixels, checks both original
+MCI fields and their cadence, and requires new vertical detail on every adjacent
+top/bottom row. Sprite pointer tables switch between bands using safe copies at
+`$4c00` and `$8c00`; the original bitmap screen matrix is restored for the core.
+
 ## Exported side-border sprites
 
 Build a standalone picture from an MCI export and its border-sprite ZIP:

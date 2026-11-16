@@ -42,6 +42,8 @@ latter in PAL VICE at 100% speed with warp disabled. This is a silent graphics
 test. All four borders contain cyan checkerboard placeholder sprites; the central
 320×200 MCI picture retains both original fields. Native VICE verification covers
 a 368×272 region, including all four borders, across 16 consecutive PAL fields.
+The top and bottom each use two rows of eight normal-height sprites, keeping
+one-pixel vertical detail without Y expansion. X expansion retains full width.
 The side sprites use normal 21-line height and are reused down the raster. A
 spare pair supplies the last eleven visible rows, with ten transparent leading
 rows, so all slots finish before the lower border restarts.

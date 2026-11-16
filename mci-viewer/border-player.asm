@@ -36,6 +36,11 @@
     .return offset < 30 ? 0 : checkerByte(offset)
 }
 
+.function secondBandByte(offset) {
+    // An odd-height first band ends on $aa; resume its checker on $55.
+    .return offset >= 63 ? 0 : checkerByte(offset) ^ $ff
+}
+
 BasicUpstart2(start)
 
 start:
@@ -100,8 +105,9 @@ start:
     }
     lda #$90
     sta $d010
-    lda #$ff
+    lda #0
     sta $d017
+    lda #$ff
     sta $d01d
     sta $d015
     lda #<irqFirst
@@ -185,7 +191,17 @@ firstBorderStrobe:
         .if (raster <= 49 || raster >= 251) {
             // Eight sprite DMAs: the previous read waits until cycle 11.
             stx $d016                         // Wide again at cycle 14.
-            .if (raster == 40) {
+            .if (raster == 20 || raster == 260) {
+                // Prepare the next normal-height Y match while DMA is active.
+                :setAllY(raster == 20 ? 29 : 15)
+                :waitCycles(2)
+            } else .if (raster == 29 || raster == 271) {
+                // All eight final old-row fetches finished by cycle 10.
+                // Select their second-band pointers before the next fetch.
+                ldy #$38
+                sty $d018
+                :waitCycles(30)
+            } else .if (raster == 40) {
                 :setSideY(50)                 // 10 cycles.
                 :waitCycles(26)
             } else .if (raster == 251) {
@@ -211,8 +227,8 @@ firstBorderStrobe:
             stx $d016                         // Starts at cycle 11.
             ldy #$f7
             sty $d01d
-            ldy #$e7
-            sty $d017                         // Side sprites now use normal height.
+            ldy #$08
+            sty $d018                         // Original bitmap and side pointers.
             ldy #88                           // Sprite 4: X=344, high bit stays set.
             :waitCycles(24)
             sta $d016                         // Narrow at cycle 56.
@@ -226,8 +242,7 @@ firstBorderStrobe:
         } else .if (raster == 250) {
             // The spare pair's normal-height DMA ends at cycle 16. Its first
             // ten rows were transparent; the last eleven finish the side.
-            ldy #$ff
-            sty $d017                         // Normal-height advance is already set.
+            :waitCycles(6)                    // All sprites retain normal height.
             ldy #$bf
             sty $d01d
             ldy #192
@@ -295,8 +310,7 @@ firstBorderStrobe:
                 sty $d010
                 ldy #$87
                 sty $d01d
-                sty $d017
-                :waitCycles(2)
+                :waitCycles(6)
             } else .if (raster == 222) {
                 ldy #229
                 sty $d00b
@@ -311,8 +325,10 @@ firstBorderStrobe:
         }
     }
 
-    // The last expanded row ends at 292:16, so this restore does not stall.
+    // The last normal row ends at 292:16, so this restore does not stall.
     stx $d016
+    ldy #$08
+    sty $d018
     pla
     tay
     pla
@@ -347,6 +363,13 @@ spriteChecker:
     .fill 64, checkerByte(i)
 spriteLastSide:
     .fill 64, lastSideByte(i)
+spriteSecondBand:
+    .fill 64, secondBandByte(i)
+* = $4c00 "Phase A second-band pointers"
+screenSecondA:
+    .fill 1000, image.get(2 + i)
+    .fill 16, 0
+    .fill 8, $12
 * = $6000 "Phase A bitmap"
 bitmapA:
     .fill 8000, image.get(1026 + i)
@@ -359,6 +382,12 @@ screenB:
 * = $8400 "Phase B checker sprite"
     .fill 64, checkerByte(i)
     .fill 64, lastSideByte(i)
+    .fill 64, secondBandByte(i)
+* = $8c00 "Phase B second-band pointers"
+screenSecondB:
+    .fill 1000, image.get(17410 + i)
+    .fill 16, 0
+    .fill 8, $12
 * = $a000 "Phase B bitmap"
 bitmapB:
     .fill 8000, image.get(9218 + i)

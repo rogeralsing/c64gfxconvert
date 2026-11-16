@@ -88,8 +88,8 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
       if (!virtualLayers.some(layer => layer.pattern !== 'off')) return null;
       const vertical = group === 'top' || group === 'bottom';
       const gridWidth = vertical ? 384 / cellWidth : 24 / cellWidth;
-      const gridHeight = vertical ? 21 : 200;
-      const stepY = vertical ? 2 : 1;
+      const gridHeight = vertical ? 42 : 200;
+      const stepY = 1;
       const left = (group === 'right' ? coreX + 320 : 0) + offsetX;
       const top = group === 'top' ? -7 : group === 'bottom' ? coreY + 200 : coreY;
       const clip = { x: left, y: group === 'top' ? 0 : top,
@@ -153,11 +153,13 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
       const setting = vertical ? config.vertical : config.sides;
       const multicolor = setting.mode === 'multicolor';
       const xExpanded = vertical;
-      const rowHeights = Array(21).fill(vertical ? 2 : 1);
+      const rowHeights = Array(21).fill(1);
+      const vicY = y + 50 - coreY;
       const sprite = { index: sprites.length, group, band, hardwareSlot, x, y,
-        vicX: x + 24 - coreX, vicY: y + 50 - coreY,
+        vicX: x + 24 - coreX, vicY,
+        ...(vertical ? { vicYRegister: vicY & 0xff } : {}),
         mode: setting.mode, multicolor, colorIndex: setting.colorIndex,
-        xExpanded, yExpanded: vertical, displayWidth: vertical ? 48 : 24,
+        xExpanded, yExpanded: false, displayWidth: vertical ? 48 : 24,
         displayHeight: rowHeights.reduce((sum, value) => sum + value, 0), rowHeights, clip: { ...clip },
         data: new Uint8Array(64) };
       // Native multicolor sprite codes: transparent, $D025, individual, $D026.
@@ -224,7 +226,9 @@ function convertC64BorderSprites(source, palette, settings, backgroundColorIndex
         const y = group === 'top' ? -7 : coreY + 200;
         const clip = { x: 0, y: group === 'top' ? 0 : coreY + 200,
           width, height: group === 'top' ? layout.top : layout.bottom };
-        slots.forEach((slot, column) => addSprite(group, 0, slot, column * 48, y, clip));
+        for (let band = 0; band < 2; band += 1) {
+          slots.forEach((slot, column) => addSprite(group, band, slot, column * 48, y + band * 21, clip));
+        }
       }
     }
     if (config.sides.enabled) {

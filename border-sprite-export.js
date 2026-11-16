@@ -3,7 +3,7 @@ function encodeC64BorderSpriteZip(result) {
   const config = normalizeC64BorderSprites(result?.config);
   const backgroundColorIndex = result?.backgroundColorIndex;
   const layout = getC64BorderLayout(config);
-  const count = (config.vertical.enabled ? 16 : 0) + (config.sides.enabled ? 20 : 0);
+  const count = (config.vertical.enabled ? 32 : 0) + (config.sides.enabled ? 20 : 0);
   const interlaced = result?.interlaced === true;
   const frames = interlaced ? result.frames : [result];
   if (!count || !Number.isInteger(backgroundColorIndex) || backgroundColorIndex < 0 || backgroundColorIndex > 15 ||
@@ -28,10 +28,11 @@ function encodeC64BorderSpriteZip(result) {
           !ArrayBuffer.isView(sprite.data) || sprite.data.BYTES_PER_ELEMENT !== 1 || sprite.data.length !== 64 || sprite.data[63] !== 0 ||
           !['top', 'bottom', 'left', 'right'].includes(sprite.group) || !group.enabled ||
           sprite.mode !== group.mode || sprite.colorIndex !== group.colorIndex || sprite.multicolor !== (group.mode === 'multicolor') ||
-          sprite.xExpanded !== vertical || sprite.yExpanded !== vertical || sprite.displayWidth !== (vertical ? 48 : 24) ||
+          sprite.xExpanded !== vertical || sprite.yExpanded !== false || sprite.displayWidth !== (vertical ? 48 : 24) ||
           !Number.isInteger(sprite.x) || !Number.isInteger(sprite.y) ||
           sprite.vicX !== sprite.x + 24 - layout.coreX || sprite.vicY !== sprite.y + 50 - layout.coreY ||
-          !Array.isArray(sprite.rowHeights) || sprite.rowHeights.length !== 21 || sprite.rowHeights.some(value => value !== (vertical ? 2 : 1)) ||
+          vertical && (!Number.isInteger(sprite.band) || sprite.band < 0 || sprite.band > 1 || sprite.vicYRegister !== (sprite.vicY & 0xff)) ||
+          !Array.isArray(sprite.rowHeights) || sprite.rowHeights.length !== 21 || sprite.rowHeights.some(value => value !== 1) ||
           sprite.rowHeights.reduce((sum, value) => sum + value, 0) !== sprite.displayHeight ||
           interlaced && (sprite.x !== first.x + phase || sprite.y !== first.y ||
             sprite.clip?.x !== first.clip?.x + phase)) {
@@ -59,10 +60,15 @@ function encodeC64BorderSpriteZip(result) {
     hardware: { videoStandard: 'PAL', programIncluded: false,
       borderOpeningRequired: true, rasterMultiplexingRequired: true, behindBitmapMask: 0,
       sharedMulticolorRegisters: [...config.multicolorIndices], backgroundColorRegister: backgroundColorIndex,
-      spritePositionOrigin: 'VIC register coordinates; viewport positions are also recorded per frame',
+      spritePositionOrigin: config.vertical.enabled
+        ? 'VIC X coordinates and full PAL DMA-start raster; vertical sprites also record the eight-bit vicYRegister value.'
+        : 'VIC register coordinates; viewport positions are also recorded per frame',
       transparency: 'Code zero shows the background beneath the sprite, using $D021 in the open border.',
       sideBandHeight: 21, sideBandCountPerSide: 10,
       maximumSideSpritesAtOnce: config.sides.enabled ? 4 : 0,
+      ...(config.vertical.enabled ? { verticalBandHeight: 21, verticalBandCountPerBorder: 2,
+        maximumVerticalSpritesAtOnce: 8,
+        verticalBandRetrigger: 'Reuse all eight X-expanded, normal-height sprites at PAL rasters 8/29 above and 250/271 below. Prepare Y coordinates and switch data pointers between bands; raster 271 uses Y register 15 after the first lower band has started.' } : {}),
       lastSideBand: 'Spare slots 5 and 6 start ten transparent rows early, followed by eleven visible rows. Their normal 21-line DMA ends at the bitmap boundary before the lower border reuses all slots.',
       clipping: 'Top and bottom extend beyond the viewport. The final side frames have ten transparent leading rows and eleven visible rows within the central bitmap height.' },
     sprites

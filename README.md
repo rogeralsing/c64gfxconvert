@@ -217,9 +217,11 @@ The source fits the extended picture: 320 × 272 with vertical borders,
 368 × 200 with side borders, or 368 × 272 with both. The bitmap stays 320 × 200
 inside it. Top and bottom sprites are horizontally expanded, giving two display
 pixels per hires bit or four per multicolor pixel; side sprites use one or two.
-Side sprites keep their normal 21-pixel height and are reused down the raster,
-preserving single-line vertical detail. A spare pair handles the final eleven
-visible side rows so every slot is free for the bottom border.
+Each top/bottom border uses two rows of eight normal-height sprites, preserving
+single-line vertical detail. Their 42-line span is clipped to the 35 visible
+top rows and 37 bottom rows. Side sprites also keep their normal 21-pixel height
+and are reused down the raster. A spare pair handles the final eleven visible
+side rows so every slot is free for the bottom border.
 The restricted preview shows the fitted sprite colors and resolution.
 
 MCI and IFLI also alternate two independently fitted sprite fields. The second
@@ -231,8 +233,8 @@ one-pixel spill into the right border.
 `sprites.bin` and a `manifest.json` containing colors, PAL positions, expansion,
 and multiplexing metadata. This is a data export without a raster player. Save
 the central bitmap separately with its normal format button.
-Both border groups use 36 native frames (2,304 bytes) per field. MCI and IFLI
-exports include both fields: 72 frames (4,608 bytes), with their phase and
+Both border groups use 52 native frames (3,328 bytes) per field. MCI and IFLI
+exports include both fields: 104 frames (6,656 bytes), with their phase and
 one-pixel offset recorded in the manifest.
 
 For two-color artwork, select **Hires · 2 colors**, then choose **Shadow color**
