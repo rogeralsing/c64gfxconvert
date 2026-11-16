@@ -1,0 +1,304 @@
+{
+  "original_program_sha256": "0f1a720961fa52102fcfd52e46e40df07e5e307328ad087d55cc00506f904880",
+  "source_slices": {
+    "original-intro-small-walk.bin": {
+      "spans": [
+        [
+          41088,
+          41856
+        ]
+      ],
+      "sha256": "169267a5a7cecd5132dd4c509a8c462bbe558208e927d278bdf8a479e1526833"
+    },
+    "original-intro-small-jump.bin": {
+      "spans": [
+        [
+          42624,
+          42816
+        ]
+      ],
+      "sha256": "192d22864c0dd217bfbf8cb801e501c5e5beb25518285a743f805c348dd726b3"
+    },
+    "original-intro-electric.bin": {
+      "spans": [
+        [
+          55104,
+          55296
+        ]
+      ],
+      "sha256": "46e6c9cc8c90f92d2a933f7fe9d5d6915a958bb020c038fabbab4ea7aabf3066"
+    },
+    "original-intro-ball.bin": {
+      "spans": [
+        [
+          60992,
+          61056
+        ],
+        [
+          61440,
+          61504
+        ]
+      ],
+      "sha256": "0832cc04daeff9213d23124e9ec3bcc5a3f442ccd61e9ed528ad85de5377d00d"
+    }
+  },
+  "source_normal_sprite_set": [
+    41088,
+    43648
+  ],
+  "source_punk_sprite_set": [
+    52224,
+    54784
+  ],
+  "source_normal_set_marker_address": 41091,
+  "source_normal_set_marker_value": 3,
+  "source_small_walk_pose_indices": [
+    0,
+    2
+  ],
+  "source_small_walk_pointer_triplets": [
+    [
+      48,
+      49,
+      50
+    ],
+    [
+      54,
+      55,
+      56
+    ]
+  ],
+  "source_small_jump_pointer_triplet": [
+    72,
+    73,
+    74
+  ],
+  "source_small_layer_colors": [
+    7,
+    6,
+    1
+  ],
+  "source_small_layer_multicolor": [
+    true,
+    true,
+    false
+  ],
+  "source_layer_y_offsets": [
+    0,
+    1,
+    2
+  ],
+  "source_electric_pointer_triplet": [
+    93,
+    94,
+    95
+  ],
+  "source_electric_layer_colors": [
+    7,
+    1,
+    7
+  ],
+  "source_electric_layer_multicolor": [
+    false,
+    false,
+    false
+  ],
+  "source_ball_pointers": [
+    185,
+    192
+  ],
+  "source_ball_type": 11,
+  "source_ball_descriptor_address": 12582,
+  "source_first_pickup_spawn_address": 15716,
+  "source_first_pickup_spawn": [
+    48,
+    10,
+    11
+  ],
+  "source_first_platform_character_rectangle": [
+    40,
+    10,
+    58,
+    12
+  ],
+  "source_powerup_brick_character_rectangle": [
+    46,
+    3,
+    49,
+    5
+  ],
+  "source_powerup_marker_character": {
+    "column": 47,
+    "row": 3,
+    "character": 242
+  },
+  "source_used_block_characters": [
+    [
+      76,
+      77,
+      78
+    ],
+    [
+      79,
+      80,
+      81
+    ]
+  ],
+  "shared_multicolors": [
+    10,
+    2
+  ],
+  "plane_individual_colors": [
+    7,
+    6,
+    7,
+    6,
+    7,
+    6,
+    7,
+    1,
+    7,
+    7
+  ],
+  "plane_canvas_heights": [
+    8,
+    8,
+    8,
+    8,
+    8,
+    8,
+    10,
+    10,
+    6,
+    6
+  ],
+  "logical_pose_canvas_heights": [
+    8,
+    8,
+    8,
+    10,
+    6,
+    6
+  ],
+  "format": "24x21 multicolor hardware sprites; code 0 transparent; CPU source planes",
+  "sampling": "Original layers composited in hardware priority order. Area vote four original X pixels per MC pixel; 23 rows into 8 for small Giana and 10 for electric; ball's sixteen nonpadding rows into 6. Opacity threshold 20% for player, 50% for ball.",
+  "small_original_white_approximation": {
+    "1": 10
+  },
+  "plane_bounding_boxes_physical": [
+    [
+      2,
+      0,
+      10,
+      8
+    ],
+    [
+      2,
+      5,
+      10,
+      7
+    ],
+    [
+      2,
+      0,
+      10,
+      8
+    ],
+    [
+      2,
+      6,
+      8,
+      7
+    ],
+    [
+      0,
+      0,
+      12,
+      8
+    ],
+    [
+      2,
+      5,
+      10,
+      7
+    ],
+    [
+      0,
+      0,
+      12,
+      10
+    ],
+    [
+      0,
+      1,
+      12,
+      9
+    ],
+    [
+      0,
+      0,
+      12,
+      6
+    ],
+    [
+      0,
+      0,
+      12,
+      6
+    ]
+  ],
+  "logical_pose_bounding_boxes_physical": [
+    [
+      2,
+      0,
+      10,
+      8
+    ],
+    [
+      2,
+      0,
+      10,
+      8
+    ],
+    [
+      0,
+      0,
+      12,
+      8
+    ],
+    [
+      0,
+      0,
+      12,
+      10
+    ],
+    [
+      0,
+      0,
+      12,
+      6
+    ],
+    [
+      0,
+      0,
+      12,
+      6
+    ]
+  ],
+  "frame_sha256": [
+    "360c7c0a2732162e987548ec4be5d8d1010a3dfda8bd91f76a06287379935dcc",
+    "594da119bafee99cccbf0d3b63d3467e3754c826003191e69bdc4d9235cc2f8a",
+    "c0d1997272374ac359a320f195d3acd3a1f57be90779b65adc7ae9ff0cb8bde7",
+    "c67f6e8b24dfdda35979fac22c56e0ddbf580bb0044d572bb5551f49716444d4",
+    "f3ed1e85421e248921d0d63a46ad75ca2b506f5d29c4a415be43ccf6090d9f9c",
+    "fa7478344d7b98124d0225e19a55da10510192a32f6713151c52b7077b969c7f",
+    "688714d1e063ce14796eb9c6c6750553ff12edf9770c163e8f51daae0199166e",
+    "6c3d3bc55bdca7e7690caae8d39f51a981fadd710e56dcef04f6b40cf47a6473",
+    "21987d3072ea90f7fd4e8f1a0630d615111cd551f29a7dc3c309539d1e4beb9f",
+    "73b26c7c27b22b9cb96ee67f5b0ce412977d2684fe30c946aac33ea0eb131d4f"
+  ],
+  "atlas_sha256": "f2da7b7137fa33bbbea7c2f53afafee091bab589c7119e243a494ac159ad86fa",
+  "atlas_bytes": 640,
+  "plane_count": 10,
+  "decoded_physical_pixels_verified": 5040
+}

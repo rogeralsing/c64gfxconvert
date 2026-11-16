@@ -45,7 +45,13 @@ REGION_SOURCE_ROWS = (
     tuple(range(64)),
 )
 REGION_MASK_ROWS = (0x81, 0x81, 0x01, 0x00)
-SPRITE_MAIN_COLORS = (7, 6) * 4 + (1, 1, 7, 7, 1, 1, 1, 1) + (5,) * 6 + (7, 7)
+INTRO_MAIN_COLORS = (7, 6, 7, 6, 7, 6, 7, 1, 7, 7)
+INTRO_HEIGHTS = (8, 8, 8, 8, 8, 8, 10, 10, 6, 6)
+INTRO_JUMP_FEET = (28, 25, 24, 25, 27, 30)
+INTRO_BALL_X = (11, 12, 13, 14, 15, 16, 17, 16, 15, 14, 13, 12)
+INTRO_BALL_Y = (9, 7, 5, 5, 5, 5, 6, 8, 11, 14, 18, 23)
+SPRITE_MAIN_COLORS = ((7, 6) * 4 + (1, 1, 7, 7, 1, 1, 1, 1) + (5,) * 6 + (7, 7)
+                      + INTRO_MAIN_COLORS)
 ENEMY_TYPES = {0: "bee", 2: "crab", 5: "owl", 7: "slinky"}
 
 
@@ -204,17 +210,21 @@ class SceneReference:
         assert all(len(table) == 512 for table in self.accent_tables)
         self.shared_sprite_atlas = (ROOT / "giana/assets/sprites.bin").read_bytes()
         self.extra_enemy_frames = (ROOT / "giana/assets/level2-enemies.bin").read_bytes()
+        self.intro_planes = (ROOT / "giana/assets/intro-sprites.bin").read_bytes()
         self.level2_player_planes = (ROOT / "giana/assets/level2-sprites.bin").read_bytes() if source_level == 2 else None
         self.sprite_atlas = ((self.level2_player_planes + self.shared_sprite_atlas[512:]
-                              if source_level == 2 else self.shared_sprite_atlas) + self.extra_enemy_frames)
+                              if source_level == 2 else self.shared_sprite_atlas)
+                             + self.extra_enemy_frames + self.intro_planes)
         actor_prefix = "" if source_level == 1 else "level2-"
         self.player_path = (ROOT / f"giana/assets/{actor_prefix}sprite-player-path.bin").read_bytes()
+        self.original_route_support = (json.loads((ROOT / "giana/assets/sprites-import.json").read_text())
+                                       ["motion"]["support_kind_by_step"])
         self.actor_ground = (ROOT / "giana/assets/sprite-ground.bin").read_bytes() if source_level == 1 else None
         self.original_map = (ROOT / f"giana/assets/original-level{source_level}-map.bin").read_bytes()
         if source_level == 2:
             assert self.original_map == self.decode_level2_stream(), "Level2 source map differs from the original block stream"
         self.collision_flags = (ROOT / "giana/assets/original-sprites-collision.bin").read_bytes()
-        assert (len(self.sprite_atlas), len(self.player_path)) == (1536, 512)
+        assert (len(self.sprite_atlas), len(self.player_path)) == (2176, 512)
         assert self.actor_ground is None or len(self.actor_ground) == 256
         assert (len(self.original_map), len(self.collision_flags)) == (5120, 256)
         self.highlight_source_path = ROOT / "giana/assets/tv-highlight-mask.json"
@@ -258,9 +268,9 @@ class SceneReference:
         assert self.shared_sprite_atlas[512:] + self.extra_enemy_frames == self.decode_original_enemy_art(), (
             "Enemy art differs from original native frames")
         self.original_enemies = self.decode_original_enemy_spawns()
-        for frame in range(24):
+        for frame in range(34):
             data = self.sprite_atlas[frame * 64:(frame + 1) * 64]
-            height = self.player_height if frame < 8 else 9
+            height = self.player_height if frame < 8 else 9 if frame < 24 else INTRO_HEIGHTS[frame - 24]
             assert data[63] == 0
             for row in range(21):
                 for pair in range(12):
@@ -271,6 +281,7 @@ class SceneReference:
                         for line in self.palette_path.read_text().splitlines()
                         if line.strip() and not line.lstrip().startswith("#")]
         assert len(self.palette) == 16
+        assert self.intro_planes == self.decode_original_intro_art(), "Intro art differs from original native frames"
         if source_level == 2:
             assert self.level2_player_planes == self.decode_level2_player_art(), "Level2 Giana differs from original area-sampled art"
         self.decode_original_terrain()
@@ -466,6 +477,73 @@ class SceneReference:
     def expected_level2_enemies(self, step):
         return self.enemy_schedules[step]
 
+    def decode_original_intro_art(self):
+        """Composite retained original planes and reduce with integer area weights."""
+        inputs = (
+            ("original-intro-small-walk.bin", "169267a5a7cecd5132dd4c509a8c462bbe558208e927d278bdf8a479e1526833"),
+            ("original-intro-small-jump.bin", "192d22864c0dd217bfbf8cb801e501c5e5beb25518285a743f805c348dd726b3"),
+            ("original-intro-electric.bin", "46e6c9cc8c90f92d2a933f7fe9d5d6915a958bb020c038fabbab4ea7aabf3066"),
+            ("original-intro-ball.bin", "0832cc04daeff9213d23124e9ec3bcc5a3f442ccd61e9ed528ad85de5377d00d"),
+        )
+        sources = []
+        for filename, expected_hash in inputs:
+            data = (ROOT / "giana/assets" / filename).read_bytes()
+            assert digest(data) == expected_hash, (filename, "Original intro source changed")
+            sources.append(data)
+
+        def composite(data, electric=False):
+            image = [[None] * 24 for _ in range(23)]
+            for layer in (2, 1, 0):
+                frame = data[layer * 64:(layer + 1) * 64]
+                for y in range(21):
+                    for x in range(24):
+                        byte = frame[y * 3 + x // 8]
+                        if electric or layer == 2:
+                            color = ((7, 1, 7)[layer] if electric else 1) if byte & (0x80 >> (x % 8)) else None
+                        else:
+                            color = (None, 10, (7, 6)[layer], 2)[(byte >> (6 - 2 * ((x % 8) // 2))) & 3]
+                        if color is not None:
+                            image[y + layer][x] = color
+            return image
+
+        def reduce(image, height, candidates, coverage_denominator, extra_color=None):
+            source_height = len(image)
+            quantized = {color: min(candidates, key=lambda target: sum(
+                (a - b) ** 2 for a, b in zip(self.palette[color], self.palette[target])))
+                for color in range(16)}
+            planes = [bytearray(64) for _ in range(2 if extra_color is not None else 1)]
+            for y in range(height):
+                for x in range(6):
+                    votes = Counter()
+                    total = 0
+                    for source_y in range(source_height):
+                        weight = max(0, min((y + 1) * source_height, (source_y + 1) * height)
+                                     - max(y * source_height, source_y * height))
+                        for source_x in range(x * 4, x * 4 + 4):
+                            total += weight
+                            color = image[source_y][source_x]
+                            if color is not None:
+                                votes[quantized[color]] += weight
+                    if sum(votes.values()) * coverage_denominator < total:
+                        continue
+                    color = max(votes, key=lambda candidate: (votes[candidate], candidate == 7, candidate))
+                    plane, code = (1, 2) if color == extra_color else (0, {10: 1, 7: 2, 2: 3}[color])
+                    planes[plane][y * 3 + x // 4] |= code << (6 - 2 * (x % 4))
+            return b"".join(planes)
+
+        walk, jump, electric, balls = sources
+        result = bytearray()
+        for triplet in (walk[:192], walk[384:576], jump):
+            result.extend(reduce(composite(triplet), 8, (10, 7, 6, 2), 5, 6))
+        result.extend(reduce(composite(electric, True), 10, (7, 1), 5, 1))
+        for offset in (0, 64):
+            frame = balls[offset:offset + 64]
+            image = [[(None, 10, 7, 2)[(frame[y * 3 + x // 8] >> (6 - 2 * ((x % 8) // 2))) & 3]
+                      for x in range(24)] for y in range(21)]
+            assert all(color is None for row in image[:5] for color in row)
+            result.extend(reduce(image[5:], 6, (10, 7, 2), 2))
+        return bytes(result)
+
     def decode_level2_player_art(self):
         """Composite the original three planes, then area-vote them at23/8.
 
@@ -556,26 +634,41 @@ class SceneReference:
                       for color in destinations]
             quantized.append(destinations[errors.index(min(errors))])
         quantized[self.source_colors[0]] = self.terrain_colors[0] if self.source_level == 2 else 14
-        semantic = []
-        for y in range(64):
-            source_y = (10 * y + 5) // 4
-            row = []
-            for x in range(512):
-                source_x = x * 4 + 2
-                character = self.original_map[(source_y // 8) * 256 + x // 2]
-                bits = charset[character * 8 + source_y % 8]
-                attribute = attributes[character]
-                if attribute & 8:
-                    code = (bits >> (6 - 2 * ((source_x % 8) // 2))) & 3
-                    original = (*self.source_colors, attribute & 7)[code]
-                else:
-                    original = attribute if bits & (0x80 >> (source_x % 8)) else self.source_colors[0]
-                row.append(quantized[original])
-            semantic.append(tuple(row))
-        self.semantic_rows = tuple(semantic)
+        def sample(mapping):
+            semantic = []
+            for y in range(64):
+                source_y = (10 * y + 5) // 4
+                row = []
+                for x in range(512):
+                    source_x = x * 4 + 2
+                    character = mapping[(source_y // 8) * 256 + x // 2]
+                    bits = charset[character * 8 + source_y % 8]
+                    attribute = attributes[character]
+                    if attribute & 8:
+                        code = (bits >> (6 - 2 * ((source_x % 8) // 2))) & 3
+                        original = (*self.source_colors, attribute & 7)[code]
+                    else:
+                        original = attribute if bits & (0x80 >> (source_x % 8)) else self.source_colors[0]
+                    row.append(quantized[original])
+                semantic.append(tuple(row))
+            return tuple(semantic)
 
-    def terrain_pixel(self, world_x, source_y):
+        self.semantic_rows = sample(self.original_map)
+        self.spent_block_rows = None
+        if self.source_level == 1:
+            used = bytearray(self.original_map)
+            for row, characters in enumerate(((0x4c, 0x4d, 0x4e), (0x4f, 0x50, 0x51)), 3):
+                used[row * 256 + 46:row * 256 + 49] = bytes(characters)
+            self.spent_block_rows = sample(used)
+
+    def terrain_pixel(self, world_x, source_y, event_step=None):
         color = self.semantic_rows[source_y][world_x]
+        if (self.source_level == 1 and event_step is not None and event_step >= 80
+                and 92 <= world_x < 98 and 9 <= source_y < 16):
+            if event_step == 80:
+                color = self.semantic_rows[source_y + 1][world_x] if source_y < 15 else 14
+            else:
+                color = self.spent_block_rows[source_y][world_x]
         return self.terrain_colors.index(color) if color in self.terrain_colors else 3
 
     @lru_cache(maxsize=4096)
@@ -590,7 +683,7 @@ class SceneReference:
         return flags
 
     @lru_cache(maxsize=1024)
-    def expected_bitmap(self, step):
+    def expected_bitmap(self, step, event_step=None):
         bitmap = bytearray(self.bitmap)
         for y in range(64):
             for byte_x in range(10):
@@ -598,7 +691,7 @@ class SceneReference:
                 for pixel in range(4):
                     world_x = (step + byte_x * 4 + pixel) % 512
                     source_y = REGION_SOURCE_ROWS[REGION_COLUMNS[byte_x]][y]
-                    code = 3 if source_y < 0 else self.terrain_pixel(world_x, source_y)
+                    code = 3 if source_y < 0 else self.terrain_pixel(world_x, source_y, event_step)
                     packed = (packed << 2) | code
                 cell = (y // 8 + 3) * 40 + 23 + byte_x
                 bitmap[cell * 8 + y % 8] = packed
@@ -672,8 +765,26 @@ class SceneReference:
         if step is None:
             step = 0 if frame == 0 else ((frame - 1) // 4) % 512
         foot = self.player_path[step]
+        pose = 2 * (step & 3)
+        height = self.player_height
+        form = "punk"
+        player_x = 10
+        if self.source_level == 1 and step < 100:
+            if step < 93:
+                height, form = 8, "small"
+                pose = 28 if (not self.original_route_support[step] or 78 <= step < 84) else 24 + 2 * (step & 1)
+                if step == 66:
+                    pose = 26
+                if 64 <= step <= 66:
+                    player_x = 9
+                if 79 <= step <= 81:
+                    player_x = 11
+                if 78 <= step < 84:
+                    foot = INTRO_JUMP_FEET[step - 78]
+            else:
+                pose, height, form = 30, 10, "electric"
         player_visible = foot != 255
-        player_y = 74 + self.project_actor_foot(foot, 10) - self.player_height if player_visible else 0
+        player_y = 74 + self.project_actor_foot(foot, player_x) - height if player_visible else 0
         if self.source_level == 1:
             enemy_x = 40 - (step & 63)
             enemy_ground = self.actor_ground[(((step & ~63) + 43) % 512) // 2]
@@ -682,19 +793,32 @@ class SceneReference:
             enemies = ({"x": enemy_x, "y": enemy_y - 74, "frame": 8 + ((step >> 1) & 1) if enemy_visible else 255,
                         "source_entry": None, "type": 5},
                        {"x": 0, "y": 0, "frame": 255, "source_entry": None, "type": None})
+            if 81 <= step <= 92:
+                enemies = (enemies[0], {"x": INTRO_BALL_X[step - 81], "y": INTRO_BALL_Y[step - 81],
+                                       "frame": 32 + (step & 1), "source_entry": None, "type": None})
         else:
             enemies = self.expected_level2_enemies(step)
-        poses = (2 * (step & 3), 2 * (step & 3) + 1, *(enemy["frame"] for enemy in enemies))
-        positions = ((10, player_y), (10, player_y), *((enemy["x"], enemy["y"] + 74) for enemy in enemies))
+        poses = (pose, pose + 1, *(enemy["frame"] for enemy in enemies))
+        positions = ((player_x, player_y), (player_x, player_y), *((enemy["x"], enemy["y"] + 74) for enemy in enemies))
         enabled = (player_visible, player_visible, *(player_visible and enemy["frame"] != 255 for enemy in enemies))
-        buffers = tuple(self.clipped_sprite(pose, position[0], visible)
-                        for pose, position, visible in zip(poses, positions, enabled))
+        buffers = [self.clipped_sprite(pose, position[0], visible)
+                   for pose, position, visible in zip(poses, positions, enabled)]
+        if self.source_level == 1 and step in (81, 82):
+            # Native emergence reveals two source-canvas rows, then four.
+            partial = bytearray(buffers[3])
+            partial[(2 if step == 81 else 4) * 3:] = bytes(64 - (2 if step == 81 else 4) * 3)
+            buffers[3] = bytes(partial)
+        main_colors = [SPRITE_MAIN_COLORS[pose] if pose != 255 else 1 for pose in poses]
+        if form == "electric":
+            main_colors[:2] = ((7, 1, 3, 1)[(step - 93) & 3], 1)
         return {"step": step, "poses": poses, "positions": positions, "visible": enabled,
+                "height": height, "form": form,
+                "pickup_slots": (3,) if self.source_level == 1 and 81 <= step <= 92 else (),
                 "enabled": sum((1 << slot) for slot, visible in enumerate(enabled) if visible),
                 "x_high": 6 | sum(1 << (slot + 4) for slot in (2, 3) if enabled[slot] and positions[slot][0] >= 24),
-                "main_colors": tuple(SPRITE_MAIN_COLORS[pose] if pose != 255 else 1 for pose in poses),
+                "main_colors": tuple(main_colors),
                 "enemy_entries": tuple(enemy["source_entry"] for enemy in enemies),
-                "enemy_types": tuple(enemy["type"] for enemy in enemies), "buffers": buffers}
+                "enemy_types": tuple(enemy["type"] for enemy in enemies), "buffers": tuple(buffers)}
 
     def verify_sprites(self, frame, ram, vic, work_addresses, step=None, hidden=False):
         actors = self.expected_sprites(frame, step)
@@ -704,7 +828,7 @@ class SceneReference:
         assert vic[0x10] & x_high_mask == (6 if hidden else actors["x_high"]), (frame, "sprite X high bits")
         assert all(vic[register] == 0 for register in (0x17, 0x1b, 0x1d)), "Sprites must be foreground and unexpanded"
         assert vic[0x1c] == 0xf0, "Multiplexed corners and highlight must be hires; all four actor planes must be multicolor"
-        assert tuple(vic[register] & 15 for register in range(0x25, 0x2d)) == (10, 2, 0, 0, 0, 3, 7, 6)
+        assert tuple(vic[register] & 15 for register in range(0x25, 0x2b)) == (10, 2, 0, 0, 0, 3)
         assert ram[0x07f8:0x0800] == bytes((8, 9, 11, 0x3d, *(address // 64 for address in work_addresses)))
         assert ram[0x0c00:0x0e80] == self.shared_sprite_atlas, "Immutable original sprite atlas changed"
         if self.source_level == 2:
@@ -763,6 +887,10 @@ class SceneReference:
                 for row in range(21) for pair in range(12)
                 if self.sprite_code(actors["buffers"][slot], pair, row)}
 
+    def hazard_pixels(self, actors):
+        return set().union(*(self.sprite_opaque_pixels(actors, slot) for slot in (2, 3)
+                             if slot not in actors["pickup_slots"]))
+
     def visible_enemy_entries(self, actors):
         """Count an enemy only if an opaque pixel survives sprite priority."""
         covered = set(self.corner_pixels) | set(self.highlight_pixels)
@@ -783,7 +911,7 @@ class SceneReference:
         assert all(vic[register] & 1 == 0 for register in (0x17, 0x1b, 0x1c, 0x1d))
         assert vic[0x27] & 15 == 0
 
-    def rendered_solid(self, camera_step, x_mc, target_y, visible=False):
+    def rendered_solid(self, camera_step, x_mc, target_y, visible=False, event_step=None):
         if not 0 <= x_mc < 40 or not 0 <= target_y < 64:
             return False
         source_y = REGION_SOURCE_ROWS[REGION_COLUMNS[x_mc // 4]][target_y]
@@ -792,7 +920,7 @@ class SceneReference:
         world_x = (camera_step + x_mc) % 512
         character = self.original_map[((10 * source_y + 5) // 32) * 256 + world_x // 2]
         solid = self.collision_flags[character] in (1, 0x80)
-        return solid and (not visible or self.terrain_pixel(world_x, source_y) != self.empty_code)
+        return solid and (not visible or self.terrain_pixel(world_x, source_y, event_step) != self.empty_code)
 
     def player_support(self, camera_step, actors):
         player = self.sprite_opaque_pixels(actors, 0) | self.sprite_opaque_pixels(actors, 1)
@@ -801,14 +929,14 @@ class SceneReference:
         feet = sorted(x for x, y in player if y == bottom)
         foot_y = bottom - 23
         logical_contact = sum(self.rendered_solid(camera_step, x, foot_y) for x in feet)
-        visible_contact = sum(self.rendered_solid(camera_step, x, foot_y, True) for x in feet)
+        visible_contact = sum(self.rendered_solid(camera_step, x, foot_y, True, actors["step"]) for x in feet)
         logical_penetration = sum(self.rendered_solid(camera_step, x, foot_y - 1) for x in feet)
-        visible_penetration = sum(self.rendered_solid(camera_step, x, foot_y - 1, True) for x in feet)
-        visible_body_penetration = sum(self.rendered_solid(camera_step, x, y - 24, True) for x, y in player)
-        enemy = self.sprite_opaque_pixels(actors, 2) | self.sprite_opaque_pixels(actors, 3)
+        visible_penetration = sum(self.rendered_solid(camera_step, x, foot_y - 1, True, actors["step"]) for x in feet)
+        visible_body_penetration = sum(self.rendered_solid(camera_step, x, y - 24, True, actors["step"]) for x, y in player)
+        enemy = self.hazard_pixels(actors)
         enemy_contact = sum((x, bottom + 1) in enemy for x in feet)
         visible_below = [y - foot_y for y in range(max(0, foot_y), 64)
-                         if any(self.rendered_solid(camera_step, x, y, True) for x in feet)]
+                         if any(self.rendered_solid(camera_step, x, y, True, actors["step"]) for x in feet)]
         return {"step": actors["step"], "foot_y": foot_y, "foot_columns": feet,
                 "logical_contact_pixels": logical_contact, "visible_contact_pixels": visible_contact,
                 "logical_penetration_pixels": logical_penetration, "visible_penetration_pixels": visible_penetration,
@@ -821,6 +949,68 @@ class SceneReference:
     def route_support_states(self):
         count = 512 if self.source_level == 1 else 472
         return [self.player_support(step, self.expected_sprites(step * 4 + 1)) for step in range(count)]
+
+    def verify_opening_contract(self, actors_by_step):
+        """Check the visible story against original level geometry and opaque art."""
+        assert self.source_level == 1
+        assert all(step in actors_by_step for step in range(105)), "Opening proof needs every camera state through104"
+        assert actors_by_step[0]["form"] == "small" and actors_by_step[0]["height"] == 8
+        player = {step: self.sprite_opaque_pixels(actors_by_step[step], 0)
+                        | self.sprite_opaque_pixels(actors_by_step[step], 1) for step in range(105)}
+        for step in range(105):
+            for camera in (step, step + 1):
+                support = self.player_support(camera, actors_by_step[step])
+                assert not support["visible_body_penetration_pixels"], (
+                    step, camera, "Opening art enters terrain during its current or held camera phase")
+        platform_contacts = []
+        for step in range(78):
+            support = self.player_support(step, actors_by_step[step])
+            if (support["foot_y"] == 32 and support["visible_contact_pixels"]
+                    and any(80 <= step + x < 116 for x in support["foot_columns"])):
+                platform_contacts.append(step)
+        assert {72, 73, 74, 75, 76, 77} <= set(platform_contacts), "Small Giana did not settle on the first platform"
+
+        top = min(y for _, y in player[80])
+        head_contact = [(x, y) for x, y in player[80]
+                        if y == top and 92 <= 80 + x < 98 and self.rendered_solid(80, x, y - 25, True)]
+        assert top < min(y for _, y in player[79]) and head_contact, "The upward jump missed the first power-up block"
+        ball_steps = [step for step in range(105) if actors_by_step[step]["pickup_slots"]]
+        assert ball_steps == list(range(81, 93)), "The ball must emerge after the block strike and remain until pickup"
+        balls = {step: self.sprite_opaque_pixels(actors_by_step[step], 3) for step in ball_steps}
+        assert all(balls.values()), "The released ball has no opaque pixels"
+        assert max(y for _, y in balls[81]) <= 34, "The ball did not emerge above the struck block"
+        assert min(y for _, y in balls[83]) < min(y for _, y in balls[81]), "The emerging ball never rose"
+        exposed = [max(y for _, y in balls[step]) - min(y for _, y in balls[step]) + 1 for step in (81, 82, 83)]
+        assert exposed == [2, 4, 6], ("The ball did not progressively emerge", exposed)
+        for step in ball_steps:
+            assert balls[step] - player[step] - self.sprite_opaque_pixels(actors_by_step[step], 2), (
+                step, "Released ball is completely hidden by another actor")
+            assert not any(self.rendered_solid(camera, x, y - 24, True, step)
+                           for camera in (step, step + 1) for x, y in balls[step]), (
+                step, "The emerging ball enters rendered terrain")
+        world_xs = [step + actors_by_step[step]["positions"][3][0] for step in ball_steps]
+        assert world_xs == [92, 94, 96, 98, 100, 102, 104, 104, 104, 104, 104, 104]
+        pickup_contacts = [step for step in ball_steps if player[step] & balls[step]]
+        assert pickup_contacts == [92], ("The ball must visibly touch small Giana before disappearing", pickup_contacts)
+        assert actors_by_step[92]["form"] == "small" and not actors_by_step[93]["pickup_slots"]
+        for step in range(93, 100):
+            actors = actors_by_step[step]
+            assert actors["form"] == "electric" and actors["poses"][:2] == (30, 31)
+            assert self.player_support(step, actors)["visible_contact_pixels"], (step, "Electric Giana floats above the platform")
+        assert {actors_by_step[step]["main_colors"][0] for step in range(93, 100)} == {1, 3, 7}
+        for step in range(100, 105):
+            actors = actors_by_step[step]
+            assert actors["form"] == "punk" and actors["height"] == 10
+            assert actors["poses"][:2] == (2 * (step & 3), 2 * (step & 3) + 1)
+            assert actors["main_colors"][:2] == (7, 6) and not actors["pickup_slots"]
+        return {"small_start_step": 0, "settled_first_platform_steps": platform_contacts,
+                "first_powerup_block_head_contact_step": 80,
+                "first_powerup_block_contact_world_columns": sorted(80 + x for x, _ in head_contact),
+                "ball_visible_steps": ball_steps, "ball_emergence_rows": exposed,
+                "ball_world_x_by_visible_step": world_xs, "ball_opaque_pickup_contact_steps": pickup_contacts,
+                "electric_steps": list(range(93, 100)), "punk_start_step": 100,
+                "opening_camera_states_checked": 105,
+                "current_and_held_camera_body_penetrations": 0, "ball_terrain_penetrations": 0}
 
     def route_motion_diagnostics(self, states):
         count = len(states)
@@ -910,7 +1100,7 @@ class SceneReference:
         assert actors["visible"][0] and actors["visible"][1], (step, "Giana disappeared")
         player = self.sprite_opaque_pixels(actors, 0) | self.sprite_opaque_pixels(actors, 1)
         assert player, (step, "Giana has no visible art")
-        enemy = self.sprite_opaque_pixels(actors, 2) | self.sprite_opaque_pixels(actors, 3)
+        enemy = self.hazard_pixels(actors)
         assert not player & enemy, (step, "Opaque Giana/enemy collision", sorted(player & enemy))
         enemy_x = actors["positions"][2][0]
         if self.source_level == 1 and actors["visible"][2] and max(10, enemy_x) <= min(15, enemy_x + 5):
@@ -1071,7 +1261,7 @@ def verify(args):
     ending_reference = RoomArchiveReference()
     mci_reference = MciReference(reference.palette)
     assert args.frames < len(reference.music_reference["calls"]), "Capture the independent original SID reference for this complete frame range"
-    prefix = "mci-chain-startup" if args.autostart_mode == 2 else "mci-chain"
+    prefix = args.name or ("mci-chain-startup" if args.autostart_mode == 2 else "mci-chain")
     output = BUILD / f"{prefix}-check"
     output.mkdir(parents=True, exist_ok=True)
     motions = []
@@ -1087,8 +1277,11 @@ def verify(args):
         assert not motion["midair_relaunch_steps"], (level_reference.source_level, motion["midair_relaunch_steps"])
         assert not motion["upward_acceleration_resets"], (level_reference.source_level, motion["upward_acceleration_resets"])
         assert all(run["rounded_ballistic_apex"] for run in motion["hover_runs"]), (level_reference.source_level, motion["hover_runs"])
+        if level_reference.source_level == 1:
+            level_reference.verify_opening_contract({step: level_reference.expected_sprites(step * 4 + 1)
+                                                     for step in range(105)})
         event_steps.append(set(motion["launch_steps"]) | set(motion["landing_steps"]) | {0, 1, 470, 471})
-    event_steps[0].update(set(range(80, 101)) | {215, 230, 300, 430, 440})
+    event_steps[0].update(set(range(115)) | {215, 230, 300, 430, 440})
     (BUILD / f"{prefix}-motion.json").write_text(json.dumps({"levels": motions}, indent=2) + "\n")
     motion = motions[0]
     event_frames = {2, 225, 544, 1637, 1681, 1761, 1921, 2045, 2049}
@@ -1108,7 +1301,7 @@ def verify(args):
                 "cornerTopRestored", "level2Enemy0X", "level2Enemy0Y", "level2Enemy0Frame",
                 "level2Enemy1X", "level2Enemy1Y", "level2Enemy1Frame", "endingState", "endingPacked", "endingPackedEnd",
                 "beginMciPart", "mciState", "mciLoadStage", "mciMusicFrame", "mciMusicStart", "mciMusicDone",
-                "mciFrameComplete", "mciPhase", "mciFieldCounter", "mciResidentEnd")
+                "mciFrameComplete", "mciPhase", "mciFieldCounter", "mciResidentEnd", "introSpriteFrames")
     assert all(name in labels for name in required), "Build the scene before verifying it"
     work_addresses = tuple(labels[name] for name in ("spriteWork0", "spriteWork1", "spriteWork2", "spriteWork3"))
     assert labels["tinySpriteFrames"] == 0x0c00 and work_addresses == (0x0e80, 0x0ec0, 0x0f00, 0x0f80)
@@ -1208,6 +1401,8 @@ def verify(args):
     room_level_world_columns = [[set(), set()], [set(), set()]]
     room_seen_enemy_entries = [set(), set()]
     room_checked_light_levels = [set(), set()]
+    opening_native_states = [{}, {}]
+    opening_saved_steps = [set(), set()]
     mci_tail = None
     handoff_sample = None
     process = None
@@ -1378,8 +1573,7 @@ def verify(args):
                                                   "room": room + 1, "from": previous_scene[1] + 1, "to": active + 1})
                         previous_scene = scene
                     reference = room_references[room][active]
-                    assert ram[labels["actorPlayerHeight"]] == reference.player_height, (frame, "Active Giana height")
-                    bitmap = reference.expected_bitmap(step % 512)
+                    bitmap = reference.expected_bitmap(step % 512, actual_actor_step if visible else None)
                     if visible or transition == 254:
                         assert ram[0x2000:0x3f40] == bitmap, f"Frame {frame}: Level{active + 1} bitmap differs from original source decode"
                     else:
@@ -1407,6 +1601,8 @@ def verify(args):
                                 address = labels[f"level2Enemy{slot}{channel.capitalize()}"]
                                 assert ram[address:address + len(data)] == data
                         assert ram[0x1a00:0x1c00] == references[1].level2_player_planes
+                        intro_address = labels["introSpriteFrames"]
+                        assert ram[intro_address:intro_address + 640] == reference.intro_planes
                         assert ram[labels["cornerMaskFrames"]:labels["cornerMaskFrames"] + 256] == reference.corner_data
                     monitor.run("bank io")
                     colors = bytes(value & 15 for value in monitor.memory(output / "colors.bin", 0xd800, 0xdbe7))
@@ -1419,6 +1615,8 @@ def verify(args):
                     actor_reference = room_references[room][expected_actor_level]
                     actors = actor_reference.verify_sprites(frame, ram, vic, work_addresses,
                                                             step=expected_actor_step, hidden=not visible)
+                    expected_height = actors["height"] if visible else reference.player_height
+                    assert ram[labels["actorPlayerHeight"]] == expected_height, (frame, "Active Giana height")
                     sprite_pixels = reference.sprite_pixels(actors) if visible else reference.corner_pixels
                     clearance = reference.verify_actor_clearance(actors) if visible else None
                     if visible:
@@ -1431,6 +1629,8 @@ def verify(args):
                         room_level_camera_steps[room][active].add(step)
                         room_level_actor_steps[room][active].add(actors["step"])
                         room_level_world_columns[room][active].update((step + x) % 512 for x in range(40))
+                        if active == 0 and actors["step"] < 105:
+                            opening_native_states[room].setdefault(actors["step"], actors)
                     else:
                         transition_frames.append(frame)
                     if visible and previous_actor_room == room and previous_actor_level == active and previous_actor_step is not None and actors["step"] != previous_actor_step:
@@ -1449,16 +1649,18 @@ def verify(args):
                         owl_clearances.append(gap)
                     seen_sprite_enables.add(vic[0x15])
                     if visible and actors["visible"][0]:
-                        seen_player_poses.add(actors["poses"][0] // 2)
+                        if actors["form"] == "punk":
+                            seen_player_poses.add(actors["poses"][0] // 2)
                     visible_entries = reference.visible_enemy_entries(actors) if visible else set()
                     if visible and active == 1:
                         seen_enemy_entries.update(visible_entries)
                         room_seen_enemy_entries[room].update(visible_entries)
                         maximum_opaque_visible_enemies = max(maximum_opaque_visible_enemies, len(visible_entries))
-                    visible_enemy_count = sum(actors["visible"][slot] for slot in (2, 3)) if visible else 0
+                    visible_enemy_count = sum(actors["visible"][slot] for slot in (2, 3)
+                                              if slot not in actors["pickup_slots"]) if visible else 0
                     maximum_visible_enemies = max(maximum_visible_enemies, visible_enemy_count)
                     for slot in (2, 3):
-                        if not visible or not actors["visible"][slot]:
+                        if not visible or not actors["visible"][slot] or slot in actors["pickup_slots"]:
                             continue
                         seen_enemy_poses.add(actors["poses"][slot])
                         if active == 0:
@@ -1484,6 +1686,8 @@ def verify(args):
                                             and 8 <= actors["positions"][slot][0] <= 25}
                     both_inside = visible and active == 1 and all(actors["visible"][slot] and
                                   0 <= actors["positions"][slot][0] <= 34 for slot in (2, 3))
+                    opening_image_needed = (visible and active == 0 and actors["step"] < 115
+                                            and actors["step"] not in opening_saved_steps[room])
                     # At raster 144 the upper display is current and the lower display
                     # retains the previous frame. Capture only after lighting has
                     # remained stable for a complete visible frame.
@@ -1493,6 +1697,7 @@ def verify(args):
                         frame == args.frames or level not in saved_levels or visible and (room, active) not in saved_source_levels or
                         (visible and active == 1 and bool(visible_entries - captured_enemy_entries)) or
                         (both_inside and not captured_two_enemies) or
+                        opening_image_needed or
                         bool(representative_types - captured_enemy_types))
                     if capture:
                         screenshot = output / f"frame-{frame:04d}.png"
@@ -1534,7 +1739,10 @@ def verify(args):
                                 checked_objects.add(name)
                         screenshots.append({"frame": frame, "room": room + 1, "light": level, "source_level": active + 1,
                                             "camera_step": step, "transition": transition,
+                                            "actor_step": actors["step"], "player_form": actors["form"],
                                             "enemy_entries": sorted(visible_entries)})
+                        if opening_image_needed:
+                            opening_saved_steps[room].add(actors["step"])
                         if visible and active == 1:
                             for entry in visible_entries - captured_enemy_entries:
                                 actual.save(BUILD / f"{prefix}-enemy-{entry}.png")
@@ -1712,6 +1920,15 @@ def verify(args):
                 assert all(columns == set(range(512)) for columns in room_level_world_columns[room]), (room, "Original map columns missing")
                 assert room_seen_enemy_entries[room] == expected_entries, (room, "Original enemy missing")
                 assert room_checked_light_levels[room] == {0, 1, 2}, (room, "Room lighting levels missing")
+        opening_reports = [room_references[room][0].verify_opening_contract(states)
+                           if all(step in states for step in range(105)) else None
+                           for room, states in enumerate(opening_native_states)]
+        assert opening_native_states[0][0]["form"] == "small", "Native startup did not show small Giana"
+        if args.frames >= 425:
+            assert opening_reports[0] is not None, "The first-room opening was not fully verified"
+        if handoff_sample is not None:
+            assert all(opening_reports), "The complete opening must replay in both rooms"
+            assert all(steps == set(range(115)) for steps in opening_saved_steps), "Native opening screenshots must cover both rooms"
         animation[0].save(BUILD / f"{prefix}.gif", save_all=True, append_images=animation[1:],
                           duration=160, loop=0, optimize=False, disposal=1)
         (output / "timing.json").write_text(json.dumps(samples, indent=2) + "\n")
@@ -1723,6 +1940,11 @@ def verify(args):
                        "map_columns_visible_per_level": [len(columns) for columns in level_world_columns],
                        "level_end_camera_steps": [512, 472], "level_transitions": level_changes,
                        "both_stages_in_both_rooms_verified": handoff_sample is not None,
+                       "opening_sequence_verified_per_room": [report is not None for report in opening_reports],
+                       "opening_sequence_per_room": opening_reports,
+                       "opening_original_art_independently_decoded": True,
+                       "opening_sprite_atlas_sha256": digest(reference.intro_planes),
+                       "opening_actor_steps_in_native_screenshots_per_room": [sorted(steps) for steps in opening_saved_steps],
                        "second_room_source_sha256": digest(ending_reference.source),
                        "second_room_packed_sha256": digest(ending_reference.packed),
                        "second_room_packed_bytes": len(ending_reference.packed),
@@ -1859,9 +2081,12 @@ def main():
     parser.add_argument("--vice", help="Path to x64sc; defaults to VICE or PATH")
     parser.add_argument("--frames", type=int, default=8505, help="PAL music-frame endpoint; minimum 35; 8505 covers both rooms and the loaded MCI part")
     parser.add_argument("--autostart-mode", type=int, choices=(1, 2), default=1, help="Use 2 for separately named startup proof; both modes boot the real true-drive demo disk")
+    parser.add_argument("--name", help="Output prefix beneath giana/build; existing default proof names are retained")
     args = parser.parse_args()
     if args.frames < 35:
         parser.error("--frames must be at least 35 to capture every lighting state")
+    if args.name and (Path(args.name).name != args.name or args.name in (".", "..")):
+        parser.error("--name must be a single output name without path separators")
     verify(args)
 
 

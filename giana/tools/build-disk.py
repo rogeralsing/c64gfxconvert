@@ -37,8 +37,11 @@ def runtime_ranges(labels: dict[str, int]) -> list[tuple[int, int]]:
             (0x6000, labels["rendererEnd"]), (0x8600, 0x8c00),
             (0x8c00, labels["scene7LightingEnd"]), (0x9000, 0x9800),
             (0x9800, labels["levelControllerEnd"]), (0x9b40, labels["enemyDisplayEnd"]),
-            (0xa000, 0xb100), (0xb200, 0xba00), (0xbb00, 0xbd00),
-            (0xbd00, labels["roomControllerEnd"]), (0xc000, 0xc7d0),
+            (0x9c80, labels["introBlockCodeEnd"]), (0x9d80, labels["introSpriteFramesEnd"]),
+            (0xa000, 0xb100), (0xb100, labels["introMotionDataEnd"]),
+            (0xb200, 0xba00), (0xba00, labels["introBlockDataEnd"]), (0xbb00, 0xbd00),
+            (0xbd00, labels["roomControllerEnd"]), (0xbe50, labels["introControllerEnd"]),
+            (0xc000, 0xc7d0),
             (0xc800, 0xce00), (0xe000, labels["endingPackedEnd"])]
 
 
