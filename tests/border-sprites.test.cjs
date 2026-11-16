@@ -53,8 +53,8 @@ function decode(result) {
 
 test('each enabled PAL border fills its complete visible area without blank multiplexing rows', () => {
   for (const [vertical, sides, width, height, count] of [
-    [false, false, 320, 200, 0], [true, false, 320, 272, 16],
-    [false, true, 368, 200, 20], [true, true, 368, 272, 36]
+    [false, false, 320, 200, 0], [true, false, 320, 272, 32],
+    [false, true, 368, 200, 20], [true, true, 368, 272, 52]
   ]) {
     const config = settings(vertical, sides);
     const result = convertC64BorderSprites(source(config), palette, config);
@@ -95,13 +95,15 @@ test('packs native multicolor code order and reproduces every fitted border pixe
   const top = result.sprites.find(sprite => sprite.group === 'top' && sprite.x === 0);
   const bottom = result.sprites.find(sprite => sprite.group === 'bottom' && sprite.x === 0);
   const left = result.sprites.find(sprite => sprite.group === 'left' && sprite.band === 0);
-  assert.equal(top.data[9], 0x1b, 'top source row three is partly visible after cropping seven display lines');
+  assert.equal(top.data[21], 0x1b, 'top source row seven is the first visible row after cropping');
   assert.equal(bottom.data[0], 0x1b);
   assert.equal(left.data[0], 0x1b);
   assert.deepEqual(result.pixels.data, decode(result).data);
   for (const group of ['top', 'bottom']) {
-    assert.deepEqual(Array.from(result.sprites.filter(sprite => sprite.group === group), sprite => sprite.hardwareSlot).sort(),
-      [0, 1, 2, 3, 4, 5, 6, 7]);
+    for (const band of [0, 1]) {
+      assert.deepEqual(Array.from(result.sprites.filter(sprite => sprite.group === group && sprite.band === band),
+        sprite => sprite.hardwareSlot).sort(), [0, 1, 2, 3, 4, 5, 6, 7]);
+    }
   }
 });
 
@@ -115,13 +117,31 @@ test('hires borders retain their own resolution and source alpha resolves to the
     for (let x = 0; x < 24; x += 1) setPixel(image, x, y, palette[(x + y - 35) % 2].rgb);
   }
   const result = convertC64BorderSprites(image, palette, config, 9);
-  assert.equal(result.sprites.find(sprite => sprite.group === 'top').data[9], 0x55);
+  assert.equal(result.sprites.find(sprite => sprite.group === 'top').data[21], 0x55);
   assert.equal(result.sprites.find(sprite => sprite.group === 'left').data[0], 0x55);
   assert.equal(result.sprites.find(sprite => sprite.group === 'left').data[3], 0xaa,
     'successive side rows retain single-pixel vertical detail');
   assert.deepEqual(pixel(result.pixels, 0, 235), [...palette[9].rgb, 255]);
   assert.ok(result.sprites.filter(sprite => sprite.group === 'bottom').every(sprite => sprite.data.every(value => value === 0)));
   assert.deepEqual(result.pixels.data, decode(result).data);
+
+  const detail = source(config, [255, 255, 255, 0]);
+  for (let y = 0; y < detail.height; y += 1) {
+    if (y >= 35 && y < 235) continue;
+    for (let x = 0; x < detail.width; x += 1) {
+      setPixel(detail, x, y, palette[(Math.floor(x / 2) + y) % 2].rgb);
+    }
+  }
+  const singleRows = convertC64BorderSprites(detail, palette, config);
+  for (let y = 0; y < detail.height; y += 1) {
+    if (y >= 35 && y < 235) continue;
+    for (let x = 0; x < detail.width; x += 1) {
+      assert.deepEqual(pixel(singleRows.pixels, x, y),
+        [...palette[(Math.floor(x / 2) + y) % 2].rgb, 255],
+        `vertical border row ${y} must retain its own source pixels, including both band joins`);
+    }
+  }
+  assert.deepEqual(singleRows.pixels.data, decode(singleRows).data);
 });
 
 test('composes either bitmap resolution at the PAL core origin without changing border frames or input pixels', () => {
@@ -260,6 +280,10 @@ test('legal black-blue virtual colors survive native hires, multicolor and expan
       assert.equal(side.data[0], nativeMode === 'hires' ? 0x55 : 0x22);
       assert.equal(next.data[0], nativeMode === 'hires' ? 0xaa : 0x88,
         'checker phase continues across odd-height 21-line sprite reuse');
+      for (const [y, color] of [[13, 0], [14, 6], [255, 0], [256, 6]]) {
+        assert.deepEqual(pixel(result.pixels, 0, y), [...palette[color].rgb, 255],
+          'virtual checker phase must continue on consecutive raster rows across both vertical band joins');
+      }
       assert.deepEqual(pixel(result.palettePixels, 0, 35), [...tone.rgb.map(Math.round), 255],
         'palette preview retains the chosen virtual RGB before native resolution');
       assert.deepEqual(result.pixels.data, decode(result).data,

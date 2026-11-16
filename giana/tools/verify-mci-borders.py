@@ -28,6 +28,7 @@ from vice_support import Monitor, connect_monitor, read_labels, vice_command
 PAL_CYCLES = 19656
 ACTIVE_BOX = (32, 35, 352, 235)
 EXTENDED_BOX = (8, 0, 376, 272)
+FULL_BOX = (0, 0, 384, 272)
 FULL_ROW_X = (48, 96, 144, 0, 336, 192, 240, 288)
 
 
@@ -93,11 +94,11 @@ class Reference:
                              for line in range(21) for _ in range(3)) + bytes(1)
         # The spare pair starts ten lines early behind the preceding side band.
         self.last_checker = bytes(30) + self.checker[30:]
+        self.second_checker = bytes((0x55 if line % 2 == 0 else 0xaa)
+                                    for line in range(21) for _ in range(3)) + bytes(1)
 
     @staticmethod
     def checker_pixel(x, source_y):
-        if source_y >= 21:
-            return False
         return bool((0xaa if source_y % 2 == 0 else 0x55) & (0x80 >> (x % 8)))
 
     def extended_image(self, phase):
@@ -108,7 +109,10 @@ class Reference:
                 pixels[y + 35][x + 32 + phase] = color
         for y in range(272):
             if y < 35 or y >= 235:
-                source_y = (y + 7) // 2 if y < 35 else (y - 235) // 2
+                # Two 21-line bands preserve single-raster vertical detail. The
+                # second frame reverses checker parity to continue across the
+                # odd-length first band rather than repeat its last row.
+                source_y = y + 7 if y < 35 else y - 235
                 for left in FULL_ROW_X:
                     left += 8
                     for x in range(max(0, left), min(384, left + 48)):
@@ -120,10 +124,13 @@ class Reference:
                 # final eleven rows. Its first ten rows stay transparent.
                 source_y = offset % 21 if offset < 189 else offset - 179
                 for left in (8, 352):
-                    for x in range(left, left + 24):
-                        # The right sprite keeps X expansion for the first side
-                        # row, preserving the preceding full-width top row.
-                        source_x = (x - left) // 2 if left == 352 and y == 35 else x - left
+                    # The right sprite keeps X expansion for the first side
+                    # row, preserving the preceding full-width top row. Model
+                    # its physical spill beyond the 368-pixel image as well.
+                    expanded = left == 352 and y == 35
+                    width = 48 if expanded else 24
+                    for x in range(left, min(384, left + width)):
+                        source_x = (x - left) // 2 if expanded else x - left
                         if self.checker_pixel(source_x, source_y):
                             pixels[y][x] = 3
         result = Image.new("RGB", (384, 272))
@@ -139,16 +146,21 @@ class Reference:
         assert vic[0x16] & 0x3f == 0x18 + phase, ("Restored MCI fine scroll", phase, vic[0x16])
         assert vic[0x11] & 0x37 == 0x33, ("Bitmap mode, display enable and Y scroll", vic[0x11])
         assert vic[0x15] == 255 and vic[0x1c] == 0 and vic[0x1b] == 0
+        assert vic[0x17] == 0, "No sprite may use vertical expansion"
+        assert vic[0x1d] == 255, "Full-width border sprites retain horizontal expansion"
         assert all(color & 15 == 3 for color in vic[0x27:0x2f]), "Checker sprites must use cyan"
         assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == self.background
         assert colors == self.colors, "Shared Color RAM differs from the original MCI"
-        for index, (screen, bitmap, checker) in enumerate(((0x4000, 0x6000, 0x4400),
-                                                          (0x8000, 0xa000, 0x8400))):
+        for index, (screen, shadow, bitmap, checker) in enumerate(((0x4000, 0x4c00, 0x6000, 0x4400),
+                                                                  (0x8000, 0x8c00, 0xa000, 0x8400))):
             assert ram[screen:screen + 1000] == self.screens[index], (index, "Original screen changed")
+            assert ram[shadow:shadow + 1000] == self.screens[index], (index, "Shadow screen changed")
+            assert ram[shadow + 0x3f8:shadow + 0x400] == bytes([0x12]) * 8
             assert ram[bitmap:bitmap + 8000] == self.bitmaps[index], (index, "Original bitmap changed")
             assert ram[screen + 0x3f8:screen + 0x400] == bytes([0x10]) * 8
             assert ram[checker:checker + 64] == self.checker, (index, "Checker frame changed")
             assert ram[checker + 64:checker + 128] == self.last_checker, (index, "Final side frame changed")
+            assert ram[checker + 128:checker + 192] == self.second_checker, (index, "Second vertical frame changed")
         assert ram[0x7fff] == ram[0xbfff] == 0, "Idle-state bitmap bytes must remain zero"
         return {"phase": phase, "vic_bank": bank,
                 "screen": (0x4000, 0x8000)[phase], "bitmap": (0x6000, 0xa000)[phase]}
@@ -181,14 +193,22 @@ def side_row_changes(image):
             for name, left, right in (("left", 8, 32), ("right", 352, 376))}
 
 
+def vertical_row_changes(image):
+    """Every adjacent visible raster row must carry new checker detail."""
+    pixels = image.load()
+    return {name: sum(any(pixels[x, y] != pixels[x, y - 1] for x in range(8, 376))
+                      for y in range(top + 1, bottom))
+            for name, top, bottom in (("top", 0, 35), ("bottom", 235, 272))}
+
+
 def verify(args):
     program = args.program.resolve()
     labels = read_labels(program.with_suffix(".sym"))
     assert all(name in labels for name in ("start", "phase", "frameComplete", "fieldCounter"))
     reference = Reference()
-    output = BUILD / "mci-borders-check"
+    output = args.output_dir.resolve() if args.output_dir else BUILD / "mci-borders-check"
     output.mkdir(parents=True, exist_ok=True)
-    receipt_path = BUILD / "mci-borders-verification.json"
+    receipt_path = output / "verification.json" if args.output_dir else BUILD / "mci-borders-verification.json"
     with socket.socket() as reserve:
         reserve.bind(("127.0.0.1", 0))
         port = reserve.getsockname()[1]
@@ -197,7 +217,8 @@ def verify(args):
     result = {"passed": False, "program": str(program), "program_sha256": digest(program.read_bytes()),
               "source_mci_sha256": digest(reference.source), "requested_fields": args.frames,
               "warmup_fields": args.warmup, "native_pal_fps": "13684/273",
-              "active_box": ACTIVE_BOX, "extended_box": EXTENDED_BOX, "command": command}
+              "active_box": ACTIVE_BOX, "extended_box": EXTENDED_BOX, "full_box": FULL_BOX,
+              "vertical_sprite_height": 21, "vertical_bands_per_border": 2, "command": command}
     process = connection = monitor = None
     fields, images = [], []
     began = time.monotonic()
@@ -244,8 +265,9 @@ def verify(args):
                 expected = reference.extended[phase]
                 central = differences(actual, expected, ACTIVE_BOX)
                 extended = differences(actual, expected, EXTENDED_BOX)
+                full = differences(actual, expected, FULL_BOX)
                 cyan = reference.palette[3]
-                zones = {"top": (8, 0, 376, 33), "bottom": (8, 235, 376, 272),
+                zones = {"top": (8, 0, 376, 35), "bottom": (8, 235, 376, 272),
                          "left": (8, 35, 32, 234), "right": (352, 35, 376, 234)}
                 pixels = actual.load()
                 counts = {name: sum(pixels[x, y] == cyan
@@ -254,9 +276,11 @@ def verify(args):
                 gaps = empty_side_rows(actual, cyan)
                 row = {"field": len(fields), "counter": count, "raster": raster, "line_cycle": line_cycle,
                        "cycles": cycles, **layout, "central_pixel_differences": len(central),
-                       "extended_pixel_differences": len(extended), "checker_pixels_by_border": counts,
+                       "extended_pixel_differences": len(extended), "full_pixel_differences": len(full),
+                       "checker_pixels_by_border": counts, "vertical_row_changes": vertical_row_changes(actual),
                        "empty_side_rows": gaps, "side_row_changes": side_row_changes(actual),
                        "first_central_differences": central[:12], "first_extended_differences": extended[:12],
+                       "first_full_differences": full[:12],
                        "actual_rgb_sha256": digest(actual.tobytes())}
                 if len(fields) < 2:
                     expected.save(output / f"expected-phase-{phase}.png")
@@ -269,17 +293,20 @@ def verify(args):
             monitor.run(f"disable {complete}")
         assert len(fields) == args.frames and {field["phase"] for field in fields} == {0, 1}
         result.update({"fields": fields, "central_pixel_differences": sum(field["central_pixel_differences"] for field in fields),
-                       "extended_pixel_differences": sum(field["extended_pixel_differences"] for field in fields)})
+                       "extended_pixel_differences": sum(field["extended_pixel_differences"] for field in fields),
+                       "full_pixel_differences": sum(field["full_pixel_differences"] for field in fields)})
         assert result["central_pixel_differences"] == 0, ("Native MCI image changed", result["central_pixel_differences"])
         assert all(all(count > 0 for count in field["checker_pixels_by_border"].values()) for field in fields), "Checker sprites are missing from at least one border"
         assert all(not rows for field in fields for rows in field["empty_side_rows"].values()), "Horizontal gaps interrupt the side checker sprites"
         assert result["extended_pixel_differences"] == 0, ("Native border sprites/idle pixels differ", result["extended_pixel_differences"])
+        assert result["full_pixel_differences"] == 0, ("Native uncropped PAL pixels differ", result["full_pixel_differences"])
+        assert all(field["vertical_row_changes"] == {"top": 34, "bottom": 36} for field in fields), "Vertical checker rows must retain single-raster detail"
         points = [(x, y) for y in range(272) for x in range(384)
                   if images[0].getpixel((x, y)) == reference.palette[3]
                   and not (32 <= x < 352 and 35 <= y < 235)]
         result["observed_border_checker_bounds"] = [min(x for x, _ in points), min(y for _, y in points),
                                                      max(x for x, _ in points) + 1, max(y for _, y in points) + 1]
-        images[0].save(BUILD / "mci-borders-native.gif", save_all=True, append_images=images[1:],
+        images[0].save(output / "native.gif" if args.output_dir else BUILD / "mci-borders-native.gif", save_all=True, append_images=images[1:],
                        duration=20, loop=0, disposal=1, optimize=False)
         result["passed"] = True
     except Exception as error:
@@ -309,6 +336,7 @@ def verify(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--program", type=Path, default=BUILD / "giana-mci-borders.prg")
+    parser.add_argument("--output-dir", type=Path, help="keep captures and receipt in a separate proof directory")
     parser.add_argument("--frames", type=int, default=32)
     parser.add_argument("--warmup", type=int, default=8)
     parser.add_argument("--vice", default=os.environ.get("VICE") or shutil.which("x64sc"))

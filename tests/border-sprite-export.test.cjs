@@ -41,7 +41,7 @@ test('downloads native multiplexed frames with colors, PAL coordinates, expansio
   const binary = files.get('sprites.bin');
   const manifest = JSON.parse(files.get('manifest.json'));
   assert.equal(manifest.format, 'c64-border-sprites');
-  assert.equal(binary.length, 36 * 64);
+  assert.equal(binary.length, 52 * 64);
   assert.deepEqual(manifest.image.core, { x: 24, y: 35, width: 320, height: 200 });
   assert.equal(manifest.hardware.programIncluded, false);
   assert.equal(manifest.fields, undefined, 'single-field archives retain their existing shape');
@@ -57,12 +57,17 @@ test('downloads native multiplexed frames with colors, PAL coordinates, expansio
     assert.equal(sprite.mode, vertical ? 'multicolor' : 'hires');
     assert.equal(sprite.colorIndex, vertical ? 2 : 5);
     assert.equal(sprite.xExpanded, vertical);
-    assert.equal(sprite.yExpanded, vertical);
+    assert.equal(sprite.yExpanded, false);
     assert.equal(sprite.vicX, sprite.x);
     assert.equal(sprite.vicY, sprite.y + 15);
     if (sprite.group === 'bottom') {
       assert.equal(binary[sprite.byteOffset], sprite.x < 368 ? 0xaa : 0);
-      assert.equal(sprite.vicY, 250);
+      assert.equal(sprite.vicY, 250 + sprite.band * 21);
+    }
+    if (vertical) {
+      assert.equal(sprite.vicYRegister, sprite.vicY & 0xff);
+      assert.equal(sprite.displayHeight, 21);
+      assert.ok(sprite.rowHeights.every(height => height === 1));
     }
     if (!vertical) {
       const lastBand = sprite.band === 9;
@@ -88,16 +93,16 @@ test('exports both MCI sprite datasets with field offsets and distinct shifted n
   const files = entries(encodeC64BorderSpriteZip(result));
   const binary = files.get('sprites.bin');
   const manifest = JSON.parse(files.get('manifest.json'));
-  assert.equal(binary.length, 72 * 64);
+  assert.equal(binary.length, 104 * 64);
   assert.equal(manifest.interlaced, true);
   assert.deepEqual(manifest.fields, [
-    { phase: 0, offsetX: 0, spriteOffset: 0, spriteCount: 36, byteOffset: 0, byteLength: 2304 },
-    { phase: 1, offsetX: 1, spriteOffset: 36, spriteCount: 36, byteOffset: 2304, byteLength: 2304 }
+    { phase: 0, offsetX: 0, spriteOffset: 0, spriteCount: 52, byteOffset: 0, byteLength: 3328 },
+    { phase: 1, offsetX: 1, spriteOffset: 52, spriteCount: 52, byteOffset: 3328, byteLength: 3328 }
   ]);
-  assert.equal(manifest.sprites.length, 72);
+  assert.equal(manifest.sprites.length, 104);
   for (const [index, sprite] of manifest.sprites.entries()) {
-    const phase = Math.floor(index / 36);
-    const first = manifest.sprites[index % 36];
+    const phase = Math.floor(index / 52);
+    const first = manifest.sprites[index % 52];
     assert.equal(sprite.index, index);
     assert.equal(sprite.field, phase);
     assert.equal(sprite.byteOffset, index * 64);
@@ -119,7 +124,8 @@ test('rejects inactive, truncated and malformed native border data instead of cr
     result => { result.sprites[0].data = new Uint8Array(63); },
     result => { result.sprites[0].data[63] = 1; },
     result => { result.backgroundColorIndex = 16; },
-    result => { result.config.vertical.mode = 'hires'; }
+    result => { result.config.vertical.mode = 'hires'; },
+    result => { result.sprites.find(sprite => sprite.group === 'bottom' && sprite.band === 1).vicYRegister = 271; }
   ]) {
     const result = converted();
     mutate(result);
