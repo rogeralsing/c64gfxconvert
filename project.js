@@ -61,6 +61,8 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       const group = value => object(value) && typeof value.enabled === 'boolean' &&
         ['hires', 'multicolor'].includes(value.mode) && colorIndex(value.colorIndex);
       if (!object(borderSprites) || !group(borderSprites.vertical) || !group(borderSprites.sides) ||
+          borderSprites.vertical.xExpanded !== undefined && typeof borderSprites.vertical.xExpanded !== 'boolean' ||
+          borderSprites.optimizeColors !== undefined && typeof borderSprites.optimizeColors !== 'boolean' ||
           !Array.isArray(borderSprites.multicolorIndices) ||
           borderSprites.multicolorIndices.length !== 2 || !borderSprites.multicolorIndices.every(colorIndex)) {
         invalid('border sprites require valid modes, enabled flags and C64 colors');
@@ -194,10 +196,12 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         } }),
         ...(borderSprites === undefined ? {} : { borderSprites: {
           vertical: { enabled: borderSprites.vertical.enabled, mode: borderSprites.vertical.mode,
-            colorIndex: borderSprites.vertical.colorIndex },
+            colorIndex: borderSprites.vertical.colorIndex,
+            ...(borderSprites.vertical.xExpanded === false ? { xExpanded: false } : {}) },
           sides: { enabled: borderSprites.sides.enabled, mode: borderSprites.sides.mode,
             colorIndex: borderSprites.sides.colorIndex },
-          multicolorIndices: [...borderSprites.multicolorIndices]
+          multicolorIndices: [...borderSprites.multicolorIndices],
+          ...(borderSprites.optimizeColors === undefined ? {} : { optimizeColors: borderSprites.optimizeColors })
         } }) },
       view: { previewMode: view.previewMode, grid: view.grid, paused: view.paused },
       activeLayer, layers: restored

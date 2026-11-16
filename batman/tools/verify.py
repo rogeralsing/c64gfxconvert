@@ -118,6 +118,8 @@ class Reference:
         assert manifest["image"] == {"width": 368, "height": 272, "pixelAspectRatio": [1, 1],
                                       "core": {"x": 24, "y": 35, "width": 320, "height": 200}}
         self.settings = manifest["settings"]
+        self.optimized_colors = self.settings.get("optimizeColors", False)
+        assert type(self.optimized_colors) is bool, "Sprite color optimization must be a boolean"
         assert self.settings["vertical"]["enabled"] and self.settings["sides"]["enabled"]
         assert all(self.settings[group]["mode"] == "multicolor" for group in ("vertical", "sides"))
         assert manifest["hardware"]["backgroundColorRegister"] == self.background
@@ -168,7 +170,12 @@ class Reference:
                 assert sprite["xExpanded"] is vertical and sprite["yExpanded"] is False
                 assert sprite["displayWidth"] == (48 if vertical else 24) and sprite["displayHeight"] == 21
                 assert sprite["rowHeights"] == [1] * 21
-                assert sprite["colorIndex"] == self.settings["vertical" if vertical else "sides"]["colorIndex"]
+                assert type(sprite["colorIndex"]) is int and 0 <= sprite["colorIndex"] < 16
+                if not self.optimized_colors:
+                    assert sprite["colorIndex"] == self.settings["vertical" if vertical else "sides"]["colorIndex"]
+                if phase:
+                    assert sprite["colorIndex"] == self.sprites[0][local]["colorIndex"], (
+                        "Both MCI fields must use the same logical sprite colors", local)
                 native = self.sprite_bytes[index * 64:(index + 1) * 64]
                 assert native[63] == 0
                 if not vertical and band == 9:
@@ -219,7 +226,12 @@ class Reference:
         assert vic[0x1d] == 255, "The completed lower border retains horizontal expansion"
         assert vic[0x20] & 15 == 0 and vic[0x21] & 15 == self.background
         assert [vic[0x25] & 15, vic[0x26] & 15] == self.shared
-        assert all(vic[0x27 + slot] & 15 == self.settings["vertical"]["colorIndex"] for slot in range(8))
+        for sprite in self.sprites[phase]:
+            if sprite["group"] == "bottom" and sprite["band"] == 1:
+                slot = sprite["hardwareSlot"]
+                actual_color = vic[0x27 + slot] & 15
+                assert actual_color == sprite["colorIndex"], (
+                    "Completed lower-band foreground", phase, slot, actual_color, sprite["colorIndex"])
         assert colors == self.colors, "Color RAM differs from original MCI"
         # Ordinary assembler labels identify the real runtime allocation. The
         # expected bytes always come from the supplied original files.
@@ -288,6 +300,8 @@ def verify(args):
               "source_mci": str(reference.source_path), "source_mci_sha256": sha256(reference.source),
               "border_archive": str(reference.archive_path), "border_archive_sha256": sha256(reference.archive_path.read_bytes()),
               "sprite_bytes_sha256": sha256(reference.sprite_bytes), "requested_fields": args.frames,
+              "optimized_sprite_colors": reference.optimized_colors,
+              "distinct_sprite_foregrounds": sorted({sprite["colorIndex"] for sprite in reference.sprites[0]}),
               "warmup_fields": args.warmup, "pal_cycles_per_field": PAL_CYCLES,
               "native_pal_fps": "13684/273", "command": command}
     process = connection = monitor = None
@@ -393,7 +407,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--program", type=Path, default=ROOT / "build/batman.prg")
     parser.add_argument("--source", type=Path, default=ROOT / "assets/batman.mci")
-    parser.add_argument("--border-sprites", type=Path, default=ROOT / "assets/batman-sprites.zip")
+    parser.add_argument("--border-sprites", type=Path, default=ROOT / "assets/batman-optimized-sprites.zip")
     parser.add_argument("--palette", type=Path, default=ROOT / "assets/peptoette-a.vpl")
     parser.add_argument("--output-dir", type=Path, default=ROOT / "build/proof")
     parser.add_argument("--frames", type=int, default=16)

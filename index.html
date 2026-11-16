@@ -216,12 +216,23 @@
                 <h3 id="border-sprites-heading">Border sprites</h3>
                 <fieldset id="border-sprite-controls" class="background-control">
                   <div class="border-sprite-group">
+                    <label class="border-sprite-toggle"><input id="border-optimize-colors" type="checkbox">Automatic sprite colors</label>
+                    <p class="background-value">Find one shared multicolor pair and an individual color for each sprite.</p>
+                    <p id="border-optimization-status" class="background-value" role="status" aria-live="polite" hidden></p>
+                  </div>
+                  <div class="border-sprite-group">
                     <label class="border-sprite-toggle"><input id="border-vertical-enabled" type="checkbox">Vertical borders · top / bottom</label>
                     <label class="control-label" for="border-vertical-mode">Vertical sprite mode</label>
                     <select id="border-vertical-mode" class="mode-select" disabled>
                       <option value="hires">Hires</option>
                       <option value="multicolor">Multicolor</option>
                     </select>
+                    <label class="control-label" for="border-vertical-width">Vertical sprite width</label>
+                    <select id="border-vertical-width" class="mode-select" disabled>
+                      <option value="expanded">X-expanded · 48 pixels</option>
+                      <option value="normal">Normal · 24 pixels, optimized placement</option>
+                    </select>
+                    <p id="border-placement-help" class="background-value" hidden>Eight normal sprites cover 192 pixels per row. Placement minimizes image error; gaps show the image background.</p>
                     <fieldset id="border-vertical-colors" class="background-control image-control" hidden>
                       <legend>Vertical sprite color</legend>
                       <div id="border-vertical-color-palette" class="palette-swatches"></div>
@@ -469,6 +480,7 @@
 
   <dialog id="source-crop-dialog"></dialog>
 
+  <script src="./color-math.js?v=1"></script>
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
   <script src="./ifli.js?v=shared-brightness-mapper"></script>
@@ -492,8 +504,8 @@
   <script src="./sprite-grid.js?v=1"></script>
   <script src="./charset.js?v=perceptual-reuse"></script>
   <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
-  <script src="./border-sprites.js?v=virtual-colors"></script>
-  <script src="./border-sprite-export.js?v=1"></script>
+  <script src="./border-sprites.js?v=normal-placement"></script>
+  <script src="./border-sprite-export.js?v=normal-placement"></script>
   <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
   <script src="./sprite-grid-export.js?v=1"></script>
   <script src="./charset-export.js?v=similarity"></script>
@@ -507,13 +519,13 @@
   <script src="./source-levels.js?v=editable-curves"></script>
   <script src="./source-interlace.js?v=patterns"></script>
   <script src="./converter-controls.js?v=palette-components"></script>
-  <script src="./border-sprite-controls.js?v=1"></script>
+  <script src="./border-sprite-controls.js?v=normal-placement"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=tile-markers"></script>
   <script src="./layer-panel.js?v=tile-markers"></script>
   <script src="./tile-markers.js?v=border-sprites"></script>
-  <script src="./project.js?v=border-sprites"></script>
+  <script src="./project.js?v=normal-border-placement"></script>
   <script>
     const paletteState = createC64PaletteState('peptoette-a', 'talent');
     const C64_PALETTE = paletteState.palette;
@@ -618,11 +630,16 @@
     let sourcePan = null;
     let unrestrictedPixels = null;
     let spriteSourcePixels = null;
-    let documentDither = null;
     let borderSourcePixels = null;
     let borderPalettePixels = null;
     let borderRenderLayers = [];
     let borderSpriteResult = null;
+    let borderColorPlan = null;
+    let borderColorWorker = null;
+    let borderColorTimer = null;
+    let borderColorPending = false;
+    let borderColorError = null;
+    let borderColorGeneration = 0;
     let palettePixels = null;
     let fliResult = null;
     let documentTargetPixels = null;
@@ -700,7 +717,7 @@
       root: document.getElementById('border-sprite-settings'), palette: C64_PALETTE,
       onChange(layoutChanged) {
         finishSourcePan();
-        borderSpriteResult = null;
+        invalidateBorderColors();
         if (layoutChanged) {
           layerStack.invalidate();
           rebuildLayerComposite();
@@ -802,7 +819,7 @@
       backgroundColorValue.textContent = `${color.index} · ${color.name} · ${color.hex}`;
       fliResult = null;
       ifliResult = null;
-      borderSpriteResult = null;
+      invalidateBorderColors();
     }
 
     function setC64Palette(id) {
@@ -1023,7 +1040,7 @@
       document.getElementById('tile-marker-settings').hidden = !markers;
       document.getElementById('source-settings').hidden = markers;
       document.getElementById('adjustment-settings').hidden = markers;
-      document.getElementById('color-settings').hidden = markers || usesDirectColorFit();
+      document.getElementById('color-settings').hidden = markers;
       for (const button of document.querySelectorAll('[data-inspector-panel]')) button.disabled = markers;
       sourceFraming.hidden = !sourceImage;
       sourceFraming.disabled = !sourceImage;
@@ -1132,14 +1149,114 @@
       return getC64BorderLayout(supportsBorderSprites() ? borderSpriteControls.getState() : undefined);
     }
 
+    function setBorderColorStatus(message) {
+      const status = document.getElementById('border-optimization-status');
+      status.hidden = !message;
+      status.textContent = message || '';
+    }
+
+    function invalidateBorderColors() {
+      borderColorGeneration += 1;
+      clearTimeout(borderColorTimer);
+      borderColorTimer = null;
+      borderColorWorker?.terminate();
+      borderColorWorker = null;
+      borderColorPending = false;
+      borderColorPlan = null;
+      borderColorError = null;
+      borderSpriteResult = null;
+      borderSpriteControls.setOptimizationPlan(null);
+      setBorderColorStatus('');
+    }
+
+    function borderColorOptions() {
+      return { virtualPalette: IFLI_VIRTUAL_PALETTE, virtualColorMode: paletteState.virtualColorMode,
+        brightnessBands: C64_BRIGHTNESS_BANDS, layers: borderRenderLayers };
+    }
+
+    function needsBorderOptimization(settings) {
+      return settings.optimizeColors || settings.vertical.enabled && settings.vertical.xExpanded === false;
+    }
+
+    function startBorderColorOptimization(settings) {
+      if (borderColorPending || borderColorPlan || borderColorError) return;
+      borderColorPending = true;
+      const generation = borderColorGeneration;
+      const normalPlacement = settings.vertical.enabled && settings.vertical.xExpanded === false;
+      const operation = normalPlacement ? settings.optimizeColors ? 'sprite colors and positions' : 'sprite positions' : 'sprite colors';
+      setBorderColorStatus(`Optimizing ${operation}…`);
+      borderColorTimer = setTimeout(() => {
+        borderColorTimer = null;
+        if (generation !== borderColorGeneration) return;
+        const source = borderPalettePixels, interlaced = isMulticolorInterlaceMode();
+        const options = borderColorOptions();
+        function failed(message) {
+          if (generation !== borderColorGeneration) return;
+          borderColorWorker?.terminate();
+          borderColorWorker = null;
+          borderColorPending = false;
+          borderColorError = message;
+          const detail = location.protocol === 'file:'
+            ? 'Open the converter through its web address or a local HTTP server to use automatic sprite optimization.' : message;
+          setBorderColorStatus(`Could not optimize ${operation}. ${detail}`);
+          updateIfliSaveState();
+        }
+        try {
+          const worker = new Worker(new URL('./border-color-worker.js?v=normal-placement', location.href));
+          borderColorWorker = worker;
+          worker.onerror = event => {
+            event.preventDefault();
+            failed(event.message || 'The background sprite search failed.');
+          };
+          worker.onmessage = event => {
+            const message = event.data;
+            if (message.generation !== borderColorGeneration || borderColorWorker !== worker) return;
+            if (message.type === 'error') return failed(message.message);
+            if (message.type === 'progress') {
+              const progress = message.progress;
+              const percent = Math.round(100 * progress.completed / progress.total);
+              if (Number.isFinite(percent)) setBorderColorStatus(`Optimizing ${operation}… ${percent}%`);
+              return;
+            }
+            if (message.type !== 'complete') return;
+            try {
+              const plan = message.colorPlan;
+              const converted = convertC64BorderSprites(source, C64_PALETTE, settings,
+                backgroundColorIndex, interlaced, { ...options, colorPlan: plan });
+              worker.terminate();
+              borderColorWorker = null;
+              borderColorPending = false;
+              borderColorPlan = plan;
+              borderSpriteResult = converted;
+              borderSpriteControls.setOptimizationPlan(plan);
+              const colors = plan.multicolorIndices.map(index => C64_PALETTE[index].name).join(' + ');
+              const detail = [normalPlacement ? 'Optimized top/bottom placement' : '',
+                settings.optimizeColors ? `Shared colors: ${colors}` : ''].filter(Boolean).join(' · ');
+              setBorderColorStatus(`${plan.improvementPercent.toFixed(1)}% lower image error · ${detail}.`);
+              renderPreview();
+              updateIfliSaveState();
+            } catch (cause) {
+              failed(cause.message);
+            }
+          };
+          worker.postMessage({ generation, source, palette: C64_PALETTE, settings,
+            backgroundColorIndex, interlaced, options });
+        } catch (cause) {
+          failed(cause.message);
+        }
+      }, 200);
+    }
+
     function ensureBorderSpriteResult() {
       if (!currentBorderLayout().enabled || !borderSourcePixels) return null;
+      const settings = borderSpriteControls.getState();
+      if (needsBorderOptimization(settings) && !borderColorPlan) startBorderColorOptimization(settings);
       if (!borderSpriteResult) {
-        borderSpriteResult = convertC64BorderSprites(borderSourcePixels, C64_PALETTE,
-          borderSpriteControls.getState(), backgroundColorIndex, isMulticolorInterlaceMode(), {
-            virtualPalette: IFLI_VIRTUAL_PALETTE, virtualColorMode: paletteState.virtualColorMode,
-            brightnessBands: C64_BRIGHTNESS_BANDS, layers: borderRenderLayers
-          });
+        const previewSettings = { ...settings };
+        if (!borderColorPlan) delete previewSettings.optimizeColors;
+        borderSpriteResult = convertC64BorderSprites(borderPalettePixels, C64_PALETTE,
+          previewSettings, backgroundColorIndex, isMulticolorInterlaceMode(),
+          { ...borderColorOptions(), ...(borderColorPlan ? { colorPlan: borderColorPlan } : {}) });
       }
       return borderSpriteResult;
     }
@@ -1147,9 +1264,7 @@
     function pixelsWithBorders(corePixels) {
       if (!corePixels || !currentBorderLayout().enabled || !borderSourcePixels) return corePixels;
       if (activeMode !== 'restricted') {
-        const paletteResult = activeMode === 'palette' ? ensureBorderSpriteResult() : null;
-        return composeC64BorderPreview(corePixels, { layout: currentBorderLayout(),
-          pixels: activeMode === 'palette' ? paletteResult?.palettePixels || borderPalettePixels : borderSourcePixels });
+        return activeMode === 'palette' ? borderPalettePixels : borderSourcePixels;
       }
       const border = ensureBorderSpriteResult();
       const field = border?.frames?.[ifliFrameIndex] || border;
@@ -1158,7 +1273,7 @@
     }
 
     function usesVirtualPalette() {
-      return !usesDirectColorFit() && !isTwoColorMode() && virtualColorsSelect.value !== 'off';
+      return !isTwoColorMode() && virtualColorsSelect.value !== 'off';
     }
 
     function isTwoColorMode() {
@@ -1215,7 +1330,7 @@
       hiresContext.imageSmoothingEnabled = true;
       hiresContext.imageSmoothingQuality = 'high';
 
-      // Fit in display space, then halve X to account for double-width pixels.
+      // Map the whole physical image before cropping or sampling hardware cells.
       hiresContext.save();
       applySourceCrop(hiresContext, placement, layer.settings.crop);
       hiresContext.drawImage(layer.image, placement.x, placement.y, placement.width, placement.height);
@@ -1224,28 +1339,51 @@
       hiresContext.clearRect(border.enabled ? border.coreX : 0, border.enabled ? border.coreY : 0,
         leftInset, border.enabled ? 200 : placement.canvasHeight);
       const fullHires = hiresContext.getImageData(0, 0, placement.canvasWidth, placement.canvasHeight);
-      const hires = border.enabled ? hiresContext.getImageData(border.coreX, border.coreY, 320, 200) : fullHires;
-      const source = usesFullResolutionSource() || isFliSpriteMode() ? hires : sampleIfliPhases(hires)[0];
-      const { pixels: modified, histogram } = adjustLayerSource(source, layer,
-        usesFullResolutionSource() || isFliSpriteMode() ? 2 : 1);
-      const borderSource = border.enabled ? adjustLayerSource(fullHires, layer, 2).pixels : null;
-      // Keep hires source detail for sprites; the FLI bitmap still uses wide pixels.
-      const pixels = isFliSpriteMode() ? sampleIfliPhases(modified)[0] : modified;
-      const virtual = !usesDirectColorFit() && !isTwoColorMode()
-        ? mapC64VirtualColors(pixels, {
+      const { pixels: modified, histogram } = adjustLayerSource(fullHires, layer, 2);
+      const virtual = !isTwoColorMode()
+        ? mapC64VirtualColors(modified, {
           virtualPalette: IFLI_VIRTUAL_PALETTE, virtualColorMode: paletteState.virtualColorMode,
           palette: C64_PALETTE, brightnessBands: C64_BRIGHTNESS_BANDS,
-          paletteSettings: layer.settings.palette, pattern: values['virtual-colors'], dither: values.dither / 100
+          paletteSettings: layer.settings.palette, pattern: values['virtual-colors'], dither: values.dither / 100,
+          originX: -border.coreX, originY: -border.coreY
         }) : null;
       const mapping = virtual?.mapping || null;
-      const mapped = isTwoColorMode() ? convertTwoColorHires(pixels, C64_PALETTE, twoColorIndices, values.dither / 100)
-        : mapping ? mapping.pixels : mapToC64Palette(pixels, values.dither / 100);
+      const mapped = isTwoColorMode() ? convertTwoColorHires(modified, C64_PALETTE, twoColorIndices, values.dither / 100)
+        : mapping ? mapping.pixels : mapToC64Palette(modified, values.dither / 100);
       let target = virtual ? virtual.target : mapped;
-      if (!usesDirectColorFit() && !isTwoColorMode() && values['scanline-dither']) {
+      if (!isTwoColorMode() && values['scanline-dither']) {
         target = isMulticolorInterlaceMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
       }
-      layer.cache = { format: graphicsMode, layoutKey, source: pixels, palette: mapped, target,
-        spriteSource: modified, borderSource, mapping, histogram };
+      const core = image => {
+        if (!border.enabled) return image;
+        const cropped = new ImageData(320, 200);
+        for (let y = 0; y < 200; y += 1) {
+          const offset = ((y + border.coreY) * image.width + border.coreX) * 4;
+          cropped.data.set(image.data.subarray(offset, offset + 320 * 4), y * 320 * 4);
+        }
+        return cropped;
+      };
+      const coreTarget = core(target);
+      let nativeTarget = usesFullResolutionSource() ? coreTarget : splitIfliColumns(coreTarget)[0];
+      if (mapping && !usesFullResolutionSource()) {
+        const pixels = splitIfliColumns(core(mapped))[0];
+        const virtualIndices = new Uint8Array(pixels.width * pixels.height);
+        for (let y = 0; y < pixels.height; y += 1) {
+          const source = (y + border.coreY) * mapped.width + border.coreX;
+          for (let x = 0; x < pixels.width; x += 1) {
+            virtualIndices[y * pixels.width + x] = mapping.virtualIndices[source + x * 2];
+          }
+        }
+        // Resolve the retained virtual pairs on the bitmap's logical grid.
+        // Sampling resolved checkers would discard every odd-column component.
+        nativeTarget = resolveVirtualPaletteColors({ pixels, virtualIndices },
+          IFLI_VIRTUAL_PALETTE, C64_PALETTE, values['virtual-colors']);
+        if (values['scanline-dither']) nativeTarget = breakUpScanlines(nativeTarget);
+      }
+      layer.cache = { format: graphicsMode, layoutKey, source: core(modified), palette: core(mapped),
+        target: nativeTarget,
+        spriteSource: coreTarget, borderSource: border.enabled ? modified : null,
+        fullPalette: mapped, fullTarget: target, mapping, histogram };
       return layer.cache;
     }
 
@@ -1340,27 +1478,6 @@
 
     gridToggle.addEventListener('change', updateGridVisibility);
 
-    function srgbToLinear(channel) {
-      const value = channel / 255;
-      return value <= 0.04045 ? value / 12.92 : ((value + 0.055) / 1.055) ** 2.4;
-    }
-
-    // Perceptual lightness and chroma: https://bottosson.github.io/posts/oklab/
-    function rgbToOklab(red, green, blue) {
-      const r = srgbToLinear(red);
-      const g = srgbToLinear(green);
-      const b = srgbToLinear(blue);
-      const l = Math.cbrt(0.4122214708 * r + 0.5363325363 * g + 0.0514459929 * b);
-      const m = Math.cbrt(0.2119034982 * r + 0.6806995451 * g + 0.1073969566 * b);
-      const s = Math.cbrt(0.0883024619 * r + 0.2817188376 * g + 0.6299787005 * b);
-
-      return {
-        lightness: 0.2104542553 * l + 0.7936177850 * m - 0.0040720468 * s,
-        a: 1.9779984951 * l - 2.4285922050 * m + 0.4505937099 * s,
-        b: 0.0259040371 * l + 0.7827717662 * m - 0.8086757660 * s
-      };
-    }
-
     function applyBrightnessContrast(source, brightness, contrast) {
       if (brightness === 0 && contrast === 100) return source;
 
@@ -1379,10 +1496,6 @@
       }
 
       return adjusted;
-    }
-
-    function linearToSrgb(value) {
-      return 255 * (value <= 0.0031308 ? 12.92 * value : 1.055 * value ** (1 / 2.4) - 0.055);
     }
 
     function oklabToRgb(lightness, a, b) {
@@ -1514,24 +1627,23 @@
       const rendered = visible.map(renderImageLayer);
       borderSourcePixels = currentBorderLayout().enabled && rendered.length
         ? compositeC64LayerPixels(rendered.map(layer => layer.borderSource), displayWidth, displayHeight) : null;
-      borderPalettePixels = borderSourcePixels ? mapToC64Palette(borderSourcePixels, 0) : null;
+      borderPalettePixels = borderSourcePixels
+        ? compositeC64LayerPixels(rendered.map(layer => layer.fullPalette), displayWidth, displayHeight) : null;
       borderRenderLayers = borderSourcePixels ? visible.map((layer, index) => ({
-        source: rendered[index].borderSource,
-        pattern: usesDirectColorFit() || isTwoColorMode() ? 'off' : layer.settings.values['virtual-colors'],
+        source: rendered[index].fullPalette,
+        pattern: isTwoColorMode() ? 'off' : layer.settings.values['virtual-colors'],
         paletteSettings: layer.settings.palette, dither: layer.settings.values.dither / 100
       })) : [];
-      borderSpriteResult = null;
-      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), width, height) : null;
+      invalidateBorderColors();
+      const physicalWidth = isStandaloneSpriteMode() ? displayWidth : 320;
+      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), physicalWidth, height) : null;
       palettePixels = rendered.length ? (isTwoColorMode()
-        ? compositeTwoColorHires(rendered.map(layer => layer.palette), width, height, C64_PALETTE[twoColorIndices[0]].rgb)
-        : compositeC64LayerPixels(rendered.map(layer => layer.palette), width, height)) : null;
+        ? compositeTwoColorHires(rendered.map(layer => layer.palette), physicalWidth, height, C64_PALETTE[twoColorIndices[0]].rgb)
+        : compositeC64LayerPixels(rendered.map(layer => layer.palette), physicalWidth, height)) : null;
       documentTargetPixels = isTwoColorMode() ? palettePixels
         : rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, height) : null;
       spriteSourcePixels = isSpriteMode() && rendered.length
         ? compositeC64LayerPixels(rendered.map(layer => layer.spriteSource), 320, 200) : null;
-      documentDither = usesDirectColorFit() && rendered.length
-        ? compositeC64LayerDither(rendered.map(layer => layer.source),
-          visible.map(layer => layer.settings.values.dither / 100), width, height) : null;
       fliResult = null;
       ifliResult = null;
       const selected = renderImageLayer(layerStack.active());
@@ -1688,18 +1800,18 @@
 
     function ensureSpriteGridResult() {
       if (!isStandaloneSpriteMode() || !palettePixels) return null;
-      if (!fliResult) fliResult = createC64SpriteGridImage(unrestrictedPixels, C64_PALETTE, {
+      if (!fliResult) fliResult = createC64SpriteGridImage(getRestrictedTarget(), C64_PALETTE, {
         ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)
-      }, documentDither);
+      });
       return fliResult;
     }
 
     function ensureCharsetResult() {
       if (!isCharsetMode() || !unrestrictedPixels) return null;
-      if (!fliResult) fliResult = createC64CharsetImage(unrestrictedPixels, C64_PALETTE, {
+      if (!fliResult) fliResult = createC64CharsetImage(getRestrictedTarget(), C64_PALETTE, {
         backgroundColorIndex, multicolorIndices: charsetControls.getState(),
         similarityThreshold: charsetControls.getSimilarityThreshold()
-      }, documentDither);
+      });
       return fliResult;
     }
 
@@ -1715,7 +1827,8 @@
     function updateIfliSaveState() {
       borderSpritesSave.hidden = !currentBorderLayout().enabled;
       borderSpritesSave.disabled = !currentBorderLayout().enabled || !borderSourcePixels ||
-        preview.getAttribute('aria-busy') === 'true';
+        preview.getAttribute('aria-busy') === 'true' ||
+        needsBorderOptimization(borderSpriteControls.getState()) && (!borderColorPlan || borderColorPending);
       fliSave.hidden = !isFliMode();
       fliSave.disabled = !isFliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
       charsetSave.hidden = !isCharsetMode();
@@ -1941,9 +2054,8 @@
       tileGrid.style.backgroundSize = marking ? `${800 / (border.enabled ? 320 : display.width)}% ${800 / (border.enabled ? 200 : display.height)}%` : standaloneSprites
         ? `${100 / spriteConfig.columns}% ${100 / spriteConfig.rows}%` : '';
       document.getElementById('grid-label').textContent = marking || charset ? 'Character grid' : standaloneSprites ? 'Sprite grid' : 'Tile grid';
-      document.getElementById('color-settings').hidden = directColorFit || layerStack.active().type === 'tile-markers';
-      document.querySelector('[aria-label="Palette and color settings"]').dataset.inspectorPanel = directColorFit
-        ? 'image-settings' : 'color-settings';
+      document.getElementById('color-settings').hidden = layerStack.active().type === 'tile-markers';
+      document.querySelector('[aria-label="Palette and color settings"]').dataset.inspectorPanel = 'color-settings';
       const multicolorInterlace = isMulticolorInterlaceMode();
       const spriteMode = isSpriteMode();
       const fliSprites = isFliSpriteMode();
@@ -1957,13 +2069,13 @@
       const restricted = activeMode === 'restricted';
       const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
       const singleSettings = visibleLayers[0]?.settings || layerStack.layers.find(layer => layer.settings)?.settings;
-      const virtualImagePalette = !directColorFit && !twoColor && singleSettings && singleSettings.values['virtual-colors'] !== 'off';
+      const virtualImagePalette = !twoColor && singleSettings && singleSettings.values['virtual-colors'] !== 'off';
       const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
         ? `${IFLI_VIRTUAL_PALETTE.filter(color => !singleSettings.palette.excludedIndices.includes(color.index)).length} virtual colors` : '16 C64 colors';
-      const widePixels = !directColorFit && !hires && !afli && !nufli && !pafli && (!multicolorInterlace || restricted);
-      const resolution = standaloneSprites ? `${display.width} × ${display.height}` : usesFullResolutionSource() ? '320 × 200' : '160 × 200';
+      const widePixels = restricted && !directColorFit && !hires && !afli && !nufli && !pafli;
+      const resolution = standaloneSprites ? `${display.width} × ${display.height}` : !restricted || usesFullResolutionSource() ? '320 × 200' : '160 × 200';
       const leftInset = getC64ImageLeftInset(graphicsMode);
-      const imageWidth = (320 - leftInset) / (usesFullResolutionSource() || spriteMode ? 1 : 2);
+      const imageWidth = (320 - leftInset) / (!restricted || usesFullResolutionSource() || spriteMode ? 1 : 2);
       restrictedTab.textContent = bitmap ? 'Bitmap' : name;
       document.getElementById('brand-mode').textContent = bitmap ? 'Bitmap' : name;
       document.title = `C64 Studio — ${name}`;
@@ -1971,10 +2083,10 @@
       virtualPaletteView.setVisible(usesVirtualPalette());
       document.getElementById('two-color-settings').hidden = !twoColor;
       for (const picker of twoColorPickers) picker.setEnabled(twoColor);
-      virtualColorsSelect.disabled = twoColor || directColorFit;
-      virtualColorsSelect.closest('.image-control').hidden = twoColor || directColorFit;
-      document.getElementById('scanline-dither').disabled = twoColor || directColorFit;
-      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor || directColorFit;
+      virtualColorsSelect.disabled = twoColor;
+      virtualColorsSelect.closest('.image-control').hidden = twoColor;
+      document.getElementById('scanline-dither').disabled = twoColor;
+      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor;
       document.getElementById('tab-palette').textContent = twoColor ? 'Two colors' : 'C64 Palette';
       const backgroundAvailable = border.enabled || !(hires || afli || nufli || pafli);
       backgroundSettings.hidden = !backgroundAvailable;
@@ -1992,11 +2104,11 @@
       document.getElementById('image-area-row').hidden = leftInset === 0;
       document.getElementById('image-area-row').title = pafli ? '28 pixels reserved for both AFLI phases' : `${leftInset / 8} character columns reserved on the left`;
       document.getElementById('format-image-area').textContent = `${imageWidth} × ${pafli ? 192 : 200}`;
-      document.getElementById('format-pixel-ratio').textContent = standaloneSprites
+      document.getElementById('format-pixel-ratio').textContent = !restricted ? '1 : 1' : standaloneSprites
         ? mode.hiresOverlay ? '2:1 + 1:1' : '2 : 1' : charset || fliSprites ? '2:1 + 1:1' : widePixels ? '2 : 1' : '1 : 1';
       document.getElementById('canvas-resolution').textContent = isAlternatingPreview()
         ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
-          : `${resolution} ${usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
+          : `${resolution} ${!restricted || usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
       if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
       if (border.enabled) document.getElementById('canvas-resolution').textContent += ` · ${display.width} × ${display.height} with borders`;
       document.getElementById('color-mode').textContent = restricted ? (standaloneSprites
@@ -2110,6 +2222,7 @@
 
     function renderPreview() {
       stopIfliAnimation();
+      if (needsBorderOptimization(borderSpriteControls.getState())) ensureBorderSpriteResult();
       updatePreviewDetails();
       updateIfliSaveState();
       previewStatus.textContent = unrestrictedPixels ? 'Image loaded' : 'No image open';
@@ -2172,7 +2285,7 @@
         : isCharsetMode() && activeMode === 'restricted' ? '320 by 200 pixels, 40 by 25 mixed hires and multicolor characters'
         : isStandaloneSpriteMode() ? `${pixels.width} by ${pixels.height} pixels, ${spriteGridControls.getState().columns} by ${spriteGridControls.getState().rows} sprite grid`
         : isFliSpriteMode() && activeMode === 'restricted' ? '320 by 200, double-width bitmap pixels with hires sprites'
-          : usesFullResolutionSource() ? '320 by 200 square pixels' : '160 by 200 double-width pixels';
+          : activeMode !== 'restricted' || usesFullResolutionSource() ? '320 by 200 square pixels' : '160 by 200 double-width pixels';
       const leftInset = getC64ImageLeftInset(graphicsMode);
       const reservedArea = leftInset ? (isPafliMode() ? ', 28 pixels reserved on the left' : `, ${leftInset / 8} character columns reserved on the left`) : '';
       const borderArea = currentBorderLayout().enabled ? `, ${pixels.width} by ${pixels.height} including border sprites` : '';

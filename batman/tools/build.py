@@ -33,13 +33,18 @@ def read_inputs(source, archive_path):
     if (manifest.get("format") != "c64-border-sprites" or manifest.get("version") != 1
             or manifest.get("interlaced") is not True or manifest.get("image") != expected_image):
         raise ValueError("Expected the converter's two-field 368 by 272 PAL border export.")
+    if settings.get("vertical", {}).get("xExpanded") is False:
+        raise ValueError("Batman requires X-expanded top/bottom sprites; optimized normal-width positions need a dedicated raster schedule.")
     for name in ("vertical", "sides"):
         group = settings.get(name, {})
         if group.get("enabled") is not True or group.get("mode") != "multicolor":
             raise ValueError("Batman requires both multicolor border groups.")
         if type(group.get("colorIndex")) is not int or not 0 <= group["colorIndex"] < 16:
             raise ValueError("Invalid individual sprite color.")
-    if settings["vertical"]["colorIndex"] != settings["sides"]["colorIndex"]:
+    optimized = settings.get("optimizeColors", False)
+    if type(optimized) is not bool:
+        raise ValueError("Invalid automatic sprite-color setting.")
+    if not optimized and settings["vertical"]["colorIndex"] != settings["sides"]["colorIndex"]:
         raise ValueError("Batman currently uses one individual sprite color for both groups.")
     shared = settings.get("multicolorIndices")
     if not isinstance(shared, list) or len(shared) != 2 or any(type(value) is not int or not 0 <= value < 16 for value in shared):
@@ -74,11 +79,18 @@ def read_inputs(source, archive_path):
             record = records[index]
             expected = {"index": index, "field": phase, "group": group, "band": band,
                         "hardwareSlot": slot, "x": x, "y": y, "vicX": x, "vicY": y + 15,
-                        "multicolor": True, "mode": "multicolor", "colorIndex": settings["vertical"]["colorIndex"],
+                        "multicolor": True, "mode": "multicolor",
                         "xExpanded": expanded, "yExpanded": False, "displayWidth": 48 if expanded else 24,
                         "displayHeight": 21, "rowHeights": [1] * 21, "byteOffset": index * 64, "byteLength": 64}
             if any(record.get(key) != value for key, value in expected.items()):
                 raise ValueError(f"Invalid native placement or data metadata for sprite {index}.")
+            foreground = record.get("colorIndex")
+            if type(foreground) is not int or not 0 <= foreground < 16:
+                raise ValueError(f"Invalid foreground color for sprite {index}.")
+            if not optimized and foreground != settings["vertical"]["colorIndex"]:
+                raise ValueError(f"Unexpected manual foreground color for sprite {index}.")
+            if phase and foreground != records[local]["colorIndex"]:
+                raise ValueError("Sprite foreground colors must match between MCI fields.")
             if expanded and record.get("vicYRegister") != ((y + 15) & 255):
                 raise ValueError(f"Invalid wrapped Y register for sprite {index}.")
             clip = {"x": phase if expanded else x,
@@ -131,16 +143,20 @@ def build(args):
         for phase, name in enumerate(("bank-a.bin", "bank-b.bin")):
             (stage / name).write_bytes(bank_bytes(image, sprites, phase))
         settings = manifest["settings"]
+        foregrounds = [record["colorIndex"] for record in manifest["sprites"][:52]]
         (stage / "settings.asm").write_text(
             f".const SPRITE_COLOR = {settings['vertical']['colorIndex']}\n"
             f".const SPRITE_SHARED_1 = {settings['multicolorIndices'][0]}\n"
-            f".const SPRITE_SHARED_2 = {settings['multicolorIndices'][1]}\n")
+            f".const SPRITE_SHARED_2 = {settings['multicolorIndices'][1]}\n"
+            f".var spriteColors = List().add({', '.join(map(str, foregrounds))})\n")
         shutil.copyfile(player, stage / "player.asm")
         output.parent.mkdir(parents=True, exist_ok=True)
         with (output.parent / "assembler.log").open("w") as log:
             subprocess.run([str(args.assembler.expanduser()), "player.asm", "-o", "batman.prg",
                             "-odir", str(stage), "-symbolfile", "-vicesymbols"],
                            cwd=stage, stdout=log, stderr=subprocess.STDOUT, check=True)
+        if "ERROR IN ASSERTION" in (output.parent / "assembler.log").read_text().upper():
+            raise ValueError("KickAssembler reported a failed assertion; inspect assembler.log.")
         program = (stage / "batman.prg").read_bytes()
         if program[:2] != bytes((1, 8)) or len(program) != 47105:
             raise ValueError("Unexpected Batman load range; expected $0801 through $bfff.")
@@ -151,6 +167,8 @@ def build(args):
             "program_sha256": digest(program), "bytes": len(program),
             "display": {"width": 368, "height": 272, "phase_count": 2, "phase_b_offset_pixels": 1,
                         "sprites_per_field": 52, "vertical_sprite_height": 21, "vertical_bands_per_border": 2},
+            "sprite_colors": {"shared": settings["multicolorIndices"], "foregrounds": foregrounds,
+                              "tied_between_fields": True},
             "memory": {"screen_a": "$4000", "screen_b": "$c000", "tail_screen_a": "$4400", "tail_screen_b": "$c400",
                        "bottom_second_a": "$5800", "bottom_second_b": "$d800", "top_second_a": "$5c00", "top_second_b": "$dc00",
                        "sprites_a": "$4800", "sprites_b": "$c800", "bitmap_a": "$6000", "bitmap_b": "$e000",
@@ -166,7 +184,7 @@ def build(args):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mci", type=Path, default=ROOT / "assets/batman.mci")
-    parser.add_argument("--sprites", type=Path, default=ROOT / "assets/batman-sprites.zip")
+    parser.add_argument("--sprites", type=Path, default=ROOT / "assets/batman-optimized-sprites.zip")
     parser.add_argument("--output", type=Path, default=ROOT / "build/batman.prg")
     parser.add_argument("--assembler", type=Path, default=Path.home() / ".local/bin/kickass")
     parser.add_argument("--force", action="store_true")

@@ -403,7 +403,13 @@ test('projects preserve global border sprite modes and colors without adding set
       multicolorIndices: [1, 14] },
     { vertical: { enabled: true, mode: 'hires', colorIndex: 0 },
       sides: { enabled: false, mode: 'multicolor', colorIndex: 15 },
-      multicolorIndices: [2, 13] }
+      multicolorIndices: [2, 13] },
+    { vertical: { enabled: true, mode: 'multicolor', colorIndex: 13 },
+      sides: { enabled: true, mode: 'multicolor', colorIndex: 13 },
+      multicolorIndices: [6, 1], optimizeColors: true },
+    { vertical: { enabled: true, mode: 'multicolor', colorIndex: 3, xExpanded: false },
+      sides: { enabled: true, mode: 'hires', colorIndex: 14 },
+      multicolorIndices: [1, 6], optimizeColors: false }
   ]) {
     const project = fixture();
     project.image.borderSprites = borderSprites;
@@ -433,7 +439,9 @@ test('project import rejects incomplete border sprite settings and invalid modes
     image => { image.borderSprites.multicolorIndices = [1]; },
     image => { image.borderSprites.multicolorIndices = [1, 2, 3]; },
     image => { image.borderSprites.multicolorIndices = ['1', 2]; },
-    image => { image.borderSprites.multicolorIndices[1] = 16; }
+    image => { image.borderSprites.multicolorIndices[1] = 16; },
+    image => { image.borderSprites.optimizeColors = 'true'; },
+    ...[0, 'false', null].map(value => image => { image.borderSprites.vertical.xExpanded = value; })
   ]) {
     const project = fixture();
     project.image.borderSprites = {
