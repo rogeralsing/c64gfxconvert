@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Line Font Lab — precomputed C64 line drawing</title>
+<style>
+  :root {
+    --bg: #101014; --panel: #191922; --panel2: #20202c; --line: #2c2c3a;
+    --fg: #e8e8ee; --dim: #8a8a9a; --accent: #ffb454; --ok: #7ce38b; --bad: #ff6b6b;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg);
+    font: 13px/1.45 "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+    display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+  }
+  header { width: 100%; max-width: 1060px; padding: 14px 16px 6px; }
+  h1 { font-size: 15px; margin: 0 0 2px; font-weight: 600; }
+  h1 span { color: var(--dim); font-weight: 400; }
+  #stats { color: var(--accent); min-height: 18px; white-space: pre; }
+  #stage { position: relative; margin: 8px 16px; line-height: 0;
+           border: 1px solid var(--line); background: #000; }
+  #screen, #overlay { position: absolute; inset: 0; width: 100%; height: 100%; }
+  #screen { image-rendering: pixelated; }
+  #overlay { pointer-events: none; }
+  #stage.picking #screen { cursor: crosshair; }
+  #controls { display: flex; flex-wrap: wrap; gap: 6px; align-items: center;
+              max-width: 1060px; padding: 0 16px 4px; }
+  button {
+    background: var(--panel2); color: var(--fg); border: 1px solid var(--line);
+    border-radius: 4px; padding: 4px 10px; font: inherit; cursor: pointer;
+  }
+  button:hover { border-color: var(--accent); color: var(--accent); }
+  button.on { background: #2a2a1a; border-color: var(--accent); color: var(--accent); }
+  label.slider { display: flex; align-items: center; gap: 6px; color: var(--dim); }
+  label.slider input { width: 90px; accent-color: var(--accent); }
+  #scaleVal { color: var(--fg); min-width: 34px; }
+  .sep { width: 1px; height: 18px; background: var(--line); margin: 0 4px; }
+  #bottom { display: flex; gap: 16px; align-items: flex-start; max-width: 1060px;
+            padding: 8px 16px 24px; width: 100%; }
+  #bankbox { background: var(--panel); border: 1px solid var(--line); border-radius: 4px;
+             padding: 8px; }
+  #bankbox h2 { font-size: 11px; margin: 0 0 6px; color: var(--dim); font-weight: 500; }
+  #bank { image-rendering: pixelated; display: block; }
+  footer { max-width: 1060px; padding: 0 16px 30px; color: var(--dim); }
+  footer b { color: var(--fg); font-weight: 500; }
+  kbd { border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; font: inherit; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Line Font Lab <span>— snap-to-font line drawing, 40×25 chars, 4×4 fat pixels</span></h1>
+  <div id="stats">font: building…</div>
+</header>
+
+<div id="stage" class="picking">
+  <canvas id="screen" width="320" height="200"></canvas>
+  <canvas id="overlay" width="320" height="200"></canvas>
+</div>
+
+<div id="controls">
+  <button data-mode="a" class="on">259 dirs · free start</button>
+  <button data-mode="b">259 dirs · 2×2 start</button>
+  <button data-mode="c">519 dirs · free start</button>
+  <button data-mode="d">dynamic hires (patched)</button>
+  <span class="sep"></span>
+  <button id="undo">Undo</button>
+  <button id="clear">Clear</button>
+  <button id="demo">Demo</button>
+  <span class="sep"></span>
+  <button id="cube3d">3D</button>
+  <button data-shape="cube" class="on">cube</button>
+  <button data-shape="tetra">tetra</button>
+  <button data-shape="octa">octa</button>
+  <label class="slider">scale <input type="range" id="scale" min="0.3" max="2.2" step="0.05" value="1"><span id="scaleVal">1.00</span></label>
+  <span class="sep"></span>
+  <button id="charGrid" class="on">Char grid</button>
+  <button id="fatGrid">Fat grid</button>
+  <button id="rawLine" class="on">Raw line</button>
+  <button id="joints" class="on">Joints</button>
+  <button id="backfaces" class="on">Backfaces</button>
+  <button id="smooth">Smooth</button>
+  <span class="sep"></span>
+  <button data-zoom="2">2×</button>
+  <button data-zoom="3" class="on">3×</button>
+  <button data-zoom="4">4×</button>
+</div>
+
+<div id="bottom">
+  <div id="bankbox">
+    <h2 id="bankTitle">glyph bank</h2>
+    <canvas id="bank" width="300" height="96"></canvas>
+  </div>
+</div>
+
+<footer>
+  <b>build 2026-11-18.8 · glyphs: 4×4 fat (default) · smooth opt-in</b><br>
+  <b>How it works:</b> the pointer asks for a line; the drawer keeps your start fat pixel,
+  snaps the slope to one of the 259 canonical directions (+ exact H/V), walks that ray and
+  truncates it at your endpoint. Every cell it touches is a glyph that exists in the bank —
+  by construction, no nearest-match. Crossing lines overwrite shared chars (real C64
+  behaviour). <kbd>drag</kbd> draw · <kbd>click</kbd> dot · <kbd>U</kbd> undo ·
+  <kbd>C</kbd> clear · <kbd>G</kbd>/<kbd>F</kbd> grids · <kbd>R</kbd> raw · <kbd>2/3/4</kbd> zoom ·
+  <kbd>3D</kbd> + shape animates a wireframe stamped through the active font mode —
+  drag the stage to rotate it
+</footer>
+
+<script src="linefont.js"></script>
+</body>
+</html>
