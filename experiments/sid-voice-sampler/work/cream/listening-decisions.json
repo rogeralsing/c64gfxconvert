@@ -1,0 +1,72 @@
+{
+  "song": "Cream of the Earth",
+  "assessed_output": "full-linus-mix/",
+  "player_sha256": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184",
+  "physical_voices": {
+    "sid-1": {
+      "status": "assessment deferred; preserve while repairing SID2",
+      "user_feedback": "Good, but possible missing or clipped melodic phrases. Reassess after SID2 is ready.",
+      "wav_sha256": "a3875b282106bb0e773bab639bc51679143fc3c537abb8c252b144b772dad844"
+    },
+    "sid-2": {
+      "status": "rejected",
+      "user_feedback": "Quiet, noisy and musically unhelpful; removing it would not make the song worse.",
+      "wav_sha256": "90cb66cebaacd8c0756c2abf072ec2b609d4acb3fedfc068d908b71a3b6f0c2a"
+    },
+    "sid-3": {
+      "status": "accepted; preserve",
+      "user_feedback": "Excellent.",
+      "wav_sha256": "8433a6d7db2b618e78ab9b7b1b5fcb38c3b65a50e19d835729068c3ed6536eb6"
+    }
+  },
+  "next_step": "Listen to the same original C3 and native SID1 phrase at89.60..107.52 before accepting the new SID1 program. Keep SID2/SID3 and all previous references frozen.",
+  "repair_candidate": {
+    "directory": "sid1-repair/",
+    "source_interval_s": [
+      0,
+      188.16
+    ],
+    "audition_interval_s": [
+      89.6,
+      107.52
+    ],
+    "status": "Not listening-approved; full selected player, mix and independent stems technically verified",
+    "changes": "Triangle+saw guitar, real hardware attacks, measured ADSR-delay avoidance; restored12 C1 triggers and omitted6 sparse C3 triggers in declared passage. Later C1 chords remain omitted."
+  },
+  "active_arrangement": {
+    "directory": "sid1-repair/",
+    "source_interval_s": [
+      0,
+      188.16
+    ],
+    "duration_s": 188.42,
+    "status": "Complete technical verification; SID1 listening candidate awaiting user assessment",
+    "memory": "Unexpanded 64 KiB C64; no external streaming",
+    "player_sha256": "035fd2e58ec8bdca93d8c2820ac7228a2d4363098eae3f56a33085e837173333",
+    "sound_policy": "Only SID1 changed: richer native instrument10 waveform, AD18/SR60, explicit 40ms preparation, and C1 linear phrase17.92..31.36. Both sampler inputs/clocks remain exact; actual sampler audio passes frozen-reference checks before the shared export gain.",
+    "WAV_gain": 3.0774267025005346
+  },
+  "previous_selected_arrangement": {
+    "directory": "three-minute-linus-mix/",
+    "source_interval_s": [
+      0,
+      188.16
+    ],
+    "duration_s": 188.42,
+    "status": "Complete selected interval; technical verification passed; SID1 rejected by listening",
+    "sid1_feedback": "Some melody around 1:30, but mostly long notes; sounds unintentional. Earlier described as blippetiblopp without melody.",
+    "repair_scope": "Repair SID1 against independent Amiga channel stems. Freeze SID2 and SID3 instruments, sample values and sample clocks. Passing the old SID1 preservation check is not musical acceptance.",
+    "memory": "Unexpanded 64 KiB C64; no REU, GeoRAM or external streaming",
+    "player_sha256": "64491b4342da1b31c980ddefae68d60286050bfc88c0ca6af2a2e128fc876424",
+    "sound_policy": "Preserve SID1 and SID3 musical data. SID2 uses original samples, including instrument 10 in the introduction. C1 chords remain omitted after the introduction."
+  },
+  "previous_sid2_repair": {
+    "directory": "sid2-repair/",
+    "source_interval_s": [
+      17.92,
+      37.92
+    ],
+    "status": "Not listening-approved; full-song integration remains outstanding",
+    "changes": "Original C4 reused drum PCM on SID2; preserve SID1 and SID3 source content."
+  }
+}

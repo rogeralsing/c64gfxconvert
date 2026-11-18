@@ -1,0 +1,66 @@
+{
+  "source": "amiga-c4.wav",
+  "source_sha256": "f0111c00a224d52e764dfaa9b97ae10f4a7ab785789739fe24e05941a74f47e8",
+  "file": "original-c4.wav",
+  "sha256": "6cb2cb7e80b06505e73fe772cc170d37f38ac3c1df165e73e8cda131e46e9502",
+  "frames": 441001,
+  "rate": 22050,
+  "duration_s": 20.000045351473922,
+  "source_interval_s": [
+    17.92,
+    37.92
+  ],
+  "processing": "First441001frames of independent originalC4native-clockcrop. No gain, alignment, EQ or fittedoffset.",
+  "independent_decoder": "libopenmpt",
+  "source_module_sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572",
+  "source_render_receipt": {
+    "file": "amiga-c4.wav",
+    "sha256": "f0111c00a224d52e764dfaa9b97ae10f4a7ab785789739fe24e05941a74f47e8",
+    "source_file": "/Users/rogerjohansson/git/asynkron/c64/experiments/mod-hybrid/sources/cream-of-the-earth.mod",
+    "source_sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572",
+    "source_channel_one_based": 4,
+    "decoder": "libopenmpt interactive solo_original.render_track",
+    "library": "/opt/homebrew/lib/libopenmpt.dylib",
+    "mute_check": {
+      "mute_status_before": [
+        1,
+        1,
+        1,
+        0
+      ],
+      "mute_status_after": [
+        1,
+        1,
+        1,
+        0
+      ]
+    },
+    "rendered_from_source_beginning": true,
+    "decoded_frames_from_start": 987840,
+    "decoded_through_nominal_source_seconds": 44.8,
+    "crop_recording_frame_range": [
+      395136,
+      987839
+    ],
+    "source_tick_range": [
+      896,
+      2240
+    ],
+    "native_sample_range": [
+      140124,
+      350310
+    ],
+    "native_sample_period_cycles": 126,
+    "PAL_clock_hz": 985248,
+    "source_ticks_per_second": 50,
+    "frames": 592703,
+    "rate": 22050,
+    "channels": 1,
+    "duration_s": 26.879954648526077,
+    "listening_gain": 1.0,
+    "peak": 0.286102294921875,
+    "rms": 0.09748427838621623,
+    "processing": "Independent libopenmpt C4-only decoder instance from source time0; fixed source-clock crop only. No normalization, EQ, time fitting, dynamics or host mixing. Native PCM16 values written unchanged. Original decoder gain remains unchanged; C64 listening files have their separately declared common gain8.",
+    "comparison_scope": "Same source-clock interval as preserved Cream C64 excerpt17.92..44.80. Physical SID2 approximates originalC4 percussion; user rejects its current timbre. Current SID2 file contains quiet synthetic percussion, not literal silence."
+  }
+}

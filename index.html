@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=border-sprites">
+  <link rel="stylesheet" href="./editor.css?v=full-border-blend">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -69,6 +69,7 @@
               <div class="preview-actions">
                 <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked><span id="grid-label">Tile grid</span></label>
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
+                <label id="ifli-blend-control" class="grid-toggle" hidden><input id="ifli-blend" type="checkbox" disabled>50/50 blend</label>
                 <button id="fli-save" class="afli-save" type="button" title="Save the converted FLI bitmap and fitted colors as a .fli image" disabled hidden>Save FLI</button>
                 <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
                 <button id="mci-save" class="ifli-save" type="button" title="Save both converted frames as a True Paint (.mci) image" disabled hidden>Save MCI</button>
@@ -85,6 +86,7 @@
               </div>
             </div>
             <div id="preview-panel" class="preview-panel" role="tabpanel" aria-labelledby="tab-unrestricted" tabindex="0">
+              <div class="preview-workspace">
               <div id="image-screen" class="screen-border">
                 <div class="screen">
                   <div id="empty-state" class="empty-state">
@@ -96,6 +98,7 @@
                 </div>
               </div>
               <div id="image-caption" class="screen-caption"><span id="view-scale" class="view-scale" aria-label="Preview scale">Fit</span><span id="canvas-resolution">160 × 200 logical pixels</span></div>
+              </div>
               <section id="ifli-frame-views" class="ifli-frame-views" aria-labelledby="ifli-frames-heading" hidden>
                 <h3 id="ifli-frames-heading">IFLI frames</h3>
                 <div class="ifli-frame-grid">
@@ -113,7 +116,7 @@
                   <div class="ifli-static-screen"><canvas id="ifli-frame-merged" width="320" height="200" role="img" aria-label="IFLI column merge: even columns from frame 1, odd columns from frame 2">The merged IFLI image appears here.</canvas></div>
                 </figure>
                 <figure class="ifli-merged-view">
-                  <figcaption><span>50/50 blend</span><span>320 × 200 · square pixels</span></figcaption>
+                  <figcaption><span>50/50 blend</span><span id="ifli-blended-resolution">320 × 200 · square pixels</span></figcaption>
                   <div class="ifli-static-screen"><canvas id="ifli-frame-blended" width="320" height="200" role="img" aria-label="IFLI 50/50 blend with frame 2 shifted one hires pixel right">The blended IFLI image appears here.</canvas></div>
                 </figure>
               </section>
@@ -601,6 +604,7 @@
     const ditherValue = document.getElementById('dither-value');
     const scanlineDither = document.getElementById('scanline-dither');
     const ifliPlayback = document.getElementById('ifli-playback');
+    const ifliBlend = document.getElementById('ifli-blend');
     const fliSave = document.getElementById('fli-save');
     const ifliSave = document.getElementById('ifli-save');
     const mciSave = document.getElementById('mci-save');
@@ -645,6 +649,8 @@
     let documentTargetPixels = null;
     let ifliResult = null;
     let ifliFrameViewsResult = null;
+    let ifliFrameViewsBorderResult = null;
+    let ifliBlendedPixels = null;
     let spriteLayerViewsResult = null;
     let charsetViewResult = null;
     let ifliFrameIndex = 0;
@@ -1995,7 +2001,7 @@
 
     function advanceIfliFrame(timestamp) {
       ifliAnimation = null;
-      if (!isAlternatingPreview() || !ifliResult || ifliPaused || document.hidden) return;
+      if (!isAlternatingPreview() || !ifliResult || ifliPaused || ifliBlend.checked || document.hidden) return;
 
       // PAL alternates at 50 frames per second, independent of monitor refresh.
       if (isPafliMode()) {
@@ -2016,7 +2022,7 @@
     }
 
     function startIfliAnimation() {
-      if (ifliAnimation === null && isAlternatingPreview() && ifliResult && !ifliPaused && !document.hidden) {
+      if (ifliAnimation === null && isAlternatingPreview() && ifliResult && !ifliPaused && !ifliBlend.checked && !document.hidden) {
         ifliAnimation = requestAnimationFrame(advanceIfliFrame);
       }
     }
@@ -2027,6 +2033,8 @@
       if (ifliPaused) stopIfliAnimation();
       else startIfliAnimation();
     });
+
+    ifliBlend.addEventListener('change', renderPreview);
 
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) stopIfliAnimation();
@@ -2114,7 +2122,7 @@
       document.getElementById('color-mode').textContent = restricted ? (standaloneSprites
         ? `4 colors per sprite${mode.hiresOverlay ? ' + hires overlay' : ''}` : charset ? '256 patterns · mixed hires / multicolor' : twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : isMciMode() ? '4 colors per tile · 2 frames' : multicolorInterlace ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
         : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
-      const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
+      const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ifliBlend.checked ? ' · 50/50 BLEND' : ' · ALTERNATING DISPLAY FRAMES' : ''}`
         : activeMode === 'palette' ? (twoColor ? 'TWO-COLOR HIRES' : visibleLayers.length > 1 ? 'LAYER PALETTES'
           : virtualImagePalette ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
       document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
@@ -2133,7 +2141,8 @@
       previewPanel.classList.toggle('ifli-details-visible', visible ||
         ((isSpriteMode() || isCharsetMode() || (isStandaloneSpriteMode() && currentGraphicsMode().hiresOverlay)) && activeMode === 'restricted' && Boolean(fliResult)));
       if (wasVisible !== visible) previewPanel.scrollTop = 0;
-      if (!visible || ifliFrameViewsResult === ifliResult) return;
+      const border = visible ? ensureBorderSpriteResult() : null;
+      if (!visible || (ifliFrameViewsResult === ifliResult && ifliFrameViewsBorderResult === border)) return;
 
       const pafli = isPafliMode();
       const frames = pafli ? ifliResult.displayFrames : ifliResult.frames.map(frame => frame.pixels);
@@ -2155,13 +2164,29 @@
         ifliMergedCanvas.getContext('2d').putImageData(merged, 0, 0);
         ifliMergedCanvas.setAttribute('aria-label', `${imageName}, 320 by 200 column merge, even columns from frame 1 and odd columns from frame 2`);
       }
-      const blended = pafli ? ifliResult.blended : blendIfliFrames(frames[0], frames[1], C64_PALETTE[backgroundColorIndex].rgb);
+      let blended;
+      if (border?.frames) {
+        const displayFrames = ifliResult.displayFrames.map((pixels, phase) =>
+          composeC64BorderPreview(pixels, border.frames[phase], phase === 1));
+        blended = new ImageData(displayFrames[0].width, displayFrames[0].height);
+        for (let offset = 0; offset < blended.data.length; offset += 4) {
+          for (let channel = 0; channel < 3; channel += 1) {
+            blended.data[offset + channel] = Math.round((displayFrames[0].data[offset + channel] +
+              displayFrames[1].data[offset + channel]) / 2);
+          }
+          blended.data[offset + 3] = 255;
+        }
+      } else blended = pafli ? ifliResult.blended : blendIfliFrames(frames[0], frames[1], C64_PALETTE[backgroundColorIndex].rgb);
+      ifliBlendedPixels = blended;
       ifliBlendedCanvas.width = blended.width;
       ifliBlendedCanvas.height = blended.height;
+      ifliBlendedCanvas.style.aspectRatio = `${blended.width} / ${blended.height}`;
       ifliBlendedCanvas.getContext('2d').putImageData(blended, 0, 0);
+      document.getElementById('ifli-blended-resolution').textContent = `${blended.width} × ${blended.height} · ${border ? 'borders included' : 'square pixels'}`;
       ifliBlendedCanvas.setAttribute('aria-label', pafli ? `${imageName}, 320 by 200 50/50 blend of aligned PAFLI phases`
-        : `${imageName}, 320 by 200 50/50 blend, frame 2 shifted one hires pixel right`);
+        : `${imageName}, ${blended.width} by ${blended.height} 50/50 blend${border ? ' including border sprites' : ''}, frame 2 shifted one hires pixel right`);
       ifliFrameViewsResult = ifliResult;
+      ifliFrameViewsBorderResult = border;
     }
 
     function renderSpriteLayerViews() {
@@ -2256,10 +2281,13 @@
       const corePixels = activeMode === 'restricted' ? (isAlternatingMode()
         ? ifliResult?.displayFrames[ifliFrameIndex] : fliResult?.pixels)
         : activeMode === 'palette' ? palettePixels : unrestrictedPixels;
-      const pixels = pixelsWithBorders(corePixels);
       ifliPlayback.hidden = !isAlternatingPreview();
-      ifliPlayback.disabled = !ifliResult;
+      ifliPlayback.disabled = !ifliResult || ifliBlend.checked;
+      document.getElementById('ifli-blend-control').hidden = !isAlternatingPreview();
+      ifliBlend.disabled = !ifliResult;
       renderIfliFrameViews();
+      const blendedPreview = isAlternatingPreview() && ifliResult && ifliBlend.checked;
+      const pixels = blendedPreview ? ifliBlendedPixels : pixelsWithBorders(corePixels);
       renderSpriteLayerViews();
       renderCharsetView();
       updateGridVisibility();
@@ -2279,7 +2307,7 @@
       if (canvas.height !== pixels.height) canvas.height = pixels.height;
       context.putImageData(pixels, 0, 0);
       const modeName = activeMode === 'restricted' ? (isAlternatingMode()
-        ? `${currentGraphicsMode().label} alternating frames` : currentGraphicsMode().label)
+        ? `${currentGraphicsMode().label} ${blendedPreview ? '50/50 blend' : 'alternating frames'}` : currentGraphicsMode().label)
         : activeMode === 'palette' ? 'C64 Palette' : 'Unrestricted';
       const format = isAlternatingPreview() ? (isPafliMode() ? 'two aligned 320 by 200 square-pixel frames' : 'two 160 by 200 double-width frames')
         : isCharsetMode() && activeMode === 'restricted' ? '320 by 200 pixels, 40 by 25 mixed hires and multicolor characters'
@@ -2290,11 +2318,11 @@
       const reservedArea = leftInset ? (isPafliMode() ? ', 28 pixels reserved on the left' : `, ${leftInset / 8} character columns reserved on the left`) : '';
       const borderArea = currentBorderLayout().enabled ? `, ${pixels.width} by ${pixels.height} including border sprites` : '';
       canvas.setAttribute('aria-label', `${imageName}, ${modeName} preview, ${format}${reservedArea}${borderArea}`);
-      if (isAlternatingPreview()) {
+      if (isAlternatingPreview() && !blendedPreview) {
         canvas.dataset.ifliFrame = String(ifliFrameIndex);
         startIfliAnimation();
       } else delete canvas.dataset.ifliFrame;
-      tileGrid.style.transform = layerStack.active().type !== 'tile-markers' && isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
+      tileGrid.style.transform = !blendedPreview && layerStack.active().type !== 'tile-markers' && isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
     }
 
     function selectPreviewTab(tab, moveFocus = false) {

@@ -1,0 +1,924 @@
+{
+  "scope": "Bounded SID2 timbre repair candidate only, original Cream 17.92..37.92s. Full-length arrangement and approved references are untouched.",
+  "source_interval_s": [
+    17.92,
+    37.92
+  ],
+  "full_song": false,
+  "program": {
+    "program": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/programs/all/linus-mix-player.prg",
+    "bytes": 48406,
+    "program_sha256": "b82b413c53cad5b40433b3adc1cc0135b0f39141e453088075e1e78243972e9d",
+    "source_sha256": "759c625f79321c36277add6b99e861adbabb9a9d33d7d63f2668188dcba0391a",
+    "enabled": [
+      true,
+      true,
+      true
+    ]
+  },
+  "source": {
+    "title_slug": "cream-of-the-earth",
+    "author": "Romeo Knight / Red Sector Inc.",
+    "source_page": "https://demozoo.org/music/21557/",
+    "download_url": "https://modland.ziphoid.com/pub/modules/Protracker/Romeo%20Knight/cream%20of%20the%20earth.mod",
+    "bytes": 130382,
+    "sha256": "2f24986dc737e4c704f78b4e0a32fe8e2ebffd29e9add1e15f4231ec97cc6572"
+  },
+  "frames": 1000,
+  "duration_s": 20.000054808535516,
+  "SID3_codes": 156389,
+  "SID3_codes_sha256": "395d703c6609dc724a4a8c8fd7dcd676db6909fe54adf2a37000956b8731bf30",
+  "SID2_codes": 39097,
+  "SID2_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+  "source_sha256": "1c079e6ecb46449250d8ebcddcfabf563fac7cd4ede23632d651e2dc50e95529",
+  "runtime_sha256": "02983709a26fa6d274676f7074388ba23765bc7d17b6d704b6fc7d9dc68e674e",
+  "memory": {
+    "instrument_and_note_bytes": 31487,
+    "program_bytes": 48406,
+    "external_RAM": false
+  },
+  "limitations": [
+    "SID2 upper bandwidth is approximately 977 Hz, so original hihat brightness cannot survive this clock.",
+    "Original C1 remains omitted, matching the approved interval. SID1 remains its pulse approximation.",
+    "This does not integrate the extra sample lane into the full Q8 player."
+  ],
+  "protected_hashes": {
+    "references/cream/reference.prg": "259db8ce3a6f01f07f60059ae596b78511ae28304422f4f9402654ea2a1c7b44",
+    "references/hyperbased/reference.prg": "8c25f91a807b4d5c0f74203fa9ea75ddd6317710d2ca5151e26467386e06cf5a",
+    "references/hyperbased-stems/sid-3.wav": "fb1af01bf2e098ed40f65fe03f30eaa09538125626ff58ab5225a23019c8fbc7",
+    "references/hyperbased-stems/sid-1.wav": "c3f9d0f295705641d96c6992fb2d6798326f63fbb34dd96e6ed42cdbe843745b",
+    "references/cream/reference.wav": "d361e57e9f1eddeb34ee5436bfef93dcc9873953e8d67d637d310b0ca0934024",
+    "references/hyperbased/reference.wav": "f386f2a77554569cd75e61ab7c3b44734f41bfd7b5406cdde5c5accdf33c0f88",
+    "work/hyperbased/full-linus-mix/player.prg": "6a98908195adc755b50ebf7eaeb1bf8cc98a7d5efd27da3914cdfd65106c59b8",
+    "work/hyperbased/full-linus-mix/all.wav": "39509fe5f4bb354ed59e04248ee5631a95c2235d741516bf86da74955b332da7",
+    "work/hyperbased/full-linus-mix/sid-3.wav": "85cc3af8170cf0899bc6cd09350fd4f767d572f81ec8b4bd3405ab2bf6d27b1e",
+    "work/hyperbased/full-linus-mix/sid-2.wav": "cb05c1ea5b7accfad19da5864e51ce7939b57555a78db9fc64db6e2533796bd4",
+    "work/hyperbased/full-linus-mix/sid-1.wav": "e04c970b1c88f83470b6602730626c36298d6c50b7358823cfa0124030c45c6a",
+    "work/hyperbased/linus-mix/player.prg": "a267ef8dfabafec1c9057730b1422ad9f29d2f4bcdf94aeb952202ea0a9e350a",
+    "work/hyperbased/linus-mix/all.wav": "6bf16a575c156f8905eedc7f419f9ad4c1620272951f700e32d5f3f219d6a80a",
+    "work/hyperbased/linus-mix/sid-3.wav": "3ed6548d3badc05d22520ec091c0030acdb5319af8e9a3581823aaa49c33b002",
+    "work/hyperbased/linus-mix/sid-2.wav": "435cfabeac2b60471d433c57502d57c8d9142fef144b8c270d57a6f691fe339e",
+    "work/hyperbased/linus-mix/sid-1.wav": "726ea0ddd80cc72157dc9022117a2c52e890c78ae7feb46073518566f9537193",
+    "work/cream/linus-mix/player.prg": "17c46c6fb45900f6024413ec52634200f2c5168dcacf6561465c527ad1333af1",
+    "work/cream/linus-mix/all.wav": "5dcd4e9e72e0e6ed0bfc9d885e2c3c8b25f0c1a67a6ee514c2f0cdf82d86cce5",
+    "work/cream/linus-mix/sid-3.wav": "b1ae830eb76687a7859db31f5df1694c4e846e3bf4dfb565b3a02d0382b13cbd",
+    "work/cream/linus-mix/sid-2.wav": "51b48bf4e201519f5748ce4812751dd3bb725c86f73c6ca1860d02f223ff7953",
+    "work/cream/linus-mix/sid-1.wav": "ee49c076621958e882c91b461df7209ca439c4e7519cc8a217c63fb36204c335",
+    "full-cream/all.wav": "a8c9d14174966d4bea5925d837a8b8ef5e10d209f7159fb40a844b883fe2b46a",
+    "full-cream/sid-3.wav": "8433a6d7db2b618e78ab9b7b1b5fcb38c3b65a50e19d835729068c3ed6536eb6",
+    "full-cream/sid-2.wav": "90cb66cebaacd8c0756c2abf072ec2b609d4acb3fedfc068d908b71a3b6f0c2a",
+    "full-cream/sid-1.wav": "a3875b282106bb0e773bab639bc51679143fc3c537abb8c252b144b772dad844",
+    "full-cream/player.prg": "6da00f671c2a494d79335404bc38141c599c7c717d0cdc74e64c9434f7c4c184"
+  },
+  "native": {
+    "all": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "b82b413c53cad5b40433b3adc1cc0135b0f39141e453088075e1e78243972e9d",
+      "trace_sha256": "fd8a87fc8bc04805cdd799274960efcaefbe8d052e23057b32c9bbae9206351a",
+      "native_events_read": 941392,
+      "expected_samples": 156389,
+      "observed_latches": 156389,
+      "input_codes_written": 156389,
+      "sid3_register_events": 781945,
+      "sid3_complete_ordered_prefix_and_inputs_exact": true,
+      "sample_gap_counts": {
+        "126": 156388
+      },
+      "first_latch_cycle": 2300170,
+      "last_latch_cycle": 22005058,
+      "music_end_cycle_including_sid2_phase": 22005099,
+      "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/linked/expected-high.bin",
+      "sid2_expected_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+      "sid2_register_events": 156390,
+      "sid2_all_ordered_phase_events_exact": true,
+      "sid2_frequency_high_writes": 39097,
+      "sid2_latches_including_startup_neutral": 39098,
+      "sid2_latch_gap_counts": {
+        "504": 39097
+      },
+      "sid2_startup_values_exact": true,
+      "sid2_startup_registers": {
+        "11": [
+          2299961,
+          11,
+          1
+        ],
+        "8": [
+          2299903,
+          8,
+          54
+        ],
+        "7": [
+          2142688,
+          7,
+          0
+        ]
+      },
+      "sid2_startup_release_offset_from_first_sid3_latch": -209,
+      "sid2_frequency_low_unchanged_zero": true,
+      "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL17@+35,CTRL9@+41; phase2 high@+37,CTRL1@+43. Lastphase0 fullychecked.",
+      "sid2_muted": false,
+      "sid2_enable_control": 17,
+      "sid2_release_control": 1,
+      "ordinary_sid1_writes_checked": 3000,
+      "ordinary_sid1_values_and_exact_timing": true,
+      "ordinary_sid1_startup_values_exact": true,
+      "ordinary_sid1_startup_offsets_from_first_latch": [
+        -254,
+        -247,
+        -240
+      ],
+      "ordinary_sid1_frame_offsets_after_first_nmi": [
+        53,
+        60,
+        67
+      ],
+      "baseline_first_latch_cycle": null,
+      "first_latch_matches_approved_absolute_phase": false,
+      "first_latch_shift_from_approved_cycles": null,
+      "absolute_startup_phase_is_a_gate": false,
+      "generated_frames": 1000,
+      "underruns": 0,
+      "ring_counters": {},
+      "ring_error_counters": {},
+      "ring_counter_coverage": false,
+      "master_volume_start_exact": true,
+      "d418_writes_during_music": [],
+      "unplanned_filter_writes": [],
+      "explicit_shutdown_zero_writes": {
+        "sid1": 1,
+        "sid2": 1,
+        "sid3": 1,
+        "master": 1
+      },
+      "unexpected_duplicate_shutdown_events": [],
+      "parse_errors": [],
+      "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+      "passed": true,
+      "sid1_event_mismatches": 0,
+      "first_sid1_mismatches": [],
+      "sid2_event_mismatches": 0,
+      "first_sid2_mismatches": [],
+      "sid3_event_mismatches": 0,
+      "first_sid3_mismatches": []
+    },
+    "sid-1": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "3ec30a4c63cef65d3c86f1956a4a27f30e4237dc7c1434e7ec8796e024e7d4b1",
+      "trace_sha256": "fada93bcd247f0003351ee99ecca1be34315abd47bdcaf81cad9c7ae9f40d4d8",
+      "native_events_read": 941392,
+      "expected_samples": 156389,
+      "observed_latches": 156389,
+      "input_codes_written": 156389,
+      "sid3_register_events": 781945,
+      "sid3_complete_ordered_prefix_and_inputs_exact": true,
+      "sample_gap_counts": {
+        "126": 156388
+      },
+      "first_latch_cycle": 2300170,
+      "last_latch_cycle": 22005058,
+      "music_end_cycle_including_sid2_phase": 22005099,
+      "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/linked/expected-high.bin",
+      "sid2_expected_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+      "sid2_register_events": 156390,
+      "sid2_all_ordered_phase_events_exact": true,
+      "sid2_frequency_high_writes": 39097,
+      "sid2_latches_including_startup_neutral": 39098,
+      "sid2_latch_gap_counts": {
+        "504": 39097
+      },
+      "sid2_startup_values_exact": true,
+      "sid2_startup_registers": {
+        "11": [
+          2299961,
+          11,
+          9
+        ],
+        "8": [
+          2299903,
+          8,
+          54
+        ],
+        "7": [
+          2142688,
+          7,
+          0
+        ]
+      },
+      "sid2_startup_release_offset_from_first_sid3_latch": -209,
+      "sid2_frequency_low_unchanged_zero": true,
+      "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL25@+35,CTRL9@+41; phase2 high@+37,CTRL9@+43. Lastphase0 fullychecked.",
+      "sid2_muted": true,
+      "sid2_enable_control": 25,
+      "sid2_release_control": 9,
+      "ordinary_sid1_writes_checked": 3000,
+      "ordinary_sid1_values_and_exact_timing": true,
+      "ordinary_sid1_startup_values_exact": true,
+      "ordinary_sid1_startup_offsets_from_first_latch": [
+        -254,
+        -247,
+        -240
+      ],
+      "ordinary_sid1_frame_offsets_after_first_nmi": [
+        53,
+        60,
+        67
+      ],
+      "baseline_first_latch_cycle": null,
+      "first_latch_matches_approved_absolute_phase": false,
+      "first_latch_shift_from_approved_cycles": null,
+      "absolute_startup_phase_is_a_gate": false,
+      "generated_frames": 1000,
+      "underruns": 0,
+      "ring_counters": {},
+      "ring_error_counters": {},
+      "ring_counter_coverage": false,
+      "master_volume_start_exact": true,
+      "d418_writes_during_music": [],
+      "unplanned_filter_writes": [],
+      "explicit_shutdown_zero_writes": {
+        "sid1": 1,
+        "sid2": 1,
+        "sid3": 1,
+        "master": 1
+      },
+      "unexpected_duplicate_shutdown_events": [],
+      "parse_errors": [],
+      "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+      "passed": true,
+      "sid1_event_mismatches": 0,
+      "first_sid1_mismatches": [],
+      "sid2_event_mismatches": 0,
+      "first_sid2_mismatches": [],
+      "sid3_event_mismatches": 0,
+      "first_sid3_mismatches": []
+    },
+    "sid-2": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "5eeaae55128385d61a070a2e8ffea371ffe7195e597b0a6cc341a7cbeea350b4",
+      "trace_sha256": "3885118b48c6455d7a05b7d671679f2c55255ac63823ef8fea05a3bac74990a7",
+      "native_events_read": 941392,
+      "expected_samples": 156389,
+      "observed_latches": 156389,
+      "input_codes_written": 156389,
+      "sid3_register_events": 781945,
+      "sid3_complete_ordered_prefix_and_inputs_exact": true,
+      "sample_gap_counts": {
+        "126": 156388
+      },
+      "first_latch_cycle": 2300170,
+      "last_latch_cycle": 22005058,
+      "music_end_cycle_including_sid2_phase": 22005099,
+      "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/linked/expected-high.bin",
+      "sid2_expected_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+      "sid2_register_events": 156390,
+      "sid2_all_ordered_phase_events_exact": true,
+      "sid2_frequency_high_writes": 39097,
+      "sid2_latches_including_startup_neutral": 39098,
+      "sid2_latch_gap_counts": {
+        "504": 39097
+      },
+      "sid2_startup_values_exact": true,
+      "sid2_startup_registers": {
+        "11": [
+          2299961,
+          11,
+          1
+        ],
+        "8": [
+          2299903,
+          8,
+          54
+        ],
+        "7": [
+          2142688,
+          7,
+          0
+        ]
+      },
+      "sid2_startup_release_offset_from_first_sid3_latch": -209,
+      "sid2_frequency_low_unchanged_zero": true,
+      "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL17@+35,CTRL9@+41; phase2 high@+37,CTRL1@+43. Lastphase0 fullychecked.",
+      "sid2_muted": false,
+      "sid2_enable_control": 17,
+      "sid2_release_control": 1,
+      "ordinary_sid1_writes_checked": 3000,
+      "ordinary_sid1_values_and_exact_timing": true,
+      "ordinary_sid1_startup_values_exact": true,
+      "ordinary_sid1_startup_offsets_from_first_latch": [
+        -254,
+        -247,
+        -240
+      ],
+      "ordinary_sid1_frame_offsets_after_first_nmi": [
+        53,
+        60,
+        67
+      ],
+      "baseline_first_latch_cycle": null,
+      "first_latch_matches_approved_absolute_phase": false,
+      "first_latch_shift_from_approved_cycles": null,
+      "absolute_startup_phase_is_a_gate": false,
+      "generated_frames": 1000,
+      "underruns": 0,
+      "ring_counters": {},
+      "ring_error_counters": {},
+      "ring_counter_coverage": false,
+      "master_volume_start_exact": true,
+      "d418_writes_during_music": [],
+      "unplanned_filter_writes": [],
+      "explicit_shutdown_zero_writes": {
+        "sid1": 1,
+        "sid2": 1,
+        "sid3": 1,
+        "master": 1
+      },
+      "unexpected_duplicate_shutdown_events": [],
+      "parse_errors": [],
+      "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+      "passed": true,
+      "sid1_event_mismatches": 0,
+      "first_sid1_mismatches": [],
+      "sid2_event_mismatches": 0,
+      "first_sid2_mismatches": [],
+      "sid3_event_mismatches": 0,
+      "first_sid3_mismatches": []
+    },
+    "sid-3": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "d747cc7cef2bdf9386d94f6d0a75616006923436adaf101d142b6e1c6fdd5bab",
+      "trace_sha256": "bdc1778fe4c58929e89e722a6107594adabd9f6dcbab1bb8cb779f1a79d59a20",
+      "native_events_read": 941392,
+      "expected_samples": 156389,
+      "observed_latches": 156389,
+      "input_codes_written": 156389,
+      "sid3_register_events": 781945,
+      "sid3_complete_ordered_prefix_and_inputs_exact": true,
+      "sample_gap_counts": {
+        "126": 156388
+      },
+      "first_latch_cycle": 2300170,
+      "last_latch_cycle": 22005058,
+      "music_end_cycle_including_sid2_phase": 22005099,
+      "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/linked/expected-high.bin",
+      "sid2_expected_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+      "sid2_register_events": 156390,
+      "sid2_all_ordered_phase_events_exact": true,
+      "sid2_frequency_high_writes": 39097,
+      "sid2_latches_including_startup_neutral": 39098,
+      "sid2_latch_gap_counts": {
+        "504": 39097
+      },
+      "sid2_startup_values_exact": true,
+      "sid2_startup_registers": {
+        "11": [
+          2299961,
+          11,
+          9
+        ],
+        "8": [
+          2299903,
+          8,
+          54
+        ],
+        "7": [
+          2142688,
+          7,
+          0
+        ]
+      },
+      "sid2_startup_release_offset_from_first_sid3_latch": -209,
+      "sid2_frequency_low_unchanged_zero": true,
+      "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL25@+35,CTRL9@+41; phase2 high@+37,CTRL9@+43. Lastphase0 fullychecked.",
+      "sid2_muted": true,
+      "sid2_enable_control": 25,
+      "sid2_release_control": 9,
+      "ordinary_sid1_writes_checked": 3000,
+      "ordinary_sid1_values_and_exact_timing": true,
+      "ordinary_sid1_startup_values_exact": true,
+      "ordinary_sid1_startup_offsets_from_first_latch": [
+        -254,
+        -247,
+        -240
+      ],
+      "ordinary_sid1_frame_offsets_after_first_nmi": [
+        53,
+        60,
+        67
+      ],
+      "baseline_first_latch_cycle": null,
+      "first_latch_matches_approved_absolute_phase": false,
+      "first_latch_shift_from_approved_cycles": null,
+      "absolute_startup_phase_is_a_gate": false,
+      "generated_frames": 1000,
+      "underruns": 0,
+      "ring_counters": {},
+      "ring_error_counters": {},
+      "ring_counter_coverage": false,
+      "master_volume_start_exact": true,
+      "d418_writes_during_music": [],
+      "unplanned_filter_writes": [],
+      "explicit_shutdown_zero_writes": {
+        "sid1": 1,
+        "sid2": 1,
+        "sid3": 1,
+        "master": 1
+      },
+      "unexpected_duplicate_shutdown_events": [],
+      "parse_errors": [],
+      "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+      "passed": true,
+      "sid1_event_mismatches": 0,
+      "first_sid1_mismatches": [],
+      "sid2_event_mismatches": 0,
+      "first_sid2_mismatches": [],
+      "sid3_event_mismatches": 0,
+      "first_sid3_mismatches": []
+    },
+    "muted": {
+      "profile": {
+        "machine": "PAL C64",
+        "sid_engine": 1,
+        "sid_model": 2,
+        "digiboost": true,
+        "resampling": 2,
+        "sample_rate": 22050
+      },
+      "program_sha256": "c4ad299d2441ffa4290155fb374e2d5fa1b1e23a9e6d78907bb2c58b497243d6",
+      "trace_sha256": "c66d98a30bd2ed4d474cc54529e8e98f5ac03ad3c489ce60c28b0e7dfd0a7731",
+      "native_events_read": 941392,
+      "expected_samples": 156389,
+      "observed_latches": 156389,
+      "input_codes_written": 156389,
+      "sid3_register_events": 781945,
+      "sid3_complete_ordered_prefix_and_inputs_exact": true,
+      "sample_gap_counts": {
+        "126": 156388
+      },
+      "first_latch_cycle": 2300170,
+      "last_latch_cycle": 22005058,
+      "music_end_cycle_including_sid2_phase": 22005099,
+      "sid2_expected_source": "/Users/rogerjohansson/git/asynkron/c64/experiments/sid-voice-sampler/work/cream/sid2-repair/linked/expected-high.bin",
+      "sid2_expected_high_sha256": "b926d8d8a7b1b9f0ad5e383d6a66f8c2165dfb99c6c23502c91db14ae01d58ce",
+      "sid2_register_events": 156390,
+      "sid2_all_ordered_phase_events_exact": true,
+      "sid2_frequency_high_writes": 39097,
+      "sid2_latches_including_startup_neutral": 39098,
+      "sid2_latch_gap_counts": {
+        "504": 39097
+      },
+      "sid2_startup_values_exact": true,
+      "sid2_startup_registers": {
+        "11": [
+          2299961,
+          11,
+          9
+        ],
+        "8": [
+          2299903,
+          8,
+          54
+        ],
+        "7": [
+          2142688,
+          7,
+          0
+        ]
+      },
+      "sid2_startup_release_offset_from_first_sid3_latch": -209,
+      "sid2_frequency_low_unchanged_zero": true,
+      "sid2_clock": "Global phases0/2 at SID3 indices0mod4/2mod4; never reset at50Hz. Phase0 CTRL25@+35,CTRL9@+41; phase2 high@+37,CTRL9@+43. Lastphase0 fullychecked.",
+      "sid2_muted": true,
+      "sid2_enable_control": 25,
+      "sid2_release_control": 9,
+      "ordinary_sid1_writes_checked": 3000,
+      "ordinary_sid1_values_and_exact_timing": true,
+      "ordinary_sid1_startup_values_exact": true,
+      "ordinary_sid1_startup_offsets_from_first_latch": [
+        -254,
+        -247,
+        -240
+      ],
+      "ordinary_sid1_frame_offsets_after_first_nmi": [
+        53,
+        60,
+        67
+      ],
+      "baseline_first_latch_cycle": null,
+      "first_latch_matches_approved_absolute_phase": false,
+      "first_latch_shift_from_approved_cycles": null,
+      "absolute_startup_phase_is_a_gate": false,
+      "generated_frames": 1000,
+      "underruns": 0,
+      "ring_counters": {},
+      "ring_error_counters": {},
+      "ring_counter_coverage": false,
+      "master_volume_start_exact": true,
+      "d418_writes_during_music": [],
+      "unplanned_filter_writes": [],
+      "explicit_shutdown_zero_writes": {
+        "sid1": 1,
+        "sid2": 1,
+        "sid3": 1,
+        "master": 1
+      },
+      "unexpected_duplicate_shutdown_events": [],
+      "parse_errors": [],
+      "scope": "Every native SID3 input/prefix and SID2 phase write, global126/504cycle clocks, startup neutral state, every SID1 score value and poststartup exact slot, complete frame counter and available runtime error counters. Digital correctness does not establish timbre, balance or physical SID fidelity. Absolute startup phase is reported pending calibration.",
+      "passed": true,
+      "sid1_event_mismatches": 0,
+      "first_sid1_mismatches": [],
+      "sid2_event_mismatches": 0,
+      "first_sid2_mismatches": [],
+      "sid3_event_mismatches": 0,
+      "first_sid3_mismatches": []
+    }
+  },
+  "ring": {
+    "passed": true,
+    "program_sha256": "b82b413c53cad5b40433b3adc1cc0135b0f39141e453088075e1e78243972e9d",
+    "expected_values": 39097,
+    "produced_values": 39097,
+    "consumed_values": 39097,
+    "ring_base": 1536,
+    "ring_bytes": 256,
+    "minimum_values_ready_before_read": 1,
+    "maximum_queued_values": 243,
+    "minimum_write_to_read_margin_cycles": 85764,
+    "stale_reads_or_overwrites": 0,
+    "first_failures": [],
+    "monitor_sha256": "6595aaa0ace8c0dc99e7da6de4db61f1553fac13091262ba2caaa7e8a448d991",
+    "scope": "Actual unmodified native execution. Every read has the correct sequential generation, including repeated neutral values. This proves causality beyond matching SID register values."
+  },
+  "cpu": {
+    "passed": true,
+    "program_sha256": "b82b413c53cad5b40433b3adc1cc0135b0f39141e453088075e1e78243972e9d",
+    "profile": {
+      "machine": "PAL C64",
+      "sid_engine": 1,
+      "sid_model": 2,
+      "digiboost": true,
+      "resampling": 2,
+      "sample_rate": 22050
+    },
+    "frames": 1000,
+    "samples": 156389,
+    "generated_frames": 1000,
+    "underruns": 0,
+    "sample_period_cycles": 126,
+    "duration_s": 20.000054808535516,
+    "sample_gap_counts": {
+      "126": 156388
+    },
+    "first_latch_cycle": 2300170,
+    "nmi_full_cycles_regular": {
+      "76": 8,
+      "77": 359,
+      "78": 427,
+      "79": 14501,
+      "80": 1627,
+      "81": 10513,
+      "82": 11165,
+      "83": 77,
+      "84": 3263,
+      "85": 2046,
+      "86": 20097,
+      "87": 5568,
+      "88": 7544,
+      "89": 1,
+      "90": 161,
+      "91": 414,
+      "92": 10625,
+      "93": 3518,
+      "94": 21774,
+      "95": 35540,
+      "96": 5162
+    },
+    "nmi_full_cycles_boundary": {
+      "107": 139,
+      "110": 107,
+      "120": 251,
+      "122": 251,
+      "123": 251
+    },
+    "nmi_full_cycles_sid1_pending": {
+      "123": 139,
+      "124": 860
+    },
+    "nmi_cpu_fraction": 0.7080949660815123,
+    "maximum_nmi_cycles": 124,
+    "automatic_activation_events": 999,
+    "active_activations_checked": 999,
+    "unused_terminal_activations_ignored": 0,
+    "pointer_low_store_cycles": 3,
+    "pointer_shadow_read_bus_offset_cycles": 2,
+    "fill_wall_cycles_range_before_rts": [
+      8573,
+      8844
+    ],
+    "fill_foreground_cycles_range_before_rts": [
+      2507,
+      2680
+    ],
+    "minimum_deadline_slack_wall_cycles": 10429,
+    "minimum_deadline_slack_foreground_cycles": 3050,
+    "minimum_fill_return_margin_before_boundary_hardware_entry": 10332,
+    "fill_restart_foreground_cycles_after_previous_activation_range": [
+      51,
+      66
+    ],
+    "minimum_pointer_commit_margin_before_next_nmi": 14,
+    "c3_completed_pump_calls": 3142,
+    "c3_terminal_interrupted_calls": 0,
+    "c3_pump_outputs": 39097,
+    "c3_required_ring_values": 39097,
+    "c3_production_count_complete": true,
+    "c3_pump_cpu_cycles_including_manager_jsr_rts": 884482,
+    "c3_pump_cycles_per_output_including_manager": 22.622758779445995,
+    "c3_pump_call_foreground_cycles_range": [
+      44,
+      558
+    ],
+    "c3_kernel_cpu_cycles_including_jsr_rts": 626208,
+    "c3_kernel_cycles_per_output": 16.016778780980637,
+    "c3_manager_cycles_above_kernel_calls": 258274,
+    "c3_pump_calls_by_output_count": {
+      "0": {
+        "calls": 1047,
+        "foreground_cycles_range": [
+          44,
+          198
+        ]
+      },
+      "1": {
+        "calls": 16,
+        "foreground_cycles_range": [
+          68,
+          68
+        ]
+      },
+      "2": {
+        "calls": 16,
+        "foreground_cycles_range": [
+          83,
+          83
+        ]
+      },
+      "5": {
+        "calls": 12,
+        "foreground_cycles_range": [
+          155,
+          155
+        ]
+      },
+      "6": {
+        "calls": 21,
+        "foreground_cycles_range": [
+          164,
+          170
+        ]
+      },
+      "7": {
+        "calls": 864,
+        "foreground_cycles_range": [
+          158,
+          185
+        ]
+      },
+      "8": {
+        "calls": 103,
+        "foreground_cycles_range": [
+          173,
+          200
+        ]
+      },
+      "16": {
+        "calls": 126,
+        "foreground_cycles_range": [
+          162,
+          162
+        ]
+      },
+      "31": {
+        "calls": 9,
+        "foreground_cycles_range": [
+          543,
+          543
+        ]
+      },
+      "32": {
+        "calls": 928,
+        "foreground_cycles_range": [
+          529,
+          558
+        ]
+      }
+    },
+    "monitor_log_sha256": "3fdf5d124e3af931d113a1410c5b652a25543a97ea7c3d0cfea3700a3c668a3e",
+    "register_dump_sha256": "fd8a87fc8bc04805cdd799274960efcaefbe8d052e23057b32c9bbae9206351a",
+    "failures": [],
+    "scope": "Unmodified automatic-activation PRG. Every NMI/boundary, exact buffer length and126cycle latch clock checked. RLE fills meet the actual NMI shadow-read deadline; no foreground wait/pointer-swap gate. Costs include hardware entry/RTI and JSR/RTS as stated; final nonreturning NMI is excluded from averages. Ring generations and audio quality require separate proofs.",
+    "c3_background_entry_guard_cpu_cycles": 43756,
+    "c3_background_loop_cpu_cycles_between_calls": 13010,
+    "c3_total_foreground_cycles_including_background_control": 941248,
+    "c3_total_foreground_cycles_per_output_including_background_control": 24.074686037291865,
+    "c3_background_control_scope": "Includes active queue/boundary guards and branches between consecutive C3 calls. RLE fills and intervening idle waits excluded; final exit into each idle wait is not charged.",
+    "attribution": {
+      "interval_start_hardware_cycle": 2300206,
+      "interval_end_hardware_cycle": 22005094,
+      "interval_cpu_cycles": 19704888,
+      "cpu_partition": {
+        "nmi": {
+          "cycles": 13952932,
+          "cpu_percent": 70.80949660815124
+        },
+        "bass_drum_fill": {
+          "cycles": 2562605,
+          "cpu_percent": 13.004920403505972
+        },
+        "c3_producer": {
+          "cycles": 879323,
+          "cpu_percent": 4.462461293867795
+        },
+        "score_decode": {
+          "cycles": 0,
+          "cpu_percent": 0.0
+        },
+        "main_control_and_busy_wait": {
+          "cycles": 2310028,
+          "cpu_percent": 11.723121694474996
+        }
+      },
+      "c3_kernels": {
+        "copy": {
+          "calls": 1849,
+          "cycles_including_jsr_rts": 594775,
+          "outputs": 36251
+        },
+        "ended_copy": {
+          "calls": 109,
+          "cycles_including_jsr_rts": 11116,
+          "outputs": 603
+        },
+        "ended16": {
+          "calls": 126,
+          "cycles_including_jsr_rts": 16632,
+          "outputs": 2016
+        }
+      },
+      "bass_drum_kernels": {
+        "constant": {
+          "calls": 999,
+          "cycles_including_jsr_rts": 2291703,
+          "outputs": 156233
+        }
+      },
+      "scope": "Exact non-overlapping wall-cycle partition of the unchanged program, excluding startup and terminal shutdown. NMI cycles are removed from every foreground interval. Main-control/busy-wait residual is not a claim that all those cycles can meet an arbitrary new deadline."
+    }
+  },
+  "preserved_SID1_and_SID3_audio": {
+    "sid-1": {
+      "passed": true,
+      "reference_sha256": "ee49c076621958e882c91b461df7209ca439c4e7519cc8a217c63fb36204c335",
+      "comparison_gain": 8,
+      "fixed_frames": 441001,
+      "peak_PCM16_LSB_difference": 103.96128806964157,
+      "RMS_PCM16_LSB_difference": 1.312802291265723,
+      "RMS_ratio": 0.999995546198435,
+      "raw_peak_within_96_LSB": false,
+      "raw_peak_after_45ms_PCM16_LSB": 23.96128806964157,
+      "independent_muted_attribution_peak_PCM16_LSB": 64.00119727619666,
+      "independent_muted_attribution_RMS_PCM16_LSB": 0.6857124630210336,
+      "previous_muted_capture_sha256": "eb4f05bcf3741fb67ad2dd50c8a8f09e7a65b34be9dea88b59322bf193b28875",
+      "current_muted_capture_sha256": "9c3c47c2a2f37b7621165f0e11d89ff89ff9f1cd8f2bfd15f97df7153b369083",
+      "peak_limit_PCM16_LSB": 96,
+      "RMS_limit_PCM16_LSB": 25,
+      "time_or_gain_fit": false,
+      "scope": "Actual solo captures at the same fixed native epoch and fixed comparison gain. Raw startup peaks exceed 96 LSB and remain explicitly reported. The gate applies to residuals after independently measured muted-control settling is subtracted for analysis only. Listening audio is never shifted, gain-fitted, control-subtracted or otherwise corrected."
+    },
+    "sid-3": {
+      "passed": true,
+      "reference_sha256": "b1ae830eb76687a7859db31f5df1694c4e846e3bf4dfb565b3a02d0382b13cbd",
+      "comparison_gain": 8,
+      "fixed_frames": 441001,
+      "peak_PCM16_LSB_difference": 103.95459420726934,
+      "RMS_PCM16_LSB_difference": 1.476344550187646,
+      "RMS_ratio": 1.0000010332374452,
+      "raw_peak_within_96_LSB": false,
+      "raw_peak_after_45ms_PCM16_LSB": 23.95459420727093,
+      "independent_muted_attribution_peak_PCM16_LSB": 64.00789113856729,
+      "independent_muted_attribution_RMS_PCM16_LSB": 0.7346123650908278,
+      "previous_muted_capture_sha256": "eb4f05bcf3741fb67ad2dd50c8a8f09e7a65b34be9dea88b59322bf193b28875",
+      "current_muted_capture_sha256": "9c3c47c2a2f37b7621165f0e11d89ff89ff9f1cd8f2bfd15f97df7153b369083",
+      "peak_limit_PCM16_LSB": 96,
+      "RMS_limit_PCM16_LSB": 25,
+      "time_or_gain_fit": false,
+      "scope": "Actual solo captures at the same fixed native epoch and fixed comparison gain. Raw startup peaks exceed 96 LSB and remain explicitly reported. The gate applies to residuals after independently measured muted-control settling is subtracted for analysis only. Listening audio is never shifted, gain-fitted, control-subtracted or otherwise corrected."
+    }
+  },
+  "mute_control": {
+    "passed": true,
+    "maximum_PCM16_LSB_difference": 0.0
+  },
+  "audio": {
+    "all": {
+      "file": "all.wav",
+      "sha256": "93c18c9b0fe3259e797c4905f9b443474aeda7748bb44ebf1c152eadd1ff2a1d",
+      "rate": 22050,
+      "frames": 441001,
+      "duration_s": 20.000045351473922,
+      "listening_gain": 5.947112093087676,
+      "RMS": 0.2166318391277,
+      "raw_capture_sha256": "2fea013fc94653156ec52e9baf7f5c0f9430de4671e734d496b049950849d979",
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one common constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-1": {
+      "file": "sid-1.wav",
+      "sha256": "8d3d05c374406b762a2f085b22e4ef45df3e7b14df72ee9619fcd6cdf562b7e7",
+      "rate": 22050,
+      "frames": 441001,
+      "duration_s": 20.000045351473922,
+      "listening_gain": 5.947112093087676,
+      "RMS": 0.03308690034568558,
+      "raw_capture_sha256": "ff05f627dc31906e27b09806398bec016bbcb15012191c36603dc78d392dc8b2",
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one common constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-2": {
+      "file": "sid-2.wav",
+      "sha256": "ebef5ce0534affa7e152ff38fb7658e2df60897e3d115754191943aa5313dd4c",
+      "rate": 22050,
+      "frames": 441001,
+      "duration_s": 20.000045351473922,
+      "listening_gain": 5.947112093087676,
+      "RMS": 0.1522599148015599,
+      "raw_capture_sha256": "0513c497e6f61589046401303c8f4b05ae565a29ba7044afafe7060cff87df55",
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one common constant gain. No host mixing, EQ, alignment or dynamics."
+    },
+    "sid-3": {
+      "file": "sid-3.wav",
+      "sha256": "bc4b97a9522f62f2543a19dd81c8c740f4b65a858fbdd45098cc56fdcf7bbfbd",
+      "rate": 22050,
+      "frames": 441001,
+      "duration_s": 20.000045351473922,
+      "listening_gain": 5.947112093087676,
+      "RMS": 0.15990706223700987,
+      "raw_capture_sha256": "54060db3ca96b2c63e5cb192dc8e95cf99f729d7ddbc4216e5719c30d91a0a86",
+      "processing": "Independent actual VICE capture, native-clock crop, DC removal and one common constant gain. No host mixing, EQ, alignment or dynamics."
+    }
+  },
+  "protected_unchanged": true,
+  "previous_muted_control_fresh_clone_fallback": {
+    "implemented": true,
+    "exercised": false,
+    "scope": "This run used the hash-verified existing raw control. Missing raw controls are reproduced into the candidate directory from the canonical bounded source, with the frozen all-output player SHA checked before capture."
+  },
+  "normal_autostart": {
+    "file": "autostart-check.json",
+    "sha256": "082d7af2d74be6ec3dbb8a755996a9ae4ba2f3ceeedef8923095933351667ed6",
+    "passed": true
+  },
+  "clean_rebuild": {
+    "file": "rebuild-check.json",
+    "sha256": "2ba17d442b2de10a8f77323563117c556321762205a7a27d02b469c815ef25ec",
+    "passed": true,
+    "scope": "All five PRGs reproduced byte for byte. Subsequent source changes add only non-audio receipt whitelisting."
+  },
+  "output_isolation": {
+    "file": "isolation-check.json",
+    "sha256": "b5a8979f3dee191d686d1f948398f1189a61d6466f5d01d99fe69a6ba0ef42e2",
+    "passed": true
+  },
+  "original_C4_reference": {
+    "file": "original-c4.wav",
+    "sha256": "6cb2cb7e80b06505e73fe772cc170d37f38ac3c1df165e73e8cda131e46e9502",
+    "receipt": "original-c4-receipt.json"
+  }
+}

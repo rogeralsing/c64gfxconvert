@@ -1,0 +1,2014 @@
+{
+  "errors": [],
+  "checks": [
+    {
+      "name": "default off",
+      "config": {
+        "vertical": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "sides": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "multicolorIndices": [
+          1,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": false,
+        "width": 320,
+        "height": 200,
+        "coreX": 0,
+        "coreY": 0,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "canvas": {
+        "width": 320,
+        "height": 200
+      },
+      "mode": "fli",
+      "preview": "unrestricted",
+      "backgroundColorIndex": 0,
+      "fieldsetDisabled": false,
+      "multicolorVisible": false,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "vertical only",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "sides": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "multicolorIndices": [
+          1,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 320,
+        "height": 272,
+        "coreX": 0,
+        "coreY": 35,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 0,
+        "right": 0,
+        "top": 35,
+        "bottom": 37
+      },
+      "canvas": {
+        "width": 320,
+        "height": 272
+      },
+      "mode": "mci",
+      "preview": "unrestricted",
+      "backgroundColorIndex": 0,
+      "fieldsetDisabled": false,
+      "multicolorVisible": false,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "sides only",
+      "config": {
+        "vertical": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "multicolorIndices": [
+          1,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 368,
+        "height": 200,
+        "coreX": 24,
+        "coreY": 0,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 24,
+        "right": 24,
+        "top": 0,
+        "bottom": 0
+      },
+      "canvas": {
+        "width": 368,
+        "height": 200
+      },
+      "mode": "mci",
+      "preview": "unrestricted",
+      "backgroundColorIndex": 0,
+      "fieldsetDisabled": false,
+      "multicolorVisible": false,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "all borders",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "multicolorIndices": [
+          1,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 368,
+        "height": 272,
+        "coreX": 24,
+        "coreY": 35,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 24,
+        "right": 24,
+        "top": 35,
+        "bottom": 37
+      },
+      "canvas": {
+        "width": 368,
+        "height": 272
+      },
+      "mode": "mci",
+      "preview": "unrestricted",
+      "backgroundColorIndex": 0,
+      "fieldsetDisabled": false,
+      "multicolorVisible": false,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "independent modes and global colors",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 368,
+        "height": 272,
+        "coreX": 24,
+        "coreY": 35,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 24,
+        "right": 24,
+        "top": 35,
+        "bottom": 37
+      },
+      "canvas": {
+        "width": 368,
+        "height": 272
+      },
+      "mode": "mci",
+      "preview": "unrestricted",
+      "backgroundColorIndex": 9,
+      "fieldsetDisabled": false,
+      "multicolorVisible": true,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "palette preview includes borders",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 368,
+        "height": 272,
+        "coreX": 24,
+        "coreY": 35,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 24,
+        "right": 24,
+        "top": 35,
+        "bottom": 37
+      },
+      "canvas": {
+        "width": 368,
+        "height": 272
+      },
+      "mode": "mci",
+      "preview": "palette",
+      "backgroundColorIndex": 9,
+      "fieldsetDisabled": false,
+      "multicolorVisible": true,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 0,
+      "layerCount": 1
+    },
+    {
+      "name": "restricted pixels and alternating padded frames",
+      "counts": {
+        "top": {
+          "foreground": 6576,
+          "invalid": 0
+        },
+        "bottom": {
+          "foreground": 9464,
+          "invalid": 0
+        },
+        "left": {
+          "foreground": 2027,
+          "invalid": 0
+        },
+        "right": {
+          "foreground": 2385,
+          "invalid": 0
+        }
+      },
+      "sprites": 26,
+      "core": [
+        24,
+        35,
+        320,
+        200
+      ],
+      "alternating": [
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "1",
+          "width": 368,
+          "height": 272
+        },
+        {
+          "phase": "0",
+          "width": 368,
+          "height": 272
+        }
+      ]
+    },
+    {
+      "name": "source panning retains border geometry",
+      "before": [
+        0,
+        0
+      ],
+      "after": [
+        9,
+        4
+      ]
+    },
+    {
+      "name": "settings stay global across layer selection",
+      "layers": 2,
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "sprites",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "sprites-hires",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "fli-sprites",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "afli-sprites",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "nufli",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "unsupported mode retains settings",
+      "mode": "pafli",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      }
+    },
+    {
+      "name": "saved project reopens global settings",
+      "config": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": true,
+        "width": 368,
+        "height": 272,
+        "coreX": 24,
+        "coreY": 35,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 24,
+        "right": 24,
+        "top": 35,
+        "bottom": 37
+      },
+      "canvas": {
+        "width": 368,
+        "height": 272
+      },
+      "mode": "mci",
+      "preview": "restricted",
+      "backgroundColorIndex": 9,
+      "fieldsetDisabled": false,
+      "multicolorVisible": true,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 1,
+      "layerCount": 2
+    },
+    {
+      "name": "legacy project resets border settings",
+      "config": {
+        "vertical": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "sides": {
+          "enabled": false,
+          "mode": "hires",
+          "colorIndex": 3
+        },
+        "multicolorIndices": [
+          1,
+          14
+        ]
+      },
+      "layout": {
+        "enabled": false,
+        "width": 320,
+        "height": 200,
+        "coreX": 0,
+        "coreY": 0,
+        "coreWidth": 320,
+        "coreHeight": 200,
+        "left": 0,
+        "right": 0,
+        "top": 0,
+        "bottom": 0
+      },
+      "canvas": {
+        "width": 320,
+        "height": 200
+      },
+      "mode": "mci",
+      "preview": "restricted",
+      "backgroundColorIndex": 9,
+      "fieldsetDisabled": false,
+      "multicolorVisible": false,
+      "sourcePosition": [
+        0,
+        0
+      ],
+      "activeLayer": 1,
+      "layerCount": 2
+    }
+  ],
+  "screenshots": [
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-desktop.png",
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mobile.png",
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mobile-controls.png"
+  ],
+  "spriteDownload": {
+    "destination": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-export.zip",
+    "name": "mci-phase-0-borders.zip",
+    "bytes": 23013,
+    "manifest": {
+      "format": "c64-border-sprites",
+      "version": 1,
+      "files": {
+        "sprites": "sprites.bin"
+      },
+      "image": {
+        "width": 368,
+        "height": 272,
+        "pixelAspectRatio": [
+          1,
+          1
+        ],
+        "core": {
+          "x": 24,
+          "y": 35,
+          "width": 320,
+          "height": 200
+        }
+      },
+      "settings": {
+        "vertical": {
+          "enabled": true,
+          "mode": "multicolor",
+          "colorIndex": 7
+        },
+        "sides": {
+          "enabled": true,
+          "mode": "hires",
+          "colorIndex": 5
+        },
+        "multicolorIndices": [
+          2,
+          14
+        ]
+      },
+      "data": {
+        "bytesPerSprite": 64,
+        "imageBytesPerSprite": 63,
+        "paddingByte": 0,
+        "bitOrder": "msb-first",
+        "multicolorCodes": [
+          "transparent",
+          "shared-1",
+          "sprite-color",
+          "shared-2"
+        ]
+      },
+      "hardware": {
+        "videoStandard": "PAL",
+        "programIncluded": false,
+        "borderOpeningRequired": true,
+        "rasterMultiplexingRequired": true,
+        "behindBitmapMask": 0,
+        "sharedMulticolorRegisters": [
+          2,
+          14
+        ],
+        "backgroundColorRegister": 9,
+        "spritePositionOrigin": "VIC register coordinates; viewport positions are also recorded per frame",
+        "transparency": "Code zero shows the background beneath the sprite, using $D021 in the open border.",
+        "lastSideBand": "After eleven doubled source rows, clear Y expansion to display ten single rows (32 lines total).",
+        "clipping": "Top and bottom extend beyond the viewport. Side frames stop at the central bitmap boundary."
+      },
+      "sprites": [
+        {
+          "index": 0,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": -7,
+          "vicX": 0,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 0,
+          "byteLength": 64
+        },
+        {
+          "index": 1,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 0,
+          "x": 48,
+          "y": -7,
+          "vicX": 48,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 64,
+          "byteLength": 64
+        },
+        {
+          "index": 2,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 1,
+          "x": 96,
+          "y": -7,
+          "vicX": 96,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 128,
+          "byteLength": 64
+        },
+        {
+          "index": 3,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 2,
+          "x": 144,
+          "y": -7,
+          "vicX": 144,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 192,
+          "byteLength": 64
+        },
+        {
+          "index": 4,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 5,
+          "x": 192,
+          "y": -7,
+          "vicX": 192,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 256,
+          "byteLength": 64
+        },
+        {
+          "index": 5,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 6,
+          "x": 240,
+          "y": -7,
+          "vicX": 240,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 320,
+          "byteLength": 64
+        },
+        {
+          "index": 6,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 7,
+          "x": 288,
+          "y": -7,
+          "vicX": 288,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 384,
+          "byteLength": 64
+        },
+        {
+          "index": 7,
+          "group": "top",
+          "band": 0,
+          "hardwareSlot": 4,
+          "x": 336,
+          "y": -7,
+          "vicX": 336,
+          "vicY": 8,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 0,
+            "width": 368,
+            "height": 35
+          },
+          "byteOffset": 448,
+          "byteLength": 64
+        },
+        {
+          "index": 8,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 235,
+          "vicX": 0,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 512,
+          "byteLength": 64
+        },
+        {
+          "index": 9,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 0,
+          "x": 48,
+          "y": 235,
+          "vicX": 48,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 576,
+          "byteLength": 64
+        },
+        {
+          "index": 10,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 1,
+          "x": 96,
+          "y": 235,
+          "vicX": 96,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 640,
+          "byteLength": 64
+        },
+        {
+          "index": 11,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 2,
+          "x": 144,
+          "y": 235,
+          "vicX": 144,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 704,
+          "byteLength": 64
+        },
+        {
+          "index": 12,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 5,
+          "x": 192,
+          "y": 235,
+          "vicX": 192,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 768,
+          "byteLength": 64
+        },
+        {
+          "index": 13,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 6,
+          "x": 240,
+          "y": 235,
+          "vicX": 240,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 832,
+          "byteLength": 64
+        },
+        {
+          "index": 14,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 7,
+          "x": 288,
+          "y": 235,
+          "vicX": 288,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 896,
+          "byteLength": 64
+        },
+        {
+          "index": 15,
+          "group": "bottom",
+          "band": 0,
+          "hardwareSlot": 4,
+          "x": 336,
+          "y": 235,
+          "vicX": 336,
+          "vicY": 250,
+          "mode": "multicolor",
+          "multicolor": true,
+          "colorIndex": 7,
+          "xExpanded": true,
+          "yExpanded": true,
+          "displayWidth": 48,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 235,
+            "width": 368,
+            "height": 37
+          },
+          "byteOffset": 960,
+          "byteLength": 64
+        },
+        {
+          "index": 16,
+          "group": "left",
+          "band": 0,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 35,
+          "vicX": 0,
+          "vicY": 50,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1024,
+          "byteLength": 64
+        },
+        {
+          "index": 17,
+          "group": "left",
+          "band": 1,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 77,
+          "vicX": 0,
+          "vicY": 92,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1088,
+          "byteLength": 64
+        },
+        {
+          "index": 18,
+          "group": "left",
+          "band": 2,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 119,
+          "vicX": 0,
+          "vicY": 134,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1152,
+          "byteLength": 64
+        },
+        {
+          "index": 19,
+          "group": "left",
+          "band": 3,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 161,
+          "vicX": 0,
+          "vicY": 176,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 0,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1216,
+          "byteLength": 64
+        },
+        {
+          "index": 20,
+          "group": "left",
+          "band": 4,
+          "hardwareSlot": 3,
+          "x": 0,
+          "y": 203,
+          "vicX": 0,
+          "vicY": 218,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 32,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "clip": {
+            "x": 0,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1280,
+          "byteLength": 64
+        },
+        {
+          "index": 21,
+          "group": "right",
+          "band": 0,
+          "hardwareSlot": 4,
+          "x": 344,
+          "y": 35,
+          "vicX": 344,
+          "vicY": 50,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 344,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1344,
+          "byteLength": 64
+        },
+        {
+          "index": 22,
+          "group": "right",
+          "band": 1,
+          "hardwareSlot": 4,
+          "x": 344,
+          "y": 77,
+          "vicX": 344,
+          "vicY": 92,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 344,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1408,
+          "byteLength": 64
+        },
+        {
+          "index": 23,
+          "group": "right",
+          "band": 2,
+          "hardwareSlot": 4,
+          "x": 344,
+          "y": 119,
+          "vicX": 344,
+          "vicY": 134,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 344,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1472,
+          "byteLength": 64
+        },
+        {
+          "index": 24,
+          "group": "right",
+          "band": 3,
+          "hardwareSlot": 4,
+          "x": 344,
+          "y": 161,
+          "vicX": 344,
+          "vicY": 176,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 42,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2
+          ],
+          "clip": {
+            "x": 344,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1536,
+          "byteLength": 64
+        },
+        {
+          "index": 25,
+          "group": "right",
+          "band": 4,
+          "hardwareSlot": 4,
+          "x": 344,
+          "y": 203,
+          "vicX": 344,
+          "vicY": 218,
+          "mode": "hires",
+          "multicolor": false,
+          "colorIndex": 5,
+          "xExpanded": false,
+          "yExpanded": true,
+          "displayWidth": 24,
+          "displayHeight": 32,
+          "rowHeights": [
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            2,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1,
+            1
+          ],
+          "clip": {
+            "x": 344,
+            "y": 35,
+            "width": 24,
+            "height": 200
+          },
+          "byteOffset": 1600,
+          "byteLength": 64
+        }
+      ]
+    }
+  },
+  "mciDownload": {
+    "destination": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-core.mci",
+    "name": "mci-phase-0.mci",
+    "bytes": 19434
+  },
+  "projectDownload": {
+    "destination": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-project.json",
+    "name": "mci-phase-0-project.json",
+    "bytes": 33426
+  },
+  "desktop": {
+    "viewport": [
+      1440,
+      1000
+    ],
+    "documentWidth": 1440,
+    "horizontalOverflow": false,
+    "borderControlsFitSidebar": true,
+    "canvas": [
+      368,
+      272
+    ]
+  },
+  "mobile": {
+    "viewport": [
+      390,
+      844
+    ],
+    "documentWidth": 390,
+    "horizontalOverflow": false,
+    "borderControlsFitSidebar": true,
+    "canvas": [
+      368,
+      272
+    ]
+  },
+  "passed": true
+}

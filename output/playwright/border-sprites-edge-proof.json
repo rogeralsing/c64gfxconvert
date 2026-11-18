@@ -1,0 +1,58 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "phase": 0,
+      "transparentRows": 109,
+      "opaqueRows": 91,
+      "visibleSpillChanges": 0,
+      "differences": 0,
+      "changedOutsideCoreAndFirstRightColumn": 0,
+      "defaultBorderDifferences": 0,
+      "canvas": [
+        368,
+        272
+      ],
+      "maskLength": 100096
+    },
+    {
+      "phase": 1,
+      "transparentRows": 109,
+      "opaqueRows": 91,
+      "visibleSpillChanges": 80,
+      "differences": 0,
+      "changedOutsideCoreAndFirstRightColumn": 0,
+      "defaultBorderDifferences": 0,
+      "canvas": [
+        368,
+        272
+      ],
+      "maskLength": 100096
+    }
+  ],
+  "views": [
+    {
+      "mode": "unrestricted",
+      "differences": 0,
+      "canvas": [
+        368,
+        272
+      ]
+    },
+    {
+      "mode": "palette",
+      "differences": 0,
+      "canvas": [
+        368,
+        272
+      ]
+    }
+  ],
+  "screenshots": [
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-desktop.png",
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mobile.png",
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mobile-controls.png"
+  ],
+  "horizontalOverflow": false,
+  "passed": true
+}

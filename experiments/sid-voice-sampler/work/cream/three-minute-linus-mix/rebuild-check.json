@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "cold_delay_cycles": 95085,
+  "variants": {
+    "all": {
+      "program_sha256": "64491b4342da1b31c980ddefae68d60286050bfc88c0ca6af2a2e128fc876424",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-1": {
+      "program_sha256": "13d7456e214863d94c4b3ae46b5d813189ae88d39ff0cb7a27b1b17922f89bfc",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-2": {
+      "program_sha256": "349670b00bb21866cae2888d0abbf84b4dcc64c232987e4f5868b53d83ebfd55",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-3": {
+      "program_sha256": "00fdb7f6bc1e3c43b9dc9c30c461d9b5754e5fd5b39d1ded72980a0cb5c8519b",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "muted": {
+      "program_sha256": "564c991ba436293e95bae8d894df74e06ba2afcdbdafaf73d1135a04e4be05ce",
+      "byte_identical": true,
+      "native_byte_identical": true
+    }
+  },
+  "scope": "All five native and packaged PRGs rebuilt in a fresh temporary directory, from source MOD and reusable instrument recipes; every byte matches the independently verified programs."
+}

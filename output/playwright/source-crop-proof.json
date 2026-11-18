@@ -1,0 +1,25 @@
+{
+  "checks": [
+    "crop disabled without a source",
+    "rectangle corners resize axis-aligned mask",
+    "outside crop reveals lower layer; inside retains upper",
+    "original embedded source unchanged",
+    "Cancel discards polygon draft",
+    "Escape discards draft reset",
+    "clicking an edge adds a polygon node",
+    "Delete removes and Insert adds selected-edge node",
+    "keyboard moves by one source pixel and Shift by ten",
+    "polygon retains at least three points",
+    "polygon applies independently moved corners",
+    "duplicate owns independent crop nodes",
+    "Reset crop restores full original source",
+    "project download/reopen preserves mask and original",
+    "source-relative mask survives scale/pan and 160/320 mode changes",
+    "palette preview reveals lower mapped layer outside cropped source",
+    "cropped composition downloads as FLI with all 32000 fitted pixels preserved",
+    "crop disabled for tile marker layer",
+    "crop disabled for empty image layer",
+    "crop editor fits desktop and 390px mobile viewport"
+  ],
+  "errors": []
+}

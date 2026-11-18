@@ -1,5 +1,9 @@
 // ECM version of the direct row-span effects player. Font and source poses
 // are frozen assets; only screen bytes and Color RAM values are plotted.
+.const stepCount=stepModeData.getSize()
+.const paletteCount=paletteData.getSize()/4
+.assert "Matching playlist tables", stepCount, stepObjectData.getSize()
+.assert "Complete four-color palettes", paletteCount*4, paletteData.getSize()
 BasicUpstart2(start)
 .label source_ptr=$02
 .label cache_write=$04
@@ -59,11 +63,11 @@ start:
     .for(var page=0;page<4;page++) { sta $d800+page*$100,x }
     inx
     bne !clear-
-    lda #12
+    lda display_palette+1
     sta $d022
-    lda #15
+    lda display_palette+2
     sta $d023
-    lda #1
+    lda display_palette+3
     sta $d024
     lda #$04
     sta front_screen_hi
@@ -105,6 +109,7 @@ presented:
     nop
 prepare_start:
     jsr select_next
+    jsr prepare_palette
     jsr poll_zoom_keyboard
     jsr latch_flash_crop
 clear_start:
@@ -135,6 +140,12 @@ commit_start:
     sei
     // Raster256 starts below the old visible matrix. Color cells are copied
     // in row order, keeping the write cursor ahead of the next field's beam.
+    .for(var slot=0;slot<4;slot++) {
+        lda display_palette+slot
+        sta $d021+slot
+    }
+    lda next_palette_index
+    sta palette_index
     lda back_screen_hi
     sta front_screen_hi
     cmp #4
@@ -228,7 +239,7 @@ commit_end:
 select_next:
     ldx step_index
     inx
-    cpx #40
+    cpx #stepCount
     bcc !candidate+
     ldx #0
 !candidate:
@@ -302,11 +313,12 @@ select_next:
     sta next_phase
     rts
 reset_mode_clock:
-    lda step_index
-    and #1
-    bne !flash+
-    lda #<501
-    ldx #>501
+    ldx step_index
+    lda step_mode,x
+    cmp #6
+    beq !flash+
+    lda #<baseFields
+    ldx #>baseFields
     bne !set+
 !flash:
     lda #25
@@ -318,6 +330,51 @@ reset_mode_clock:
     sta mode_due
     rts
 
+prepare_palette:
+    lda palette_index
+    ldx next_step
+    cpx step_index
+    beq !selected+
+    clc
+    adc #1
+    cmp #paletteCount
+    bcc !selected+
+    lda #0
+!selected:
+    sta next_palette_index
+    asl
+    asl
+    tax
+    ldy #0
+!palette:
+    lda palette_cycle,x
+    sta display_palette,y
+    inx
+    iny
+    cpy #4
+    bne !palette-
+    ldx #15
+    lda #0
+!clear:
+    sta pending_foreground,x
+    sta foreground_queue_bucket,x
+    dex
+    bpl !clear-
+    ldx #3
+!map:
+    lda palette_values,x
+    tay
+    lda display_palette,x
+    sta pending_foreground,y
+    tay
+    txa
+    asl
+    asl
+    sta foreground_queue_bucket,y
+    dex
+    bpl !map-
+    rts
+
 latch_flash_crop:
     lda next_mode
     cmp #6
@@ -325,7 +382,6 @@ latch_flash_crop:
     lda next_step
     cmp step_index
     beq !stable+
-    lsr
     tax
     lda zoom_x
     clc
@@ -768,6 +824,8 @@ fast_plot_plain:
     and #63
     beq !done+
     lda cell_color
+    tax
+    lda pending_foreground,x
     cmp (top_color),y
     beq !done+
     sta (top_color),y
@@ -963,6 +1021,8 @@ write_original:
     and #63
     beq !done+
     lda cell_color
+    tax
+    lda pending_foreground,x
     cmp (top_color),y
     beq !done+
     sta (top_color),y
@@ -975,6 +1035,8 @@ write_top_mapped:
     and #63
     beq !done+
     lda mapped_color
+    tax
+    lda pending_foreground,x
     cmp (top_color),y
     beq !done+
     sta (top_color),y
@@ -987,6 +1049,8 @@ write_bottom_mapped:
     and #63
     beq !done+
     lda mapped_color
+    tax
+    lda pending_foreground,x
     cmp (bottom_color),y
     beq !done+
     sta (bottom_color),y
@@ -1057,7 +1121,7 @@ commit_color_queues:
     lsr
     lsr
     tax
-    lda palette_values,x
+    lda display_palette,x
     ldy #0
 !position:
 color_queue_load:
@@ -1270,8 +1334,10 @@ phase: .byte 0
 next_phase: .byte 0
 field_counter: .word 0
 mode_started_field: .word 0
-mode_fields_left: .word 501
+mode_fields_left: .word baseFields
 mode_due: .byte 0
+palette_index: .byte 0
+next_palette_index: .byte 0
 front_screen_hi: .byte $04
 back_screen_hi: .byte $08
 zoom_x: .byte 10
@@ -1320,7 +1386,9 @@ object_budget_base: .byte 0,9,18
 // Color RAM presentation and badline contention. They are not target FPS.
 // Bounds cover all 48 poses, retained FG2 and a cold wave cache. Each adds
 // the 12201-cycle full copy, divides by 18456, rounds up and adds one field.
-preparation_budget: .byte 5,6,7,4,5,4,8,6,5, 5,6,6,4,5,5,6,6,5, 7,8,10,6,7,7,10,6,5
+// One additional field covers the aligned six-cycle foreground remap for
+// at most 1000 visible cells, palette setup, and border palette publication.
+preparation_budget: .byte 6,7,8,5,6,5,9,7,6, 6,7,7,5,6,6,7,7,6, 8,9,11,7,8,8,11,7,6
 frame_pointer_low: .fill 147, framePointerData.get(i*2)
 frame_pointer_high: .fill 147, framePointerData.get(i*2+1)
 .var cellPlotters=List().add(fast_plot_plain,fast_plot_plain,fast_plot_checker,fast_plot_v,fast_plot_h,fast_plot_hv,plot_zoom,fast_plot_checker,fast_plot_mixed_star,fast_plot_mixed_cube)
@@ -1335,15 +1403,19 @@ bottom_offset_low: .fill 25, <((23-i)*40)
 bottom_offset_high: .fill 25, >((23-i)*40)
 mirror_column: .fill 40, 39-i
 palette_values: .byte 0,12,15,1
+palette_cycle: .fill paletteData.getSize(), paletteData.get(i)
+display_palette: .fill 4, paletteData.get(i)
+.align 16
+pending_foreground: .fill 16,0
 foreground_background_bits: .fill 16, i==12 ? $40 : i==15 ? $80 : i==1 ? $c0 : 0
-foreground_queue_bucket: .fill 16, i==12 ? 4 : i==15 ? 8 : i==1 ? 12 : 0
+foreground_queue_bucket: .fill 16,0
 wave_pointer_low: .fill 25, <(wave_ages+i*2)
 wave_pointer_high: .fill 25, >(wave_ages+i*2)
 wave_ages: .fill waveData.getSize(), waveData.get(i)
-step_mode: .fill 40, stepModeData.get(i)
-step_object: .fill 40, stepObjectData.get(i)
-flash_dx: .fill 20, i-floor(i/6)*6==1 ? -3 : i-floor(i/6)*6==2 ? 2 : i-floor(i/6)*6==3 ? -1 : i-floor(i/6)*6==4 ? 3 : i-floor(i/6)*6==5 ? -2 : 0
-flash_dy: .fill 20, i-floor(i/6)*6==1 ? -2 : i-floor(i/6)*6==3 ? 2 : i-floor(i/6)*6==4 ? -1 : i-floor(i/6)*6==5 ? 1 : 0
+step_mode: .fill stepCount, stepModeData.get(i)
+step_object: .fill stepCount, stepObjectData.get(i)
+flash_dx: .fill stepCount, i-floor(i/6)*6==1 ? -3 : i-floor(i/6)*6==2 ? 2 : i-floor(i/6)*6==3 ? -1 : i-floor(i/6)*6==4 ? 3 : i-floor(i/6)*6==5 ? -2 : 0
+flash_dy: .fill stepCount, i-floor(i/6)*6==1 ? -2 : i-floor(i/6)*6==3 ? 2 : i-floor(i/6)*6==4 ? -1 : i-floor(i/6)*6==5 ? 1 : 0
 dictionary_screen: .fill 220, dictionaryScreenData.get(i)
 dictionary_color: .fill 220, dictionaryColorData.get(i)
 h_map: .fill 64, hMapData.get(i)

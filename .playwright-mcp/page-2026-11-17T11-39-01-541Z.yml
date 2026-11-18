@@ -1,0 +1,659 @@
+- generic [ref=f3e3]:
+  - banner [ref=f3e4]:
+    - generic [aria-hidden] [ref=f3e5]: "64"
+    - generic [ref=f3e6]:
+      - heading "C64 Studio" [level=1] [ref=f3e7]
+      - strong [ref=f3e8]: FLI
+    - generic [ref=f3e9]:
+      - generic [ref=f3e10]: Local workspace
+      - group "Project files" [ref=f3e11]:
+        - button "Open project JSON" [ref=f3e12]
+        - button "Open project" [ref=f3e13] [cursor=pointer]
+        - button "Save project" [ref=f3e14] [cursor=pointer]
+      - button "Open image" [ref=f3e15] [cursor=pointer]
+  - main [ref=f3e18]:
+    - generic [ref=f3e19]:
+      - navigation "Workspace tools" [ref=f3e20]:
+        - button "Open source image" [ref=f3e21] [cursor=pointer]
+        - button "Source image settings" [ref=f3e25] [cursor=pointer]
+        - button "Crop selected layer" [disabled] [ref=f3e28]
+        - button "Image adjustments" [ref=f3e31] [cursor=pointer]
+        - button "Palette and color settings" [ref=f3e34] [cursor=pointer]
+        - button "Reset image framing" [disabled] [ref=f3e37]
+      - region "Untitled RGB / 8" [ref=f3e40]:
+        - generic [ref=f3e41]:
+          - heading "Untitled RGB / 8" [level=2] [ref=f3e42]:
+            - generic "Untitled" [ref=f3e45]
+            - generic [ref=f3e46]: RGB / 8
+          - generic [ref=f3e47]: No image open
+        - generic [ref=f3e50]:
+          - generic [ref=f3e51]:
+            - tablist "Image color mode" [ref=f3e52]:
+              - tab "Unrestricted" [selected] [ref=f3e53] [cursor=pointer]
+              - tab "C64 Palette" [ref=f3e54] [cursor=pointer]
+              - tab "FLI" [ref=f3e55] [cursor=pointer]
+            - generic [ref=f3e56]:
+              - generic [ref=f3e57] [cursor=pointer]:
+                - checkbox "Tile grid" [checked] [ref=f3e58]
+                - generic [ref=f3e59]: Tile grid
+              - button "Save FLI" [disabled] [ref=f3e60]
+          - tabpanel "Unrestricted" [ref=f3e61]:
+            - generic [ref=f3e62]:
+              - generic [ref=f3e65]:
+                - heading "No image open" [level=2] [ref=f3e66]
+                - button "Open image" [ref=f3e67] [cursor=pointer]
+              - generic [ref=f3e68]:
+                - generic "Preview scale" [ref=f3e69]: Fit
+                - generic [ref=f3e70]: 320 × 200 pixels · 2 columns reserved on the left
+      - complementary "Image settings" [ref=f3e71]:
+        - generic [ref=f3e72]: Properties
+        - group [ref=f3e75]:
+          - heading "Image" [level=2] [ref=f3e77] [cursor=pointer]
+          - generic [ref=f3e78]:
+            - heading "Graphics format" [level=3] [ref=f3e79]
+            - combobox "Graphics format" [ref=f3e80]:
+              - option "FLI" [selected]
+              - option "FLI + Sprites"
+              - option "IFLI"
+              - option "MCI"
+              - option "Multi Color Bitmap"
+              - option "Charset · Hires + Multicolor"
+              - option "Multicolor Sprites"
+              - option "Multicolor + Hires Sprites"
+              - option "Hires"
+              - option "Hires · 2 colors"
+              - option "AFLI"
+              - option "AFLI + Sprites"
+              - option "NUFLI"
+              - option "PAFLI"
+            - generic [ref=f3e81]:
+              - heading "C64 palette" [level=3] [ref=f3e82]
+              - combobox "C64 palette" [ref=f3e83]:
+                - option "Colodore (PAL)"
+                - option "Pepto (PAL)"
+                - option "PEPTOette_a" [selected]
+            - generic [ref=f3e84]:
+              - heading "Virtual color mode" [level=3] [ref=f3e85]
+              - combobox "Virtual color mode" [ref=f3e86]:
+                - option "Computed"
+                - option "Talent" [selected]
+              - paragraph [ref=f3e87]: Talent compares vertical source pixel pairs. Similar pixels share one palette choice; differing pixels map individually. Both use the full enabled virtual palette, matching brightness before hue. Shared by all layers.
+            - group "Background color" [ref=f3e89]:
+              - generic [ref=f3e91]:
+                - 'generic "0 · Black · #000000" [ref=f3e92] [cursor=pointer]':
+                  - radio "Black" [checked] [ref=f3e93]
+                - 'generic "1 · White · #FFFFFF" [ref=f3e95] [cursor=pointer]':
+                  - radio "White" [ref=f3e96]
+                - 'generic "2 · Red · #753D3D" [ref=f3e98] [cursor=pointer]':
+                  - radio "Red" [ref=f3e99]
+                - 'generic "3 · Cyan · #7BB4B4" [ref=f3e101] [cursor=pointer]':
+                  - radio "Cyan" [ref=f3e102]
+                - 'generic "4 · Purple · #7D4488" [ref=f3e104] [cursor=pointer]':
+                  - radio "Purple" [ref=f3e105]
+                - 'generic "5 · Green · #5C985C" [ref=f3e107] [cursor=pointer]':
+                  - radio "Green" [ref=f3e108]
+                - 'generic "6 · Blue · #343383" [ref=f3e110] [cursor=pointer]':
+                  - radio "Blue" [ref=f3e111]
+                - 'generic "7 · Yellow · #CBCC7C" [ref=f3e113] [cursor=pointer]':
+                  - radio "Yellow" [ref=f3e114]
+                - 'generic "8 · Orange · #7C552F" [ref=f3e116] [cursor=pointer]':
+                  - radio "Orange" [ref=f3e117]
+                - 'generic "9 · Brown · #523E00" [ref=f3e119] [cursor=pointer]':
+                  - radio "Brown" [ref=f3e120]
+                - 'generic "10 · Light red · #A76F6F" [ref=f3e122] [cursor=pointer]':
+                  - radio "Light red" [ref=f3e123]
+                - 'generic "11 · Dark gray · #4E4E4E" [ref=f3e125] [cursor=pointer]':
+                  - radio "Dark gray" [ref=f3e126]
+                - 'generic "12 · Gray · #767676" [ref=f3e128] [cursor=pointer]':
+                  - radio "Gray" [ref=f3e129]
+                - 'generic "13 · Light green · #9FDB9F" [ref=f3e131] [cursor=pointer]':
+                  - radio "Light green" [ref=f3e132]
+                - 'generic "14 · Light blue · #6D6CBC" [ref=f3e134] [cursor=pointer]':
+                  - radio "Light blue" [ref=f3e135]
+                - 'generic "15 · Light gray · #A3A3A3" [ref=f3e137] [cursor=pointer]':
+                  - radio "Light gray" [ref=f3e138]
+              - status [ref=f3e140]: "0 · Black · #000000"
+            - region "Border sprites" [ref=f3e141]:
+              - heading "Border sprites" [level=3] [ref=f3e142]
+              - group [ref=f3e143]:
+                - generic [ref=f3e144]:
+                  - generic [ref=f3e145]:
+                    - checkbox "Automatic sprite colors" [disabled] [ref=f3e146]
+                    - text: Automatic sprite colors
+                  - paragraph [ref=f3e147]: Find one shared multicolor pair and an individual color for each sprite.
+                - generic [ref=f3e148]:
+                  - generic [ref=f3e149]:
+                    - checkbox "Vertical borders · top / bottom" [ref=f3e150]
+                    - text: Vertical borders · top / bottom
+                  - generic [ref=f3e151]: Vertical sprite mode
+                  - combobox "Vertical sprite mode" [disabled] [ref=f3e152]:
+                    - option "Hires" [selected]
+                    - option "Multicolor"
+                  - generic [ref=f3e153]: Vertical sprite width
+                  - combobox "Vertical sprite width" [disabled] [ref=f3e154]:
+                    - option "X-expanded · 48 pixels" [selected]
+                    - option "Normal · 24 pixels, optimized placement"
+                - generic [ref=f3e155]:
+                  - generic [ref=f3e156]:
+                    - checkbox "Side borders · left / right" [ref=f3e157]
+                    - text: Side borders · left / right
+                  - generic [ref=f3e158]: Side sprite mode
+                  - combobox "Side sprite mode" [disabled] [ref=f3e159]:
+                    - option "Hires" [selected]
+                    - option "Multicolor"
+              - status [ref=f3e160]: 320 × 200 display pixels · borders off
+        - group [ref=f3e161]:
+          - generic "Layers 1" [ref=f3e162] [cursor=pointer]:
+            - heading "Layers" [level=2] [ref=f3e163]
+            - generic [ref=f3e164]: "1"
+          - list "Layers" [ref=f3e165]:
+            - listitem [ref=f3e166]:
+              - button "Show Layer 1" [pressed] [ref=f3e167] [cursor=pointer]
+              - button "Select Layer 1" [pressed] [ref=f3e170] [cursor=pointer]:
+                - generic [ref=f3e172]: Layer 1
+          - toolbar "Layer actions" [ref=f3e173]:
+            - button "New layer" [ref=f3e174] [cursor=pointer]:
+              - generic [ref=f3e177]: New
+            - button "New tile marker layer" [ref=f3e178] [cursor=pointer]:
+              - generic [ref=f3e181]: Tiles
+            - button "Duplicate layer" [ref=f3e182] [cursor=pointer]
+            - button "Move layer up" [disabled] [ref=f3e185]
+            - button "Move layer down" [disabled] [ref=f3e188]
+            - button "Delete layer" [disabled] [ref=f3e191]
+        - generic [ref=f3e194]:
+          - generic [ref=f3e195]: Layer settings
+          - strong [ref=f3e196]: Layer 1
+        - group [ref=f3e197]:
+          - heading "Source image" [level=2] [ref=f3e199] [cursor=pointer]
+          - generic [ref=f3e200]:
+            - button "Upload source image" [ref=f3e201]
+            - button "Choose image" [ref=f3e202] [cursor=pointer]
+        - group [ref=f3e206]:
+          - heading "Adjustments" [level=2] [ref=f3e208] [cursor=pointer]
+          - generic [ref=f3e209]:
+            - generic [ref=f3e210]:
+              - generic [ref=f3e211]:
+                - generic [ref=f3e212]: Brightness
+                - status [ref=f3e213]: 0%
+              - slider "Brightness" [ref=f3e214] [cursor=pointer]: "0"
+            - generic [ref=f3e215]:
+              - generic [ref=f3e216]:
+                - generic [ref=f3e217]: Contrast
+                - status [ref=f3e218]: 100%
+              - slider "Contrast" [ref=f3e219] [cursor=pointer]: "100"
+            - group "Levels & curves" [ref=f3e220]:
+              - generic [ref=f3e221]:
+                - heading "Levels & curves" [level=3] [ref=f3e222]
+                - button "Reset levels" [ref=f3e223] [cursor=pointer]: Reset
+              - group "Tone curve, point 1 of 2, input 0, output 0. Arrow keys adjust; Page Up and Page Down select; Insert adds a point; Delete removes a point." [ref=f3e224]
+              - paragraph [ref=f3e225]: Click to add. Drag to shape. Delete to remove.
+              - generic [ref=f3e226]:
+                - generic [ref=f3e227]:
+                  - text: Input
+                  - spinbutton "Input" [disabled] [ref=f3e228]: "0"
+                - generic [ref=f3e229]:
+                  - text: Output
+                  - spinbutton "Output" [ref=f3e230]: "0"
+                - button "Remove point" [disabled] [ref=f3e231]
+              - generic [ref=f3e232]:
+                - status [ref=f3e233]: Point 1 of 2
+                - button "Reset curve" [disabled] [ref=f3e234]
+              - group [ref=f3e235]:
+                - generic "Input levels" [ref=f3e236] [cursor=pointer]
+            - generic [ref=f3e237]:
+              - generic [ref=f3e238]:
+                - generic [ref=f3e239]: Hue
+                - status [ref=f3e240]: 0°
+              - slider "Hue" [ref=f3e241] [cursor=pointer]: "0"
+            - generic [ref=f3e242]:
+              - generic [ref=f3e243]:
+                - generic [ref=f3e244]: Saturation
+                - status [ref=f3e245]: 100%
+              - slider "Saturation" [ref=f3e246] [cursor=pointer]: "100"
+            - generic [ref=f3e247]:
+              - generic [ref=f3e248]:
+                - generic [ref=f3e249]: RGB noise
+                - status [ref=f3e250]: 0%
+              - slider "RGB noise" [ref=f3e251] [cursor=pointer]: "0"
+            - generic [ref=f3e252]:
+              - generic [ref=f3e253]:
+                - generic [ref=f3e254]: Interlace
+                - status [ref=f3e255]: 0%
+              - slider "Interlace" [ref=f3e256] [cursor=pointer]: "0"
+              - generic [ref=f3e257]: Direction
+              - combobox "Direction" [ref=f3e259]:
+                - option "Horizontal —" [selected]
+                - option "Rising diagonal /"
+                - option "Falling diagonal \\"
+              - generic [ref=f3e260]:
+                - generic [ref=f3e261]: Line spacing
+                - status [ref=f3e262]: 2 steps
+              - slider "Line spacing" [ref=f3e263] [cursor=pointer]: "2"
+            - generic [ref=f3e264]:
+              - generic [ref=f3e265]:
+                - generic [ref=f3e266]: Dither
+                - status [ref=f3e267]: 100%
+              - slider "Dither" [ref=f3e268] [cursor=pointer]: "100"
+            - generic [ref=f3e270] [cursor=pointer]:
+              - checkbox "Dither line ends" [ref=f3e271]
+              - text: Dither line ends
+        - group [ref=f3e272]:
+          - heading "Color & palette" [level=2] [ref=f3e274] [cursor=pointer]
+          - generic [ref=f3e275]:
+            - generic [ref=f3e276]:
+              - heading "Virtual Colors" [level=2] [ref=f3e277]
+              - combobox "Virtual Colors" [ref=f3e278]:
+                - option "Off"
+                - option "Lines"
+                - option "Checkers" [selected]
+            - region "Observed scales 78 / 92" [ref=f3e279]:
+              - heading "Observed scales 78 / 92" [level=2] [ref=f3e280]:
+                - generic [ref=f3e281]: Observed scales
+                - generic [ref=f3e282]: 78 / 92
+              - paragraph [ref=f3e283]: Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.
+              - generic [ref=f3e284]:
+                - generic [ref=f3e285]:
+                  - generic [ref=f3e286]: Darkest lightness
+                  - status [ref=f3e287]: 0%
+                - slider "Darkest lightness" [ref=f3e288] [cursor=pointer]: "0"
+              - generic [ref=f3e289]:
+                - generic [ref=f3e290]:
+                  - generic [ref=f3e291]: Lightest lightness
+                  - status [ref=f3e292]: 100%
+                - slider "Lightest lightness" [ref=f3e293] [cursor=pointer]: "100"
+              - group "Observed scales 78 / 92" [ref=f3e294]:
+                - group "Standard colors" [ref=f3e295]:
+                  - heading "Standard colors" [level=3] [ref=f3e296]
+                  - generic [ref=f3e297]:
+                    - 'button "Standard color 0 · Black · #000000" [pressed] [ref=f3e298] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e299]: "0"
+                    - 'button "Standard color 1 · White · #FFFFFF" [pressed] [ref=f3e301] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e302]: "1"
+                    - 'button "Standard color 2 · Red · #753D3D" [ref=f3e304] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e305]: "2"
+                    - 'button "Standard color 3 · Cyan · #7BB4B4" [ref=f3e307] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e308]: "3"
+                    - 'button "Standard color 4 · Purple · #7D4488" [ref=f3e310] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e311]: "4"
+                    - 'button "Standard color 5 · Green · #5C985C" [ref=f3e313] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e314]: "5"
+                    - 'button "Standard color 6 · Blue · #343383" [ref=f3e316] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e317]: "6"
+                    - 'button "Standard color 7 · Yellow · #CBCC7C" [ref=f3e319] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e320]: "7"
+                    - 'button "Standard color 8 · Orange · #7C552F" [ref=f3e322] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e323]: "8"
+                    - 'button "Standard color 9 · Brown · #523E00" [ref=f3e325] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e326]: "9"
+                    - 'button "Standard color 10 · Light red · #A76F6F" [ref=f3e328] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e329]: "10"
+                    - 'button "Standard color 11 · Dark gray · #4E4E4E" [ref=f3e331] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e332]: "11"
+                    - 'button "Standard color 12 · Gray · #767676" [ref=f3e334] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e335]: "12"
+                    - 'button "Standard color 13 · Light green · #9FDB9F" [ref=f3e337] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e338]: "13"
+                    - 'button "Standard color 14 · Light blue · #6D6CBC" [ref=f3e340] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e341]: "14"
+                    - 'button "Standard color 15 · Light gray · #A3A3A3" [ref=f3e343] [cursor=pointer]':
+                      - generic [aria-hidden] [ref=f3e344]: "15"
+                - generic [ref=f3e346]:
+                  - heading "Observed scales" [level=3] [ref=f3e347]
+                  - group "Observed Talent scales, black to white" [ref=f3e348]:
+                    - group "Observed scale 1, 19 tones, black to white" [ref=f3e349]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e350] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e355] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e360] [cursor=pointer]'
+                      - 'button "Lightness 40.2% · 53 · Brown + Dark gray · #504737" [pressed] [ref=f3e365] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e370] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e375] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e380] [cursor=pointer]'
+                      - 'button "Lightness 50.8% · 12 · Red + Gray · #765F5F" [pressed] [ref=f3e385] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e390] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e395] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e400] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e405] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e410] [cursor=pointer]'
+                      - 'button "Lightness 67.3% · 17 · Cyan + Light red · #939797" [pressed] [ref=f3e415] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e420] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e425] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e430] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e435] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e440] [cursor=pointer]'
+                    - group "Observed scale 2, 15 tones, black to white" [ref=f3e445]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e446] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e451] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e456] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e461] [cursor=pointer]'
+                      - 'button "Lightness 45.6% · 49 · Orange + Dark gray · #685241" [pressed] [ref=f3e466] [cursor=pointer]'
+                      - 'button "Lightness 45.9% · 9 · Red + Orange · #794A37" [pressed] [ref=f3e471] [cursor=pointer]'
+                      - 'button "Lightness 48.3% · 46 · Orange · #7C552F" [ref=f3e476] [cursor=pointer]'
+                      - 'button "Lightness 56.1% · 33 · Green + Orange · #6D7C4A" [pressed] [ref=f3e481] [cursor=pointer]'
+                      - 'button "Lightness 63.2% · 87 · Cyan + Orange · #7C8F87" [pressed] [ref=f3e486] [cursor=pointer]'
+                      - 'button "Lightness 65.9% · 18 · Cyan + Gray · #799999" [pressed] [ref=f3e491] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 14 · Cyan · #7BB4B4" [ref=f3e496] [cursor=pointer]'
+                      - 'button "Lightness 78.7% · 19 · Cyan + Light green · #8EC9AA" [pressed] [ref=f3e501] [cursor=pointer]'
+                      - 'button "Lightness 83.5% · 64 · Light green · #9FDB9F" [ref=f3e506] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e511] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e516] [cursor=pointer]'
+                    - group "Observed scale 3, 18 tones, black to white" [ref=f3e521]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e522] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e527] [cursor=pointer]'
+                      - 'button "Lightness 37.2% · 39 · Blue · #343383" [ref=f3e532] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e537] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e542] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e547] [cursor=pointer]'
+                      - 'button "Lightness 52.6% · 103 · Light red + Dark gray · #846060" [pressed] [ref=f3e552] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 27 · Purple + Light red · #945D7C" [pressed] [ref=f3e557] [cursor=pointer]'
+                      - 'button "Lightness 56.1% · 23 · Purple + Green · #6E7775" [pressed] [ref=f3e562] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e567] [cursor=pointer]'
+                      - 'button "Lightness 58.5% · 55 · Light red + Gray · #917373" [pressed] [ref=f3e572] [cursor=pointer]'
+                      - 'button "Lightness 60.0% · 54 · Light red · #A76F6F" [ref=f3e577] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e582] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 97 · Yellow + Light red · #BAA676" [pressed] [ref=f3e587] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e592] [cursor=pointer]'
+                      - 'button "Lightness 82.7% · 43 · Yellow · #CBCC7C" [ref=f3e597] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e602] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e607] [cursor=pointer]'
+                    - group "Observed scale 4, 15 tones, black to white" [ref=f3e612]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e613] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e618] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 52 · Brown · #523E00" [ref=f3e623] [cursor=pointer]'
+                      - 'button "Lightness 40.5% · 10 · Red + Brown · #653E2A" [pressed] [ref=f3e628] [cursor=pointer]'
+                      - 'button "Lightness 45.9% · 9 · Red + Orange · #794A37" [pressed] [ref=f3e633] [cursor=pointer]'
+                      - 'button "Lightness 52.9% · 84 · Red + Light red · #915A5A" [pressed] [ref=f3e638] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 48 · Orange + Light red · #946356" [pressed] [ref=f3e643] [cursor=pointer]'
+                      - 'button "Lightness 60.0% · 54 · Light red · #A76F6F" [ref=f3e648] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e653] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e658] [cursor=pointer]'
+                      - 'button "Lightness 78.1% · 65 · Light green + Light gray · #A1C2A1" [pressed] [ref=f3e663] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e668] [cursor=pointer]'
+                      - 'button "Lightness 88.6% · 79 · White + Cyan · #CBDEDE" [pressed] [ref=f3e673] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e678] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e683] [cursor=pointer]'
+                    - group "Observed scale 5, 16 tones, black to white" [ref=f3e688]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e689] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e694] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e699] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e704] [cursor=pointer]'
+                      - 'button "Lightness 43.4% · 40 · Blue + Orange · #604664" [pressed] [ref=f3e709] [cursor=pointer]'
+                      - 'button "Lightness 48.8% · 93 · Blue + Gray · #5C5C7D" [pressed] [ref=f3e714] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e719] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e724] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e729] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e734] [cursor=pointer]'
+                      - 'button "Lightness 69.7% · 96 · Yellow + Orange · #AA9F5F" [pressed] [ref=f3e739] [cursor=pointer]'
+                      - 'button "Lightness 78.0% · 16 · Cyan + Yellow · #A9C09B" [pressed] [ref=f3e744] [cursor=pointer]'
+                      - 'button "Lightness 82.3% · 80 · White + Orange · #CCC3BE" [pressed] [ref=f3e749] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e754] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e759] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e764] [cursor=pointer]'
+                    - group "Observed scale 6, 13 tones, black to white" [ref=f3e769]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e770] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e775] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e780] [cursor=pointer]'
+                      - 'button "Lightness 50.5% · 60 · Dark gray + Light blue · #5F5E92" [pressed] [ref=f3e785] [cursor=pointer]'
+                      - 'button "Lightness 59.6% · 37 · Green + Light blue · #658496" [pressed] [ref=f3e790] [cursor=pointer]'
+                      - 'button "Lightness 61.6% · 88 · Cyan + Dark gray · #688D8D" [pressed] [ref=f3e795] [cursor=pointer]'
+                      - 'button "Lightness 63.2% · 87 · Cyan + Orange · #7C8F87" [pressed] [ref=f3e800] [cursor=pointer]'
+                      - 'button "Lightness 65.9% · 18 · Cyan + Gray · #799999" [pressed] [ref=f3e805] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 14 · Cyan · #7BB4B4" [ref=f3e810] [cursor=pointer]'
+                      - 'button "Lightness 78.7% · 19 · Cyan + Light green · #8EC9AA" [pressed] [ref=f3e815] [cursor=pointer]'
+                      - 'button "Lightness 83.5% · 64 · Light green · #9FDB9F" [ref=f3e820] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e825] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e830] [cursor=pointer]'
+                    - group "Observed scale 7, 13 tones, black to white" [ref=f3e835]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e836] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e841] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e846] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e851] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e856] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 77 · Black + Light blue · #4E4D89" [pressed] [ref=f3e861] [cursor=pointer]'
+                      - 'button "Lightness 57.9% · 70 · Black + Cyan · #598383" [pressed] [ref=f3e866] [cursor=pointer]'
+                      - 'button "Lightness 66.0% · 20 · Cyan + Light blue · #7496B8" [pressed] [ref=f3e871] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 14 · Cyan · #7BB4B4" [ref=f3e876] [cursor=pointer]'
+                      - 'button "Lightness 78.7% · 19 · Cyan + Light green · #8EC9AA" [pressed] [ref=f3e881] [cursor=pointer]'
+                      - 'button "Lightness 88.6% · 79 · White + Cyan · #CBDEDE" [pressed] [ref=f3e886] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e891] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e896] [cursor=pointer]'
+                    - group "Observed scale 8, 15 tones, black to white" [ref=f3e901]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e902] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e907] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 52 · Brown · #523E00" [ref=f3e912] [cursor=pointer]'
+                      - 'button "Lightness 38.3% · 73 · Black + Orange · #593C20" [pressed] [ref=f3e917] [cursor=pointer]'
+                      - 'button "Lightness 43.8% · 47 · Orange + Brown · #6A4B20" [pressed] [ref=f3e922] [cursor=pointer]'
+                      - 'button "Lightness 48.3% · 46 · Orange · #7C552F" [ref=f3e927] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 48 · Orange + Light red · #946356" [pressed] [ref=f3e932] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e937] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e942] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 97 · Yellow + Light red · #BAA676" [pressed] [ref=f3e947] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e952] [cursor=pointer]'
+                      - 'button "Lightness 82.3% · 80 · White + Orange · #CCC3BE" [pressed] [ref=f3e957] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e962] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e967] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e972] [cursor=pointer]'
+                    - group "Observed scale 9, 17 tones, black to white" [ref=f3e977]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e978] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e983] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e988] [cursor=pointer]'
+                      - 'button "Lightness 40.2% · 53 · Brown + Dark gray · #504737" [pressed] [ref=f3e993] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e998] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1003] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1008] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e1013] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e1018] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e1023] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1028] [cursor=pointer]'
+                      - 'button "Lightness 65.0% · 63 · Gray + Light gray · #8F8F8F" [pressed] [ref=f3e1033] [cursor=pointer]'
+                      - 'button "Lightness 72.0% · 99 · Yellow + Gray · #A8A879" [pressed] [ref=f3e1038] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1043] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1048] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1053] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1058] [cursor=pointer]'
+                    - group "Observed scale 10, 18 tones, black to white" [ref=f3e1063]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1064] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1069] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1074] [cursor=pointer]'
+                      - 'button "Lightness 34.1% · 69 · Black + Red · #542A2A" [pressed] [ref=f3e1079] [cursor=pointer]'
+                      - 'button "Lightness 42.7% · 11 · Red + Dark gray · #644646" [pressed] [ref=f3e1084] [cursor=pointer]'
+                      - 'button "Lightness 45.6% · 49 · Orange + Dark gray · #685241" [pressed] [ref=f3e1089] [cursor=pointer]'
+                      - 'button "Lightness 50.8% · 12 · Red + Gray · #765F5F" [pressed] [ref=f3e1094] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e1099] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e1104] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e1109] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1114] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1119] [cursor=pointer]'
+                      - 'button "Lightness 67.3% · 17 · Cyan + Light red · #939797" [pressed] [ref=f3e1124] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1129] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1134] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1139] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1144] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1149] [cursor=pointer]'
+                    - group "Observed scale 11, 15 tones, black to white" [ref=f3e1154]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1155] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1160] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 52 · Brown · #523E00" [ref=f3e1165] [cursor=pointer]'
+                      - 'button "Lightness 40.5% · 10 · Red + Brown · #653E2A" [pressed] [ref=f3e1170] [cursor=pointer]'
+                      - 'button "Lightness 45.9% · 9 · Red + Orange · #794A37" [pressed] [ref=f3e1175] [cursor=pointer]'
+                      - 'button "Lightness 52.9% · 84 · Red + Light red · #915A5A" [pressed] [ref=f3e1180] [cursor=pointer]'
+                      - 'button "Lightness 56.9% · 78 · Black + Light gray · #777777" [pressed] [ref=f3e1185] [cursor=pointer]'
+                      - 'button "Lightness 60.5% · 85 · Red + Light gray · #8E7D7D" [pressed] [ref=f3e1190] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1195] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1200] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1205] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1210] [cursor=pointer]'
+                      - 'button "Lightness 88.6% · 79 · White + Cyan · #CBDEDE" [pressed] [ref=f3e1215] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e1220] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1225] [cursor=pointer]'
+                    - group "Observed scale 12, 15 tones, black to white" [ref=f3e1230]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1231] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1236] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1241] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1246] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1251] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1256] [cursor=pointer]'
+                      - 'button "Lightness 54.1% · 91 · Green + Dark gray · #557A55" [pressed] [ref=f3e1261] [cursor=pointer]'
+                      - 'button "Lightness 56.1% · 33 · Green + Orange · #6D7C4A" [pressed] [ref=f3e1266] [cursor=pointer]'
+                      - 'button "Lightness 63.2% · 87 · Cyan + Orange · #7C8F87" [pressed] [ref=f3e1271] [cursor=pointer]'
+                      - 'button "Lightness 65.9% · 18 · Cyan + Gray · #799999" [pressed] [ref=f3e1276] [cursor=pointer]'
+                      - 'button "Lightness 70.4% · 100 · Orange + Light green · #8FAA78" [pressed] [ref=f3e1281] [cursor=pointer]'
+                      - 'button "Lightness 78.1% · 65 · Light green + Light gray · #A1C2A1" [pressed] [ref=f3e1286] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1291] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1296] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1301] [cursor=pointer]'
+                    - group "Observed scale 13, 14 tones, black to white" [ref=f3e1306]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1307] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1312] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 52 · Brown · #523E00" [ref=f3e1317] [cursor=pointer]'
+                      - 'button "Lightness 43.8% · 47 · Orange + Brown · #6A4B20" [pressed] [ref=f3e1322] [cursor=pointer]'
+                      - 'button "Lightness 48.3% · 46 · Orange · #7C552F" [ref=f3e1327] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 48 · Orange + Light red · #946356" [pressed] [ref=f3e1332] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1337] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1342] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 97 · Yellow + Light red · #BAA676" [pressed] [ref=f3e1347] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1352] [cursor=pointer]'
+                      - 'button "Lightness 82.3% · 80 · White + Orange · #CCC3BE" [pressed] [ref=f3e1357] [cursor=pointer]'
+                      - 'button "Lightness 84.7% · 81 · White + Light red · #D9C8C8" [pressed] [ref=f3e1362] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1367] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1372] [cursor=pointer]'
+                    - group "Observed scale 14, 16 tones, black to white" [ref=f3e1377]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1378] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1383] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 52 · Brown · #523E00" [ref=f3e1388] [cursor=pointer]'
+                      - 'button "Lightness 40.5% · 10 · Red + Brown · #653E2A" [pressed] [ref=f3e1393] [cursor=pointer]'
+                      - 'button "Lightness 43.0% · 6 · Red · #753D3D" [ref=f3e1398] [cursor=pointer]'
+                      - 'button "Lightness 45.9% · 9 · Red + Orange · #794A37" [pressed] [ref=f3e1403] [cursor=pointer]'
+                      - 'button "Lightness 48.3% · 46 · Orange · #7C552F" [ref=f3e1408] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 48 · Orange + Light red · #946356" [pressed] [ref=f3e1413] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1418] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1423] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 97 · Yellow + Light red · #BAA676" [pressed] [ref=f3e1428] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1433] [cursor=pointer]'
+                      - 'button "Lightness 82.3% · 80 · White + Orange · #CCC3BE" [pressed] [ref=f3e1438] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1443] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1448] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1453] [cursor=pointer]'
+                    - group "Observed scale 15, 16 tones, black to white" [ref=f3e1458]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1459] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1464] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1469] [cursor=pointer]'
+                      - 'button "Lightness 40.2% · 53 · Brown + Dark gray · #504737" [pressed] [ref=f3e1474] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1479] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1484] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1489] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e1494] [cursor=pointer]'
+                      - 'button "Lightness 58.5% · 55 · Light red + Gray · #917373" [pressed] [ref=f3e1499] [cursor=pointer]'
+                      - 'button "Lightness 61.3% · 34 · Green + Light red · #888666" [pressed] [ref=f3e1504] [cursor=pointer]'
+                      - 'button "Lightness 67.3% · 17 · Cyan + Light red · #939797" [pressed] [ref=f3e1509] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1514] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1519] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1524] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1529] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1534] [cursor=pointer]'
+                    - group "Observed scale 16, 18 tones, black to white" [ref=f3e1539]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1540] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1545] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1550] [cursor=pointer]'
+                      - 'button "Lightness 37.5% · 41 · Blue + Brown · #45395F" [pressed] [ref=f3e1555] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1560] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1565] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1570] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e1575] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e1580] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e1585] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1590] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1595] [cursor=pointer]'
+                      - 'button "Lightness 67.3% · 17 · Cyan + Light red · #939797" [pressed] [ref=f3e1600] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1605] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1610] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1615] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1620] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1625] [cursor=pointer]'
+                    - group "Observed scale 17, 18 tones, black to white" [ref=f3e1630]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1631] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1636] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1641] [cursor=pointer]'
+                      - 'button "Lightness 40.2% · 53 · Brown + Dark gray · #504737" [pressed] [ref=f3e1646] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1651] [cursor=pointer]'
+                      - 'button "Lightness 45.6% · 28 · Purple + Dark gray · #694970" [pressed] [ref=f3e1656] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1661] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 50 · Orange + Gray · #79675B" [pressed] [ref=f3e1666] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e1671] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e1676] [cursor=pointer]'
+                      - 'button "Lightness 62.0% · 101 · Orange + Light gray · #91837B" [pressed] [ref=f3e1681] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1686] [cursor=pointer]'
+                      - 'button "Lightness 67.3% · 17 · Cyan + Light red · #939797" [pressed] [ref=f3e1691] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1696] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1701] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1706] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1711] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1716] [cursor=pointer]'
+                    - group "Observed scale 18, 15 tones, black to white" [ref=f3e1721]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1722] [cursor=pointer]'
+                      - 'button "Lightness 29.8% · 2 · Black + Brown · #3A2B00" [pressed] [ref=f3e1727] [cursor=pointer]'
+                      - 'button "Lightness 33.7% · 75 · Black + Dark gray · #373737" [pressed] [ref=f3e1732] [cursor=pointer]'
+                      - 'button "Lightness 38.2% · 71 · Black + Purple · #5A2F62" [pressed] [ref=f3e1737] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1742] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1747] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1752] [cursor=pointer]'
+                      - 'button "Lightness 56.6% · 61 · Gray · #767676" [ref=f3e1757] [cursor=pointer]'
+                      - 'button "Lightness 60.3% · 105 · Dark gray + Light gray · #818181" [pressed] [ref=f3e1762] [cursor=pointer]'
+                      - 'button "Lightness 65.0% · 63 · Gray + Light gray · #8F8F8F" [pressed] [ref=f3e1767] [cursor=pointer]'
+                      - 'button "Lightness 71.5% · 68 · Light gray · #A3A3A3" [ref=f3e1772] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1777] [cursor=pointer]'
+                      - 'button "Lightness 88.2% · 83 · White + Light gray · #D8D8D8" [pressed] [ref=f3e1782] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1787] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1792] [cursor=pointer]'
+                    - group "Observed scale 19, 14 tones, black to white" [ref=f3e1797]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1798] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e1803] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e1808] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1813] [cursor=pointer]'
+                      - 'button "Lightness 45.0% · 76 · Black + Gray · #555555" [pressed] [ref=f3e1818] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1823] [cursor=pointer]'
+                      - 'button "Lightness 61.6% · 88 · Cyan + Dark gray · #688D8D" [pressed] [ref=f3e1828] [cursor=pointer]'
+                      - 'button "Lightness 63.2% · 87 · Cyan + Orange · #7C8F87" [pressed] [ref=f3e1833] [cursor=pointer]'
+                      - 'button "Lightness 68.2% · 15 · Cyan + Green · #6DA791" [pressed] [ref=f3e1838] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 14 · Cyan · #7BB4B4" [ref=f3e1843] [cursor=pointer]'
+                      - 'button "Lightness 78.7% · 19 · Cyan + Light green · #8EC9AA" [pressed] [ref=f3e1848] [cursor=pointer]'
+                      - 'button "Lightness 83.5% · 64 · Light green · #9FDB9F" [ref=f3e1853] [cursor=pointer]'
+                      - 'button "Lightness 92.5% · 5 · White + Light green · #D6EED6" [pressed] [ref=f3e1858] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1863] [cursor=pointer]'
+                    - group "Observed scale 20, 15 tones, black to white" [ref=f3e1868]:
+                      - 'button "Lightness 0.0% · 0 · Black · #000000" [pressed] [ref=f3e1869] [cursor=pointer]'
+                      - 'button "Lightness 29.6% · 1 · Black + Blue · #23235F" [pressed] [ref=f3e1874] [cursor=pointer]'
+                      - 'button "Lightness 37.2% · 39 · Blue · #343383" [ref=f3e1879] [cursor=pointer]'
+                      - 'button "Lightness 39.9% · 42 · Blue + Dark gray · #42426D" [pressed] [ref=f3e1884] [cursor=pointer]'
+                      - 'button "Lightness 42.4% · 58 · Dark gray · #4E4E4E" [ref=f3e1889] [cursor=pointer]'
+                      - 'button "Lightness 50.3% · 59 · Dark gray + Gray · #646464" [pressed] [ref=f3e1894] [cursor=pointer]'
+                      - 'button "Lightness 52.6% · 103 · Light red + Dark gray · #846060" [pressed] [ref=f3e1899] [cursor=pointer]'
+                      - 'button "Lightness 54.9% · 27 · Purple + Light red · #945D7C" [pressed] [ref=f3e1904] [cursor=pointer]'
+                      - 'button "Lightness 58.6% · 56 · Light red + Light blue · #8E6E9C" [pressed] [ref=f3e1909] [cursor=pointer]'
+                      - 'button "Lightness 66.3% · 57 · Light red + Light gray · #A58C8C" [pressed] [ref=f3e1914] [cursor=pointer]'
+                      - 'button "Lightness 73.1% · 97 · Yellow + Light red · #BAA676" [pressed] [ref=f3e1919] [cursor=pointer]'
+                      - 'button "Lightness 77.5% · 45 · Yellow + Light gray · #B8B991" [pressed] [ref=f3e1924] [cursor=pointer]'
+                      - 'button "Lightness 82.7% · 43 · Yellow · #CBCC7C" [ref=f3e1929] [cursor=pointer]'
+                      - 'button "Lightness 92.1% · 4 · White + Yellow · #E7E7CC" [pressed] [ref=f3e1934] [cursor=pointer]'
+                      - 'button "Lightness 100.0% · 3 · White · #FFFFFF" [pressed] [ref=f3e1939] [cursor=pointer]'
+                    - group "Additional Talent colors" [ref=f3e1944]:
+                      - 'button "Lightness 43.5% · 24 · Purple + Blue · #613C86" [pressed] [ref=f3e1945] [cursor=pointer]'
+                      - 'button "Lightness 47.8% · 74 · Black + Light red · #7A5050" [pressed] [ref=f3e1950] [cursor=pointer]'
+                      - 'button "Lightness 48.9% · 102 · Brown + Gray · #665F55" [pressed] [ref=f3e1955] [cursor=pointer]'
+                      - 'button "Lightness 48.9% · 95 · Blue + Light blue · #5655A3" [pressed] [ref=f3e1960] [cursor=pointer]'
+                      - 'button "Lightness 49.3% · 72 · Black + Green · #416E41" [pressed] [ref=f3e1965] [cursor=pointer]'
+                      - 'button "Lightness 51.1% · 92 · Blue + Light red · #7E577A" [pressed] [ref=f3e1970] [cursor=pointer]'
+                      - 'button "Lightness 52.8% · 90 · Green + Blue · #4B7472" [pressed] [ref=f3e1975] [cursor=pointer]'
+                      - 'button "Lightness 53.0% · 30 · Purple + Light blue · #755BA5" [pressed] [ref=f3e1980] [cursor=pointer]'
+                      - 'button "Lightness 59.5% · 35 · Green + Gray · #6A886A" [pressed] [ref=f3e1985] [cursor=pointer]'
+                      - 'button "Lightness 60.6% · 86 · Cyan + Blue · #60889E" [pressed] [ref=f3e1990] [cursor=pointer]'
+                      - 'button "Lightness 68.2% · 94 · Blue + Light green · #79A492" [pressed] [ref=f3e1995] [cursor=pointer]'
+                      - 'button "Lightness 68.5% · 98 · Yellow + Dark gray · #9D9E68" [pressed] [ref=f3e2000] [cursor=pointer]'
+                      - 'button "Lightness 70.2% · 89 · Purple + Light green · #8FA694" [pressed] [ref=f3e2005] [cursor=pointer]'
+                      - 'button "Lightness 73.7% · 104 · Light red + Light green · #A3B08A" [pressed] [ref=f3e2010] [cursor=pointer]'
+                      - 'button "Lightness 81.4% · 82 · White + Dark gray · #C2C2C2" [pressed] [ref=f3e2015] [cursor=pointer]'
+        - group "Document info" [ref=f3e2020]:
+          - heading "Document info" [level=2] [ref=f3e2022] [cursor=pointer]
+    - status [ref=f3e2023]
+  - contentinfo [ref=f3e2024]:
+    - generic [ref=f3e2025]: C64 · FULL-COLOR SOURCE
+    - generic [ref=f3e2026]: 320 × 200 / 1:1

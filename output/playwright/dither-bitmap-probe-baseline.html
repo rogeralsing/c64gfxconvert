@@ -1,0 +1,2422 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#252525">
+  <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
+  <title>C64 Studio — Image workspace</title>
+  <link rel="stylesheet" href="./editor.css?v=border-sprites">
+</head>
+<body>
+  <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="icon-open" viewBox="0 0 24 24"><path d="M3 7V5h6l2 2h10v4M3 7v13h17l2-10H8l-3 3H3"/></symbol>
+      <symbol id="icon-image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L6 21"/></symbol>
+      <symbol id="icon-adjust" viewBox="0 0 24 24"><path d="M4 6h6m4 0h6M4 12h11m4 0h1M4 18h2m4 0h10"/><circle cx="12" cy="6" r="2"/><circle cx="17" cy="12" r="2"/><circle cx="8" cy="18" r="2"/></symbol>
+      <symbol id="icon-color" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+      <symbol id="icon-reset" viewBox="0 0 24 24"><path d="M3 10a9 9 0 1 1 2 8M3 4v6h6"/></symbol>
+      <symbol id="icon-crop" viewBox="0 0 24 24"><path d="M6 3v15h15M3 6h15v15M9 3v3M21 15h-3"/></symbol>
+      <symbol id="icon-panel" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M15 4v16"/></symbol>
+      <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="icon-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="12" height="13" rx="1"/><path d="M16 8V3H3v13h5"/></symbol>
+      <symbol id="icon-up" viewBox="0 0 24 24"><path d="m6 14 6-6 6 6"/></symbol>
+      <symbol id="icon-down" viewBox="0 0 24 24"><path d="m6 10 6 6 6-6"/></symbol>
+      <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M4 6h16M9 6V3h6v3M6 6l1 15h10l1-15M10 10v7m4-7v7"/></symbol>
+      <symbol id="icon-eye" viewBox="0 0 24 24"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+      <symbol id="icon-eye-off" viewBox="0 0 24 24"><path d="m3 3 18 18M9 5c1-.2 2-.3 3-.3 6 0 10 7.3 10 7.3s-1 2-3 4M6 6c-3 2-4 6-4 6s4 7 10 7c2 0 4-.7 5-1.5"/></symbol>
+    </defs>
+  </svg>
+  <div class="workspace">
+    <header class="masthead">
+      <div class="app-mark" aria-hidden="true">64</div>
+      <div class="brand"><h1>C64 Studio</h1><strong id="brand-mode">FLI</strong></div>
+      <div class="header-actions">
+        <span class="local">Local workspace</span>
+        <div class="project-actions" role="group" aria-label="Project files">
+          <input id="project-input" class="sr-only" type="file" accept=".json,application/json" tabindex="-1" aria-label="Open project JSON">
+          <button id="project-open" class="open-button" type="button">Open project</button>
+          <button id="project-save" class="open-button" type="button">Save project</button>
+        </div>
+        <button class="open-button" data-open-image type="button"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg>Open image</button>
+      </div>
+    </header>
+    <p id="project-error" class="project-error" role="alert" hidden></p>
+    <main>
+      <div class="editor">
+        <nav class="tool-rail" aria-label="Workspace tools">
+          <button class="tool-button" data-open-image type="button" aria-label="Open source image" title="Open image (Ctrl/⌘ O)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-open"/></svg></button>
+          <span class="tool-separator" aria-hidden="true"></span>
+          <button class="tool-button" data-inspector-panel="source-settings" type="button" aria-label="Source image settings" title="Source image"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-image"/></svg></button>
+          <button id="tool-crop" class="tool-button" type="button" aria-label="Crop selected layer" aria-haspopup="dialog" title="Crop selected layer" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-crop"/></svg></button>
+          <button class="tool-button" data-inspector-panel="adjustment-settings" type="button" aria-label="Image adjustments" title="Adjustments"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-adjust"/></svg></button>
+          <button class="tool-button" data-inspector-panel="color-settings" type="button" aria-label="Palette and color settings" title="Color & palette"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-color"/></svg></button>
+          <button id="tool-reset-framing" class="tool-button tool-bottom" type="button" aria-label="Reset image framing" title="Reset framing" disabled><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-reset"/></svg></button>
+        </nav>
+        <section id="preview" class="preview" aria-labelledby="preview-heading" aria-busy="false">
+          <div class="document-bar">
+            <h2 id="preview-heading" class="document-name"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-image"/></svg><span id="document-name">Untitled</span><span class="document-kind">RGB / 8</span></h2>
+            <span class="preview-status"><span class="status-dot" aria-hidden="true"></span><span id="preview-status">No image open</span></span>
+          </div>
+          <div class="preview-body">
+            <div class="preview-toolbar">
+              <div class="preview-tabs" role="tablist" aria-label="Image color mode">
+                <button id="tab-unrestricted" class="preview-tab" type="button" role="tab" aria-selected="true" aria-controls="preview-panel" data-mode="unrestricted">Unrestricted</button>
+                <button id="tab-palette" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="palette">C64 Palette</button>
+                <button id="tab-restricted" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="restricted">FLI</button>
+              </div>
+              <div class="preview-actions">
+                <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked><span id="grid-label">Tile grid</span></label>
+                <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
+                <button id="fli-save" class="afli-save" type="button" title="Save the converted FLI bitmap and fitted colors as a .fli image" disabled hidden>Save FLI</button>
+                <button id="ifli-save" class="ifli-save" type="button" title="Save both converted frames as FunPaint II (.fp2) data" disabled hidden>Save IFLI</button>
+                <button id="mci-save" class="ifli-save" type="button" title="Save both converted frames as a True Paint (.mci) image" disabled hidden>Save MCI</button>
+                <button id="afli-save" class="afli-save" type="button" title="Save the fitted AFLI bitmap and row colors as .afl data" disabled hidden>Save AFLI</button>
+                <button id="two-color-save" class="afli-save" type="button" title="Save the two-color bitmap as an Art Studio (.art) image" disabled hidden>Save Hires</button>
+                <button id="multicolor-save" class="afli-save" type="button" title="Save the converted multicolor bitmap as a Koala Painter (.koa) image" disabled hidden>Save Multicolor</button>
+                <button id="sprite-layers-save" class="afli-save" type="button" title="Save the combined bitmap, sprite layer, and color/layout metadata as ZIP" disabled hidden>Save sprite ZIP</button>
+                <button id="sprite-grid-save" class="afli-save" type="button" title="Save hardware sprite frames and color/layout metadata as ZIP" disabled hidden>Save sprites</button>
+                <button id="save-border-sprites" class="afli-save" type="button" title="Save border sprite frames and color/layout metadata as ZIP" disabled hidden>Save border sprites</button>
+                <button id="charset-save" class="afli-save" type="button" title="Save the charset, screen map, color RAM, and shared colors as ZIP" disabled hidden>Save charset</button>
+                <button id="nufli-save" class="afli-save" type="button" disabled hidden>Save NUF</button>
+                <button id="nufli-prg-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
+                <button id="pafli-save" class="afli-save" type="button" disabled hidden>Save PRG</button>
+              </div>
+            </div>
+            <div id="preview-panel" class="preview-panel" role="tabpanel" aria-labelledby="tab-unrestricted" tabindex="0">
+              <div id="image-screen" class="screen-border">
+                <div class="screen">
+                  <div id="empty-state" class="empty-state">
+                    <h2>No image open</h2><button class="empty-open" data-open-image type="button">Open image</button>
+                  </div>
+                  <canvas id="canvas" width="160" height="200" role="img" aria-label="Source image at 160 by 200 pixels with double-width pixels" hidden>Your resized image appears here.</canvas>
+                  <canvas id="tile-marker-overlay" width="320" height="200" aria-hidden="true" hidden></canvas>
+                  <div id="tile-grid" class="tile-grid" aria-hidden="true" hidden></div>
+                </div>
+              </div>
+              <div id="image-caption" class="screen-caption"><span id="view-scale" class="view-scale" aria-label="Preview scale">Fit</span><span id="canvas-resolution">160 × 200 logical pixels</span></div>
+              <section id="ifli-frame-views" class="ifli-frame-views" aria-labelledby="ifli-frames-heading" hidden>
+                <h3 id="ifli-frames-heading">IFLI frames</h3>
+                <div class="ifli-frame-grid">
+                  <figure>
+                    <figcaption><span>Frame 1</span><span id="frame-first-resolution">160 × 200</span></figcaption>
+                    <div class="ifli-static-screen"><canvas id="ifli-frame-first" width="160" height="200" role="img" aria-label="IFLI frame 1 with double-width pixels">IFLI frame 1 appears here.</canvas></div>
+                  </figure>
+                  <figure>
+                    <figcaption><span>Frame 2</span><span id="frame-second-resolution">160 × 200</span></figcaption>
+                    <div class="ifli-static-screen"><canvas id="ifli-frame-second" width="160" height="200" role="img" aria-label="IFLI frame 2 with double-width pixels">IFLI frame 2 appears here.</canvas></div>
+                  </figure>
+                </div>
+                <figure id="ifli-column-merge-view" class="ifli-merged-view">
+                  <figcaption><span>Column merge</span><span>320 × 200 · square pixels</span></figcaption>
+                  <div class="ifli-static-screen"><canvas id="ifli-frame-merged" width="320" height="200" role="img" aria-label="IFLI column merge: even columns from frame 1, odd columns from frame 2">The merged IFLI image appears here.</canvas></div>
+                </figure>
+                <figure class="ifli-merged-view">
+                  <figcaption><span>50/50 blend</span><span>320 × 200 · square pixels</span></figcaption>
+                  <div class="ifli-static-screen"><canvas id="ifli-frame-blended" width="320" height="200" role="img" aria-label="IFLI 50/50 blend with frame 2 shifted one hires pixel right">The blended IFLI image appears here.</canvas></div>
+                </figure>
+              </section>
+              <section id="sprite-layer-views" class="ifli-frame-views" aria-labelledby="sprite-layer-heading" hidden>
+                <h3 id="sprite-layer-heading">Bitmap and sprite layers</h3>
+                <div class="ifli-frame-grid">
+                  <figure>
+                    <figcaption><span id="sprite-underlay-name">AFLI image</span><span id="sprite-underlay-resolution">320 × 200</span></figcaption>
+                    <div class="ifli-static-screen"><canvas id="sprite-underlay" width="320" height="200" role="img" aria-label="Fitted bitmap beneath the sprite layer">The bitmap appears here.</canvas></div>
+                  </figure>
+                  <figure>
+                    <figcaption><span>Sprite layer</span><span id="sprite-pixel-count">0 pixels</span></figcaption>
+                    <div class="ifli-static-screen"><canvas id="sprite-layer" width="320" height="200" role="img" aria-label="Selected-color sprite layer with transparent holes">The sprite layer appears here.</canvas></div>
+                  </figure>
+                </div>
+              </section>
+              <section id="charset-view" class="ifli-frame-views" aria-labelledby="charset-heading" hidden>
+                <h3 id="charset-heading">Generated charset</h3>
+                <figure class="ifli-frame-composite">
+                  <figcaption><span id="charset-atlas-count">0 / 256 patterns</span><span>Each pattern uses its first screen cell’s colors and mode.</span></figcaption>
+                  <canvas id="charset-atlas" width="128" height="128" role="img" aria-label="Generated character patterns in screen-code order">The generated charset appears here.</canvas>
+                </figure>
+              </section>
+            </div>
+          </div>
+        </section>
+        <aside class="config-sidebar" aria-label="Image settings" tabindex="0">
+          <div class="inspector-heading">Properties<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><use href="#icon-panel"/></svg></div>
+          <details id="image-settings" class="inspector-panel image-settings" open>
+            <summary><h2>Image</h2></summary>
+            <div class="mode-control">
+              <h3 id="graphics-mode-heading">Graphics format</h3>
+              <select id="graphics-mode-options" class="mode-select" aria-labelledby="graphics-mode-heading"></select>
+              <div class="image-control">
+                <h3 id="c64-palette-heading">C64 palette</h3>
+                <select id="c64-palette-options" class="mode-select" aria-labelledby="c64-palette-heading"></select>
+              </div>
+              <div class="image-control">
+                <h3 id="virtual-color-mode-heading">Virtual color mode</h3>
+                <select id="virtual-color-mode-options" class="mode-select" aria-labelledby="virtual-color-mode-heading" aria-describedby="virtual-color-mode-help">
+                  <option value="computed">Computed</option>
+                  <option value="talent">Talent</option>
+                </select>
+                <p id="virtual-color-mode-help" class="background-value">Computed pairs, shared by all layers with virtual colors enabled.</p>
+              </div>
+              <div id="two-color-settings" hidden>
+                <fieldset class="background-control image-control">
+                  <legend>Shadow color</legend>
+                  <div id="two-color-shadow-palette" class="palette-swatches"></div>
+                  <p id="two-color-shadow-value" class="background-value" role="status"></p>
+                </fieldset>
+                <fieldset class="background-control image-control">
+                  <legend>Highlight color</legend>
+                  <div id="two-color-highlight-palette" class="palette-swatches"></div>
+                  <p id="two-color-highlight-value" class="background-value" role="status"></p>
+                </fieldset>
+              </div>
+              <div id="background-settings" class="image-control">
+              <fieldset class="background-control">
+                <legend>Background color</legend>
+                <div id="background-palette" class="palette-swatches"></div>
+                <p id="background-color-value" class="background-value" role="status">0 · Black · #000000</p>
+              </fieldset>
+            </div>
+              <div id="sprite-color-settings" class="image-control" hidden>
+              <fieldset class="background-control">
+                <legend>Sprite color</legend>
+                <div id="sprite-palette" class="palette-swatches"></div>
+                <p id="sprite-color-value" class="background-value" role="status">1 · White · #FFFFFF</p>
+              </fieldset>
+              </div>
+              <div id="sprite-grid-settings" class="image-control" hidden>
+                <div class="control-label"><label for="sprite-grid-size">Sprite grid · columns × rows</label></div>
+                <select id="sprite-grid-size" class="mode-select"></select>
+                <p id="sprite-grid-summary" class="background-value" role="status"></p>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 1</legend>
+                  <div id="sprite-grid-multi-1-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-multi-1-value" class="background-value"></p>
+                </fieldset>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 2</legend>
+                  <div id="sprite-grid-multi-2-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-multi-2-value" class="background-value"></p>
+                </fieldset>
+                <div class="control-label image-control"><label for="sprite-grid-selected">Edit sprite colors</label></div>
+                <select id="sprite-grid-selected" class="mode-select"></select>
+                <fieldset class="background-control image-control">
+                  <legend>Multicolor sprite color</legend>
+                  <div id="sprite-grid-color-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-color-value" class="background-value"></p>
+                </fieldset>
+                <fieldset id="sprite-grid-overlay-settings" class="background-control image-control" hidden>
+                  <legend>Hires overlay color</legend>
+                  <div id="sprite-grid-overlay-palette" class="palette-swatches"></div>
+                  <p id="sprite-grid-overlay-value" class="background-value"></p>
+                </fieldset>
+              </div>
+              <section id="border-sprite-settings" class="image-control border-sprite-settings" aria-labelledby="border-sprites-heading">
+                <h3 id="border-sprites-heading">Border sprites</h3>
+                <fieldset id="border-sprite-controls" class="background-control">
+                  <div class="border-sprite-group">
+                    <label class="border-sprite-toggle"><input id="border-optimize-colors" type="checkbox">Automatic sprite colors</label>
+                    <p class="background-value">Find one shared multicolor pair and an individual color for each sprite.</p>
+                    <p id="border-optimization-status" class="background-value" role="status" aria-live="polite" hidden></p>
+                  </div>
+                  <div class="border-sprite-group">
+                    <label class="border-sprite-toggle"><input id="border-vertical-enabled" type="checkbox">Vertical borders · top / bottom</label>
+                    <label class="control-label" for="border-vertical-mode">Vertical sprite mode</label>
+                    <select id="border-vertical-mode" class="mode-select" disabled>
+                      <option value="hires">Hires</option>
+                      <option value="multicolor">Multicolor</option>
+                    </select>
+                    <fieldset id="border-vertical-colors" class="background-control image-control" hidden>
+                      <legend>Vertical sprite color</legend>
+                      <div id="border-vertical-color-palette" class="palette-swatches"></div>
+                      <p id="border-vertical-color-value" class="background-value"></p>
+                    </fieldset>
+                  </div>
+                  <div class="border-sprite-group">
+                    <label class="border-sprite-toggle"><input id="border-sides-enabled" type="checkbox">Side borders · left / right</label>
+                    <label class="control-label" for="border-sides-mode">Side sprite mode</label>
+                    <select id="border-sides-mode" class="mode-select" disabled>
+                      <option value="hires">Hires</option>
+                      <option value="multicolor">Multicolor</option>
+                    </select>
+                    <fieldset id="border-sides-colors" class="background-control image-control" hidden>
+                      <legend>Side sprite color</legend>
+                      <div id="border-sides-color-palette" class="palette-swatches"></div>
+                      <p id="border-sides-color-value" class="background-value"></p>
+                    </fieldset>
+                  </div>
+                  <div id="border-shared-colors" hidden>
+                    <div id="border-multicolor-settings" hidden>
+                      <fieldset class="background-control image-control">
+                        <legend>Shared multicolor 1</legend>
+                        <div id="border-multi-1-palette" class="palette-swatches"></div>
+                        <p id="border-multi-1-value" class="background-value"></p>
+                      </fieldset>
+                      <fieldset class="background-control image-control">
+                        <legend>Shared multicolor 2</legend>
+                        <div id="border-multi-2-palette" class="palette-swatches"></div>
+                        <p id="border-multi-2-value" class="background-value"></p>
+                      </fieldset>
+                      <p class="background-value">Both multicolors are shared by the vertical and side sprites.</p>
+                    </div>
+                  </div>
+                </fieldset>
+                <p id="border-summary" class="background-value" role="status">320 × 200 display pixels · borders off</p>
+                <p id="border-interlace-help" class="background-value" hidden>Sprites alternate with the bitmap. The second field shifts one hires pixel right.</p>
+                <p id="border-availability" class="background-help" hidden>Use MCI, bitmap, hires, FLI, IFLI, AFLI or charset without sprite overlays.</p>
+              </section>
+              <div id="charset-settings" class="image-control" hidden>
+                <p class="background-value">40 × 25 cells. Each cell uses hires or multicolor, with an individual foreground from colors 0–7.</p>
+                <div class="image-control">
+                  <div class="control-label"><label for="charset-similarity">Tile similarity</label><output id="charset-similarity-value" for="charset-similarity">35%</output></div>
+                  <input id="charset-similarity" class="image-slider" type="range" min="0" max="100" step="1" value="35" aria-valuetext="35% tile similarity" aria-describedby="charset-similarity-help">
+                  <p id="charset-similarity-help" class="background-value">Higher values merge more similar tiles. At 0%, patterns stay exact unless the 256-pattern limit forces reuse.</p>
+                </div>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 1</legend>
+                  <div id="charset-multi-1-palette" class="palette-swatches"></div>
+                  <p id="charset-multi-1-value" class="background-value"></p>
+                </fieldset>
+                <fieldset class="background-control image-control">
+                  <legend>Shared multicolor 2</legend>
+                  <div id="charset-multi-2-palette" class="palette-swatches"></div>
+                  <p id="charset-multi-2-value" class="background-value"></p>
+                </fieldset>
+                <p id="charset-summary" class="background-value" role="status">Up to 256 unique patterns for 40 × 25 cells.</p>
+                <p id="charset-mode-counts" class="background-value">Color and resolution are fitted per cell.</p>
+              </div>
+            </div>
+          </details>
+          <details id="layer-settings" class="inspector-panel layer-panel" open>
+            <summary><h2>Layers</h2><span id="layer-count" class="virtual-palette-count">1</span></summary>
+            <div id="layer-list" class="layer-list" role="list" aria-label="Layers"></div>
+            <div class="layer-actions" role="toolbar" aria-label="Layer actions">
+              <button type="button" data-layer-action="add" title="New layer" aria-label="New layer"><svg aria-hidden="true"><use href="#icon-plus"/></svg><span>New</span></button>
+              <button type="button" data-layer-action="add-markers" title="New tile marker layer" aria-label="New tile marker layer"><svg aria-hidden="true"><use href="#icon-color"/></svg><span>Tiles</span></button>
+              <button type="button" data-layer-action="duplicate" title="Duplicate layer" aria-label="Duplicate layer"><svg aria-hidden="true"><use href="#icon-copy"/></svg></button>
+              <span class="layer-actions-spacer"></span>
+              <button type="button" data-layer-action="up" title="Move layer up" aria-label="Move layer up"><svg aria-hidden="true"><use href="#icon-up"/></svg></button>
+              <button type="button" data-layer-action="down" title="Move layer down" aria-label="Move layer down"><svg aria-hidden="true"><use href="#icon-down"/></svg></button>
+              <button type="button" data-layer-action="remove" title="Delete layer" aria-label="Delete layer"><svg aria-hidden="true"><use href="#icon-trash"/></svg></button>
+            </div>
+          </details>
+          <div class="layer-properties-heading"><span>Layer settings</span><strong id="active-layer-name">Layer 1</strong></div>
+          <details id="tile-marker-settings" class="inspector-panel" open hidden>
+            <summary><h2>Tile markers</h2></summary>
+            <div class="panel-body">
+              <div class="control-label"><label for="tile-marker-color">Overlay color</label><input id="tile-marker-color" type="color" value="#ffcc00"></div>
+              <p class="background-value">Click a tile to toggle it. Drag to paint tiles on or off. Markers cover 8 × 8 pixels and stay fixed on the screen.</p>
+            </div>
+          </details>
+          <details id="source-settings" class="source inspector-panel" open>
+            <summary><h2 id="source-heading">Source image</h2></summary>
+            <div class="source-body">
+              <input id="image-input" class="sr-only" type="file" accept="image/*" tabindex="-1" aria-label="Upload source image">
+              <button id="drop-zone" class="drop-zone" type="button" aria-controls="image-input">
+                <svg class="upload-icon" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M14 18V4m-5 5 5-5 5 5M5 17v7h18v-7"/></svg>
+                <span class="choose">Choose image</span>
+              </button>
+              <div id="file-info" class="file-info" hidden>
+                <p id="filename" class="filename"></p>
+                <p id="file-dimensions" class="file-dimensions"></p>
+              </div>
+              <fieldset id="source-framing" class="source-framing" aria-label="Source image framing" disabled hidden>
+                <div class="framing-control">
+                  <div class="control-label"><label for="source-scale">Scale</label><output id="source-scale-value" for="source-scale">100%</output></div>
+                  <input id="source-scale" class="image-slider" type="range" min="10" max="400" step="1" value="100" aria-valuetext="100%">
+                </div>
+                <div class="framing-control">
+                  <div class="control-label"><label for="source-position-x">Position X</label><output id="source-position-x-value" for="source-position-x">0 px</output></div>
+                  <input id="source-position-x" class="image-slider" type="range" min="-320" max="320" step="1" value="0" aria-valuetext="0 pixels">
+                </div>
+                <div class="framing-control">
+                  <div class="control-label"><label for="source-position-y">Position Y</label><output id="source-position-y-value" for="source-position-y">0 px</output></div>
+                  <input id="source-position-y" class="image-slider" type="range" min="-200" max="200" step="1" value="0" aria-valuetext="0 pixels">
+                </div>
+                <button id="source-crop" class="framing-reset" type="button" aria-haspopup="dialog">Crop source…</button>
+                <button id="reset-framing" class="framing-reset" type="button">Reset framing</button>
+              </fieldset>
+              <p id="error" class="error" role="alert" hidden></p>
+            </div>
+          </details>
+          <details id="adjustment-settings" class="inspector-panel" open>
+            <summary><h2>Adjustments</h2></summary>
+            <div class="panel-body"><div class="image-control">
+              <div class="control-label"><label for="brightness">Brightness</label><output id="brightness-value" for="brightness">0%</output></div>
+              <input id="brightness" class="image-slider" type="range" min="-100" max="300" step="1" value="0" aria-valuetext="0% (unchanged)">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="contrast">Contrast</label><output id="contrast-value" for="contrast">100%</output></div>
+              <input id="contrast" class="image-slider" type="range" min="0" max="400" step="1" value="100" aria-valuetext="100% (unchanged)">
+            </div>
+            <div id="source-levels" class="image-control" role="group" aria-labelledby="levels-heading">
+              <div class="levels-heading">
+                <h3 id="levels-heading">Levels &amp; curves</h3>
+                <button id="reset-levels" class="framing-reset" type="button" aria-label="Reset levels">Reset</button>
+              </div>
+              <canvas id="levels-histogram" class="levels-histogram" width="256" height="220" tabindex="0" role="img" aria-label="Editable tone curve and RGB histogram" aria-describedby="levels-curve-help" title="Click to add a point; drag to shape. Arrow keys move the selected point, Page Up/Down selects points, Enter adds a point, Delete removes it."></canvas>
+              <p id="levels-curve-help" class="levels-curve-help">Click to add. Drag to shape. Delete to remove.</p>
+              <div class="levels-curve-controls">
+                <label class="levels-curve-field" for="levels-curve-input">Input
+                  <input id="levels-curve-input" type="number" min="0" max="255" step="1" value="0">
+                </label>
+                <label class="levels-curve-field" for="levels-curve-output">Output
+                  <input id="levels-curve-output" type="number" min="0" max="255" step="1" value="0">
+                </label>
+                <button id="levels-curve-delete" class="framing-reset" type="button" disabled>Remove point</button>
+              </div>
+              <div class="levels-curve-actions">
+                <span id="levels-curve-status" role="status" aria-live="polite">2 points</span>
+                <button id="reset-curve" class="framing-reset" type="button">Reset curve</button>
+              </div>
+              <details class="levels-input-controls">
+                <summary>Input levels</summary>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-black">Black point</label><output id="levels-black-value" for="levels-black">0</output></div>
+                <input id="levels-black" class="image-slider" type="range" min="0" max="254" step="1" value="0" aria-valuetext="0 input black point">
+              </div>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-gamma">Midtones</label><output id="levels-gamma-value" for="levels-gamma">1.00</output></div>
+                <input id="levels-gamma" class="image-slider" type="range" min="0.1" max="5" step="0.05" value="1" aria-valuetext="1.00 midtone gamma">
+              </div>
+              <div class="levels-slider">
+                <div class="control-label"><label for="levels-white">White point</label><output id="levels-white-value" for="levels-white">255</output></div>
+                <input id="levels-white" class="image-slider" type="range" min="1" max="255" step="1" value="255" aria-valuetext="255 input white point">
+              </div>
+              </details>
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="hue">Hue</label><output id="hue-value" for="hue">0°</output></div>
+              <input id="hue" class="image-slider" type="range" min="-180" max="180" step="1" value="0" aria-valuetext="0 degrees (unchanged)">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="saturation">Saturation</label><output id="saturation-value" for="saturation">100%</output></div>
+              <input id="saturation" class="image-slider" type="range" min="0" max="200" step="1" value="100" aria-valuetext="100% (unchanged)">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="rgb-noise">RGB noise</label><output id="rgb-noise-value" for="rgb-noise">0%</output></div>
+              <input id="rgb-noise" class="image-slider" type="range" min="0" max="100" step="1" value="0" aria-valuetext="0% (off)">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="interlace">Interlace</label><output id="interlace-value" for="interlace">0%</output></div>
+              <input id="interlace" class="image-slider" type="range" min="-100" max="100" step="1" value="0" aria-valuetext="0% (off)">
+              <div class="control-label"><label for="interlace-direction">Direction</label></div>
+              <select id="interlace-direction" class="mode-select" title="At spacing 2, both diagonal directions form the same checker pattern. Use spacing 3 or more to distinguish them.">
+                <option value="horizontal">Horizontal —</option>
+                <option value="diagonal-up">Rising diagonal /</option>
+                <option value="diagonal-down">Falling diagonal \</option>
+              </select>
+              <div class="control-label"><label for="interlace-spacing">Line spacing</label><output id="interlace-spacing-value" for="interlace-spacing">2 steps</output></div>
+              <input id="interlace-spacing" class="image-slider" type="range" min="1" max="32" step="1" value="2" aria-valuetext="2 steps between interlace lines" title="Distance between lines. Each line remains one 2×1 pixel thick.">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="dither">Dither</label><output id="dither-value" for="dither">100%</output></div>
+              <input id="dither" class="image-slider" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100% dither strength">
+            </div>
+            <div class="image-control">
+              <label class="grid-toggle"><input id="scanline-dither" type="checkbox">Dither line ends</label>
+            </div></div>
+          </details>
+          <details id="color-settings" class="inspector-panel" open>
+            <summary><h2>Color & palette</h2></summary>
+            <div class="panel-body">
+            <div class="image-control">
+              <h2><label for="virtual-colors">Virtual Colors</label></h2>
+              <select id="virtual-colors" class="mode-select">
+                <option value="off">Off</option>
+                <option value="lines">Lines</option>
+                <option value="checkers" selected>Checkers</option>
+              </select>
+            </div>
+              <div id="palette-reference" hidden><h3 class="palette-reference-heading">C64 palette<span class="virtual-palette-count">16</span></h3><div class="palette-reference-swatches" role="list" aria-label="C64 palette"></div></div>
+            <div id="sprite-settings" class="image-control" hidden>
+
+              <div class="image-control">
+                <div class="control-label"><label for="sprite-match">Match range</label><output id="sprite-match-value" for="sprite-match">25%</output></div>
+                <input id="sprite-match" class="image-slider" type="range" min="0" max="500" step="1" value="25" aria-valuetext="25% sprite match range">
+              </div>
+              <div class="image-control">
+                <div class="control-label"><label for="sprite-dither">Sprite dither</label><output id="sprite-dither-value" for="sprite-dither">100%</output></div>
+                <input id="sprite-dither" class="image-slider" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100% sprite dither strength">
+              </div>
+            </div>
+              <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
+            <h2 id="virtual-palette-heading"><span class="virtual-palette-title">Virtual palette</span><span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
+            <p class="background-value talent-palette-help" hidden>Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.</p>
+            <div class="image-control">
+              <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
+              <input id="palette-darkest" class="image-slider" type="range" min="0" max="16" step="1" value="0" aria-valuetext="Virtual brightness level 0 of 16">
+            </div>
+            <div class="image-control">
+              <div class="control-label"><label for="palette-lightest">Lightest level</label><output id="palette-lightest-value" for="palette-lightest">16</output></div>
+              <input id="palette-lightest" class="image-slider" type="range" min="0" max="16" step="1" value="16" aria-valuetext="Virtual brightness level 16 of 16">
+            </div>
+            <div id="virtual-palette-swatches" class="virtual-palette-swatches" role="group" aria-labelledby="virtual-palette-heading"></div>
+          </section>
+            </div>
+          </details>
+          <details class="inspector-panel format" aria-labelledby="format-heading">
+            <summary><h2 id="format-heading">Document info</h2></summary>
+            <div class="panel-body"><dl>
+              <div class="format-row"><dt>Resolution</dt><dd id="format-resolution">160 × 200</dd></div>
+              <div id="image-area-row" class="format-row" title="Two character columns reserved on the left"><dt>Image area</dt><dd id="format-image-area">152 × 200</dd></div>
+              <div class="format-row"><dt>Pixel width : height</dt><dd id="format-pixel-ratio">2 : 1</dd></div>
+              <div class="format-row"><dt>Colors</dt><dd id="color-mode" class="color-value">Unrestricted</dd></div>
+            </dl></div>
+          </details>
+        </aside>
+      </div>
+      <p id="announcement" class="sr-only" role="status" aria-live="polite"></p>
+    </main>
+    <footer><span id="footer-mode">C64 · FULL-COLOR SOURCE</span><span id="footer-format">160 × 200 / 2:1</span></footer>
+  </div>
+
+  <dialog id="source-crop-dialog"></dialog>
+
+  <script src="./color-math.js?v=1"></script>
+  <script src="./fli.js?v=mci-joint-fit"></script>
+  <script src="./scanline-dither.js?v=enclosed-lines"></script>
+  <script src="./ifli.js?v=shared-brightness-mapper"></script>
+  <script src="./talent-palette.js?v=1"></script>
+  <script src="./talent-neighbors.js?v=1"></script>
+  <script src="./talent-mapping.js?v=paired-full-palette"></script>
+  <script src="./palettes.js?v=all-talent-colors"></script>
+  <script src="./virtual-color-mapping.js?v=1"></script>
+  <script src="./ifli-export.js?v=funpaint"></script>
+  <script src="./fli-export.js?v=1"></script>
+  <script src="./mci-export.js?v=1"></script>
+  <script src="./afli-export.js?v=afli"></script>
+  <script src="./pafli.js?v=black-bottom-row"></script>
+  <script src="./pafli-player-data.js?v=1"></script>
+  <script src="./pafli-export.js?v=black-bottom-row"></script>
+  <script src="./nufli-data.js?v=1"></script>
+  <script src="./nufli.js?v=2"></script>
+  <script src="./nufli-export.js?v=1"></script>
+  <script src="./afli-sprites.js?v=layers"></script>
+  <script src="./fli-sprites.js?v=layers"></script>
+  <script src="./sprite-grid.js?v=1"></script>
+  <script src="./charset.js?v=perceptual-reuse"></script>
+  <script src="./afli-sprite-export.js?v=shared-layered-zip"></script>
+  <script src="./border-sprites.js?v=optimized-colors"></script>
+  <script src="./border-sprite-export.js?v=optimized-colors"></script>
+  <script src="./fli-sprite-export.js?v=multicolor-layers"></script>
+  <script src="./sprite-grid-export.js?v=1"></script>
+  <script src="./charset-export.js?v=similarity"></script>
+  <script src="./graphics-modes.js?v=charset"></script>
+  <script src="./two-color.js?v=1"></script>
+  <script src="./two-color-export.js?v=1"></script>
+  <script src="./multicolor-export.js?v=1"></script>
+  <script src="./image-layout.js?v=sprite-grid"></script>
+  <script src="./source-crop.js?v=1"></script>
+  <script src="./source-crop-editor.js?v=1"></script>
+  <script src="./source-levels.js?v=editable-curves"></script>
+  <script src="./source-interlace.js?v=patterns"></script>
+  <script src="./converter-controls.js?v=palette-components"></script>
+  <script src="./border-sprite-controls.js?v=optimized-colors"></script>
+  <script src="./sprite-grid-controls.js?v=palette-switch"></script>
+  <script src="./charset-controls.js?v=palette-switch"></script>
+  <script src="./layers.js?v=tile-markers"></script>
+  <script src="./layer-panel.js?v=tile-markers"></script>
+  <script src="./tile-markers.js?v=border-sprites"></script>
+  <script src="./project.js?v=optimized-border-colors"></script>
+  <script>
+    const paletteState = createC64PaletteState('peptoette-a', 'talent');
+    const C64_PALETTE = paletteState.palette;
+    const C64_BRIGHTNESS_BANDS = paletteState.brightnessBands;
+    const IFLI_VIRTUAL_PALETTE = paletteState.virtualPalette;
+
+    const DITHER_THRESHOLDS = [
+      [0, 8, 2, 10],
+      [12, 4, 14, 6],
+      [3, 11, 1, 9],
+      [15, 7, 13, 5]
+    ];
+
+    const input = document.getElementById('image-input');
+    const projectInput = document.getElementById('project-input');
+    const projectOpen = document.getElementById('project-open');
+    const projectSave = document.getElementById('project-save');
+    const projectError = document.getElementById('project-error');
+    const dropZone = document.getElementById('drop-zone');
+    const canvas = document.getElementById('canvas');
+    const tileMarkerColor = document.getElementById('tile-marker-color');
+    const tileGrid = document.getElementById('tile-grid');
+    const gridToggle = document.getElementById('grid-toggle');
+    const backgroundPalette = document.getElementById('background-palette');
+    const backgroundColorValue = document.getElementById('background-color-value');
+    const backgroundSettings = document.getElementById('background-settings');
+    const spriteSettings = document.getElementById('sprite-settings');
+    const virtualPalette = document.getElementById('virtual-palette');
+    const context = canvas.getContext('2d', { willReadFrequently: true });
+    const preview = document.getElementById('preview');
+    const previewStatus = document.getElementById('preview-status');
+    const error = document.getElementById('error');
+    const announcement = document.getElementById('announcement');
+    const tabs = Array.from(document.querySelectorAll('.preview-tab'));
+    const graphicsModeSelect = document.getElementById('graphics-mode-options');
+    const c64PaletteSelect = document.getElementById('c64-palette-options');
+    const virtualColorModeSelect = document.getElementById('virtual-color-mode-options');
+    for (const preset of C64_PALETTES) {
+      const option = document.createElement('option');
+      option.value = preset.id;
+      option.textContent = preset.label;
+      c64PaletteSelect.append(option);
+    }
+    c64PaletteSelect.value = paletteState.id;
+    const virtualColorsSelect = document.getElementById('virtual-colors');
+    for (const mode of C64_GRAPHICS_MODES) {
+      const option = document.createElement('option');
+      option.value = mode.id;
+      option.textContent = mode.label;
+      graphicsModeSelect.append(option);
+    }
+    const restrictedTab = document.getElementById('tab-restricted');
+    const previewPanel = document.getElementById('preview-panel');
+    const sourceFraming = document.getElementById('source-framing');
+    const sourceScale = document.getElementById('source-scale');
+    const sourcePositionX = document.getElementById('source-position-x');
+    const sourcePositionY = document.getElementById('source-position-y');
+    const brightnessSlider = document.getElementById('brightness');
+    const brightnessValue = document.getElementById('brightness-value');
+    const contrastSlider = document.getElementById('contrast');
+    const contrastValue = document.getElementById('contrast-value');
+    const hueSlider = document.getElementById('hue');
+    const hueValue = document.getElementById('hue-value');
+    const saturationSlider = document.getElementById('saturation');
+    const saturationValue = document.getElementById('saturation-value');
+    const rgbNoiseSlider = document.getElementById('rgb-noise');
+    const rgbNoiseValue = document.getElementById('rgb-noise-value');
+    const interlaceSlider = document.getElementById('interlace');
+    const interlaceValue = document.getElementById('interlace-value');
+    const interlaceSpacing = document.getElementById('interlace-spacing');
+    const interlaceDirection = document.getElementById('interlace-direction');
+    const ditherSlider = document.getElementById('dither');
+    const ditherValue = document.getElementById('dither-value');
+    const scanlineDither = document.getElementById('scanline-dither');
+    const ifliPlayback = document.getElementById('ifli-playback');
+    const fliSave = document.getElementById('fli-save');
+    const ifliSave = document.getElementById('ifli-save');
+    const mciSave = document.getElementById('mci-save');
+    const afliSave = document.getElementById('afli-save');
+    const twoColorSave = document.getElementById('two-color-save');
+    const multicolorSave = document.getElementById('multicolor-save');
+    const nufliSave = document.getElementById('nufli-save');
+    const nufliPrgSave = document.getElementById('nufli-prg-save');
+    const pafliSave = document.getElementById('pafli-save');
+    const spriteLayersSave = document.getElementById('sprite-layers-save');
+    const spriteGridSave = document.getElementById('sprite-grid-save');
+    const charsetSave = document.getElementById('charset-save');
+    const charsetView = document.getElementById('charset-view');
+    const charsetAtlas = document.getElementById('charset-atlas');
+    const spriteLayerViews = document.getElementById('sprite-layer-views');
+    const spriteUnderlayCanvas = document.getElementById('sprite-underlay');
+    const spriteLayerCanvas = document.getElementById('sprite-layer');
+    const ifliFrameViews = document.getElementById('ifli-frame-views');
+    const ifliFrameCanvases = [document.getElementById('ifli-frame-first'), document.getElementById('ifli-frame-second')];
+    const ifliMergedCanvas = document.getElementById('ifli-frame-merged');
+    const ifliBlendedCanvas = document.getElementById('ifli-frame-blended');
+    let backgroundColorIndex = 0;
+    let twoColorIndices = [0, 1];
+    let graphicsMode = C64_GRAPHICS_MODES[0].id;
+    let activeMode = 'unrestricted';
+    let sourceImage = null;
+    let sourcePan = null;
+    let unrestrictedPixels = null;
+    let spriteSourcePixels = null;
+    let borderSourcePixels = null;
+    let borderPalettePixels = null;
+    let borderRenderLayers = [];
+    let borderSpriteResult = null;
+    let borderColorPlan = null;
+    let borderColorWorker = null;
+    let borderColorTimer = null;
+    let borderColorPending = false;
+    let borderColorError = null;
+    let borderColorGeneration = 0;
+    let palettePixels = null;
+    let fliResult = null;
+    let documentTargetPixels = null;
+    let ifliResult = null;
+    let ifliFrameViewsResult = null;
+    let spriteLayerViewsResult = null;
+    let charsetViewResult = null;
+    let ifliFrameIndex = 0;
+    let ifliNextFrameIndex = 0;
+    let ifliAnimation = null;
+    let ifliPaused = false;
+    let pafliNextFrameTime = 0;
+    let imageName = '';
+    const loadingLayers = new Set();
+    let projectLoading = false;
+    let dragDepth = 0;
+    let layerStack = null;
+    let cropEditor = null;
+    let cropEditingLayerId = null;
+    const layerControlIds = ['source-scale', 'source-position-x', 'source-position-y',
+      'brightness', 'contrast', 'levels-black', 'levels-white', 'levels-gamma', 'hue',
+      'saturation', 'rgb-noise', 'interlace', 'interlace-spacing', 'interlace-direction', 'dither', 'scanline-dither', 'virtual-colors',
+      'sprite-match', 'sprite-dither'];
+
+    const levelsControls = C64ConverterControls.createLevelsControls({
+      root: document.getElementById('source-levels'),
+      onChange: updatePalettePreview
+    });
+    const backgroundPicker = C64ConverterControls.createPalettePicker({
+      container: backgroundPalette,
+      name: 'background-color',
+      palette: C64_PALETTE,
+      value: backgroundColorIndex,
+      onChange(color) {
+        setBackgroundColor(color.index);
+        renderPreview();
+      }
+    });
+    const twoColorPickers = ['shadow', 'highlight'].map((role, slot) => {
+      const valueElement = document.getElementById(`two-color-${role}-value`);
+      const updateLabel = color => { valueElement.textContent = `${color.index} · ${color.name} · ${color.hex}`; };
+      const picker = C64ConverterControls.createPalettePicker({
+        container: document.getElementById(`two-color-${role}-palette`),
+        name: `two-color-${role}`, palette: C64_PALETTE, value: twoColorIndices[slot],
+        onChange(color) {
+          twoColorIndices[slot] = color.index;
+          updateLabel(color);
+          layerStack.invalidate();
+          rebuildLayerComposite();
+        }
+      });
+      updateLabel(C64_PALETTE[twoColorIndices[slot]]);
+      return { ...picker, setColorIndex(index) { picker.setValue(index); updateLabel(C64_PALETTE[index]); } };
+    });
+    const spriteControls = C64ConverterControls.createSpriteOverlayControls({
+      root: spriteSettings,
+      palette: C64_PALETTE,
+      valueElement: document.getElementById('sprite-color-value'),
+      paletteContainer: document.getElementById('sprite-palette'),
+      onChange: updatePalettePreview
+    });
+    const spriteGridControls = createC64SpriteGridControls({
+      root: document.getElementById('sprite-grid-settings'), palette: C64_PALETTE,
+      onChange(layoutChanged) {
+        finishSourcePan();
+        if (layoutChanged) layerStack.invalidate();
+        rebuildLayerComposite();
+      }
+    });
+    const charsetControls = createC64CharsetControls({
+      root: document.getElementById('charset-settings'), palette: C64_PALETTE,
+      onChange() { fliResult = null; renderPreview(); }
+    });
+    const borderSpriteControls = createC64BorderSpriteControls({
+      root: document.getElementById('border-sprite-settings'), palette: C64_PALETTE,
+      onChange(layoutChanged) {
+        finishSourcePan();
+        invalidateBorderColors();
+        if (layoutChanged) {
+          layerStack.invalidate();
+          rebuildLayerComposite();
+        } else renderPreview();
+      }
+    });
+    const borderSpritesSave = document.getElementById('save-border-sprites');
+    const virtualPaletteView = C64ConverterControls.createVirtualPaletteView({
+      root: virtualPalette,
+      palette: IFLI_VIRTUAL_PALETTE,
+      basePalette: C64_PALETTE,
+      getMode: () => paletteState.virtualColorMode,
+      getToneModel: () => paletteState.talentToneModel,
+      getTalentPalette: () => paletteState.virtualPalettes.talent,
+      onChange: updatePalettePreview
+    });
+
+    virtualPaletteView.setSettings({
+      excludedIndices: IFLI_VIRTUAL_PALETTE.filter(color =>
+        color.colorIndices[0] === color.colorIndices[1] && color.colorIndices[0] > 1).map(color => color.index)
+    });
+    layerStack = createC64LayerStack(readLayerSettings());
+    const layerPanel = createC64LayerPanel({
+      root: document.getElementById('layer-settings'), stack: layerStack,
+      onSelect: selectImageLayer,
+      onAction: changeImageLayers,
+      onRename(id, name) {
+        const layer = layerStack.layers.find(layer => layer.id === id);
+        layer.name = name;
+        layer.autoName = false;
+        syncLayerInfo();
+      }
+    });
+    const tileMarkerEditor = createC64TileMarkerEditor({
+      canvas, overlay: document.getElementById('tile-marker-overlay'), stack: layerStack,
+      getDisplaySize: currentDisplaySize,
+      onChange() {
+        tileMarkerEditor.render();
+        layerPanel.render();
+      }
+    });
+    cropEditor = createSourceCropEditor({
+      dialog: document.getElementById('source-crop-dialog'),
+      onApply(crop) {
+        const layer = layerStack.layers.find(layer => layer.id === cropEditingLayerId);
+        if (!layer?.image) return;
+        layer.settings.crop = cloneSourceCrop(crop);
+        layer.cache = null;
+        rebuildLayerComposite();
+        syncLayerInfo();
+        announcement.textContent = crop ? `Crop applied to ${layer.name}.` : `Crop removed from ${layer.name}.`;
+      }
+    });
+    function openSourceCrop() {
+      const layer = layerStack.active();
+      if (layer.type !== 'image' || !layer.image || loadingLayers.has(layer.id) || projectLoading) return;
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      cropEditingLayerId = layer.id;
+      cropEditor.open({ image: layer.image, crop: layer.settings.crop, name: layer.name });
+    }
+    document.getElementById('tool-crop').addEventListener('click', openSourceCrop);
+    document.getElementById('source-crop').addEventListener('click', openSourceCrop);
+    function updateCropButtons() {
+      const layer = layerStack?.active();
+      const canCrop = Boolean(layer?.image && !loadingLayers.has(layer.id) && !projectLoading);
+      document.getElementById('tool-crop').disabled = !canCrop;
+      document.getElementById('source-crop').disabled = !canCrop;
+      document.getElementById('source-crop').textContent = layer?.settings?.crop ? 'Edit crop…' : 'Crop source…';
+    }
+    tileMarkerColor.addEventListener('input', () => {
+      const layer = layerStack.active();
+      if (layer.type !== 'tile-markers') return;
+      layer.markers.color = tileMarkerColor.value;
+      tileMarkerEditor.render();
+      layerPanel.render();
+    });
+    const projectCodec = createC64ProjectCodec({
+      modeIds: C64_GRAPHICS_MODES.map(mode => mode.id),
+      controls: layerControlIds.map(id => {
+        const control = document.getElementById(id);
+        return { id, type: control.type, min: Number(control.min), max: Number(control.max),
+          step: Number(control.step) || 1, options: control.options && [...control.options].map(option => option.value) };
+      }),
+      virtualPalette: IFLI_VIRTUAL_PALETTE,
+      virtualPalettes: paletteState.virtualPalettes,
+      virtualColorIndices: paletteState.virtualColorIndices,
+      legacyTalentPalette: paletteState.legacyTalentPalette,
+      resolveVirtualPalettes: id => {
+        const resolved = createC64PaletteState(id);
+        return { ...resolved.virtualPalettes, legacyTalent: resolved.legacyTalentPalette };
+      }
+    });
+
+    function setBackgroundColor(index) {
+      backgroundColorIndex = index;
+      backgroundPicker.setValue(index);
+      const color = C64_PALETTE[index];
+      backgroundColorValue.textContent = `${color.index} · ${color.name} · ${color.hex}`;
+      fliResult = null;
+      ifliResult = null;
+      invalidateBorderColors();
+    }
+
+    function setC64Palette(id) {
+      const preset = paletteState.select(id);
+      c64PaletteSelect.value = id;
+      backgroundPicker.refreshPalette();
+      setBackgroundColor(backgroundColorIndex);
+      twoColorPickers.forEach((picker, slot) => {
+        picker.refreshPalette();
+        picker.setColorIndex(twoColorIndices[slot]);
+      });
+      spriteControls.refreshPalette();
+      spriteGridControls.refreshPalette();
+      borderSpriteControls.refreshPalette();
+      charsetControls.refreshPalette();
+      reconcileLayerVirtualPalettes();
+      virtualPaletteView.refreshPalette();
+      if (layerStack.active().settings) virtualPaletteView.setSettings(layerStack.active().settings.palette);
+      layerStack.invalidate();
+      document.dispatchEvent(new Event('c64palettechange'));
+      return preset;
+    }
+
+    function setVirtualColorMode(mode) {
+      paletteState.setVirtualColorMode(mode);
+      virtualColorModeSelect.value = mode;
+      document.getElementById('virtual-color-mode-help').textContent = mode === 'talent'
+        ? 'Talent compares vertical source pixel pairs. Similar pixels share one palette choice; differing pixels map individually. Both use the full enabled virtual palette, matching brightness before hue. Shared by all layers.'
+        : 'Computed pairs, shared by all layers with virtual colors enabled.';
+      virtualPaletteView.refreshPalette();
+      layerStack.invalidate();
+    }
+
+    function reconcileLayerVirtualPalettes() {
+      for (const layer of layerStack.layers) {
+        if (layer.type === 'tile-markers') continue;
+        const settings = layer.settings.palette;
+        const excluded = new Set(settings.excludedIndices);
+        if (paletteState.virtualColorMode === 'talent') {
+          Object.assign(settings, getTalentLightnessLimits(settings, IFLI_VIRTUAL_PALETTE));
+        }
+        const inRange = color => {
+          if (paletteState.virtualColorMode === 'talent') {
+            return color.lightness * 100 >= settings.minLightness - 1e-5 &&
+              color.lightness * 100 <= settings.maxLightness + 1e-5;
+          }
+          const level = color.brightnessBands[0] + color.brightnessBands[1];
+          return level >= settings.minLevel && level <= settings.maxLevel;
+        };
+        let available = IFLI_VIRTUAL_PALETTE.filter(inRange);
+        if (!available.length && paletteState.virtualColorMode === 'talent') {
+          const midpoint = (settings.minLightness + settings.maxLightness) / 2;
+          const nearest = IFLI_VIRTUAL_PALETTE.reduce((best, color) =>
+            Math.abs(color.lightness * 100 - midpoint) < Math.abs(best.lightness * 100 - midpoint) ? color : best);
+          settings.minLightness = Math.min(settings.minLightness, Math.floor(nearest.lightness * 100));
+          settings.maxLightness = Math.max(settings.maxLightness, Math.ceil(nearest.lightness * 100));
+          available = IFLI_VIRTUAL_PALETTE.filter(inRange);
+        }
+        if (!available.some(color => !excluded.has(color.index))) {
+          settings.excludedIndices = settings.excludedIndices.filter(index => index !== available[0].index);
+        }
+      }
+    }
+
+    function syncLoadingState() {
+      updateCropButtons();
+      preview.setAttribute('aria-busy', String(projectLoading || loadingLayers.size > 0));
+      projectSave.disabled = projectLoading || loadingLayers.size > 0;
+      projectOpen.disabled = projectLoading;
+      updateIfliSaveState();
+    }
+
+    function readImageDataUrl(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = () => reject(new Error('The source image could not be read.'));
+        reader.readAsDataURL(file);
+      });
+    }
+
+    async function decodeSourceImage(dataUrl) {
+      const image = new Image();
+      image.src = dataUrl;
+      await image.decode();
+      return image;
+    }
+
+    projectSave.addEventListener('click', () => {
+      if (projectSave.disabled) return;
+      projectError.hidden = true;
+      try {
+        finishSourcePan();
+        layerStack.updateSettings(readLayerSettings());
+        const json = projectCodec.stringify({
+          image: { graphicsMode, paletteId: paletteState.id, virtualColorMode: paletteState.virtualColorMode,
+            backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
+            twoColorIndices, spriteConfig: spriteGridControls.getState(),
+            borderSprites: borderSpriteControls.getState(),
+            charsetMulticolorIndices: charsetControls.getState(),
+            charsetSimilarityThreshold: charsetControls.getSimilarityThreshold() },
+          view: { previewMode: activeMode, grid: gridToggle.checked, paused: ifliPaused },
+          activeLayer: layerStack.layers.indexOf(layerStack.active()),
+          layers: layerStack.layers.map(layer => ({
+            name: layer.name, autoName: layer.autoName, visible: layer.visible, settings: layer.settings,
+            ...(layer.type === 'tile-markers' ? { type: layer.type, markers: layer.markers } : {}),
+            source: layer.image ? { fileName: layer.fileName, dataUrl: layer.sourceDataUrl } : null
+          }))
+        });
+        const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${imageName.replace(/\.[^.]*$/, '') || 'untitled'}-project.json`;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 0);
+        announcement.textContent = 'Project saved with embedded source images.';
+      } catch (cause) {
+        projectError.textContent = `Could not save project. ${cause.message}`;
+        projectError.hidden = false;
+      }
+    });
+
+    projectOpen.addEventListener('click', () => projectInput.click());
+    projectInput.addEventListener('change', () => {
+      const file = projectInput.files[0];
+      projectInput.value = '';
+      if (file) openProject(() => file.text(), file.name);
+    });
+
+    async function openProject(readText, name) {
+      if (projectLoading) return;
+      projectLoading = true;
+      projectError.hidden = true;
+      syncLoadingState();
+      try {
+        const project = projectCodec.parse(await readText());
+        const layers = await Promise.all(project.layers.map(async layer => ({
+          ...layer, fileName: layer.source?.fileName || '', sourceDataUrl: layer.source?.dataUrl || '',
+          image: layer.source ? await decodeSourceImage(layer.source.dataUrl).catch(() => {
+            throw new Error(`The embedded image for “${layer.name}” could not be opened.`);
+          }) : null
+        })));
+        finishSourcePan();
+        stopIfliAnimation();
+        layerStack.replace(layers, project.activeLayer);
+        loadingLayers.clear();
+        graphicsMode = project.image.graphicsMode;
+        graphicsModeSelect.value = graphicsMode;
+        setVirtualColorMode(project.image.virtualColorMode || 'computed');
+        setC64Palette(project.image.paletteId || 'colodore');
+        spriteGridControls.setState(project.image.spriteConfig);
+        borderSpriteControls.setState(project.image.borderSprites);
+        spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
+        charsetControls.setState(project.image.charsetMulticolorIndices);
+        charsetControls.setSimilarityThreshold(project.image.charsetSimilarityThreshold);
+        setBackgroundColor(project.image.backgroundColorIndex);
+        spriteControls.setColorIndex(project.image.spriteColorIndex);
+        twoColorIndices = project.image.twoColorIndices || [0, 1];
+        twoColorPickers.forEach((picker, slot) => picker.setColorIndex(twoColorIndices[slot]));
+        gridToggle.checked = project.view.grid;
+        ifliPaused = project.view.paused;
+        activeMode = project.view.previewMode;
+        restoreLayerControls();
+        error.hidden = true;
+        rebuildLayerComposite();
+        selectPreviewTab(tabs.find(tab => tab.dataset.mode === activeMode));
+        announcement.textContent = `${name} opened. ${layers.length} layers restored.`;
+      } catch (cause) {
+        projectError.textContent = `Could not open project. ${cause.message}`;
+        projectError.hidden = false;
+      } finally {
+        projectLoading = false;
+        syncLoadingState();
+      }
+    }
+
+    function readLayerSettings() {
+      const values = Object.fromEntries(layerControlIds.map(id => {
+        const control = document.getElementById(id);
+        return [id, control.type === 'checkbox' ? control.checked
+          : control.type === 'range' ? control.valueAsNumber : control.value];
+      }));
+      return { values, curvePoints: levelsControls.getState().curvePoints,
+        crop: cloneSourceCrop(layerStack?.active()?.settings?.crop), palette: virtualPaletteView.getSettings() };
+    }
+
+    function restoreLayerControls() {
+      const layer = layerStack.active();
+      sourceImage = layer.image;
+      if (layer.type === 'tile-markers') {
+        tileMarkerColor.value = layer.markers.color;
+        levelsControls.setSource(null);
+        syncLayerInfo();
+        return;
+      }
+      for (const [id, value] of Object.entries(layer.settings.values)) {
+        const control = document.getElementById(id);
+        if (control.type === 'checkbox') control.checked = value;
+        else control.value = String(value);
+      }
+      const values = layer.settings.values;
+      levelsControls.setState({ blackPoint: values['levels-black'], whitePoint: values['levels-white'],
+        gamma: values['levels-gamma'], curvePoints: layer.settings.curvePoints });
+      virtualPaletteView.setSettings(layer.settings.palette);
+      spriteControls.setState({ matchAmount: values['sprite-match'] / 100, ditherAmount: values['sprite-dither'] / 100 });
+      updateFramingValues();
+      updateToneControls(false);
+      updateHueSaturationControls(false);
+      updatePatternLabels();
+      levelsControls.setSource(renderImageLayer(layer)?.histogram || null);
+      syncLayerInfo();
+    }
+
+    function syncLayerInfo() {
+      const layer = layerStack.active();
+      const markers = layer.type === 'tile-markers';
+      sourceImage = layer.image;
+      document.getElementById('tile-marker-settings').hidden = !markers;
+      document.getElementById('source-settings').hidden = markers;
+      document.getElementById('adjustment-settings').hidden = markers;
+      document.getElementById('color-settings').hidden = markers;
+      for (const button of document.querySelectorAll('[data-inspector-panel]')) button.disabled = markers;
+      sourceFraming.hidden = !sourceImage;
+      sourceFraming.disabled = !sourceImage;
+      document.getElementById('file-info').hidden = !sourceImage;
+      document.getElementById('filename').textContent = layer.fileName;
+      document.getElementById('file-dimensions').textContent = sourceImage
+        ? `${sourceImage.naturalWidth} × ${sourceImage.naturalHeight} original pixels` : '';
+      document.getElementById('active-layer-name').textContent = layer.name;
+      document.getElementById('tool-reset-framing').disabled = !sourceImage;
+      updateCropButtons();
+      dropZone.querySelector('.choose').textContent = sourceImage ? 'Change image' : 'Choose image';
+      const loaded = layerStack.layers.filter(layer => layer.image);
+      imageName = loaded[0]?.fileName || '';
+      const documentName = document.getElementById('document-name');
+      documentName.textContent = imageName ? `${imageName}${loaded.length > 1 ? ` · ${loaded.length} layers` : ''}` : 'Untitled';
+      documentName.title = documentName.textContent;
+      preview.classList.toggle('has-image', Boolean(unrestrictedPixels));
+      preview.dataset.canPan = String(Boolean(sourceImage && layer.visible));
+      preview.dataset.canMark = String(markers && layer.visible);
+      document.querySelector('#empty-state h2').textContent = loaded.length ? 'No visible layers' : 'No image open';
+    }
+
+    function selectImageLayer(id) {
+      if (layerStack.active().id === id) return;
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      layerStack.select(id);
+      restoreLayerControls();
+      layerPanel.render();
+      error.hidden = true;
+      renderPreview();
+      announcement.textContent = `${layerStack.active().name} selected.`;
+    }
+
+    function changeImageLayers(action, id) {
+      finishSourcePan();
+      layerStack.updateSettings(readLayerSettings());
+      if (action === 'add') layerStack.add();
+      else if (action === 'add-markers') layerStack.add({ type: 'tile-markers' });
+      else if (action === 'duplicate') layerStack.duplicate();
+      else if (action === 'remove') {
+        loadingLayers.delete(layerStack.active().id);
+        layerStack.remove();
+      } else if (action === 'up' || action === 'down') layerStack.move(action === 'up' ? 1 : -1);
+      else if (action === 'visibility') {
+        const layer = layerStack.layers.find(layer => layer.id === id);
+        layer.visible = !layer.visible;
+      }
+      restoreLayerControls();
+      syncLoadingState();
+      rebuildLayerComposite();
+    }
+
+    function updateGridVisibility() {
+      const marking = layerStack.active().type === 'tile-markers' && layerStack.active().visible;
+      tileGrid.hidden = !gridToggle.checked || (!marking && (activeMode === 'unrestricted' || !palettePixels));
+    }
+
+    function currentGraphicsMode() {
+      return getC64GraphicsMode(graphicsMode);
+    }
+
+    function isFliMode() {
+      return graphicsMode === 'fli';
+    }
+
+    function isIfliMode() {
+      return currentGraphicsMode().format === 'ifli';
+    }
+
+    function isMciMode() {
+      return currentGraphicsMode().format === 'mci';
+    }
+
+    function isMulticolorInterlaceMode() {
+      return isIfliMode() || isMciMode();
+    }
+
+    function usesFullResolutionSource() {
+      return isStandaloneSpriteMode() || currentGraphicsMode().sourceWidth === 320;
+    }
+
+    function isStandaloneSpriteMode() {
+      return currentGraphicsMode().format === 'sprites';
+    }
+
+    function isCharsetMode() {
+      return currentGraphicsMode().format === 'charset';
+    }
+
+    function usesDirectColorFit() {
+      return isStandaloneSpriteMode() || isCharsetMode();
+    }
+
+    function currentDisplaySize() {
+      const { columns, rows } = spriteGridControls.getState();
+      return isStandaloneSpriteMode() ? { width: columns * 24, height: rows * 21 }
+        : currentBorderLayout();
+    }
+
+    function supportsBorderSprites() {
+      return !isStandaloneSpriteMode() && !isSpriteMode() && !isNufliMode() && !isPafliMode();
+    }
+
+    function currentBorderLayout() {
+      return getC64BorderLayout(supportsBorderSprites() ? borderSpriteControls.getState() : undefined);
+    }
+
+    function setBorderColorStatus(message) {
+      const status = document.getElementById('border-optimization-status');
+      status.hidden = !message;
+      status.textContent = message || '';
+    }
+
+    function invalidateBorderColors() {
+      borderColorGeneration += 1;
+      clearTimeout(borderColorTimer);
+      borderColorTimer = null;
+      borderColorWorker?.terminate();
+      borderColorWorker = null;
+      borderColorPending = false;
+      borderColorPlan = null;
+      borderColorError = null;
+      borderSpriteResult = null;
+      borderSpriteControls.setOptimizationPlan(null);
+      setBorderColorStatus('');
+    }
+
+    function borderColorOptions() {
+      return { virtualPalette: IFLI_VIRTUAL_PALETTE, virtualColorMode: paletteState.virtualColorMode,
+        brightnessBands: C64_BRIGHTNESS_BANDS, layers: borderRenderLayers };
+    }
+
+    function startBorderColorOptimization(settings) {
+      if (borderColorPending || borderColorPlan || borderColorError) return;
+      borderColorPending = true;
+      const generation = borderColorGeneration;
+      setBorderColorStatus('Optimizing sprite colors…');
+      borderColorTimer = setTimeout(() => {
+        borderColorTimer = null;
+        if (generation !== borderColorGeneration) return;
+        const source = borderPalettePixels, interlaced = isMulticolorInterlaceMode();
+        const options = borderColorOptions();
+        function failed(message) {
+          if (generation !== borderColorGeneration) return;
+          borderColorWorker?.terminate();
+          borderColorWorker = null;
+          borderColorPending = false;
+          borderColorError = message;
+          const detail = location.protocol === 'file:'
+            ? 'Open the converter through its web address or a local HTTP server to use automatic colors.' : message;
+          setBorderColorStatus(`Could not optimize colors. ${detail}`);
+          updateIfliSaveState();
+        }
+        try {
+          const worker = new Worker(new URL('./border-color-worker.js?v=1', location.href));
+          borderColorWorker = worker;
+          worker.onerror = event => {
+            event.preventDefault();
+            failed(event.message || 'The background color search failed.');
+          };
+          worker.onmessage = event => {
+            const message = event.data;
+            if (message.generation !== borderColorGeneration || borderColorWorker !== worker) return;
+            if (message.type === 'error') return failed(message.message);
+            if (message.type === 'progress') {
+              const progress = message.progress;
+              const percent = Math.round(100 * progress.completed / progress.total);
+              if (Number.isFinite(percent)) setBorderColorStatus(`Optimizing sprite colors… ${percent}%`);
+              return;
+            }
+            if (message.type !== 'complete') return;
+            try {
+              const plan = message.colorPlan;
+              const converted = convertC64BorderSprites(source, C64_PALETTE, settings,
+                backgroundColorIndex, interlaced, { ...options, colorPlan: plan });
+              worker.terminate();
+              borderColorWorker = null;
+              borderColorPending = false;
+              borderColorPlan = plan;
+              borderSpriteResult = converted;
+              borderSpriteControls.setOptimizationPlan(plan);
+              const colors = plan.multicolorIndices.map(index => C64_PALETTE[index].name).join(' + ');
+              setBorderColorStatus(`${plan.improvementPercent.toFixed(1)}% lower image error · Shared colors: ${colors}.`);
+              renderPreview();
+              updateIfliSaveState();
+            } catch (cause) {
+              failed(cause.message);
+            }
+          };
+          worker.postMessage({ generation, source, palette: C64_PALETTE, settings,
+            backgroundColorIndex, interlaced, options });
+        } catch (cause) {
+          failed(cause.message);
+        }
+      }, 200);
+    }
+
+    function ensureBorderSpriteResult() {
+      if (!currentBorderLayout().enabled || !borderSourcePixels) return null;
+      const settings = borderSpriteControls.getState();
+      if (settings.optimizeColors && !borderColorPlan) startBorderColorOptimization(settings);
+      if (!borderSpriteResult) {
+        const previewSettings = { ...settings };
+        if (!borderColorPlan) delete previewSettings.optimizeColors;
+        borderSpriteResult = convertC64BorderSprites(borderPalettePixels, C64_PALETTE,
+          previewSettings, backgroundColorIndex, isMulticolorInterlaceMode(),
+          { ...borderColorOptions(), ...(borderColorPlan ? { colorPlan: borderColorPlan } : {}) });
+      }
+      return borderSpriteResult;
+    }
+
+    function pixelsWithBorders(corePixels) {
+      if (!corePixels || !currentBorderLayout().enabled || !borderSourcePixels) return corePixels;
+      if (activeMode !== 'restricted') {
+        return activeMode === 'palette' ? borderPalettePixels : borderSourcePixels;
+      }
+      const border = ensureBorderSpriteResult();
+      const field = border?.frames?.[ifliFrameIndex] || border;
+      return field ? composeC64BorderPreview(corePixels, field,
+        isMulticolorInterlaceMode() && ifliFrameIndex === 1) : corePixels;
+    }
+
+    function usesVirtualPalette() {
+      return !isTwoColorMode() && virtualColorsSelect.value !== 'off';
+    }
+
+    function isTwoColorMode() {
+      return Boolean(currentGraphicsMode().twoColor);
+    }
+
+    function isMulticolorBitmapMode() {
+      return currentGraphicsMode().format === 'bitmap';
+    }
+
+    function isAfliMode() {
+      return currentGraphicsMode().format === 'afli';
+    }
+
+    function isNufliMode() {
+      return currentGraphicsMode().format === 'nufli';
+    }
+
+    function isPafliMode() {
+      return currentGraphicsMode().format === 'pafli';
+    }
+
+    function isAlternatingMode() {
+      return isMulticolorInterlaceMode() || isPafliMode();
+    }
+
+    function isAfliSpriteMode() {
+      return isAfliMode() && isSpriteMode();
+    }
+
+    function isFliSpriteMode() {
+      return currentGraphicsMode().format === 'fli' && isSpriteMode();
+    }
+
+    function isSpriteMode() {
+      return currentGraphicsMode().spriteOverlay;
+    }
+
+    function renderImageLayer(layer) {
+      if (!layer.image) return null;
+      const border = currentBorderLayout();
+      const layoutKey = `${border.width}x${border.height}`;
+      if (layer.cache?.format === graphicsMode && layer.cache.layoutKey === layoutKey) return layer.cache;
+      const values = layer.settings.values;
+      const placement = getC64ImagePlacement(layer.image.naturalWidth, layer.image.naturalHeight,
+        border.enabled ? 'bitmap' : graphicsMode, {
+        scale: values['source-scale'] / 100,
+        offsetX: values['source-position-x'], offsetY: values['source-position-y']
+      }, currentDisplaySize());
+      const hiresCanvas = document.createElement('canvas');
+      hiresCanvas.width = placement.canvasWidth;
+      hiresCanvas.height = placement.canvasHeight;
+      const hiresContext = hiresCanvas.getContext('2d', { willReadFrequently: true });
+      hiresContext.imageSmoothingEnabled = true;
+      hiresContext.imageSmoothingQuality = 'high';
+
+      // Map the whole physical image before cropping or sampling hardware cells.
+      hiresContext.save();
+      applySourceCrop(hiresContext, placement, layer.settings.crop);
+      hiresContext.drawImage(layer.image, placement.x, placement.y, placement.width, placement.height);
+      hiresContext.restore();
+      const leftInset = getC64ImageLeftInset(graphicsMode);
+      hiresContext.clearRect(border.enabled ? border.coreX : 0, border.enabled ? border.coreY : 0,
+        leftInset, border.enabled ? 200 : placement.canvasHeight);
+      const fullHires = hiresContext.getImageData(0, 0, placement.canvasWidth, placement.canvasHeight);
+      const { pixels: modified, histogram } = adjustLayerSource(fullHires, layer, 2);
+      const virtual = !isTwoColorMode()
+        ? mapC64VirtualColors(modified, {
+          virtualPalette: IFLI_VIRTUAL_PALETTE, virtualColorMode: paletteState.virtualColorMode,
+          palette: C64_PALETTE, brightnessBands: C64_BRIGHTNESS_BANDS,
+          paletteSettings: layer.settings.palette, pattern: values['virtual-colors'], dither: values.dither / 100,
+          originX: -border.coreX, originY: -border.coreY
+        }) : null;
+      const mapping = virtual?.mapping || null;
+      const mapped = isTwoColorMode() ? convertTwoColorHires(modified, C64_PALETTE, twoColorIndices, values.dither / 100)
+        : mapping ? mapping.pixels : mapToC64Palette(modified, values.dither / 100);
+      let target = virtual ? virtual.target : mapped;
+      if (!isTwoColorMode() && values['scanline-dither']) {
+        target = isMulticolorInterlaceMode() ? mergeIfliFrames(...splitIfliColumns(target).map(breakUpScanlines)) : breakUpScanlines(target);
+      }
+      const core = image => {
+        if (!border.enabled) return image;
+        const cropped = new ImageData(320, 200);
+        for (let y = 0; y < 200; y += 1) {
+          const offset = ((y + border.coreY) * image.width + border.coreX) * 4;
+          cropped.data.set(image.data.subarray(offset, offset + 320 * 4), y * 320 * 4);
+        }
+        return cropped;
+      };
+      const coreTarget = core(target);
+      layer.cache = { format: graphicsMode, layoutKey, source: core(modified), palette: core(mapped),
+        target: usesFullResolutionSource() ? coreTarget : splitIfliColumns(coreTarget)[0],
+        spriteSource: coreTarget, borderSource: border.enabled ? modified : null,
+        fullPalette: mapped, fullTarget: target, mapping, histogram };
+      return layer.cache;
+    }
+
+    function adjustLayerSource(source, layer, pixelWidth) {
+      const values = layer.settings.values;
+      const adjusted = applyBrightnessContrast(source, values.brightness, values.contrast);
+      const leveled = applySourceLevels(adjusted, {
+        blackPoint: values['levels-black'], whitePoint: values['levels-white'], gamma: values['levels-gamma'],
+        curvePoints: layer.settings.curvePoints
+      });
+      const colored = applyHueSaturation(leveled, values.hue, values.saturation);
+      const noise = values['rgb-noise'] / 100;
+      const sourceColors = !isMulticolorInterlaceMode() ? applyRgbNoise(colored, noise) : colored;
+      const interlaced = applyInterlace(sourceColors, values.interlace / 100, {
+        spacing: values['interlace-spacing'], direction: values['interlace-direction'], pixelWidth
+      });
+      return { pixels: isMulticolorInterlaceMode() ? applyRgbNoise(interlaced, noise) : interlaced,
+        histogram: adjusted };
+    }
+
+    function updateFramingValues() {
+      document.getElementById('source-scale-value').value = `${sourceScale.value}%`;
+      sourceScale.setAttribute('aria-valuetext', `${sourceScale.value}%`);
+      for (const slider of [sourcePositionX, sourcePositionY]) {
+        const value = slider.valueAsNumber;
+        document.getElementById(`${slider.id}-value`).value = `${value > 0 ? '+' : ''}${value} px`;
+        slider.setAttribute('aria-valuetext', `${value} pixels`);
+      }
+    }
+
+    function updateSourceFraming() {
+      updateFramingValues();
+      if (!sourceImage) return;
+      updatePalettePreview();
+    }
+
+    function finishSourcePan(event) {
+      if (!event) cropEditor?.close();
+      tileMarkerEditor.finish(event);
+      if (!sourcePan || (event && event.pointerId !== sourcePan.pointerId)) return;
+      const pointerId = sourcePan.pointerId;
+      sourcePan = null;
+      preview.classList.remove('is-panning');
+      if (canvas.hasPointerCapture(pointerId)) canvas.releasePointerCapture(pointerId);
+    }
+
+    function resetSourceFraming(refresh = true) {
+      finishSourcePan();
+      sourceScale.value = '100';
+      sourcePositionX.value = '0';
+      sourcePositionY.value = '0';
+      if (refresh) updateSourceFraming();
+      else updateFramingValues();
+    }
+
+    for (const slider of [sourceScale, sourcePositionX, sourcePositionY]) {
+      slider.addEventListener('input', updateSourceFraming);
+    }
+    document.getElementById('reset-framing').addEventListener('click', () => resetSourceFraming());
+
+    canvas.addEventListener('pointerdown', event => {
+      if (!sourceImage || !layerStack.active().visible || sourcePan || event.button !== 0) return;
+      const bounds = canvas.getBoundingClientRect();
+      sourcePan = {
+        pointerId: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+        offsetX: sourcePositionX.valueAsNumber,
+        offsetY: sourcePositionY.valueAsNumber,
+        width: bounds.width,
+        height: bounds.height
+      };
+      canvas.setPointerCapture(event.pointerId);
+      preview.classList.add('is-panning');
+      event.preventDefault();
+    });
+    canvas.addEventListener('pointermove', event => {
+      if (!sourcePan || event.pointerId !== sourcePan.pointerId) return;
+      const display = currentDisplaySize();
+      const x = Math.round(sourcePan.offsetX + (event.clientX - sourcePan.x) * display.width / sourcePan.width);
+      const y = Math.round(sourcePan.offsetY + (event.clientY - sourcePan.y) * display.height / sourcePan.height);
+      const nextX = Math.max(Number(sourcePositionX.min), Math.min(Number(sourcePositionX.max), x));
+      const nextY = Math.max(Number(sourcePositionY.min), Math.min(Number(sourcePositionY.max), y));
+      if (nextX === sourcePositionX.valueAsNumber && nextY === sourcePositionY.valueAsNumber) return;
+      sourcePositionX.value = String(nextX);
+      sourcePositionY.value = String(nextY);
+      updateSourceFraming();
+    });
+    for (const event of ['pointerup', 'pointercancel', 'lostpointercapture']) {
+      canvas.addEventListener(event, finishSourcePan);
+    }
+
+    gridToggle.addEventListener('change', updateGridVisibility);
+
+    function applyBrightnessContrast(source, brightness, contrast) {
+      if (brightness === 0 && contrast === 100) return source;
+
+      const adjusted = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
+      const pixels = adjusted.data;
+      const offset = brightness / 100 * 255;
+      const gain = contrast / 100;
+
+      // Adjust contrast around mid-gray, then brightness, before interlace.
+      for (let pixel = 0; pixel < pixels.length; pixel += 4) {
+        if (pixels[pixel + 3] === 0) continue;
+
+        for (let channel = 0; channel < 3; channel += 1) {
+          pixels[pixel + channel] = (pixels[pixel + channel] - 127.5) * gain + 127.5 + offset;
+        }
+      }
+
+      return adjusted;
+    }
+
+    function oklabToRgb(lightness, a, b) {
+      const l = (lightness + 0.3963377774 * a + 0.2158037573 * b) ** 3;
+      const m = (lightness - 0.1055613458 * a - 0.0638541728 * b) ** 3;
+      const s = (lightness - 0.0894841775 * a - 1.2914855480 * b) ** 3;
+
+      return [
+        linearToSrgb(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s),
+        linearToSrgb(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s),
+        linearToSrgb(-0.0041960863 * l - 0.7034186147 * m + 1.7076147010 * s)
+      ];
+    }
+
+    function applyHueSaturation(source, hue, saturation) {
+      if (hue === 0 && saturation === 100) return source;
+
+      const adjusted = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
+      const pixels = adjusted.data;
+      const angle = hue * Math.PI / 180;
+      const cosine = Math.cos(angle);
+      const sine = Math.sin(angle);
+      const gain = saturation / 100;
+
+      for (let offset = 0; offset < pixels.length; offset += 4) {
+        if (pixels[offset + 3] === 0) continue;
+
+        const lab = rgbToOklab(pixels[offset], pixels[offset + 1], pixels[offset + 2]);
+        const a = (lab.a * cosine - lab.b * sine) * gain;
+        const b = (lab.a * sine + lab.b * cosine) * gain;
+        const rgb = oklabToRgb(lab.lightness, a, b);
+        pixels[offset] = rgb[0];
+        pixels[offset + 1] = rgb[1];
+        pixels[offset + 2] = rgb[2];
+      }
+
+      return adjusted;
+    }
+
+    function applyRgbNoise(source, amount) {
+      if (amount === 0) return source;
+
+      const noisy = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
+      const pixels = noisy.data;
+      const amplitude = amount * 127.5;
+      let seed = 0x12345678;
+
+      // A fixed seed keeps independent channel noise stable while adjusting controls.
+      for (let offset = 0; offset < pixels.length; offset += 4) {
+        for (let channel = 0; channel < 3; channel += 1) {
+          seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+          // Advance through transparent pixels too, so noise stays anchored to the grid.
+          if (pixels[offset + 3] === 0) continue;
+          pixels[offset + channel] += (seed / 0x100000000 * 2 - 1) * amplitude;
+        }
+      }
+
+      return noisy;
+    }
+
+    function mapToC64Palette(source, ditherAmount = 0) {
+      const mapped = new ImageData(new Uint8ClampedArray(source.data), source.width, source.height);
+      const pixels = mapped.data;
+
+      for (let offset = 0; offset < pixels.length; offset += 4) {
+        if (pixels[offset + 3] === 0) continue;
+
+        const lab = rgbToOklab(pixels[offset], pixels[offset + 1], pixels[offset + 2]);
+        let bandIndex = 0;
+        let nearestLightness = Infinity;
+
+        // Brightness chooses the band before hue or saturation can affect selection.
+        for (const [index, candidate] of C64_BRIGHTNESS_BANDS.entries()) {
+          const distance = Math.abs(lab.lightness - candidate.lightness);
+          if (distance < nearestLightness) {
+            nearestLightness = distance;
+            bandIndex = index;
+          }
+        }
+
+        let band = C64_BRIGHTNESS_BANDS[bandIndex];
+        if (ditherAmount > 0 && bandIndex < C64_BRIGHTNESS_BANDS.length - 1) {
+          const brighter = C64_BRIGHTNESS_BANDS[bandIndex + 1];
+          // Dither only the positive brightness residual, without adding RGB noise.
+          const fraction = Math.max(0, Math.min(1,
+            (lab.lightness - band.lightness) / (brighter.lightness - band.lightness)
+          ));
+          const pixel = offset / 4;
+          const x = pixel % source.width;
+          const y = Math.floor(pixel / source.width);
+          const threshold = (DITHER_THRESHOLDS[y % 4][x % 4] + 0.5) / 16;
+          if (threshold < fraction * ditherAmount) band = brighter;
+        }
+
+        let nearest = band.colors[0];
+        let nearestDistance = Infinity;
+
+        // Only compare chroma within this band: at most two candidate colors.
+        for (const candidate of band.colors) {
+          const a = lab.a - candidate.lab.a;
+          const b = lab.b - candidate.lab.b;
+          const distance = a * a + b * b;
+
+          if (distance < nearestDistance) {
+            nearestDistance = distance;
+            nearest = candidate;
+          }
+        }
+
+        pixels[offset] = nearest.color.rgb[0];
+        pixels[offset + 1] = nearest.color.rgb[1];
+        pixels[offset + 2] = nearest.color.rgb[2];
+      }
+
+      return mapped;
+    }
+
+    function updatePalettePreview() {
+      if (!layerStack) return;
+      layerStack.updateSettings(readLayerSettings());
+      rebuildLayerComposite();
+    }
+
+    function rebuildLayerComposite() {
+      const visible = layerStack.layers.filter(layer => layer.visible && layer.image);
+      const { width: displayWidth, height: displayHeight } = currentDisplaySize();
+      const height = isStandaloneSpriteMode() ? displayHeight : 200;
+      const width = isStandaloneSpriteMode() ? displayWidth : currentGraphicsMode().sourceWidth;
+      const rendered = visible.map(renderImageLayer);
+      borderSourcePixels = currentBorderLayout().enabled && rendered.length
+        ? compositeC64LayerPixels(rendered.map(layer => layer.borderSource), displayWidth, displayHeight) : null;
+      borderPalettePixels = borderSourcePixels
+        ? compositeC64LayerPixels(rendered.map(layer => layer.fullPalette), displayWidth, displayHeight) : null;
+      borderRenderLayers = borderSourcePixels ? visible.map((layer, index) => ({
+        source: rendered[index].fullPalette,
+        pattern: isTwoColorMode() ? 'off' : layer.settings.values['virtual-colors'],
+        paletteSettings: layer.settings.palette, dither: layer.settings.values.dither / 100
+      })) : [];
+      invalidateBorderColors();
+      const physicalWidth = isStandaloneSpriteMode() ? displayWidth : 320;
+      unrestrictedPixels = rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.source), physicalWidth, height) : null;
+      palettePixels = rendered.length ? (isTwoColorMode()
+        ? compositeTwoColorHires(rendered.map(layer => layer.palette), physicalWidth, height, C64_PALETTE[twoColorIndices[0]].rgb)
+        : compositeC64LayerPixels(rendered.map(layer => layer.palette), physicalWidth, height)) : null;
+      documentTargetPixels = isTwoColorMode() ? palettePixels
+        : rendered.length ? compositeC64LayerPixels(rendered.map(layer => layer.target), width, height) : null;
+      spriteSourcePixels = isSpriteMode() && rendered.length
+        ? compositeC64LayerPixels(rendered.map(layer => layer.spriteSource), 320, 200) : null;
+      fliResult = null;
+      ifliResult = null;
+      const selected = renderImageLayer(layerStack.active());
+      levelsControls.setSource(selected?.histogram || null);
+      syncLayerInfo();
+      layerPanel.render();
+      renderPreview();
+    }
+
+    function getDocumentSpriteOverlay() {
+      const colorIndex = spriteControls.getState().colorIndex;
+      const layers = layerStack.layers.filter(layer => layer.visible && layer.image).map(layer => {
+        const source = renderImageLayer(layer).spriteSource;
+        const { spriteMask: mask } = createC64SpriteLayer(source, C64_PALETTE, colorIndex,
+          layer.settings.values['sprite-match'] / 100, layer.settings.values['sprite-dither'] / 100,
+          isFliSpriteMode() ? C64_PALETTE[backgroundColorIndex].rgb : null);
+        return { source, mask };
+      });
+      return compositeC64LayerSprites(layers, colorIndex, C64_PALETTE[colorIndex].rgb);
+    }
+
+    function updateToneControls(refresh = true) {
+      const brightness = brightnessSlider.valueAsNumber;
+      const contrast = contrastSlider.valueAsNumber;
+      const brightnessLabel = `${brightness > 0 ? '+' : ''}${brightness}%`;
+      brightnessValue.value = brightnessLabel;
+      brightnessSlider.setAttribute('aria-valuetext', brightness === 0 ? '0% (unchanged)' : brightnessLabel);
+      contrastValue.value = `${contrast}%`;
+      contrastSlider.setAttribute('aria-valuetext', contrast === 100 ? '100% (unchanged)' : `${contrast}%`);
+      if (refresh !== false) updatePalettePreview();
+    }
+
+    brightnessSlider.addEventListener('input', updateToneControls);
+    contrastSlider.addEventListener('input', updateToneControls);
+
+    function updateHueSaturationControls(refresh = true) {
+      const hue = hueSlider.valueAsNumber;
+      const saturation = saturationSlider.valueAsNumber;
+      hueValue.value = `${hue > 0 ? '+' : ''}${hue}°`;
+      hueSlider.setAttribute('aria-valuetext', hue === 0 ? '0 degrees (unchanged)' : `${hue} degrees`);
+      saturationValue.value = `${saturation}%`;
+      saturationSlider.setAttribute('aria-valuetext', saturation === 100 ? '100% (unchanged)' : `${saturation}%`);
+      if (refresh !== false) updatePalettePreview();
+    }
+
+    hueSlider.addEventListener('input', updateHueSaturationControls);
+    saturationSlider.addEventListener('input', updateHueSaturationControls);
+
+    function updatePatternLabels() {
+      const noise = rgbNoiseSlider.valueAsNumber;
+      rgbNoiseValue.value = `${noise}%`;
+      rgbNoiseSlider.setAttribute('aria-valuetext', noise === 0 ? '0% (off)' : `${noise}% RGB noise`);
+      const interlace = interlaceSlider.valueAsNumber;
+      interlaceValue.value = `${interlace}%`;
+      interlaceSlider.setAttribute('aria-valuetext', interlace === 0 ? '0% (off)'
+        : interlace < 0 ? `${-interlace}% darkening` : `${interlace}% brightness lift`);
+      const spacing = interlaceSpacing.valueAsNumber;
+      document.getElementById('interlace-spacing-value').value = `${spacing} ${spacing === 1 ? 'step' : 'steps'}`;
+      interlaceSpacing.setAttribute('aria-valuetext', `${spacing} steps between interlace lines`);
+      const dither = ditherSlider.valueAsNumber;
+      ditherValue.value = `${dither}%`;
+      ditherSlider.setAttribute('aria-valuetext', dither === 0 ? '0% (off)' : `${dither}% dither strength`);
+    }
+    for (const slider of [rgbNoiseSlider, interlaceSlider, interlaceSpacing, ditherSlider]) {
+      slider.addEventListener('input', () => { updatePatternLabels(); updatePalettePreview(); });
+    }
+    scanlineDither.addEventListener('change', updatePalettePreview);
+    interlaceDirection.addEventListener('change', updatePalettePreview);
+
+    function stopIfliAnimation() {
+      if (ifliAnimation !== null) cancelAnimationFrame(ifliAnimation);
+      ifliAnimation = null;
+      pafliNextFrameTime = 0;
+    }
+
+    function isAlternatingPreview() {
+      return isAlternatingMode() && activeMode === 'restricted';
+    }
+
+    function ensureAlternatingResult() {
+      if (!isPafliMode()) return ensureMulticolorInterlaceResult();
+      if (!palettePixels) return null;
+      if (!ifliResult) {
+        ifliResult = optimizePafliImages(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
+        ifliFrameIndex = 0;
+        ifliNextFrameIndex = 0;
+      }
+      return ifliResult;
+    }
+
+    function ensureMulticolorInterlaceResult() {
+      if (!isMulticolorInterlaceMode() || !palettePixels) return null;
+      if (!ifliResult) {
+        const [first, second] = splitIfliColumns(getRestrictedTarget());
+        const optimize = isMciMode() ? optimizeMciImages : optimizeIfliImages;
+        ifliResult = optimize(first, second, C64_PALETTE,
+          C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+        ifliResult.displayFrames = ifliResult.frames.map((frame, phase) =>
+          expandIfliFrame(frame.pixels, phase, C64_PALETTE[backgroundColorIndex].rgb));
+        ifliFrameIndex = 0;
+        ifliNextFrameIndex = 0;
+      }
+      return ifliResult;
+    }
+
+    function ensureFliResult() {
+      if (!isFliMode() || !palettePixels) return null;
+      if (!fliResult) {
+        fliResult = optimizeFliImage(getRestrictedTarget(), C64_PALETTE,
+          C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+      }
+      return fliResult;
+    }
+
+    function ensureAfliResult() {
+      if (!isAfliMode() || !palettePixels) return null;
+      if (!fliResult) {
+        const target = getRestrictedTarget();
+        const sprite = spriteControls.getState();
+        fliResult = isAfliSpriteMode()
+          ? createAfliSpriteImage(spriteSourcePixels, target, C64_PALETTE, C64_BRIGHTNESS_BANDS,
+            sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount, getDocumentSpriteOverlay())
+          : optimizeAfliImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
+      }
+      return isAfliSpriteMode() ? fliResult.afli : fliResult;
+    }
+
+    function ensureSpriteResult() {
+      if (!isSpriteMode() || !palettePixels) return null;
+      if (isAfliSpriteMode()) {
+        ensureAfliResult();
+      } else if (!fliResult) {
+        const target = getRestrictedTarget();
+        const sprite = spriteControls.getState();
+        fliResult = createFliSpriteImage(spriteSourcePixels, target, C64_PALETTE, C64_BRIGHTNESS_BANDS,
+          backgroundColorIndex, sprite.colorIndex, sprite.matchAmount, sprite.ditherAmount, getDocumentSpriteOverlay());
+      }
+      return fliResult;
+    }
+
+    function getRestrictedTarget() {
+      return documentTargetPixels;
+    }
+
+    function ensureNufliResult() {
+      if (!isNufliMode() || !palettePixels) return null;
+      if (!fliResult) fliResult = optimizeNufliImage(getRestrictedTarget(), C64_PALETTE, C64_BRIGHTNESS_BANDS);
+      return fliResult;
+    }
+
+    function ensureTwoColorResult() {
+      return { pixels: getRestrictedTarget(), colorIndices: twoColorIndices };
+    }
+
+    function ensureSpriteGridResult() {
+      if (!isStandaloneSpriteMode() || !palettePixels) return null;
+      if (!fliResult) fliResult = createC64SpriteGridImage(getRestrictedTarget(), C64_PALETTE, {
+        ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)
+      });
+      return fliResult;
+    }
+
+    function ensureCharsetResult() {
+      if (!isCharsetMode() || !unrestrictedPixels) return null;
+      if (!fliResult) fliResult = createC64CharsetImage(getRestrictedTarget(), C64_PALETTE, {
+        backgroundColorIndex, multicolorIndices: charsetControls.getState(),
+        similarityThreshold: charsetControls.getSimilarityThreshold()
+      });
+      return fliResult;
+    }
+
+    function ensureMulticolorResult() {
+      if (!isMulticolorBitmapMode() || !palettePixels) return null;
+      if (!fliResult) {
+        fliResult = optimizeMulticolorBitmapImage(getRestrictedTarget(), C64_PALETTE,
+          C64_BRIGHTNESS_BANDS, backgroundColorIndex);
+      }
+      return fliResult;
+    }
+
+    function updateIfliSaveState() {
+      borderSpritesSave.hidden = !currentBorderLayout().enabled;
+      borderSpritesSave.disabled = !currentBorderLayout().enabled || !borderSourcePixels ||
+        preview.getAttribute('aria-busy') === 'true' ||
+        borderSpriteControls.getState().optimizeColors && (!borderColorPlan || borderColorPending);
+      fliSave.hidden = !isFliMode();
+      fliSave.disabled = !isFliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      charsetSave.hidden = !isCharsetMode();
+      charsetSave.disabled = !isCharsetMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      spriteGridSave.hidden = !isStandaloneSpriteMode();
+      spriteGridSave.disabled = !isStandaloneSpriteMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      ifliSave.hidden = !isIfliMode();
+      ifliSave.disabled = !isIfliMode() || !palettePixels ||
+        preview.getAttribute('aria-busy') === 'true';
+      mciSave.hidden = !isMciMode();
+      mciSave.disabled = !isMciMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      afliSave.hidden = !isAfliMode() || isAfliSpriteMode();
+      afliSave.disabled = !isAfliMode() || isAfliSpriteMode() || !palettePixels ||
+        preview.getAttribute('aria-busy') === 'true';
+      twoColorSave.hidden = !isTwoColorMode();
+      twoColorSave.disabled = !isTwoColorMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      multicolorSave.hidden = !isMulticolorBitmapMode();
+      multicolorSave.disabled = !isMulticolorBitmapMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      spriteLayersSave.hidden = !isSpriteMode();
+      spriteLayersSave.disabled = !isSpriteMode() || !palettePixels ||
+        preview.getAttribute('aria-busy') === 'true';
+      for (const button of [nufliSave, nufliPrgSave]) {
+        button.hidden = !isNufliMode();
+        button.disabled = !isNufliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+      }
+      pafliSave.hidden = !isPafliMode();
+      pafliSave.disabled = !isPafliMode() || !palettePixels || preview.getAttribute('aria-busy') === 'true';
+    }
+
+    for (const [button, encode, extension, ensureResult, name] of [
+      [borderSpritesSave, encodeC64BorderSpriteZip, 'zip', ensureBorderSpriteResult, 'border sprites'],
+      [fliSave, encodeFli, 'fli', ensureFliResult, 'FLI'],
+      [mciSave, encodeTruePaintMci, 'mci', ensureMulticolorInterlaceResult, 'MCI'],
+      [charsetSave, result => encodeC64Charset(result, {
+        backgroundColorIndex, multicolorIndices: charsetControls.getState(),
+        similarityThreshold: charsetControls.getSimilarityThreshold()
+      }, C64_PALETTE), 'zip', ensureCharsetResult, 'charset'],
+      [spriteGridSave, result => encodeC64SpriteGrid(result, {
+        ...spriteGridControls.getState(), backgroundColorIndex, overlay: Boolean(currentGraphicsMode().hiresOverlay)
+      }), 'zip', ensureSpriteGridResult, 'sprites'],
+      [twoColorSave, encodeTwoColorHiresArt, 'art', ensureTwoColorResult, 'two-color hires'],
+      [multicolorSave, encodeMulticolorBitmapKoala, 'koa', ensureMulticolorResult, 'multicolor bitmap'],
+      [nufliSave, encodeNufli, 'nuf', ensureNufliResult, 'NUFLI'],
+      [nufliPrgSave, encodeNufliPrg, 'prg', ensureNufliResult, 'NUFLI'],
+      [pafliSave, encodePafliPrg, 'prg', ensureAlternatingResult, 'PAFLI']
+    ]) {
+      button.addEventListener('click', () => {
+        if (button.disabled) return;
+        error.hidden = true;
+        let objectUrl;
+        try {
+          const data = encode(ensureResult(), C64_PALETTE);
+          const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
+            .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
+            .replace(/^-+|-+$/g, '').slice(0, 12) || 'image';
+          const filename = name === 'PAFLI' ? `${basename}-pafli.${extension}`
+            : name === 'border sprites' ? `${basename}-borders.zip` : `${basename}.${extension}`;
+          objectUrl = URL.createObjectURL(new Blob([data], { type: extension === 'zip' ? 'application/zip' : 'application/octet-stream' }));
+          const link = document.createElement('a');
+          link.href = objectUrl;
+          link.download = filename;
+          document.body.append(link);
+          link.click();
+          link.remove();
+          announcement.textContent = `Saved ${name} image as ${filename}.`;
+        } catch (cause) {
+          error.textContent = `Could not save ${name} data: ${cause.message}`;
+          error.hidden = false;
+        } finally {
+          if (objectUrl) setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+          updateIfliSaveState();
+        }
+      });
+    }
+
+    ifliSave.addEventListener('click', () => {
+      if (ifliSave.disabled) return;
+      error.hidden = true;
+      ifliSave.disabled = true;
+      let objectUrl;
+      try {
+        const data = encodeFunPaintIfli(ensureMulticolorInterlaceResult(), C64_PALETTE);
+        // The player recognizes the leading PETSCII up arrows. Keep the full
+        // filename within the C64 directory's 16-character filename limit.
+        const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
+          .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
+          .replace(/^-+|-+$/g, '').slice(0, 10) || 'image';
+        const filename = `^^${basename}.fp2`;
+        objectUrl = URL.createObjectURL(new Blob([data], { type: 'application/octet-stream' }));
+        const link = document.createElement('a');
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        announcement.textContent = `Saved both IFLI frames as ${filename}.`;
+      } catch (cause) {
+        error.textContent = `Could not save IFLI data: ${cause.message}`;
+        error.hidden = false;
+      } finally {
+        if (objectUrl) setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+        updateIfliSaveState();
+      }
+    });
+
+    afliSave.addEventListener('click', () => {
+      if (afliSave.disabled) return;
+      error.hidden = true;
+      afliSave.disabled = true;
+      let objectUrl;
+      try {
+        const data = encodeAfli(ensureAfliResult(), C64_PALETTE);
+        const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
+          .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
+          .replace(/^-+|-+$/g, '').slice(0, 12) || 'image';
+        const filename = `${basename}.afl`;
+        objectUrl = URL.createObjectURL(new Blob([data], { type: 'application/octet-stream' }));
+        const link = document.createElement('a');
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        announcement.textContent = `Saved AFLI image as ${filename}.`;
+      } catch (cause) {
+        error.textContent = `Could not save AFLI data: ${cause.message}`;
+        error.hidden = false;
+      } finally {
+        if (objectUrl) setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+        updateIfliSaveState();
+      }
+    });
+
+    spriteLayersSave.addEventListener('click', () => {
+      if (spriteLayersSave.disabled) return;
+      error.hidden = true;
+      spriteLayersSave.disabled = true;
+      let objectUrl;
+      try {
+        const result = ensureSpriteResult();
+        const data = isFliSpriteMode()
+          ? encodeFliSpriteLayers(result, C64_PALETTE, backgroundColorIndex)
+          : encodeAfliSpriteLayers(result, C64_PALETTE);
+        const basename = imageName.replace(/\.[^.]*$/, '').normalize('NFKD')
+          .replace(/[\u0300-\u036f]/g, '').replace(/[^a-zA-Z0-9_-]+/g, '-')
+          .replace(/^-+|-+$/g, '').slice(0, 32) || 'image';
+        const filename = `${basename}-layers.zip`;
+        objectUrl = URL.createObjectURL(new Blob([data], { type: 'application/zip' }));
+        const link = document.createElement('a');
+        link.href = objectUrl;
+        link.download = filename;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        announcement.textContent = `Saved ${isFliSpriteMode() ? 'FLI' : 'AFLI'} and sprite layers as ${filename}.`;
+      } catch (cause) {
+        error.textContent = `Could not save layers: ${cause.message}`;
+        error.hidden = false;
+      } finally {
+        if (objectUrl) setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+        updateIfliSaveState();
+      }
+    });
+
+    function advanceIfliFrame(timestamp) {
+      ifliAnimation = null;
+      if (!isAlternatingPreview() || !ifliResult || ifliPaused || document.hidden) return;
+
+      // PAL alternates at 50 frames per second, independent of monitor refresh.
+      if (isPafliMode()) {
+        if (pafliNextFrameTime > timestamp) {
+          ifliAnimation = requestAnimationFrame(advanceIfliFrame);
+          return;
+        }
+        pafliNextFrameTime = pafliNextFrameTime === 0 || timestamp - pafliNextFrameTime > 100
+          ? timestamp + 20 : pafliNextFrameTime + 20;
+      }
+
+      ifliFrameIndex = ifliNextFrameIndex;
+      context.putImageData(pixelsWithBorders(ifliResult.displayFrames[ifliFrameIndex]), 0, 0);
+      canvas.dataset.ifliFrame = String(ifliFrameIndex);
+      tileGrid.style.transform = layerStack.active().type !== 'tile-markers' && isPafliMode() && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
+      ifliNextFrameIndex = 1 - ifliFrameIndex;
+      ifliAnimation = requestAnimationFrame(advanceIfliFrame);
+    }
+
+    function startIfliAnimation() {
+      if (ifliAnimation === null && isAlternatingPreview() && ifliResult && !ifliPaused && !document.hidden) {
+        ifliAnimation = requestAnimationFrame(advanceIfliFrame);
+      }
+    }
+
+    ifliPlayback.addEventListener('click', () => {
+      ifliPaused = !ifliPaused;
+      ifliPlayback.textContent = ifliPaused ? 'Resume' : 'Pause';
+      if (ifliPaused) stopIfliAnimation();
+      else startIfliAnimation();
+    });
+
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stopIfliAnimation();
+      else startIfliAnimation();
+    });
+
+    window.addEventListener('pagehide', stopIfliAnimation);
+    window.addEventListener('pageshow', startIfliAnimation);
+
+    function updatePreviewDetails() {
+      const mode = currentGraphicsMode();
+      const standaloneSprites = isStandaloneSpriteMode();
+      const charset = isCharsetMode();
+      const directColorFit = usesDirectColorFit();
+      const display = currentDisplaySize();
+      const border = currentBorderLayout();
+      const screen = document.querySelector('.screen');
+      screen.style.setProperty('--screen-aspect', `${display.width} / ${display.height}`);
+      screen.style.setProperty('--screen-fit-width', `${display.width / display.height * 100}cqh`);
+      screen.dataset.displayWidth = String(display.width);
+      const spriteConfig = spriteGridControls.getState();
+      const marking = layerStack.active().type === 'tile-markers';
+      tileGrid.style.inset = border.enabled
+        ? `${border.top / display.height * 100}% ${border.right / display.width * 100}% ${border.bottom / display.height * 100}% ${border.left / display.width * 100}%` : '';
+      tileGrid.style.backgroundSize = marking ? `${800 / (border.enabled ? 320 : display.width)}% ${800 / (border.enabled ? 200 : display.height)}%` : standaloneSprites
+        ? `${100 / spriteConfig.columns}% ${100 / spriteConfig.rows}%` : '';
+      document.getElementById('grid-label').textContent = marking || charset ? 'Character grid' : standaloneSprites ? 'Sprite grid' : 'Tile grid';
+      document.getElementById('color-settings').hidden = layerStack.active().type === 'tile-markers';
+      document.querySelector('[aria-label="Palette and color settings"]').dataset.inspectorPanel = 'color-settings';
+      const multicolorInterlace = isMulticolorInterlaceMode();
+      const spriteMode = isSpriteMode();
+      const fliSprites = isFliSpriteMode();
+      const bitmap = mode.format === 'bitmap';
+      const hires = mode.format === 'hires';
+      const twoColor = isTwoColorMode();
+      const afli = isAfliMode();
+      const nufli = isNufliMode();
+      const pafli = isPafliMode();
+      const name = mode.label;
+      const restricted = activeMode === 'restricted';
+      const visibleLayers = layerStack.layers.filter(layer => layer.visible && layer.image);
+      const singleSettings = visibleLayers[0]?.settings || layerStack.layers.find(layer => layer.settings)?.settings;
+      const virtualImagePalette = !twoColor && singleSettings && singleSettings.values['virtual-colors'] !== 'off';
+      const paletteDescription = twoColor ? '2 image colors' : visibleLayers.length > 1 ? 'Per-layer palettes' : virtualImagePalette
+        ? `${IFLI_VIRTUAL_PALETTE.filter(color => !singleSettings.palette.excludedIndices.includes(color.index)).length} virtual colors` : '16 C64 colors';
+      const widePixels = restricted && !directColorFit && !hires && !afli && !nufli && !pafli;
+      const resolution = standaloneSprites ? `${display.width} × ${display.height}` : !restricted || usesFullResolutionSource() ? '320 × 200' : '160 × 200';
+      const leftInset = getC64ImageLeftInset(graphicsMode);
+      const imageWidth = (320 - leftInset) / (!restricted || usesFullResolutionSource() || spriteMode ? 1 : 2);
+      restrictedTab.textContent = bitmap ? 'Bitmap' : name;
+      document.getElementById('brand-mode').textContent = bitmap ? 'Bitmap' : name;
+      document.title = `C64 Studio — ${name}`;
+      if (isAlternatingMode()) document.getElementById('ifli-frames-heading').textContent = `${name} frames`;
+      virtualPaletteView.setVisible(usesVirtualPalette());
+      document.getElementById('two-color-settings').hidden = !twoColor;
+      for (const picker of twoColorPickers) picker.setEnabled(twoColor);
+      virtualColorsSelect.disabled = twoColor;
+      virtualColorsSelect.closest('.image-control').hidden = twoColor;
+      document.getElementById('scanline-dither').disabled = twoColor;
+      document.getElementById('scanline-dither').closest('.image-control').hidden = twoColor;
+      document.getElementById('tab-palette').textContent = twoColor ? 'Two colors' : 'C64 Palette';
+      const backgroundAvailable = border.enabled || !(hires || afli || nufli || pafli);
+      backgroundSettings.hidden = !backgroundAvailable;
+      backgroundSettings.querySelector('fieldset').disabled = !backgroundAvailable;
+      backgroundPicker.setEnabled(backgroundAvailable);
+      borderSpriteControls.setInterlaced(isMulticolorInterlaceMode());
+      borderSpriteControls.setEnabled(supportsBorderSprites());
+      document.getElementById('border-availability').hidden = supportsBorderSprites();
+      spriteControls.setVisible(spriteMode);
+      document.getElementById('sprite-color-settings').hidden = !spriteMode;
+      spriteGridControls.setVisible(standaloneSprites);
+      charsetControls.setVisible(charset);
+      document.getElementById('format-resolution').textContent = border.enabled
+        ? `${display.width} × ${display.height} with borders` : fliSprites ? `${resolution} + sprites` : resolution;
+      document.getElementById('image-area-row').hidden = leftInset === 0;
+      document.getElementById('image-area-row').title = pafli ? '28 pixels reserved for both AFLI phases' : `${leftInset / 8} character columns reserved on the left`;
+      document.getElementById('format-image-area').textContent = `${imageWidth} × ${pafli ? 192 : 200}`;
+      document.getElementById('format-pixel-ratio').textContent = !restricted ? '1 : 1' : standaloneSprites
+        ? mode.hiresOverlay ? '2:1 + 1:1' : '2 : 1' : charset || fliSprites ? '2:1 + 1:1' : widePixels ? '2 : 1' : '1 : 1';
+      document.getElementById('canvas-resolution').textContent = isAlternatingPreview()
+        ? pafli ? '2 × 320 × 200 pixels' : '2 × 160 × 200 logical pixels' : fliSprites && restricted ? '320 × 200 · wide bitmap + hires sprites'
+          : `${resolution} ${!restricted || usesFullResolutionSource() ? 'pixels' : 'logical pixels'}`;
+      if (leftInset) document.getElementById('canvas-resolution').textContent += pafli ? ' · 28 pixels reserved on the left' : ` · ${leftInset / 8} columns reserved on the left`;
+      if (border.enabled) document.getElementById('canvas-resolution').textContent += ` · ${display.width} × ${display.height} with borders`;
+      document.getElementById('color-mode').textContent = restricted ? (standaloneSprites
+        ? `4 colors per sprite${mode.hiresOverlay ? ' + hires overlay' : ''}` : charset ? '256 patterns · mixed hires / multicolor' : twoColor ? '2 colors for the whole image' : pafli ? '2 colors per 8 × 1 · 2 phases' : nufli ? '8 × 2 bitmap + underlays' : fliSprites ? 'FLI + sprite' : spriteMode ? '2 colors + sprite' : isMciMode() ? '4 colors per tile · 2 frames' : multicolorInterlace ? `${name} · 2 frames` : bitmap ? '4 colors per tile' : hires ? '2 colors per tile' : afli ? '2 colors per tile row' : 'FLI restricted')
+        : activeMode === 'palette' ? paletteDescription : 'Unrestricted';
+      const footerMode = restricted ? `${name.toUpperCase()}${isAlternatingMode() ? ' · ALTERNATING DISPLAY FRAMES' : ''}`
+        : activeMode === 'palette' ? (twoColor ? 'TWO-COLOR HIRES' : visibleLayers.length > 1 ? 'LAYER PALETTES'
+          : virtualImagePalette ? 'VIRTUAL PALETTE' : 'C64 PALETTE') : 'FULL-COLOR SOURCE';
+      document.getElementById('footer-mode').textContent = `C64 · ${footerMode}`;
+      document.getElementById('footer-format').textContent = isAlternatingPreview()
+        ? pafli ? '2 × 320 × 200 / 1:1' : '2 × 160 × 200 / 2:1'
+        : standaloneSprites && restricted ? `${resolution} / ${mode.hiresOverlay ? 'mixed pixels' : '2:1 sprite pixels'}`
+        : charset && restricted ? `${resolution} / mixed character pixels`
+          : fliSprites && restricted ? '320 × 200 / mixed pixels' : `${resolution} / ${widePixels ? '2:1' : '1:1'}`;
+      if (border.enabled) document.getElementById('footer-format').textContent += ` · ${display.width} × ${display.height} with borders`;
+    }
+
+    function renderIfliFrameViews() {
+      const visible = isAlternatingPreview() && Boolean(ifliResult);
+      const wasVisible = !ifliFrameViews.hidden;
+      ifliFrameViews.hidden = !visible;
+      previewPanel.classList.toggle('ifli-details-visible', visible ||
+        ((isSpriteMode() || isCharsetMode() || (isStandaloneSpriteMode() && currentGraphicsMode().hiresOverlay)) && activeMode === 'restricted' && Boolean(fliResult)));
+      if (wasVisible !== visible) previewPanel.scrollTop = 0;
+      if (!visible || ifliFrameViewsResult === ifliResult) return;
+
+      const pafli = isPafliMode();
+      const frames = pafli ? ifliResult.displayFrames : ifliResult.frames.map(frame => frame.pixels);
+      document.getElementById('ifli-column-merge-view').hidden = pafli;
+      for (const id of ['frame-first-resolution', 'frame-second-resolution']) {
+        document.getElementById(id).textContent = pafli ? '320 × 200' : '160 × 200';
+      }
+      for (const [index, pixels] of frames.entries()) {
+        const target = ifliFrameCanvases[index];
+        target.width = pixels.width;
+        target.height = pixels.height;
+        target.getContext('2d').putImageData(pixels, 0, 0);
+        target.setAttribute('aria-label', `${imageName}, ${currentGraphicsMode().label} frame ${index + 1}, ${pafli ? '320 by 200 aligned square pixels' : '160 by 200 double-width pixels'}`);
+      }
+      if (!pafli) {
+        const merged = mergeIfliFrames(frames[0], frames[1]);
+        ifliMergedCanvas.width = merged.width;
+        ifliMergedCanvas.height = merged.height;
+        ifliMergedCanvas.getContext('2d').putImageData(merged, 0, 0);
+        ifliMergedCanvas.setAttribute('aria-label', `${imageName}, 320 by 200 column merge, even columns from frame 1 and odd columns from frame 2`);
+      }
+      const blended = pafli ? ifliResult.blended : blendIfliFrames(frames[0], frames[1], C64_PALETTE[backgroundColorIndex].rgb);
+      ifliBlendedCanvas.width = blended.width;
+      ifliBlendedCanvas.height = blended.height;
+      ifliBlendedCanvas.getContext('2d').putImageData(blended, 0, 0);
+      ifliBlendedCanvas.setAttribute('aria-label', pafli ? `${imageName}, 320 by 200 50/50 blend of aligned PAFLI phases`
+        : `${imageName}, 320 by 200 50/50 blend, frame 2 shifted one hires pixel right`);
+      ifliFrameViewsResult = ifliResult;
+    }
+
+    function renderSpriteLayerViews() {
+      const standalone = isStandaloneSpriteMode() && currentGraphicsMode().hiresOverlay;
+      const visible = (isSpriteMode() || standalone) && activeMode === 'restricted' && Boolean(fliResult);
+      const wasVisible = !spriteLayerViews.hidden;
+      spriteLayerViews.hidden = !visible;
+      if (wasVisible !== visible) previewPanel.scrollTop = 0;
+      if (!visible || spriteLayerViewsResult === fliResult) return;
+      const type = standalone ? 'Multicolor sprites' : isFliSpriteMode() ? 'FLI' : 'AFLI';
+      const underlay = standalone ? fliResult.multicolorPixels : (isFliSpriteMode() ? fliResult.fli : fliResult.afli).pixels;
+      const overlay = standalone ? fliResult.overlayPixels : fliResult.spritePixels;
+      spriteUnderlayCanvas.width = underlay.width;
+      spriteUnderlayCanvas.height = underlay.height;
+      spriteUnderlayCanvas.getContext('2d').putImageData(underlay, 0, 0);
+      spriteLayerCanvas.width = overlay.width;
+      spriteLayerCanvas.height = overlay.height;
+      spriteLayerCanvas.getContext('2d').putImageData(overlay, 0, 0);
+      for (const target of [spriteUnderlayCanvas, spriteLayerCanvas]) {
+        target.style.aspectRatio = standalone ? `${underlay.width} / ${underlay.height}` : '';
+      }
+      document.getElementById('sprite-layer-heading').textContent = `${type} and sprite layers`;
+      document.getElementById('sprite-underlay-name').textContent = `${type} image`;
+      document.getElementById('sprite-underlay-resolution').textContent = `${underlay.width} × ${underlay.height}`;
+      spriteUnderlayCanvas.setAttribute('aria-label', `${imageName}, fitted ${type} image beneath the sprite layer`);
+      spriteLayerCanvas.setAttribute('aria-label', standalone ? `${imageName}, hires sprite overlay with transparent holes`
+        : `${imageName}, ${C64_PALETTE[fliResult.spriteColorIndex].name} sprite layer with transparent holes`);
+      document.getElementById('sprite-pixel-count').textContent = standalone
+        ? `${spriteGridControls.getState().columns * spriteGridControls.getState().rows} hires sprites` : `${fliResult.spritePixelCount.toLocaleString()} pixels`;
+      spriteLayerViewsResult = fliResult;
+    }
+
+    function renderCharsetView() {
+      const visible = isCharsetMode() && activeMode === 'restricted' && Boolean(fliResult);
+      const wasVisible = !charsetView.hidden;
+      charsetView.hidden = !visible;
+      if (isCharsetMode()) charsetControls.setResult(fliResult);
+      if (wasVisible !== visible) previewPanel.scrollTop = 0;
+      if (!visible || charsetViewResult === fliResult) return;
+      const atlas = new ImageData(128, 128);
+      const seen = new Set();
+      fliResult.screen.forEach((code, cell) => {
+        if (seen.has(code)) return;
+        seen.add(code);
+        const sourceX = cell % 40 * 8;
+        const sourceY = Math.floor(cell / 40) * 8;
+        for (let row = 0; row < 8; row += 1) {
+          const source = ((sourceY + row) * 320 + sourceX) * 4;
+          const target = ((Math.floor(code / 16) * 8 + row) * 128 + code % 16 * 8) * 4;
+          atlas.data.set(fliResult.pixels.data.subarray(source, source + 32), target);
+        }
+      });
+      charsetAtlas.getContext('2d').putImageData(atlas, 0, 0);
+      charsetAtlas.setAttribute('aria-label', `${imageName}, ${fliResult.characterCount} generated patterns in screen-code order`);
+      document.getElementById('charset-atlas-count').textContent = `${fliResult.characterCount} / 256 patterns`;
+      charsetViewResult = fliResult;
+    }
+
+    function renderPreview() {
+      stopIfliAnimation();
+      if (borderSpriteControls.getState().optimizeColors) ensureBorderSpriteResult();
+      updatePreviewDetails();
+      updateIfliSaveState();
+      previewStatus.textContent = unrestrictedPixels ? 'Image loaded' : 'No image open';
+      if (activeMode === 'restricted' && !isAlternatingMode() && palettePixels && !fliResult) {
+        if (isCharsetMode()) {
+          ensureCharsetResult();
+        } else if (isStandaloneSpriteMode()) {
+          ensureSpriteGridResult();
+        } else if (isSpriteMode()) {
+          ensureSpriteResult();
+        } else if (isAfliMode()) {
+          ensureAfliResult();
+        } else if (isNufliMode()) {
+          ensureNufliResult();
+        } else if (isMulticolorBitmapMode()) {
+          ensureMulticolorResult();
+        } else {
+          const target = getRestrictedTarget();
+          if (isTwoColorMode()) {
+            fliResult = { pixels: target };
+          } else if (currentGraphicsMode().format === 'hires') {
+            fliResult = optimizeHiresBitmapImage(target, C64_PALETTE, C64_BRIGHTNESS_BANDS);
+          } else {
+            ensureFliResult();
+          }
+        }
+      }
+
+      if (isAlternatingPreview()) ensureAlternatingResult();
+
+      const corePixels = activeMode === 'restricted' ? (isAlternatingMode()
+        ? ifliResult?.displayFrames[ifliFrameIndex] : fliResult?.pixels)
+        : activeMode === 'palette' ? palettePixels : unrestrictedPixels;
+      const pixels = pixelsWithBorders(corePixels);
+      ifliPlayback.hidden = !isAlternatingPreview();
+      ifliPlayback.disabled = !ifliResult;
+      renderIfliFrameViews();
+      renderSpriteLayerViews();
+      renderCharsetView();
+      updateGridVisibility();
+      const hasMarkers = layerStack.layers.some(layer => layer.type === 'tile-markers' && layer.visible);
+      document.getElementById('empty-state').hidden = Boolean(unrestrictedPixels) || hasMarkers;
+      canvas.hidden = !pixels && !hasMarkers;
+      tileMarkerEditor.render();
+      if (!pixels) {
+        const display = currentDisplaySize();
+        canvas.width = display.width;
+        canvas.height = display.height;
+        canvas.setAttribute('aria-label', 'Empty screen for tile markers');
+        return;
+      }
+
+      if (canvas.width !== pixels.width) canvas.width = pixels.width;
+      if (canvas.height !== pixels.height) canvas.height = pixels.height;
+      context.putImageData(pixels, 0, 0);
+      const modeName = activeMode === 'restricted' ? (isAlternatingMode()
+        ? `${currentGraphicsMode().label} alternating frames` : currentGraphicsMode().label)
+        : activeMode === 'palette' ? 'C64 Palette' : 'Unrestricted';
+      const format = isAlternatingPreview() ? (isPafliMode() ? 'two aligned 320 by 200 square-pixel frames' : 'two 160 by 200 double-width frames')
+        : isCharsetMode() && activeMode === 'restricted' ? '320 by 200 pixels, 40 by 25 mixed hires and multicolor characters'
+        : isStandaloneSpriteMode() ? `${pixels.width} by ${pixels.height} pixels, ${spriteGridControls.getState().columns} by ${spriteGridControls.getState().rows} sprite grid`
+        : isFliSpriteMode() && activeMode === 'restricted' ? '320 by 200, double-width bitmap pixels with hires sprites'
+          : activeMode !== 'restricted' || usesFullResolutionSource() ? '320 by 200 square pixels' : '160 by 200 double-width pixels';
+      const leftInset = getC64ImageLeftInset(graphicsMode);
+      const reservedArea = leftInset ? (isPafliMode() ? ', 28 pixels reserved on the left' : `, ${leftInset / 8} character columns reserved on the left`) : '';
+      const borderArea = currentBorderLayout().enabled ? `, ${pixels.width} by ${pixels.height} including border sprites` : '';
+      canvas.setAttribute('aria-label', `${imageName}, ${modeName} preview, ${format}${reservedArea}${borderArea}`);
+      if (isAlternatingPreview()) {
+        canvas.dataset.ifliFrame = String(ifliFrameIndex);
+        startIfliAnimation();
+      } else delete canvas.dataset.ifliFrame;
+      tileGrid.style.transform = layerStack.active().type !== 'tile-markers' && isPafliMode() && activeMode === 'restricted' && ifliFrameIndex === 1 ? 'translateX(1.25%)' : '';
+    }
+
+    function selectPreviewTab(tab, moveFocus = false) {
+      activeMode = tab.dataset.mode;
+
+      for (const item of tabs) {
+        const selected = item === tab;
+        item.setAttribute('aria-selected', String(selected));
+        item.tabIndex = selected ? 0 : -1;
+      }
+
+      previewPanel.setAttribute('aria-labelledby', tab.id);
+      renderPreview();
+      if (moveFocus) tab.focus();
+      announcement.textContent = `${tab.textContent} preview selected.`;
+    }
+
+    for (const [index, tab] of tabs.entries()) {
+      tab.addEventListener('click', () => selectPreviewTab(tab));
+      tab.addEventListener('keydown', (event) => {
+        let next;
+        if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+        else if (event.key === 'ArrowLeft') next = (index - 1 + tabs.length) % tabs.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = tabs.length - 1;
+        else return;
+
+        event.preventDefault();
+        selectPreviewTab(tabs[next], true);
+      });
+    }
+
+    graphicsModeSelect.addEventListener('change', () => {
+      finishSourcePan();
+      stopIfliAnimation();
+      graphicsMode = graphicsModeSelect.value;
+      spriteGridControls.setOverlay(currentGraphicsMode().hiresOverlay);
+      layerStack.invalidate();
+      rebuildLayerComposite();
+      if (isTwoColorMode() || usesDirectColorFit()) selectPreviewTab(restrictedTab);
+      announcement.textContent = `${graphicsMode.toUpperCase()} graphics mode selected.`;
+    });
+
+    c64PaletteSelect.addEventListener('change', () => {
+      finishSourcePan();
+      stopIfliAnimation();
+      const preset = setC64Palette(c64PaletteSelect.value);
+      rebuildLayerComposite();
+      announcement.textContent = `${preset.label} palette selected.`;
+    });
+
+    virtualColorModeSelect.addEventListener('change', () => {
+      finishSourcePan();
+      stopIfliAnimation();
+      layerStack.updateSettings(readLayerSettings());
+      setVirtualColorMode(virtualColorModeSelect.value);
+      reconcileLayerVirtualPalettes();
+      if (layerStack.active().settings) virtualPaletteView.setSettings(layerStack.active().settings.palette);
+      rebuildLayerComposite();
+      announcement.textContent = `${virtualColorModeSelect.selectedOptions[0].textContent} virtual color mode selected for all layers.`;
+    });
+
+    virtualColorsSelect.addEventListener('change', () => {
+      updatePalettePreview();
+      announcement.textContent = `Virtual colors: ${virtualColorsSelect.selectedOptions[0].textContent}.`;
+    });
+
+    async function loadImage(file) {
+      if (!file) return;
+      finishSourcePan();
+      if (layerStack.active().type === 'tile-markers') {
+        layerStack.add();
+        restoreLayerControls();
+        layerPanel.render();
+      }
+      const layer = layerStack.active();
+      const request = ++layer.loadRequest;
+      loadingLayers.add(layer.id);
+      error.hidden = true;
+      syncLoadingState();
+      try {
+        if (file.type && !file.type.startsWith('image/')) throw new Error('Please choose an image file.');
+        const sourceDataUrl = await readImageDataUrl(file);
+        const image = await decodeSourceImage(sourceDataUrl);
+        if (request !== layer.loadRequest || !layerStack.layers.includes(layer)) return;
+        layer.image = image;
+        layer.fileName = file.name;
+        layer.sourceDataUrl = sourceDataUrl;
+        if (layer.autoName) {
+          layer.name = file.name.replace(/\.[^.]*$/, '') || file.name;
+          layer.autoName = false;
+        }
+        Object.assign(layer.settings.values, { 'source-scale': 100, 'source-position-x': 0, 'source-position-y': 0 });
+        layer.settings.crop = null;
+        layer.cache = null;
+        if (layerStack.active() === layer) restoreLayerControls();
+        rebuildLayerComposite();
+        announcement.textContent = `${file.name} loaded into ${layer.name}.`;
+      } catch (cause) {
+        if (request !== layer.loadRequest || !layerStack.layers.includes(layer)) return;
+        error.textContent = cause.message === 'Please choose an image file.' ? cause.message
+          : 'This image could not be opened. Try a PNG, JPEG, WebP, or another browser-supported image.';
+        error.hidden = false;
+      } finally {
+        if (request === layer.loadRequest) loadingLayers.delete(layer.id);
+        syncLoadingState();
+      }
+    }
+
+    dropZone.addEventListener('click', () => input.click());
+
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      input.value = '';
+      loadImage(file);
+    });
+
+    dropZone.addEventListener('dragenter', (event) => {
+      event.preventDefault();
+      dragDepth += 1;
+      dropZone.classList.add('is-dragging');
+    });
+
+    dropZone.addEventListener('dragover', (event) => {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+      dragDepth = Math.max(0, dragDepth - 1);
+      if (dragDepth === 0) dropZone.classList.remove('is-dragging');
+    });
+
+    dropZone.addEventListener('drop', (event) => {
+      event.preventDefault();
+      dragDepth = 0;
+      dropZone.classList.remove('is-dragging');
+      loadImage(event.dataTransfer.files[0]);
+    });
+
+    setVirtualColorMode(paletteState.virtualColorMode);
+    restoreLayerControls();
+    rebuildLayerComposite();
+
+    if (new URLSearchParams(window.location.search).get('project') === 'dutchbreeze') {
+      openProject(async () => {
+        const response = await fetch('./examples/DutchBreezeRemake.json');
+        if (!response.ok) throw new Error(`The demo project could not be downloaded (HTTP ${response.status}).`);
+        return response.text();
+      }, 'DutchBreezeRemake.json');
+    }
+  </script>
+  <script src="./editor-ui.js?v=palette-switch"></script>
+</body>
+</html>

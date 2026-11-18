@@ -1,0 +1,203 @@
+[
+  {
+    "effects": "none",
+    "similarPairs": 16000,
+    "detailPairs": 0,
+    "minimumDistance": 0,
+    "maximumDistance": 0,
+    "solidPixels": 0,
+    "mixedPixels": 32000,
+    "choices": {
+      "7+15": 26000,
+      "7+10": 6000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": -0.05,
+    "similarPairs": 16000,
+    "detailPairs": 0,
+    "minimumDistance": 0.029329668905234668,
+    "maximumDistance": 0.029329668905234668,
+    "solidPixels": 0,
+    "mixedPixels": 32000,
+    "choices": {
+      "7+15": 16000,
+      "7+10": 16000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": -0.1,
+    "similarPairs": 0,
+    "detailPairs": 16000,
+    "minimumDistance": 0.05880368397591325,
+    "maximumDistance": 0.05880368397591325,
+    "solidPixels": 32000,
+    "mixedPixels": 0,
+    "choices": {
+      "15+15": 32000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": -0.2,
+    "similarPairs": 0,
+    "detailPairs": 16000,
+    "minimumDistance": 0.11875347295894674,
+    "maximumDistance": 0.11875347295894674,
+    "solidPixels": 32000,
+    "mixedPixels": 0,
+    "choices": {
+      "15+15": 16000,
+      "10+10": 16000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": 0.05,
+    "similarPairs": 16000,
+    "detailPairs": 0,
+    "minimumDistance": 0.011799367007789571,
+    "maximumDistance": 0.011799367007789571,
+    "solidPixels": 0,
+    "mixedPixels": 32000,
+    "choices": {
+      "7+15": 28000,
+      "7+10": 4000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": 0.1,
+    "similarPairs": 16000,
+    "detailPairs": 0,
+    "minimumDistance": 0.02452901633754709,
+    "maximumDistance": 0.02452901633754709,
+    "solidPixels": 0,
+    "mixedPixels": 32000,
+    "choices": {
+      "7+15": 32000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": 0.2,
+    "similarPairs": 0,
+    "detailPairs": 16000,
+    "minimumDistance": 0.05113122671228579,
+    "maximumDistance": 0.05113122671228579,
+    "solidPixels": 32000,
+    "mixedPixels": 0,
+    "choices": {
+      "15+15": 16000,
+      "7+7": 16000
+    }
+  },
+  {
+    "effects": "interlace",
+    "amount": 0.5,
+    "similarPairs": 0,
+    "detailPairs": 16000,
+    "minimumDistance": 0.13032912932933555,
+    "maximumDistance": 0.13032912932933555,
+    "solidPixels": 32000,
+    "mixedPixels": 0,
+    "choices": {
+      "15+15": 16000,
+      "7+7": 16000
+    }
+  },
+  {
+    "effects": "rgb-noise",
+    "amount": 0.01,
+    "similarPairs": 16000,
+    "detailPairs": 0,
+    "minimumDistance": 0,
+    "maximumDistance": 0.0070398514774790005,
+    "solidPixels": 0,
+    "mixedPixels": 32000,
+    "choices": {
+      "7+15": 25968,
+      "7+10": 6032
+    }
+  },
+  {
+    "effects": "rgb-noise",
+    "amount": 0.05,
+    "similarPairs": 15752,
+    "detailPairs": 248,
+    "minimumDistance": 0,
+    "maximumDistance": 0.039677907950060085,
+    "solidPixels": 506,
+    "mixedPixels": 31494,
+    "choices": {
+      "7+15": 25240,
+      "15+15": 323,
+      "7+10": 6226,
+      "1+8": 28,
+      "7+7": 183
+    }
+  },
+  {
+    "effects": "rgb-noise",
+    "amount": 0.1,
+    "similarPairs": 9169,
+    "detailPairs": 6831,
+    "minimumDistance": 0.0010073958854128744,
+    "maximumDistance": 0.07571931541363962,
+    "solidPixels": 13952,
+    "mixedPixels": 18048,
+    "choices": {
+      "7+7": 4892,
+      "15+15": 9060,
+      "7+15": 13730,
+      "7+10": 4102,
+      "1+8": 216
+    }
+  },
+  {
+    "effects": "rgb-noise",
+    "amount": 0.2,
+    "similarPairs": 2669,
+    "detailPairs": 13331,
+    "minimumDistance": 0,
+    "maximumDistance": 0.1450750287770669,
+    "solidPixels": 27224,
+    "mixedPixels": 4776,
+    "choices": {
+      "7+7": 10608,
+      "15+15": 16616,
+      "7+15": 3018,
+      "1+8": 182,
+      "7+10": 1522,
+      "7+8": 54
+    }
+  },
+  {
+    "effects": "rgb-noise",
+    "amount": 0.5,
+    "similarPairs": 408,
+    "detailPairs": 15592,
+    "minimumDistance": 0,
+    "maximumDistance": 0.3665894387932946,
+    "solidPixels": 31314,
+    "mixedPixels": 686,
+    "choices": {
+      "7+7": 13187,
+      "15+15": 15269,
+      "7+15": 198,
+      "10+10": 2812,
+      "1+10": 104,
+      "7+10": 134,
+      "1+15": 74,
+      "12+12": 32,
+      "7+8": 100,
+      "1+8": 26,
+      "10+15": 34,
+      "8+15": 12,
+      "13+13": 14,
+      "4+13": 4
+    }
+  }
+]

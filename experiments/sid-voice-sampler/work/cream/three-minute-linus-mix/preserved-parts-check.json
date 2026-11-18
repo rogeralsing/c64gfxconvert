@@ -1,0 +1,106 @@
+{
+  "sid-1": {
+    "passed": true,
+    "reference_sha256": "a3875b282106bb0e773bab639bc51679143fc3c537abb8c252b144b772dad844",
+    "fixed_source_interval_s": [
+      0,
+      188.16
+    ],
+    "reference_gain_removed": 8,
+    "window_seconds": 0.2,
+    "RMS_ratio_limits": [
+      0.98,
+      1.02
+    ],
+    "minimum_spectral_cosine_limit": 0.99,
+    "minimum_RMS_ratio": 0.9916361791857107,
+    "maximum_RMS_ratio": 1.0108819184213669,
+    "minimum_spectral_cosine": 0.9843822761420514,
+    "minimum_audible_spectral_cosine": 0.9944501223764569,
+    "declared_rest_window_frames": [
+      1208340,
+      1212750,
+      1217160,
+      1261260,
+      1265670,
+      1270080,
+      1274490,
+      1278900,
+      1283310,
+      1287720,
+      1292130,
+      1309770,
+      1314180,
+      1358280,
+      1362690,
+      1367100,
+      1371510,
+      1375920,
+      1406790,
+      1411200,
+      1415610,
+      1455300,
+      1459710,
+      1464120,
+      1468530,
+      1472940,
+      1477350,
+      1481760,
+      1486170,
+      1508220,
+      1512630,
+      1556730,
+      1561140,
+      1565550,
+      1569960,
+      1574370,
+      2844450,
+      2848860,
+      2941470,
+      2945880,
+      2950290,
+      2954700,
+      2959110,
+      4013100,
+      4017510,
+      4110120,
+      4114530
+    ],
+    "pooled_rest_spectral_cosine": 0.9999048589406865,
+    "failures": [],
+    "reference_only_rest_control": {
+      "pairs": 1081,
+      "pairs_below_per_window_limit": 563,
+      "minimum_spectral_cosine": 0.9693829956246216
+    },
+    "scope": "Actual native solo, fixed source clock; no fitted time or gain and no corrected listening audio. The new ending is outside the comparison."
+  },
+  "sid-3": {
+    "passed": true,
+    "reference_sha256": "8433a6d7db2b618e78ab9b7b1b5fcb38c3b65a50e19d835729068c3ed6536eb6",
+    "fixed_source_interval_s": [
+      0,
+      188.16
+    ],
+    "reference_gain_removed": 8,
+    "window_seconds": 0.2,
+    "RMS_ratio_limits": [
+      0.98,
+      1.02
+    ],
+    "minimum_spectral_cosine_limit": 0.99,
+    "minimum_RMS_ratio": 0.9868740264964954,
+    "maximum_RMS_ratio": 1.0115329180196457,
+    "minimum_spectral_cosine": 0.9993683002268697,
+    "minimum_audible_spectral_cosine": 0.9993683002268697,
+    "declared_rest_window_frames": [],
+    "pooled_rest_spectral_cosine": null,
+    "failures": [],
+    "reference_only_rest_control": {
+      "pairs": 0,
+      "pairs_below_per_window_limit": 0,
+      "minimum_spectral_cosine": null
+    },
+    "scope": "Actual native solo, fixed source clock; no fitted time or gain and no corrected listening audio. The new ending is outside the comparison."
+  }
+}

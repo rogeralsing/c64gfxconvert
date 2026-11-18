@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "cold_delay_cycles": 149808,
+  "variants": {
+    "all": {
+      "program_sha256": "035fd2e58ec8bdca93d8c2820ac7228a2d4363098eae3f56a33085e837173333",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-1": {
+      "program_sha256": "804cc8c6ff06ddf7fc93a3b752557598fab06512c3f1de6402898add4dde8306",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-2": {
+      "program_sha256": "a7d2b8fe2d0526536e79e0300ff11b6d7876bc6c39f8fb13c1453746d5018d52",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "sid-3": {
+      "program_sha256": "f3257919b7e16ef975b192ae0ccb071eb8b36b37aa4321d5e9247804dbb4edd0",
+      "byte_identical": true,
+      "native_byte_identical": true
+    },
+    "muted": {
+      "program_sha256": "b88846c890a7998de3dbf22860454c7a0127e4112c4459a9fd3b273043eae774",
+      "byte_identical": true,
+      "native_byte_identical": true
+    }
+  },
+  "scope": "All five native and packaged PRGs rebuilt from source in a fresh temporary directory."
+}

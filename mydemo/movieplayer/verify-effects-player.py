@@ -27,6 +27,9 @@ from PIL import Image, ImageChops, ImageDraw
 HERE = Path(__file__).resolve().parent
 REPO = HERE.parents[1]
 BACKGROUNDS = (0, 12, 15, 1)
+BASE_FIELDS = 301
+PALETTE_CYCLE = ((0, 6, 14, 3), (0, 9, 8, 7), (0, 2, 10, 15),
+                 (0, 5, 3, 13), (0, 4, 10, 7), (0, 9, 4, 10))
 FONT_SHA = "180223a47f20c13a5ca203d00d80cc49db6d3d5504589c02c0ed59d01870043f"
 PAL_CLOCK = 985248
 PAL_FRAME_CYCLES = 19656
@@ -62,6 +65,11 @@ class Oracle:
         assert self.levels.tolist() == [0, 120, 174, 255]
         self.c64_levels = np.zeros(16, dtype=np.uint8)
         self.c64_levels[list(BACKGROUNDS)] = self.levels
+        self.logical_slots = np.zeros(256, dtype=np.uint8)
+        self.logical_slots[self.levels] = np.arange(4, dtype=np.uint8)
+        rgb_rows = [line.split("#", 1)[0].split() for line in (REPO / "palettes/colodore.vpl").read_text().splitlines()]
+        self.rgb = np.array([[int(channel, 16) for channel in row[:3]] for row in rgb_rows if row], dtype=np.uint8)
+        assert self.rgb.shape == (16, 3) and self.rgb[0].tolist() == [0, 0, 0]
         self.glyphs = np.unpackbits(np.frombuffer(self.font, dtype=np.uint8)).reshape(64, 8, 8)
         self.names = object_names
         self.screens, self.colors, self.frames = [], [], []
@@ -77,6 +85,14 @@ class Oracle:
         backgrounds = self.levels[np.asarray(screen) >> 6]
         foregrounds = self.c64_levels[np.asarray(colors) & 15]
         return np.where(masks, foregrounds[:, None, None], backgrounds[:, None, None]).reshape(25, 40, 8, 8).transpose(0, 2, 1, 3).reshape(200, 320)
+
+    def decode_hardware(self, screen, colors, backgrounds):
+        screen, colors = np.asarray(screen), np.asarray(colors)
+        masks = self.glyphs[screen & 63]
+        background_ids = np.asarray(tuple(backgrounds), dtype=np.uint8)[screen >> 6]
+        pixels = np.where(masks, (colors & 15)[:, None, None], background_ids[:, None, None])
+        pixels = pixels.reshape(25, 40, 8, 8).transpose(0, 2, 1, 3).reshape(200, 320)
+        return self.rgb[pixels]
 
     def validate_zoom(self, mapping, swapping):
         mapping = np.asarray(mapping, dtype=np.uint8).reshape(64, 4)
@@ -113,7 +129,7 @@ class Oracle:
                     output[yy:yy + 8, xx:xx + 8] = np.where(glyph, foreground, bg)
         return output
 
-    def image(self, object_id, serial, mode, crop=(10, 6)):
+    def image(self, object_id, serial, mode, crop=(10, 6), palette=BACKGROUNDS):
         frame = pose(serial)
         source = self.frames[object_id][frame]
         output = np.zeros((200, 320), dtype=np.uint8)
@@ -153,7 +169,8 @@ class Oracle:
             shifted = np.zeros_like(output)
             shifted[4:196] = output[:192]
             output = shifted
-        return Image.fromarray(output, "L").convert("RGB")
+        physical = np.asarray(palette, dtype=np.uint8)[self.logical_slots[output]]
+        return Image.fromarray(self.rgb[physical], "RGB")
 
 
 def compare_scanout(path, expected):
@@ -166,23 +183,35 @@ def compare_scanout(path, expected):
     return {"comparedPixels": 64000, "differentPixels": 0}
 
 
-def script(step):
-    if step < 36:
-        return step // 12, 6 if step & 1 else (step % 12) // 2
-    return 0, {36: 7, 37: 6, 38: 8, 39: 6}[step]
+def playlist_from(manifest):
+    objects, modes = manifest["stepObject"], manifest["stepMode"]
+    assert objects and len(objects) == len(modes) == len(manifest["modeFields"])
+    sequence = list(zip(objects, modes))
+    allowed = {(obj, mode) for obj in (0, 1) for mode in range(7)}
+    allowed |= {(2, mode) for mode in (0, 3, 4, 5)} | {(0, 7), (0, 8)}
+    assert not {(2, 1), (2, 2), (2, 6)} & set(sequence), "Ball wave, checker and zoom must be absent"
+    assert set(sequence) == allowed, ("Missing or unsupported object/effect", set(sequence) ^ allowed)
+    assert manifest.get("baseFields") == BASE_FIELDS, "Ordinary phases must last 301 PAL fields (about six seconds)"
+    assert manifest.get("paletteCycleC64") == [list(palette) for palette in PALETTE_CYCLE], "Six color trios must cycle over black"
+    assert manifest["modeFields"] == [25 if mode == 6 else BASE_FIELDS for mode in modes]
+    assert all(not (objects[index] == objects[(index + 1) % len(objects)] == objects[(index + 2) % len(objects)])
+               for index in range(len(objects))), "Object block exceeds two phases, including wrap"
+    return sequence
 
 
-def duration(step):
-    return 25 if step & 1 else 501
+def flash_crop(step, center):
+    dx = (0, -3, 2, -1, 3, -2)[step % 6]
+    dy = (0, -2, 0, 2, -1, 1)[step % 6]
+    return max(0, min(20, center[0] + dx)), max(0, min(13, center[1] + dy))
 
 
-def image_from_ram(oracle, ram, first, colors, mode):
-    pixels = oracle.decode(np.frombuffer(ram[first:first + 1000], dtype=np.uint8), np.frombuffer(colors, dtype=np.uint8))
+def image_from_ram(oracle, ram, first, colors, mode, backgrounds):
+    pixels = oracle.decode_hardware(np.frombuffer(ram[first:first + 1000], dtype=np.uint8), np.frombuffer(colors, dtype=np.uint8), backgrounds)
     if mode in (3, 5, 6, 8):
         shifted = np.zeros_like(pixels)
         shifted[4:196] = pixels[:192]
         pixels = shifted
-    return Image.fromarray(pixels, "L").convert("RGB")
+    return Image.fromarray(pixels, "RGB")
 
 
 def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=False):
@@ -196,6 +225,8 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
     build, data, output = build.resolve(), data.resolve(), output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     labels = labels_from(build / "main.sym")
+    sequence = playlist_from(json.loads((build / "build.json").read_text()))
+    ball_step = sequence.index((2, 0))
     oracle = Oracle(data, ["star-lit", "cube-lit", "ball-lit"])
     oracle.validate_zoom(np.frombuffer((build / "zoom-map.bin").read_bytes(), dtype=np.uint8),
                          np.frombuffer((build / "zoom-swap.bin").read_bytes(), dtype=np.uint8))
@@ -220,17 +251,26 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
     current_image = Image.new("RGB", (320, 200))
     pending_image = None
     pending_serial = None
+    pending_object = None
+    pending_palette_index = 0
+    boundary_palette_index = 0
     pending_mode = None
     pending_crop = None
     action_ready = False
     action_index = 0
     wanted = stress_field = None
-    stress_actions = [
-        (34, 5, 35, 6, (12, 5), (10, 6)),
-        (34, 5, 35, 6, (0, 0), (0, 1)),
-        (28, 2, 29, 6, (18, 13), (20, 13)),
-        (24, 0, 24, 0, (10, 6), (10, 6)),
-    ] if crop_stress else []
+    stress_actions = []
+    if crop_stress:
+        flash_steps = [step for step, (obj, mode) in enumerate(sequence)
+                       if mode == 6 and sequence[step - 1][0] == obj and sequence[step - 1][1] != 6]
+        star_flash = next(step for step in flash_steps if sequence[step][0] == 0)
+        lower_flash = next(step for step in flash_steps if flash_crop(step, (0, 0)) == (0, 0))
+        upper_x_flash = next(step for step in flash_steps if sequence[step][0] == 1 and flash_crop(step, (19, 6))[0] == 20)
+        upper_y_flash = next(step for step in flash_steps if sequence[step][0] == 1 and flash_crop(step, (10, 12))[1] == 13)
+        for step, center in ((star_flash, (12, 5)), (lower_flash, (0, 0)),
+                             (upper_x_flash, (19, 6)), (upper_y_flash, (10, 12))):
+            stress_actions.append((step - 1, step, center, flash_crop(step, center)))
+        stress_actions.append((ball_step, ball_step, (10, 6), (10, 6)))
     report["cropStress"] = []
     color_watch = None
     def ram_state():
@@ -238,6 +278,11 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
         ram = monitor.dump(output / "last-ram.bin", 0, 0x3fff)
         monitor.run("bank cpu")
         return ram
+    def hardware_palette():
+        monitor.run("bank io")
+        palette = tuple(value & 15 for value in monitor.dump(output / "backgrounds.bin", 0xd021, 0xd024))
+        monitor.run("bank cpu")
+        return palette
     def put(first, values):
         for at in range(0, len(values), 32):
             monitor.run(f"> ${first + at:04x} " + " ".join(f"${value:02x}" for value in values[at:at + 32]))
@@ -257,11 +302,11 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
             monitor.run("bank ram")
             put(front, bytes(1000))
             put(0x0c00, bytes([2]) * 1024)
-            for name, value in (("object_id", 2), ("step_index", 24), ("mode", 0), ("film_frame", 0),
-                                ("phase", 0), ("mode_due", 0), ("zoom_x", 10), ("zoom_y", 6)):
+            for name, value in (("object_id", 2), ("step_index", ball_step), ("mode", 0), ("film_frame", 0),
+                                ("phase", 0), ("mode_due", 0), ("palette_index", 0), ("zoom_x", 10), ("zoom_y", 6)):
                 put(labels[name], bytes([value]))
             put(labels["film_serial"], bytes(2))
-            put(labels["mode_fields_left"], (501).to_bytes(2, "little"))
+            put(labels["mode_fields_left"], BASE_FIELDS.to_bytes(2, "little"))
             monitor.run("bank io")
             put(0xd800, bytes([2]) * 1024)
             monitor.run("bank cpu")
@@ -281,33 +326,41 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
                     color_watch = int(re.search(r"(?:BREAK|WATCH):\s*(\d+)", result)[1])
                     if action_ready:
                         ram = ram_state()
-                        base, base_mode, target, target_mode, center, crop = stress_actions[action_index]
+                        base, target, center, crop = stress_actions[action_index]
+                        base_object, base_mode = sequence[base]
+                        target_object, target_mode = sequence[target]
                         serial_at = labels["film_serial"]
                         serial = ram[serial_at] + 256 * ram[serial_at + 1] + 1
-                        wanted = {"serial": serial, "step": target, "mode": target_mode, "crop": crop}
+                        wanted = {"serial": serial, "step": target, "object": target_object, "mode": target_mode,
+                                  "paletteIndex": int(target != base), "crop": crop}
                         monitor.run("bank ram")
-                        for name, value in (("step_index", base), ("mode", base_mode), ("zoom_x", center[0]),
-                                            ("zoom_y", center[1]), ("mode_due", int(target != base))):
+                        for name, value in (("object_id", base_object), ("step_index", base), ("mode", base_mode), ("zoom_x", center[0]),
+                                            ("zoom_y", center[1]), ("palette_index", 0), ("mode_due", int(target != base))):
                             put(labels[name], bytes([value]))
-                        put(labels["mode_fields_left"], (0 if target != base else 501).to_bytes(2, "little"))
+                        put(labels["mode_fields_left"], (0 if target != base else BASE_FIELDS).to_bytes(2, "little"))
                         monitor.run("bank cpu")
                         action_index += 1
                         action_ready = False
                 elif event == "render_end":
                     ram = ram_state()
-                    assert ram[labels["next_object"]] == 2
+                    pending_object = ram[labels["next_object"]]
                     serial_at = labels["next_serial"]
                     pending_serial = ram[serial_at] + 256 * ram[serial_at + 1]
                     pending_mode = ram[labels["next_mode"]]
                     pending_crop = (ram[labels["latched_zoom_x"]], ram[labels["latched_zoom_y"]])
-                    pending_image = oracle.image(2, pending_serial, pending_mode, pending_crop)
+                    pending_palette_index = wanted["paletteIndex"] if wanted is not None else boundary_palette_index
+                    expected_palette = PALETTE_CYCLE[pending_palette_index]
+                    assert ram[labels["next_palette_index"]] == pending_palette_index
+                    palette_at = labels["display_palette"]
+                    assert tuple(ram[palette_at:palette_at + 4]) == expected_palette
+                    pending_image = oracle.image(pending_object, pending_serial, pending_mode, pending_crop, expected_palette)
                     if wanted is not None:
-                        assert (pending_serial, ram[labels["next_step"]], pending_mode, pending_crop) == (wanted["serial"], wanted["step"], wanted["mode"], wanted["crop"])
+                        assert (pending_serial, ram[labels["next_step"]], pending_object, pending_mode, pending_crop) == (wanted["serial"], wanted["step"], wanted["object"], wanted["mode"], wanted["crop"])
                     back = ram[labels["back_screen_hi"]] << 8
-                    actual = image_from_ram(oracle, ram, back, ram[0x0c00:0x0fe8], pending_mode)
+                    actual = image_from_ram(oracle, ram, back, ram[0x0c00:0x0fe8], pending_mode, expected_palette)
                     assert ImageChops.difference(actual, pending_image).getbbox() is None, ("Sparse-clear prepared image", pending_serial, pending_mode, pending_crop)
                     if not committed:
-                        assert ram[labels["next_film_frame"]] == 1 and pending_mode == 0
+                        assert ram[labels["next_film_frame"]] == 1 and pending_object == 2 and pending_mode == 0
                         at = labels["color_changed_count"]
                         report["dirtyForegrounds"] = ram[at] + 256 * ram[at + 1]
                         assert report["dirtyForegrounds"] >= 256
@@ -317,12 +370,16 @@ def verify_unused_foreground_boundary(build, data, output, vice, crop_stress=Fal
                     color_watch = None
                 elif event == "commit_end":
                     ram = ram_state()
-                    assert ram[labels["object_id"]] == 2 and ram[labels["film_frame"]] == pose(pending_serial)
+                    assert ram[labels["object_id"]] == pending_object and ram[labels["film_frame"]] == pose(pending_serial)
                     front = ram[labels["front_screen_hi"]] << 8
                     monitor.run("bank io")
                     colors = bytes(v & 15 for v in monitor.dump(output / "colors.bin", 0xd800, 0xdbe7))
                     monitor.run("bank cpu")
-                    image = image_from_ram(oracle, ram, front, colors, pending_mode)
+                    assert ram[labels["palette_index"]] == pending_palette_index
+                    backgrounds = hardware_palette()
+                    assert backgrounds == PALETTE_CYCLE[pending_palette_index]
+                    image = image_from_ram(oracle, ram, front, colors, pending_mode, backgrounds)
+                    boundary_palette_index = pending_palette_index
                     assert ImageChops.difference(image, pending_image).getbbox() is None
                     current_image = pending_image
                     if not committed:
@@ -392,11 +449,15 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
     events += queue_events + clear_events
     required = set(events) | {"object_id", "next_object", "mode", "next_mode", "film_frame", "next_film_frame",
         "film_serial", "next_serial", "step_index", "next_step", "mode_fields_left", "mode_due", "field_counter",
-        "front_screen_hi", "back_screen_hi", "active_zoom_x", "active_zoom_y", "latched_zoom_x", "latched_zoom_y"}
+        "front_screen_hi", "back_screen_hi", "active_zoom_x", "active_zoom_y", "latched_zoom_x", "latched_zoom_y",
+        "palette_index", "next_palette_index", "display_palette"}
     assert required <= labels.keys(), sorted(required - labels.keys())
     assert len({labels[name] for name in events}) == len(events), "Aliased observable stages"
-    assert manifest["stepMode"] == [script(step)[1] for step in range(40)]
-    assert manifest["stepObject"] == [script(step)[0] for step in range(40)]
+    sequence = playlist_from(manifest)
+    step_count = len(sequence)
+    normal_steps = {step for step, (_, mode) in enumerate(sequence) if mode == 0}
+    def script(step):
+        return sequence[step]
     object_names = [obj["name"] for obj in manifest["objects"]]
     assert object_names == ["star-lit", "cube-lit", "ball-lit"]
     oracle = Oracle(data, object_names)
@@ -421,7 +482,7 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
     process = connection = monitor = None
     active_step = active_serial = active_ordinal = 0
     active_crop = (10, 6)
-    expected = oracle.image(0, 0, 0)
+    expected = oracle.image(script(0)[0], 0, script(0)[1], palette=PALETTE_CYCLE[0])
     pending = None
     color_start = render_start = prepare_start = commit_start = queue_start = clear_start = None
     color_cycles = preparation_cycles = render_cycles = queue_cycles = clear_cycles = None
@@ -450,15 +511,21 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
         colors = bytes(value & 15 for value in monitor.dump(output / "last-colors.bin", 0xd800, 0xdbe7))
         monitor.run("bank cpu")
         return colors
+    def hardware_palette():
+        monitor.run("bank io")
+        palette = tuple(value & 15 for value in monitor.dump(output / "last-backgrounds.bin", 0xd021, 0xd024))
+        monitor.run("bank cpu")
+        return palette
     def check_active(ram):
         obj, mode = script(active_step)
         assert (ram[labels["object_id"]], ram[labels["mode"]], ram[labels["film_frame"]], word(ram, "film_serial")) == (obj, mode, pose(active_serial), active_serial)
         assert ram[labels["step_index"]] == active_step
+        assert ram[labels["palette_index"]] == active_ordinal % len(PALETTE_CYCLE), "Palette must advance at every phase, including wrap"
         assert ram[0x3000:0x3200] == oracle.font, "Frozen font changed"
     def stage_pending(ram):
         step, serial = ram[labels["next_step"]], word(ram, "next_serial")
         obj, mode = script(step)
-        assert step in (active_step, (active_step + 1) % 40)
+        assert step in (active_step, (active_step + 1) % step_count)
         assert (ram[labels["next_object"]], ram[labels["next_mode"]], ram[labels["next_film_frame"]]) == (obj, mode, pose(serial))
         assert serial == (1 if obj != script(active_step)[0] else active_serial + 1), "Source animation must advance exactly one stored pose"
         crop = (ram[labels["latched_zoom_x"]], ram[labels["latched_zoom_y"]])
@@ -468,7 +535,11 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                 assert crop == crop_by_flash[step], "Crop moved during a flash"
             else:
                 crop_by_flash[step] = crop
-        return step, serial, crop, oracle.image(obj, serial, mode, crop)
+        palette_index = (active_ordinal + int(step != active_step)) % len(PALETTE_CYCLE)
+        assert ram[labels["next_palette_index"]] == palette_index
+        palette_at = labels["display_palette"]
+        assert tuple(ram[palette_at:palette_at + 4]) == PALETTE_CYCLE[palette_index]
+        return step, serial, crop, oracle.image(obj, serial, mode, crop, PALETTE_CYCLE[palette_index])
     with (output / "vice.log").open("w") as log:
         try:
             process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
@@ -508,18 +579,18 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                         monitor.run(f"delete {color_watch}")
                     result = monitor.run("break store d800 dbe7")
                     color_watch = int(re.search(r"(?:BREAK|WATCH):\s*(\d+)", result)[1])
-                    if not full_base_timers and active_step % 2 == 0 and active_ordinal not in adjusted and len(active_screens) >= 3:
+                    if not full_base_timers and script(active_step)[1] != 6 and active_ordinal not in adjusted and len(active_screens) >= 3:
                         # Every normal base runs naturally through its full
                         # pose cycle. Other bases retain preparation margin
                         # while skipping the uneventful part of the hold.
-                        if active_step not in (0, 12, 24):
+                        if active_step not in normal_steps:
                             remaining = max(16, ram[labels["transition_margin"]]) if "transition_margin" in labels else 16
                             at = labels["mode_fields_left"]
                             monitor.run(f"> ${at:04x} ${remaining & 255:02x} ${remaining >> 8:02x}")
                             monitor.run(f"> ${labels['mode_due']:04x} $00")
                             report["timerAdjustments"].append({"step": active_step, "remaining": remaining, "field": word(ram, "field_counter"), "sourceTimeUnchanged": True})
                             adjusted.add(active_ordinal)
-                    if active_ordinal == 40 and len(active_screens) >= 3:
+                    if active_ordinal == step_count and len(active_screens) >= 3:
                         break
                 elif event == "prepare_start":
                     prepare_start = registers["clock"]
@@ -538,7 +609,8 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                     ram = state()
                     pending = stage_pending(ram)
                     back = ram[labels["back_screen_hi"]] << 8
-                    image = image_from_ram(oracle, ram, back, ram[0x0c00:0x0fe8], script(pending[0])[1])
+                    palette_at = labels["display_palette"]
+                    image = image_from_ram(oracle, ram, back, ram[0x0c00:0x0fe8], script(pending[0])[1], ram[palette_at:palette_at + 4])
                     difference = ImageChops.difference(image, pending[3])
                     if difference.getbbox():
                         image.save(output / "failed-prepared.png")
@@ -571,13 +643,15 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                     active_step, active_serial, active_crop, expected = pending
                     if active_step != old_step:
                         active_ordinal += 1
-                        assert active_step == active_ordinal % 40
+                        assert active_step == active_ordinal % step_count
                         active_screens = set()
                         report["phaseStarts"].append({"ordinal": active_ordinal, "step": active_step, "field": word(ram, "field_counter"), "serial": active_serial, "clock": registers["clock"]})
                     check_active(ram)
                     front = ram[labels["front_screen_hi"]] << 8
                     hardware_colors = color_ram()
-                    actual_ram = image_from_ram(oracle, ram, front, hardware_colors, script(active_step)[1])
+                    backgrounds = hardware_palette()
+                    assert backgrounds == PALETTE_CYCLE[active_ordinal % len(PALETTE_CYCLE)], "Committed VIC palette differs"
+                    actual_ram = image_from_ram(oracle, ram, front, hardware_colors, script(active_step)[1], backgrounds)
                     assert ImageChops.difference(actual_ram, expected).getbbox() is None, "Published screen/ColorRAM differs"
                     new_screen = bytes(ram[front:front + 1000])
                     for old_code, new_code, old_color, new_color in zip(previous_screen, new_screen, previous_colors, hardware_colors):
@@ -601,6 +675,7 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                         "colorQueueWallCycles": queue_cycles, "actualForegroundChanges": actual_color_changes,
                         "clearWallCycles": clear_cycles,
                         "colorDirtyCount": dirty_count, "colorSequentialFallback": fallback,
+                        "paletteIndex": active_ordinal % len(PALETTE_CYCLE), "paletteC64": list(backgrounds),
                         "crop": list(active_crop), "endRaster": registers["raster"]})
                     pending = None
                 elif event == "field_complete":
@@ -612,12 +687,14 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                         assert abs(registers["clock"] - last_field_clock - PAL_FRAME_CYCLES) <= 126
                     last_counter, last_field_clock = counter, registers["clock"]
                     assert 256 <= registers["raster"] <= 258
+                    assert hardware_palette() == PALETTE_CYCLE[active_ordinal % len(PALETTE_CYCLE)], "Visible VIC palette differs"
                     picture = output / f"field-{len(report['fields']):04d}-step-{active_step:02d}-pose-{pose(active_serial):02d}.png"
                     monitor.run(f'scrsh "{picture}" 2')
                     comparison = compare_scanout(picture, expected)
                     active_screens.add(active_serial)
                     report["fields"].append({"ordinal": active_ordinal, "step": active_step, "object": script(active_step)[0],
-                        "mode": script(active_step)[1], "serial": active_serial, "fieldCounter": counter,
+                        "mode": script(active_step)[1], "paletteIndex": active_ordinal % len(PALETTE_CYCLE),
+                        "serial": active_serial, "fieldCounter": counter,
                         "clock": registers["clock"], "screenshot": picture.name, **comparison})
                     if len(report["fields"]) % 200 == 0:
                         print(json.dumps({"nativeFields": len(report["fields"]), "step": active_step, "phases": active_ordinal}), flush=True)
@@ -625,18 +702,18 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                 monitor.run("x")
             else:
                 raise AssertionError("Bounded native event proof did not finish")
-            assert [phase["step"] for phase in report["phaseStarts"]] == list(range(40)) + [0]
+            assert [phase["step"] for phase in report["phaseStarts"]] == list(range(step_count)) + [0]
             starts = report["phaseStarts"]
-            flashes = [starts[index + 1]["field"] - starts[index]["field"] for index in range(1, 40, 2)]
-            assert flashes == [25] * 20, flashes
-            normal_durations = {str(step): starts[step + 1]["field"] - starts[step]["field"] for step in (0, 12, 24)}
-            assert set(normal_durations.values()) == {501}
+            flashes = [starts[step + 1]["field"] - starts[step]["field"]
+                       for step, (_, mode) in enumerate(sequence) if mode == 6]
+            assert flashes and set(flashes) == {25}, flashes
+            normal_durations = {str(step): starts[step + 1]["field"] - starts[step]["field"] for step in sorted(normal_steps)}
+            assert set(normal_durations.values()) == {BASE_FIELDS}
             normal_poses = {str(obj): sorted({pose(field["serial"]) for field in report["fields"]
-                if field["step"] == obj * 12 and field["ordinal"] < 40 and field["serial"] > 0}) for obj in range(3)}
+                if (field["object"], field["mode"]) == (obj, 0) and field["ordinal"] < step_count and field["serial"] > 0}) for obj in range(3)}
             assert all(poses == list(range(1, 49)) for poses in normal_poses.values()), normal_poses
             modes_seen = {(field["object"], field["mode"]) for field in report["fields"]}
-            assert {(obj, mode) for obj in range(3) for mode in range(7)} <= modes_seen
-            assert (0, 7) in modes_seen and (0, 8) in modes_seen
+            assert modes_seen == set(sequence), ("Native effect coverage differs", modes_seen ^ set(sequence))
             assert blank_foreground["reactivationsChangingForeground"] > 0, "No retained-foreground reactivation requiring a color change was exercised"
             assert blank_foreground["reactivationsKeepingForeground"] > 0
             timing = {}
@@ -658,13 +735,14 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                         old_fps = before["measuredTiming"][name]["fps"]
                         comparison["modes"][name] = {"beforeFPS": old_fps, "afterFPS": after["fps"], "changePercent": (after["fps"] / old_fps - 1) * 100,
                             "beforeIntervals": before["measuredTiming"][name]["intervals"], "afterIntervals": after["intervals"]}
-                fair_normals = before.get("normalBaseDurationsFields") == {"0": 501, "12": 501, "24": 501}
-                comparison["scope"] = ("Both builds run all three normal phases for501fields and cover48poses. Other effects are samples along different source-time trajectories, not paired-pose benchmarks."
-                    if fair_normals else "All three current normal phases run501fields and cover48poses. Earlier cube/ball baselines contain shorter samples, so those ratios are observed-run comparisons, not paired all-pose benchmarks.")
+                prior_normals = before.get("normalBaseDurationsFields", {})
+                fair_normals = len(prior_normals) >= 3 and set(prior_normals.values()) == {BASE_FIELDS}
+                comparison["scope"] = ("Both builds run all three normal phases for301fields and cover48poses. Other effects are samples along different source-time trajectories, not paired-pose benchmarks."
+                    if fair_normals else "All three current normal phases run301fields and cover48poses. Baselines use different phase durations or source trajectories, so ratios are observed-run comparisons, not paired-pose benchmarks.")
             contact = Image.new("RGB", (1280, 448), (20, 22, 18))
             draw = ImageDraw.Draw(contact)
             selections = [(0, 0, "Star"), (1, 0, "Cube"), (2, 0, "Ball"), (0, 1, "Wave"),
-                          (1, 2, "Checker history"), (0, 5, "Mirror H/V"), (2, 6, "Fixed 2x flash"), (0, 8, "Mixed quadrants")]
+                          (1, 2, "Checker history"), (0, 5, "Mirror H/V"), (0, 6, "Fixed 2x flash"), (0, 8, "Mixed quadrants")]
             contact_fields = []
             for index, (obj, mode, title) in enumerate(selections):
                 selected = next(field for field in reversed(report["fields"]) if field["object"] == obj and field["mode"] == mode and field["serial"] > 0)
@@ -676,7 +754,8 @@ def verify(build, data, output, vice, full_base_timers=False, baseline=None):
                 contact_fields.append({"title": title, "screenshot": selected["screenshot"]})
             contact.save(output / "contact.png")
             report.update(passed=True, actualVisibleFieldsVerified=len(report["fields"]), comparedPixels=len(report["fields"]) * 64000,
-                flashDurationsFields=flashes, firstBaseDurationFields=501, modesSeen=[list(item) for item in sorted(modes_seen)],
+                flashDurationsFields=flashes, firstBaseDurationFields=BASE_FIELDS, paletteCycleC64=[list(palette) for palette in PALETTE_CYCLE],
+                paletteAdvancesOnEveryPhase=True, wrapPaletteIndex=step_count % len(PALETTE_CYCLE), modesSeen=[list(item) for item in sorted(modes_seen)],
                 normalBaseDurationsFields=normal_durations, normalPosesVerified=normal_poses,
                 measuredTiming=timing, sourceSerialAdvance=1, allComparedFieldsExact=True, noVisibleColorTearing=True,
                 sourceDataUnchanged=True, nativeTimingIncludesVICStallsAndColorCommit=True,
@@ -725,7 +804,7 @@ def main():
     parser.add_argument("--data", type=Path, default=HERE / "generated-symmetric")
     parser.add_argument("--output", type=Path)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
-    parser.add_argument("--full-base-timers", action="store_true", help="Observe all ten-second bases naturally instead of shortening later holds.")
+    parser.add_argument("--full-base-timers", action="store_true", help="Observe all six-second bases naturally instead of shortening later holds.")
     default_baseline = HERE / "build-before-fast-rows/native-check/verification.json"
     parser.add_argument("--baseline", type=Path, default=default_baseline if default_baseline.exists() else None,
                         help="Prior native verification.json for an observed FPS comparison.")

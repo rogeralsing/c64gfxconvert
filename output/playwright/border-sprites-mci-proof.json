@@ -1,0 +1,65 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "phase": 0,
+      "offsetX": 0,
+      "spriteCount": 36,
+      "differingBytes": 914,
+      "differences": 0,
+      "maskDifferences": 0,
+      "leftOverlayRows": 0,
+      "canvas": [
+        368,
+        272
+      ]
+    },
+    {
+      "phase": 1,
+      "offsetX": 1,
+      "spriteCount": 36,
+      "differingBytes": 914,
+      "differences": 0,
+      "maskDifferences": 0,
+      "leftOverlayRows": 95,
+      "canvas": [
+        368,
+        272
+      ]
+    }
+  ],
+  "screenshots": [
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mci-desktop.png",
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mci-mobile.png"
+  ],
+  "export": {
+    "nativeBytes": 4608,
+    "frames": 72,
+    "fields": [
+      {
+        "phase": 0,
+        "offsetX": 0,
+        "spriteOffset": 0,
+        "spriteCount": 36,
+        "byteOffset": 0,
+        "byteLength": 2304
+      },
+      {
+        "phase": 1,
+        "offsetX": 1,
+        "spriteOffset": 36,
+        "spriteCount": 36,
+        "byteOffset": 2304,
+        "byteLength": 2304
+      }
+    ],
+    "filename": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/border-sprites-mci-export.zip"
+  },
+  "coreMciBytes": 19434,
+  "horizontalOverflow": false,
+  "plainExport": {
+    "nativeBytes": 2304,
+    "frames": 36
+  },
+  "passed": true
+}

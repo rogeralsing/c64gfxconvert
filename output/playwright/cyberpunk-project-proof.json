@@ -1,0 +1,91 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "phase": 0,
+      "png": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/cyberpunk-preview-phase-0.png",
+      "sha256": "470c0344e14fdc28d4560780661ebe3054e9ca8d0d07044b34280c1fd083ddbb"
+    },
+    {
+      "phase": 1,
+      "png": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/cyberpunk-preview-phase-1.png",
+      "sha256": "6d89bb17a4c91a70b395c6a3a287d56f9d232cba24f87d406529fc423347e336"
+    }
+  ],
+  "screenshots": [
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/cyberpunk-preview-desktop.png"
+  ],
+  "settings": {
+    "graphicsMode": "mci",
+    "borderSprites": {
+      "vertical": {
+        "enabled": false,
+        "mode": "multicolor",
+        "colorIndex": 2
+      },
+      "sides": {
+        "enabled": true,
+        "mode": "multicolor",
+        "colorIndex": 7
+      },
+      "multicolorIndices": [
+        8,
+        6
+      ]
+    },
+    "layout": {
+      "enabled": true,
+      "width": 368,
+      "height": 200,
+      "coreX": 24,
+      "coreY": 0,
+      "coreWidth": 320,
+      "coreHeight": 200,
+      "left": 24,
+      "right": 24,
+      "top": 0,
+      "bottom": 0
+    },
+    "backgroundColorIndex": 0,
+    "paletteId": "peptoette-a",
+    "virtualColorMode": "talent",
+    "layerCount": 1,
+    "imageName": "Cyberpunkspelare med pixelprojektioner.png",
+    "canvas": [
+      368,
+      200
+    ]
+  },
+  "exports": {
+    "mci": {
+      "suppliedSha256": "9d32af594494e754ef7a80660ec01e5dae614a1f4a1abb940ca35b65ee5bb8e1",
+      "currentSha256": "9d32af594494e754ef7a80660ec01e5dae614a1f4a1abb940ca35b65ee5bb8e1",
+      "bytes": 19434,
+      "exactMatch": true,
+      "firstDifference": null
+    },
+    "sprites": {
+      "suppliedSha256": "0a77311ed66ae04a96de0f3848d8fbc6a509122f72fa8fe5b136fe35889a4fc7",
+      "currentSha256": "0a77311ed66ae04a96de0f3848d8fbc6a509122f72fa8fe5b136fe35889a4fc7",
+      "bytes": 2560,
+      "exactMatch": true,
+      "firstDifference": null
+    },
+    "zip": {
+      "suppliedSha256": "3bd8e59e3ee456cb7173a774c79909a4361a86cfce9de182fa5afa5b719f26d9",
+      "currentSha256": "3bd8e59e3ee456cb7173a774c79909a4361a86cfce9de182fa5afa5b719f26d9",
+      "exactMatch": true
+    },
+    "settingsMatch": true,
+    "imageMatch": true,
+    "fieldsMatch": true,
+    "spriteMetadataMatch": true
+  },
+  "horizontalOverflow": false,
+  "assetHashesAfter": {
+    "project": "91c4c2acfc70330500a0c89dbed87d3f7d639e7a886fed3f4da376e048075d54",
+    "mci": "9d32af594494e754ef7a80660ec01e5dae614a1f4a1abb940ca35b65ee5bb8e1",
+    "zip": "3bd8e59e3ee456cb7173a774c79909a4361a86cfce9de182fa5afa5b719f26d9"
+  },
+  "passed": true
+}
