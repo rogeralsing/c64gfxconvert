@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "controls": {
+    "silence": {
+      "rejected": true,
+      "failed_windows": 942
+    },
+    "equal-window-energy-noise": {
+      "rejected": true,
+      "failed_windows": 895
+    }
+  },
+  "scope": "Analysis-only arrays. No listening file was created or changed."
+}

@@ -1,0 +1,122 @@
+{
+  "app": "c64gfxconvert",
+  "version": 1,
+  "image": {
+    "graphicsMode": "mci",
+    "backgroundColorIndex": 0,
+    "spriteColorIndex": 1,
+    "paletteId": "peptoette-a",
+    "virtualColorMode": "talent",
+    "twoColorIndices": [
+      0,
+      1
+    ],
+    "charsetMulticolorIndices": [
+      5,
+      7
+    ],
+    "charsetSimilarityThreshold": 35,
+    "spriteConfig": {
+      "columns": 1,
+      "rows": 1,
+      "multicolorIndices": [
+        5,
+        7
+      ],
+      "spriteColorIndices": [
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14,
+        14
+      ],
+      "overlayColorIndices": [
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    },
+    "borderSprites": {
+      "vertical": {
+        "enabled": true,
+        "mode": "hires",
+        "colorIndex": 3
+      },
+      "sides": {
+        "enabled": true,
+        "mode": "hires",
+        "colorIndex": 3
+      },
+      "multicolorIndices": [
+        1,
+        6
+      ]
+    }
+  },
+  "view": {
+    "previewMode": "restricted",
+    "grid": false,
+    "paused": true
+  },
+  "activeLayer": 0,
+  "layers": [
+    {
+      "name": "Single raster rows",
+      "autoName": false,
+      "visible": true,
+      "source": {
+        "fileName": "vertical-normal-source.png",
+        "dataUrl": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXAAAAEQCAIAAAAmj7gyAAADMElEQVR4nO3YwQnDQBAEwVF+yshvZ6QAncRhGlEVwDyXZq/P8wwAIOVSKABAjkIBAHoUCgDQo1AAgB6FAgD0KBQAoEehAAA9CgUA6FEoAECPQgEAehQKANCjUACAHoUCAPQoFACgR6EAAD0KBQDoUSgAwIsL5XvfR3aA/zt1BwCOUSjAFAqQo1CAKRQgR6EAUyhAjkIBplCAHIUCTKEAOQoFmEIBchQKMIUC5CgUYAoFyFEowBQKkKNQgCkUIEehAFMoQI5CAaZQgByFAkyhADkKBZhCAXIUCjCFAuQoFGAKBchRKMAUCpCjUIApFCBHoQBTKECOQgGmUIAchQJMoQA5CgWYQgFyFAowhQLkKBRgCgXIUSjAFAqQo1AAhQL0KBRgfihAjkIBplCAHIUCTKEAOQoFmEIBchQKMIUC5CgUYAoFyFEowBQKkKNQgCkUIEehAFMoQI5CAaZQgByFAkyhADkKBZhCAXIUCjCFAuQoFGAKBchRKMAUCpCjUIApFCBHoQBTKECOQgGmUIAchQJMoQA5CgWYQgFyFAowhQLkKBRgCgXIUSjAFAqQo1CAKRQgR6EAUyhAjkIBplCAHIUCTKEAOQoFmEIBchQKMIUC5CgUYAoFyFEowBQKkKNQgCkUIEehAFMoQI5CAaZQgByFAkyhADkKBZhCAXIUCjCFAuQoFGAKBchRKMAUCpCjUIApFCBHoQBTKECOQgGmUIAchQJMoQA5CgWYQgFyFAowhQLkKBRgCgXIUSjAFAqQo1CAKRQgR6EAUyhAjkIBplCAHIUCTKEAOQoFmEIBchQKMIUC5CgUYAoFyFEowBQKkKNQgCkUIEehAFMoQI5CAaZQgByFAkyhADkKBZhCAXIUCjCFAuQoFGAKBchRKMAUCpCjUIApFCBHoQBTKECOQgGmUIAchQJMoQA5CgWYQgFyFAowhQLkKBRgCgXIUSjAFAqQo1CAKRQgR6EAUyjAewsFAOAYhQIA9CgUAKBHoQAAPQoFAOhRKABAj0IBAHoUCgDQo1AAgB6FAgD0KBQAoEehAAA9CgUA6FEoAECPQgEAehQKANCjUACAHoUCACznBwe2LT9m8xM9AAAAAElFTkSuQmCC"
+      },
+      "settings": {
+        "values": {
+          "source-scale": 100,
+          "source-position-x": 0,
+          "source-position-y": 0,
+          "brightness": 0,
+          "contrast": 100,
+          "levels-black": 0,
+          "levels-white": 255,
+          "levels-gamma": 1,
+          "hue": 0,
+          "saturation": 100,
+          "rgb-noise": 0,
+          "interlace": 0,
+          "interlace-spacing": 2,
+          "interlace-direction": "horizontal",
+          "dither": 0,
+          "scanline-dither": false,
+          "virtual-colors": "off",
+          "sprite-match": 25,
+          "sprite-dither": 100
+        },
+        "curvePoints": [
+          {
+            "input": 0,
+            "output": 0
+          },
+          {
+            "input": 255,
+            "output": 255
+          }
+        ],
+        "crop": null,
+        "palette": {
+          "minLevel": 0,
+          "maxLevel": 16,
+          "minLightness": 0,
+          "maxLightness": 100,
+          "excludedIndices": []
+        }
+      }
+    }
+  ]
+}

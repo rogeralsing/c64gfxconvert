@@ -14,10 +14,16 @@ The target is an unexpanded 64 KiB C64. Select sampled parts within the measured
 CPU budget and use ordinary SID sounds where suitable. Full-length playback
 must not be forced by expanding waveform data or adding external memory.
 
-Hyperbased's three-minute arrangement is preserved. Cream of the Earth covers
-its complete 4:01.92 timeline with a mix and three separate SID recordings.
-Its approved 26.88-second excerpt remains fixed. See
+Hyperbased's three-minute arrangement is preserved. Cream of the Earth now
+selects 3:08.42, ending at a musical phrase with existing sounds allowed to drain.
+It uses two oscillator sampling voices and one native SID program on a stock
+64 KiB C64. Its approved 26.88-second excerpt remains fixed. See
 [Cream's work folder](work/cream/README.md) and [the work queue](REPERTOIRE.md).
+The former 4:01.92 Cream SID2 was rejected in listening; its SID3 is accepted.
+The subsequent SID1 was also rejected. The current SID1 candidate restores an
+omitted figure and uses a separate native instrument program; listening
+assessment is pending. Both sampler streams remain fixed. Read
+[the implementation and limits](CREAM-THREE-MINUTE.md).
 
 Read [the full-length implementation and limits](FULL-LENGTH.md) for its native
 instrument programs, compact note data, scheduling and explicitly omitted parts.
@@ -38,16 +44,18 @@ and records the mix and physical SID stems independently in VICE. Cached song
 data is not required. Use `--assemble-only` to stop before verification and
 recording. Omit `--full` to rebuild the preserved twenty-second reference.
 
-Build the complete Cream arrangement:
+Build the selected complete Cream arrangement:
 
 ```sh
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py --song cream --full
 ```
 
 Omit `--full` only to rebuild the approved original-MOD interval 17.92–44.80.
-The complete arrangement uses C1 during its explicit introduction allocation;
-otherwise C1 is omitted. Later chord parts are SID arpeggios, and ordinary SID
-volume curves are simplified. PCM gain and held-pitch changes are preserved.
+The active result is `work/cream/sid1-repair/`. SID1 selects C1 at 17.92–31.36
+and C3 elsewhere. Its guitar uses triangle+saw with hardware ADSR; this does
+not reproduce every original volume curve or sample envelope. Later C1 chords
+remain omitted. The rejected SID1 build in `work/cream/three-minute-linus-mix/`
+and the previous 4:01.92 result remain preserved baselines.
 `--full` without `--song cream` continues to select three-minute Hyperbased.
 
 Requires the music Python environment, KickAssembler at `~/.local/bin/kickass`

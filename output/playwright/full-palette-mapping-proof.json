@@ -1,0 +1,163 @@
+{
+  "errors": [],
+  "cases": [
+    {
+      "name": "MCI full-image palette",
+      "dimensions": [
+        368,
+        272
+      ],
+      "differentPixels": 0,
+      "differentBorderPixels": 0,
+      "fullResolutionDetails": 8486
+    },
+    {
+      "name": "Palette after hardware color and resolution changes",
+      "dimensions": [
+        368,
+        272
+      ],
+      "differentPixels": 0,
+      "differentBorderPixels": 0,
+      "fullResolutionDetails": 8486
+    },
+    {
+      "name": "Multicolor bitmap full-image palette",
+      "dimensions": [
+        368,
+        272
+      ],
+      "differentPixels": 0,
+      "differentBorderPixels": 0,
+      "fullResolutionDetails": 8486
+    },
+    {
+      "name": "charset derives from mapped target",
+      "expectedDimensions": [
+        320,
+        200
+      ],
+      "actualDimensions": [
+        320,
+        200
+      ],
+      "differsFromRaw": true,
+      "matchesMappedInput": true,
+      "targetDiffersFromRaw": true
+    },
+    {
+      "name": "sprites derives from mapped target",
+      "expectedDimensions": [
+        24,
+        21
+      ],
+      "actualDimensions": [
+        24,
+        21
+      ],
+      "differsFromRaw": true,
+      "matchesMappedInput": true,
+      "targetDiffersFromRaw": true
+    },
+    {
+      "name": "sprites-hires derives from mapped target",
+      "expectedDimensions": [
+        24,
+        21
+      ],
+      "actualDimensions": [
+        24,
+        21
+      ],
+      "differsFromRaw": true,
+      "matchesMappedInput": true,
+      "targetDiffersFromRaw": true
+    }
+  ],
+  "borderMappedInput": {
+    "matchesMappedInput": true,
+    "differsFromRaw": true
+  },
+  "hardwareIndependentPalette": true,
+  "optimizedPaletteIndependent": true,
+  "plan": {
+    "multicolorIndices": [
+      3,
+      12
+    ],
+    "colorIndices": [
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      4,
+      6,
+      6,
+      4,
+      6,
+      6,
+      4,
+      1,
+      6,
+      4,
+      6,
+      2,
+      6,
+      6,
+      6,
+      7,
+      1,
+      7,
+      7,
+      7,
+      7,
+      6,
+      6,
+      6,
+      6,
+      6,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "optimizedError": 913.6098678995697,
+    "baselineError": 3549.898201264217,
+    "improvementPercent": 74.26377275905523,
+    "metric": "virtual-surface-oklab-sse",
+    "spriteCount": 52,
+    "phaseCount": 2,
+    "backgroundColorIndex": 0,
+    "candidateColorSets": 575
+  },
+  "fields": [
+    {
+      "phase": 0,
+      "differentPixels": 0
+    },
+    {
+      "phase": 1,
+      "differentPixels": 0
+    }
+  ],
+  "bitmapFullResolution": true,
+  "passed": true
+}

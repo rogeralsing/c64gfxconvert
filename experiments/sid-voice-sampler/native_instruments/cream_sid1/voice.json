@@ -1,0 +1,19 @@
+{
+  "name": "Cream native SID1 articulation candidate",
+  "status": "Listening assessment pending",
+  "source_instrument_10": "st-01:electronicguitar",
+  "profile": {
+    "sustain": 6,
+    "pulse_width": 1966,
+    "controls": {"10": 49},
+    "attack_decay": 24,
+    "release": 0,
+    "articulation": true,
+    "pre_note_ticks": 2
+  },
+  "scope": "A reused native SID program, not sample playback. Instrument 10 uses triangle+saw; other SID1 instruments keep their source recipes' waveforms under the same hardware ADSR.",
+  "articulation": "TEST rests clear GATE. A genuine source trigger or channel handoff clears the preceding GATE for 40 ms with release 0, allowing rate-counter wrap and fast release. Attack 1 avoids the measured attack-0 rate-counter delay.",
+  "source_routes": "C3 except C1 at 17.92..31.36 seconds. SID2 and SID3 are frozen.",
+  "limitations": "This does not reproduce the MOD's recorded envelope, every volume slide, or instrument 11's simultaneous fifth. Later C1 chords remain omitted.",
+  "provenance": "Measured PAL/reSID MOS8580+digiboost native waveform and ADSR probes. Combined triangle+saw raises the third-to-first harmonic amplitude ratio from approximately 0.32 to 0.90 at the tested pitch. Actual AD18/S6/R0 notes give envelope variation of approximately 0.24 versus the former flat pulse's approximately 0.003. Nine tested release-counter phases show immediate attack. These are probe measurements, not listening approval."
+}

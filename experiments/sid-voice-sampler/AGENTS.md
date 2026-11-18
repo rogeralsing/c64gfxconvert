@@ -18,8 +18,43 @@ Omitting `--full` retains the twenty-second `linus-mix-player.asm` reference,
 prepared and captured through `native_playback.py` and `native_instruments/`.
 A fresh build needs no historical `work/` score, recording or generated banks.
 
-Use the same entry point with `--song cream --full` for the complete 4:01.92
-Cream arrangement. Omitting `--full` preserves its approved 26.88-second passage
+Use the same entry point with `--song cream --full` for the selected 3:08.42
+Cream arrangement on a stock 64 KiB C64. `cream_three_minute.py` prepares the
+source, reused banks and compact scores; `cream_long_runtime.py` combines the
+504-cycle SID2 sampler with the 126-cycle SID3 sampler. SID1 uses the candidate
+in `cream_sid1_melody.py` and `native_instruments/cream_sid1/voice.json`;
+listening assessment is pending. `cream_q8_fast.py` uses generated position tables, exact held-pitch
+rebasing and constant-output paths without changing sample values. Read
+`CREAM-THREE-MINUTE.md` before changing it. The source stops at 188.16 seconds,
+where SID1 already rests, and existing one-shots drain until 188.42 seconds.
+The active output is `work/cream/sid1-repair/`. Preserve the rejected SID1
+build in `work/cream/three-minute-linus-mix/` and the former 4:01.92 result as
+baselines; do not select their rejected native instruments as a fallback.
+
+The current SID1 candidate selects C1 only at ticks 896–1567
+(17.92–31.36 seconds), restoring twelve C1 triggers and omitting six sparse
+C3 tonic/octave triggers there. It selects C3 elsewhere; later C1 chords stay
+omitted. Instrument 10 uses triangle+saw `$31`; the native profile sets AD `$18`
+(attack 1, decay 8), SR `$60` (sustain 6, release 0) and pulse width 1966. Other instruments retain
+their previous waveform recipes under the same hardware envelope. TEST rests
+clear GATE. A real source trigger or route handoff may clear the preceding
+active note's GATE for two ticks (40 ms); volume-only changes add no such edge.
+This shortens those notes and approximates the envelope. It is not exact MOD
+volume, recorded sample-envelope or instrument-11 fifth reproduction. Freeze
+both SID2/SID3 streams and clocks throughout SID1 work. Their correct data do
+not establish musical acceptance of the new SID1 program.
+
+Keep the verified startup ordering: preserve SID1's old muted AD `$00`,
+SR `$00`, GATE/TEST `$19` warmup, then clear GATE and commit the first musical
+GATE rise before applying AD `$18`. Changing that warmup altered SID2's
+initial held-level transient despite identical sampler values. The selected
+ADSR profile passes its bounded phase probes; this is not a universal SID
+envelope-reset guarantee.
+
+The first C3 polysynth/instrument-12 passage starts at 179.48 seconds.
+The 188.16-second ending excludes its next phrase, not its first appearance.
+
+Omitting `--full` preserves the approved 26.88-second passage
 (original MOD time 17.92–44.80). A request to port the next song requires its
 full length; a fresh recording of this excerpt alone is not completion.
 `cream_instruments.py`, `cream_sid.asm` and the recipes in
@@ -33,7 +68,7 @@ audio against the immutable approved Cream recording without alignment or gain
 fitting. Its guard must reject silence and equal-level noise. Keep the approved
 passage and Hyperbased bytes fixed when extending.
 
-Full Cream keeps the shared NMI and decoder but selects the optional
+The preserved 4:01.92 baseline keeps the shared NMI and decoder and selects the
 `cream_fractional.py` Q8 cursor in `full_length_runtime.build`. It replaces
 unused software-triangle work, reads original reusable banks, and preserves
 fractional position across held pitch and gain changes. Do not expand the song
@@ -44,9 +79,22 @@ The full introduction assigns C1 where specified; C1 is otherwise omitted even
 when another allocated track rests. New chord instruments use explicit major,
 minor and sus4 arpeggios. Ordinary SID volume slides remain an on/off
 approximation with continuous SR `$10`; do not claim exact source dynamics.
-`cream_reference.compare_full` checks the approved interval at its fixed native
+`cream_reference.compare_full` checks that baseline's approved interval at its fixed native
 clock position in the full recording. Never fit an offset or relax its bounds
-to hide a player regression. Full builds protect the short Cream PRG/WAVs too.
+to hide a player regression. New builds protect every short and full baseline.
+
+The selected three-minute player instead uses 512 bytes of LZ history and
+generates position tables in `$E200..$EFFF` and reserved low RAM at startup.
+Keep SID2's independent count/descriptor event stream and its asynchronous
+ring producer. Prefetch the main note before background copying. Select the
+copy size from the read pointer before the final generation check, preventing
+a buffer activation between those two operations from starting a long late
+copy. The chosen 32/16-value policy still requires the complete ring and CPU
+proof; do not infer capacity from a short phrase. Full source gain and held
+pitch changes must remain exact. Remove only neutral instrument padding.
+The dedicated runtime reads SID1's score fields directly; its pulse width,
+AD and SR are constant within the selected native profile. Never restore unnecessary per-tick SID field copying to
+consume the measured CPU reserve.
 
 Do not revive the old study/probe generators as public entry points. Extend the
 canonical player when an arrangement cannot fit; state unsupported behavior.
@@ -107,6 +155,27 @@ The source prominence detector is still future work.
 
 ## Listening decisions
 
+The selected three-minute Cream's SID1 was subsequently rejected: its later
+melody sounds like long, unintentional held notes. Repair SID1 against the
+independent original channels; freeze SID2 and SID3 while doing so. A match to
+the previous flat-pulse recording proves preservation, not musical correctness.
+Keep that recording intact as a diagnostic baseline. The original C3 guitar's
+strong upper harmonics and changing amplitude are absent from the quiet,
+constant-envelope root pulse. C1 also contains an omitted linear figure at
+17.92–31.36, rather than only chords. These are separate arrangement and
+instrument-program problems; do not change either sampler to conceal them.
+
+Cream's earlier 4:01.92 listening assessment accepts SID3, rejects SID2's
+quiet synthetic drums as musically unhelpful, and defers SID1 assessment until
+SID2 is repaired. The user hears possible missing or cut phrases on SID1.
+That SID2 repair froze SID1's level/gates and SID3; the subsequent SID1
+rejection above authorizes a separate native candidate while both samplers
+remain fixed.
+Their existing PRGs, WAVs and reusable data remain frozen. The isolated
+`--song cream --sid2-repair` audition uses original C4 drum samples on SID2
+over source time 17.92–37.92. It is a bounded experiment, not completion of the
+full-song repair. Preserve the complete player and the accepted short reference.
+
 Approved sound is a constraint, including its envelope and control history.
 Keeping the old WAV on disk while changing the player's audible behavior does
 not preserve that approval. Freeze approved instruments during unrelated work.
@@ -114,7 +183,7 @@ Memory or CPU pressure never authorizes changing their sound. Use lossless
 optimizations, keep a shorter arrangement or report the measured limit; present
 any proposed audible change separately before treating it as accepted.
 
-The SID1 regression demonstrated why matching a new model is insufficient:
+The preserved Hyperbased SID1 regression demonstrated why matching a new model is insufficient:
 zero sustain in TEST rests silenced later notes despite correct frequency and
 CONTROL values. The accepted first twenty seconds hold sustain `$20` throughout
 rests and keep GATE continuous. Descriptor byte1 marks that policy; boundary
@@ -196,7 +265,7 @@ sample stream continues. Only declared mute constants may differ in full-song
 programs; the preserved reference also permits its declared SID1 score fields.
 The all-muted run must match an independently static SID control.
 
-For the selected three minutes, verify all 1,407,497 SID3 values/prefixes, all
+For Hyperbased's selected three minutes, verify all 1,407,497 SID3 values/prefixes, all
 ordinary SID values, native triggers, end/loop state, full source-tick count,
 master volume and exact shutdown. Trace every consuming buffer activation and
 require zero late buffers in register and audio runs. Verify normal autostart,
@@ -228,6 +297,26 @@ Partition costs without double counting interrupt time inside foreground work.
 The residual includes main-loop control and busy waits; it is not guaranteed
 uniform spare time. Keep startup/prefill and shutdown outside the stated CPU
 comparison interval.
+
+For the selected Cream arrangement, verify all 1,473,337 SID3 values/prefixes,
+368,334 SID2 inputs and their global 126/504-cycle phases, all SID1 notes,
+9,421 frames and the native ending. Require zero late buffers, correct ring
+generations, full CPU tracing, true-drive autostart, unchanged baseline hashes
+and clean native/packaged PRG reproduction. For the active SID1 candidate,
+compare actual SID2/SID3 recordings with their frozen baselines at the fixed
+source clock. Keep the .98–1.02 per-window RMS and .99 audible spectral
+limits. Verify every new SID1 frequency/control and startup AD/SR/PW field;
+assess it against independent original channels and its declared approximation.
+Do not force it to match the rejected flat-pulse recording or claim listening
+approval from digital proof.
+
+The preserved three-minute baseline's SID1/SID3 comparison retains the same
+bounds. Classify its quiescent SID1 windows only from verified frequency
+zero/CONTROL `$19` and the reference floor; pool their band power for the same
+.99 limit. Do not compare independent 200 ms noise-floor spectra as musical
+instruments: the approved reference itself rejects that comparison. Retain the
+reference-only control receipt, unchanged per-window levels and negative tests
+for silence and equal-energy noise. Never alter listening audio to pass a gate.
 
 Listening files allow only a clock-anchored crop, DC removal and one constant
 gain. No EQ, limiting, timing adjustment, dynamics, host mixing or noise removal.

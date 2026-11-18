@@ -1,0 +1,41 @@
+{
+  "source_interval_s": [
+    89.6,
+    107.52
+  ],
+  "rate": 22050,
+  "frames": 395136,
+  "clips": {
+    "all": {
+      "file": "all-89.60-107.52.wav",
+      "sha256": "84effc5cba19f12ba28d34e8b06fa3fca81797386c8635a5a68801ba1beb6d5e",
+      "processing": "Exact frame slice of the independent full VICE recording; no further gain or processing."
+    },
+    "sid-1": {
+      "file": "sid-1-89.60-107.52.wav",
+      "sha256": "9f883d8f33a0f2d8590b5e876b441cba45e42a5b8e82214f3e97478e809d7aa2",
+      "processing": "Exact frame slice of the independent full VICE recording; no further gain or processing."
+    },
+    "original-C3": {
+      "file": "original-c3-89.60-107.52.wav",
+      "sha256": "ee143238c19eff3860e1a57be3064373d473a2f6a9bc915cb5646227c77562cf",
+      "decoder": "/opt/homebrew/lib/libopenmpt.dylib",
+      "mute_status": {
+        "mute_status_before": [
+          1,
+          1,
+          0,
+          1
+        ],
+        "mute_status_after": [
+          1,
+          1,
+          0,
+          1
+        ]
+      },
+      "processing": "Independent original MOD decode from time zero, only C3 enabled; exact frame crop, no gain adjustment."
+    }
+  },
+  "scope": "Compare original C3 with the same C3 phrase on SID1. This is a listening candidate, not an objective sound-quality pass."
+}

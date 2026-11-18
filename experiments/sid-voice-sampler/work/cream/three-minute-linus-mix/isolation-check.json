@@ -1,0 +1,79 @@
+{
+  "all": {
+    "passed": true,
+    "changed_immediate_addresses": [],
+    "score_instruments_and_producer_workload_unchanged": true
+  },
+  "sid-1": {
+    "passed": true,
+    "changed_immediate_addresses": [
+      2251,
+      2293,
+      2303,
+      2395,
+      2519,
+      2573,
+      32001,
+      32135,
+      32257,
+      32391
+    ],
+    "score_instruments_and_producer_workload_unchanged": true
+  },
+  "sid-2": {
+    "passed": true,
+    "changed_immediate_addresses": [
+      2246,
+      2293,
+      2303,
+      2814,
+      2822,
+      2829,
+      2831,
+      2971
+    ],
+    "score_instruments_and_producer_workload_unchanged": true
+  },
+  "sid-3": {
+    "passed": true,
+    "changed_immediate_addresses": [
+      2246,
+      2251,
+      2395,
+      2519,
+      2573,
+      2814,
+      2822,
+      2829,
+      2831,
+      2971,
+      32001,
+      32135,
+      32257,
+      32391
+    ],
+    "score_instruments_and_producer_workload_unchanged": true
+  },
+  "muted": {
+    "passed": true,
+    "changed_immediate_addresses": [
+      2246,
+      2251,
+      2293,
+      2303,
+      2395,
+      2519,
+      2573,
+      2814,
+      2822,
+      2829,
+      2831,
+      2971,
+      32001,
+      32135,
+      32257,
+      32391
+    ],
+    "score_instruments_and_producer_workload_unchanged": true
+  }
+}

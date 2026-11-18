@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "programs": {
+    "all": {
+      "sha256": "b82b413c53cad5b40433b3adc1cc0135b0f39141e453088075e1e78243972e9d",
+      "byte_identical": true
+    },
+    "sid-1": {
+      "sha256": "3ec30a4c63cef65d3c86f1956a4a27f30e4237dc7c1434e7ec8796e024e7d4b1",
+      "byte_identical": true
+    },
+    "sid-2": {
+      "sha256": "5eeaae55128385d61a070a2e8ffea371ffe7195e597b0a6cc341a7cbeea350b4",
+      "byte_identical": true
+    },
+    "sid-3": {
+      "sha256": "d747cc7cef2bdf9386d94f6d0a75616006923436adaf101d142b6e1c6fdd5bab",
+      "byte_identical": true
+    },
+    "muted": {
+      "sha256": "c4ad299d2441ffa4290155fb374e2d5fa1b1e23a9e6d78907bb2c58b497243d6",
+      "byte_identical": true
+    }
+  },
+  "scope": "All five output and mute variants rebuilt into a fresh directory from source. Every PRG byte matches the tested candidate."
+}

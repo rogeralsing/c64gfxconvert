@@ -1,0 +1,35 @@
+{
+  "passed": true,
+  "variants": {
+    "all": {
+      "passed": true,
+      "same_runtime_layout": true,
+      "only_declared_output_mutes_differ": true,
+      "changed_program_bytes": 0
+    },
+    "sid-1": {
+      "passed": true,
+      "same_runtime_layout": true,
+      "only_declared_output_mutes_differ": true,
+      "changed_program_bytes": 10
+    },
+    "sid-2": {
+      "passed": true,
+      "same_runtime_layout": true,
+      "only_declared_output_mutes_differ": true,
+      "changed_program_bytes": 1797
+    },
+    "sid-3": {
+      "passed": true,
+      "same_runtime_layout": true,
+      "only_declared_output_mutes_differ": true,
+      "changed_program_bytes": 1803
+    },
+    "muted": {
+      "passed": true,
+      "same_runtime_layout": true,
+      "only_declared_output_mutes_differ": true,
+      "changed_program_bytes": 1805
+    }
+  }
+}

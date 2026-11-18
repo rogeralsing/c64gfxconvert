@@ -1,54 +1,58 @@
 # Cream of the Earth
 
-Romeo Knight / Red Sector Inc. The full arrangement plays the complete
-4:01.92 source timeline. Two SID voices use native synthesis; one reads reused
-samples with a fractional cursor. It runs on an unexpanded C64.
+Romeo Knight / Red Sector Inc. The active arrangement plays **3:08.42** on an
+unexpanded 64 KiB C64. It combines original samples on SID2/SID3 with the
+native SID1 repair candidate. **Listening assessment is pending.**
+
+New notes stop at the source pattern boundary at **3:08.16**, where SID1 is
+already resting. Existing sounds drain before the player stops.
 
 ## Listen and run
 
-- [Full mix](full-linus-mix/all.wav)
-- [Full SID1](full-linus-mix/sid-1.wav)
-- [Full SID2](full-linus-mix/sid-2.wav)
-- [Full SID3: Linus-style samples](full-linus-mix/sid-3.wav)
-- [Full runnable PRG](full-linus-mix/player.prg)
-- [Measurements and source routing](full-linus-mix/verification.json)
-- [Omitted passages](full-linus-mix/coverage.json)
-- [Protected passage audio check](full-linus-mix/audio-reference-check.json)
-
-Original C3 uses SID1. SID2 primarily follows C4; the sampled voice primarily
-follows C2. The introduction also assigns C1 where specified. C1 is otherwise
-omitted, and quiet gaps are not filled automatically. Later chord instruments
-use arpeggios; ordinary SID volume slides are simplified to on/off. PCM gains
-and the four held pitch changes retain their native cursor state.
-
-Build from the repository root:
+- [Mix](sid1-repair/all.wav)
+- [SID1](sid1-repair/sid-1.wav)
+- [SID2](sid1-repair/sid-2.wav)
+- [SID3](sid1-repair/sid-3.wav)
+- [Runnable PRG](sid1-repair/player.prg)
+- [Verification and measurements](sid1-repair/verification.json)
+- [Instrument allocation and omissions](sid1-repair/coverage.json)
+- [Implementation and limits](../../CREAM-THREE-MINUTE.md)
 
 ```sh
 rtk proxy experiments/mod-hybrid/.venv/bin/python experiments/sid-voice-sampler/build_linus_mix.py --song cream --full
 ```
 
-Use PAL, reSID, MOS8580 + digiboost and resampling method 2. The PRG blanks the screen
-while playing. Recording uses mono 22,050 Hz; native sampling runs at 7,819.43 values/s.
-Master volume is constant during music. The WAVs use actual independent VICE
-captures, a clock-based crop, DC removal and one common constant listening gain.
-No host mixing, EQ, timing adjustment or dynamics are applied.
+Use PAL, reSID, MOS8580 + digiboost and resampling method 2. Screen blanking is
+intentional. The recording rate is mono 22,050 Hz; SID3 updates at 7,819.43
+values/s and SID2 at 1,954.86. Master volume stays constant during the music.
+No external memory, flattened song recording or host mixing is used.
 
-## Preserved passage
+SID1 follows C1 at 17.92–31.36 and C3 elsewhere. This restores twelve C1
+triggers while omitting six sparse C3 tonic/octave triggers. Its guitar now
+uses triangle+saw and hardware ADSR; GATE preparation can shorten preceding
+notes by 40 ms. This approximates the source rather than reproducing its
+recorded envelope, every volume slide or instrument 11's simultaneous fifth.
+The reusable parameters are in
+[`native_instruments/cream_sid1/voice.json`](../../native_instruments/cream_sid1/voice.json).
 
-The [26.88-second mix](linus-mix/all.wav), its
-[PRG](linus-mix/player.prg), three solo WAVs and the immutable
-[approved reference](../../references/cream/reference.wav) remain unchanged.
-This is original MOD time 17.92–44.80. Omit `--full` only when explicitly
-rebuilding that bounded passage. Its [verification](linus-mix/verification.json)
-retains the earlier measurements.
+SID2 follows C4 and plays C1's instrument 10 in the
+introduction. SID3 follows C2 and plays C1's instrument 11 in the introduction.
+Both complete sampler streams and their clocks stay fixed. Later C1 chords
+remain omitted. SID2 has limited hihat bandwidth. See
+[the listening decisions](listening-decisions.json); technical checks do not
+replace assessment of the new full mix.
 
-The full player preserves the approved instrument data, AD `$00`, SR `$10`
-and continuous GATE policy. Its real-audio gate checks that interval at the
-fixed source clock position within the complete performance. This does not
-claim the full performance is byte-identical to an isolated recording.
+## Preserved references
 
-Instrument recipes live in `../../native_instruments/cream/`. Full playback
-stores reused source/gain banks rather than a separate expanded bank per pitch.
-The shared decoder and NMI remain the same as Hyperbased's; the full Cream
-producer replaces unused triangle work with direct Q8 reading and gain lookup.
-Digital checks and audio metrics do not replace listening acceptance.
+The [twenty-second original-drum audition](sid2-repair/README.md),
+[approved 26.88-second passage](linus-mix/all.wav),
+[immutable old reference](../../references/cream/reference.wav) and
+[former 4:01.92 baseline](full-linus-mix/README.md) remain unchanged.
+The [previous 3:08.42 build](three-minute-linus-mix/README.md) also remains
+intact: its SID1 was rejected and is a diagnostic baseline. The former
+4:01.92 build's synthetic SID2 was rejected. Neither is the active full build.
+
+Omitting `--full` rebuilds only the approved original-MOD interval
+17.92–44.80. `--song cream --sid2-repair` rebuilds only the later twenty-second
+drum audition. Neither command completes or replaces the active three-minute
+arrangement.

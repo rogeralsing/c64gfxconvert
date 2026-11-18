@@ -1,0 +1,105 @@
+{
+  "beforeRestrictionRemoved": {
+    "smooth": {
+      "solid": 2168,
+      "mixture": 17454
+    },
+    "different": {
+      "solid": 7178,
+      "mixture": 0
+    },
+    "alphaBoundary": {
+      "solid": 0,
+      "mixture": 0
+    }
+  },
+  "fullPalette": {
+    "pairs": {
+      "smooth": 9811,
+      "different": 3589,
+      "alphaBoundary": 0,
+      "transparent": 2600
+    },
+    "output": {
+      "smooth": {
+        "solid": 2168,
+        "mixture": 17454
+      },
+      "different": {
+        "solid": 1123,
+        "mixture": 6055
+      },
+      "alphaBoundary": {
+        "solid": 0,
+        "mixture": 0
+      }
+    },
+    "pairedChoiceErrors": 0,
+    "individualDifferences": 3497,
+    "canvasErrors": 0,
+    "alphaErrors": 0,
+    "excludedUsed": 0,
+    "canvasVisible": true
+  },
+  "replacements": [
+    {
+      "native": 12,
+      "smooth": {
+        "mixture": 226,
+        "solid": 0
+      },
+      "different": {
+        "mixture": 205,
+        "solid": 0
+      },
+      "pairs": {
+        "0+15": 431
+      }
+    },
+    {
+      "native": 15,
+      "smooth": {
+        "mixture": 474,
+        "solid": 0
+      },
+      "different": {
+        "mixture": 416,
+        "solid": 0
+      },
+      "pairs": {
+        "7+8": 551,
+        "8+13": 339
+      }
+    }
+  ],
+  "allSolidsDisabled": {
+    "pairs": {
+      "smooth": 9811,
+      "different": 3589,
+      "alphaBoundary": 0,
+      "transparent": 2600
+    },
+    "output": {
+      "smooth": {
+        "solid": 0,
+        "mixture": 19622
+      },
+      "different": {
+        "solid": 0,
+        "mixture": 7178
+      },
+      "alphaBoundary": {
+        "solid": 0,
+        "mixture": 0
+      }
+    },
+    "pairedChoiceErrors": 0,
+    "individualDifferences": 3482,
+    "canvasErrors": 0,
+    "alphaErrors": 0,
+    "excludedUsed": 0,
+    "canvasVisible": true
+  },
+  "originalSourceSha256": "04c53a5cde65b5acb2f2309e2533155f5fac1f686a0dbb7d9a863d3407b33a40",
+  "errors": []
+}

@@ -1,0 +1,345 @@
+{
+  "project": "/Users/rogerjohansson/Downloads/Kontrastrik serietidningsposter med GIANA SISTERS-project (1).json",
+  "errors": [],
+  "snapshots": {
+    "checkers-0": {
+      "mode": "mci",
+      "backgroundColorIndex": 9,
+      "activeMode": "restricted",
+      "selectedLayer": "Giana Sisters möter den griniga kattugglan",
+      "values": {
+        "source-scale": 361,
+        "source-position-x": 176,
+        "source-position-y": 30,
+        "brightness": -25,
+        "contrast": 127,
+        "levels-black": 0,
+        "levels-white": 253,
+        "levels-gamma": 1,
+        "hue": 0,
+        "saturation": 66,
+        "rgb-noise": 0,
+        "interlace": -27,
+        "interlace-spacing": 2,
+        "interlace-direction": "diagonal-down",
+        "dither": 0,
+        "scanline-dither": false,
+        "virtual-colors": "checkers",
+        "sprite-match": 25,
+        "sprite-dither": 100
+      },
+      "viewsCurrent": true,
+      "planPending": true,
+      "exportSha256": "ebeb6c5cd30fea59dc5d126192a9d20e6905b72fdf6503ef5684c3cf8b8e6e43"
+    },
+    "lines-0": {
+      "mode": "mci",
+      "backgroundColorIndex": 9,
+      "activeMode": "restricted",
+      "selectedLayer": "Giana Sisters möter den griniga kattugglan",
+      "values": {
+        "source-scale": 361,
+        "source-position-x": 176,
+        "source-position-y": 30,
+        "brightness": -25,
+        "contrast": 127,
+        "levels-black": 0,
+        "levels-white": 253,
+        "levels-gamma": 1,
+        "hue": 0,
+        "saturation": 66,
+        "rgb-noise": 0,
+        "interlace": -27,
+        "interlace-spacing": 2,
+        "interlace-direction": "diagonal-down",
+        "dither": 0,
+        "scanline-dither": false,
+        "virtual-colors": "lines",
+        "sprite-match": 25,
+        "sprite-dither": 100
+      },
+      "viewsCurrent": true,
+      "planPending": true,
+      "exportSha256": "79b6bd80a143613d25d5c1a3ce6443813a3217b54b6fb192c85830aaaad0b787"
+    },
+    "checkers-100": {
+      "mode": "mci",
+      "backgroundColorIndex": 9,
+      "activeMode": "restricted",
+      "selectedLayer": "Giana Sisters möter den griniga kattugglan",
+      "values": {
+        "source-scale": 361,
+        "source-position-x": 176,
+        "source-position-y": 30,
+        "brightness": -25,
+        "contrast": 127,
+        "levels-black": 0,
+        "levels-white": 253,
+        "levels-gamma": 1,
+        "hue": 0,
+        "saturation": 66,
+        "rgb-noise": 0,
+        "interlace": -27,
+        "interlace-spacing": 2,
+        "interlace-direction": "diagonal-down",
+        "dither": 100,
+        "scanline-dither": false,
+        "virtual-colors": "checkers",
+        "sprite-match": 25,
+        "sprite-dither": 100
+      },
+      "viewsCurrent": true,
+      "planPending": true,
+      "exportSha256": "9abbc58feeeb4d38d801cf7924f341b0b8ec2a5544ba01dbb345aea012c97be4"
+    },
+    "lines-100": {
+      "mode": "mci",
+      "backgroundColorIndex": 9,
+      "activeMode": "restricted",
+      "selectedLayer": "Giana Sisters möter den griniga kattugglan",
+      "values": {
+        "source-scale": 361,
+        "source-position-x": 176,
+        "source-position-y": 30,
+        "brightness": -25,
+        "contrast": 127,
+        "levels-black": 0,
+        "levels-white": 253,
+        "levels-gamma": 1,
+        "hue": 0,
+        "saturation": 66,
+        "rgb-noise": 0,
+        "interlace": -27,
+        "interlace-spacing": 2,
+        "interlace-direction": "diagonal-down",
+        "dither": 100,
+        "scanline-dither": false,
+        "virtual-colors": "lines",
+        "sprite-match": 25,
+        "sprite-dither": 100
+      },
+      "viewsCurrent": true,
+      "planPending": true,
+      "exportSha256": "fa294203f7cdcb4f89004a705fb0e6cca426661b145bc4efc9799cddc11ad2e7"
+    }
+  },
+  "comparisons": {
+    "pattern-0": {
+      "palette": {
+        "pixels": 0,
+        "even": 0,
+        "odd": 0
+      },
+      "target": {
+        "pixels": 16952,
+        "even": 0,
+        "odd": 16952
+      },
+      "fullTarget": {
+        "pixels": 26870,
+        "even": 0,
+        "odd": 26870
+      },
+      "frames": [
+        {
+          "pixels": 7,
+          "even": 7,
+          "odd": 0
+        },
+        {
+          "pixels": 13116,
+          "even": 6544,
+          "odd": 6572
+        }
+      ],
+      "views": [
+        {
+          "pixels": 7,
+          "even": 7,
+          "odd": 0
+        },
+        {
+          "pixels": 13116,
+          "even": 6544,
+          "odd": 6572
+        }
+      ],
+      "canvasPhases": [
+        {
+          "pixels": 14,
+          "even": 7,
+          "odd": 7
+        },
+        {
+          "pixels": 26166,
+          "even": 13050,
+          "odd": 13116
+        }
+      ],
+      "exportBytes": 7207
+    },
+    "pattern-100": {
+      "palette": {
+        "pixels": 0,
+        "even": 0,
+        "odd": 0
+      },
+      "target": {
+        "pixels": 16979,
+        "even": 0,
+        "odd": 16979
+      },
+      "fullTarget": {
+        "pixels": 26839,
+        "even": 0,
+        "odd": 26839
+      },
+      "frames": [
+        {
+          "pixels": 5,
+          "even": 2,
+          "odd": 3
+        },
+        {
+          "pixels": 13313,
+          "even": 6541,
+          "odd": 6772
+        }
+      ],
+      "views": [
+        {
+          "pixels": 5,
+          "even": 2,
+          "odd": 3
+        },
+        {
+          "pixels": 13313,
+          "even": 6541,
+          "odd": 6772
+        }
+      ],
+      "canvasPhases": [
+        {
+          "pixels": 10,
+          "even": 5,
+          "odd": 5
+        },
+        {
+          "pixels": 26547,
+          "even": 13234,
+          "odd": 13313
+        }
+      ],
+      "exportBytes": 7336
+    },
+    "dither-checkers": {
+      "palette": {
+        "pixels": 12460,
+        "even": 9340,
+        "odd": 3120
+      },
+      "target": {
+        "pixels": 6609,
+        "even": 4988,
+        "odd": 1621
+      },
+      "fullTarget": {
+        "pixels": 10480,
+        "even": 7909,
+        "odd": 2571
+      },
+      "frames": [
+        {
+          "pixels": 6056,
+          "even": 2681,
+          "odd": 3375
+        },
+        {
+          "pixels": 2561,
+          "even": 1481,
+          "odd": 1080
+        }
+      ],
+      "views": [
+        {
+          "pixels": 6056,
+          "even": 2681,
+          "odd": 3375
+        },
+        {
+          "pixels": 2561,
+          "even": 1481,
+          "odd": 1080
+        }
+      ],
+      "canvasPhases": [
+        {
+          "pixels": 12112,
+          "even": 6056,
+          "odd": 6056
+        },
+        {
+          "pixels": 5113,
+          "even": 2552,
+          "odd": 2561
+        }
+      ],
+      "exportBytes": 6397
+    },
+    "dither-lines": {
+      "palette": {
+        "pixels": 12460,
+        "even": 9340,
+        "odd": 3120
+      },
+      "target": {
+        "pixels": 6666,
+        "even": 4988,
+        "odd": 1678
+      },
+      "fullTarget": {
+        "pixels": 10474,
+        "even": 7909,
+        "odd": 2565
+      },
+      "frames": [
+        {
+          "pixels": 6045,
+          "even": 2673,
+          "odd": 3372
+        },
+        {
+          "pixels": 2232,
+          "even": 972,
+          "odd": 1260
+        }
+      ],
+      "views": [
+        {
+          "pixels": 6045,
+          "even": 2673,
+          "odd": 3372
+        },
+        {
+          "pixels": 2232,
+          "even": 972,
+          "odd": 1260
+        }
+      ],
+      "canvasPhases": [
+        {
+          "pixels": 12090,
+          "even": 6045,
+          "odd": 6045
+        },
+        {
+          "pixels": 4453,
+          "even": 2221,
+          "odd": 2232
+        }
+      ],
+      "exportBytes": 6379
+    }
+  },
+  "passed": true
+}

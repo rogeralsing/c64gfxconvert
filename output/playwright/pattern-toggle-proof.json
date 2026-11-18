@@ -1,0 +1,117 @@
+{
+  "errors": [],
+  "baseline": [
+    {
+      "mode": "fli",
+      "borders": false,
+      "targetChanges": 0,
+      "bitmapChanges": 0,
+      "paletteChanges": 0
+    },
+    {
+      "mode": "fli",
+      "borders": true,
+      "targetChanges": 0,
+      "bitmapChanges": 0,
+      "paletteChanges": 0
+    },
+    {
+      "mode": "bitmap",
+      "borders": false,
+      "targetChanges": 0,
+      "bitmapChanges": 0,
+      "paletteChanges": 0
+    },
+    {
+      "mode": "bitmap",
+      "borders": true,
+      "targetChanges": 0,
+      "bitmapChanges": 0,
+      "paletteChanges": 0
+    },
+    {
+      "mode": "fli-sprites",
+      "borders": false,
+      "targetChanges": 0,
+      "bitmapChanges": 969,
+      "paletteChanges": 0
+    }
+  ],
+  "fixed": [
+    {
+      "mode": "fli",
+      "borders": false,
+      "targetChanges": 7522,
+      "bitmapChanges": 8224,
+      "paletteChanges": 0,
+      "exportHashes": [
+        "1d2ba0e90644c7624ca464a79977cb66cf56fa0b37da50eabb61879b43ee4845",
+        "d9accacda1a0a9b5d6ab6b1c94a42e78d867a1833289b2a61d62a991b3ade408"
+      ],
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "fli",
+      "borders": true,
+      "targetChanges": 8829,
+      "bitmapChanges": 9725,
+      "paletteChanges": 0,
+      "exportHashes": [
+        "7fcb9487f3b1f9303939e019b086137da96a1856a96c3210e5a1a1c6723b0064",
+        "2b9b26e6ef3ced3f27452a4c7eb74c0cc7ef1f09083e5b5bf7ed6c9e45fd517d"
+      ],
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "bitmap",
+      "borders": false,
+      "targetChanges": 7522,
+      "bitmapChanges": 8116,
+      "paletteChanges": 0,
+      "exportHashes": [
+        "6f259fae51478e49d40af0ad896c9c51b0220a8ff42934b1d1e0ed2605587707",
+        "6d48eaccb9bcbfcc02b04f57f4391f2f66def799bf6c51c0e009447a92404793"
+      ],
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "bitmap",
+      "borders": true,
+      "targetChanges": 9384,
+      "bitmapChanges": 10106,
+      "paletteChanges": 0,
+      "exportHashes": [
+        "10e3fe3a8fd2bf977c6ea3ee5a41db7f94828d926b325c864ff9d5793855c2ea",
+        "deb030eaf5fbf7af555fcf082e5632ea217d6813c9130aa00047e26223c2defc"
+      ],
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "fli-sprites",
+      "borders": false,
+      "targetChanges": 5469,
+      "bitmapChanges": 6799,
+      "paletteChanges": 0
+    }
+  ],
+  "dither": [
+    {
+      "mode": "fli",
+      "targetChanges": 2288,
+      "bitmapChanges": 2942,
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "bitmap",
+      "targetChanges": 2398,
+      "bitmapChanges": 3632,
+      "decodedPixelDifferences": 0
+    },
+    {
+      "mode": "fli-sprites",
+      "targetChanges": 1559,
+      "bitmapChanges": 2213
+    }
+  ],
+  "passed": true
+}

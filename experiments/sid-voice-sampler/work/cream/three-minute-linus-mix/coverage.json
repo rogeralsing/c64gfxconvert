@@ -1,0 +1,6135 @@
+{
+  "source_interval_s": [
+    0,
+    188.16
+  ],
+  "drain_end_s": 188.42,
+  "source_channels": {
+    "SID1": "C3",
+    "SID2": "C4, plus C1 instrument 10 introduction",
+    "SID3": "C2, plus C1 instrument 11 introduction"
+  },
+  "omitted_intervals": [
+    {
+      "start_tick": 868,
+      "end_tick": 872,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 875,
+      "end_tick": 881,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 882,
+      "end_tick": 896,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 896,
+      "end_tick": 901,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 910,
+      "end_tick": 915,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 917,
+      "end_tick": 922,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 931,
+      "end_tick": 936,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 945,
+      "end_tick": 950,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 952,
+      "end_tick": 957,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 966,
+      "end_tick": 971,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 973,
+      "end_tick": 978,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 987,
+      "end_tick": 992,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1008,
+      "end_tick": 1013,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1022,
+      "end_tick": 1027,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1029,
+      "end_tick": 1034,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1043,
+      "end_tick": 1048,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1064,
+      "end_tick": 1069,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1078,
+      "end_tick": 1083,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1085,
+      "end_tick": 1090,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1092,
+      "end_tick": 1096,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1099,
+      "end_tick": 1105,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1106,
+      "end_tick": 1120,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1120,
+      "end_tick": 1125,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1134,
+      "end_tick": 1139,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1141,
+      "end_tick": 1146,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1155,
+      "end_tick": 1160,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1169,
+      "end_tick": 1174,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1176,
+      "end_tick": 1181,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1190,
+      "end_tick": 1195,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1197,
+      "end_tick": 1202,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1211,
+      "end_tick": 1216,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1232,
+      "end_tick": 1237,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1246,
+      "end_tick": 1251,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1253,
+      "end_tick": 1258,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1267,
+      "end_tick": 1272,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1288,
+      "end_tick": 1293,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1302,
+      "end_tick": 1307,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1309,
+      "end_tick": 1314,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1316,
+      "end_tick": 1320,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1323,
+      "end_tick": 1329,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1330,
+      "end_tick": 1344,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1344,
+      "end_tick": 1349,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1358,
+      "end_tick": 1363,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1365,
+      "end_tick": 1370,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1379,
+      "end_tick": 1384,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1393,
+      "end_tick": 1398,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1400,
+      "end_tick": 1405,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1414,
+      "end_tick": 1419,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1421,
+      "end_tick": 1426,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1435,
+      "end_tick": 1440,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1456,
+      "end_tick": 1461,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1470,
+      "end_tick": 1475,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1477,
+      "end_tick": 1482,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1491,
+      "end_tick": 1496,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1512,
+      "end_tick": 1517,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1526,
+      "end_tick": 1531,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1533,
+      "end_tick": 1538,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1540,
+      "end_tick": 1544,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1547,
+      "end_tick": 1553,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1554,
+      "end_tick": 1568,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1568,
+      "end_tick": 1573,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1582,
+      "end_tick": 1587,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1589,
+      "end_tick": 1594,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1603,
+      "end_tick": 1608,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1617,
+      "end_tick": 1622,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1624,
+      "end_tick": 1629,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1638,
+      "end_tick": 1643,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1645,
+      "end_tick": 1650,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1659,
+      "end_tick": 1664,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1680,
+      "end_tick": 1685,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1694,
+      "end_tick": 1699,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1701,
+      "end_tick": 1706,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1715,
+      "end_tick": 1720,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1736,
+      "end_tick": 1741,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1750,
+      "end_tick": 1755,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1757,
+      "end_tick": 1762,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        11
+      ]
+    },
+    {
+      "start_tick": 1764,
+      "end_tick": 1768,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1771,
+      "end_tick": 1777,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1778,
+      "end_tick": 1792,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        10
+      ]
+    },
+    {
+      "start_tick": 1792,
+      "end_tick": 1797,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1799,
+      "end_tick": 1811,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1813,
+      "end_tick": 1825,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1827,
+      "end_tick": 1839,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1841,
+      "end_tick": 1848,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1848,
+      "end_tick": 1853,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1855,
+      "end_tick": 1867,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1869,
+      "end_tick": 1881,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1890,
+      "end_tick": 1895,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1897,
+      "end_tick": 1909,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1911,
+      "end_tick": 1923,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1925,
+      "end_tick": 1937,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1939,
+      "end_tick": 1951,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1953,
+      "end_tick": 1960,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 1960,
+      "end_tick": 1965,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1967,
+      "end_tick": 1979,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 1981,
+      "end_tick": 1993,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2002,
+      "end_tick": 2007,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2009,
+      "end_tick": 2016,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2016,
+      "end_tick": 2021,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2023,
+      "end_tick": 2035,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2037,
+      "end_tick": 2049,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2051,
+      "end_tick": 2063,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2065,
+      "end_tick": 2072,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2072,
+      "end_tick": 2077,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2079,
+      "end_tick": 2091,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2093,
+      "end_tick": 2105,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2114,
+      "end_tick": 2119,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2121,
+      "end_tick": 2128,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2128,
+      "end_tick": 2133,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2135,
+      "end_tick": 2147,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2149,
+      "end_tick": 2161,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2163,
+      "end_tick": 2175,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2177,
+      "end_tick": 2184,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2184,
+      "end_tick": 2189,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2191,
+      "end_tick": 2203,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2205,
+      "end_tick": 2213,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2219,
+      "end_tick": 2231,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2233,
+      "end_tick": 2245,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2247,
+      "end_tick": 2259,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2261,
+      "end_tick": 2273,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2275,
+      "end_tick": 2287,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2289,
+      "end_tick": 2296,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2296,
+      "end_tick": 2301,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2303,
+      "end_tick": 2315,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2317,
+      "end_tick": 2329,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2338,
+      "end_tick": 2343,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2345,
+      "end_tick": 2357,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2359,
+      "end_tick": 2371,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2373,
+      "end_tick": 2385,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2387,
+      "end_tick": 2399,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2401,
+      "end_tick": 2408,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2408,
+      "end_tick": 2413,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2415,
+      "end_tick": 2427,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2429,
+      "end_tick": 2441,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2450,
+      "end_tick": 2455,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2457,
+      "end_tick": 2464,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2464,
+      "end_tick": 2469,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2471,
+      "end_tick": 2483,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2485,
+      "end_tick": 2497,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2499,
+      "end_tick": 2511,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2513,
+      "end_tick": 2520,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2520,
+      "end_tick": 2525,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2527,
+      "end_tick": 2539,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2541,
+      "end_tick": 2553,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2562,
+      "end_tick": 2567,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2569,
+      "end_tick": 2576,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2576,
+      "end_tick": 2581,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2583,
+      "end_tick": 2595,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2597,
+      "end_tick": 2609,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2611,
+      "end_tick": 2623,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2625,
+      "end_tick": 2632,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 2632,
+      "end_tick": 2637,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2639,
+      "end_tick": 2651,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2653,
+      "end_tick": 2661,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2667,
+      "end_tick": 2688,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        9
+      ]
+    },
+    {
+      "start_tick": 2688,
+      "end_tick": 2693,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2695,
+      "end_tick": 2707,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2709,
+      "end_tick": 2721,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2723,
+      "end_tick": 2735,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2737,
+      "end_tick": 2744,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2744,
+      "end_tick": 2749,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2751,
+      "end_tick": 2763,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2765,
+      "end_tick": 2777,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2779,
+      "end_tick": 2791,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2793,
+      "end_tick": 2805,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2807,
+      "end_tick": 2819,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2821,
+      "end_tick": 2833,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2835,
+      "end_tick": 2847,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2849,
+      "end_tick": 2856,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2856,
+      "end_tick": 2861,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2863,
+      "end_tick": 2875,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2877,
+      "end_tick": 2889,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2891,
+      "end_tick": 2903,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2905,
+      "end_tick": 2912,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2912,
+      "end_tick": 2917,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2919,
+      "end_tick": 2931,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2933,
+      "end_tick": 2945,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2947,
+      "end_tick": 2959,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2961,
+      "end_tick": 2968,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 2968,
+      "end_tick": 2973,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2975,
+      "end_tick": 2987,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 2989,
+      "end_tick": 3001,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3003,
+      "end_tick": 3015,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3017,
+      "end_tick": 3024,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3024,
+      "end_tick": 3029,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3031,
+      "end_tick": 3043,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3045,
+      "end_tick": 3057,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3059,
+      "end_tick": 3071,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3073,
+      "end_tick": 3080,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3080,
+      "end_tick": 3085,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3087,
+      "end_tick": 3099,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3101,
+      "end_tick": 3113,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3115,
+      "end_tick": 3127,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3129,
+      "end_tick": 3141,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3143,
+      "end_tick": 3155,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3157,
+      "end_tick": 3169,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3171,
+      "end_tick": 3183,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3185,
+      "end_tick": 3192,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3192,
+      "end_tick": 3197,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3199,
+      "end_tick": 3211,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3213,
+      "end_tick": 3225,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3227,
+      "end_tick": 3239,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3241,
+      "end_tick": 3253,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3255,
+      "end_tick": 3267,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3269,
+      "end_tick": 3281,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3283,
+      "end_tick": 3295,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3297,
+      "end_tick": 3304,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3304,
+      "end_tick": 3309,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3311,
+      "end_tick": 3323,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3325,
+      "end_tick": 3337,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3339,
+      "end_tick": 3351,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3353,
+      "end_tick": 3360,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3360,
+      "end_tick": 3365,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3367,
+      "end_tick": 3379,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3381,
+      "end_tick": 3393,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3395,
+      "end_tick": 3407,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3409,
+      "end_tick": 3416,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3416,
+      "end_tick": 3421,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3423,
+      "end_tick": 3435,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3437,
+      "end_tick": 3449,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3451,
+      "end_tick": 3463,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3465,
+      "end_tick": 3472,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3472,
+      "end_tick": 3477,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3479,
+      "end_tick": 3491,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3493,
+      "end_tick": 3505,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3507,
+      "end_tick": 3519,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3521,
+      "end_tick": 3528,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3528,
+      "end_tick": 3533,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3535,
+      "end_tick": 3547,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3549,
+      "end_tick": 3561,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3563,
+      "end_tick": 3575,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3577,
+      "end_tick": 3589,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3591,
+      "end_tick": 3603,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3605,
+      "end_tick": 3640,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3640,
+      "end_tick": 3645,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3647,
+      "end_tick": 3659,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3661,
+      "end_tick": 3673,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3675,
+      "end_tick": 3687,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3689,
+      "end_tick": 3701,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3703,
+      "end_tick": 3715,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3717,
+      "end_tick": 3752,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3752,
+      "end_tick": 3757,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3759,
+      "end_tick": 3771,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3773,
+      "end_tick": 3785,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3787,
+      "end_tick": 3799,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3801,
+      "end_tick": 3808,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3808,
+      "end_tick": 3813,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3815,
+      "end_tick": 3827,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3829,
+      "end_tick": 3864,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 3864,
+      "end_tick": 3869,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3871,
+      "end_tick": 3883,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3885,
+      "end_tick": 3897,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3899,
+      "end_tick": 3911,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3913,
+      "end_tick": 3920,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3920,
+      "end_tick": 3925,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3927,
+      "end_tick": 3939,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3941,
+      "end_tick": 3948,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 3948,
+      "end_tick": 3981,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3983,
+      "end_tick": 3995,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 3997,
+      "end_tick": 4009,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4011,
+      "end_tick": 4023,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4025,
+      "end_tick": 4037,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4039,
+      "end_tick": 4051,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4053,
+      "end_tick": 4088,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4088,
+      "end_tick": 4093,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4095,
+      "end_tick": 4107,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4109,
+      "end_tick": 4121,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4123,
+      "end_tick": 4135,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4137,
+      "end_tick": 4149,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4151,
+      "end_tick": 4163,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4165,
+      "end_tick": 4200,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4200,
+      "end_tick": 4205,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4207,
+      "end_tick": 4219,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4221,
+      "end_tick": 4233,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4235,
+      "end_tick": 4247,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4249,
+      "end_tick": 4256,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4256,
+      "end_tick": 4261,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4263,
+      "end_tick": 4275,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4277,
+      "end_tick": 4312,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4312,
+      "end_tick": 4317,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4319,
+      "end_tick": 4331,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4333,
+      "end_tick": 4345,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4347,
+      "end_tick": 4359,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4361,
+      "end_tick": 4368,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4368,
+      "end_tick": 4373,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4375,
+      "end_tick": 4387,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4389,
+      "end_tick": 4396,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4396,
+      "end_tick": 4429,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4431,
+      "end_tick": 4443,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4445,
+      "end_tick": 4457,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4459,
+      "end_tick": 4471,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4473,
+      "end_tick": 4485,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4487,
+      "end_tick": 4499,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4501,
+      "end_tick": 4508,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4508,
+      "end_tick": 4529,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4529,
+      "end_tick": 4541,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4543,
+      "end_tick": 4555,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4557,
+      "end_tick": 4569,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4571,
+      "end_tick": 4583,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4585,
+      "end_tick": 4592,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4592,
+      "end_tick": 4597,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4599,
+      "end_tick": 4611,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4613,
+      "end_tick": 4620,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4620,
+      "end_tick": 4641,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4641,
+      "end_tick": 4648,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4648,
+      "end_tick": 4655,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4655,
+      "end_tick": 4681,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4683,
+      "end_tick": 4695,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4697,
+      "end_tick": 4704,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4704,
+      "end_tick": 4709,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4711,
+      "end_tick": 4723,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4725,
+      "end_tick": 4732,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4732,
+      "end_tick": 4753,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 4753,
+      "end_tick": 4765,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4767,
+      "end_tick": 4779,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4781,
+      "end_tick": 4793,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4795,
+      "end_tick": 4807,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4809,
+      "end_tick": 4816,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4816,
+      "end_tick": 4821,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4823,
+      "end_tick": 4835,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4837,
+      "end_tick": 4844,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4844,
+      "end_tick": 4865,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4865,
+      "end_tick": 4872,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4872,
+      "end_tick": 4879,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 4879,
+      "end_tick": 4905,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4907,
+      "end_tick": 4919,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4921,
+      "end_tick": 4933,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4935,
+      "end_tick": 4947,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4949,
+      "end_tick": 4989,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 4991,
+      "end_tick": 5003,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5005,
+      "end_tick": 5017,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5019,
+      "end_tick": 5031,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5033,
+      "end_tick": 5040,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5040,
+      "end_tick": 5045,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5047,
+      "end_tick": 5059,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5061,
+      "end_tick": 5101,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5103,
+      "end_tick": 5115,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5117,
+      "end_tick": 5129,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5131,
+      "end_tick": 5143,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5145,
+      "end_tick": 5152,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5152,
+      "end_tick": 5157,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5159,
+      "end_tick": 5171,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5173,
+      "end_tick": 5213,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5215,
+      "end_tick": 5227,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5229,
+      "end_tick": 5241,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5243,
+      "end_tick": 5255,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5257,
+      "end_tick": 5264,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5264,
+      "end_tick": 5269,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5271,
+      "end_tick": 5283,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5285,
+      "end_tick": 5325,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5327,
+      "end_tick": 5339,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5341,
+      "end_tick": 5353,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5355,
+      "end_tick": 5367,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5369,
+      "end_tick": 5376,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5376,
+      "end_tick": 5381,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5383,
+      "end_tick": 5395,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5397,
+      "end_tick": 5437,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5439,
+      "end_tick": 5451,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5453,
+      "end_tick": 5465,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5467,
+      "end_tick": 5479,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5481,
+      "end_tick": 5493,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5495,
+      "end_tick": 5507,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5509,
+      "end_tick": 5549,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5551,
+      "end_tick": 5563,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5565,
+      "end_tick": 5577,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5579,
+      "end_tick": 5591,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5593,
+      "end_tick": 5605,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5607,
+      "end_tick": 5619,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5621,
+      "end_tick": 5661,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5663,
+      "end_tick": 5675,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5677,
+      "end_tick": 5689,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5691,
+      "end_tick": 5703,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5705,
+      "end_tick": 5717,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5719,
+      "end_tick": 5731,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5733,
+      "end_tick": 5768,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 5768,
+      "end_tick": 5773,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5775,
+      "end_tick": 5787,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5789,
+      "end_tick": 5801,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5803,
+      "end_tick": 5815,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5817,
+      "end_tick": 5829,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5831,
+      "end_tick": 5843,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5845,
+      "end_tick": 5880,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5880,
+      "end_tick": 5885,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5887,
+      "end_tick": 5899,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5901,
+      "end_tick": 5913,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5915,
+      "end_tick": 5927,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5929,
+      "end_tick": 5941,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5943,
+      "end_tick": 5955,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5957,
+      "end_tick": 5992,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 5992,
+      "end_tick": 5997,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 5999,
+      "end_tick": 6011,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6013,
+      "end_tick": 6025,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6027,
+      "end_tick": 6039,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6041,
+      "end_tick": 6048,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6048,
+      "end_tick": 6053,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6055,
+      "end_tick": 6067,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6069,
+      "end_tick": 6104,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6104,
+      "end_tick": 6109,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6111,
+      "end_tick": 6123,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6125,
+      "end_tick": 6137,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6139,
+      "end_tick": 6151,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6153,
+      "end_tick": 6160,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6160,
+      "end_tick": 6165,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6167,
+      "end_tick": 6179,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6181,
+      "end_tick": 6188,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6188,
+      "end_tick": 6221,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6223,
+      "end_tick": 6235,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6237,
+      "end_tick": 6249,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6251,
+      "end_tick": 6263,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6265,
+      "end_tick": 6277,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6279,
+      "end_tick": 6291,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6293,
+      "end_tick": 6328,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6328,
+      "end_tick": 6333,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6335,
+      "end_tick": 6347,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6349,
+      "end_tick": 6361,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6363,
+      "end_tick": 6375,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6377,
+      "end_tick": 6389,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6391,
+      "end_tick": 6403,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6405,
+      "end_tick": 6440,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6440,
+      "end_tick": 6445,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6447,
+      "end_tick": 6459,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6461,
+      "end_tick": 6473,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6475,
+      "end_tick": 6487,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6489,
+      "end_tick": 6496,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6496,
+      "end_tick": 6501,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6503,
+      "end_tick": 6515,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6517,
+      "end_tick": 6552,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6552,
+      "end_tick": 6557,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6559,
+      "end_tick": 6571,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6573,
+      "end_tick": 6585,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6587,
+      "end_tick": 6599,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6601,
+      "end_tick": 6608,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6608,
+      "end_tick": 6613,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6615,
+      "end_tick": 6627,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6629,
+      "end_tick": 6636,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 6636,
+      "end_tick": 6669,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6671,
+      "end_tick": 6678,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6720,
+      "end_tick": 6725,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6727,
+      "end_tick": 6739,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6741,
+      "end_tick": 6776,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6776,
+      "end_tick": 6781,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6783,
+      "end_tick": 6795,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6797,
+      "end_tick": 6809,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6811,
+      "end_tick": 6823,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6825,
+      "end_tick": 6837,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6839,
+      "end_tick": 6851,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6853,
+      "end_tick": 6888,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6888,
+      "end_tick": 6893,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6895,
+      "end_tick": 6907,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6909,
+      "end_tick": 6921,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6923,
+      "end_tick": 6935,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6937,
+      "end_tick": 6944,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 6944,
+      "end_tick": 6949,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6951,
+      "end_tick": 6963,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 6965,
+      "end_tick": 7000,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7000,
+      "end_tick": 7005,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7007,
+      "end_tick": 7019,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7021,
+      "end_tick": 7033,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7035,
+      "end_tick": 7047,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7049,
+      "end_tick": 7056,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7056,
+      "end_tick": 7061,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7063,
+      "end_tick": 7075,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7077,
+      "end_tick": 7084,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7084,
+      "end_tick": 7117,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7119,
+      "end_tick": 7131,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7133,
+      "end_tick": 7145,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7147,
+      "end_tick": 7159,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7161,
+      "end_tick": 7173,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7175,
+      "end_tick": 7187,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7189,
+      "end_tick": 7224,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7224,
+      "end_tick": 7229,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7231,
+      "end_tick": 7243,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7245,
+      "end_tick": 7257,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7259,
+      "end_tick": 7271,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7273,
+      "end_tick": 7285,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7287,
+      "end_tick": 7299,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7301,
+      "end_tick": 7336,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7336,
+      "end_tick": 7341,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7343,
+      "end_tick": 7355,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7357,
+      "end_tick": 7369,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7371,
+      "end_tick": 7383,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7385,
+      "end_tick": 7392,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7392,
+      "end_tick": 7397,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7399,
+      "end_tick": 7411,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7413,
+      "end_tick": 7448,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7448,
+      "end_tick": 7453,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7455,
+      "end_tick": 7467,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7469,
+      "end_tick": 7481,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7483,
+      "end_tick": 7495,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7497,
+      "end_tick": 7504,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7504,
+      "end_tick": 7509,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7511,
+      "end_tick": 7523,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7525,
+      "end_tick": 7532,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7532,
+      "end_tick": 7565,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7567,
+      "end_tick": 7579,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7581,
+      "end_tick": 7593,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7595,
+      "end_tick": 7607,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7609,
+      "end_tick": 7621,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7623,
+      "end_tick": 7635,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7637,
+      "end_tick": 7644,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7644,
+      "end_tick": 7665,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7665,
+      "end_tick": 7677,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7679,
+      "end_tick": 7691,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7693,
+      "end_tick": 7705,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7707,
+      "end_tick": 7719,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7721,
+      "end_tick": 7728,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7728,
+      "end_tick": 7733,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7735,
+      "end_tick": 7747,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7749,
+      "end_tick": 7756,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7756,
+      "end_tick": 7777,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7777,
+      "end_tick": 7784,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7784,
+      "end_tick": 7791,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7791,
+      "end_tick": 7817,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7819,
+      "end_tick": 7831,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7833,
+      "end_tick": 7840,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7840,
+      "end_tick": 7845,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7847,
+      "end_tick": 7859,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7861,
+      "end_tick": 7868,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7868,
+      "end_tick": 7889,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 7889,
+      "end_tick": 7901,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7903,
+      "end_tick": 7915,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7917,
+      "end_tick": 7929,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7931,
+      "end_tick": 7943,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7945,
+      "end_tick": 7952,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 7952,
+      "end_tick": 7957,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7959,
+      "end_tick": 7971,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7973,
+      "end_tick": 7980,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 7980,
+      "end_tick": 8001,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8001,
+      "end_tick": 8008,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8008,
+      "end_tick": 8015,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8015,
+      "end_tick": 8041,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8043,
+      "end_tick": 8055,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8057,
+      "end_tick": 8069,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8071,
+      "end_tick": 8083,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8085,
+      "end_tick": 8125,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8127,
+      "end_tick": 8139,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8141,
+      "end_tick": 8153,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8155,
+      "end_tick": 8167,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8169,
+      "end_tick": 8176,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8176,
+      "end_tick": 8181,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8183,
+      "end_tick": 8195,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8197,
+      "end_tick": 8237,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8239,
+      "end_tick": 8251,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8253,
+      "end_tick": 8265,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8267,
+      "end_tick": 8279,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8281,
+      "end_tick": 8288,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8288,
+      "end_tick": 8293,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8295,
+      "end_tick": 8307,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8309,
+      "end_tick": 8349,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8351,
+      "end_tick": 8363,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8365,
+      "end_tick": 8377,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8379,
+      "end_tick": 8391,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8393,
+      "end_tick": 8400,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        15
+      ]
+    },
+    {
+      "start_tick": 8400,
+      "end_tick": 8405,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8407,
+      "end_tick": 8419,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8421,
+      "end_tick": 8461,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8463,
+      "end_tick": 8475,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8477,
+      "end_tick": 8489,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8491,
+      "end_tick": 8503,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8505,
+      "end_tick": 8512,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8512,
+      "end_tick": 8517,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8519,
+      "end_tick": 8531,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8533,
+      "end_tick": 8573,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8575,
+      "end_tick": 8587,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8589,
+      "end_tick": 8601,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8603,
+      "end_tick": 8615,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8617,
+      "end_tick": 8629,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8631,
+      "end_tick": 8643,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8645,
+      "end_tick": 8685,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8687,
+      "end_tick": 8699,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8701,
+      "end_tick": 8713,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8715,
+      "end_tick": 8727,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8729,
+      "end_tick": 8741,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8743,
+      "end_tick": 8755,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8757,
+      "end_tick": 8797,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8799,
+      "end_tick": 8811,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8813,
+      "end_tick": 8825,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8827,
+      "end_tick": 8839,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8841,
+      "end_tick": 8853,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8855,
+      "end_tick": 8867,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8869,
+      "end_tick": 8904,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8904,
+      "end_tick": 8909,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8911,
+      "end_tick": 8923,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8925,
+      "end_tick": 8937,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8939,
+      "end_tick": 8951,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8953,
+      "end_tick": 8960,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 8960,
+      "end_tick": 8965,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8967,
+      "end_tick": 8979,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 8981,
+      "end_tick": 9021,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9023,
+      "end_tick": 9035,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9037,
+      "end_tick": 9049,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9051,
+      "end_tick": 9063,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9065,
+      "end_tick": 9077,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9079,
+      "end_tick": 9091,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9093,
+      "end_tick": 9133,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9135,
+      "end_tick": 9147,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9149,
+      "end_tick": 9161,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9163,
+      "end_tick": 9175,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9177,
+      "end_tick": 9189,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9191,
+      "end_tick": 9203,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9205,
+      "end_tick": 9245,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9247,
+      "end_tick": 9259,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9261,
+      "end_tick": 9273,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9275,
+      "end_tick": 9287,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9289,
+      "end_tick": 9301,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9303,
+      "end_tick": 9315,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9317,
+      "end_tick": 9352,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        14
+      ]
+    },
+    {
+      "start_tick": 9352,
+      "end_tick": 9357,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 9359,
+      "end_tick": 9371,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 9373,
+      "end_tick": 9385,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 9387,
+      "end_tick": 9399,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    },
+    {
+      "start_tick": 9401,
+      "end_tick": 9408,
+      "channels": [
+        1
+      ],
+      "instruments": [
+        13
+      ]
+    }
+  ],
+  "scope": "C1 remains omitted outside its explicitly allocated introduction; no new following-pattern notes play during the drain."
+}

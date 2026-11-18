@@ -1,0 +1,91 @@
+{
+  "errors": [],
+  "phases": [
+    {
+      "phase": 0,
+      "png": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/batman-preview-phase-0.png",
+      "sha256": "4499ddb42ff1975fc855165fb211f7cef30c5f3d6ef31304d04803394e8f0e97"
+    },
+    {
+      "phase": 1,
+      "png": "/Users/rogerjohansson/git/asynkron/c64/output/playwright/batman-preview-phase-1.png",
+      "sha256": "855da8754bb52c161f7fdf003e57447e412bdce725429098c96d9f3ddf8ea14e"
+    }
+  ],
+  "screenshots": [
+    "/Users/rogerjohansson/git/asynkron/c64/output/playwright/batman-preview-desktop.png"
+  ],
+  "settings": {
+    "graphicsMode": "mci",
+    "borderSprites": {
+      "vertical": {
+        "enabled": true,
+        "mode": "multicolor",
+        "colorIndex": 13
+      },
+      "sides": {
+        "enabled": true,
+        "mode": "multicolor",
+        "colorIndex": 13
+      },
+      "multicolorIndices": [
+        6,
+        1
+      ]
+    },
+    "layout": {
+      "enabled": true,
+      "width": 368,
+      "height": 272,
+      "coreX": 24,
+      "coreY": 35,
+      "coreWidth": 320,
+      "coreHeight": 200,
+      "left": 24,
+      "right": 24,
+      "top": 35,
+      "bottom": 37
+    },
+    "backgroundColorIndex": 0,
+    "paletteId": "peptoette-a",
+    "virtualColorMode": "talent",
+    "layerCount": 1,
+    "imageName": "Skärmavbild 2026-11-16 kl. 18.40.25.png",
+    "canvas": [
+      368,
+      272
+    ]
+  },
+  "exports": {
+    "mci": {
+      "suppliedSha256": "9e2db5001f31fcedff8ed875a14c7cb8d86ae424f6fe2d432c2e343243c688f9",
+      "currentSha256": "9e2db5001f31fcedff8ed875a14c7cb8d86ae424f6fe2d432c2e343243c688f9",
+      "bytes": 19434,
+      "exactMatch": true,
+      "firstDifference": null
+    },
+    "sprites": {
+      "suppliedSha256": "76064eb696362ef7f099a9a4e98a556af6a6695bdd3e9f7c5abb7b35b2eae8d4",
+      "currentSha256": "76064eb696362ef7f099a9a4e98a556af6a6695bdd3e9f7c5abb7b35b2eae8d4",
+      "bytes": 6656,
+      "exactMatch": true,
+      "firstDifference": null
+    },
+    "zip": {
+      "suppliedSha256": "14e036825515fa73a48625f3d2fe0d5da1ddb23dfd744ef74cb7dde97d28eaa3",
+      "currentSha256": "14e036825515fa73a48625f3d2fe0d5da1ddb23dfd744ef74cb7dde97d28eaa3",
+      "exactMatch": true
+    },
+    "settingsMatch": true,
+    "imageMatch": true,
+    "fieldsMatch": true,
+    "spriteMetadataMatch": true
+  },
+  "horizontalOverflow": false,
+  "assetHashesAfter": {
+    "project": "eb28fd90ae22e4f7ade235567a4c008bb33835afc6ab5508d2965d780cbb4d99",
+    "mci": "9e2db5001f31fcedff8ed875a14c7cb8d86ae424f6fe2d432c2e343243c688f9",
+    "zip": "14e036825515fa73a48625f3d2fe0d5da1ddb23dfd744ef74cb7dde97d28eaa3"
+  },
+  "passed": true
+}

@@ -7,16 +7,32 @@ in the `c64-fine-pixel-dither-20261112` worktree under
 
 Each object has 48 animation poses and one blank frame. The sequence includes
 normal playback, temporal waves, temporal checkerboards, H/V/HV mirrors and
-fixed-position 2× zoom flashes. The final phases combine the star and cube.
+fixed-position 2× zoom flashes. A fixed shuffled order interleaves the objects
+throughout the loop, including the phases that combine the star and cube.
+The ball uses only normal playback and H/V/HV mirrors; it has no wave,
+checkerboard or zoom phases. The loop contains 32 phases instead of 40.
+Each main phase lasts six seconds (301 PAL fields); zoom flashes remain
+25 fields, about half a second.
 WASD moves the crop center used by later flashes; each flash keeps its crop
 fixed.
 
-The native assembly and frozen movie bytes are unchanged. The player uses a
+The frozen movie bytes are unchanged. The player uses a
 512-byte mirror-complete font with SHA-256
 `180223a47f20c13a5ca203d00d80cc49db6d3d5504589c02c0ed59d01870043f`.
-Background colors are fixed at C64 indices 0, 12, 15 and 1. Foreground colors
-vary per cell and frame. Row spans preserve the frozen movies exactly; 2× zoom
-uses an approximate glyph-quadrant lookup.
+The four frozen grayscale levels map to black plus a color trio. Each new
+phase, including a zoom flash, advances to the next trio:
+
+1. Dark blue, light blue, cyan.
+2. Brown, orange, yellow.
+3. Red, pink, light gray.
+4. Green, cyan, light green.
+5. Purple, pink, yellow.
+6. Brown, purple, pink.
+
+The palette cycle continues across the movie loop, so the next appearance
+can use a different trio. Background and visible foreground colors change
+together at presentation. Row spans preserve the frozen movie shapes exactly;
+2× zoom uses an approximate glyph-quadrant lookup.
 
 ## Build and run
 
@@ -48,6 +64,7 @@ PAL fields against an independent ECM decoder, including Color RAM commits,
 mirrors, history, flash crops and playback timing. Proofs appear under
 `build/native-check/`.
 
-The source build's PRG SHA-256 is
+The original collected build's PRG SHA-256 was
 `0f5b2b2958ff248971cf2be4ba024bc27b894822cb2c57c4eb507eaf410bd5fd`.
-The relocated build must reproduce those program bytes.
+The shuffled playlist changes the program bytes. `build/build.json` records
+the current program hash, sequence and phase durations.

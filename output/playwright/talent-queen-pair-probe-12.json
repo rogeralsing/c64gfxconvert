@@ -1,0 +1,217 @@
+{
+  "before": {
+    "width": 160,
+    "height": 200,
+    "pairs": {
+      "smooth": 9811,
+      "different": 3589,
+      "alphaBoundary": 0,
+      "transparent": 2600
+    },
+    "output": {
+      "smooth": {
+        "solid": 2168,
+        "mixture": 17454
+      },
+      "different": {
+        "solid": 7178,
+        "mixture": 0
+      },
+      "alphaBoundary": {
+        "solid": 0,
+        "mixture": 0
+      }
+    },
+    "solids": {
+      "1": {
+        "virtualIndex": 3,
+        "smooth": 30,
+        "different": 113,
+        "alphaBoundary": 0
+      },
+      "2": {
+        "virtualIndex": 6,
+        "smooth": 0,
+        "different": 1,
+        "alphaBoundary": 0
+      },
+      "3": {
+        "virtualIndex": 14,
+        "smooth": 50,
+        "different": 0,
+        "alphaBoundary": 0
+      },
+      "7": {
+        "virtualIndex": 43,
+        "smooth": 4,
+        "different": 915,
+        "alphaBoundary": 0
+      },
+      "8": {
+        "virtualIndex": 46,
+        "smooth": 56,
+        "different": 1116,
+        "alphaBoundary": 0
+      },
+      "9": {
+        "virtualIndex": 52,
+        "smooth": 0,
+        "different": 268,
+        "alphaBoundary": 0
+      },
+      "10": {
+        "virtualIndex": 54,
+        "smooth": 268,
+        "different": 1455,
+        "alphaBoundary": 0
+      },
+      "11": {
+        "virtualIndex": 58,
+        "smooth": 1060,
+        "different": 515,
+        "alphaBoundary": 0
+      },
+      "12": {
+        "virtualIndex": 61,
+        "smooth": 226,
+        "different": 1305,
+        "alphaBoundary": 0
+      },
+      "13": {
+        "virtualIndex": 64,
+        "smooth": 0,
+        "different": 24,
+        "alphaBoundary": 0
+      },
+      "15": {
+        "virtualIndex": 68,
+        "smooth": 474,
+        "different": 1466,
+        "alphaBoundary": 0
+      }
+    }
+  },
+  "disabled": {
+    "nativeIndex": 12,
+    "virtualIndex": 61,
+    "smooth": 226,
+    "different": 1305,
+    "alphaBoundary": 0
+  },
+  "after": {
+    "width": 160,
+    "height": 200,
+    "pairs": {
+      "smooth": 9811,
+      "different": 3589,
+      "alphaBoundary": 0,
+      "transparent": 2600
+    },
+    "output": {
+      "smooth": {
+        "solid": 1942,
+        "mixture": 17680
+      },
+      "different": {
+        "solid": 7178,
+        "mixture": 0
+      },
+      "alphaBoundary": {
+        "solid": 0,
+        "mixture": 0
+      }
+    },
+    "solids": {
+      "1": {
+        "virtualIndex": 3,
+        "smooth": 30,
+        "different": 113,
+        "alphaBoundary": 0
+      },
+      "2": {
+        "virtualIndex": 6,
+        "smooth": 0,
+        "different": 1,
+        "alphaBoundary": 0
+      },
+      "3": {
+        "virtualIndex": 14,
+        "smooth": 50,
+        "different": 0,
+        "alphaBoundary": 0
+      },
+      "7": {
+        "virtualIndex": 43,
+        "smooth": 4,
+        "different": 915,
+        "alphaBoundary": 0
+      },
+      "8": {
+        "virtualIndex": 46,
+        "smooth": 56,
+        "different": 1116,
+        "alphaBoundary": 0
+      },
+      "9": {
+        "virtualIndex": 52,
+        "smooth": 0,
+        "different": 268,
+        "alphaBoundary": 0
+      },
+      "10": {
+        "virtualIndex": 54,
+        "smooth": 268,
+        "different": 1455,
+        "alphaBoundary": 0
+      },
+      "11": {
+        "virtualIndex": 58,
+        "smooth": 1060,
+        "different": 515,
+        "alphaBoundary": 0
+      },
+      "13": {
+        "virtualIndex": 64,
+        "smooth": 0,
+        "different": 24,
+        "alphaBoundary": 0
+      },
+      "14": {
+        "virtualIndex": 66,
+        "smooth": 0,
+        "different": 1305,
+        "alphaBoundary": 0
+      },
+      "15": {
+        "virtualIndex": 68,
+        "smooth": 474,
+        "different": 1466,
+        "alphaBoundary": 0
+      }
+    }
+  },
+  "changed": {
+    "smooth": 226,
+    "different": 1305,
+    "alphaBoundary": 0
+  },
+  "replacementPairs": {
+    "smooth": {
+      "0+15": 226
+    },
+    "different": {
+      "14+14": 1305
+    },
+    "alphaBoundary": {}
+  },
+  "sourceUnchanged": true,
+  "pairClassificationUnchanged": true,
+  "sourceSha256": "04c53a5cde65b5acb2f2309e2533155f5fac1f686a0dbb7d9a863d3407b33a40",
+  "legend": {
+    "red": "native fallback because source vertical pair differs or alpha differs",
+    "yellow": "smooth source pair selected a solid through Talent mapper",
+    "green": "smooth source pair selected a mixture",
+    "dark": "transparent"
+  },
+  "errors": []
+}

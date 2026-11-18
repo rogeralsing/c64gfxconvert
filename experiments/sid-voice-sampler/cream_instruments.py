@@ -158,8 +158,17 @@ def _emit_bank_asm(out: Path, asset: dict) -> Path:
     return path
 
 
-def _full_sid_rows(mod: dict, ticks: list, presets: dict) -> tuple[list, list, dict]:
-    """Allocate full-song SID roles without changing the approved programs."""
+def _full_sid_rows(mod: dict, ticks: list, presets: dict, *,
+                   sid1_channels: list[int] | None = None) -> tuple[list, list, dict]:
+    """Allocate full-song SID roles, retaining each original channel's cursor.
+
+    The default keeps the preserved C3 arrangement and its approved-state
+    guard. An explicit passage map is a new arrangement: it must not inherit
+    that listening approval. Other voices still use their original routes.
+    """
+    if sid1_channels is not None and (len(sid1_channels) != len(ticks)
+                                      or any(channel not in (0, 2) for channel in sid1_channels)):
+        raise ValueError('Cream SID1 requires one explicit C1/C3 source per tick')
     raw = {s['id']: np.frombuffer(s['data'], np.int8).astype(float) / 128
            for s in mod['samples'] if s['length']}
     peaks = {i: max(float(np.sqrt(np.mean(data[j:j + 256] ** 2)))
@@ -192,7 +201,8 @@ def _full_sid_rows(mod: dict, ticks: list, presets: dict) -> tuple[list, list, d
 
         sid2_channel = (0 if index < 672 and not tick['channels'][3]['playing_sample']
                         and tick['channels'][0]['playing_sample'] == 10 else 3)
-        voices, voice_routes = [], [2, sid2_channel]
+        sid1_channel = 2 if sid1_channels is None else sid1_channels[index]
+        voices, voice_routes = [], [sid1_channel, sid2_channel]
         for channel in voice_routes:
             state = tick['channels'][channel]
             identifier = current[channel]
@@ -231,17 +241,20 @@ def _full_sid_rows(mod: dict, ticks: list, presets: dict) -> tuple[list, list, d
                 raise ValueError('Full Cream SID frequency exceeds 16 bits')
             voices += [word & 255, word >> 8, control]
         rows.append(voices)
-        routes.append({'tick': index, 'time_s': tick['time_s'], 'sid1': 3, 'sid2': sid2_channel + 1})
+        routes.append({'tick': index, 'time_s': tick['time_s'], 'sid1': sid1_channel + 1, 'sid2': sid2_channel + 1})
         drum = tick['channels'][sid2_channel]
         percussion_hits.append(sid2_channel == 3 and drum['trigger'] and drum['playing_sample'] in (*range(1, 7), 9, 17))
     for index in range(1, len(rows)):
         if percussion_hits[index] and not percussion_hits[index - 1]:
             rows[index - 1][3:] = [0, 0, 25]
     approved = bytes(value for row in rows[START_TICK:END_TICK] for value in row)
-    if hashlib.sha256(approved).hexdigest() != APPROVED_SID_ROWS_SHA256:
+    if sid1_channels is None and hashlib.sha256(approved).hexdigest() != APPROVED_SID_ROWS_SHA256:
         raise ValueError('Full Cream changed approved passage frequency/control states')
     return rows, routes, {'roots_source_samples': roots,
-                          'approved_frequency_control_sha256': hashlib.sha256(approved).hexdigest(),
+                          'approved_frequency_control_sha256': (hashlib.sha256(approved).hexdigest()
+                                                               if sid1_channels is None else None),
+                          'selected_frequency_control_sha256': hashlib.sha256(approved).hexdigest(),
+                          'new_sid1_passage_map': sid1_channels is not None,
                           'continuous_gate': [True, True], 'AD': [0, 0], 'SR': [16, 16],
                           'new_timbres': {'11': 'Measured complex tone approximated by pulse where not sampled.',
                                           '12': 'Measured monophonic polysynth root approximated by pulse.',

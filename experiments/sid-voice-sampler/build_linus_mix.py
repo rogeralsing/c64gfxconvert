@@ -15,12 +15,35 @@ def main() -> None:
     parser.add_argument("--out", type=Path)
     parser.add_argument("--song", choices=("hyperbased", "cream"), default="hyperbased")
     parser.add_argument("--full", action="store_true", help="Build the song through its chosen musical ending; preserve the bounded reference")
+    parser.add_argument("--sid2-repair", action="store_true",
+                        help="Audition original Cream drums on SID2 over source time 17.92–37.92; not a full-song replacement")
     parser.add_argument("--assemble-only", action="store_true")
     args = parser.parse_args()
+    if args.sid2_repair:
+        if args.song != "cream" or args.full:
+            parser.error("--sid2-repair requires --song cream without --full; this is a bounded repair audition")
+        from cream_drum_repair import run as repair_run
+        result = repair_run(args.out or HERE / "work/cream/sid2-repair",
+                            assemble_only=args.assemble_only)
+        print(json.dumps({"program": result["program"], "duration_s": result["duration_s"],
+                          "source_interval_s": result["source_interval_s"],
+                          "full_song": False, "audio": result.get("audio", {}),
+                          "native_verified": "native" in result}, indent=2))
+        return
     if args.song == "cream":
+        if args.full:
+            from cream_three_minute import run as cream_full_run
+            from cream_sid1_melody import profile as cream_sid1_profile
+            result = cream_full_run(args.out or HERE / "work/cream/sid1-repair",
+                                    assemble_only=args.assemble_only,
+                                    sid1_profile=cream_sid1_profile())
+            print(json.dumps({"program": result["program"], "duration_s": result["duration_s"],
+                              "source_interval_s": result["source_interval_s"],
+                              "audio": result.get("audio", {}), "native_verified": "native" in result}, indent=2))
+            return
         from cream_playback import run as cream_run
-        destination = HERE / "work/cream" / ("full-linus-mix" if args.full else "linus-mix")
-        result = cream_run(args.out or destination, assemble_only=args.assemble_only, full=args.full)
+        destination = HERE / "work/cream/linus-mix"
+        result = cream_run(args.out or destination, assemble_only=args.assemble_only)
         print(json.dumps({"program": result["program"], "duration_s": result["duration_s"],
                           "source_interval_s": result["source_interval_s"],
                           "audio": result.get("audio", {}), "native_verified": "native" in result}, indent=2))

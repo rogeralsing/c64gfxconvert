@@ -10,6 +10,9 @@ import subprocess
 HERE = Path(__file__).resolve().parent
 DEFAULT_OUTPUT = HERE / "build"
 FONT_SHA = "180223a47f20c13a5ca203d00d80cc49db6d3d5504589c02c0ed59d01870043f"
+BASE_FIELDS = 301  # Nearest whole PAL field count to six seconds.
+PALETTES = ((0, 6, 14, 3), (0, 9, 8, 7), (0, 2, 10, 15),
+            (0, 5, 3, 13), (0, 4, 10, 7), (0, 9, 4, 10))
 
 
 def sha(blob):
@@ -66,15 +69,20 @@ def main():
     (output / "movie-high-first.bin").write_bytes(first)
     (output / "movie-high-rest.bin").write_bytes(rest)
 
-    step_modes, step_objects = [], []
-    for obj in range(3):
-        for mode in range(6):
-            step_modes.extend((mode, 6))
-            step_objects.extend((obj, obj))
-    step_modes.extend((7, 6, 8, 6))
-    step_objects.extend((0, 0, 0, 0))
+    # Interleave objects throughout the loop, keeping a short zoom flash after
+    # each star/cube effect. The ball uses only rotation and mirror modes.
+    scenes = ((0, 0), (1, 0), (2, 0), (0, 1), (1, 4), (2, 3),
+              (0, 3), (1, 1), (0, 2), (2, 4), (0, 7), (1, 5),
+              (0, 4), (2, 5), (0, 8), (1, 2), (0, 5), (1, 3))
+    steps = []
+    for obj, mode in scenes:
+        steps.append((obj, mode))
+        if obj != 2:
+            steps.append((obj, 6))
+    step_objects, step_modes = map(list, zip(*steps))
     (output / "step-mode.bin").write_bytes(bytes(step_modes))
     (output / "step-object.bin").write_bytes(bytes(step_objects))
+    (output / "palette-cycle.bin").write_bytes(bytes(color for palette in PALETTES for color in palette))
     wave = (output / "wave-ages.bin").read_bytes()
     wave_packed = wave[:48] + b"".join(wave[(row + 1) * 48 - 2:(row + 1) * 48] for row in range(1, 25))
     assert len(wave_packed) == 96
@@ -90,9 +98,11 @@ def main():
         "framePointerData": "frame-pointers.bin", "stepModeData": "step-mode.bin",
         "stepObjectData": "step-object.bin", "lowMovieData": "movie-low.bin",
         "highFirstData": "movie-high-first.bin", "highRestData": "movie-high-rest.bin",
+        "paletteData": "palette-cycle.bin",
     }
     prelude = [f'.var {name}=LoadBinary("{file}")' for name, file in binary_vars.items()]
     prelude.append(f".const highMovieSize={len(high)}")
+    prelude.append(f".const baseFields={BASE_FIELDS}")
     prelude.append(f'.import source "{HERE / "effects-player.asm"}"')
     (output / "main.asm").write_text("\n".join(prelude) + "\n")
     command = [str(Path.home() / ".local/bin/kickass"), "main.asm", "-odir", str(output), "-o", str(output / "player.prg"), "-symbolfile"]
@@ -115,7 +125,9 @@ def main():
         assert program[at:at + segment["bytes"]] == (output / segment["file"]).read_bytes()
     build = {"passed": True, "format": assets["format"], "fontSha256": FONT_SHA,
              "objects": objects, "frameCount": 49, "stepMode": step_modes, "stepObject": step_objects,
-             "modeFields": [25 if i & 1 else 501 for i in range(40)],
+             "modeFields": [25 if mode == 6 else BASE_FIELDS for mode in step_modes],
+             "baseFields": BASE_FIELDS, "requestedBaseSeconds": 6,
+             "paletteCycleC64": PALETTES,
              "sourceAdvance": 1, "targetFPS": None, "paletteC64": assets["paletteC64"],
              "rowRendering": {
                  "sourceStream": "Indexed within one source row; one boundary check per encoded token",
@@ -127,7 +139,7 @@ def main():
              "waveTablePacking": {"sourceBytes": len(wave), "runtimeBytes": len(wave_packed),
                                   "rowStride": 2, "all1200SourceLookupsExact": True,
                                   "runtimeFile": "wave-packed.bin", "sha256": sha(wave_packed)},
-             "palettePolicy": "Fixed grayscale; source foreground varies per cell and frame",
+             "palettePolicy": "Frozen grayscale source slots map to black plus a color trio; advance the six-palette cycle each phase, including flashes and loop wrap",
              "foregroundUpdates": {
                  "shadowStart": 0x0c00, "shadowBytes": 1024,
                  "shadowPolicy": "Retain actual foreground for invisible glyph0; compare final transformed visible foreground while plotting",
@@ -159,7 +171,7 @@ def main():
     budget_at = labels["preparation_budget"] - load_start + 2
     budget_bytes = list(program[budget_at:budget_at + 27])
     build["preparationBudgets"] = [budget_bytes[index:index + 9] for index in range(0, 27, 9)]
-    build["preparationBudgetPolicy"] = "Full 48-pose preparation bound including retained FG2 and cold wave cache; add 12201 full-copy commit cycles, divide by 18456 available PAL CPU cycles, round up and add one safety field"
+    build["preparationBudgetPolicy"] = "Full 48-pose preparation bound including retained FG2 and cold wave cache; add 12201 full-copy commit cycles, divide by 18456 available PAL CPU cycles, round up and add one safety field; add one field for final foreground palette mapping and palette preparation"
     build["playerSources"] = {name: sha((HERE / name).read_bytes()) for name in
                               ("effects-player.asm", "effects-row-cache.asm", "build-effects-player.py")}
     (output / "build.json").write_text(json.dumps(build, indent=2) + "\n")
