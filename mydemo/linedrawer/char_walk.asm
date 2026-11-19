@@ -320,20 +320,27 @@ drawCharLine:
 // cell mark it with a blank glyph until the next clear.
 .macro StampWithCrossingHoles(screenPointer) {
     ldy #0
-    lda (screenPointer),y
-    beq !empty+
-    cmp #HOLE_CODE
-    beq !done+
-    stx jcode
-    cmp jcode
-    beq !done+
-    lda #HOLE_CODE
-    bne !write+
-!empty:
-    txa
-!write:
-    sta (screenPointer),y
-!done:
+    // Clean builds dispatch to drawHoleGroups before this generic block.
+    .if (CLEAN_JUNCTIONS) {
+        txa
+        ora (screenPointer),y
+        sta (screenPointer),y
+    } else {
+        lda (screenPointer),y
+        beq !empty+
+        cmp #HOLE_CODE
+        beq !done+
+        stx jcode
+        cmp jcode
+        beq !done+
+        lda #HOLE_CODE
+        bne !write+
+    !empty:
+        txa
+    !write:
+        sta (screenPointer),y
+    !done:
+    }
 }
 
 // The middle of a line advances four samples per block. Its two glyph

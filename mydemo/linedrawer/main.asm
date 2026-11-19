@@ -10,7 +10,11 @@
 // unsupported. Direction records ship for the demo directions only, but the
 // code path is fully general.
 
-.const HOLE_UNROLL = 4
+// The clean-junction kernels reserve more space per unrolled block.
+.const EXACT_CORNERS = cmdLineVars.containsKey("exactCorners")
+.const FIXED_JUNCTION_FONT = cmdLineVars.containsKey("fixedJunctionFont")
+.const CLEAN_JUNCTIONS = EXACT_CORNERS || FIXED_JUNCTION_FONT
+.const HOLE_UNROLL = CLEAN_JUNCTIONS ? 2 : 4
 .const IS_MESH = cmdLineVars.containsKey("mesh")
 .const COMPACT_JOINS = cmdLineVars.containsKey("compactJoins")
 .const COMPACT_FIRST_PATCH = 234
@@ -50,6 +54,10 @@
 .const HASH_DISP_HI = $9800
 .const JOINTT  = $a700          // 55 joint slot patterns (words)
 .const JCOUNT  = $a770          // allocated joint slots
+
+.label slotLane=$18
+.label nextPatch=$19
+.label exactOverflow=JCOUNT+1
 
 BasicUpstart2(start)
 
@@ -1886,6 +1894,11 @@ bithi:
 clearScreenJoints:
     lda #0
     sta JCOUNT
+    .if (CLEAN_JUNCTIONS) {
+        sta exactOverflow
+        lda #201
+        sta nextPatch
+    }
     jmp clearPreviousBox
 
 // Publish both addresses with one VIC register write in the border.
@@ -2267,8 +2280,19 @@ cubeLoop:
     jsr findVisibleFaces
     jsr rememberCubeBox
     .if (CROSSING_HOLES) {
+        .if (CLEAN_JUNCTIONS) {
+            lda thinFound
+            beq !clean+
+            jsr thinClearOmissions
+        !clean:
+        }
         lda meshNeedsClip
         bne !clipped+
+        .if (CLEAN_JUNCTIONS) {
+            jsr thinGate
+            lda thinFound
+            bne !clipped+
+        }
         jsr drawInsideMesh
         jmp meshEdgesDone
     !clipped:
@@ -2278,6 +2302,10 @@ cubeLoop:
 edgeLoop:
     .if (IS_MESH) {
         ldx ecount
+        .if (CLEAN_JUNCTIONS) {
+            lda thinSkip,x
+            bne !nextEdge+
+        }
         ldy meshEdgeFaceA,x
         lda meshVisibleFaces,y
         bne !draw+
@@ -2344,6 +2372,7 @@ edgeLoop:
     }
     bne edgeLoop
 meshEdgesDone:
+    .if (CLEAN_JUNCTIONS) { jsr flushJunctions }
     .if (COMPACT_JOINS) { jsr flushCompact }
     jsr showFrame
     inc phYaw
@@ -2553,3 +2582,5 @@ edgestab:
 }
 
 .if (CROSSING_HOLES) { .import source "hole_unroll.asm" }
+
+.if (CLEAN_JUNCTIONS) { .import source "clean_junctions.asm" }

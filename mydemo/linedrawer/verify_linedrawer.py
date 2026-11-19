@@ -24,6 +24,7 @@ JCOUNT = 0xa770
 COMPACT_PATCH_START = 234
 ONE_CHAR_CODE = 201
 HOLE_CODE = 201
+FIRST_PRIVATE_GLYPH = 201
 BUFFERS = ((0x0400, 0x2000, 0x18), (0x2c00, 0x3000, 0xbc))
 PAL_LINES = 312
 PAL_CYCLES_PER_LINE = 63
@@ -179,6 +180,28 @@ def compare_crossing_holes(index, screen, tile_to_code, allocated):
     return matches, report
 
 
+def compare_exact_corners(index, screen, charset, tile_to_code, allocated):
+    """Check the visible union and that each patch belongs to a single cell."""
+    from thin_faces import expected
+
+    masks, counts = expected(index, tile_to_code)
+    different = []
+    private_codes = []
+    for cell, code in enumerate(screen[:1000]):
+        mask = masks.get(cell, 0)
+        rows = charset[8 * code:8 * (code + 1)]
+        if rows != glyph_rows(mask) or (mask == 0) != (code == 0):
+            different.append((cell % 40, cell // 40, code, mask, rows.hex()))
+        if code >= FIRST_PRIVATE_GLYPH:
+            private_codes.append(code)
+    slots_valid = sorted(private_codes) == list(range(FIRST_PRIVATE_GLYPH, FIRST_PRIVATE_GLYPH + allocated))
+    return not different and slots_valid, {
+        "displayedGlyphsEqual": not different, "firstDiffCells": different[:8],
+        "patchCount": allocated, "jointSlots": allocated, "privateSlotsValid": slots_valid,
+        "omittedEdges": counts["removed"],
+    }
+
+
 def compare_zero_patch(expected, screen, allocated):
     different = [(cell % 40, cell // 40, code, screen[cell])
                  for cell, code in enumerate(expected) if screen[cell] != code]
@@ -212,6 +235,13 @@ def scanout_errors(picture, screen, charset):
     return errors
 
 
+def add_junction_renderers(group):
+    group.add_argument("--exact-corners", dest="junction", action="store_const", const="exact-corners",
+                       help="verify the globe with private glyphs at crossings")
+    group.add_argument("--fixed-junction-font", dest="junction", action="store_const", const="fixed-junction-font",
+                       help="verify the globe with the immutable junction font")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
@@ -220,18 +250,23 @@ def main():
     renderer.add_argument("--compact-joins", action="store_true", help="verify the compact-font globe")
     renderer.add_argument("--one-char", action="store_true", help="verify the solid-block globe")
     renderer.add_argument("--crossing-holes", action="store_true", help="verify the globe with blank crossings")
+    add_junction_renderers(renderer)
     parser.add_argument("--build", type=Path,
                         help="directory containing the selected PRG and matching main.sym")
-    parser.add_argument("--frames", type=int, nargs="+", default=[0, 1, 2, 3, 16, 64, 196, 197],
+    frames = parser.add_mutually_exclusive_group()
+    frames.add_argument("--frames", type=int, nargs="+", default=[0, 1, 2, 3, 16, 64, 196, 197],
                         help="zero-based frames to verify during normal animation (0..255)")
+    frames.add_argument("--all-frames", action="store_true", help="verify all 256 poses and PAL scanouts")
     parser.add_argument("--timeout", type=float, default=30,
                         help="maximum seconds waiting for each VICE monitor response")
     args = parser.parse_args()
     if any(not 0 <= frame <= 255 for frame in args.frames) or not 0 < args.timeout <= 60:
         parser.error("--frames must be 0..255 and --timeout must be greater than 0 and at most 60")
 
-    zero_patch = args.one_char or args.crossing_holes
-    globe_only = args.compact_joins or zero_patch
+    exact_corners = args.junction == "exact-corners"
+    fixed_junction_font = args.junction == "fixed-junction-font"
+    zero_patch = args.one_char or args.crossing_holes or fixed_junction_font
+    globe_only = args.compact_joins or zero_patch or exact_corners
     shape = args.shape or ("globe" if globe_only else "cube")
     flag = None
     variant = shape
@@ -241,12 +276,14 @@ def main():
         flag, variant = "--one-char", "globe-one-char"
     elif args.crossing_holes:
         flag, variant = "--crossing-holes", "globe-holes"
+    elif args.junction:
+        flag, variant = f"--{args.junction}", f"globe-{args.junction}"
     if flag and shape != "globe":
         parser.error(f"{flag} requires the globe")
     default_output = BUILD if variant == "cube" else BUILD / variant
     output = (args.build or default_output).resolve()
     program = output / ("linedrawer.prg" if variant == "cube" else f"{variant}.prg")
-    selected = set(args.frames)
+    selected = set(range(256) if args.all_frames else args.frames)
     last = max(selected)
     report = {"shape": shape, "passed": False, "defaultLaunch": False, "doubleBuffered": False,
               "frontIntegrityChecks": 0, "presentationsChecked": 0, "frames": []}
@@ -258,11 +295,17 @@ def main():
             report["compactJoins"] = True
         elif args.one_char:
             report["oneChar"] = True
+        elif fixed_junction_font:
+            from fixed_junction_font import assets, expected_screen
+            expected_font = assets()["charset"]
+            report["fixedJunctionFont"] = True
         else:
             import linedrawer
 
             if args.crossing_holes:
                 report["crossingHoles"] = True
+            elif exact_corners:
+                report["exactCorners"] = True
             elif shape == "cube":
                 from cube_model import frame_screen
             else:
@@ -304,8 +347,12 @@ def main():
         report["defaultLaunch"] = initial_mode == 0 and initial_frame == 0
         if not report["defaultLaunch"]:
             raise AssertionError(f"Default launch did not start free animation: MODE={initial_mode}, frame={initial_frame}")
-        if zero_patch:
+        if zero_patch or exact_corners:
             initial_fonts = [buffer_bytes(initial, pair)[1] for pair in BUFFERS]
+        if args.junction:
+            report["originalFontsInBothCharsets"] = all(font == expected_font for font in initial_fonts)
+            if not report["originalFontsInBothCharsets"]:
+                raise AssertionError("Both VIC banks must start with the expected font")
         if args.one_char:
             report["fixedBlockGlyphInBothCharsets"] = all(one_char_font_ok(font) for font in initial_fonts)
             if not report["fixedBlockGlyphInBothCharsets"]:
@@ -330,7 +377,9 @@ def main():
             if registers["pc"] != present:
                 raise AssertionError(f"Animation halted before presenting {shape} frame {index}")
             monitor.run("bank ram")
-            last_byte = JCOUNT if globe_only and index in selected else 0x3fff
+            last_byte = 0x3fff
+            if globe_only and index in selected:
+                last_byte = JCOUNT + 1 if args.junction else JCOUNT
             memory = monitor.dump(output / "last-before-present.bin", 0, last_byte)
             front_screen, front_charset = buffer_bytes(memory, BUFFERS[front])
             monitor.run("bank io")
@@ -408,9 +457,15 @@ def main():
                 matches, glyph_report = compare_one_char(index, screen, memory[JCOUNT])
             elif args.crossing_holes:
                 matches, glyph_report = compare_crossing_holes(index, screen, tile_to_code, memory[JCOUNT])
+            elif exact_corners:
+                matches, glyph_report = compare_exact_corners(index, screen, charset, tile_to_code, memory[JCOUNT])
+            elif fixed_junction_font:
+                matches, glyph_report = compare_zero_patch(expected_screen(index), screen, memory[JCOUNT])
             else:
                 matches, glyph_report = compare_normal(index, frame_screen, tile_to_code,
                                                        screen, charset, expected_font)
+            if args.junction and memory[JCOUNT + 1]:
+                raise AssertionError(f"Junction slot pool exhausted in frame {index}")
             mode_ok = (vic[0] & 0x60) == 0 and (vic[5] & 0x10) == 0
             addresses_ok = d018_after == BUFFERS[front][2] and (bank & 3) == 3
             colors_ok = (vic[16] & 15) == 0 and all((color & 15) == 1 for color in colors)

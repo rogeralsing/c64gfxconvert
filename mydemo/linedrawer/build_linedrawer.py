@@ -87,7 +87,7 @@ def build_displaced_bank(tile_to_code):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--shape", choices=("cube", "football", "globe"), default="cube")
+    parser.add_argument("--shape", choices=("cube", "football", "globe"))
     renderer_options = parser.add_mutually_exclusive_group()
     renderer_options.add_argument("--compact-joins", action="store_true",
                                   help="use the web lab's compact hybrid font for the globe")
@@ -95,8 +95,16 @@ def main():
                                   help="benchmark the globe using one fixed block character")
     renderer_options.add_argument("--crossing-holes", action="store_true",
                                   help="use fixed line glyphs and blank cells where they cross")
+    renderer_options.add_argument("--exact-corners", action="store_true",
+                                  help="draw the globe with exact private corner glyphs")
+    renderer_options.add_argument("--fixed-junction-font", action="store_true",
+                                  help="draw the globe with a fixed font of connected glyphs")
     args = parser.parse_args()
-    shape = args.shape
+    clean_junctions = args.exact_corners or args.fixed_junction_font
+    shape = args.shape or ("globe" if clean_junctions else "cube")
+    if clean_junctions and shape != "globe":
+        parser.error("the clean junction renderers require --shape globe")
+    window_walker = args.crossing_holes or clean_junctions
     if args.compact_joins and shape != "globe":
         parser.error("--compact-joins requires --shape globe")
     if args.one_char and shape != "globe":
@@ -114,6 +122,12 @@ def main():
     elif args.crossing_holes:
         variant = "globe-holes"
         renderer = "fixed glyphs with crossing holes"
+    elif args.exact_corners:
+        variant = "globe-exact-corners"
+        renderer = "geometric silhouette snapping and exact private collision glyphs"
+    elif args.fixed_junction_font:
+        variant = "globe-fixed-junction-font"
+        renderer = "geometric silhouette snapping and immutable covering glyphs"
     output = BUILD if shape == "cube" else BUILD / variant
     output.mkdir(parents=True, exist_ok=True)
     program = output / ("linedrawer.prg" if shape == "cube" else f"{variant}.prg")
@@ -146,12 +160,12 @@ def main():
     for pat, code in tile_to_code.items():
         revlo[code + 1] = pat & 0xFF
         revhi[code + 1] = pat >> 8
-    glyph_lookup = {} if args.crossing_holes else build_displaced_bank(tile_to_code)
+    glyph_lookup = {} if window_walker else build_displaced_bank(tile_to_code)
 
     rev8 = bytes(int(f"{value:08b}"[::-1], 2) for value in range(256))
     # Full bit reversal swaps the two 4-bit rows. Keep their order for H flips.
     hrev8 = bytes((value >> 4) | ((value & 15) << 4) for value in rev8)
-    if args.crossing_holes:
+    if window_walker:
         import hole_templates
         stamps = hole_templates.build(tile_to_code)
     else:
@@ -166,6 +180,12 @@ def main():
         **glyph_lookup,
         **stamps,
     }
+    if clean_junctions:
+        import thin_faces
+        thin_faces.write_native(BUILD)
+    if args.fixed_junction_font:
+        import fixed_junction_font
+        generated.update(fixed_junction_font.assets())
     for name, data in generated.items():
         (BUILD / f"{name}.bin").write_bytes(data)
 
@@ -192,16 +212,20 @@ def main():
                             "compact-hash-codes"))
     if args.one_char:
         assembler_args.append(":oneChar=1")
-    if args.crossing_holes:
+    if window_walker:
         depth, sweep = ball_model.HOLES_CAMERA
         y_sweep = ball_model.HOLES_Y_SWEEP
         assembler_args.extend((":crossingHoles=1", f":cameraDepth={depth}", f":cameraSweep={sweep}",
                                f":motionY={y_sweep}"))
         frame_segments = partial(ball_model.frame_segments, shape, camera=ball_model.HOLES_CAMERA,
                                  y_sweep=y_sweep)
+    if clean_junctions:
+        assembler_args.append(":exactCorners=1" if args.exact_corners else ":fixedJunctionFont=1")
+        mesh_binary.extend(("thin-topology", "thin-gate"))
+        frame_segments = thin_faces.frame_segments
     endpoint_cases = cube_model.prove_normalized_endpoints()
     coverage_misses = cube_model.coverage_receipt(tile_to_code, segments_for=frame_segments)
-    if not (args.compact_joins or args.one_char or args.crossing_holes):
+    if not (args.compact_joins or args.one_char or window_walker):
         for n in range(cube_model.FRAMES_TO_VERIFY):
             screen, _ = frame_screen(n, tile_to_code)
             (output / f"expected_frame{n}.bin").write_bytes(screen)
@@ -225,7 +249,7 @@ def main():
         data = (BUILD / f"{name}.bin").read_bytes()
         binaries[name] = {"bytes": len(data), "sha256": sha(data)}
     stamp_bytes = sum(len(data) for data in stamps.values())
-    if args.crossing_holes:
+    if window_walker:
         symbols = (output / "main.sym").read_text()
         native_size = re.search(r"^\.label assembledHoleGlyphBytes=\$([\da-fA-F]+)\b", symbols, re.M)
         if native_size is None:
@@ -249,6 +273,10 @@ def main():
         "jointSlotsUsed": len(demo_joints),
         "binaries": binaries,
     }
+    if args.fixed_junction_font:
+        report["fixedFontCodes"] = 256
+        report["glyphLookupBytes"] = sum(len(data) for name, data in generated.items()
+                                         if name.startswith("cover-"))
     (output / "linedrawer.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: report[k] for k in (
         "passed", "shape", "defaultRenderer", "glyphs", "characterTableBytes", "glyphLookupBytes",

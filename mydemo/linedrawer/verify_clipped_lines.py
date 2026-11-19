@@ -12,7 +12,7 @@ from tempfile import TemporaryDirectory
 
 from clip_reference import HEIGHT, WIDTH, visible_segment
 from cube_model import normalized_cells
-from verify_linedrawer import BUFFERS, BUILD, glyph_rows, load_monitor, sha, symbol
+from verify_linedrawer import BUFFERS, BUILD, add_junction_renderers, glyph_rows, load_monitor, sha, symbol
 
 
 CALL_STUB = 0xc000
@@ -153,13 +153,12 @@ def entry_stub(addresses, segment, screen, charset):
     return code
 
 
-def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_holes=False):
+def verify_case(monitor, addresses, dump_file, pair, label, segment, window_walker=False, guard_end=GUARD_END):
     screen, charset, _ = pair
     screen_end = screen + 1000
     monitor.run(f"fill {screen:04x} {screen_end - 1:04x} 00")
     stub = entry_stub(addresses, segment, screen, charset)
     monitor.run(f"> {CALL_STUB:04x} {stub.hex(' ')}")
-    guard_end = 0xcfff if crossing_holes else GUARD_END
     before = bytearray(monitor.dump(dump_file, GUARD_START, guard_end))
     monitor.run(f"g {CALL_STUB:04x}")
     entry = monitor.registers()
@@ -171,7 +170,7 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_ho
         raise AssertionError(f"{label}: native clip routine did not return")
     after = monitor.dump(dump_file, GUARD_START, guard_end)
     clipped = visible_segment(segment)
-    if crossing_holes:
+    if window_walker:
         check_walker_operands(addresses, before, after, clipped)
 
     lower, upper = screen - GUARD_START, screen_end - GUARD_START
@@ -196,20 +195,24 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_ho
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
-    parser.add_argument("--crossing-holes", action="store_true",
-                        help="check the globe's fixed-glyph drawer on both buffers and all eight octants")
+    renderer = parser.add_mutually_exclusive_group()
+    renderer.add_argument("--crossing-holes", action="store_true",
+                          help="check the globe's fixed-glyph drawer on both buffers and all eight octants")
+    add_junction_renderers(renderer)
     parser.add_argument("--build", type=Path, help="directory containing the PRG and its matching main.sym")
     args = parser.parse_args()
-    default = BUILD / "globe-holes" if args.crossing_holes else BUILD
+    window_walker = args.crossing_holes or bool(args.junction)
+    variant = f"globe-{args.junction}" if args.junction else "globe-holes"
+    default = BUILD / variant if window_walker else BUILD
     build = (args.build or default).resolve()
-    program = build / ("globe-holes.prg" if args.crossing_holes else "linedrawer.prg")
+    program = build / (f"{variant}.prg" if window_walker else "linedrawer.prg")
     report = {"passed": False, "programSha256": sha(program.read_bytes()), "cases": []}
     process = connection = None
     try:
         text = (build / "main.sym").read_text()
         addresses = {name: symbol(text, name) for name in (*LOW_BYTES, *HIGH_BYTES, "baseLo",
                     "baseHi", "drawCharsetHi", "cubeLoop", "drawClippedLine", "halt")}
-        if args.crossing_holes:
+        if window_walker:
             for name in ("firstEmpty", "firstBusy", "secondGlyph", "holeFullFirst", "holeFullSecond",
                          "holePartialDispatch", "holePartialJumps", "holeTailDot"):
                 if f".label {name}=" in text:
@@ -237,12 +240,15 @@ def main():
             if monitor.registers()["pc"] != addresses["cubeLoop"]:
                 raise AssertionError("Default launch halted before initializing the line drawer")
             monitor.run("bank ram")
-            segments = crossing_segments() if args.crossing_holes else test_segments()
+            segments = crossing_segments() if window_walker else test_segments()
+            guard_end = GUARD_END
+            if window_walker:
+                guard_end = 0xffff if args.junction else 0xcfff
             for index, (label, segment) in enumerate(segments):
-                pairs = BUFFERS if args.crossing_holes else (BUFFERS[index % len(BUFFERS)],)
+                pairs = BUFFERS if window_walker else (BUFFERS[index % len(BUFFERS)],)
                 for pair in pairs:
                     report["cases"].append(verify_case(monitor, addresses, scratch / "ram.bin",
-                                                       pair, label, segment, args.crossing_holes))
+                                                       pair, label, segment, window_walker, guard_end))
         report["passed"] = True
     except Exception as error:
         report["error"] = f"{type(error).__name__}: {error}"

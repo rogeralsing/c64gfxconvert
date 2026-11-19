@@ -162,57 +162,99 @@ holePartialDispatch:
     jmp (holePartialJumps)
 
 holeDirectPair:
-    sta cwSecond
-    ldy holePrimaryY
-    lda (scrLo),y
-    beq !empty+
-    cmp #HOLE_CODE
-    beq !second+
-    stx jcode
-    cmp jcode
-    beq !second+
-    lda #HOLE_CODE
-    bne !write+
+    .if (CLEAN_JUNCTIONS) {
+        cmp #0
+        beq holeOnlyFirst
+        sta jcode
+        ldy holeSecondaryY
+        lda (scrLo),y
+        beq !empty+
+        cmp jcode
+        beq holeOnlyFirst
+        stx slotLane
+        .if (FIXED_JUNCTION_FONT) { sty coverOffset }
+        tay
+        ldx jcode
+        jsr mergeJunction
+        ldx slotLane
+        ldy holeSecondaryY
+        bpl !store+
 !empty:
-    txa
+        lda jcode
+!store:
+        sta (scrLo),y
+    } else {
+        sta cwSecond
+        ldy holePrimaryY
+        lda (scrLo),y
+        beq !empty+
+        cmp #HOLE_CODE
+        beq !second+
+        stx jcode
+        cmp jcode
+        beq !second+
+        lda #HOLE_CODE
+        bne !write+
+!empty:
+        txa
 !write:
-    sta (scrLo),y
+        sta (scrLo),y
 !second:
-    ldx cwSecond
-    beq !done+
-    ldy holeSecondaryY
-    lda (scrLo),y
-    beq !empty+
-    cmp #HOLE_CODE
-    beq !done+
-    cmp cwSecond
-    beq !done+
-    lda #HOLE_CODE
-    bne !write+
+        ldx cwSecond
+        beq !done+
+        ldy holeSecondaryY
+        lda (scrLo),y
+        beq !empty+
+        cmp #HOLE_CODE
+        beq !done+
+        cmp cwSecond
+        beq !done+
+        lda #HOLE_CODE
+        bne !write+
 !empty:
-    txa
+        txa
 !write:
-    sta (scrLo),y
+        sta (scrLo),y
 !done:
-    rts
-
+        rts
+    }
 holeOnlyFirst:
-    ldy holePrimaryY
-    lda (scrLo),y
-    bne !occupied+
-    txa
-    sta (scrLo),y
-    rts
-!occupied:
-    cmp #HOLE_CODE
-    beq !done+
-    stx jcode
-    cmp jcode
-    beq !done+
-    lda #HOLE_CODE
-    sta (scrLo),y
+    .if (CLEAN_JUNCTIONS) {
+        ldy holePrimaryY
+        lda (scrLo),y
+        beq !empty+
+        stx jcode
+        cmp jcode
+        beq !done+
+        .if (FIXED_JUNCTION_FONT) { sty coverOffset }
+        tay
+        jsr mergeJunction
+        ldy holePrimaryY
+        bpl !store+
+!empty:
+        txa
+!store:
+        sta (scrLo),y
 !done:
-    rts
+        rts
+    } else {
+        ldy holePrimaryY
+        lda (scrLo),y
+        bne !occupied+
+        txa
+        sta (scrLo),y
+        rts
+!occupied:
+        cmp #HOLE_CODE
+        beq !done+
+        stx jcode
+        cmp jcode
+        beq !done+
+        lda #HOLE_CODE
+        sta (scrLo),y
+!done:
+        rts
+    }
 
 holeCountIndex: .byte 0, 0, 8, 16, 24
 holeStartIndex: .byte 0, 32, 64, 96

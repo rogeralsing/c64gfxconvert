@@ -118,6 +118,37 @@ Verify this variant with `rtk proxy python3 mydemo/linedrawer/verify_linedrawer.
 The [large-globe line study](LINE-PERFORMANCE.md) compares edge ordering, shared endpoints,
 parallel lines and the exact glyph walker under PAL VICE.
 
+### Clean globe junctions
+
+When a visible face projects to a narrow strip along the silhouette, these
+two renderers keep the outer edge and move the incident lines to its endpoints.
+The C64 makes that decision from the current projected vertices. When any vertex
+is outside the screen, the renderer uses its signed clipping path.
+
+| Build option | How a shared cell is drawn | PAL VICE |
+|---|---|---:|
+| `--exact-corners` | Combines line masks exactly in spare glyphs in the hidden charset. The full rotation used at most 52 of 55 slots. | 10.71 FPS |
+| `--fixed-junction-font` | Chooses a predefined connected glyph that covers the combined strokes. All 256 glyphs stay fixed. Some joins are thicker. | 10.25 FPS |
+
+Both builds kept the globe connected across all 256 measured frames. In frame
+180 the two diagonal branches and the stem meet at the silhouette in both builds.
+Each build has room for 55 pending collision cells per frame. If those slots
+fill, a new collision keeps the existing glyph in that cell. Building the
+fixed font requires NumPy on the host.
+
+![Frame 180 in PAL VICE. The earlier OR-font prototype breaks the junction. The fixed font and exact corner patches connect all three branches.](junction-frame-180.png)
+
+```sh
+rtk proxy python3 mydemo/linedrawer/build_linedrawer.py --exact-corners
+rtk proxy x64sc -pal -autostart mydemo/linedrawer/build/globe-exact-corners/globe-exact-corners.prg
+
+rtk proxy python3 mydemo/linedrawer/build_linedrawer.py --fixed-junction-font
+rtk proxy x64sc -pal -autostart mydemo/linedrawer/build/globe-fixed-junction-font/globe-fixed-junction-font.prg
+```
+
+Pass the same build option to `verify_linedrawer.py` to check the PAL display,
+or to `verify_clipped_lines.py` to check signed line endpoints in both screen buffers.
+
 ## Earlier experiments
 
 The following notes and measurements document earlier prototypes.
