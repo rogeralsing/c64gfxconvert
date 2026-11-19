@@ -18,12 +18,16 @@
 .label cwSecond=$a3
 .label cwMajorStep=$a4
 .label cwMinorStep=$a6
+// Scratch shared with the legacy line drawer, which never calls this walker.
+.label cwSecondLayout=recLo
+.label cwBothStep=colLo
 
 *= $7000 "Character line walker"
 drawCharLine:
     lda #0
     sta cwOrient
     sta cwLayout
+    sta cwSecondLayout
     sta cwTransform
     lda lx1
     sec
@@ -113,18 +117,40 @@ drawCharLine:
     sty cwMajorStep+1
     stx cwMinorStep+1
 !oriented:
+    // A diagonal cell transition uses a single combined address increment.
+    clc
+    lda cwMajorStep
+    adc cwMinorStep
+    sta cwBothStep
+    lda cwMajorStep+1
+    adc cwMinorStep+1
+    sta cwBothStep+1
     lda cwOrient
     clc
     adc #>charTransform
     sta cwTransform+1
+    // Lookup the 40-byte row offset. Add the cell column before the
+    // buffer base so both low-byte carries reach the screen high byte.
     lda ly0
     lsr
     lsr
-    sta tmp2
+    tax
     lda lx0
     lsr
     lsr
-    jsr scrAddr
+    clc
+    adc charRowLo,x
+    sta scrLo
+    lda charRowHi,x
+    adc baseHi
+    sta scrHi
+    lda scrLo
+    clc
+    adc baseLo
+    sta scrLo
+    bcc !screenReady+
+    inc scrHi
+!screenReady:
     lda cwMajorDelta
     clc
     adc #1
@@ -215,23 +241,9 @@ drawCharLine:
     lda #4
     sta cwAdvanceHi+3
 
-charWalkBlock:
-    lda #4
-    sec
-    sbc cwMajorLocal
-    cmp cwRemain
-    bcc !count+
-    lda cwRemain
-!count:
-    sta cwCount
-    lda cwMajorLocal
-    asl
-    asl
-    clc
-    adc cwCount
-    adc #(>charFirst - 1)
-    sta cwLayout+1
-
+// The middle of a line advances four samples per block. Its two glyph
+// pages are constant, while clipped first and last blocks select their pages.
+.macro StampWalkBlock(full) {
     // Pick one of at most four shapes using the phase at this block.
     lda cwPhase
     cmp cwThreshold+1
@@ -251,21 +263,27 @@ charWalkBlock:
     lda charMinorIndex,y
     ora cwShapes,x
     tay
-    lda (cwLayout),y
-    pha
-    lda cwLayout+1
-    clc
-    adc #((>charSecond) - (>charFirst))
-    sta cwLayout+1
-    lda (cwLayout),y
-    sta cwSecond
-
-    lda scrLo
-    sta jptrLo
-    lda scrHi
-    sta jptrHi
-    pla
-    jsr charStamp
+    .if (full) {
+        lda charSecond + 3 * 256,y
+        sta cwSecond
+        lda charFirst + 3 * 256,y
+    } else {
+        lda (cwSecondLayout),y
+        sta cwSecond
+        lda (cwLayout),y
+    }
+    tay
+    lda (cwTransform),y
+    tax
+    ldy #0
+    lda (scrLo),y
+    beq !empty+
+    jsr charComposeFirst
+    jmp !firstStamped+
+!empty:
+    txa
+    sta (scrLo),y
+!firstStamped:
     lda cwSecond
     beq !stamped+
     lda scrLo
@@ -278,47 +296,117 @@ charWalkBlock:
     lda cwSecond
     jsr charStamp
 !stamped:
-    lda cwRemain
-    sec
-    sbc cwCount
-    sta cwRemain
-    bne !next+
-    rts
-!next:
-    // Advance once to the next major-axis cell. The fractional carry
-    // adds one to the whole minor displacement for this block.
-    ldx cwCount
+}
+
+// Advance once to the next major-axis cell. The fractional carry adds one
+// to the whole minor displacement.
+.macro AdvanceWalkBlock(full) {
+    .if (!full) {
+        ldx cwCount
+    }
     lda cwPhase
     clc
-    adc cwAdvanceLo-1,x
+    .if (full) {
+        adc cwAdvanceLo+3
+    } else {
+        adc cwAdvanceLo-1,x
+    }
     sta cwPhase
     lda cwMinorLocal
-    adc cwAdvanceHi-1,x
+    .if (full) {
+        adc cwAdvanceHi+3
+    } else {
+        adc cwAdvanceHi-1,x
+    }
     cmp #4
-    bcc !inside+
+    bcc !majorOnly+
     and #3
     sta cwMinorLocal
     lda scrLo
     clc
-    adc cwMinorStep
+    adc cwBothStep
     sta scrLo
     lda scrHi
-    adc cwMinorStep+1
+    adc cwBothStep+1
     sta scrHi
-    jmp !major+
-!inside:
+    jmp !advanced+
+!majorOnly:
     sta cwMinorLocal
-!major:
     lda scrLo
-    clc
     adc cwMajorStep
     sta scrLo
     lda scrHi
     adc cwMajorStep+1
     sta scrHi
+!advanced:
+}
+
+charWalkBlock:
+    lda cwMajorLocal
+    bne !partial+
+    lda cwRemain
+    cmp #4
+    bcs charWalkFull
+!partial:
+    jmp charWalkPartial
+charWalkFull:
+    StampWalkBlock(true)
+    lda cwRemain
+    sec
+    sbc #4
+    sta cwRemain
+    beq charWalkDone
+    AdvanceWalkBlock(true)
+    lda cwRemain
+    cmp #4
+    bcc charWalkPartial
+    jmp charWalkFull
+charWalkDone:
+    rts
+
+charWalkPartial:
+    lda #4
+    sec
+    sbc cwMajorLocal
+    cmp cwRemain
+    bcc !count+
+    lda cwRemain
+!count:
+    sta cwCount
+    lda cwMajorLocal
+    asl
+    asl
+    clc
+    adc cwCount
+    adc #(>charFirst - 1)
+    sta cwLayout+1
+    adc #((>charSecond) - (>charFirst))
+    sta cwSecondLayout+1
+
+    StampWalkBlock(false)
+    lda cwRemain
+    sec
+    sbc cwCount
+    sta cwRemain
+    beq charWalkDone
+    AdvanceWalkBlock(false)
     lda #0
     sta cwMajorLocal
     jmp charWalkBlock
+
+// The common blank write uses the walk pointer directly. Prepare the joint
+// pointer only when the primary cell already holds a different character.
+charComposeFirst:
+    stx jcode
+    cmp jcode
+    beq !same+
+    lda scrLo
+    sta jptrLo
+    lda scrHi
+    sta jptrHi
+    jmp stampJoint
+!same:
+    rts
 
 charStamp:
     tay
@@ -338,3 +426,9 @@ charStamp:
 
 charMinorIndex:
     .byte $00,$40,$80,$c0
+charRowLo:
+    .fill 25, <(i * 40)
+charRowHi:
+    .fill 25, >(i * 40)
+
+.assert "Character line walker fits before the clipper", * <= $7400, true

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Verify default C64 startup and selected animated cube frames in headless VICE.
 
-Run the unmodified PRG through its normal autostart path. At each lower-border flip,
+Run the unmodified PRG through its normal autostart path. At each border flip,
 prove the visible screen and charset stayed unchanged while the back pair was
 drawn. Compare presented frames with the independent Python cube and line drawer. The verifier owns and cleans up only its VICE process.
 """
@@ -18,6 +18,8 @@ HERE = Path(__file__).resolve().parent
 BUILD = HERE / "build"
 MODE = 0x0338
 BUFFERS = ((0x0400, 0x2000, 0x18), (0x2c00, 0x3000, 0xbc))
+PAL_LINES = 312
+PAL_CYCLES_PER_LINE = 63
 
 
 def sha(raw):
@@ -132,6 +134,7 @@ def main():
             raise AssertionError(f"Default launch did not start free animation: MODE={initial_mode}, frame={initial_frame}")
         front = 0
         previous_screen, previous_charset = buffer_bytes(initial, BUFFERS[front])
+        previous_visible_field = None
         by_index = {}
 
         # The extra pre-flip boundary gives the last selected frame a full
@@ -150,15 +153,24 @@ def main():
             monitor.run("bank cpu")
             screen_untouched = front_screen == previous_screen
             charset_untouched = front_charset == previous_charset
-            lower_border = registers["raster"] in (252, 253)
+            raster = registers["raster"]
+            safe_border = raster <= 48 or 252 <= raster < PAL_LINES
+            visible_field = (
+                (registers["clock"] - raster * PAL_CYCLES_PER_LINE - registers["raster_cycle"])
+                // (PAL_LINES * PAL_CYCLES_PER_LINE)
+                + (raster >= 252)
+            )
+            distinct_scanout = previous_visible_field is None or previous_visible_field < visible_field
+            previous_visible_field = visible_field
             report["frontIntegrityChecks"] += 1
             if not (screen_untouched and charset_untouched
                     and d018_before == BUFFERS[front][2]
-                    and memory[frame_counter] == (index & 255) and lower_border):
+                    and memory[frame_counter] == (index & 255) and safe_border and distinct_scanout):
                 report["frontIntegrityFailure"] = {
                     "index": index, "screenUnchanged": screen_untouched,
                     "charsetUnchanged": charset_untouched, "d018": d018_before,
-                    "raster": registers["raster"], "frameCounter": memory[frame_counter]}
+                    "raster": raster, "frameCounter": memory[frame_counter],
+                    "distinctScanout": distinct_scanout}
                 raise AssertionError(f"Visible buffers or flip boundary changed while drawing frame {index}")
 
             if index - 1 in selected:
@@ -214,7 +226,8 @@ def main():
             frame = {"index": index, "frameCounter": actual_frame,
                      "screenAddress": BUFFERS[front][0], "charsetAddress": BUFFERS[front][1],
                      "d018Before": d018_before, "d018After": d018_after,
-                     "flipRaster": registers["raster"], "frontScreenUnchanged": screen_untouched,
+                     "flipRaster": registers["raster"], "flipClock": registers["clock"],
+                     "firstVisibleField": visible_field, "frontScreenUnchanged": screen_untouched,
                      "frontCharsetUnchanged": charset_untouched,
                      "screenBytesEqual": not different, "displayedGlyphsEqual": not wrong_glyphs,
                      "staticFontUnchanged": static_unchanged,

@@ -19,23 +19,35 @@ positions within a cell and handle short ends, axis-aligned lines, and
 diagonals. Endpoints are exact across the screen. A rounded slope can
 move an intermediate step by one logical pixel.
 
-The cube supplies a table of projected vertices and visible faces for its
-256-frame rotation. The C64 draws the visible edges between those vertices.
+Each frame, the C64 rotates the eight vertices in 8.8 fixed point,
+translates the cube along three sine curves, projects it with perspective,
+and selects the visible faces from their projected winding. Rotation shares
+products across corners with the same X and Z and preserves rounding for
+opposite corners. Projection computes only the rounded high word and reuses
+each corner's reciprocal for X and Y. The line drawer clips visible edges
+that reach the screen boundary. Motion toward and away from the camera changes
+the apparent size. The `cubeSize` byte sets the object scale independently:
+48–80 is 75–125%, with 64 at startup. The fixed tables provide sine and
+reciprocal values, inverse scales, and character shapes. The signed
+16-bit multiplier combines byte products from a 1 KiB quarter-square
+table. The products and fixed-point rounding stay exact.
 The 160×100 logical screen has its origin at the top left. Call
 `drawCharLine` directly if both endpoints are known to be on-screen
-(`x=0..159`, `y=0..99`), as the cube does. For arbitrary signed 16-bit
+(`x=0..159`, `y=0..99`). For arbitrary signed 16-bit
 endpoints, call `drawClippedLine`. Put the low bytes in
 `lx0/ly0/lx1/ly1` and the high bytes in
 `clipX0Hi/clipY0Hi/clipX1Hi/clipY1Hi`. The clipper rejects invisible
 segments and rounds visible intersections to logical pixels before
 calling the same character drawer. It can replace the endpoint low bytes.
 
-The cube alternates between two screen and charset pairs. Each frame clears
-the cube's screen rectangle in the hidden pair, writes its visible edges,
-and patches only that pair's reserve glyphs. Both screens are cleared at
-startup. The assembler derives the rectangle from the projected vertices.
-One write to `$D018` in the PAL lower border presents both addresses
-together. The display keeps reading the previous pair until that write.
+The cube alternates between two screen and charset pairs. Each pair saves
+the clipped character-cell bounds of its previous cube. When that pair
+becomes the back buffer again, the renderer clears those bounds, writes
+the new visible edges, and patches that pair's reserve glyphs. Both screens
+are cleared at startup.
+One write to `$D018` in the PAL upper or lower border presents both
+addresses together. The display keeps reading the previous pair until
+that write.
 
 When edges share a character cell, the renderer combines their masks and
 checks one slot in a precomputed glyph dictionary. Unknown masks use a

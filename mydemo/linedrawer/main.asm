@@ -30,23 +30,6 @@
 .const JOINTT  = $a700          // 55 joint slot patterns (words)
 .const JCOUNT  = $a770          // allocated joint slots
 
-// A projected edge stays inside the rectangle of its endpoints. Derive
-// the cube's clear area from the same 256-frame vertex table it draws.
-.var projectedFrames = LoadBinary("build/cube-geometry.bin")
-.var cubeLeft = 39
-.var cubeRight = 0
-.var cubeTop = 24
-.var cubeBottom = 0
-.for (var point = 0; point < projectedFrames.getSize(); point = point + 2) {
-    .var col = projectedFrames.get(point) >> 2
-    .var row = projectedFrames.get(point + 1) >> 2
-    .if (col < cubeLeft)   { .eval cubeLeft = col }
-    .if (col > cubeRight)  { .eval cubeRight = col }
-    .if (row < cubeTop)    { .eval cubeTop = row }
-    .if (row > cubeBottom) { .eval cubeBottom = row }
-}
-.assert "Cube clear rectangle stays on screen", cubeLeft >= 0 && cubeRight < 40 && cubeTop >= 0 && cubeBottom < 25, true
-
 BasicUpstart2(start)
 
 .label lx0=$02
@@ -114,22 +97,23 @@ BasicUpstart2(start)
 .label jptrHi=$40
 
 .const SIN     = $a900
-.const RECIP   = $ab00
-.const VERTS   = $b2f0
+.const RECIP   = $8000
+.const SIZEINV = $9900
 .const EDGES   = $b320
 .const FACES   = $b338
 .const EDGEFACES = $b350
 .const REV8    = $b700          // bit-reverse LUT
 .const HREV8   = $b800          // swapnib(rev8) LUT
 .const PTAB    = $a800          // 8 projected points (sx,sy bytes)
+.const PTAB_HI = PTAB + 16      // high bytes of signed screen coordinates
 .const MODE    = $0338          // 255=receipt only, 0=free run, N=cube N frames
 .const CDONE   = $033a          // cube halt signature ($c4 $c5 $c6)
-.const CAML    = $80            // 4.5 in 8.8 (1152)
-.const CAMH    = $04
-.const DMINL   = $c5            // 709
-.const DMINH   = $02
-.const DMAXL   = $3b            // 1595
-.const DMAXH   = $06
+.const CAMERA_DEPTH = 1280      // 5.0 in signed 8.8
+.const DEPTH_MIN = 352
+.const DEPTH_MAX = 2503
+.const SIZE_MIN = 48            // Q6 object scale: 0.75
+.const SIZE_ONE = 64
+.const SIZE_MAX = 80            // Q6 object scale: 1.25
 
 .label phYaw=$41
 .label phPit=$42
@@ -167,6 +151,11 @@ BasicUpstart2(start)
 .label curPatL=$6e
 .label curPatH=$6f
 .label dtmp=$70
+// Reuse the original pixel drawer's scratch space during face culling.
+.label faceDxA=psx
+.label faceDyA=pdx
+.label faceDxB=pdyH
+.label faceDyB=pys
 .label faceOffset=$80
 .label faceBit=$81
 .label visibleFaces=$82
@@ -176,6 +165,18 @@ BasicUpstart2(start)
 .label faceP3=$86
 .label drawCharsetHi=$a8
 .label backPair=$a9
+.label motionPhaseX=$d6
+.label motionPhaseY=$d7
+.label motionPhaseZ=$d8
+.label cubeSize=$d9
+.label motionX=$da
+.label motionY=$dc
+.label motionDepth=$de
+.label inverseSize=$e0
+.label qsLeft=$e2
+.label qsRight=$e3
+.label qsProdLo=$e4
+.label qsSavedY=$e5
 
 
 *=$0900 "Code"
@@ -1112,14 +1113,8 @@ charSlope:
 
 .import source "char_walk.asm"
 .import source "clip_line.asm"
-
-*=$8000 "Projected cube vertices"
-cubeGeometry:
-.import binary "build/cube-geometry.bin"
-
-*=$9000 "Front-facing cube sides"
-cubeVisible:
-.import binary "build/cube-visible.bin"
+.import source "cube_grouped.asm"
+.import source "cube_project.asm"
 
 
 *=HASHKL "Glyph lookup keys low"
@@ -1158,6 +1153,48 @@ jointt:
 *=$1200 "Cube code"
 // signed 16x16 -> 32-bit prod; clobbers A,X, m_a, m_b
 mul16s:
+    // Original cube coordinates are ±1 in 8.8 fixed point. Their
+    // products are a signed shift, including the full 32-bit sign.
+    lda m_a
+    bne mul16General
+    lda m_a+1
+    cmp #1
+    beq mul16PositiveUnit
+    cmp #$ff
+    bne mul16General
+    lda #0
+    sta prod
+    sec
+    sbc m_b
+    sta prod+1
+    lda #0
+    sbc m_b+1
+    sta prod+2
+    lda #0
+    bit m_b+1
+    bmi !extendNegative+
+    sbc #0
+    sta prod+3
+    rts
+!extendNegative:
+    sbc #$ff
+    sta prod+3
+    rts
+mul16PositiveUnit:
+    lda #0
+    sta prod
+    lda m_b
+    sta prod+1
+    lda m_b+1
+    sta prod+2
+    lda #0
+    bit m_b+1
+    bpl !extend+
+    lda #$ff
+!extend:
+    sta prod+3
+    rts
+mul16General:
     lda #0
     sta sflag
     lda m_a+1
@@ -1182,30 +1219,7 @@ mul16s:
     sbc m_b+1
     sta m_b+1
 !b:
-    lda #0
-    sta prod
-    sta prod+1
-    sta prod+2
-    sta prod+3
-    ldx #16
-!m:
-    lsr m_a+1
-    ror m_a
-    bcc !s+
-    clc
-    lda prod+2
-    adc m_b
-    sta prod+2
-    lda prod+3
-    adc m_b+1
-    sta prod+3
-!s:
-    lsr prod+3
-    ror prod+2
-    ror prod+1
-    ror prod
-    dex
-    bne !m-
+    jsr mul16Unsigned
     lda sflag
     lsr
     bcc !p+
@@ -1285,11 +1299,12 @@ loadSin:
     sta m_b+1
     rts
 
-// transform 8 vertices into PTAB; integer-exact vs cube_model.py
+// transform 8 vertices into PTAB and PTAB_HI; integer-exact vs cube_model.py
 transformVerts:
-    lda #<VERTS
+    jsr groupedRotate
+    lda #<groupedVertices
     sta vPtr
-    lda #>VERTS
+    lda #>groupedVertices
     sta vPtr+1
     lda #<PTAB
     sta pPtr
@@ -1298,193 +1313,61 @@ transformVerts:
     lda #8
     sta vcount
 tvLoop:
-    // yaw: rx1 = (x*cosY + z*sinY)>>8
     ldy #0
     lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phYaw
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    ldy #4
-    lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phYaw
-    jsr loadSin
-    jsr mul16s
-    jsr prodAddSm
-    lda sm+1
-    sta rx1
-    lda sm+2
-    sta rx1+1
-    // rz1 = (z*cosY - x*sinY)>>8
-    ldy #4
-    lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phYaw
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    ldy #0
-    lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phYaw
-    jsr loadSin
-    jsr mul16s
-    jsr prodSubSm
-    lda sm+1
-    sta rz1
-    lda sm+2
-    sta rz1+1
-    // pitch: ry1 = (y*cosX - rz1*sinX)>>8
-    ldy #2
-    lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phPit
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    lda rz1
-    sta m_a
-    lda rz1+1
-    sta m_a+1
-    lda phPit
-    jsr loadSin
-    jsr mul16s
-    jsr prodSubSm
-    lda sm+1
-    sta ry1
-    lda sm+2
-    sta ry1+1
-    // rz2 = (y*sinX + rz1*cosX)>>8
-    ldy #2
-    lda (vPtr),y
-    sta m_a
-    iny
-    lda (vPtr),y
-    sta m_a+1
-    lda phPit
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    lda rz1
-    sta m_a
-    lda rz1+1
-    sta m_a+1
-    lda phPit
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodAddSm
-    lda sm+1
-    sta rz2
-    lda sm+2
-    sta rz2+1
-    // roll: rx2 = (rx1*cosR - ry1*sinR)>>8
-    lda rx1
-    sta m_a
-    lda rx1+1
-    sta m_a+1
-    lda phRol
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    lda ry1
-    sta m_a
-    lda ry1+1
-    sta m_a+1
-    lda phRol
-    jsr loadSin
-    jsr mul16s
-    jsr prodSubSm
-    lda sm+1
     sta rx2
-    lda sm+2
+    iny
+    lda (vPtr),y
     sta rx2+1
-    // ry2 = (rx1*sinR + ry1*cosR)>>8
-    lda rx1
-    sta m_a
-    lda rx1+1
-    sta m_a+1
-    lda phRol
-    jsr loadSin
-    jsr mul16s
-    jsr prodToSm
-    lda ry1
-    sta m_a
-    lda ry1+1
-    sta m_a+1
-    lda phRol
-    clc
-    adc #64
-    jsr loadSin
-    jsr mul16s
-    jsr prodAddSm
-    lda sm+1
+    iny
+    lda (vPtr),y
     sta ry2
-    lda sm+2
+    iny
+    lda (vPtr),y
     sta ry2+1
-    // d = 1152 + rz2 (16-bit), clamped to [709,1595]
-    lda #CAML
+    iny
+    lda (vPtr),y
+    sta rz2
+    iny
+    lda (vPtr),y
+    sta rz2+1
+    // Depth includes the cube's camera-space position on Z.
+    lda motionDepth
     clc
     adc rz2
     sta dtmp
-    lda #CAMH
+    lda motionDepth+1
     adc rz2+1
     sta dtmp+1
     sec
     lda dtmp
-    sbc #DMINL
+    sbc #<DEPTH_MIN
     lda dtmp+1
-    sbc #DMINH
+    sbc #>DEPTH_MIN
     bcs tvNoLo
-    lda #DMINL
+    lda #<DEPTH_MIN
     sta dtmp
-    lda #DMINH
+    lda #>DEPTH_MIN
     sta dtmp+1
 tvNoLo:
     lda dtmp
     sec
-    sbc #DMAXL
+    sbc #<DEPTH_MAX
     lda dtmp+1
-    sbc #DMAXH
+    sbc #>DEPTH_MAX
     bcc tvNoHi
-    lda #DMAXL
+    lda #<DEPTH_MAX
     sta dtmp
-    lda #DMAXH
+    lda #>DEPTH_MAX
     sta dtmp+1
 tvNoHi:
-    // m_b = RECIP[(d-709)*2]
+    // m_b = RECIP[(d - DEPTH_MIN) * 2]
     lda dtmp
     sec
-    sbc #DMINL
+    sbc #<DEPTH_MIN
     sta m_b
     lda dtmp+1
-    sbc #DMINH
+    sbc #>DEPTH_MIN
     sta m_b+1
     asl m_b
     rol m_b+1
@@ -1495,7 +1378,7 @@ tvNoHi:
     lda m_b+1
     adc #>RECIP
     sta dtmp+1
-    // sx = 80 + ((rx2*r + $8000)>>16).lo
+    // sx = 80 + (((rx2 + motionX) * r + $8000) >> 16)
     ldy #0
     lda (dtmp),y
     sta m_b
@@ -1503,51 +1386,40 @@ tvNoHi:
     lda (dtmp),y
     sta m_b+1
     lda rx2
+    clc
+    adc motionX
     sta m_a
     lda rx2+1
+    adc motionX+1
     sta m_a+1
-    jsr mul16s
-    clc
-    lda prod+1
-    adc #$80
-    sta prod+1
-    lda prod+2
-    adc #$00
-    sta prod+2
-    lda prod+3
-    adc #$00
-    sta prod+3
+    jsr projectReciprocalWord
     lda #80
     clc
     adc prod+2
     ldy #0
     sta (pPtr),y
-    // sy = 50 - ((ry2*r + $8000)>>16).lo
-    ldy #0
-    lda (dtmp),y
-    sta m_b
-    iny
-    lda (dtmp),y
-    sta m_b+1
+    lda #0
+    adc prod+3
+    ldy #16
+    sta (pPtr),y
+    // sy = 50 - (((ry2 + motionY) * r + $8000) >> 16)
+    // The X projection preserved the reciprocal for Y.
     lda ry2
+    clc
+    adc motionY
     sta m_a
     lda ry2+1
+    adc motionY+1
     sta m_a+1
-    jsr mul16s
-    clc
-    lda prod+1
-    adc #$80
-    sta prod+1
-    lda prod+2
-    adc #$00
-    sta prod+2
-    lda prod+3
-    adc #$00
-    sta prod+3
+    jsr projectReciprocalWord
     lda #50
     sec
     sbc prod+2
     ldy #1
+    sta (pPtr),y
+    lda #0
+    sbc prod+3
+    ldy #17
     sta (pPtr),y
     // next vertex
     lda vPtr
@@ -1921,29 +1793,13 @@ bitlo:
 bithi:
 .import binary "build/bithi.bin"
 
-.macro ClearCubeArea(address) {
-    ldx #cubeRight-cubeLeft
-!clear:
-    .for (var row = cubeTop; row <= cubeBottom; row++) {
-        sta address + row * 40 + cubeLeft,x
-    }
-    dex
-    bpl !clear-
-}
-
 // Clear only the hidden screen and release that frame's joint slots.
 clearScreenJoints:
     lda #0
     sta JCOUNT
-    ldx backPair
-    bne !second+
-    ClearCubeArea(SCREEN)
-    rts
-!second:
-    ClearCubeArea(SCREEN_B)
-    rts
+    jmp clearPreviousBox
 
-// Publish both addresses with one VIC register write in the lower border.
+// Publish both addresses with one VIC register write in the border.
 showFrame:
     jsr waitFrame
     ldx backPair
@@ -1964,22 +1820,107 @@ vicPairs:
 
 waitFrame:
 !wait:
+    bit $d011                  // PAL lines 256–311 are in the lower border
+    bmi !ready+
     lda $d012
-    cmp #$fc                   // PAL lower border, after all 25 rows
-    bne !wait-
+    cmp #$30                   // Leave room before the first visible row
+    bcc !ready+
+    cmp #$fc                   // All 25 rows have finished scanning
+    bcc !wait-
+!ready:
     rts
 
-// Signed difference A - PTAB[X]. The projected cube spans less than 128
-// fat pixels along either axis, so the byte result can be sign-extended.
-faceDelta:
+// Fetch both components of a projected diagonal with the same indices.
+.macro FaceDiagonal(first, last, dx, dy) {
+    ldy last
+    ldx first
+    lda PTAB,y
     sec
     sbc PTAB,x
-    ldx #0
-    cmp #$80
-    bcc !done+
-    dex
-!done:
+    sta dx
+    lda PTAB_HI,y
+    sbc PTAB_HI,x
+    sta dx+1
+    iny
+    inx
+    lda PTAB,y
+    sec
+    sbc PTAB,x
+    sta dy
+    lda PTAB_HI,y
+    sbc PTAB_HI,x
+    sta dy+1
+}
+
+.macro MultiplyFaceComponents(left, right) {
+    lda left
+    sta m_a
+    lda left+1
+    sta m_a+1
+    lda right
+    sta m_b
+    lda right+1
+    sta m_b+1
+    jsr faceProduct
+}
+
+// Projected diagonal components generally fit in an unsigned byte once
+// their signs are removed. Keep the full product for wider diagonals.
+faceProduct:
+    lda m_a+1
+    eor m_b+1
+    sta sflag
+    lda m_b+1
+    beq !rightPositive+
+    cmp #$ff
+    bne !wide+
+    lda #0
+    sec
+    sbc m_b
+    beq !wide+
+    tax
+    jmp !left+
+!rightPositive:
+    ldx m_b
+!left:
+    lda m_a+1
+    beq !leftPositive+
+    cmp #$ff
+    bne !wide+
+    lda #0
+    sec
+    sbc m_a
+    beq !wide+
+    bne !multiply+
+!leftPositive:
+    lda m_a
+!multiply:
+    jsr mul8Quarter
+    bit sflag
+    bmi !negative+
+    sta prod+1
+    lda qsProdLo
+    sta prod
+    lda #0
+    beq !extend+
+!negative:
+    tax
+    lda #0
+    sec
+    sbc qsProdLo
+    sta prod
+    stx qsProdLo
+    lda #0
+    sbc qsProdLo
+    sta prod+1
+    lda #0
+    sbc #0
+!extend:
+    sta prod+2
+    sta prod+3
     rts
+!wide:
+    jmp mul16s
 
 // For an outward-wound quad, the cross product of its screen-space
 // diagonals is positive when the face is front-facing (screen Y down).
@@ -2007,45 +1948,50 @@ findVisibleFaces:
     asl
     sta faceP3
 
-    ldx faceP2
-    lda PTAB,x
-    ldx faceP0
-    jsr faceDelta
-    sta m_a
-    stx m_a+1
-    ldx faceP3
-    lda PTAB+1,x
-    ldx faceP1
-    inx
-    jsr faceDelta
-    sta m_b
-    stx m_b+1
-    jsr mul16s
-    jsr prodToSm
+    FaceDiagonal(faceP0, faceP2, faceDxA, faceDyA)
+    FaceDiagonal(faceP1, faceP3, faceDxB, faceDyB)
 
-    ldx faceP2
-    lda PTAB+1,x
-    ldx faceP0
-    inx
-    jsr faceDelta
-    sta m_a
-    stx m_a+1
-    ldx faceP3
-    lda PTAB,x
-    ldx faceP1
-    jsr faceDelta
-    sta m_b
-    stx m_b+1
-    jsr mul16s
+    // Opposite-signed nonzero products give the winding directly.
+    lda faceDxA+1
+    eor faceDyB+1
+    sta tmp2
+    eor faceDyA+1
+    eor faceDxB+1
+    bpl !products+
+    lda faceDxA
+    beq !products+
+    lda faceDyB
+    beq !products+
+    lda faceDyA
+    beq !products+
+    lda faceDxB
+    beq !products+
+    bit tmp2
+    bmi !hidden+
+    bpl !visible+
+
+!products:
+    MultiplyFaceComponents(faceDxA, faceDyB)
+    jsr prodToSm
+    MultiplyFaceComponents(faceDyA, faceDxB)
     lda sm
     sec
     sbc prod
     sta tmp
     lda sm+1
     sbc prod+1
+    ora tmp
+    sta tmp
+    lda sm+2
+    sbc prod+2
+    ora tmp
+    sta tmp
+    lda sm+3
+    sbc prod+3
     bmi !hidden+
     ora tmp
     beq !hidden+
+!visible:
     lda visibleFaces
     ora faceBit
     sta visibleFaces
@@ -2061,10 +2007,92 @@ findVisibleFaces:
 !done:
     rts
 
+.macro SinePosition(phase, amplitude, output) {
+    lda #<amplitude
+    sta m_a
+    lda #>amplitude
+    sta m_a+1
+    lda phase
+    jsr loadSin
+    jsr mul16s
+    lda prod+1
+    sta output
+    lda prod+2
+    sta output+1
+}
+
+updateCubePosition:
+    SinePosition(motionPhaseX, 320, motionX)
+    SinePosition(motionPhaseY, 176, motionY)
+    SinePosition(motionPhaseZ, 256, motionDepth)
+    lda motionDepth
+    clc
+    adc #<CAMERA_DEPTH
+    sta motionDepth
+    lda motionDepth+1
+    adc #>CAMERA_DEPTH
+    sta motionDepth+1
+
+    // Divide translations and camera depth by the object scale once.
+    // In the perspective ratio this scales the object before translation.
+    lda cubeSize
+    cmp #SIZE_MIN
+    bcs !upper+
+    lda #SIZE_MIN
+!upper:
+    cmp #SIZE_MAX+1
+    bcc !size+
+    lda #SIZE_MAX
+!size:
+    sta cubeSize
+    cmp #SIZE_ONE
+    beq !done+
+    sec
+    sbc #SIZE_MIN
+    asl
+    tax
+    lda SIZEINV,x
+    sta inverseSize
+    lda SIZEINV+1,x
+    sta inverseSize+1
+    ldy #0
+!scale:
+    lda motionX,y
+    sta m_a
+    lda motionX+1,y
+    sta m_a+1
+    lda inverseSize
+    sta m_b
+    lda inverseSize+1
+    sta m_b+1
+    jsr mul16s
+    lda prod+1
+    sta motionX,y
+    lda prod+2
+    sta motionX+1,y
+    iny
+    iny
+    cpy #6
+    bne !scale-
+!done:
+    rts
+
 // Draw each edge into the hidden screen/charset pair.
 cubeMain:
+    lda #32
+    sta phYaw
+    lda #16
+    sta phPit
+    lda #11
+    sta phRol
     lda #0
     sta frmcnt
+    sta motionPhaseX
+    lda #64
+    sta motionPhaseY
+    sta cubeSize
+    lda #96
+    sta motionPhaseZ
     lda #1                    // pair A is visible at startup
     sta backPair
 cubeLoop:
@@ -2076,7 +2104,10 @@ cubeLoop:
     lda charsetPages,x
     sta drawCharsetHi
     jsr clearScreenJoints
-    jsr loadCubeFrame
+    jsr updateCubePosition
+    jsr transformVerts
+    jsr findVisibleFaces
+    jsr rememberCubeBox
     lda #12
     sta ecount
 edgeLoop:
@@ -2095,9 +2126,13 @@ edgeLoop:
     tay
     lda PTAB,y
     sta lx0
+    lda PTAB_HI,y
+    sta clipX0Hi
     iny
     lda PTAB,y
     sta ly0
+    lda PTAB_HI,y
+    sta clipY0Hi
     lda #12
     sec
     sbc ecount
@@ -2109,14 +2144,30 @@ edgeLoop:
     tay
     lda PTAB,y
     sta lx1
+    lda PTAB_HI,y
+    sta clipX1Hi
     iny
     lda PTAB,y
     sta ly1
-    jsr drawCharLine           // write precomputed character codes
+    lda PTAB_HI,y
+    sta clipY1Hi
+    jsr drawClippedLine
 !nextEdge:
     dec ecount
     bne edgeLoop
     jsr showFrame
+    inc phYaw
+    inc phYaw
+    inc phPit
+    inc phRol
+    inc phRol
+    inc phRol
+    inc motionPhaseX
+    inc motionPhaseX
+    inc motionPhaseX
+    inc motionPhaseY
+    inc motionPhaseY
+    inc motionPhaseZ
     inc frmcnt
     lda MODE
     beq cubeFree
@@ -2124,7 +2175,7 @@ edgeLoop:
     beq cubeReceiptHalt
     lda frmcnt
     cmp MODE
-    bcc cubeLoop
+    bcc cubeFree
     lda #$c4
     sta CDONE
     lda #$c5
@@ -2137,41 +2188,18 @@ cubeReceiptHalt:
 cubeFree:
     jmp cubeLoop
 
-// The fixed demonstration provides projected vertices and a face mask.
-// The character drawer still receives coordinates and draws each line live.
-loadCubeFrame:
-    lda frmcnt
-    asl
-    asl
-    asl
-    asl
-    sta pPtr
-    lda frmcnt
-    lsr
-    lsr
-    lsr
-    lsr
-    clc
-    adc #>cubeGeometry
-    sta pPtr+1
-    ldy #15
-!point:
-    lda (pPtr),y
-    sta PTAB,y
-    dey
-    bpl !point-
-    ldx frmcnt
-    lda cubeVisible,x
-    sta visibleFaces
-    rts
-
 *=$a900 "Sin"
 sintab:
 .import binary "build/sin.bin"
 
-*=$ab00 "Reciprocal"
+*=RECIP "Reciprocal"
 reciptab:
 .import binary "build/recip.bin"
+reciptabEnd:
+.assert "Reciprocals fit before glyph lookup", reciptabEnd <= HASHKL, true
+
+*=SIZEINV "Inverse object scales"
+.import binary "build/size-inverse.bin"
 
 *=$b600 "Bit reverse LUT"
 rev8lut:
@@ -2181,9 +2209,100 @@ rev8lut:
 hrev8lut:
 .import binary "build/hrev8.bin"
 
-*=$b2f0 "Vertices"
-vertstab:
-.import binary "build/verts.bin"
+*=$ab00 "Quarter squares"
+quarterSquareLo:
+.fill 512, <floor(i * i / 4)
+quarterSquareHi:
+.fill 512, >floor(i * i / 4)
+
+*=$af00 "Table multiplication"
+// Unsigned byte product A * X -> A:qsProdLo.
+// The sum and absolute difference have the same parity, so subtracting
+// floor((a-b)^2/4) from floor((a+b)^2/4) gives the exact product.
+mul8Quarter:
+    sta qsLeft
+    stx qsRight
+    sec
+    sbc qsRight
+    bcs !difference+
+    eor #$ff
+    adc #1
+!difference:
+    tay
+    lda qsLeft
+    clc
+    adc qsRight
+    tax
+    bcs !upper+
+    sec
+    lda quarterSquareLo,x
+    sbc quarterSquareLo,y
+    sta qsProdLo
+    lda quarterSquareHi,x
+    sbc quarterSquareHi,y
+    rts
+!upper:
+    sec
+    lda quarterSquareLo+$100,x
+    sbc quarterSquareLo,y
+    sta qsProdLo
+    lda quarterSquareHi+$100,x
+    sbc quarterSquareHi,y
+    rts
+
+// Add A:qsProdLo into the two middle bytes of the 32-bit product.
+addMiddleProduct:
+    tax
+    lda qsProdLo
+    clc
+    adc prod+1
+    sta prod+1
+    txa
+    adc prod+2
+    sta prod+2
+    lda prod+3
+    adc #0
+    sta prod+3
+    rts
+
+// Combine nonzero high-byte terms with the low-byte product.
+mul16Unsigned:
+    sty qsSavedY
+    lda m_a
+    ldx m_b
+    jsr mul8Quarter
+    sta prod+1
+    lda qsProdLo
+    sta prod
+    lda #0
+    sta prod+2
+    sta prod+3
+    lda m_a+1
+    beq !right+
+    ldx m_b
+    jsr mul8Quarter
+    jsr addMiddleProduct
+!right:
+    ldx m_b+1
+    beq !done+
+    lda m_a
+    jsr mul8Quarter
+    jsr addMiddleProduct
+    lda m_a+1
+    beq !done+
+    ldx m_b+1
+    jsr mul8Quarter
+    tax
+    lda qsProdLo
+    clc
+    adc prod+2
+    sta prod+2
+    txa
+    adc prod+3
+    sta prod+3
+!done:
+    ldy qsSavedY
+    rts
 
 *=$b320 "Edges"
 edgestab:
@@ -2194,3 +2313,5 @@ edgestab:
 
 *=EDGEFACES "Faces adjacent to each edge"
 .import binary "build/edgefaces.bin"
+
+.import source "clear_previous_box.asm"

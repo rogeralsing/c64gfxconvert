@@ -2,7 +2,6 @@
 """Verify the assembled signed line entry against an exact viewport reference."""
 
 import argparse
-from fractions import Fraction
 import json
 from pathlib import Path
 import random
@@ -10,41 +9,16 @@ import socket
 import subprocess
 from tempfile import TemporaryDirectory
 
+from clip_reference import HEIGHT, WIDTH, visible_segment
 from cube_model import normalized_cells
 from verify_linedrawer import BUFFERS, BUILD, glyph_rows, load_monitor, sha, symbol
 
 
-WIDTH = 160
-HEIGHT = 100
 CALL_STUB = 0xc000
 GUARD_START = 0x0200
 GUARD_END = 0xbfff
 LOW_BYTES = ("lx0", "ly0", "lx1", "ly1")
 HIGH_BYTES = ("clipX0Hi", "clipY0Hi", "clipX1Hi", "clipY1Hi")
-
-
-def visible_segment(segment):
-    """Intersect the parametric segment with both coordinate intervals."""
-    x0, y0, x1, y1 = segment
-    delta = x1 - x0, y1 - y0
-    enter, leave = Fraction(0), Fraction(1)
-    for start, step, edge in zip((x0, y0), delta, (WIDTH - 1, HEIGHT - 1)):
-        if not step:
-            if not 0 <= start <= edge:
-                return None
-            continue
-        near, far = sorted((Fraction(-start, step), Fraction(edge - start, step)))
-        enter = max(enter, near)
-        leave = min(leave, far)
-        if enter > leave:
-            return None
-
-    rounded = []
-    for position in (enter, leave):
-        for start, step in zip((x0, y0), delta):
-            value = start + position * step + Fraction(1, 2)
-            rounded.append(value.numerator // value.denominator)
-    return tuple(rounded)
 
 
 def test_segments():
