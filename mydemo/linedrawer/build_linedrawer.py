@@ -5,7 +5,7 @@ Emits every binary the asm imports plus the ground-truth expected screen and
 a manifest of proofs:
   - 200-glyph charset (2x2-expanded 4x4 tiles, char 0 blank)
   - character stamps, eight orientation maps, and Q8 slope templates
-  - projected vertices and visible face masks for the 256-frame cube rotation
+  - sine and reciprocal tables and cube topology for real-time projection
   - collision-free glyph lookup with a displacement per high pattern byte
   - screencode flip maps (identity/h/v/hv)
   - single-pixel and bit-reversal tables
@@ -152,8 +152,7 @@ def main():
 
     binaries = {}
     for name in (
-        *generated, "sin", "recip", "verts", "edges", "faces", "edgefaces",
-        "cube-geometry", "cube-visible",
+        *generated, "sin", "recip", "size-inverse", "edges", "faces", "edgefaces",
     ):
         data = (BUILD / f"{name}.bin").read_bytes()
         binaries[name] = {"bytes": len(data), "sha256": sha(data)}
@@ -165,7 +164,7 @@ def main():
         "characterTableBytes": sum(len(data) for data in stamps.values()),
         "glyphLookupBytes": sum(len(data) for data in glyph_lookup.values()),
         "cubeRotationFrames": cube_model.ROTATION_FRAMES,
-        "cubeGeometryTableBytes": binaries["cube-geometry"]["bytes"] + binaries["cube-visible"]["bytes"],
+        "cubeProjection": "live",
         "q8EndpointCases": endpoint_cases,
         "sweepPassed": bool(sweep_ok),
         "cubeCoverageMisses": coverage_misses,
@@ -178,7 +177,7 @@ def main():
     (BUILD / "linedrawer.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: report[k] for k in (
         "passed", "defaultRenderer", "glyphs", "characterTableBytes", "glyphLookupBytes",
-        "cubeRotationFrames", "cubeGeometryTableBytes", "q8EndpointCases",
+        "cubeRotationFrames", "cubeProjection", "q8EndpointCases",
         "cubeCoverageMisses", "programSha256",
     )}))
 

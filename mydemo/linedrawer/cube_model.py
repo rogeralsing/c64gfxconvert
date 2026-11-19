@@ -8,17 +8,23 @@ character forms. It also emits geometry tables and checks visible-edge coverage.
 """
 from pathlib import Path
 
+from clip_reference import visible_segment
+
 HERE = Path(__file__).resolve().parent
 BUILD = HERE / "build"
 
 # ------------------------------------------------------------ constants
 SIN_BITS = 8                  # sin table: round(sin*256), int16, 256 phases
 YAW0, PITCH0, ROLL0 = 32, 16, 11
-YAW_INC, PITCH_INC, ROLL_INC = 2, 1, 1
-CAM = 1152                    # 4.5 in 8.8
-F = 108
+YAW_INC, PITCH_INC, ROLL_INC = 2, 1, 3
+POSITION_PHASES = (0, 64, 96)
+POSITION_INCREMENTS = (3, 2, 1)
+POSITION_AMPLITUDES = (320, 176, 256)
+CAM = 1280                    # 5.0 in 8.8
+F = 96
 CX, CY = 80, 50
-DMIN, DMAX = 709, 1595        # d = CAM + z2, z2 in [-443, 443] (8.8)
+DMIN, DMAX = 352, 2503        # projection depth domain in 8.8
+SIZE_MIN, SIZE_MAX, SIZE_DEFAULT = 48, 80, 64  # Q6
 FRAMES_TO_VERIFY = 4
 ROTATION_FRAMES = 256
 
@@ -44,6 +50,7 @@ def build_recip():
 
 SIN = build_sin()
 RECIP = build_recip()
+SIZE_INVERSE = tuple(round(16384 / size) for size in range(SIZE_MIN, SIZE_MAX + 1))
 
 def cos(ph):
     return SIN[(ph + 64) & 255]
@@ -51,8 +58,7 @@ def cos(ph):
 def mul16s(a, b):
     return a * b
 
-def frame_vertices(n):
-    """Integer-exact vertex pipeline for frame n; returns 8 (sx, sy) fat px."""
+def rotated_vertices(n):
     yaw = (YAW0 + n * YAW_INC) & 255
     pit = (PITCH0 + n * PITCH_INC) & 255
     rol = (ROLL0 + n * ROLL_INC) & 255
@@ -67,11 +73,28 @@ def frame_vertices(n):
         z2 = mul16s(y, sx_) + mul16s(z1, cx_) >> 8
         x2 = mul16s(x1, cr) - mul16s(y1, sr) >> 8       # roll
         y2 = mul16s(x1, sr) + mul16s(y1, cr) >> 8
-        d = CAM + z2
-        d = max(DMIN, min(DMAX, d))
-        r = RECIP[d - DMIN]
-        ox = (mul16s(x2, r) + 32768) >> 16
-        oy = (mul16s(y2, r) + 32768) >> 16
+        out.append((x2, y2, z2))
+    return out
+
+def frame_position(n, size=SIZE_DEFAULT):
+    """Position and camera depth in units of the scaled cube."""
+    x, y, z = (
+        SIN[(phase + n * inc) & 255] * amplitude >> 8
+        for phase, inc, amplitude in zip(POSITION_PHASES, POSITION_INCREMENTS, POSITION_AMPLITUDES)
+    )
+    size = max(SIZE_MIN, min(SIZE_MAX, size))
+    inverse = SIZE_INVERSE[size - SIZE_MIN]
+    return x * inverse >> 8, y * inverse >> 8, (CAM + z) * inverse >> 8
+
+def frame_vertices(n, size=SIZE_DEFAULT):
+    """Project the eight rotated vertices to signed screen coordinates."""
+    tx, ty, camera_depth = frame_position(n, size)
+    out = []
+    for x, y, z in rotated_vertices(n):
+        depth = max(DMIN, min(DMAX, camera_depth + z))
+        r = RECIP[depth - DMIN]
+        ox = (mul16s(x + tx, r) + 32768) >> 16
+        oy = (mul16s(y + ty, r) + 32768) >> 16
         out.append((CX + ox, CY - oy))
     return out
 
@@ -81,14 +104,16 @@ def face_is_visible(points, face):
     signed_area_twice = (x2 - x0) * (y3 - y1) - (y2 - y0) * (x3 - x1)
     return signed_area_twice > 0
 
-def frame_segments(n):
-    pts = frame_vertices(n)
+def frame_segments(n, size=SIZE_DEFAULT):
+    pts = frame_vertices(n, size)
     visible = [face_is_visible(pts, face) for face in FACES]
-    return [
-        (*pts[a], *pts[b])
-        for (a, b), (left, right) in zip(EDGES, EDGE_FACES)
-        if visible[left] or visible[right]
-    ]
+    segments = []
+    for (a, b), (left, right) in zip(EDGES, EDGE_FACES):
+        if visible[left] or visible[right]:
+            clipped = visible_segment((*pts[a], *pts[b]))
+            if clipped is not None:
+                segments.append(clipped)
+    return segments
 
 # ------------------------------------------------- direct rasterization
 def bresenham(x0, y0, x1, y1):
@@ -165,7 +190,7 @@ def prove_normalized_endpoints(max_major=159):
             cases += 1
     return cases
 
-def frame_screen(n, tile_to_code):
+def frame_screen(n, tile_to_code, size=SIZE_DEFAULT):
     """Joint-composed screen for cube frame n using normalized Q8 lines."""
     import linedrawer as L
     screen = bytearray(1000)
@@ -181,7 +206,7 @@ def frame_screen(n, tile_to_code):
             h = (h + 1) & 0xFF
         return 0
     joints = []
-    for x0, y0, x1, y1 in frame_segments(n):
+    for x0, y0, x1, y1 in frame_segments(n, size):
         for key, pat in normalized_cells(x0, y0, x1, y1):
             ex = screen[key]
             if ex == 0:
@@ -205,27 +230,19 @@ def emit():
     BUILD.mkdir(exist_ok=True)
     (BUILD / "sin.bin").write_bytes(b"".join(v.to_bytes(2, "little", signed=True) for v in SIN))
     (BUILD / "recip.bin").write_bytes(b"".join(v.to_bytes(2, "little") for v in RECIP))
-    (BUILD / "verts.bin").write_bytes(
-        b"".join(v.to_bytes(2, "little", signed=True) for vert in VERTS for v in vert))
+    (BUILD / "size-inverse.bin").write_bytes(
+        b"".join(v.to_bytes(2, "little") for v in SIZE_INVERSE))
     (BUILD / "edges.bin").write_bytes(b"".join(bytes(e) for e in EDGES))
     (BUILD / "faces.bin").write_bytes(bytes(vertex for face in FACES for vertex in face))
     (BUILD / "edgefaces.bin").write_bytes(
         bytes((1 << left) | (1 << right) for left, right in EDGE_FACES))
 
-    # Frame index times 16 selects eight interleaved X/Y pairs.
-    frames = [frame_vertices(n) for n in range(ROTATION_FRAMES)]
-    (BUILD / "cube-geometry.bin").write_bytes(
-        bytes(coord for points in frames for point in points for coord in point))
-    (BUILD / "cube-visible.bin").write_bytes(
-        bytes(sum(1 << index for index, face in enumerate(FACES)
-                  if face_is_visible(points, face)) for points in frames))
-
-def coverage_receipt(tile_to_code, frames=256):
-    """Every normalized-Q8 cube cell over the full orientation period is
+def coverage_receipt(tile_to_code, frames=ROTATION_FRAMES, size=SIZE_DEFAULT):
+    """Every normalized-Q8 cube cell over the full motion period is
     a bank glyph (the saturation proof, on the cube's actual lines)."""
     bad = 0
     for n in range(frames):
-        for x0, y0, x1, y1 in frame_segments(n):
+        for x0, y0, x1, y1 in frame_segments(n, size):
             for key, pat in normalized_cells(x0, y0, x1, y1):
                 if pat not in tile_to_code:
                     bad += 1
