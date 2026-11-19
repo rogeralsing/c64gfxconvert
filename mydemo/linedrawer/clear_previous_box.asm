@@ -100,6 +100,7 @@ rememberCubeBox:
     lda #0
     sta boxMaxX
     sta boxMaxY
+    .if (CROSSING_HOLES) { sta meshNeedsClip }
     ldy #0
 !point:
     // Clamp the signed projected coordinates to the inclusive viewport.
@@ -113,9 +114,11 @@ rememberCubeBox:
     cmp #160
     bcc !x+
 !right:
+    .if (CROSSING_HOLES) { inc meshNeedsClip }
     lda #159
     bne !x+
 !negativeX:
+    .if (CROSSING_HOLES) { inc meshNeedsClip }
     lda #0
 !x:
     cmp boxMinX
@@ -135,9 +138,11 @@ rememberCubeBox:
     cmp #100
     bcc !y+
 !bottom:
+    .if (CROSSING_HOLES) { inc meshNeedsClip }
     lda #99
     bne !y+
 !negativeY:
+    .if (CROSSING_HOLES) { inc meshNeedsClip }
     lda #0
 !y:
     cmp boxMinY
@@ -150,7 +155,7 @@ rememberCubeBox:
 !nextPoint:
     iny
     iny
-    cpy #16
+    cpy #(2 * MESH_VERTEX_COUNT)
     bne !point-
 
     ldx backPair

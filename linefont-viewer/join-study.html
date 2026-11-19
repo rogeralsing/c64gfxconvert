@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join glyph study · Line Font Lab</title>
+  <link rel="stylesheet" href="join-study.css">
+</head>
+<body>
+  <main class="lab">
+    <header class="lab-header">
+      <a class="back-link" href="index.html">← Line Font Lab</a>
+      <h1>Join glyph study</h1>
+      <p id="study-status" role="status">Measuring the three wireframes…</p>
+    </header>
+
+    <section class="controls panel" aria-label="Study settings">
+      <fieldset class="segments" disabled>
+        <legend>Wireframe</legend>
+        <label><input type="radio" name="shape" value="cube"><span>Cube</span></label>
+        <label><input type="radio" name="shape" value="football"><span>Football</span></label>
+        <label><input type="radio" name="shape" value="globe" checked><span>Globe</span></label>
+      </fieldset>
+      <fieldset class="segments" disabled>
+        <legend>Font plan</legend>
+        <label><input type="radio" name="budget" value="compact" checked><span>Compact hybrid</span></label>
+        <label><input type="radio" name="budget" value="0"><span>0</span></label>
+        <label><input type="radio" name="budget" value="16"><span>16</span></label>
+        <label><input type="radio" name="budget" value="32"><span>32</span></label>
+        <label><input type="radio" name="budget" value="55"><span>55</span></label>
+      </fieldset>
+      <p class="bank-size" id="bank-size"></p>
+    </section>
+
+    <section class="preview" aria-label="Frame comparison">
+      <figure class="panel monitor">
+        <figcaption>Exact cell masks</figcaption>
+        <canvas id="exact-preview" width="160" height="100" aria-label="Wireframe using exact cell masks"></canvas>
+      </figure>
+      <figure class="panel monitor">
+        <figcaption>
+          <label><span class="sr-only">Comparison output</span>
+            <select id="preview-mode" disabled>
+              <option value="fixed">Fixed font</option>
+              <option value="hybrid" selected>Hybrid + patch fallback</option>
+            </select>
+          </label>
+          <span id="pose-difference"></span>
+        </figcaption>
+        <canvas id="fixed-preview" width="160" height="100" aria-label="Wireframe using the comparison output"></canvas>
+      </figure>
+      <div class="transport">
+        <button id="play" type="button" disabled>Play</button>
+        <label class="scrubber">Pose <input id="pose" type="range" min="0" max="255" value="1" disabled>
+          <span id="pose-number" aria-hidden="true">001 / 255</span>
+        </label>
+        <label class="diff-toggle"><input id="show-difference" type="checkbox" disabled> Highlight pixel changes</label>
+      </div>
+      <p class="diff-legend" id="diff-legend" hidden>
+        <span class="legend-swatch removed"></span> Removed
+        <span class="legend-swatch added"></span> Added
+      </p>
+      <p class="preview-capacity" id="preview-capacity" hidden></p>
+    </section>
+
+    <section class="panel patches" aria-labelledby="patch-heading">
+      <h2 id="patch-heading">Patched glyphs per frame <small>mean</small></h2>
+      <dl class="patch-path">
+        <div><dt>Current renderer</dt><dd id="legacy-patches">—</dd></div>
+        <div><dt>After batching cells</dt><dd id="batch-patches">—</dd></div>
+        <div><dt>Fixed bank + exact fallback</dt><dd id="remaining-patches">—</dd></div>
+        <div><dt>Hybrid + patch fallback</dt><dd id="hybrid-patches">—</dd></div>
+        <div><dt>Fixed font only</dt><dd class="success" id="fixed-patches">—</dd></div>
+      </dl>
+      <p class="measurement-note" id="hybrid-note">Hybrid keeps every source pixel and adds at most two connected pixels per cell before falling back to a patch.</p>
+      <p class="measurement-note" id="hybrid-capacity"></p>
+    </section>
+
+    <section class="measurements" aria-label="Glyph measurements">
+      <article class="panel usage">
+        <h2>Glyph frequency</h2>
+        <fieldset class="segments frequency-mode" disabled>
+          <legend class="sr-only">Rank glyphs by</legend>
+          <label><input type="radio" name="frequency" value="final" checked><span>Final cells</span></label>
+          <label><input type="radio" name="frequency" value="stamps"><span>Line stamps</span></label>
+          <label><input type="radio" name="frequency" value="fixedFinal"><span>Fixed output</span></label>
+        </fieldset>
+        <ol class="glyph-list" id="glyph-list"></ol>
+      </article>
+
+      <article class="panel quality">
+        <h2>Fixed font quality</h2>
+        <dl class="measures">
+          <div><dt>Exact final cells</dt><dd id="exact-cells">—</dd></div>
+          <div><dt>Exact overlap cells</dt><dd id="exact-joins">—</dd></div>
+          <div><dt>Fewer / extra pixels per frame</dt><dd id="pixel-errors">—</dd></div>
+          <div><dt>Lost boundary pixels per frame</dt><dd id="boundary-loss">—</dd></div>
+          <div><dt>Cells with 1–2 pixels, stamp → final</dt><dd id="short-masks">—</dd></div>
+          <div><dt>Line bank used by stamps</dt><dd id="stamp-bank-usage">—</dd></div>
+          <div><dt>Line bank used on completed screen</dt><dd id="final-bank-usage">—</dd></div>
+          <div><dt>Endpoint arms alone match the full cell</dt><dd id="endpoint-exact">—</dd></div>
+        </dl>
+        <p class="measurement-note">Endpoint cells use the incident edges that remain visible after culling. Other lines can still cross the cell.</p>
+      </article>
+    </section>
+  </main>
+  <script src="join-study-data.js"></script>
+  <script src="join-study-model.js"></script>
+  <script src="join-study-palette.js"></script>
+  <script src="join-study-ui.js"></script>
+</body>
+</html>

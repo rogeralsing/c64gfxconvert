@@ -1,4 +1,6 @@
-.assert "Grouped rotation must end before projection", groupedRotationEnd <= $7c00, true
+.if (!IS_MESH) {
+    .assert "Grouped rotation must end before projection", groupedRotationEnd <= $7c00, true
+}
 *=$7c00 "Exact high-word perspective product"
 
 // A is a signed position in m_a, B is a nonnegative 16-bit reciprocal in

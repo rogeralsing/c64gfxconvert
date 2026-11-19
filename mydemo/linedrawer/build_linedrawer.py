@@ -12,10 +12,13 @@ a manifest of proofs:
   - expected screen bytes from the reference drawer
 Then assembles main.asm with Kick Assembler.
 """
+import argparse
 import hashlib
 import json
+import re
 import subprocess
 from pathlib import Path
+from functools import partial
 
 import linedrawer as L
 import char_tables
@@ -83,7 +86,37 @@ def build_displaced_bank(tile_to_code):
     }
 
 def main():
-    BUILD.mkdir(exist_ok=True)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--shape", choices=("cube", "football", "globe"), default="cube")
+    renderer_options = parser.add_mutually_exclusive_group()
+    renderer_options.add_argument("--compact-joins", action="store_true",
+                                  help="use the web lab's compact hybrid font for the globe")
+    renderer_options.add_argument("--one-char", action="store_true",
+                                  help="benchmark the globe using one fixed block character")
+    renderer_options.add_argument("--crossing-holes", action="store_true",
+                                  help="use fixed line glyphs and blank cells where they cross")
+    args = parser.parse_args()
+    shape = args.shape
+    if args.compact_joins and shape != "globe":
+        parser.error("--compact-joins requires --shape globe")
+    if args.one_char and shape != "globe":
+        parser.error("--one-char requires --shape globe")
+    if args.crossing_holes and shape != "globe":
+        parser.error("--crossing-holes requires --shape globe")
+    variant = shape
+    renderer = "character group stamps"
+    if args.compact_joins:
+        variant = "globe-compact"
+        renderer = "compact final cells"
+    elif args.one_char:
+        variant = "globe-one-char"
+        renderer = "one fixed block character"
+    elif args.crossing_holes:
+        variant = "globe-holes"
+        renderer = "fixed glyphs with crossing holes"
+    output = BUILD if shape == "cube" else BUILD / variant
+    output.mkdir(parents=True, exist_ok=True)
+    program = output / ("linedrawer.prg" if shape == "cube" else f"{variant}.prg")
     tile_to_code, tiles, maps = L.build_font()
 
     # ---- charset ----
@@ -113,12 +146,16 @@ def main():
     for pat, code in tile_to_code.items():
         revlo[code + 1] = pat & 0xFF
         revhi[code + 1] = pat >> 8
-    glyph_lookup = build_displaced_bank(tile_to_code)
+    glyph_lookup = {} if args.crossing_holes else build_displaced_bank(tile_to_code)
 
     rev8 = bytes(int(f"{value:08b}"[::-1], 2) for value in range(256))
     # Full bit reversal swaps the two 4-bit rows. Keep their order for H flips.
     hrev8 = bytes((value >> 4) | ((value & 15) << 4) for value in rev8)
-    stamps = char_tables.build(tile_to_code)
+    if args.crossing_holes:
+        import hole_templates
+        stamps = hole_templates.build(tile_to_code)
+    else:
+        stamps = char_tables.build(tile_to_code)
     generated = {
         "charset": charset, "revlo": revlo, "revhi": revhi,
         "flips": flips,
@@ -133,18 +170,48 @@ def main():
         (BUILD / f"{name}.bin").write_bytes(data)
 
     cube_model.emit()
+    frame_screen = cube_model.frame_screen
+    frame_segments = cube_model.frame_segments
+    assembler_args = []
+    mesh_binary = []
+    if shape != "cube":
+        import ball_model
+
+        vertices, faces, edges = ball_model.emit(shape, BUILD)
+        frame_screen = partial(ball_model.frame_screen, shape)
+        frame_segments = partial(ball_model.frame_segments, shape)
+        assembler_args = [f":mesh={shape}", f":vertices={vertices}",
+                          f":faces={faces}", f":edges={edges}"]
+        mesh_binary = [f"{shape}-mesh"]
+    if args.compact_joins:
+        subprocess.run(["node", str(HERE / "build_compact_assets.js"), str(BUILD)], check=True)
+        assembler_args.append(":compactJoins=1")
+        mesh_binary.extend(("compact-charset", "compact-buckets-lo", "compact-buckets-hi",
+                            "compact-buckets-length", "compact-keys", "compact-codes",
+                            "compact-hash-disp-lo", "compact-hash-disp-hi", "compact-hash-tags",
+                            "compact-hash-codes"))
+    if args.one_char:
+        assembler_args.append(":oneChar=1")
+    if args.crossing_holes:
+        depth, sweep = ball_model.HOLES_CAMERA
+        y_sweep = ball_model.HOLES_Y_SWEEP
+        assembler_args.extend((":crossingHoles=1", f":cameraDepth={depth}", f":cameraSweep={sweep}",
+                               f":motionY={y_sweep}"))
+        frame_segments = partial(ball_model.frame_segments, shape, camera=ball_model.HOLES_CAMERA,
+                                 y_sweep=y_sweep)
     endpoint_cases = cube_model.prove_normalized_endpoints()
-    coverage_misses = cube_model.coverage_receipt(tile_to_code)
-    for n in range(cube_model.FRAMES_TO_VERIFY):
-        screen, _ = cube_model.frame_screen(n, tile_to_code)
-        (BUILD / f"expected_frame{n}.bin").write_bytes(screen)
+    coverage_misses = cube_model.coverage_receipt(tile_to_code, segments_for=frame_segments)
+    if not (args.compact_joins or args.one_char or args.crossing_holes):
+        for n in range(cube_model.FRAMES_TO_VERIFY):
+            screen, _ = frame_screen(n, tile_to_code)
+            (output / f"expected_frame{n}.bin").write_bytes(screen)
     sweep_ok = L.sweep(count=1500, seed=7)
 
     result = subprocess.run(
-        [str(Path.home() / ".local/bin/kickass"), "main.asm", "-odir", str(BUILD),
-         "-o", str(BUILD / "linedrawer.prg"), "-symbolfile"],
+        [str(Path.home() / ".local/bin/kickass"), "main.asm", "-odir", str(output),
+         "-o", str(program), "-symbolfile", *assembler_args],
         cwd=HERE, capture_output=True, text=True)
-    (BUILD / "build.log").write_text(result.stdout + result.stderr)
+    (output / "build.log").write_text(result.stdout + result.stderr)
     if result.returncode != 0:
         print(result.stdout[-3000:])
         print(result.stderr[-3000:])
@@ -153,15 +220,23 @@ def main():
     binaries = {}
     for name in (
         *generated, "sin", "recip", "recip-far", "size-inverse", "edges", "faces", "edgefaces",
+        *mesh_binary,
     ):
         data = (BUILD / f"{name}.bin").read_bytes()
         binaries[name] = {"bytes": len(data), "sha256": sha(data)}
-    program = BUILD / "linedrawer.prg"
+    stamp_bytes = sum(len(data) for data in stamps.values())
+    if args.crossing_holes:
+        symbols = (output / "main.sym").read_text()
+        native_size = re.search(r"^\.label assembledHoleGlyphBytes=\$([\da-fA-F]+)\b", symbols, re.M)
+        if native_size is None:
+            raise ValueError("Missing assembled fixed-font glyph table size")
+        stamp_bytes = int(native_size[1], 16)
     report = {
         "passed": bool(sweep_ok and not coverage_misses),
-        "defaultRenderer": "character group stamps",
+        "shape": shape,
+        "defaultRenderer": renderer,
         "glyphs": len(tiles),
-        "characterTableBytes": sum(len(data) for data in stamps.values()),
+        "characterTableBytes": stamp_bytes,
         "glyphLookupBytes": sum(len(data) for data in glyph_lookup.values()),
         "cubeRotationFrames": cube_model.ROTATION_FRAMES,
         "cubeProjection": "live",
@@ -174,9 +249,9 @@ def main():
         "jointSlotsUsed": len(demo_joints),
         "binaries": binaries,
     }
-    (BUILD / "linedrawer.json").write_text(json.dumps(report, indent=2) + "\n")
+    (output / "linedrawer.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: report[k] for k in (
-        "passed", "defaultRenderer", "glyphs", "characterTableBytes", "glyphLookupBytes",
+        "passed", "shape", "defaultRenderer", "glyphs", "characterTableBytes", "glyphLookupBytes",
         "cubeRotationFrames", "cubeProjection", "q8EndpointCases",
         "cubeCoverageMisses", "programSha256",
     )}))

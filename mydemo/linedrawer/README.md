@@ -69,6 +69,55 @@ After building, run `rtk proxy python3 mydemo/linedrawer/verify_clipped_lines.py
 to exercise signed endpoints in VICE and check that only the target
 screen's 1,000 cells can change when drawing a single line.
 
+## Wireframe balls
+
+Build each ball as a separate PRG for comparison in VICE.
+
+```sh
+rtk proxy python3 mydemo/linedrawer/build_linedrawer.py --shape football
+rtk proxy /opt/homebrew/bin/x64sc -pal -autostart mydemo/linedrawer/build/football/football.prg
+
+rtk proxy python3 mydemo/linedrawer/build_linedrawer.py --shape globe
+rtk proxy /opt/homebrew/bin/x64sc -pal -autostart mydemo/linedrawer/build/globe/globe.prg
+```
+
+The football is a truncated icosahedron with 12 pentagons and 20 hexagons.
+The globe has eight meridians and three latitude rings. Each build stores
+the mesh in object space. The C64 updates the rotation and perspective
+each frame and draws edges of front-facing faces with the same character
+renderer. Hold **W** or **S** to change depth as the ball rotates.
+
+Run `rtk proxy python3 mydemo/linedrawer/verify_linedrawer.py --shape football`
+or pass `--shape globe` to check either build against the reference.
+
+The compact globe uses the hybrid font from the web lab. It accumulates
+each cell's mask during line drawing, then selects one screen code per
+occupied cell. A static replacement retains the source pixels and can
+add up to two connected pixels. Exact masks without a replacement use
+the reserve glyphs.
+
+```sh
+rtk proxy python3 mydemo/linedrawer/build_linedrawer.py --shape globe --compact-joins
+rtk proxy /opt/homebrew/bin/x64sc -pal -autostartprgmode 1 -autostart mydemo/linedrawer/build/globe-compact/globe-compact.prg
+rtk proxy python3 mydemo/linedrawer/verify_linedrawer.py --compact-joins
+```
+
+Use `--one-char` with `--shape globe` to build `build/globe-one-char/globe-one-char.prg`.
+This benchmark fills each touched cell with the same solid block glyph.
+It keeps the normal cell walk and makes no glyph patches during the sweep.
+Run `rtk proxy python3 mydemo/linedrawer/verify_linedrawer.py --one-char`
+to check the cell coverage and PAL scanout.
+
+Use `--crossing-holes` with `--shape globe` to build `build/globe-holes/globe-holes.prg`.
+The first line stamp uses its fixed glyph. Different stamps in the same
+cell leave a blank until the next frame. The charset stays fixed.
+The start position selects a decoder for the slope stream. Each full block
+then supplies its own glyph selection and screen step.
+Verify this variant with `rtk proxy python3 mydemo/linedrawer/verify_linedrawer.py --crossing-holes`.
+
+The [large-globe line study](LINE-PERFORMANCE.md) compares edge ordering, shared endpoints,
+parallel lines and the exact glyph walker under PAL VICE.
+
 ## Earlier experiments
 
 The following notes and measurements document earlier prototypes.

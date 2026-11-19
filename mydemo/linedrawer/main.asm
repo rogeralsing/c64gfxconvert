@@ -10,6 +10,27 @@
 // unsupported. Direction records ship for the demo directions only, but the
 // code path is fully general.
 
+.const HOLE_UNROLL = 4
+.const IS_MESH = cmdLineVars.containsKey("mesh")
+.const COMPACT_JOINS = cmdLineVars.containsKey("compactJoins")
+.const COMPACT_FIRST_PATCH = 234
+.const CROSSING_HOLES = cmdLineVars.containsKey("crossingHoles")
+.const HOLE_CODE = 201         // predefined blank that marks an occupied cell
+.const ONE_CHAR = cmdLineVars.containsKey("oneChar")
+.const ONE_CHAR_CODE = 201
+.const SHORT_RATE_LIMIT = CROSSING_HOLES ? 56 : 32
+.const shortRates = CROSSING_HOLES ? $c600 : $7800
+.const shortRateRowLo = shortRates + SHORT_RATE_LIMIT * (SHORT_RATE_LIMIT + 1) / 2
+.const shortRateRowHi = shortRateRowLo + SHORT_RATE_LIMIT + 1
+.var MESH_VERTEX_COUNT = 8
+.var MESH_FACE_COUNT = 6
+.var MESH_EDGE_COUNT = 12
+.if (IS_MESH) {
+    .eval MESH_VERTEX_COUNT = cmdLineVars.get("vertices").asNumber()
+    .eval MESH_FACE_COUNT = cmdLineVars.get("faces").asNumber()
+    .eval MESH_EDGE_COUNT = cmdLineVars.get("edges").asNumber()
+}
+
 .const CHARSET = $2000
 .const FLIPS   = $2800          // identity, h, v, hv (screencode -> screencode)
 .const DIRTAB  = $2c00          // quantized: 65 entries
@@ -105,12 +126,30 @@ BasicUpstart2(start)
 .const EDGEFACES = $b350
 .const REV8    = $b700          // bit-reverse LUT
 .const HREV8   = $b800          // swapnib(rev8) LUT
-.const PTAB    = $a800          // 8 projected points (sx,sy bytes)
-.const PTAB_HI = PTAB + 16      // high bytes of signed screen coordinates
+.const PTAB    = $a800          // interleaved projected x/y low bytes
+.const PTAB_HI = PTAB + 2 * MESH_VERTEX_COUNT
+.assert "Projected points fit before the sine table", PTAB_HI + 2 * MESH_VERTEX_COUNT <= SIN, true
 .const MODE    = $0338          // 255=receipt only, 0=free run, N=cube N frames
 .const CDONE   = $033a          // cube halt signature ($c4 $c5 $c6)
-.const CAMERA_DEPTH = 16 * 256  // center of the 4–28 unit Z sweep
-.const CAMERA_SWEEP = 12 * 256
+.var CAMERA_DEPTH = 16 * 256    // center of the 4–28 unit cube sweep
+.var CAMERA_SWEEP = 12 * 256
+.var MOTION_X = 320
+.var MOTION_Y = 176
+.var NEAR_KEY_PHASE = 192      // sine = -1
+.if (IS_MESH) {
+    .eval CAMERA_DEPTH = 4.25 * 256  // 3.5–5 units keeps each grid readable
+    .eval CAMERA_SWEEP = 0.75 * 256
+    .eval MOTION_X = 64
+    .eval MOTION_Y = 64
+    .if (cmdLineVars.get("mesh") == "globe") {
+        .eval NEAR_KEY_PHASE = 208  // give the denser grid room for its joins
+    }
+}
+.if (CROSSING_HOLES) {
+    .eval CAMERA_DEPTH = cmdLineVars.get("cameraDepth").asNumber()
+    .eval CAMERA_SWEEP = cmdLineVars.get("cameraSweep").asNumber()
+    .eval MOTION_Y = cmdLineVars.get("motionY").asNumber()
+}
 .const DEPTH_MIN = 352
 .const DEPTH_NEAR_MAX = 2503
 .const DEPTH_MAX = 40 * 256 - 1
@@ -1026,11 +1065,11 @@ hlMiss:
     lda #0
     rts
 
-// expand (patLo,patHi) into char 201+slot of the charset; slot index in X
+// Expand (patLo,patHi) into the reserve glyph indexed by X.
 patchGlyph:
     txa
     clc
-    adc #201
+    .if (COMPACT_JOINS) { adc #COMPACT_FIRST_PATCH } else { adc #201 }
     pha
     asl
     asl
@@ -1090,62 +1129,82 @@ niblut:                       // fat nibble (bit 0 at left) -> doubled row byte
 
 *=$2000 "Charset"
 charset:
-.import binary "build/charset.bin"
+.if (COMPACT_JOINS) {
+    .import binary "build/compact-charset.bin"
+} else {
+    .import binary "build/charset.bin"
+}
 
 *=$2800 "Flip maps"
 flipTabs:
-.import binary "build/flips.bin"
+.if (!CROSSING_HOLES) { .import binary "build/flips.bin" }
 
 *=CHARSET_B "Second character bank"
-.import binary "build/charset.bin"
+.if (COMPACT_JOINS) {
+    .import binary "build/compact-charset.bin"
+} else {
+    .import binary "build/charset.bin"
+}
 
-*=$4000 "First character of each line block"
-charFirst:
-.import binary "build/char-first.bin"
+.label charFirst = $4000
+.label charSecond = $5000
+.label charTransform = $6000
+.label charSlope = $6800
 
-*=$5000 "Second character of each line block"
-charSecond:
-.import binary "build/char-second.bin"
+.if (CROSSING_HOLES) {
+    .import source "hole_tables.asm"
+} else {
+    *=charFirst "First character of each line block"
+    .import binary "build/char-first.bin"
 
-*=$6000 "Character reflection and transpose maps"
-charTransform:
-.import binary "build/char-transform.bin"
+    *=charSecond "Second character of each line block"
+    .import binary "build/char-second.bin"
 
-*=$6800 "Line block shapes by slope"
-charSlope:
-.import binary "build/char-slope.bin"
+    *=charTransform "Character reflection and transpose maps"
+    .import binary "build/char-transform.bin"
 
+    *=charSlope "Line block shapes by slope"
+    .import binary "build/char-slope.bin"
+}
+
+.if (CROSSING_HOLES) { .import source "hole_line_setup.asm" }
 .import source "char_walk.asm"
 .import source "clip_line.asm"
-.import source "cube_grouped.asm"
+.if (IS_MESH) {
+    .import source "mesh_rotate.asm"
+} else {
+    .import source "cube_grouped.asm"
+}
 .import source "cube_project.asm"
 
 
-*=HASHKL "Glyph lookup keys low"
-hashkl:
-.import binary "build/hashkl.bin"
+.if (!COMPACT_JOINS) {
+    *=HASHKL "Glyph lookup keys low"
+    hashkl:
+    .if (!CROSSING_HOLES) { .import binary "build/hashkl.bin" }
 
-*=HASHKH "Glyph lookup keys high"
-hashkh:
-.import binary "build/hashkh.bin"
+    *=HASHKH "Glyph lookup keys high"
+    hashkh:
+    .if (!CROSSING_HOLES) { .import binary "build/hashkh.bin" }
+}
 
 *=HASHV "Glyph lookup codes"
 hashv:
-.import binary "build/hashv.bin"
+.if (!CROSSING_HOLES) { .import binary "build/hashv.bin" }
 
 *=HASH_DISP_LO "Glyph lookup displacements low"
-.import binary "build/hash-disp-lo.bin"
+.if (!CROSSING_HOLES) { .import binary "build/hash-disp-lo.bin" }
 
 *=HASH_DISP_HI "Glyph lookup displacements high"
-.import binary "build/hash-disp-hi.bin"
+.if (!CROSSING_HOLES) { .import binary "build/hash-disp-hi.bin" }
 
 *=$a200 "Pattern reverse map"
 revlo:
-.import binary "build/revlo.bin"
+.if (!CROSSING_HOLES) { .import binary "build/revlo.bin" }
 
 *=$a300
 revhi:
-.import binary "build/revhi.bin"
+.if (!CROSSING_HOLES) { .import binary "build/revhi.bin" }
 
 *=$a700 "Joint slots"
 jointt:
@@ -1305,16 +1364,24 @@ loadSin:
 
 // transform 8 vertices into PTAB and PTAB_HI; integer-exact vs cube_model.py
 transformVerts:
-    jsr groupedRotate
-    lda #<groupedVertices
-    sta vPtr
-    lda #>groupedVertices
-    sta vPtr+1
+    .if (IS_MESH) {
+        jsr meshRotate
+        lda #<meshRotated
+        sta vPtr
+        lda #>meshRotated
+        sta vPtr+1
+    } else {
+        jsr groupedRotate
+        lda #<groupedVertices
+        sta vPtr
+        lda #>groupedVertices
+        sta vPtr+1
+    }
     lda #<PTAB
     sta pPtr
     lda #>PTAB
     sta pPtr+1
-    lda #8
+    lda #MESH_VERTEX_COUNT
     sta vcount
 tvLoop:
     ldy #0
@@ -1422,7 +1489,7 @@ tvReadReciprocal:
     sta (pPtr),y
     lda #0
     adc prod+3
-    ldy #16
+    ldy #(PTAB_HI - PTAB)
     sta (pPtr),y
     // sy = 50 - (((ry2 + motionY) * r + $8000) >> 16)
     // The X projection preserved the reciprocal for Y.
@@ -1441,7 +1508,7 @@ tvReadReciprocal:
     sta (pPtr),y
     lda #0
     sbc prod+3
-    ldy #17
+    ldy #(PTAB_HI - PTAB + 1)
     sta (pPtr),y
     // next vertex
     lda vPtr
@@ -1949,26 +2016,39 @@ faceProduct:
 findVisibleFaces:
     lda #0
     sta faceOffset
-    sta visibleFaces
-    lda #1
-    sta faceBit
+    .if (!IS_MESH) {
+        sta visibleFaces
+        lda #1
+        sta faceBit
+    }
 !face:
     ldy faceOffset
-    lda FACES,y
-    asl
-    sta faceP0
-    iny
-    lda FACES,y
-    asl
-    sta faceP1
-    iny
-    lda FACES,y
-    asl
-    sta faceP2
-    iny
-    lda FACES,y
-    asl
-    sta faceP3
+    .if (IS_MESH) {
+        lda meshFaceP0,y
+        sta faceP0
+        lda meshFaceP1,y
+        sta faceP1
+        lda meshFaceP2,y
+        sta faceP2
+        lda meshFaceP3,y
+        sta faceP3
+    } else {
+        lda FACES,y
+        asl
+        sta faceP0
+        iny
+        lda FACES,y
+        asl
+        sta faceP1
+        iny
+        lda FACES,y
+        asl
+        sta faceP2
+        iny
+        lda FACES,y
+        asl
+        sta faceP3
+    }
 
     FaceDiagonal(faceP0, faceP2, faceDxA, faceDyA)
     FaceDiagonal(faceP1, faceP3, faceDxB, faceDyB)
@@ -2014,16 +2094,33 @@ findVisibleFaces:
     ora tmp
     beq !hidden+
 !visible:
-    lda visibleFaces
-    ora faceBit
-    sta visibleFaces
+    .if (IS_MESH) {
+        lda #1
+        bne !store+
+    } else {
+        lda visibleFaces
+        ora faceBit
+        sta visibleFaces
+    }
 !hidden:
-    asl faceBit
-    lda faceOffset
-    clc
-    adc #4
-    sta faceOffset
-    cmp #24
+    .if (IS_MESH) {
+        lda #0
+    }
+!store:
+    .if (IS_MESH) {
+        ldx faceOffset
+        sta meshVisibleFaces,x
+        inx
+        stx faceOffset
+        cpx #MESH_FACE_COUNT
+    } else {
+        asl faceBit
+        lda faceOffset
+        clc
+        adc #4
+        sta faceOffset
+        cmp #24
+    }
     beq !done+
     jmp !face-
 !done:
@@ -2058,7 +2155,7 @@ readDepthPhase:
     lda motionPhaseZ
     rts
 !near:
-    lda #192                  // sine = -1
+    lda #NEAR_KEY_PHASE
     rts
 !far:
     lda #64                   // sine = +1
@@ -2066,9 +2163,9 @@ readDepthPhase:
 
 updateCubePosition:
     lda motionPhaseX
-    SinePosition(320, motionX)
+    SinePosition(MOTION_X, motionX)
     lda motionPhaseY
-    SinePosition(176, motionY)
+    SinePosition(MOTION_Y, motionY)
     jsr readDepthPhase
     SinePosition(CAMERA_SWEEP, motionDepth)
     lda motionDepth
@@ -2125,6 +2222,16 @@ updateCubePosition:
 
 // Draw each edge into the hidden screen/charset pair.
 cubeMain:
+    .if (COMPACT_JOINS) { jsr compactInit }
+    .if (ONE_CHAR) {
+        lda #$ff
+        ldx #7
+    !block:
+        sta CHARSET + ONE_CHAR_CODE * 8,x
+        sta CHARSET_B + ONE_CHAR_CODE * 8,x
+        dex
+        bpl !block-
+    }
     lda #$ff
     sta $dc00
     sta $dc02                  // keyboard rows are outputs
@@ -2159,22 +2266,41 @@ cubeLoop:
     jsr transformVerts
     jsr findVisibleFaces
     jsr rememberCubeBox
-    lda #12
+    .if (CROSSING_HOLES) {
+        lda meshNeedsClip
+        bne !clipped+
+        jsr drawInsideMesh
+        jmp meshEdgesDone
+    !clipped:
+    }
+    .if (IS_MESH) { lda #0 } else { lda #12 }
     sta ecount
 edgeLoop:
-    lda #12
-    sec
-    sbc ecount
-    tay
-    lda EDGEFACES,y
-    and visibleFaces
-    beq !nextEdge+
-    tya
-    asl
-    tay
-    lda EDGES,y
-    asl
-    tay
+    .if (IS_MESH) {
+        ldx ecount
+        ldy meshEdgeFaceA,x
+        lda meshVisibleFaces,y
+        bne !draw+
+        ldy meshEdgeFaceB,x
+        lda meshVisibleFaces,y
+        beq !nextEdge+
+    !draw:
+        ldy meshEdgeA,x
+    } else {
+        lda #12
+        sec
+        sbc ecount
+        tay
+        lda EDGEFACES,y
+        and visibleFaces
+        beq !nextEdge+
+        tya
+        asl
+        tay
+        lda EDGES,y
+        asl
+        tay
+    }
     lda PTAB,y
     sta lx0
     lda PTAB_HI,y
@@ -2184,15 +2310,20 @@ edgeLoop:
     sta ly0
     lda PTAB_HI,y
     sta clipY0Hi
-    lda #12
-    sec
-    sbc ecount
-    asl
-    tay
-    iny
-    lda EDGES,y
-    asl
-    tay
+    .if (IS_MESH) {
+        ldx ecount
+        ldy meshEdgeB,x
+    } else {
+        lda #12
+        sec
+        sbc ecount
+        asl
+        tay
+        iny
+        lda EDGES,y
+        asl
+        tay
+    }
     lda PTAB,y
     sta lx1
     lda PTAB_HI,y
@@ -2204,8 +2335,16 @@ edgeLoop:
     sta clipY1Hi
     jsr drawClippedLine
 !nextEdge:
-    dec ecount
+    .if (IS_MESH) {
+        inc ecount
+        lda ecount
+        cmp #MESH_EDGE_COUNT
+    } else {
+        dec ecount
+    }
     bne edgeLoop
+meshEdgesDone:
+    .if (COMPACT_JOINS) { jsr flushCompact }
     jsr showFrame
     inc phYaw
     inc phYaw
@@ -2259,7 +2398,7 @@ reciptabEnd:
 
 *=$b600 "Bit reverse LUT"
 rev8lut:
-.import binary "build/rev8.bin"
+.if (!CROSSING_HOLES) { .import binary "build/rev8.bin" }
 
 *=$b800 "H reverse LUT"
 hrev8lut:
@@ -2371,3 +2510,46 @@ edgestab:
 .import binary "build/edgefaces.bin"
 
 .import source "clear_previous_box.asm"
+.if (COMPACT_JOINS) {
+    .import source "compact_joins.asm"
+}
+.if (ONE_CHAR || CROSSING_HOLES) {
+    *=shortRates "Short-line Q8 rates"
+    .for (var span = 1; span <= SHORT_RATE_LIMIT; span++) {
+        .fill span, floor((512 * i + span) / (2 * span))
+    }
+    .assert "Short-line rate rows match pointer base", * == shortRateRowLo, true
+    .fill SHORT_RATE_LIMIT + 1, <(shortRates + i * (i - 1) / 2)
+    .fill SHORT_RATE_LIMIT + 1, >(shortRates + i * (i - 1) / 2)
+    .assert "Short-line rates fit in reserved space", * <= (CROSSING_HOLES ? $ce00 : $7c00), true
+}
+
+.if (IS_MESH) {
+    *=meshVertexX "Ball vertices, face diagonals and edges"
+    .if (cmdLineVars.get("mesh") == "football") {
+        .import binary "build/football-mesh.bin"
+    } else {
+        .import binary "build/globe-mesh.bin"
+    }
+    .assert "Ball mesh tables match their layout", * == meshVisibleFaces, true
+    .fill MESH_FACE_COUNT, 0
+    .assert "Ball mesh fits before character tables", * <= $4000, true
+}
+.label meshVertexX = $3800
+.label meshVertexY = meshVertexX + MESH_VERTEX_COUNT / 2
+.label meshVertexZ = meshVertexY + MESH_VERTEX_COUNT / 2
+.label meshFaceP0 = meshVertexZ + MESH_VERTEX_COUNT / 2
+.label meshFaceP1 = meshFaceP0 + MESH_FACE_COUNT
+.label meshFaceP2 = meshFaceP1 + MESH_FACE_COUNT
+.label meshFaceP3 = meshFaceP2 + MESH_FACE_COUNT
+.label meshEdgeA = meshFaceP3 + MESH_FACE_COUNT
+.label meshEdgeB = meshEdgeA + MESH_EDGE_COUNT
+.label meshEdgeFaceA = meshEdgeB + MESH_EDGE_COUNT
+.label meshEdgeFaceB = meshEdgeFaceA + MESH_EDGE_COUNT
+.label meshVisibleFaces = meshEdgeFaceB + MESH_EDGE_COUNT
+
+.if (CROSSING_HOLES) {
+    .import source "mesh_inside_edges.asm"
+}
+
+.if (CROSSING_HOLES) { .import source "hole_unroll.asm" }
