@@ -99,6 +99,7 @@ BasicUpstart2(start)
 .const SIN     = $a900
 .const RECIP   = $8000
 .const SIZEINV = $9900
+.const RECIP_FAR = $9a00
 .const EDGES   = $b320
 .const FACES   = $b338
 .const EDGEFACES = $b350
@@ -108,9 +109,12 @@ BasicUpstart2(start)
 .const PTAB_HI = PTAB + 16      // high bytes of signed screen coordinates
 .const MODE    = $0338          // 255=receipt only, 0=free run, N=cube N frames
 .const CDONE   = $033a          // cube halt signature ($c4 $c5 $c6)
-.const CAMERA_DEPTH = 1280      // 5.0 in signed 8.8
+.const CAMERA_DEPTH = 16 * 256  // center of the 4–28 unit Z sweep
+.const CAMERA_SWEEP = 12 * 256
 .const DEPTH_MIN = 352
-.const DEPTH_MAX = 2503
+.const DEPTH_NEAR_MAX = 2503
+.const DEPTH_MAX = 40 * 256 - 1
+.const RECIP_FAR_BASE = RECIP_FAR - 2 * floor(DEPTH_NEAR_MAX / 16)
 .const SIZE_MIN = 48            // Q6 object scale: 0.75
 .const SIZE_ONE = 64
 .const SIZE_MAX = 80            // Q6 object scale: 1.25
@@ -1351,16 +1355,10 @@ tvLoop:
     sta dtmp+1
 tvNoLo:
     lda dtmp
-    sec
-    sbc #<DEPTH_MAX
+    cmp #<(DEPTH_NEAR_MAX + 1)
     lda dtmp+1
-    sbc #>DEPTH_MAX
-    bcc tvNoHi
-    lda #<DEPTH_MAX
-    sta dtmp
-    lda #>DEPTH_MAX
-    sta dtmp+1
-tvNoHi:
+    sbc #>(DEPTH_NEAR_MAX + 1)
+    bcs tvFar
     // m_b = RECIP[(d - DEPTH_MIN) * 2]
     lda dtmp
     sec
@@ -1378,6 +1376,30 @@ tvNoHi:
     lda m_b+1
     adc #>RECIP
     sta dtmp+1
+    jmp tvReadReciprocal
+tvFar:
+    // At distance a 1/16-unit depth bin has less than 0.32% scale error.
+    lda dtmp+1
+    cmp #>(DEPTH_MAX + 1)
+    bcc !bin+
+    lda #<DEPTH_MAX
+    sta dtmp
+    lda #>DEPTH_MAX
+    sta dtmp+1
+!bin:
+    .for (var bit = 0; bit < 3; bit++) {
+        lsr dtmp+1
+        ror dtmp
+    }
+    lda dtmp
+    and #$fe                   // byte offset 2 * floor(depth / 16)
+    clc
+    adc #<RECIP_FAR_BASE
+    sta dtmp
+    lda dtmp+1
+    adc #>RECIP_FAR_BASE
+    sta dtmp+1
+tvReadReciprocal:
     // sx = 80 + (((rx2 + motionX) * r + $8000) >> 16)
     ldy #0
     lda (dtmp),y
@@ -2007,13 +2029,12 @@ findVisibleFaces:
 !done:
     rts
 
-.macro SinePosition(phase, amplitude, output) {
+.macro SinePosition(amplitude, output) {
+    jsr loadSin                // phase in A
     lda #<amplitude
     sta m_a
     lda #>amplitude
     sta m_a+1
-    lda phase
-    jsr loadSin
     jsr mul16s
     lda prod+1
     sta output
@@ -2021,10 +2042,35 @@ findVisibleFaces:
     sta output+1
 }
 
+// Hold W or S to use the near or far end of the sweep while X/Y and
+// rotation continue. The automatic Z phase continues in the background.
+readDepthPhase:
+    lda #$fd                  // select keyboard row 1
+    sta $dc00
+    lda $dc01
+    ldx #$ff
+    stx $dc00
+    and #$22                  // W at bit 1, S at bit 5, active low
+    cmp #$20
+    beq !near+
+    cmp #$02
+    beq !far+
+    lda motionPhaseZ
+    rts
+!near:
+    lda #192                  // sine = -1
+    rts
+!far:
+    lda #64                   // sine = +1
+    rts
+
 updateCubePosition:
-    SinePosition(motionPhaseX, 320, motionX)
-    SinePosition(motionPhaseY, 176, motionY)
-    SinePosition(motionPhaseZ, 256, motionDepth)
+    lda motionPhaseX
+    SinePosition(320, motionX)
+    lda motionPhaseY
+    SinePosition(176, motionY)
+    jsr readDepthPhase
+    SinePosition(CAMERA_SWEEP, motionDepth)
     lda motionDepth
     clc
     adc #<CAMERA_DEPTH
@@ -2079,6 +2125,11 @@ updateCubePosition:
 
 // Draw each edge into the hidden screen/charset pair.
 cubeMain:
+    lda #$ff
+    sta $dc00
+    sta $dc02                  // keyboard rows are outputs
+    lda #0
+    sta $dc03                  // keyboard columns are inputs
     lda #32
     sta phYaw
     lda #16
@@ -2091,7 +2142,7 @@ cubeMain:
     lda #64
     sta motionPhaseY
     sta cubeSize
-    lda #96
+    lda #208                   // start near the camera and move away
     sta motionPhaseZ
     lda #1                    // pair A is visible at startup
     sta backPair
@@ -2200,6 +2251,11 @@ reciptabEnd:
 
 *=SIZEINV "Inverse object scales"
 .import binary "build/size-inverse.bin"
+.assert "Inverse scales fit before far reciprocals", * <= RECIP_FAR, true
+
+*=RECIP_FAR "Far reciprocals in 1/16-unit bins"
+.import binary "build/recip-far.bin"
+.assert "Far reciprocals fit before glyph masks", * <= REVLO, true
 
 *=$b600 "Bit reverse LUT"
 rev8lut:

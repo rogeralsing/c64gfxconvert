@@ -17,13 +17,15 @@ BUILD = HERE / "build"
 SIN_BITS = 8                  # sin table: round(sin*256), int16, 256 phases
 YAW0, PITCH0, ROLL0 = 32, 16, 11
 YAW_INC, PITCH_INC, ROLL_INC = 2, 1, 3
-POSITION_PHASES = (0, 64, 96)
+POSITION_PHASES = (0, 64, 208)
 POSITION_INCREMENTS = (3, 2, 1)
-POSITION_AMPLITUDES = (320, 176, 256)
-CAM = 1280                    # 5.0 in 8.8
+POSITION_AMPLITUDES = (320, 176, 12 * 256)
+CAM = 16 * 256                # center of the 4–28 unit Z sweep
 F = 96
 CX, CY = 80, 50
-DMIN, DMAX = 352, 2503        # projection depth domain in 8.8
+DMIN, DNEAR_MAX, DMAX = 352, 2503, 40 * 256 - 1
+FAR_BIN = 16                  # 1/16 unit in 8.8
+FAR_FIRST = DNEAR_MAX // FAR_BIN
 SIZE_MIN, SIZE_MAX, SIZE_DEFAULT = 48, 80, 64  # Q6
 FRAMES_TO_VERIFY = 4
 ROTATION_FRAMES = 256
@@ -45,11 +47,15 @@ def build_sin():
     return [round(math.sin(2 * math.pi * i / 256) * 256) for i in range(256)]
 
 def build_recip():
-    # recip[d-DMIN] = round(F * 65536 / d)
-    return [round(F * 65536 / d) for d in range(DMIN, DMAX + 1)]
+    return [round(F * 65536 / d) for d in range(DMIN, DNEAR_MAX + 1)]
+
+def build_far_recip():
+    return [round(F * 65536 / (i * FAR_BIN + FAR_BIN // 2))
+            for i in range(FAR_FIRST, DMAX // FAR_BIN + 1)]
 
 SIN = build_sin()
 RECIP = build_recip()
+FAR_RECIP = build_far_recip()
 SIZE_INVERSE = tuple(round(16384 / size) for size in range(SIZE_MIN, SIZE_MAX + 1))
 
 def cos(ph):
@@ -92,7 +98,8 @@ def frame_vertices(n, size=SIZE_DEFAULT):
     out = []
     for x, y, z in rotated_vertices(n):
         depth = max(DMIN, min(DMAX, camera_depth + z))
-        r = RECIP[depth - DMIN]
+        r = (RECIP[depth - DMIN] if depth <= DNEAR_MAX
+             else FAR_RECIP[depth // FAR_BIN - FAR_FIRST])
         ox = (mul16s(x + tx, r) + 32768) >> 16
         oy = (mul16s(y + ty, r) + 32768) >> 16
         out.append((CX + ox, CY - oy))
@@ -230,6 +237,7 @@ def emit():
     BUILD.mkdir(exist_ok=True)
     (BUILD / "sin.bin").write_bytes(b"".join(v.to_bytes(2, "little", signed=True) for v in SIN))
     (BUILD / "recip.bin").write_bytes(b"".join(v.to_bytes(2, "little") for v in RECIP))
+    (BUILD / "recip-far.bin").write_bytes(b"".join(v.to_bytes(2, "little") for v in FAR_RECIP))
     (BUILD / "size-inverse.bin").write_bytes(
         b"".join(v.to_bytes(2, "little") for v in SIZE_INVERSE))
     (BUILD / "edges.bin").write_bytes(b"".join(bytes(e) for e in EDGES))
