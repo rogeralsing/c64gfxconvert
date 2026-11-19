@@ -3,6 +3,7 @@
 
 import argparse
 import json
+from itertools import product
 from pathlib import Path
 import random
 import socket
@@ -66,6 +67,68 @@ def test_segments():
         yield f"seeded {index}", segment
 
 
+def crossing_segments():
+    yield from test_segments()
+
+    def starts(delta, extent):
+        low, high = max(0, -delta), min(extent - 1, extent - 1 - delta)
+        if low > high:
+            # A segment longer than this axis crosses the viewport boundary.
+            base = 4 if delta > 0 else (extent - 9) & ~3
+            yield from range(base, base + 4)
+            return
+        middle = (low + high) // 2
+        for phase in range(4):
+            positions = range(low + (phase - low) % 4, high + 1, 4)
+            if positions:
+                yield min(positions, key=lambda p: abs(p - middle))
+
+    for span in (3, 55, 56, 57, 99, 158, 159):
+        for minor in (max(1, span // 3), span - 1):
+            for major, secondary in ((span, minor), (minor, span)):
+                for dx, dy in product((-major, major), (-secondary, secondary)):
+                    for x, y in product(starts(dx, WIDTH), starts(dy, HEIGHT)):
+                        yield f"span {span} delta {dx},{dy}", (x, y, x + dx, y + dy)
+    for x, y in product(range(40, 44), repeat=2):
+        for dx, dy in product((-15, 0, 15), repeat=2):
+            yield f"axis/diagonal {dx},{dy}", (x, y, x + dx, y + dy)
+
+
+def check_walker_operands(addresses, before, after, clipped):
+    """Permit only the code bytes selected by this particular clipped line."""
+    if clipped is None:
+        return
+    x0, y0, x1, y1 = clipped
+    dx, dy = x1 - x0, y1 - y0
+    steep = abs(dy) > abs(dx)
+    octant = int(dx < 0) + 2 * (dy < 0) + 4 * steep
+    start, delta = (y0, dy) if steep else (x0, dx)
+    local = (start & 3) ^ (3 if delta < 0 else 0)
+    count = 1 + abs(delta)
+    prefix = min(4 - local, count) if local else 0
+    full, tail = divmod(count - prefix, 4)
+
+    def operand(name, opcode, target, operand_bytes):
+        pc = addresses[name] - GUARD_START
+        instruction = bytes((opcode, target & 255, target >> 8))
+        if before[pc] != opcode or after[pc:pc + 3] != instruction:
+            raise AssertionError(f"{clipped}: wrong instruction/operand at {name}, expected {instruction.hex()}")
+        before[pc + 1:pc + 1 + operand_bytes] = instruction[1:1 + operand_bytes]
+
+    if full and "firstEmpty" in addresses:
+        for name, opcode, table in (("firstEmpty", 0xbd, "holeFullFirst"),
+                                    ("firstBusy", 0xdd, "holeFullFirst"),
+                                    ("secondGlyph", 0xbd, "holeFullSecond")):
+            operand(name, opcode, addresses[table] + 64 * octant, 2)
+    if "holePartialDispatch" in addresses:
+        # A trailing single point has its own path in builds with holeTailDot.
+        slot = local * 32 + (prefix - 1) * 8 + octant if prefix else None
+        if tail >= (2 if "holeTailDot" in addresses else 1):
+            slot = (tail - 1) * 8 + octant
+        if slot is not None:
+            operand("holePartialDispatch", 0x6c, addresses["holePartialJumps"] + 2 * slot, 1)
+
+
 def entry_stub(addresses, segment, screen, charset):
     """Set the public ABI and call through a real 6502 JSR, not an emulator hook."""
     code = bytearray()
@@ -90,13 +153,14 @@ def entry_stub(addresses, segment, screen, charset):
     return code
 
 
-def verify_case(monitor, addresses, dump_file, pair, label, segment):
+def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_holes=False):
     screen, charset, _ = pair
     screen_end = screen + 1000
     monitor.run(f"fill {screen:04x} {screen_end - 1:04x} 00")
     stub = entry_stub(addresses, segment, screen, charset)
     monitor.run(f"> {CALL_STUB:04x} {stub.hex(' ')}")
-    before = monitor.dump(dump_file, GUARD_START, GUARD_END)
+    guard_end = 0xcfff if crossing_holes else GUARD_END
+    before = bytearray(monitor.dump(dump_file, GUARD_START, guard_end))
     monitor.run(f"g {CALL_STUB:04x}")
     entry = monitor.registers()
     if entry["pc"] != addresses["drawClippedLine"]:
@@ -105,7 +169,10 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment):
     done = monitor.registers()
     if done["pc"] != addresses["halt"]:
         raise AssertionError(f"{label}: native clip routine did not return")
-    after = monitor.dump(dump_file, GUARD_START, GUARD_END)
+    after = monitor.dump(dump_file, GUARD_START, guard_end)
+    clipped = visible_segment(segment)
+    if crossing_holes:
+        check_walker_operands(addresses, before, after, clipped)
 
     lower, upper = screen - GUARD_START, screen_end - GUARD_START
     if before[:lower] != after[:lower] or before[upper:] != after[upper:]:
@@ -113,7 +180,6 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment):
                    if not lower <= i < upper and old != new)
         raise AssertionError(f"{label} {segment}: write outside screen at ${bad:04x}")
 
-    clipped = visible_segment(segment)
     expected = dict(normalized_cells(*clipped)) if clipped is not None else {}
     font = charset - GUARD_START
     for cell, code in enumerate(after[lower:upper]):
@@ -130,17 +196,24 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
-    parser.add_argument("--build", type=Path, default=BUILD,
-                        help="directory containing linedrawer.prg and its matching main.sym")
+    parser.add_argument("--crossing-holes", action="store_true",
+                        help="check the globe's fixed-glyph drawer on both buffers and all eight octants")
+    parser.add_argument("--build", type=Path, help="directory containing the PRG and its matching main.sym")
     args = parser.parse_args()
-    build = args.build.resolve()
-    program = build / "linedrawer.prg"
+    default = BUILD / "globe-holes" if args.crossing_holes else BUILD
+    build = (args.build or default).resolve()
+    program = build / ("globe-holes.prg" if args.crossing_holes else "linedrawer.prg")
     report = {"passed": False, "programSha256": sha(program.read_bytes()), "cases": []}
     process = connection = None
     try:
         text = (build / "main.sym").read_text()
         addresses = {name: symbol(text, name) for name in (*LOW_BYTES, *HIGH_BYTES, "baseLo",
                     "baseHi", "drawCharsetHi", "cubeLoop", "drawClippedLine", "halt")}
+        if args.crossing_holes:
+            for name in ("firstEmpty", "firstBusy", "secondGlyph", "holeFullFirst", "holeFullSecond",
+                         "holePartialDispatch", "holePartialJumps", "holeTailDot"):
+                if f".label {name}=" in text:
+                    addresses[name] = symbol(text, name)
         vm = load_monitor()
         with socket.socket() as reservation:
             reservation.bind(("127.0.0.1", 0))
@@ -164,10 +237,12 @@ def main():
             if monitor.registers()["pc"] != addresses["cubeLoop"]:
                 raise AssertionError("Default launch halted before initializing the line drawer")
             monitor.run("bank ram")
-            for index, (label, segment) in enumerate(test_segments()):
-                receipt = verify_case(monitor, addresses, scratch / "ram.bin",
-                                      BUFFERS[index % len(BUFFERS)], label, segment)
-                report["cases"].append(receipt)
+            segments = crossing_segments() if args.crossing_holes else test_segments()
+            for index, (label, segment) in enumerate(segments):
+                pairs = BUFFERS if args.crossing_holes else (BUFFERS[index % len(BUFFERS)],)
+                for pair in pairs:
+                    report["cases"].append(verify_case(monitor, addresses, scratch / "ram.bin",
+                                                       pair, label, segment, args.crossing_holes))
         report["passed"] = True
     except Exception as error:
         report["error"] = f"{type(error).__name__}: {error}"

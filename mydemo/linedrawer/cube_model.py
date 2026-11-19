@@ -94,9 +94,12 @@ def frame_position(n, size=SIZE_DEFAULT):
 
 def frame_vertices(n, size=SIZE_DEFAULT):
     """Project the eight rotated vertices to signed screen coordinates."""
-    tx, ty, camera_depth = frame_position(n, size)
+    return project_vertices(rotated_vertices(n), frame_position(n, size))
+
+def project_vertices(vertices, position):
+    tx, ty, camera_depth = position
     out = []
-    for x, y, z in rotated_vertices(n):
+    for x, y, z in vertices:
         depth = max(DMIN, min(DMAX, camera_depth + z))
         r = (RECIP[depth - DMIN] if depth <= DNEAR_MAX
              else FAR_RECIP[depth // FAR_BIN - FAR_FIRST])
@@ -199,6 +202,10 @@ def prove_normalized_endpoints(max_major=159):
 
 def frame_screen(n, tile_to_code, size=SIZE_DEFAULT):
     """Joint-composed screen for cube frame n using normalized Q8 lines."""
+    return segment_screen(frame_segments(n, size), tile_to_code)
+
+def segment_screen(segments, tile_to_code):
+    """Compose normalized Q8 line segments into glyphs and joint slots."""
     import linedrawer as L
     screen = bytearray(1000)
     revpat = [0] * 256
@@ -213,7 +220,7 @@ def frame_screen(n, tile_to_code, size=SIZE_DEFAULT):
             h = (h + 1) & 0xFF
         return 0
     joints = []
-    for x0, y0, x1, y1 in frame_segments(n, size):
+    for x0, y0, x1, y1 in segments:
         for key, pat in normalized_cells(x0, y0, x1, y1):
             ex = screen[key]
             if ex == 0:
@@ -245,12 +252,11 @@ def emit():
     (BUILD / "edgefaces.bin").write_bytes(
         bytes((1 << left) | (1 << right) for left, right in EDGE_FACES))
 
-def coverage_receipt(tile_to_code, frames=ROTATION_FRAMES, size=SIZE_DEFAULT):
-    """Every normalized-Q8 cube cell over the full motion period is
-    a bank glyph (the saturation proof, on the cube's actual lines)."""
+def coverage_receipt(tile_to_code, frames=ROTATION_FRAMES, size=SIZE_DEFAULT, *, segments_for=frame_segments):
+    """Count actual line stamps that have no glyph over the motion period."""
     bad = 0
     for n in range(frames):
-        for x0, y0, x1, y1 in frame_segments(n, size):
+        for x0, y0, x1, y1 in segments_for(n, size):
             for key, pat in normalized_cells(x0, y0, x1, y1):
                 if pat not in tile_to_code:
                     bad += 1

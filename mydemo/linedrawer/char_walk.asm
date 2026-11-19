@@ -24,11 +24,16 @@
 
 *= $7000 "Character line walker"
 drawCharLine:
+.if (CROSSING_HOLES) {
+    SetupHoleLine()
+} else {
     lda #0
     sta cwOrient
-    sta cwLayout
-    sta cwSecondLayout
-    sta cwTransform
+    .if (!ONE_CHAR) {
+        sta cwLayout
+        sta cwSecondLayout
+        sta cwTransform
+    }
     lda lx1
     sec
     sbc lx0
@@ -125,10 +130,12 @@ drawCharLine:
     lda cwMajorStep+1
     adc cwMinorStep+1
     sta cwBothStep+1
-    lda cwOrient
-    clc
-    adc #>charTransform
-    sta cwTransform+1
+    .if (!ONE_CHAR) {
+        lda cwOrient
+        clc
+        adc #>charTransform
+        sta cwTransform+1
+    }
     // Lookup the 40-byte row offset. Add the cell column before the
     // buffer base so both low-byte carries reach the screen high byte.
     lda ly0
@@ -151,19 +158,44 @@ drawCharLine:
     bcc !screenReady+
     inc scrHi
 !screenReady:
+}
     lda cwMajorDelta
     clc
     adc #1
     sta cwRemain
-    lda #128
-    sta cwPhase
+    .if (!CROSSING_HOLES) {
+        lda #128
+        sta cwPhase
+    }
 
     // Select a rounded Q8 slope once for the whole line. Exact diagonals
     // have slope 256 and use a constant shape. A dot uses slope zero.
     lda cwMajorDelta
     beq !flat+
     cmp cwMinorDelta
-    beq !diagonal+
+    .if (CROSSING_HOLES) {
+        bne !ordinary+
+        jmp drawDiagonalHoleGroups
+    !ordinary:
+    } else {
+        beq !diagonal+
+    }
+    .if (ONE_CHAR || CROSSING_HOLES) {
+        .label ratePointer = CROSSING_HOLES ? jptrLo : cwSecondLayout
+        tax
+        ldy cwMinorDelta
+        beq !flat+
+        cpx #SHORT_RATE_LIMIT+1
+        bcs !longLine+
+        lda shortRateRowLo,x
+        sta ratePointer
+        lda shortRateRowHi,x
+        sta ratePointer+1
+        lda (ratePointer),y
+        sta cwSlope
+        jmp !table+
+    !longLine:
+    }
     lda #0
     sta cwSlope
     lda cwMinorDelta
@@ -191,21 +223,24 @@ drawCharLine:
     lda #0
     sta cwSlope
 !table:
-    ldx cwSlope
-    lda charSlope,x
-    sta cwThreshold
-    lda charSlope+$100,x
-    sta cwThreshold+1
-    lda charSlope+$200,x
-    sta cwThreshold+2
-    lda charSlope+$300,x
-    sta cwShapes
-    lda charSlope+$400,x
-    sta cwShapes+1
-    lda charSlope+$500,x
-    sta cwShapes+2
-    lda charSlope+$600,x
-    sta cwShapes+3
+    .if (CROSSING_HOLES) { jmp drawHoleGroups }
+    .if (!ONE_CHAR) {
+        ldx cwSlope
+        lda charSlope,x
+        sta cwThreshold
+        lda charSlope+$100,x
+        sta cwThreshold+1
+        lda charSlope+$200,x
+        sta cwThreshold+2
+        lda charSlope+$300,x
+        sta cwShapes
+        lda charSlope+$400,x
+        sta cwShapes+1
+        lda charSlope+$500,x
+        sta cwShapes+2
+        lda charSlope+$600,x
+        sta cwShapes+3
+    }
     ldx #0
     ldy #0
     tya
@@ -223,11 +258,15 @@ drawCharLine:
     jmp charWalkBlock
 
 !diagonal:
-    lda #57                   // displacements 1, 2 and 3 packed in two bits each
-    sta cwShapes+3
-    lda #0
-    sta cwThreshold+1
-    sta cwThreshold+2
+    .if (!ONE_CHAR) {
+        lda #57                   // displacements 1, 2 and 3 packed in two bits each
+        sta cwShapes+3
+        lda #0
+        sta cwThreshold+1
+        sta cwThreshold+2
+    } else {
+        lda #0
+    }
     sta cwAdvanceLo
     sta cwAdvanceLo+1
     sta cwAdvanceLo+2
@@ -240,6 +279,62 @@ drawCharLine:
     sta cwAdvanceHi+2
     lda #4
     sta cwAdvanceHi+3
+
+// A block touches the adjacent cell exactly when its last sample crosses
+// the minor-axis boundary. Minor displacement is monotonic within the block.
+.macro StampOneCharBlock(full) {
+    lda #ONE_CHAR_CODE
+    ldy #0
+    sta (scrLo),y
+    .if (!full) {
+        ldx cwCount
+        cpx #2
+        bcc !done+
+    }
+    lda cwPhase
+    clc
+    .if (full) {
+        adc cwAdvanceLo+2
+        lda cwMinorLocal
+        adc cwAdvanceHi+2
+    } else {
+        adc cwAdvanceLo-2,x
+        lda cwMinorLocal
+        adc cwAdvanceHi-2,x
+    }
+    cmp #4
+    bcc !done+
+    lda scrLo
+    clc
+    adc cwMinorStep
+    sta jptrLo
+    lda scrHi
+    adc cwMinorStep+1
+    sta jptrHi
+    lda #ONE_CHAR_CODE
+    sta (jptrLo),y
+!done:
+}
+
+// Keep the prebuilt glyph in a clean cell. Distinct stamps on the same
+// cell mark it with a blank glyph until the next clear.
+.macro StampWithCrossingHoles(screenPointer) {
+    ldy #0
+    lda (screenPointer),y
+    beq !empty+
+    cmp #HOLE_CODE
+    beq !done+
+    stx jcode
+    cmp jcode
+    beq !done+
+    lda #HOLE_CODE
+    bne !write+
+!empty:
+    txa
+!write:
+    sta (screenPointer),y
+!done:
+}
 
 // The middle of a line advances four samples per block. Its two glyph
 // pages are constant, while clipped first and last blocks select their pages.
@@ -265,25 +360,39 @@ drawCharLine:
     tay
     .if (full) {
         lda charSecond + 3 * 256,y
-        sta cwSecond
-        lda charFirst + 3 * 256,y
     } else {
         lda (cwSecondLayout),y
-        sta cwSecond
+    }
+    sta cwSecond
+    .if (full) {
+        lda charFirst + 3 * 256,y
+    } else {
         lda (cwLayout),y
     }
     tay
     lda (cwTransform),y
     tax
-    ldy #0
-    lda (scrLo),y
-    beq !empty+
-    jsr charComposeFirst
-    jmp !firstStamped+
-!empty:
-    txa
-    sta (scrLo),y
-!firstStamped:
+    .if (COMPACT_JOINS) {
+        lda scrLo
+        sta jptrLo
+        lda scrHi
+        sta jptrHi
+        jsr compactStamp
+    } else {
+        .if (CROSSING_HOLES) {
+            StampWithCrossingHoles(scrLo)
+        } else {
+            ldy #0
+            lda (scrLo),y
+            beq !empty+
+            jsr charComposeFirst
+            jmp !firstStamped+
+        !empty:
+            txa
+            sta (scrLo),y
+        !firstStamped:
+        }
+    }
     lda cwSecond
     beq !stamped+
     lda scrLo
@@ -350,7 +459,11 @@ charWalkBlock:
 !partial:
     jmp charWalkPartial
 charWalkFull:
-    StampWalkBlock(true)
+    .if (ONE_CHAR) {
+        StampOneCharBlock(true)
+    } else {
+        StampWalkBlock(true)
+    }
     lda cwRemain
     sec
     sbc #4
@@ -373,17 +486,20 @@ charWalkPartial:
     lda cwRemain
 !count:
     sta cwCount
-    lda cwMajorLocal
-    asl
-    asl
-    clc
-    adc cwCount
-    adc #(>charFirst - 1)
-    sta cwLayout+1
-    adc #((>charSecond) - (>charFirst))
-    sta cwSecondLayout+1
-
-    StampWalkBlock(false)
+    .if (ONE_CHAR) {
+        StampOneCharBlock(false)
+    } else {
+        lda cwMajorLocal
+        asl
+        asl
+        clc
+        adc cwCount
+        adc #(>charFirst - 1)
+        sta cwLayout+1
+        adc #((>charSecond) - (>charFirst))
+        sta cwSecondLayout+1
+        StampWalkBlock(false)
+    }
     lda cwRemain
     sec
     sbc cwCount
@@ -411,18 +527,29 @@ charComposeFirst:
 charStamp:
     tay
     lda (cwTransform),y
-    sta jcode
-    ldy #0
-    lda (jptrLo),y
-    beq !write+
-    cmp jcode
-    beq !done+
-    jmp stampJoint
-!write:
-    lda jcode
-    sta (jptrLo),y
-!done:
-    rts
+    .if (COMPACT_JOINS) {
+        tax
+        jmp compactStamp
+    } else {
+        .if (CROSSING_HOLES) {
+            tax
+            StampWithCrossingHoles(jptrLo)
+            rts
+        } else {
+            sta jcode
+            ldy #0
+            lda (jptrLo),y
+            beq !write+
+            cmp jcode
+            beq !done+
+            jmp stampJoint
+        !write:
+            lda jcode
+            sta (jptrLo),y
+        !done:
+            rts
+        }
+    }
 
 charMinorIndex:
     .byte $00,$40,$80,$c0
@@ -432,3 +559,9 @@ charRowHi:
     .fill 25, >(i * 40)
 
 .assert "Character line walker fits before the clipper", * <= $7400, true
+
+.if (CROSSING_HOLES) {
+    *= $b400 "Decision-window character walker"
+    .import source "hole_walk.asm"
+    .assert "Window walker fits below the bit-reverse table", * <= $b600, true
+}

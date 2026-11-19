@@ -8,6 +8,25 @@ The font is generated at load time from the same construction that was
 measured in Python; the page runs a self-test at startup and prints the
 receipt in the stats line.
 
+## Join glyph study
+
+Open [Join study](join-study.html) to compare the current cube, football,
+and globe in the native Q8 character format. The study ranks raw line
+stamps and final glyphs separately and shows exact and approximate screens
+side by side. The models include each vertex's incident edges. The study
+checks whether those visible edges alone reconstruct the entire cell.
+
+Even-numbered poses select the fixed glyphs. The 128 odd-numbered poses
+per shape measure their coverage. The compact plan keeps line glyphs
+seen on completed training screens and uses the other slots for fixed
+joins and patch fallback. A hybrid replacement retains every source pixel
+and adds at most two connected pixels. The fixed-only comparison uses
+nearest glyphs with a penalty for losing boundary pixels.
+
+Run `rtk proxy python3 linefont-viewer/build_join_study.py` after changing
+the native meshes or font. The exported assets contain object-space
+topology and lookup tables. The browser computes the poses and stamps.
+
 ## Scheme
 
 - Grid: 40×25 chars, 4×4 fat pixels per char (160×100), each glyph 2×2-expanded to 8×8.
