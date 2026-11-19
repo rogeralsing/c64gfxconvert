@@ -1111,6 +1111,7 @@ charSlope:
 .import binary "build/char-slope.bin"
 
 .import source "char_walk.asm"
+.import source "clip_line.asm"
 
 *=$8000 "Projected cube vertices"
 cubeGeometry:

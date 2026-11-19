@@ -21,9 +21,14 @@ move an intermediate step by one logical pixel.
 
 The cube supplies a table of projected vertices and visible faces for its
 256-frame rotation. The C64 draws the visible edges between those vertices.
-The line drawer accepts endpoints inside the 160×100 logical screen
-(`x=0..159`, `y=0..99`). Callers must clip or reject off-screen endpoints
-before invoking it.
+The 160×100 logical screen has its origin at the top left. Call
+`drawCharLine` directly if both endpoints are known to be on-screen
+(`x=0..159`, `y=0..99`), as the cube does. For arbitrary signed 16-bit
+endpoints, call `drawClippedLine`. Put the low bytes in
+`lx0/ly0/lx1/ly1` and the high bytes in
+`clipX0Hi/clipY0Hi/clipX1Hi/clipY1Hi`. The clipper rejects invisible
+segments and rounds visible intersections to logical pixels before
+calling the same character drawer. It can replace the endpoint low bytes.
 
 The cube alternates between two screen and charset pairs. Each frame clears
 the cube's screen rectangle in the hidden pair, writes its visible edges,
@@ -41,6 +46,10 @@ default launch in VICE. The verifier checks both addresses at every swap
 through frame 198. It compares eight completed frames, including 196 and
 197, with the Python reference and checks that the previous screen and
 glyphs remain unchanged while the next pair is drawn.
+
+After building, run `rtk proxy python3 mydemo/linedrawer/verify_clipped_lines.py`
+to exercise signed endpoints in VICE and check that only the target
+screen's 1,000 cells can change when drawing a single line.
 
 ## Earlier experiments
 
@@ -129,9 +138,11 @@ Cycle receipt (simulator, per demo line incl. per-line overhead):
 
 - `linedrawer.py` — font/records/reference drawer + sweep proof
 - `main.asm` and `char_walk.asm` — the player and character line drawer
+- `clip_line.asm` and `clip_math.asm` — the signed viewport entry and intersections
 - `build_linedrawer.py` — table generation and Kick Assembler build
 - `char_tables.py` and `cube_model.py` — character tables and cube reference
 - `verify_linedrawer.py` / `verify.sh` — headless VICE byte-exact check
+- `verify_clipped_lines.py` — headless VICE checks for the clipping entry
 
 
 ## Historical rotating cube (direct rasterizer)
