@@ -152,7 +152,7 @@ def main():
 
     binaries = {}
     for name in (
-        *generated, "sin", "recip", "size-inverse", "edges", "faces", "edgefaces",
+        *generated, "sin", "recip", "recip-far", "size-inverse", "edges", "faces", "edgefaces",
     ):
         data = (BUILD / f"{name}.bin").read_bytes()
         binaries[name] = {"bytes": len(data), "sha256": sha(data)}

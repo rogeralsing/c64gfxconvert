@@ -7,8 +7,12 @@ rtk proxy python3 mydemo/linedrawer/build_linedrawer.py
 rtk proxy /opt/homebrew/bin/x64sc -pal -autostart mydemo/linedrawer/build/linedrawer.prg
 ```
 
-The PRG starts the cube immediately. It uses normal hires character mode,
-a 40×25 screen, and a fixed bank of 200 line glyphs. Each glyph contains a
+The PRG starts the cube immediately. Hold **W** to bring it close or **S** to
+send it to the far end of the Z sweep. Rotation and X/Y motion continue
+while either key is held. Release the key to return to automatic Z motion.
+
+The demo uses normal hires character mode, a 40×25 screen, and a fixed bank
+of 200 line glyphs. Each glyph contains a
 4×4 grid of double-width, double-height pixels. The 6502 receives two
 endpoints, selects one slope, and advances one character column or row
 at a time. Each step looks up one or two complete glyphs. Reserved slots
@@ -25,9 +29,11 @@ and selects the visible faces from their projected winding. Rotation shares
 products across corners with the same X and Z and preserves rounding for
 opposite corners. Projection computes only the rounded high word and reuses
 each corner's reciprocal for X and Y. The line drawer clips visible edges
-that reach the screen boundary. Motion toward and away from the camera changes
-the apparent size. The `cubeSize` byte sets the object scale independently:
-48–80 is 75–125%, with 64 at startup. The fixed tables provide sine and
+that reach the screen boundary. The camera-space Z of the center sweeps
+between 4 and 28 units. The reciprocal table uses every depth value close
+to the camera and 1/16-unit intervals farther away. The `cubeSize` byte sets
+the object scale independently. 48–80 is 75–125%, with 64 at startup. The
+fixed tables provide sine and
 reciprocal values, inverse scales, and character shapes. The signed
 16-bit multiplier combines byte products from a 1 KiB quarter-square
 table. The products and fixed-point rounding stay exact.
