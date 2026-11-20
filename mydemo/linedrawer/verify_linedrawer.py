@@ -24,6 +24,7 @@ JCOUNT = 0xa770
 COMPACT_PATCH_START = 234
 ONE_CHAR_CODE = 201
 HOLE_CODE = 201
+FIRST_PRIVATE_GLYPH = 201
 BUFFERS = ((0x0400, 0x2000, 0x18), (0x2c00, 0x3000, 0xbc))
 PAL_LINES = 312
 PAL_CYCLES_PER_LINE = 63
@@ -43,10 +44,100 @@ def load_monitor():
 
 
 def symbol(text, name):
-    match = re.search(rf"^\.label {re.escape(name)}=\$([0-9a-fA-F]+)\b", text, re.M)
+    label = re.escape(name)
+    match = re.search(rf"^\.label {label}=\$([0-9a-fA-F]+)\b", text, re.M)
+    if not match:
+        match = re.search(rf"^(?i:al)[ \t]+[Cc]:([0-9a-fA-F]+)[ \t]+\.{label}[ \t]*$", text, re.M)
     if not match:
         raise ValueError(f"Missing assembly symbol: {name}")
     return int(match[1], 16)
+
+
+def assembly_symbols(output):
+    for filename in ("main.sym", "main.vs"):
+        path = output / filename
+        if path.is_file():
+            symbols = path.read_text()
+            if symbols.strip():
+                return symbols
+    raise ValueError(f"No assembly symbols in {output}")
+
+
+def counter_values(memory, addresses):
+    return {key: int.from_bytes(memory[address:address + 2], "little")
+            for key, address in addresses.items()}
+
+
+def trace_execution(response):
+    return Counter(int(address, 16) for address in
+                   re.findall(r"\(Trace\s+exec ([0-9a-fA-F]{4})\)", response))
+
+
+def verify_repeat_frame(index, response, addresses):
+    """Compare per-line selection and native JMP executions with the repeat plan."""
+    from ball_model import frame_segments
+    from globe_repeat import line_plan
+
+    line_address, select_address, jump_address = addresses
+    trace = re.findall(r"\(Trace\s+exec ([0-9a-fA-F]{4})\)[^\n]*\n(\.C:[^\n]*)", response)
+    lines = []
+    for address, instruction in trace:
+        pc = int(address, 16)
+        if pc == line_address:
+            lines.append([])
+        elif lines:
+            lines[-1].append((pc, instruction))
+        else:
+            raise AssertionError(f"Repeat trace before the first line of frame {index}")
+
+    segments = frame_segments("globe", index)
+    if len(lines) != len(segments):
+        raise AssertionError(f"Line trace in frame {index}: {len(lines)}/{len(segments)} lines")
+
+    counts = {"linesChecked": len(lines), "selectedLines": 0, "repeatCalls": 0}
+    witness = None
+    for line, (events, segment) in enumerate(zip(lines, segments), start=1):
+        plan = line_plan(segment)
+        expected = [select_address] + [jump_address] * plan.repeats if plan else []
+        observed = [pc for pc, _ in events]
+        if observed != expected:
+            raise AssertionError(
+                f"Repeat sequence in frame {index}, line {line}: expected "
+                f"{int(plan is not None)} selects and {plan.repeats if plan else 0} calls in order, "
+                f"observed {observed.count(select_address)} selects and {observed.count(jump_address)} calls"
+            )
+        if plan is None:
+            continue
+
+        targets = set()
+        for _, instruction in events[1:]:
+            direct_jump = re.search(r"\bJMP\s+\$([0-9a-fA-F]{4})\b", instruction)
+            if not direct_jump:
+                raise AssertionError(f"Missing direct kernel JMP in frame {index}, line {line}")
+            targets.add(int(direct_jump[1], 16))
+        if len(targets) != 1 or plan.repeats < 2:
+            raise AssertionError(f"Repeat kernel changed or did not repeat in frame {index}, line {line}")
+
+        counts["selectedLines"] += 1
+        counts["repeatCalls"] += plan.repeats
+        if witness is None:
+            witness = {"frame": index, "line": line, "segment": segment, "kernelAddress": next(iter(targets)),
+                       "selections": 1, "repeatCalls": plan.repeats}
+    return counts, witness
+
+
+def globe_full_group_count(index):
+    """Count aligned four-sample groups independently of kernel selection."""
+    from ball_model import frame_segments
+
+    count = 0
+    for x0, y0, x1, y1 in frame_segments("globe", index):
+        dx, dy = x1 - x0, y1 - y0
+        start, span = (x0, dx) if abs(dx) >= abs(dy) else (y0, dy)
+        phase = (start & 3) ^ (3 if span < 0 else 0)
+        leading = (-phase) & 3
+        count += max(0, (abs(span) + 1 - leading) // 4)
+    return count
 
 
 def glyph_rows(pattern):
@@ -179,6 +270,43 @@ def compare_crossing_holes(index, screen, tile_to_code, allocated):
     return matches, report
 
 
+def compare_private_glyphs(masks, screen, charset, allocated):
+    """Check the visible union and that each patch belongs to a single cell."""
+    different = []
+    private_codes = []
+    for cell, code in enumerate(screen[:1000]):
+        mask = masks.get(cell, 0)
+        rows = charset[8 * code:8 * (code + 1)]
+        if rows != glyph_rows(mask) or (mask == 0) != (code == 0):
+            different.append((cell % 40, cell // 40, code, mask, rows.hex()))
+        if code >= FIRST_PRIVATE_GLYPH:
+            private_codes.append(code)
+    slots_valid = sorted(private_codes) == list(range(FIRST_PRIVATE_GLYPH, FIRST_PRIVATE_GLYPH + allocated))
+    return not different and slots_valid, {
+        "displayedGlyphsEqual": not different, "firstDiffCells": different[:8],
+        "patchCount": allocated, "jointSlots": allocated, "privateSlotsValid": slots_valid,
+    }
+
+
+def compare_exact_corners(index, screen, charset, tile_to_code, allocated):
+    from thin_faces import expected
+
+    masks, counts = expected(index, tile_to_code)
+    matches, report = compare_private_glyphs(masks, screen, charset, allocated)
+    return matches, {**report, "omittedEdges": counts["removed"]}
+
+
+def compare_deferred_globe(index, screen, charset, allocated):
+    from ball_model import frame_segments
+    from cube_model import normalized_cells
+
+    masks = {}
+    for segment in frame_segments("globe", index):
+        for cell, mask in normalized_cells(*segment):
+            masks[cell] = masks.get(cell, 0) | mask
+    return compare_private_glyphs(masks, screen, charset, allocated)
+
+
 def compare_zero_patch(expected, screen, allocated):
     different = [(cell % 40, cell // 40, code, screen[cell])
                  for cell, code in enumerate(expected) if screen[cell] != code]
@@ -212,6 +340,13 @@ def scanout_errors(picture, screen, charset):
     return errors
 
 
+def add_junction_renderers(group):
+    group.add_argument("--exact-corners", dest="junction", action="store_const", const="exact-corners",
+                       help="verify the globe with private glyphs at crossings")
+    group.add_argument("--fixed-junction-font", dest="junction", action="store_const", const="fixed-junction-font",
+                       help="verify the globe with the immutable junction font")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
@@ -220,19 +355,36 @@ def main():
     renderer.add_argument("--compact-joins", action="store_true", help="verify the compact-font globe")
     renderer.add_argument("--one-char", action="store_true", help="verify the solid-block globe")
     renderer.add_argument("--crossing-holes", action="store_true", help="verify the globe with blank crossings")
+    renderer.add_argument("--globe-replay", action="store_true", help="verify collision-aware globe motif replay")
+    renderer.add_argument("--globe-motifs", action="store_true", help="verify reusable two-group globe kernels")
+    renderer.add_argument("--globe-repeat", action="store_true", help="verify once-per-line globe kernel selection")
+    add_junction_renderers(renderer)
+    parser.add_argument("--replay-stats", action="store_true",
+                        help="read hit and attempt counts from an instrumented globe replay build")
+    parser.add_argument("--motif-coverage", action="store_true",
+                        help="trace generated kernels and verify coverage of all globe full groups")
     parser.add_argument("--build", type=Path,
-                        help="directory containing the selected PRG and matching main.sym")
-    parser.add_argument("--frames", type=int, nargs="+", default=[0, 1, 2, 3, 16, 64, 196, 197],
+                        help="directory containing the selected PRG and matching main.sym or main.vs")
+    frames = parser.add_mutually_exclusive_group()
+    frames.add_argument("--frames", type=int, nargs="+", default=[0, 1, 2, 3, 16, 64, 196, 197],
                         help="zero-based frames to verify during normal animation (0..255)")
+    frames.add_argument("--all-frames", action="store_true", help="verify all 256 poses and PAL scanouts")
     parser.add_argument("--timeout", type=float, default=30,
                         help="maximum seconds waiting for each VICE monitor response")
     args = parser.parse_args()
     if any(not 0 <= frame <= 255 for frame in args.frames) or not 0 < args.timeout <= 60:
         parser.error("--frames must be 0..255 and --timeout must be greater than 0 and at most 60")
+    if args.replay_stats and not args.globe_replay:
+        parser.error("--replay-stats requires --globe-replay")
+    if args.motif_coverage and not args.globe_motifs:
+        parser.error("--motif-coverage requires --globe-motifs")
 
-    zero_patch = args.one_char or args.crossing_holes
-    globe_only = args.compact_joins or zero_patch
-    shape = args.shape or ("globe" if globe_only else "cube")
+    exact_corners = args.junction == "exact-corners"
+    fixed_junction_font = args.junction == "fixed-junction-font"
+    zero_patch = args.one_char or args.crossing_holes or fixed_junction_font
+    globe_only = args.compact_joins or zero_patch or exact_corners
+    experimental_globe = args.globe_replay or args.globe_motifs or args.globe_repeat
+    shape = args.shape or ("globe" if globe_only or experimental_globe else "cube")
     flag = None
     variant = shape
     if args.compact_joins:
@@ -241,15 +393,34 @@ def main():
         flag, variant = "--one-char", "globe-one-char"
     elif args.crossing_holes:
         flag, variant = "--crossing-holes", "globe-holes"
+    elif args.globe_replay:
+        flag, variant = "--globe-replay", "globe-replay"
+    elif args.globe_motifs:
+        flag, variant = "--globe-motifs", "globe-motifs"
+    elif args.globe_repeat:
+        flag, variant = "--globe-repeat", "globe-repeat"
+    elif args.junction:
+        flag, variant = f"--{args.junction}", f"globe-{args.junction}"
     if flag and shape != "globe":
         parser.error(f"{flag} requires the globe")
     default_output = BUILD if variant == "cube" else BUILD / variant
     output = (args.build or default_output).resolve()
     program = output / ("linedrawer.prg" if variant == "cube" else f"{variant}.prg")
-    selected = set(args.frames)
+    selected = set(range(256) if args.all_frames else args.frames)
     last = max(selected)
     report = {"shape": shape, "passed": False, "defaultLaunch": False, "doubleBuffered": False,
               "frontIntegrityChecks": 0, "presentationsChecked": 0, "frames": []}
+    if args.globe_replay:
+        report.update(globeReplay=True, replayPathReached=False)
+    if args.globe_motifs:
+        report.update(globeMotifs=True, motifPathReached=False, motifSamples=0)
+    if args.motif_coverage:
+        report["motifCoverage"] = {"framesChecked": 0, "fullGroups": 0, "pairCalls": 0, "singleCalls": 0}
+    if args.globe_repeat:
+        report.update(globeRepeat=True, repeatCoverage={"framesChecked": 0, "linesChecked": 0,
+                                                        "selectedLines": 0, "repeatCalls": 0})
+    if args.replay_stats:
+        report.update(replayAttempts=0, replayHits=0, replayFramesWithHits=0)
     process = connection = log = None
     try:
         if args.compact_joins:
@@ -258,11 +429,17 @@ def main():
             report["compactJoins"] = True
         elif args.one_char:
             report["oneChar"] = True
+        elif fixed_junction_font:
+            from fixed_junction_font import assets, expected_screen
+            expected_font = assets()["charset"]
+            report["fixedJunctionFont"] = True
         else:
             import linedrawer
 
             if args.crossing_holes:
                 report["crossingHoles"] = True
+            elif exact_corners:
+                report["exactCorners"] = True
             elif shape == "cube":
                 from cube_model import frame_screen
             else:
@@ -272,11 +449,39 @@ def main():
             expected_font = linedrawer.charset_bytes(tiles)
             fixed_size = 201 * 8
         report["programSha256"] = sha(program.read_bytes())
-        symbols = (output / "main.sym").read_text()
+        symbols = assembly_symbols(output)
         loop = symbol(symbols, "cubeLoop")
         present = symbol(symbols, "presentFrame")
         halt = symbol(symbols, "halt")
         frame_counter = symbol(symbols, "frmcnt")
+        replay_addresses = {}
+        replay_ram_end = 0x3fff
+        proof_hit = replay_stats_marker = None
+        if args.globe_replay:
+            proof_hit = symbol(symbols, "globeReplayHit")
+            replay_stats_marker = symbol(symbols, "globeReplayStatsEnabled")
+        if args.globe_motifs:
+            proof_hit = symbol(symbols, "globeMotifsRun")
+            motif_major_span = symbol(symbols, "cwMajorDelta")
+        if args.motif_coverage:
+            motif_single_hit = symbol(symbols, "globeMotifsOneRun")
+        deferred_overflow = None
+        if args.globe_repeat:
+            repeat_trace = tuple(symbol(symbols, name) for name in
+                                 ("drawCharLine", "globeRepeatSelect", "globeRepeatRun"))
+            try:
+                symbol(symbols, "deferredFlush")
+            except ValueError:
+                pass  # Older and immediate builds use the shared glyph allocator.
+            else:
+                deferred_overflow = symbol(symbols, "deferredOverflow")
+            report["deferredGlobeJoins"] = deferred_overflow is not None
+        if args.replay_stats:
+            replay_addresses = {
+                "replayAttempts": symbol(symbols, "globeReplayAttempts"),
+                "replayHits": symbol(symbols, "globeReplayHits"),
+            }
+            replay_ram_end = max(replay_ram_end, max(replay_addresses.values()) + 1)
         vm = load_monitor()
         with socket.socket() as reservation:
             reservation.bind(("127.0.0.1", 0))
@@ -294,18 +499,37 @@ def main():
         monitor.checkpoint(loop)
         monitor.checkpoint(present)
         monitor.checkpoint(halt)
+        if args.motif_coverage:
+            monitor.run(f"trace exec {proof_hit:04x}")
+            monitor.run(f"trace exec {motif_single_hit:04x}")
+        if args.globe_repeat:
+            for address in repeat_trace:
+                monitor.run(f"trace exec {address:04x}")
+        hit_checkpoint = monitor.checkpoint(proof_hit) if proof_hit is not None else None
         monitor.run("x")
         if monitor.registers()["pc"] != loop:
             raise AssertionError(f"Default launch halted before the first {shape} frame")
         monitor.run("bank ram")
-        initial = monitor.dump(output / "initial-ram.bin", 0, 0x3fff)
+        initial_end = max(replay_ram_end, replay_stats_marker or 0)
+        initial = monitor.dump(output / "initial-ram.bin", 0, initial_end)
         initial_mode, initial_frame = initial[MODE], initial[frame_counter]
+        if replay_stats_marker is not None:
+            report["replayStatsEnabled"] = initial[replay_stats_marker] == 1
+            if args.replay_stats and not report["replayStatsEnabled"]:
+                raise ValueError("--replay-stats requires a PRG assembled with globeReplayStats")
+        previous_counts = counter_values(initial, replay_addresses)
+        if any(previous_counts.values()):
+            raise AssertionError("Replay counters did not start at zero")
         monitor.run("bank cpu")
         report["defaultLaunch"] = initial_mode == 0 and initial_frame == 0
         if not report["defaultLaunch"]:
             raise AssertionError(f"Default launch did not start free animation: MODE={initial_mode}, frame={initial_frame}")
-        if zero_patch:
+        if zero_patch or exact_corners:
             initial_fonts = [buffer_bytes(initial, pair)[1] for pair in BUFFERS]
+        if args.junction:
+            report["originalFontsInBothCharsets"] = all(font == expected_font for font in initial_fonts)
+            if not report["originalFontsInBothCharsets"]:
+                raise AssertionError("Both VIC banks must start with the expected font")
         if args.one_char:
             report["fixedBlockGlyphInBothCharsets"] = all(one_char_font_ok(font) for font in initial_fonts)
             if not report["fixedBlockGlyphInBothCharsets"]:
@@ -321,16 +545,47 @@ def main():
         previous_visible_field = None
         presentation_fields = []
         by_index = {}
+        motif_examples = {}
 
         # The extra pre-flip boundary gives the last selected frame a full
         # physical scanout before its screenshot; it is never presented itself.
         for index in range(last + 2):
-            monitor.run("x")
+            response = monitor.run("x")
+            trace_hits = trace_execution(response) if args.motif_coverage else None
             registers = monitor.registers()
+            while hit_checkpoint is not None and registers["pc"] == proof_hit:
+                if args.globe_replay:
+                    report.update(replayPathReached=True, firstReplayFrame=index)
+                else:
+                    if not report["motifPathReached"]:
+                        report.update(motifPathReached=True, firstMotifFrame=index)
+                    monitor.run("bank ram")
+                    # The runtime patches the direct JMP operand with the selected kernel.
+                    target = monitor.dump(output / "last-motif-target.bin", proof_hit + 1, proof_hit + 2)
+                    major = monitor.dump(output / "last-motif-major.bin", motif_major_span, motif_major_span)[0]
+                    monitor.run("bank cpu")
+                    kernel = int.from_bytes(target, "little")
+                    previous_major, previous_index = motif_examples.setdefault(kernel, (major, index))
+                    report["motifSamples"] += 1
+                    if previous_major != major:
+                        report["motifReuseWitness"] = {
+                            "kernelAddress": kernel,
+                            "majorSpans": [previous_major, major],
+                            "frames": [previous_index, index],
+                        }
+                if args.globe_replay or "motifReuseWitness" in report:
+                    monitor.run(f"delete {hit_checkpoint}")
+                    hit_checkpoint = None
+                response = monitor.run("x")
+                if trace_hits is not None:
+                    trace_hits.update(trace_execution(response))
+                registers = monitor.registers()
             if registers["pc"] != present:
                 raise AssertionError(f"Animation halted before presenting {shape} frame {index}")
             monitor.run("bank ram")
-            last_byte = JCOUNT if globe_only and index in selected else 0x3fff
+            last_byte = replay_ram_end
+            if (globe_only or deferred_overflow is not None) and index in selected:
+                last_byte = max(last_byte, JCOUNT + (1 if args.junction else 0))
             memory = monitor.dump(output / "last-before-present.bin", 0, last_byte)
             front_screen, front_charset = buffer_bytes(memory, BUFFERS[front])
             monitor.run("bank io")
@@ -371,6 +626,42 @@ def main():
             if index == last + 1:
                 break
 
+            repeat_counts = {}
+            if args.globe_repeat:
+                repeat_counts, witness = verify_repeat_frame(index, response, repeat_trace)
+                coverage = report["repeatCoverage"]
+                coverage["framesChecked"] += 1
+                for key, count in repeat_counts.items():
+                    coverage[key] += count
+                if witness is not None:
+                    report.setdefault("repeatWitness", witness)
+
+            motif_counts = {}
+            if trace_hits is not None:
+                pairs, singles = trace_hits[proof_hit], trace_hits[motif_single_hit]
+                full_groups = 2 * pairs + singles
+                expected_groups = globe_full_group_count(index)
+                if full_groups != expected_groups:
+                    raise AssertionError(f"Generated coverage for frame {index}: {full_groups}/{expected_groups} full groups")
+                motif_counts = {"motifPairCalls": pairs, "motifSingleCalls": singles, "fullGroupsCovered": full_groups}
+                coverage = report["motifCoverage"]
+                coverage["framesChecked"] += 1
+                coverage["fullGroups"] += full_groups
+                coverage["pairCalls"] += pairs
+                coverage["singleCalls"] += singles
+
+            replay_counts = {}
+            if args.replay_stats:
+                counts = counter_values(memory, replay_addresses)
+                replay_counts = {key: (count - previous_counts[key]) & 0xffff
+                                 for key, count in counts.items()}
+                previous_counts = counts
+                if replay_counts["replayHits"] > replay_counts["replayAttempts"]:
+                    raise AssertionError(f"More replay hits than attempts in frame {index}")
+                for key, count in replay_counts.items():
+                    report[key] += count
+                report["replayFramesWithHits"] += bool(replay_counts["replayHits"])
+
             back = 1 - front
             screen, charset = buffer_bytes(memory, BUFFERS[back])
             if zero_patch:
@@ -408,9 +699,19 @@ def main():
                 matches, glyph_report = compare_one_char(index, screen, memory[JCOUNT])
             elif args.crossing_holes:
                 matches, glyph_report = compare_crossing_holes(index, screen, tile_to_code, memory[JCOUNT])
+            elif exact_corners:
+                matches, glyph_report = compare_exact_corners(index, screen, charset, tile_to_code, memory[JCOUNT])
+            elif fixed_junction_font:
+                matches, glyph_report = compare_zero_patch(expected_screen(index), screen, memory[JCOUNT])
+            elif deferred_overflow is not None and not memory[deferred_overflow]:
+                matches, glyph_report = compare_deferred_globe(index, screen, charset, memory[JCOUNT])
             else:
                 matches, glyph_report = compare_normal(index, frame_screen, tile_to_code,
                                                        screen, charset, expected_font)
+            if deferred_overflow is not None:
+                glyph_report["deferredOverflow"] = bool(memory[deferred_overflow])
+            if args.junction and memory[JCOUNT + 1]:
+                raise AssertionError(f"Junction slot pool exhausted in frame {index}")
             mode_ok = (vic[0] & 0x60) == 0 and (vic[5] & 0x10) == 0
             addresses_ok = d018_after == BUFFERS[front][2] and (bank & 3) == 3
             colors_ok = (vic[16] & 15) == 0 and all((color & 15) == 1 for color in colors)
@@ -427,6 +728,9 @@ def main():
                      "colorsCorrect": colors_ok,
                      "litCells": sum(code != 0 for code in screen[:1000]) - glyph_report.get("holeCells", 0),
                      **glyph_report,
+                     **replay_counts,
+                     **motif_counts,
+                     **repeat_counts,
                      "screenSha256": sha(screen[:1000])}
             frame["passed"] = (actual_frame == ((index + 1) & 255) and matches
                                and static_unchanged and mode_ok and addresses_ok and colors_ok
@@ -445,6 +749,14 @@ def main():
             report["measuredFPS"] = round(
                 intervals * PAL_CLOCK / (elapsed_fields * PAL_LINES * PAL_CYCLES_PER_LINE), 3)
         report["animationChanges"] = len({frame["screenSha256"] for frame in report["frames"]}) > 1
+        if args.globe_replay and args.all_frames and not report["replayPathReached"]:
+            raise AssertionError("No motif was replayed in the full globe sweep")
+        if args.globe_motifs and args.all_frames and "motifReuseWitness" not in report:
+            raise AssertionError("No two-group kernel was observed at different line lengths")
+        if args.globe_repeat and args.all_frames and "repeatWitness" not in report:
+            raise AssertionError("No selected kernel repeated in the full globe sweep")
+        if args.replay_stats and args.all_frames and report["replayHits"] == 0:
+            raise AssertionError("Replay statistics stayed at zero")
         report["doubleBuffered"] = True
         report["passed"] = len(selected) == 1 or report["animationChanges"]
     except Exception as error:

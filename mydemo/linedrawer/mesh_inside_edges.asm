@@ -1,6 +1,6 @@
 // A convex viewport contains the complete edge when it contains both vertices.
 // The bounds pass selects this mesh-wide fast path once per frame.
-*=$1a00 "In-bounds globe edges"
+*=(CLEAN_JUNCTIONS ? $e000 : $1a00) "In-bounds globe edges"
 meshNeedsClip:
     .byte 0
 drawInsideMesh:
@@ -29,4 +29,4 @@ drawInsideMeshEdge:
     lda PTAB+1,x
     sta ly1
     jmp drawCharLine
-.assert "In-bounds globe edges fit below the character bank", * <= CHARSET, true
+.assert "In-bounds globe edges fit their reserved space", * <= (CLEAN_JUNCTIONS ? $e520 : CHARSET), true

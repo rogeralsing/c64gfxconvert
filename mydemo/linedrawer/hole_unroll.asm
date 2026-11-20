@@ -1,3 +1,24 @@
+.macro StoreJunction(table, off) {
+    lda (scrLo),y
+    beq !empty+
+    cmp table,x
+    beq !done+
+    .if (FIXED_JUNCTION_FONT) { sty coverOffset }
+    tay
+    stx slotLane
+    lda table,x
+    tax
+    jsr mergeJunction
+    ldx slotLane
+    ldy #off
+    bpl !store+
+!empty:
+    lda table,x
+!store:
+    sta (scrLo),y
+!done:
+}
+
 // Separate steady-state loop for every major/minor direction pair.
 .var kernelLo = List()
 .var kernelHi = List()
@@ -14,35 +35,43 @@
     .if (o >= 4 && minor < 0) { eor #32 }
     tax
     ldy #max(0,-minor)
-    lda (scrLo),y
-    beq !empty+
-    cmp #HOLE_CODE
-    beq !second+
-    cmp holeFullFirst + row,x
-    beq !second+
-    lda #HOLE_CODE
-    bne !write+
-!empty:
-    lda holeFullFirst + row,x
-!write:
-    sta (scrLo),y
-!second:
-    lda holeFullSecond + row,x
-    beq !advance+
-    sta jcode
-    ldy #max(0,minor)
-    lda (scrLo),y
-    beq !empty+
-    cmp #HOLE_CODE
-    beq !advance+
-    cmp jcode
-    beq !advance+
-    lda #HOLE_CODE
-    bne !write+
-!empty:
-    lda jcode
-!write:
-    sta (scrLo),y
+    .if (CLEAN_JUNCTIONS) {
+        StoreJunction(holeFullFirst + row, max(0,-minor))
+        lda holeFullSecond + row,x
+        beq !advance+
+        ldy #max(0,minor)
+        StoreJunction(holeFullSecond + row, max(0,minor))
+    } else {
+        lda (scrLo),y
+        beq !empty+
+        cmp #HOLE_CODE
+        beq !second+
+        cmp holeFullFirst + row,x
+        beq !second+
+        lda #HOLE_CODE
+        bne !write+
+    !empty:
+        lda holeFullFirst + row,x
+    !write:
+        sta (scrLo),y
+    !second:
+        lda holeFullSecond + row,x
+        beq !advance+
+        sta jcode
+        ldy #max(0,minor)
+        lda (scrLo),y
+        beq !empty+
+        cmp #HOLE_CODE
+        beq !advance+
+        cmp jcode
+        beq !advance+
+        lda #HOLE_CODE
+        bne !write+
+    !empty:
+        lda jcode
+    !write:
+        sta (scrLo),y
+    }
 !advance:
     .if (o >= 4) {
         // Keys 32..63 cross a cell. Westward kernels inverted that flag above.

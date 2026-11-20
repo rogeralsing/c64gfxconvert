@@ -10,7 +10,11 @@
 // unsupported. Direction records ship for the demo directions only, but the
 // code path is fully general.
 
-.const HOLE_UNROLL = 4
+// The clean-junction kernels reserve more space per unrolled block.
+.const EXACT_CORNERS = cmdLineVars.containsKey("exactCorners")
+.const FIXED_JUNCTION_FONT = cmdLineVars.containsKey("fixedJunctionFont")
+.const CLEAN_JUNCTIONS = EXACT_CORNERS || FIXED_JUNCTION_FONT
+.const HOLE_UNROLL = CLEAN_JUNCTIONS ? 2 : 4
 .const IS_MESH = cmdLineVars.containsKey("mesh")
 .const COMPACT_JOINS = cmdLineVars.containsKey("compactJoins")
 .const COMPACT_FIRST_PATCH = 234
@@ -18,8 +22,18 @@
 .const HOLE_CODE = 201         // predefined blank that marks an occupied cell
 .const ONE_CHAR = cmdLineVars.containsKey("oneChar")
 .const ONE_CHAR_CODE = 201
+.const GLOBE_REPLAY = cmdLineVars.containsKey("globeReplay")
+.const GLOBE_REPLAY_STATS = cmdLineVars.containsKey("globeReplayStats")
+.const GLOBE_MOTIFS = cmdLineVars.containsKey("globeMotifs")
+.const GLOBE_REPEAT = cmdLineVars.containsKey("globeRepeat")
+.const DEFERRED_GLOBE_JOINS = GLOBE_REPEAT && !cmdLineVars.containsKey("immediateGlobeJoins")
+.const GLOBE_SHORT_RATES = GLOBE_MOTIFS || GLOBE_REPEAT || cmdLineVars.containsKey("globeShortRates")
+.if (GLOBE_REPLAY) {
+    .assert "Globe replay uses the standard mesh renderer", IS_MESH && !COMPACT_JOINS && !CROSSING_HOLES && !ONE_CHAR && !CLEAN_JUNCTIONS, true
+    .assert "Replay library is for the globe", cmdLineVars.get("mesh") == "globe", true
+}
 .const SHORT_RATE_LIMIT = CROSSING_HOLES ? 56 : 32
-.const shortRates = CROSSING_HOLES ? $c600 : $7800
+.const shortRates = GLOBE_SHORT_RATES ? $bd80 : (CROSSING_HOLES ? $c600 : $7800)
 .const shortRateRowLo = shortRates + SHORT_RATE_LIMIT * (SHORT_RATE_LIMIT + 1) / 2
 .const shortRateRowHi = shortRateRowLo + SHORT_RATE_LIMIT + 1
 .var MESH_VERTEX_COUNT = 8
@@ -50,6 +64,15 @@
 .const HASH_DISP_HI = $9800
 .const JOINTT  = $a700          // 55 joint slot patterns (words)
 .const JCOUNT  = $a770          // allocated joint slots
+
+.label slotLane=$18
+.label nextPatch=$19
+.label exactOverflow=JCOUNT+1
+.label deferredMode = $fa
+.label deferredNext = $fb
+.label deferredFlushCode = $fc
+.label deferredOverflow = $fd
+
 
 BasicUpstart2(start)
 
@@ -256,6 +279,13 @@ start:
     bne !c-
     lda #0
     sta JCOUNT
+    .if (DEFERRED_GLOBE_JOINS) { sta deferredMode }
+    .if (GLOBE_REPLAY_STATS && GLOBE_REPLAY) {
+        sta globeReplayAttempts
+        sta globeReplayAttempts+1
+        sta globeReplayHits
+        sta globeReplayHits+1
+    }
     ldx #0
 !s:  sta SCREEN,x
     sta SCREEN+$100,x
@@ -952,6 +982,12 @@ stampJoint:
     sta (jptrLo),y
     rts
 sjCompose:
+    .if (DEFERRED_GLOBE_JOINS) {
+        ldx deferredMode
+        beq !immediate+
+        jmp deferredMerge
+    !immediate:
+    }
     cmp #201
     bcs sjFromSlot            // existing content is a joint slot
     tax
@@ -1886,6 +1922,11 @@ bithi:
 clearScreenJoints:
     lda #0
     sta JCOUNT
+    .if (CLEAN_JUNCTIONS) {
+        sta exactOverflow
+        lda #201
+        sta nextPatch
+    }
     jmp clearPreviousBox
 
 // Publish both addresses with one VIC register write in the border.
@@ -2266,9 +2307,28 @@ cubeLoop:
     jsr transformVerts
     jsr findVisibleFaces
     jsr rememberCubeBox
+    .if (DEFERRED_GLOBE_JOINS) {
+        lda #201
+        sta deferredNext
+        lda #0
+        sta deferredOverflow
+        inc deferredMode
+    }
+meshDrawEdges:
     .if (CROSSING_HOLES) {
+        .if (CLEAN_JUNCTIONS) {
+            lda thinFound
+            beq !clean+
+            jsr thinClearOmissions
+        !clean:
+        }
         lda meshNeedsClip
         bne !clipped+
+        .if (CLEAN_JUNCTIONS) {
+            jsr thinGate
+            lda thinFound
+            bne !clipped+
+        }
         jsr drawInsideMesh
         jmp meshEdgesDone
     !clipped:
@@ -2278,6 +2338,10 @@ cubeLoop:
 edgeLoop:
     .if (IS_MESH) {
         ldx ecount
+        .if (CLEAN_JUNCTIONS) {
+            lda thinSkip,x
+            bne !nextEdge+
+        }
         ldy meshEdgeFaceA,x
         lda meshVisibleFaces,y
         bne !draw+
@@ -2344,6 +2408,19 @@ edgeLoop:
     }
     bne edgeLoop
 meshEdgesDone:
+    .if (DEFERRED_GLOBE_JOINS) {
+        lda deferredMode
+        beq !ready+
+        dec deferredMode
+        lda deferredOverflow
+        beq !flush+
+        jsr clearPreviousBox
+        jmp meshDrawEdges
+    !flush:
+        jsr deferredFlush
+    !ready:
+    }
+    .if (CLEAN_JUNCTIONS) { jsr flushJunctions }
     .if (COMPACT_JOINS) { jsr flushCompact }
     jsr showFrame
     inc phYaw
@@ -2513,7 +2590,7 @@ edgestab:
 .if (COMPACT_JOINS) {
     .import source "compact_joins.asm"
 }
-.if (ONE_CHAR || CROSSING_HOLES) {
+.if (ONE_CHAR || CROSSING_HOLES || GLOBE_SHORT_RATES) {
     *=shortRates "Short-line Q8 rates"
     .for (var span = 1; span <= SHORT_RATE_LIMIT; span++) {
         .fill span, floor((512 * i + span) / (2 * span))
@@ -2521,7 +2598,7 @@ edgestab:
     .assert "Short-line rate rows match pointer base", * == shortRateRowLo, true
     .fill SHORT_RATE_LIMIT + 1, <(shortRates + i * (i - 1) / 2)
     .fill SHORT_RATE_LIMIT + 1, >(shortRates + i * (i - 1) / 2)
-    .assert "Short-line rates fit in reserved space", * <= (CROSSING_HOLES ? $ce00 : $7c00), true
+    .assert "Short-line rates fit in reserved space", * <= (GLOBE_SHORT_RATES ? $c000 : (CROSSING_HOLES ? $ce00 : $7c00)), true
 }
 
 .if (IS_MESH) {
@@ -2553,3 +2630,15 @@ edgestab:
 }
 
 .if (CROSSING_HOLES) { .import source "hole_unroll.asm" }
+
+.if (CLEAN_JUNCTIONS) { .import source "clean_junctions.asm" }
+.if (GLOBE_REPLAY) { .import source "globe_replay.asm" }
+.if (DEFERRED_GLOBE_JOINS) { .import source "deferred_globe_joins.asm" }
+.if (GLOBE_MOTIFS) {
+    .assert "Motif memory layout requires the standard globe renderer", IS_MESH && !GLOBE_REPLAY && !CROSSING_HOLES && !COMPACT_JOINS && !ONE_CHAR, true
+    .import source "globe_motifs.asm"
+}
+.if (GLOBE_REPEAT) {
+    .assert "Repeating motifs require the standard globe renderer", IS_MESH && !GLOBE_REPLAY && !GLOBE_MOTIFS && !CROSSING_HOLES && !COMPACT_JOINS && !ONE_CHAR, true
+    .import source "globe_repeat.asm"
+}

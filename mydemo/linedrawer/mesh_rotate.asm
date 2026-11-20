@@ -305,7 +305,7 @@ meshZX: .byte 0
 meshZY: .byte 0
 meshZZ: .byte 0
 
-.assert "Mesh rotation fits before its tables", * <= $c000, true
+.assert "Mesh rotation fits before its tables", * <= (GLOBE_SHORT_RATES ? shortRates : $c000), true
 .assert "Rotated vertices fit their working buffer", meshRotated + 6 * MESH_VERTEX_COUNT <= $b200, true
 
 *=$c000 "Mesh fixed-point tables"

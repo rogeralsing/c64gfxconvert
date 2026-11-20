@@ -4,6 +4,7 @@
 import argparse
 import json
 from itertools import product
+from math import gcd
 from pathlib import Path
 import random
 import socket
@@ -12,7 +13,8 @@ from tempfile import TemporaryDirectory
 
 from clip_reference import HEIGHT, WIDTH, visible_segment
 from cube_model import normalized_cells
-from verify_linedrawer import BUFFERS, BUILD, glyph_rows, load_monitor, sha, symbol
+from verify_linedrawer import (BUFFERS, BUILD, add_junction_renderers, assembly_symbols,
+                              glyph_rows, load_monitor, sha, symbol, trace_execution)
 
 
 CALL_STUB = 0xc000
@@ -94,6 +96,53 @@ def crossing_segments():
             yield f"axis/diagonal {dx},{dy}", (x, y, x + dx, y + dy)
 
 
+def motif_segments():
+    yield from test_segments()
+    yield "long shallow motif", (0, 3, 156, 42)
+    yield "long shallow motif reversed", (159, 42, 3, 3)
+    yield "long steep motif", (3, 0, 27, 96)
+    for major, minor in ((38, 11), (36, 9)):
+        for dx, dy in ((major, minor), (minor, major)):
+            for sx, sy in product((-1, 1), repeat=2):
+                for x, y in product(range(40, 44), repeat=2):
+                    yield "motif alignment", (x, y, x + sx * dx, y + sy * dy)
+
+
+def repeat_segments():
+    yield from motif_segments()
+    yield "quarter-slope shorter line", (0, 3, 92, 26)
+    yield "three-quarter-slope fallback", (8, 9, 80, 63)
+    yield "quarter-slope clipped to exact repeat", (-12, 0, 100, 28)
+    for span in (32, 33):
+        yield f"clipped horizontal span {span}", (-5, 20, span, 35)
+        yield f"clipped horizontal span {span} reversed", (span, 35, -5, 20)
+        yield f"clipped vertical span {span}", (20, -5, 35, span)
+        yield f"clipped vertical span {span} reversed", (35, span, 20, -5)
+    for dx, dy in ((44, 22), (22, 44)):
+        for sx, sy in product((-1, 1), repeat=2):
+            for x, y in product(range(48, 52), repeat=2):
+                yield "half-slope repeat alignment", (x, y, x + sx * dx, y + sy * dy)
+
+
+def expected_repetitions(clipped):
+    if clipped is None:
+        return 0
+    x0, y0, x1, y1 = clipped
+    dx, dy = x1 - x0, y1 - y0
+    major_start, major_delta = (x0, dx) if abs(dx) >= abs(dy) else (y0, dy)
+    major, minor = max(abs(dx), abs(dy)), min(abs(dx), abs(dy))
+    if major == 0:
+        return 0
+    rate = (512 * minor + major) // (2 * major)
+    if rate not in (0, 64, 128, 256):
+        return 0
+    normalized_start = (major_start & 3) ^ (3 if major_delta < 0 else 0)
+    head = (-normalized_start) & 3
+    samples_per_period = 1024 // gcd(rate, 256)
+    repetitions = (major + 1 - head) // samples_per_period
+    return repetitions if repetitions >= 2 else 0
+
+
 def check_walker_operands(addresses, before, after, clipped):
     """Permit only the code bytes selected by this particular clipped line."""
     if clipped is None:
@@ -153,26 +202,41 @@ def entry_stub(addresses, segment, screen, charset):
     return code
 
 
-def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_holes=False):
+def verify_case(monitor, addresses, dump_file, pair, label, segment, window_walker=False, guard_end=GUARD_END):
     screen, charset, _ = pair
     screen_end = screen + 1000
     monitor.run(f"fill {screen:04x} {screen_end - 1:04x} 00")
     stub = entry_stub(addresses, segment, screen, charset)
     monitor.run(f"> {CALL_STUB:04x} {stub.hex(' ')}")
-    guard_end = 0xcfff if crossing_holes else GUARD_END
     before = bytearray(monitor.dump(dump_file, GUARD_START, guard_end))
     monitor.run(f"g {CALL_STUB:04x}")
     entry = monitor.registers()
     if entry["pc"] != addresses["drawClippedLine"]:
         raise AssertionError(f"{label}: did not enter native clip routine")
-    monitor.run("x")
+    execution = monitor.run("x")
     done = monitor.registers()
     if done["pc"] != addresses["halt"]:
         raise AssertionError(f"{label}: native clip routine did not return")
     after = monitor.dump(dump_file, GUARD_START, guard_end)
     clipped = visible_segment(segment)
-    if crossing_holes:
+    if window_walker:
         check_walker_operands(addresses, before, after, clipped)
+    repeat_proof = {}
+    if "globeRepeatRun" in addresses:
+        hits = trace_execution(execution)
+        select, run = addresses["globeRepeatSelect"], addresses["globeRepeatRun"]
+        repeats = expected_repetitions(clipped)
+        if (hits[select], hits[run]) != (bool(repeats), repeats):
+            raise AssertionError(f"{label}: expected one selection and {repeats} runs when eligible, "
+                                 f"observed {hits[select]} selections and {hits[run]} runs")
+        repeat_proof = {"repeatSelections": hits[select], "repeatCalls": hits[run]}
+        if repeats:
+            operand = run + 1 - GUARD_START
+            target = int.from_bytes(after[operand:operand + 2], "little")
+            if not 0xe000 <= target < 0xfffa:
+                raise AssertionError(f"{label}: repeat target outside the literal code bank")
+            repeat_proof["repeatKernel"] = target
+            before[operand:operand + 2] = after[operand:operand + 2]
 
     lower, upper = screen - GUARD_START, screen_end - GUARD_START
     if before[:lower] != after[:lower] or before[upper:] != after[upper:]:
@@ -190,30 +254,46 @@ def verify_case(monitor, addresses, dump_file, pair, label, segment, crossing_ho
             if after[start:start + 8] != glyph_rows(expected[cell]):
                 raise AssertionError(f"{label} {segment} -> {clipped}: wrong glyph at cell {cell}")
     return {"case": label, "input": segment, "visible": clipped, "litCells": len(expected),
-            "screen": screen, "nativeCycles": done["clock"] - entry["clock"] - 3}
+            "screen": screen, "nativeCycles": done["clock"] - entry["clock"] - 3,
+            **repeat_proof}
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
-    parser.add_argument("--crossing-holes", action="store_true",
-                        help="check the globe's fixed-glyph drawer on both buffers and all eight octants")
+    renderer = parser.add_mutually_exclusive_group()
+    renderer.add_argument("--crossing-holes", action="store_true",
+                          help="check the globe's fixed-glyph drawer on both buffers and all eight octants")
+    renderer.add_argument("--globe-motifs", action="store_true",
+                          help="check generated globe fragments in all octants and starting alignments")
+    renderer.add_argument("--globe-repeat", action="store_true",
+                          help="verify fixed repeat dispatch and signed endpoints")
+    add_junction_renderers(renderer)
     parser.add_argument("--build", type=Path, help="directory containing the PRG and its matching main.sym")
     args = parser.parse_args()
-    default = BUILD / "globe-holes" if args.crossing_holes else BUILD
+    window_walker = args.crossing_holes or bool(args.junction)
+    variant = f"globe-{args.junction}" if args.junction else "globe-holes"
+    if args.globe_motifs:
+        variant = "globe-motifs"
+    elif args.globe_repeat:
+        variant = "globe-repeat"
+    variant_build = window_walker or args.globe_motifs or args.globe_repeat
+    default = BUILD / variant if variant_build else BUILD
     build = (args.build or default).resolve()
-    program = build / ("globe-holes.prg" if args.crossing_holes else "linedrawer.prg")
+    program = build / (f"{variant}.prg" if variant_build else "linedrawer.prg")
     report = {"passed": False, "programSha256": sha(program.read_bytes()), "cases": []}
     process = connection = None
     try:
-        text = (build / "main.sym").read_text()
+        text = assembly_symbols(build)
         addresses = {name: symbol(text, name) for name in (*LOW_BYTES, *HIGH_BYTES, "baseLo",
                     "baseHi", "drawCharsetHi", "cubeLoop", "drawClippedLine", "halt")}
-        if args.crossing_holes:
+        if window_walker:
             for name in ("firstEmpty", "firstBusy", "secondGlyph", "holeFullFirst", "holeFullSecond",
                          "holePartialDispatch", "holePartialJumps", "holeTailDot"):
-                if f".label {name}=" in text:
+                try:
                     addresses[name] = symbol(text, name)
+                except ValueError:
+                    pass
         vm = load_monitor()
         with socket.socket() as reservation:
             reservation.bind(("127.0.0.1", 0))
@@ -237,12 +317,29 @@ def main():
             if monitor.registers()["pc"] != addresses["cubeLoop"]:
                 raise AssertionError("Default launch halted before initializing the line drawer")
             monitor.run("bank ram")
-            segments = crossing_segments() if args.crossing_holes else test_segments()
+            segments = crossing_segments() if window_walker else (
+                motif_segments() if args.globe_motifs else test_segments())
+            guard_end = GUARD_END
+            if window_walker:
+                guard_end = 0xffff if args.junction else 0xcfff
+            elif args.globe_repeat:
+                segments = repeat_segments()
+                guard_end = 0xffff
+                for name in ("globeRepeatSelect", "globeRepeatRun"):
+                    addresses[name] = symbol(text, name)
+                    monitor.run(f"trace exec {addresses[name]:04x}")
             for index, (label, segment) in enumerate(segments):
-                pairs = BUFFERS if args.crossing_holes else (BUFFERS[index % len(BUFFERS)],)
+                pairs = BUFFERS if window_walker else (BUFFERS[index % len(BUFFERS)],)
                 for pair in pairs:
                     report["cases"].append(verify_case(monitor, addresses, scratch / "ram.bin",
-                                                       pair, label, segment, args.crossing_holes))
+                                                       pair, label, segment, window_walker, guard_end))
+        if args.globe_repeat:
+            by_name = {case["case"]: case for case in report["cases"]}
+            longer = by_name["long shallow motif"]
+            shorter = by_name["quarter-slope shorter line"]
+            if (longer["repeatKernel"] != shorter["repeatKernel"] or
+                    longer["repeatCalls"] == shorter["repeatCalls"]):
+                raise AssertionError("Expected the same quarter-slope code at two different line lengths")
         report["passed"] = True
     except Exception as error:
         report["error"] = f"{type(error).__name__}: {error}"

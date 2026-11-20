@@ -87,7 +87,7 @@ def build_displaced_bank(tile_to_code):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--shape", choices=("cube", "football", "globe"), default="cube")
+    parser.add_argument("--shape", choices=("cube", "football", "globe"))
     renderer_options = parser.add_mutually_exclusive_group()
     renderer_options.add_argument("--compact-joins", action="store_true",
                                   help="use the web lab's compact hybrid font for the globe")
@@ -95,8 +95,29 @@ def main():
                                   help="benchmark the globe using one fixed block character")
     renderer_options.add_argument("--crossing-holes", action="store_true",
                                   help="use fixed line glyphs and blank cells where they cross")
+    renderer_options.add_argument("--exact-corners", action="store_true",
+                                  help="draw the globe with exact private corner glyphs")
+    renderer_options.add_argument("--fixed-junction-font", action="store_true",
+                                  help="draw the globe with a fixed font of connected glyphs")
+    renderer_options.add_argument("--globe-replay", action="store_true",
+                                  help="draw common globe edges with preassembled character stamps")
+    renderer_options.add_argument("--globe-motifs", action="store_true",
+                                  help="draw globe line interiors with reusable preassembled blocks")
+    renderer_options.add_argument("--globe-repeat", action="store_true",
+                                  help="repeat one preassembled motif per eligible globe line")
     args = parser.parse_args()
-    shape = args.shape
+    clean_junctions = args.exact_corners or args.fixed_junction_font
+    replay_globe = args.globe_replay or args.globe_motifs or args.globe_repeat
+    shape = args.shape or ("globe" if clean_junctions or replay_globe else "cube")
+    if args.globe_replay and shape != "globe":
+        parser.error("--globe-replay requires --shape globe")
+    if args.globe_motifs and shape != "globe":
+        parser.error("--globe-motifs requires --shape globe")
+    if args.globe_repeat and shape != "globe":
+        parser.error("--globe-repeat requires --shape globe")
+    if clean_junctions and shape != "globe":
+        parser.error("the clean junction renderers require --shape globe")
+    window_walker = args.crossing_holes or clean_junctions
     if args.compact_joins and shape != "globe":
         parser.error("--compact-joins requires --shape globe")
     if args.one_char and shape != "globe":
@@ -114,6 +135,21 @@ def main():
     elif args.crossing_holes:
         variant = "globe-holes"
         renderer = "fixed glyphs with crossing holes"
+    elif args.exact_corners:
+        variant = "globe-exact-corners"
+        renderer = "geometric silhouette snapping and exact private collision glyphs"
+    elif args.fixed_junction_font:
+        variant = "globe-fixed-junction-font"
+        renderer = "geometric silhouette snapping and immutable covering glyphs"
+    elif args.globe_replay:
+        variant = "globe-replay"
+        renderer = "exact preassembled line replay with standard joint composition"
+    elif args.globe_motifs:
+        variant = "globe-motifs"
+        renderer = "reusable preassembled line blocks with standard joint composition"
+    elif args.globe_repeat:
+        variant = "globe-repeat"
+        renderer = "one preassembled repeating motif per eligible line with exact private collision glyphs"
     output = BUILD if shape == "cube" else BUILD / variant
     output.mkdir(parents=True, exist_ok=True)
     program = output / ("linedrawer.prg" if shape == "cube" else f"{variant}.prg")
@@ -146,12 +182,12 @@ def main():
     for pat, code in tile_to_code.items():
         revlo[code + 1] = pat & 0xFF
         revhi[code + 1] = pat >> 8
-    glyph_lookup = {} if args.crossing_holes else build_displaced_bank(tile_to_code)
+    glyph_lookup = {} if window_walker else build_displaced_bank(tile_to_code)
 
     rev8 = bytes(int(f"{value:08b}"[::-1], 2) for value in range(256))
     # Full bit reversal swaps the two 4-bit rows. Keep their order for H flips.
     hrev8 = bytes((value >> 4) | ((value & 15) << 4) for value in rev8)
-    if args.crossing_holes:
+    if window_walker:
         import hole_templates
         stamps = hole_templates.build(tile_to_code)
     else:
@@ -166,6 +202,12 @@ def main():
         **glyph_lookup,
         **stamps,
     }
+    if clean_junctions:
+        import thin_faces
+        thin_faces.write_native(BUILD)
+    if args.fixed_junction_font:
+        import fixed_junction_font
+        generated.update(fixed_junction_font.assets())
     for name, data in generated.items():
         (BUILD / f"{name}.bin").write_bytes(data)
 
@@ -192,24 +234,49 @@ def main():
                             "compact-hash-codes"))
     if args.one_char:
         assembler_args.append(":oneChar=1")
-    if args.crossing_holes:
+    if args.globe_replay:
+        import globe_replay
+
+        replay_report = globe_replay.emit(tile_to_code, BUILD)
+        mesh_binary.append(Path(globe_replay.ASSET_NAME).stem)
+        assembler_args.append(":globeReplay=1")
+    if args.globe_motifs:
+        import globe_motifs
+
+        motif_report = globe_motifs.emit(tile_to_code, BUILD)
+        mesh_binary.append(Path(globe_motifs.ASSET_NAME).stem)
+        assembler_args.append(":globeMotifs=1")
+    if args.globe_repeat:
+        import globe_repeat
+
+        repeat_report = globe_repeat.emit(tile_to_code, BUILD)
+        mesh_binary.append(Path(globe_repeat.ASSET_NAME).stem)
+        assembler_args.append(":globeRepeat=1")
+    if window_walker:
         depth, sweep = ball_model.HOLES_CAMERA
         y_sweep = ball_model.HOLES_Y_SWEEP
         assembler_args.extend((":crossingHoles=1", f":cameraDepth={depth}", f":cameraSweep={sweep}",
                                f":motionY={y_sweep}"))
         frame_segments = partial(ball_model.frame_segments, shape, camera=ball_model.HOLES_CAMERA,
                                  y_sweep=y_sweep)
+    if clean_junctions:
+        assembler_args.append(":exactCorners=1" if args.exact_corners else ":fixedJunctionFont=1")
+        mesh_binary.extend(("thin-topology", "thin-gate"))
+        frame_segments = thin_faces.frame_segments
     endpoint_cases = cube_model.prove_normalized_endpoints()
     coverage_misses = cube_model.coverage_receipt(tile_to_code, segments_for=frame_segments)
-    if not (args.compact_joins or args.one_char or args.crossing_holes):
+    if not (args.compact_joins or args.one_char or window_walker):
         for n in range(cube_model.FRAMES_TO_VERIFY):
             screen, _ = frame_screen(n, tile_to_code)
             (output / f"expected_frame{n}.bin").write_bytes(screen)
     sweep_ok = L.sweep(count=1500, seed=7)
 
+    symbol_options = ["-symbolfile"]
+    if shape == "globe":
+        symbol_options.append("-vicesymbols")
     result = subprocess.run(
         [str(Path.home() / ".local/bin/kickass"), "main.asm", "-odir", str(output),
-         "-o", str(program), "-symbolfile", *assembler_args],
+         "-o", str(program), *symbol_options, *assembler_args],
         cwd=HERE, capture_output=True, text=True)
     (output / "build.log").write_text(result.stdout + result.stderr)
     if result.returncode != 0:
@@ -225,7 +292,7 @@ def main():
         data = (BUILD / f"{name}.bin").read_bytes()
         binaries[name] = {"bytes": len(data), "sha256": sha(data)}
     stamp_bytes = sum(len(data) for data in stamps.values())
-    if args.crossing_holes:
+    if window_walker:
         symbols = (output / "main.sym").read_text()
         native_size = re.search(r"^\.label assembledHoleGlyphBytes=\$([\da-fA-F]+)\b", symbols, re.M)
         if native_size is None:
@@ -249,6 +316,16 @@ def main():
         "jointSlotsUsed": len(demo_joints),
         "binaries": binaries,
     }
+    if args.fixed_junction_font:
+        report["fixedFontCodes"] = 256
+        report["glyphLookupBytes"] = sum(len(data) for name, data in generated.items()
+                                         if name.startswith("cover-"))
+    if args.globe_replay:
+        report["replay"] = replay_report
+    if args.globe_motifs:
+        report["motifs"] = motif_report
+    if args.globe_repeat:
+        report["repeat"] = repeat_report
     (output / "linedrawer.json").write_text(json.dumps(report, indent=2) + "\n")
     print(json.dumps({k: report[k] for k in (
         "passed", "shape", "defaultRenderer", "glyphs", "characterTableBytes", "glyphLookupBytes",

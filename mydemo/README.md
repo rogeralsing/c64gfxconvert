@@ -12,6 +12,8 @@ projects remain in place.
 | `rimrunner/` | MCI parallax scenery with the mounted rider, three scrolling bands and SPACE pause | `asm/src/parallax.asm` and `asm/tools/` in this repository |
 | `steamboatwillie/` | Approved monochrome Mickey loop, 60 frames at 10 fps | `ecm-solid-font/mickey-gif/mono/` and its `darker/generated/` inputs in the original movieplayer worktree |
 
+The [Megaplot line demo](megaplot/README.md) draws one self-crossing polyline with free-moving joints.
+
 Build from the repository root:
 
 ```sh
