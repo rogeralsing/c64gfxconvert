@@ -41,7 +41,11 @@ drawClippedLine:
     bcc clipLineSlow
     cmp ly1
     bcc clipLineSlow
-    jmp drawCharLine
+    .if (GLOBE_REPLAY) {
+        jmp globeReplayLine
+    } else {
+        jmp drawCharLine
+    }
 
 clipLineSlow:
     lda lx0
@@ -90,7 +94,11 @@ clipLineSlow:
     lda clipY
     sta ly1
 !visible:
-    jmp drawCharLine
+    .if (GLOBE_REPLAY) {
+        jmp globeReplayLine
+    } else {
+        jmp drawCharLine
+    }
 !reject:
     rts
 

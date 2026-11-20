@@ -180,8 +180,8 @@ drawCharLine:
     } else {
         beq !diagonal+
     }
-    .if (ONE_CHAR || CROSSING_HOLES) {
-        .label ratePointer = CROSSING_HOLES ? jptrLo : cwSecondLayout
+    .if (ONE_CHAR || CROSSING_HOLES || GLOBE_SHORT_RATES) {
+        .label ratePointer = (CROSSING_HOLES || GLOBE_SHORT_RATES) ? jptrLo : cwSecondLayout
         tax
         ldy cwMinorDelta
         beq !flat+
@@ -462,7 +462,17 @@ charWalkBlock:
     bne !partial+
     lda cwRemain
     cmp #4
-    bcs charWalkFull
+    .if (GLOBE_MOTIFS) {
+        bcc !partial+
+        jmp globeMotifsBegin
+    } else .if (GLOBE_REPEAT) {
+        bcc !partial+
+        lda cwAdvanceLo+3
+        bne charWalkFull
+        jmp globeRepeatTry
+    } else {
+        bcs charWalkFull
+    }
 !partial:
     jmp charWalkPartial
 charWalkFull:
