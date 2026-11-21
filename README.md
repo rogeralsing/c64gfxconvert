@@ -96,16 +96,19 @@ reconstructs paths through those contacts; contacts can also mark object
 boundaries, so they do not prove deliberate gradients. The palette
 shows these scales as columns, black at the top and white at the bottom, with
 different numbers of tones. Scroll horizontally to inspect every scale.
-Each mixed-color swatch shows its two active C64 component colors underneath.
+Pair swatches show both C64 component colors underneath. Pattern swatches show
+the 2 × 4 grid beside the average color.
 A separate **Standard colors** column lists all 16 solid colors in C64 index
 order. These buttons toggle solid entries in the virtual palette;
 disabling a solid does not disable its separately enabled mixtures.
-All 92 Talent colors are available: the 76 retained mixed pairs and all 16
-solid C64 colors. Tones outside the example scales appear in an additional column.
-Talent mixes pairs in linear light using the selected C64 palette. It groups
-colors by their actual Oklab lightness, with at most three percentage points
-between the darkest and lightest tone in a level. The level count comes from
-the palette; PEPTOette_a currently has 20 Talent levels. Computed keeps its
+Talent offers 97 virtual colors across 76 mixed pairs, 16 solids, and five
+2 × 4 patterns. Each pattern has six base pixels and two accent pixels.
+Black pairs with blue, brown, or dark gray. Light red pairs with light gray or
+cyan. Tones outside the observed scales appear in an additional column.
+Talent averages the component pixels in linear light using the selected C64
+palette. It groups colors by their actual Oklab lightness, with at most three
+percentage points between the darkest and lightest tone in a level. The level
+count depends on the palette and active patterns. Computed keeps its
 existing 17 rows. Both modes call the same mapper: select the brightness level,
 using the Dither setting to interpolate neighboring levels, then match chroma
 within that level. Hue cannot select a different brightness level.
@@ -123,9 +126,9 @@ palette exclusions apply to both surface samples and individual pixels. Disablin
 a solid color removes that entry from both paths; separately enabled mixtures
 containing that color remain available. Images can use a selection containing
 only mixed colors, including where source pixels differ.
-The C64 Palette view receives exact selected virtual RGB values: shared across
-similar pairs or chosen individually for differing pixels. Lines or Checkers
-resolve the selected component pairs afterward.
+The C64 Palette view shows the selected virtual RGB values. Lines and Checkers
+resolve pairs afterward. Both settings repeat the 2 × 4 patterns at column
+offset `x % 2` and row offset `y % 4`.
 Choose **PEPTOette_a** to reproduce the sampled palette's RGB values. The mode
 applies to every layer with virtual colors enabled and is saved in projects.
 Older projects default to Computed. Each layer retains its own pattern,
@@ -133,6 +136,8 @@ brightness limits, and color exclusions. Talent's lightness limits run from
 0–100%; Computed retains levels 0–16. Layers preserve both ranges separately.
 Legacy Talent projects migrate their row limits to the measured lightness
 range of the tones those rows admitted. Existing color exclusions are preserved.
+Talent projects open with pattern swatches introduced after the file was saved
+disabled. The swatches can be enabled per layer.
 A mode switch keeps at least one
 available color enabled within each layer's selected brightness range.
 

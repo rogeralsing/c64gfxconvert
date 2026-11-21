@@ -138,7 +138,9 @@ globalThis.C64ConverterControls = (() => {
 
     function createSwatch(color, standard = false) {
       const names = [...new Set(color.colorIndices)].map(index => baseColors.get(index).name).join(' + ');
-      const label = `${standard ? color.colorIndices[0] : color.index} · ${names} · ${color.hex}`;
+      const description = color.patternWidth
+        ? `${color.patternWidth}×${color.colorIndices.length / color.patternWidth} pattern · ${names}` : names;
+      const label = `${standard ? color.colorIndices[0] : color.index} · ${description} · ${color.hex}`;
       const swatch = document.createElement('button');
       swatch.type = 'button';
       swatch.className = 'virtual-palette-swatch';
@@ -163,6 +165,10 @@ globalThis.C64ConverterControls = (() => {
         const components = document.createElement('span');
         components.className = 'virtual-palette-components';
         components.setAttribute('aria-hidden', 'true');
+        if (color.patternWidth) {
+          swatch.classList.add('is-pattern');
+          components.style.setProperty('--pattern-width', color.patternWidth);
+        }
         for (const index of color.colorIndices) {
           const component = document.createElement('span');
           component.className = 'virtual-palette-component';
@@ -199,7 +205,7 @@ globalThis.C64ConverterControls = (() => {
       standards.append(heading);
       const standardList = document.createElement('div');
       standardList.className = 'standard-palette-list';
-      const solids = new Map(palette.filter(color => color.colorIndices[0] === color.colorIndices[1])
+      const solids = new Map(palette.filter(color => !color.patternWidth && color.colorIndices[0] === color.colorIndices[1])
         .map(color => [color.colorIndices[0], color]));
       for (const index of [...baseColors.keys()].sort((first, second) => first - second)) {
         const color = solids.get(index);

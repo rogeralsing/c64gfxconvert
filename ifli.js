@@ -44,10 +44,11 @@ function sampleIfliPhases(source) {
 }
 
 /**
- * Resolve every retained virtual pair without changing image size.
+ * Resolve each retained virtual color without changing image size.
  * Lines alternate components by row; checkers alternate by row and column.
  * Actual palette lightness puts the darker component on even parity for every pair.
  * Components in the same C64 brightness band use ascending color index instead.
+ * Fixed tiles repeat their stored colors in row-major order for either setting.
  * Alpha and transparent/sentinel RGBA values remain unchanged.
  */
 function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern = 'lines') {
@@ -64,12 +65,22 @@ function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern =
   const paletteByIndex = new Map(palette.map(color => [color.index, color]));
   const lightness = new Map(palette.map(color => [color.index, rgbToOklab(...color.rgb).lightness]));
   const virtualByIndex = new Map(virtualPalette.map(color => {
-    const pair = color.colorIndices;
-    if (!pair || pair.length !== 2) return [color.index, pair];
-    const equalBrightness = color.brightnessBands?.length === 2 &&
-      color.brightnessBands[0] === color.brightnessBands[1];
-    return [color.index, [pair[0], pair[1]].sort((first, second) =>
-      (equalBrightness ? 0 : lightness.get(first) - lightness.get(second)) || first - second)];
+    const { patternWidth } = color;
+    let indices = color.colorIndices;
+    if (patternWidth === undefined) {
+      if (indices?.length !== 2) return [color.index, null];
+      const equalBrightness = color.brightnessBands?.length === 2 &&
+        color.brightnessBands[0] === color.brightnessBands[1];
+      indices = [indices[0], indices[1]].sort((first, second) =>
+        (equalBrightness ? 0 : lightness.get(first) - lightness.get(second)) || first - second);
+    } else if (!Number.isInteger(patternWidth) || patternWidth <= 0 ||
+        !indices?.length || indices.length % patternWidth !== 0) {
+      return [color.index, null];
+    }
+    const components = Array.from(indices, index => paletteByIndex.get(index)?.rgb);
+    return [color.index, components.every(Boolean)
+      ? { components, patternWidth, patternHeight: components.length / (patternWidth ?? 1) }
+      : null];
   }));
   const resolved = new ImageData(new Uint8ClampedArray(data), width, height);
   for (let y = 0; y < height; y += 1) {
@@ -78,12 +89,15 @@ function resolveVirtualPaletteColors(mapping, virtualPalette, palette, pattern =
       const offset = pixel * 4;
       const index = mapping.virtualIndices[pixel];
       if (data[offset + 3] === 0 || index === 255) continue;
-      const pair = virtualByIndex.get(index);
-      if (!pair || pair.length !== 2 || !paletteByIndex.has(pair[0]) || !paletteByIndex.has(pair[1])) {
-        throw new Error('Virtual color pixels require valid virtual pairs and C64 color indices.');
+      const entry = virtualByIndex.get(index);
+      if (!entry) {
+        throw new Error('Virtual color pixels require valid virtual pairs or tiles with C64 color indices.');
       }
-      const component = (y + (pattern === 'checkers' ? x : 0)) & 1;
-      resolved.data.set(paletteByIndex.get(pair[component]).rgb, offset);
+      const { components, patternWidth, patternHeight } = entry;
+      const component = patternWidth === undefined
+        ? (y + (pattern === 'checkers' ? x : 0)) & 1
+        : (y % patternHeight) * patternWidth + x % patternWidth;
+      resolved.data.set(components[component], offset);
     }
   }
   return resolved;

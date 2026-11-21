@@ -55,7 +55,19 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
     virtualPalettes[mode].splice(0, virtualPalettes[mode].length, ...updated);
   }
 
-  function buildTalentVirtualPalette(computed) {
+  function mixTalentColors(colorIndices) {
+    const rgb = palette[colorIndices[0]].rgb.map((_, channel) => {
+      const sum = colorIndices.reduce((total, index) => total + srgbToLinear(palette[index].rgb[channel]), 0);
+      return Math.round(linearToSrgb(sum / colorIndices.length));
+    });
+    return {
+      lightness: rgbToOklab(...rgb).lightness,
+      rgb,
+      hex: '#' + rgb.map(channel => channel.toString(16).padStart(2, '0')).join('').toUpperCase()
+    };
+  }
+
+  function buildTalentPairs(computed) {
     const computedByPair = new Map(computed.map(color => [color.colorIndices.join('-'), color.index]));
     const bandByColor = new Map();
     for (const [bandIndex, band] of brightnessBands.entries()) {
@@ -68,17 +80,13 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
       const key = `${first}-${second}`;
       // Shared pairs keep their Computed IDs. New IDs are stable across base palettes.
       const index = computedByPair.has(key) ? computedByPair.get(key) : nextIndex++;
-      const rgb = first === second ? [...palette[first].rgb] : palette[first].rgb.map((channel, position) =>
-        Math.round(linearToSrgb((srgbToLinear(channel) + srgbToLinear(palette[second].rgb[position])) / 2)));
       return {
         index,
         id: `ifli-${key}`,
         colorIndices: [first, second],
         // Earlier Talent projects stored these row numbers; conversion uses actual lightness.
         brightnessBands: [bandByColor.get(first), bandByColor.get(second)],
-        lightness: rgbToOklab(...rgb).lightness,
-        rgb,
-        hex: '#' + rgb.map(channel => channel.toString(16).padStart(2, '0')).join('').toUpperCase(),
+        ...mixTalentColors(pair.colorIndices),
         count: pair.count,
         imageCount: pair.imageCount
       };
@@ -120,10 +128,15 @@ function createC64PaletteState(initialId = 'colodore', initialVirtualColorMode =
     brightnessBands.splice(0, brightnessBands.length, ...bands);
     const computed = buildIfliVirtualPalette(palette, brightnessBands);
     updateVirtualPalette('computed', computed);
-    const talent = buildTalentVirtualPalette(computed);
-    legacyTalentPalette.splice(0, legacyTalentPalette.length, ...talent);
+    const pairs = buildTalentPairs(computed);
+    legacyTalentPalette.splice(0, legacyTalentPalette.length, ...pairs);
+    // Pattern IDs stay stable for saved palette exclusions.
+    const patterns = TALENT_PALETTE_DATA.patterns.map(pattern => ({
+      ...pattern, id: `talent-pattern-${pattern.index}`, ...mixTalentColors(pattern.colorIndices)
+    }));
+    const talent = [...pairs, ...patterns];
     virtualColorIndices.splice(0, virtualColorIndices.length, ...new Set([...computed, ...talent].map(color => color.index)));
-    talentToneModel = buildTalentToneModel(talent, TALENT_NEIGHBOR_DATA);
+    talentToneModel = buildTalentToneModel(pairs, TALENT_NEIGHBOR_DATA);
     updateVirtualPalette('talent', talent);
     refreshActiveVirtualPalette();
     paletteId = id;

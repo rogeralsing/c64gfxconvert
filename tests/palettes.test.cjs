@@ -37,8 +37,9 @@ test('Talent offers every observed palette entry without filtering colors by com
   const state = createC64PaletteState('colodore', 'talent');
   assert.equal(state.id, 'colodore', 'choosing virtual colors must retain the selected base palette');
   assert.equal(state.virtualColorMode, 'talent');
-  assert.equal(state.virtualPalette.length, 92);
-  assert.equal(state.virtualPalette.filter(color => color.colorIndices[0] !== color.colorIndices[1]).length, 76);
+  assert.equal(state.virtualPalette.length, 97);
+  assert.equal(state.virtualPalette.filter(color => color.colorIndices.length === 2 &&
+    color.colorIndices[0] !== color.colorIndices[1]).length, 76);
   const green = state.virtualPalette.find(color => color.colorIndices.every(index => index === 5));
   assert.ok(green, 'a color remains available even when it has no complete observed black-to-white scale');
   assert.equal(green.index, 31, 'shared pairs retain their legacy exclusion ID');

@@ -15,9 +15,11 @@ reference in standard C64 index order.
 The image-wide **Virtual color mode** is separate from the C64 palette choice.
 Computed retains the existing generated pairs. Talent uses the 76 two-color
 pairs occurring at least 500 times in the deduplicated captures, plus all 16
-solid colors. `talent-palette.js` stores pair indices and compact provenance;
-it contains no images or local paths. Talent's virtual RGB values are recomputed
-as 50/50 mixtures in linear sRGB whenever the selected C64 palette changes.
+solid colors and five 2 × 4 patterns. Black is the base for blue, brown, and
+dark gray accents. Light red is the base for light gray and cyan accents.
+`talent-palette.js` stores the native color indices and pair provenance.
+Talent recomputes each virtual RGB value as
+the linear-light average of its component pixels when the C64 palette changes.
 
 The [Colodore color model](https://www.pepto.de/projects/colorvic/) documents
 the underlying measurements and analog display assumptions. It is a PAL
@@ -35,8 +37,8 @@ Computed's **Darkest level** and **Lightest level** clamp the C64 Palette view
 to its 17 brightness rows, numbered 0–16. Row 0 is black, row 1 mixes black with
 blue/brown, row 2 uses blue/brown, and row 16 is white. Talent groups its actual
 Oklab lightness values into levels spanning at most three percentage points;
-PEPTOette_a currently produces 20 levels. Both palettes use the same brightness
-selection, ordered dither, and within-level chroma matching. Talent's caps use
+the level count depends on the palette and active patterns. Both palettes use
+the same brightness selection, ordered dither, and within-level chroma matching. Talent's caps use
 actual lightness percentages. Talent selects virtual colors for similar
 vertical source pairs and writes one choice to both pixels. Other pairs use
 individual choices from the same full enabled virtual palette. Lightness caps

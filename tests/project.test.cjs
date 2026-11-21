@@ -276,7 +276,7 @@ test('project validation uses the requested virtual catalog and retains exclusio
     state.setVirtualColorMode(current);
     const before = JSON.stringify(state.virtualPalette);
     const project = fixture();
-    Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: requested });
+    Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: requested, talentPatternVersion: 2 });
     for (const layer of project.layers) {
       layer.settings.palette = {
         minLevel: 0, maxLevel: 16, minLightness: 0, maxLightness: 100, excludedIndices: exclusions(current)
@@ -309,6 +309,8 @@ test('legacy Talent row caps migrate using the document palette and retain Talen
     }
   });
   const talentIndex = state.virtualPalettes.talent.find(color => color.colorIndices.join('-') === '0-4').index;
+  const patterns = state.virtualPalettes.talent.filter(color => color.patternWidth);
+  const patternIndices = Array.from(patterns, color => color.index);
   const project = fixture();
   Object.assign(project.image, { paletteId: 'peptoette-a', virtualColorMode: 'talent' });
   project.layers[0].settings.palette = { minLevel: 2, maxLevel: 2, excludedIndices: [talentIndex] };
@@ -316,7 +318,7 @@ test('legacy Talent row caps migrate using the document palette and retain Talen
   const restored = JSON.parse(catalogCodec.stringify(project));
 
   assert.deepEqual(restored.layers[0].settings.palette, {
-    minLevel: 2, maxLevel: 2, minLightness: 33, maxLightness: 38, excludedIndices: [talentIndex]
+    minLevel: 2, maxLevel: 2, minLightness: 33, maxLightness: 38, excludedIndices: [talentIndex, ...patternIndices]
   });
   assert.equal(restored.layers[1].settings.palette.minLightness, 0);
   assert.equal(restored.layers[1].settings.palette.maxLightness, 100);
@@ -337,7 +339,7 @@ test('legacy Talent row caps migrate using the document palette and retain Talen
   const newlyEnabled = state.virtualPalettes.talent.filter(color => !migrated.excludedIndices.includes(color.index));
   assert.equal(newlyEnabled.length, 1, 'a valid legacy selection retains its single chosen Talent color');
   assert.equal(newlyEnabled[0].index, oldGreen.index);
-  assert.deepEqual(migrated.excludedIndices, Array.from(excludedIndices));
+  assert.deepEqual(migrated.excludedIndices, [...excludedIndices, ...patternIndices]);
   assert.ok(newlyEnabled[0].lightness * 100 >= migrated.minLightness);
   assert.ok(newlyEnabled[0].lightness * 100 <= migrated.maxLightness);
 
@@ -345,6 +347,23 @@ test('legacy Talent row caps migrate using the document palette and retain Talen
   project.layers[0].settings.palette.excludedIndices.push(oldGreen.index);
   assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,
     'explicit lightness selections remain strict');
+  const withPattern = structuredClone(project);
+  withPattern.image.talentPatternVersion = 1;
+  const originalPatterns = Array.from(patterns.filter(color => !color.patternVersion), color => color.index);
+  const newPatterns = Array.from(patterns.filter(color => color.patternVersion === 2), color => color.index);
+  const savedExclusions = withPattern.layers[0].settings.palette.excludedIndices;
+  savedExclusions.push(...originalPatterns.slice(1));
+  const reopened = catalogCodec.parse(catalogCodec.stringify(withPattern));
+  assert.equal(reopened.image.talentPatternVersion, 1);
+  assert.deepEqual(Array.from(reopened.layers[0].settings.palette.excludedIndices),
+    [...savedExclusions, ...newPatterns], 'a version 1 project restores its pattern selection and excludes newer swatches');
+
+  withPattern.image.talentPatternVersion = 2;
+  const expanded = catalogCodec.parse(catalogCodec.stringify(withPattern));
+  assert.equal(expanded.image.talentPatternVersion, 2);
+  assert.deepEqual(Array.from(expanded.layers[0].settings.palette.excludedIndices),
+    savedExclusions, 'a current project retains the enabled new swatches');
+
   delete project.layers[0].settings.palette.minLightness;
   delete project.layers[0].settings.palette.maxLightness;
   assert.throws(() => catalogCodec.parse(JSON.stringify(project)), /no enabled palette colors/,

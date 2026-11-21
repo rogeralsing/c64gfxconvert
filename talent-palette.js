@@ -1,4 +1,6 @@
-/** Observed Talent color-pair catalogue; counts are provenance, not mapping weights. */
+/** Observed Talent color-pair catalogue; counts are provenance, not mapping weights.
+ * Fixed 2 × 4 patterns store the C64 pixel indices in row-major order.
+ */
 const TALENT_PALETTE_DATA = {
   "id": "talent",
   "label": "Talent",
@@ -109,5 +111,37 @@ const TALENT_PALETTE_DATA = {
     { colorIndices: [13, 15], count: 886, imageCount: 10 },
     { colorIndices: [14, 14], count: 620, imageCount: 9 },
     { colorIndices: [15, 15], count: 4769, imageCount: 10 }
+  ],
+  patterns: [
+    { index: 185, patternWidth: 2, colorIndices: [
+      0, 6,
+      0, 0,
+      6, 0,
+      0, 0
+    ] },
+    { index: 186, patternWidth: 2, colorIndices: [
+      0, 9,
+      0, 0,
+      9, 0,
+      0, 0
+    ] },
+    { index: 187, patternWidth: 2, colorIndices: [
+      0, 11,
+      0, 0,
+      11, 0,
+      0, 0
+    ] },
+    { index: 188, patternWidth: 2, patternVersion: 2, colorIndices: [
+      10, 15,
+      10, 10,
+      15, 10,
+      10, 10
+    ] },
+    { index: 189, patternWidth: 2, patternVersion: 2, colorIndices: [
+      10, 3,
+      10, 10,
+      3, 10,
+      10, 10
+    ] }
   ]
 };

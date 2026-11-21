@@ -301,12 +301,13 @@ test('border virtual fitting honors Off, exclusions, lightness limits and the se
     assert.deepEqual(off.pixels.data, original.pixels.data);
     assert.equal(off.palettePixels, undefined);
     options.layers[0].pattern = 'lines';
-    paletteSettings.excludedIndices = [tone.index];
+    const patternIndices = options.virtualPalette.filter(color => color.patternWidth).map(color => color.index);
+    paletteSettings.excludedIndices = [tone.index, ...patternIndices];
     const excluded = virtualRuntime.convertC64BorderSprites(image, palette, config, 0, false, options);
     assert.equal(borderColors(excluded.pixels, { x: 0, y: 35, width: 24, height: 200 }).size, 1,
       'an excluded mixed entry must not be silently recreated');
     paletteSettings.excludedIndices = [];
-    if (mode === 'talent') paletteSettings.maxLightness = Math.floor(tone.lightness * 100) - 1;
+    if (mode === 'talent') paletteSettings.maxLightness = 0;
     else paletteSettings.maxLevel = 0;
     const capped = virtualRuntime.convertC64BorderSprites(image, palette, config, 0, false, options);
     assert.deepEqual(borderColors(capped.pixels, { x: 0, y: 35, width: 24, height: 200 }),
