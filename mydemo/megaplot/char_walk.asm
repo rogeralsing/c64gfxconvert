@@ -14,7 +14,7 @@
 .label cwThreshold=$98    // three phase thresholds
 .label cwShapes=$9b       // four possible shapes across the thresholds
 .label cwLayout=$9f       // glyph pair lookup page
-.label cwTransform=$a1    // page of reflected/transposed glyph codes
+.label cwPairOffset=$a1
 .label cwSecond=$a3
 .label cwMajorStep=$a4
 .label cwMinorStep=$a6
@@ -24,123 +24,82 @@
 
 *= $7000 "Character line walker"
 drawCharLine:
-    lda #0
-    sta cwOrient
-    sta cwLayout
-    sta cwSecondLayout
-    sta cwTransform
+    ldx #0
+    stx cwLayout
+    stx cwSecondLayout
     lda lx1
     sec
     sbc lx0
-    bcs !dx+
+    bcs !positiveX+
     eor #$ff
-    clc
     adc #1
-    inc cwOrient
-!dx:
+    inx
+!positiveX:
     sta cwMajorDelta
     lda ly1
     sec
     sbc ly0
-    bcs !dy+
+    bcs !positiveY+
     eor #$ff
-    clc
     adc #1
-    ldx cwOrient
     inx
     inx
-    stx cwOrient
-!dy:
+!positiveY:
     sta cwMinorDelta
     cmp cwMajorDelta
-    bcc !axes+
-    beq !axes+
-    ldx cwMajorDelta
-    stx cwMinorDelta
+    bcc !ordered+
+    beq !ordered+
+    ldy cwMajorDelta
+    sty cwMinorDelta
     sta cwMajorDelta
-    lda cwOrient
+    txa
     ora #4
-    sta cwOrient
-!axes:
+    tax
+!ordered:
+    stx cwOrient
     lda lx0
     and #3
-    sta cwMajorLocal
+    eor octFlipX,x
+    tay
     lda ly0
     and #3
-    sta cwMinorLocal
-    lda cwOrient
-    lsr
-    bcc !xPositive+
-    lda cwMajorLocal
-    eor #3
+    eor octFlipY,x
+    cpx #4
+    bcc !xMajor+
     sta cwMajorLocal
-    lda #$ff
-    sta cwMajorStep
-    sta cwMajorStep+1
-    jmp !xDone+
-!xPositive:
-    lda #1
-    sta cwMajorStep
-    lda #0
-    sta cwMajorStep+1
-!xDone:
-    lda cwOrient
-    and #2
-    beq !yPositive+
-    lda cwMinorLocal
-    eor #3
-    sta cwMinorLocal
-    lda #256-40
-    sta cwMinorStep
-    lda #$ff
-    sta cwMinorStep+1
-    jmp !yDone+
-!yPositive:
-    lda #40
-    sta cwMinorStep
-    lda #0
-    sta cwMinorStep+1
-!yDone:
-    lda cwOrient
-    and #4
-    beq !oriented+
-    ldx cwMajorLocal
-    ldy cwMinorLocal
+    sty cwMinorLocal
+    bcs !normalized+
+!xMajor:
     sty cwMajorLocal
-    stx cwMinorLocal
-    ldx cwMajorStep
-    ldy cwMinorStep
-    sty cwMajorStep
-    stx cwMinorStep
-    ldx cwMajorStep+1
-    ldy cwMinorStep+1
-    sty cwMajorStep+1
-    stx cwMinorStep+1
-!oriented:
-    // A diagonal cell transition uses a single combined address increment.
-    clc
-    lda cwMajorStep
-    adc cwMinorStep
+    sta cwMinorLocal
+!normalized:
+    lda octMajorLo,x
+    sta cwMajorStep
+    lda octMajorHi,x
+    sta cwMajorStep+1
+    lda octMinorLo,x
+    sta cwMinorStep
+    lda octMinorHi,x
+    sta cwMinorStep+1
+    // Combined major and minor screen steps are fixed for each octant.
+    lda octBothLo,x
     sta cwBothStep
-    lda cwMajorStep+1
-    adc cwMinorStep+1
+    lda octBothHi,x
     sta cwBothStep+1
     lda cwOrient
     clc
-    adc #>charTransform
-    sta cwTransform+1
+    adc #>packedFirst
+    sta cwLayout+1
+    adc #((>packedSecond) - (>packedFirst))
+    sta cwSecondLayout+1
     // Both screen buffers start on a page boundary.
-    lda ly0
-    lsr
-    lsr
-    tax
-    lda lx0
-    lsr
-    lsr
+    ldx lx0
+    ldy ly0
+    lda waveStartColumn,x
     clc
-    adc charRowLo,x
+    adc waveStartRowLo,y
     sta scrLo
-    lda charRowHi,x
+    lda waveStartRowHi,y
     adc baseHi
     sta scrHi
     lda cwMajorDelta
@@ -166,7 +125,14 @@ drawCharLine:
     lda #0
 !table:
     sta cwSlope
-    tax
+    ldx cwMajorDelta
+    cpx #29
+    bcs !generic+
+    and #63
+    beq !generic+
+    jmp drawShortStream
+!generic:
+    ldx cwSlope
     lda charSlope,x
     sta cwThreshold
     lda charSlope+$100,x
@@ -181,24 +147,33 @@ drawCharLine:
     sta cwShapes+2
     lda charSlope+$600,x
     sta cwShapes+3
-    ldx #0
-    ldy #0
-    tya
-!advance:
+    // Derive the first two exact Q8 multiples from the indexed rate.
+    stx cwAdvanceLo
+    txa
+    asl
+    sta cwAdvanceLo+1
+    lda #0
+    sta cwAdvanceHi
+    rol
+    sta cwAdvanceHi+1
+    // Add one rate to 2× for 3×, then double 2× for 4×.
+    lda cwAdvanceLo+1
     clc
     adc cwSlope
-    sta cwAdvanceLo,x
-    bcc !whole+
-    iny
-!whole:
-    sty cwAdvanceHi,x
-    inx
-    cpx #4
-    bne !advance-
+    sta cwAdvanceLo+2
+    lda cwAdvanceHi+1
+    adc #0
+    sta cwAdvanceHi+2
+    lda cwAdvanceLo+1
+    asl
+    sta cwAdvanceLo+3
+    lda cwAdvanceHi+1
+    rol
+    sta cwAdvanceHi+3
     jmp charWalkBlock
 
 !diagonal:
-    lda #57                       // displacements 1, 2 and 3 in two bits each
+    lda #7                        // three successive minor steps
     sta cwShapes+3
     lda #0
     sta cwThreshold+1
@@ -215,6 +190,18 @@ drawCharLine:
     sta cwAdvanceHi+2
     lda #4
     sta cwAdvanceHi+3
+
+.macro StampFirstGlyph() {
+    ldy #0
+    lda (scrLo),y
+    beq !empty+
+    jsr charComposeFirst
+    jmp !firstStamped+
+!empty:
+    txa
+    sta (scrLo),y
+!firstStamped:
+}
 
 // The middle of a line advances four samples per block. Its two glyph
 // pages are constant, while clipped first and last blocks select their pages.
@@ -235,32 +222,19 @@ drawCharLine:
     inx
 !shape:
     ldy cwMinorLocal
-    lda charMinorIndex,y
+    .if (full) {
+        lda charMinorFullIndex,y
+    } else {
+        lda charMinorIndex,y
+    }
     ora cwShapes,x
+    .if (!full) { ora cwPairOffset }
     tay
-    .if (full) {
-        lda charSecond + 3 * 256,y
-    } else {
-        lda (cwSecondLayout),y
-    }
+    lda (cwSecondLayout),y
     sta cwSecond
-    .if (full) {
-        lda charFirst + 3 * 256,y
-    } else {
-        lda (cwLayout),y
-    }
-    tay
-    lda (cwTransform),y
+    lda (cwLayout),y
     tax
-    ldy #0
-    lda (scrLo),y
-    beq !empty+
-    jsr charComposeFirst
-    jmp !firstStamped+
-!empty:
-    txa
-    sta (scrLo),y
-!firstStamped:
+    StampFirstGlyph()
     lda cwSecond
     beq !stamped+
     lda scrLo
@@ -350,21 +324,34 @@ charWalkPartial:
     lda cwRemain
 !count:
     sta cwCount
+    cmp #1
+    beq !dot+
     lda cwMajorLocal
     asl
     asl
     clc
     adc cwCount
-    adc #(>charFirst - 1)
-    sta cwLayout+1
-    adc #((>charSecond) - (>charFirst))
-    sta cwSecondLayout+1
+    tax
+    lda packedLayoutOffsets,x
+    sta cwPairOffset
     StampWalkBlock(false)
+    jmp !afterStamp+
+!dot:
+    ldx cwMajorLocal
+    lda packedDotOffsets,x
+    ora cwMinorLocal
+    tay
+    lda (cwLayout),y
+    tax
+    StampFirstGlyph()
+!afterStamp:
     lda cwRemain
     sec
     sbc cwCount
     sta cwRemain
-    beq charWalkDone
+    bne !advance+
+    rts
+!advance:
     AdvanceWalkBlock(false)
     lda #0
     sta cwMajorLocal
@@ -376,24 +363,22 @@ charComposeFirst:
     stx jcode
     cmp jcode
     beq !same+
-    lda scrLo
-    sta jptrLo
-    lda scrHi
-    sta jptrHi
-    jmp stampJoint
+    ldx scrLo
+    stx jptrLo
+    ldx scrHi
+    stx jptrHi
+    jmp sjCompose
 !same:
     rts
 
 charStamp:
-    tay
-    lda (cwTransform),y
     sta jcode
     ldy #0
     lda (jptrLo),y
     beq !write+
     cmp jcode
     beq !done+
-    jmp stampJoint
+    jmp sjCompose
 !write:
     lda jcode
     sta (jptrLo),y
@@ -401,10 +386,29 @@ charStamp:
     rts
 
 charMinorIndex:
-    .byte $00,$40,$80,$c0
-charRowLo:
-    .fill 25, <(i * 40)
-charRowHi:
-    .fill 25, >(i * 40)
+    .byte 0,8,16,24
+charMinorFullIndex:
+    .byte 0,16,32,48
+packedLayoutOffsets:
+    .byte 0,0,64,96,0,0,128,160,0,0,192,0
+packedDotOffsets:
+    .byte 224,228,232,236
+octFlipX:
+    .byte 0,3,0,3,0,3,0,3
+octFlipY:
+    .byte 0,0,3,3,0,0,3,3
+octMajorLo:
+    .byte <1,<-1,<1,<-1,<40,<40,<-40,<-40
+octMajorHi:
+    .byte >1,>-1,>1,>-1,>40,>40,>-40,>-40
+octMinorLo:
+    .byte <40,<40,<-40,<-40,<1,<-1,<1,<-1
+octMinorHi:
+    .byte >40,>40,>-40,>-40,>1,>-1,>1,>-1
+
+octBothLo:
+    .byte <41,<39,<-39,<-41,<41,<39,<-39,<-41
+octBothHi:
+    .byte >41,>39,>-39,>-41,>41,>39,>-39,>-41
 
 .assert "Walker fits before the glyph dictionary", * <= $7400, true

@@ -33,9 +33,9 @@ def symbol(text, name):
     return int(match[1], 16)
 
 
-def reference_pixels(points):
+def reference_pixels(points, underlay=None):
     """Sample each segment at its rounded Q8 rate, including both shared ends."""
-    pixels = bytearray(40 * 200)
+    pixels = bytearray(40 * 200 if underlay is None else underlay)
     for (x0, y0), (x1, y1) in zip(points, points[1:]):
         dx, dy = abs(x1 - x0), abs(y1 - y0)
         major, minor = max(dx, dy), min(dx, dy)
@@ -101,6 +101,16 @@ def check_animation(monitor, output, labels, segments, selected, report):
         raise AssertionError("The curve did not start at phase zero")
     report["defaultLaunch"] = True
     fixed_font = (output / "charset.bin").read_bytes()[:FIRST_PATCH * 8]
+    underlay = None
+    if report["background"] == "noice":
+        template = (output / "background.bin").read_bytes()
+        if len(template) != 1000 or max(template) >= FIRST_PATCH:
+            raise AssertionError("Expected a 40×25 template made of static line glyphs")
+        if any(buffer_bytes(initial, pair)[0][:1000] != template for pair in BUFFERS):
+            raise AssertionError("Startup did not restore both NOICE backgrounds")
+        underlay = displayed_pixels(template, fixed_font)
+        report["backgroundCells"] = sum(code != 0 for code in template)
+        report["backgroundIntegrityChecks"] = 0
     monitor.run("bank io")
     bank = monitor.dump(output / "last-bank.bin", 0xdd00, 0xdd00)[0]
     colors = monitor.dump(output / "last-colors.bin", 0xd800, 0xdbe7)
@@ -159,6 +169,12 @@ def check_animation(monitor, output, labels, segments, selected, report):
         screen, charset = buffer_bytes(memory, BUFFERS[back])
         if charset[:len(fixed_font)] != fixed_font:
             raise AssertionError(f"Static line glyphs changed in frame {index}")
+        if underlay is not None:
+            actual_pixels = displayed_pixels(screen, charset)
+            if any(bg & ~actual for bg, actual in zip(underlay, actual_pixels)):
+                raise AssertionError(f"Overlay erased part of the NOICE background in frame {index}")
+            if index <= last:
+                report["backgroundIntegrityChecks"] += 1
         allocated = memory[labels["JCOUNT"]]
         overflow = memory[labels["jointOverflow"]]
         visible_patches = Counter(code for code in screen[:1000] if code >= FIRST_PATCH)
@@ -177,8 +193,9 @@ def check_animation(monitor, output, labels, segments, selected, report):
             actual_nodes = list(zip(memory[xs:xs + segments + 1], memory[ys:ys + segments + 1]))
             if actual_nodes != expected_nodes:
                 raise AssertionError(f"Frame {index} joint mismatch: expected {expected_nodes}, got {actual_nodes}")
-            previous_pixels = reference_pixels(expected_nodes)
-            actual_pixels = displayed_pixels(screen, charset)
+            previous_pixels = reference_pixels(expected_nodes, underlay)
+            if underlay is None:
+                actual_pixels = displayed_pixels(screen, charset)
             errors = pixel_errors(previous_pixels, actual_pixels)
             if index in selected:
                 joins = expected_nodes[1:-1]
@@ -225,9 +242,10 @@ def check_animation(monitor, output, labels, segments, selected, report):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--vice", type=Path, default=Path("/opt/homebrew/bin/x64sc"))
-    parser.add_argument("--build", type=Path, default=HERE / "build", help="verify an existing build directory")
+    parser.add_argument("--build", type=Path, help="verify an existing build directory")
     parser.add_argument("--rebuild", action="store_true", help="rebuild the program before verification")
     parser.add_argument("--segments", type=int, help="expected segment count, also passed to the builder with --rebuild")
+    parser.add_argument("--background", choices=("noice",), help="verify the NOICE background variant")
     group = parser.add_mutually_exclusive_group()
     group.add_argument("--frames", type=int, nargs="+", default=[0, 1, 2, 32, 64, 128, 192, 255])
     group.add_argument("--all-frames", action="store_true", help="verify the entire 256-frame motion cycle")
@@ -236,20 +254,29 @@ def main():
     if any(not 0 <= n <= 255 for n in args.frames) or not 0 < args.timeout <= 60:
         parser.error("frames must be in 0..255 and timeout in (0, 60]")
     selected = set(range(256) if args.all_frames else args.frames)
-    output = args.build.resolve()
+    default_output = HERE / "build"
+    if args.background:
+        default_output /= args.background
+    output = (args.build or default_output).resolve()
     if args.rebuild:
-        if output != HERE / "build":
+        if output != default_output:
             parser.error("--rebuild uses the local build directory")
         command = [sys.executable, str(HERE / "build_megaplot.py")]
         if args.segments is not None:
             command += ["--segments", str(args.segments)]
+        if args.background:
+            command += ["--background", args.background]
         subprocess.run(command, check=True, stdout=subprocess.DEVNULL)
     program = output / "megaplot.prg"
     manifest = json.loads((output / "megaplot.json").read_text())
     segments = manifest["segments"]
     if args.segments is not None and segments != args.segments:
         parser.error(f"requested {args.segments} segments, existing PRG has {segments}")
-    report = {"passed": False, "segments": segments, "presentationsChecked": 0, "frontIntegrityChecks": 0,
+    background = manifest.get("background")
+    if args.background and background != args.background:
+        parser.error(f"requested {args.background} background, existing PRG has {background}")
+    report = {"passed": False, "segments": segments, "background": background,
+              "presentationsChecked": 0, "frontIntegrityChecks": 0,
               "patchCapacity": PATCH_SLOTS, "peakAllocatedPatches": 0, "peakVisiblePatches": 0,
               "peakPatchedCells": 0, "overflowFrames": [], "overflowAttempts": 0,
               "interiorJointsChecked": 0, "unlitInteriorJoints": 0, "characterPixelErrors": 0,

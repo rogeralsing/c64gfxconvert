@@ -3,8 +3,9 @@
 import math
 
 MIN_SEGMENTS = 4
-MAX_SEGMENTS = 48
-DEFAULT_SEGMENTS = 24
+MAX_SEGMENTS = 56
+DEFAULT_SEGMENTS = 56
+BASE_SEGMENTS = 48
 PHASE_STEPS = 256
 
 
@@ -29,13 +30,16 @@ def nodes(frame, segments=DEFAULT_SEGMENTS):
     """Return the ordered joints in 160×100 logical screen coordinates."""
     if not MIN_SEGMENTS <= segments <= MAX_SEGMENTS:
         raise ValueError(f"segments must be between {MIN_SEGMENTS} and {MAX_SEGMENTS}")
+    # Keep the original prefix and continue the last node's four angles
+    # at independent rates for the added tail.
+    head_segments = min(segments, BASE_SEGMENTS)
     points = []
     for i in range(segments + 1):
-        # Leave part of the period open so the ends trace distinct paths.
-        phase = 235 * i // segments
-        x = 79 + X_PRIMARY[(2 * phase + 2 * frame + 32) & 255]
-        x += X_SECONDARY[(5 * phase - 3 * frame + 11) & 255]
-        y = 49 + Y_PRIMARY[(3 * phase - 2 * frame + 53) & 255]
-        y += Y_SECONDARY[(4 * phase + 3 * frame) & 255]
+        phase = 235 * min(i, head_segments) // head_segments
+        tail = max(0, i - head_segments)
+        x = 79 + X_PRIMARY[(2 * phase + 12 * tail + 2 * frame + 32) & 255]
+        x += X_SECONDARY[(5 * phase + 17 * tail - 3 * frame + 11) & 255]
+        y = 49 + Y_PRIMARY[(3 * phase + 12 * tail - 2 * frame + 53) & 255]
+        y += Y_SECONDARY[(4 * phase + 24 * tail + 3 * frame) & 255]
         points.append((x, y))
     return points
