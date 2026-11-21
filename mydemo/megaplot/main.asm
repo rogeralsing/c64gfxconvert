@@ -1,19 +1,24 @@
-// Megaplot draws one continuous moving polyline in hires character mode.
-// Each node is evaluated once. Each segment receives two adjacent nodes.
+// Double-buffered hires character renderer for Megaplot and Line Scroller.
+#if LINE_SCROLLER
+.const ASSET_DIR = cmdLineVars.get("assets")
+#else
+.const ASSET_DIR = "build"
 .const SEGMENTS = cmdLineVars.get("segments").asNumber()
 .const NODES = SEGMENTS + 1
+.assert "Megaplot supports 4 through 56 segments", SEGMENTS >= 4 && SEGMENTS <= 56, true
+#endif
+.const SHOW_NOICE = cmdLineVars.get("background") == "noice"
 // The X waves span 156 logical pixels. The Y waves span 96.
 .const MAX_DELTA = 156
 .const SHORT_DELTA = 80
-.assert "Megaplot supports 4 through 48 segments", SEGMENTS >= 4 && SEGMENTS <= 48, true
 
 .const SCREEN = $0400
 .const SCREEN_B = $2c00
 .const CHARSET = $2000
 .const CHARSET_B = $3000
-.const charFirst = $4000
-.const charSecond = $5000
-.const charTransform = $6000
+.const packedFirst = $4000
+.const packedSecond = $4800
+.const shortDecisionBits = $5e00
 .const charSlope = $6800
 
 .label lx0 = $02
@@ -34,7 +39,6 @@
 .label baseHi = $76
 .label drawCharsetHi = $a8
 .label backPair = $a9
-.label segmentIndex = $aa
 .label phase2 = $ab
 .label phase3 = $ac
 
@@ -75,6 +79,10 @@ start:
     sta SCREEN_B+$300,x
     inx
     bne !clear-
+    .if (SHOW_NOICE) {
+        jsr clearWaveA
+        jsr clearWaveB
+    }
     lda #1
     sta backPair
 !white:
@@ -86,8 +94,29 @@ start:
     bne !white-
     lda #$1b
     sta $d011
+#if LINE_SCROLLER
+    // Latch one raster event per visible field, with IRQ delivery disabled.
+    lda #0
+    sta $d01a
+    lda #64
+    sta $d012
+    lda #1
+    sta $d019
+#endif
 
 waveLoop:
+    // Each occupied cache bucket is recorded alongside its patch slot.
+    // Clear those buckets before resetting the frame's allocator.
+    ldy JCOUNT
+    beq !patchHashReady+
+    dey
+    lda #0
+!clearPatchHash:
+    ldx patchHashTouched,y
+    sta patchHash,x
+    dey
+    bpl !clearPatchHash-
+!patchHashReady:
     ldx backPair
     lda screenPages,x
     sta baseHi
@@ -103,6 +132,10 @@ waveLoop:
 !screenA:
     jsr clearWaveA
 !cleared:
+#if LINE_SCROLLER
+    jsr drawScroller
+#else
+    // Each node is evaluated once and shared by its adjacent segments.
     lda frameIndex
     asl
     sta phase2
@@ -147,25 +180,16 @@ waveLoop:
     dex
     bpl !node-
 
-    lda #0
-    sta segmentIndex
-!segment:
-    ldx segmentIndex
-    lda nodeX,x
-    sta lx0
-    lda nodeY,x
-    sta ly0
-    lda nodeX+1,x
-    sta lx1
-    lda nodeY+1,x
-    sta ly1
-    jsr drawCharLine
-    inc segmentIndex
-    lda segmentIndex
-    cmp #SEGMENTS
-    bne !segment-
+    jsr drawWaveSegments
+#endif
 
     // Wait for the PAL border before switching screen and character set together.
+#if LINE_SCROLLER
+scWaitField:
+    lda $d019
+    and #1
+    beq scWaitField
+#endif
 !border:
     bit $d011
     bmi !show+
@@ -175,6 +199,10 @@ waveLoop:
     cmp #$fc
     bcc !border-
 !show:
+#if LINE_SCROLLER
+    lda #1
+    sta $d019
+#endif
     ldx backPair
     lda vicPairs,x
 presentFrame:
@@ -191,22 +219,28 @@ charsetPages:
     .byte >CHARSET, >CHARSET_B
 vicPairs:
     .byte $18, $bc
-// Span 235 of the 256 phases so the last and first joints remain independent.
+#if !LINE_SCROLLER
+// Keep the original prefix at its exact angular phases, then extend its end.
+.const HEAD_SEGMENTS = SEGMENTS > 48 ? 48 : SEGMENTS
 .function NodePhase(i) {
-    .return floor(235*i/SEGMENTS)
+    .return floor(235*(i > HEAD_SEGMENTS ? HEAD_SEGMENTS : i)/HEAD_SEGMENTS)
+}
+.function TailNode(i) {
+    .return i > HEAD_SEGMENTS ? i-HEAD_SEGMENTS : 0
 }
 xPhase1:
-    .fill NODES, (2*NodePhase(i) + 32) & 255
+    .fill NODES, (2*NodePhase(i) + 12*TailNode(i) + 32) & 255
 xPhase2:
-    .fill NODES, (5*NodePhase(i) + 11) & 255
+    .fill NODES, (5*NodePhase(i) + 17*TailNode(i) + 11) & 255
 yPhase1:
-    .fill NODES, (3*NodePhase(i) + 53) & 255
+    .fill NODES, (3*NodePhase(i) + 12*TailNode(i) + 53) & 255
 yPhase2:
-    .fill NODES, (4*NodePhase(i)) & 255
+    .fill NODES, (4*NodePhase(i) + 24*TailNode(i)) & 255
 nodeX:
     .fill NODES, 0
 nodeY:
     .fill NODES, 0
+#endif
 
 // The free-moving chain can occupy any character row.
 .macro ClearWave(screen) {
@@ -220,68 +254,70 @@ nodeY:
     rts
 }
 clearWaveA:
-    ClearWave(SCREEN)
+    .if (SHOW_NOICE) {
+        jmp restoreNoiceA
+    } else {
+        ClearWave(SCREEN)
+    }
 clearWaveB:
-    ClearWave(SCREEN_B)
+    .if (SHOW_NOICE) {
+        jmp restoreNoiceB
+    } else {
+        ClearWave(SCREEN_B)
+    }
 
 // ---- vertex-joint composition ----
 // jcode = incoming screencode, (jptrLo) = cell. Existing content is ORed
 // with the incoming pattern and resolved as: line-bank hash hit -> joint
-// patch slot (glyph expanded into chars 201..255) -> fallback overwrite.
-stampJoint:
-    ldy #0
-    lda (jptrLo),y
-    bne sjCompose
-    lda jcode                 // blank cell: plain stamp
-    sta (jptrLo),y
-    rts
+// patch slot (glyph expanded into chars 201..255) -> overflow fallback.
 sjCompose:
-    cmp #201
-    bcs sjFromSlot            // existing content is a joint slot
-    tax
-    lda REVLO,x
-    sta patLo
-    lda REVHI,x
-    sta patHi
-    jmp sjHave
-sjFromSlot:
-    sec
-    sbc #201
-    asl
-    tay
-    lda JOINTT,y
-    sta patLo
-    lda JOINTT+1,y
-    sta patHi
-sjHave:
-    ldx jcode
-    lda REVLO,x
-    ora patLo
-    sta patLo
-    lda REVHI,x
-    ora patHi
-    sta patHi
+    .if (SHOW_NOICE) {
+        tay
+        ldx jcode
+        lda REVLO,x
+        ora REVLO,y
+        sta patLo
+        lda REVHI,x
+        ora REVHI,y
+        sta patHi
+        cmp REVHI,y
+        bne !changed+
+        lda patLo
+        cmp REVLO,y
+        bne !changed+
+        rts                    // All incoming pixels already belong to this cell.
+    !changed:
+    } else {
+        tax
+        lda REVLO,x
+        sta patLo
+        lda REVHI,x
+        sta patHi
+        ldx jcode
+        lda REVLO,x
+        ora patLo
+        sta patLo
+        lda REVHI,x
+        ora patHi
+        sta patHi
+    }
     jsr hashLookup            // already a line glyph?
     bne sjStore
-    ldx #0                    // joint slot scan (slot index)
+    // Both pattern bytes must match. A different key continues probing.
+    ldy hidx
 sjScan:
-    cpx JCOUNT
+    ldx patchHash,y
     beq sjAlloc
-    txa
-    asl
-    tay
     lda patLo
-    cmp JOINTT,y
+    cmp REVLO,x
     bne sjNext
     lda patHi
-    cmp JOINTT+1,y
+    cmp REVHI,x
     bne sjNext
     txa
-    clc
-    adc #201
     jmp sjStore
 sjNext:
-    inx
+    iny
     jmp sjScan
 sjAlloc:
     lda JCOUNT
@@ -292,21 +328,27 @@ sjAlloc:
     beq !overflow+
     inc jointOverflow
 !overflow:
-    lda jcode                 // budget exhausted -> overwrite
-    jmp sjStore
+    .if (SHOW_NOICE) {
+        rts                   // Retain the background and any lines already merged.
+    } else {
+        lda jcode             // With a blank template, keep the newest stamp.
+        jmp sjStore
+    }
 sjPlace:
     ldx JCOUNT
-    txa
-    asl
-    tay
-    lda patLo
-    sta JOINTT,y
-    lda patHi
-    sta JOINTT+1,y
-    inc JCOUNT
+    tya
+    sta patchHashTouched,x
     txa
     clc
     adc #201
+    sta patchHash,y
+    tay
+    lda patLo
+    sta REVLO,y
+    lda patHi
+    sta REVHI,y
+    inc JCOUNT
+    tya
     pha                       // slot code: patchGlyph clobbers X
     jsr patchGlyph            // slot index in X
     pla
@@ -352,79 +394,33 @@ hlMiss:
 
 // Expand (patLo,patHi) into the reserve glyph indexed by X.
 patchGlyph:
-    txa
-    clc
-    adc #201
-    pha
-    asl
-    asl
-    asl
-    sta dstLo
-    pla
-    lsr
-    lsr
-    lsr
-    lsr
-    lsr
-    clc
-    adc drawCharsetHi
-    sta dstHi
-    ldy #0
-    lda patLo
-    and #$0f
-    tax
-    lda niblut,x
-    sta (dstLo),y
-    iny
-    sta (dstLo),y
-    iny
-    lda patLo
-    lsr
-    lsr
-    lsr
-    lsr
-    tax
-    lda niblut,x
-    sta (dstLo),y
-    iny
-    sta (dstLo),y
-    iny
-    lda patHi
-    and #$0f
-    tax
-    lda niblut,x
-    sta (dstLo),y
-    iny
-    sta (dstLo),y
-    iny
-    lda patHi
-    lsr
-    lsr
-    lsr
-    lsr
-    tax
-    lda niblut,x
-    sta (dstLo),y
-    iny
-    sta (dstLo),y
-    rts
-
-niblut:                       // fat nibble (bit 0 at left) -> doubled row byte
-    .byte $00,$c0,$30,$f0,$0c,$cc,$3c,$fc,$03,$c3,$33,$f3,$0f,$cf,$3f,$ff
+    ldy patchOffsetLo,x
+    lda drawCharsetHi
+    cmp #>CHARSET
+    bne !bankB+
+    cpx #224-201
+    bcs !hiA+
+    jmp patchRowsA6
+!hiA:
+    jmp patchRowsA7
+!bankB:
+    cpx #224-201
+    bcs !hiB+
+    jmp patchRowsB6
+!hiB:
+    jmp patchRowsB7
 
 JCOUNT:
     .byte 0
 jointOverflow:
     .byte 0
-JOINTT:
-    .fill 55*2, 0
 .assert "Animation and join code fit below the sine tables", * <= $0e00, true
 
 * = $0e00 "Vertical sine displacement tables"
 waveY1:
-    .import binary "build/wave-y1.bin"
+    .import binary ASSET_DIR + "/wave-y1.bin"
 waveY2:
-    .import binary "build/wave-y2.bin"
+    .import binary ASSET_DIR + "/wave-y2.bin"
 
 // Split the triangular Q8 slope table across the two free memory regions.
 // Row pointers hide the split. Diagonals have their own direct drawing path.
@@ -448,41 +444,131 @@ shortRates:
 .assert "Slope tables fit below the first font", * <= CHARSET, true
 
 * = CHARSET "First character bank"
-    .import binary "build/charset.bin"
+    .import binary ASSET_DIR + "/charset.bin"
 * = $2800 "Horizontal sine displacement tables"
 waveX1:
-    .import binary "build/wave-x1.bin"
+    .import binary ASSET_DIR + "/wave-x1.bin"
 waveX2:
-    .import binary "build/wave-x2.bin"
+    .import binary ASSET_DIR + "/wave-x2.bin"
 * = CHARSET_B "Second character bank"
-    .import binary "build/charset.bin"
-* = charFirst "First character of each line block"
-    .import binary "build/char-first.bin"
-* = charSecond "Second character of each line block"
-    .import binary "build/char-second.bin"
-* = charTransform "Reflected and transposed line glyphs"
-    .import binary "build/char-transform.bin"
+    .import binary ASSET_DIR + "/charset.bin"
+* = packedFirst "First character of each oriented line block"
+    .import binary ASSET_DIR + "/char-packed-first.bin"
+* = packedSecond "Second character of each oriented line block"
+    .import binary ASSET_DIR + "/char-packed-second.bin"
 * = charSlope "Block shapes by slope"
-    .import binary "build/char-slope.bin"
+    .import binary ASSET_DIR + "/char-slope.bin"
 
 .import source "char_walk.asm"
 
+* = shortDecisionBits "Short-line Q8 decision bits"
+    .import binary ASSET_DIR + "/char-short-decisions.bin"
+    .import source "short_decision_stream.asm"
+.assert "Short decision walker fits before slope tables", * <= charSlope, true
+
 * = $7400 "Glyph dictionary"
 REVLO:
-    .import binary "build/revlo.bin"
+    .import binary ASSET_DIR + "/revlo.bin"
 REVHI:
-    .import binary "build/revhi.bin"
+    .import binary ASSET_DIR + "/revhi.bin"
 HASHKL:
-    .import binary "build/hashkl.bin"
+    .import binary ASSET_DIR + "/hashkl.bin"
 HASHKH:
-    .import binary "build/hashkh.bin"
+    .import binary ASSET_DIR + "/hashkh.bin"
 HASHV:
-    .import binary "build/hashv.bin"
+    .import binary ASSET_DIR + "/hashv.bin"
 HASH_DISP_LO:
-    .import binary "build/hash-disp-lo.bin"
+    .import binary ASSET_DIR + "/hash-disp-lo.bin"
 HASH_DISP_HI:
-    .import binary "build/hash-disp-hi.bin"
+    .import binary ASSET_DIR + "/hash-disp-hi.bin"
 
 longRates:
     EmitSlopeRows(SHORT_DELTA+1, MAX_DELTA)
 .assert "Long-segment slope table stays below I/O", * <= $d000, true
+
+.assert "Long-segment rates fit before wave start lookups", * <= $a200, true
+* = $a200 "Wave start column lookup"
+waveStartColumn:
+    .fill 160, i >> 2
+* = $a300 "Wave start row lookup"
+waveStartRowLo:
+    .fill 100, <((i >> 2) * 40)
+waveStartRowHi:
+    .fill 100, >((i >> 2) * 40)
+
+#if !LINE_SCROLLER
+// Generate one call per edge. Reuse the previous endpoint as the start.
+* = $c400 "Wave segment dispatch"
+drawWaveSegments:
+    lda nodeX
+    sta lx0
+    lda nodeY
+    sta ly0
+    .for (var next=1; next<=SEGMENTS; next++) {
+        lda nodeX + next
+        sta lx1
+        lda nodeY + next
+        sta ly1
+        jsr drawCharLine
+        .if (next < SEGMENTS) {
+            lda lx1
+            sta lx0
+            lda ly1
+            sta ly0
+        }
+    }
+    rts
+.assert "Wave dispatch fits before I/O", * <= $d000, true
+#endif
+
+* = $b800 "Hash cache for current frame's patch glyphs"
+patchHash:
+    .fill 256, 0               // Patched glyph code, or zero when empty.
+patchHashTouched:
+    .fill 55, 0                // Occupied cache bucket for each patch slot.
+
+* = $b200 "Expanded patch rows"
+.function ExpandPatchNibble(nibble) {
+    .return (nibble & 1) * $c0 + ((nibble >> 1) & 1) * $30 + ((nibble >> 2) & 1) * $0c + ((nibble >> 3) & 1) * $03
+}
+patchRowLower:
+    .fill 256, ExpandPatchNibble(i & 15)
+patchRowUpper:
+    .fill 256, ExpandPatchNibble(i >> 4)
+
+* = $b400 "Low-byte patch glyph offsets"
+patchOffsetLo:
+    .fill 55, <((i + 201) * 8)
+// Each absolute-indexed store addresses its own glyph row.
+.macro WritePatchRows(base) {
+    ldx patLo
+    lda patchRowLower,x
+    sta base,y
+    sta base+1,y
+    lda patchRowUpper,x
+    sta base+2,y
+    sta base+3,y
+    ldx patHi
+    lda patchRowLower,x
+    sta base+4,y
+    sta base+5,y
+    lda patchRowUpper,x
+    sta base+6,y
+    sta base+7,y
+    rts
+}
+patchRowsA6:
+    WritePatchRows(CHARSET + $600)
+patchRowsA7:
+    WritePatchRows(CHARSET + $700)
+patchRowsB6:
+    WritePatchRows(CHARSET_B + $600)
+patchRowsB7:
+    WritePatchRows(CHARSET_B + $700)
+.assert "Patch tables and stores fit below the next free bank", * <= $b600, true
+
+.import source "noice_restore.asm"
+
+#if LINE_SCROLLER
+#import "../line-scroller/scroller.asm"
+#endif

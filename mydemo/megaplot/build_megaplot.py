@@ -64,54 +64,68 @@ def build_displaced_bank(tile_to_code):
     }
 
 
-def build_assets():
+def build_assets(background=None):
     tile_to_code, tiles, _ = megaplot.build_font()
     reverse_low = bytearray(256)
     reverse_high = bytearray(256)
     for pattern, code in tile_to_code.items():
         reverse_low[code + 1] = pattern & 255
         reverse_high[code + 1] = pattern >> 8
-    return {
+    assets = {
         "charset": megaplot.charset_bytes(tiles),
         "revlo": reverse_low,
         "revhi": reverse_high,
-        **char_tables.build(tile_to_code),
+        **char_tables.build_packed_pairs(tile_to_code),
+        "char-short-decisions": char_tables.build_short_decisions(),
         **build_displaced_bank(tile_to_code),
         **wave_model.sine_assets(),
     }
+    if background == "noice":
+        from noice_background import build_noice_template
+        assets["background"] = build_noice_template(tile_to_code)
+    return assets
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--segments", type=int, default=wave_model.DEFAULT_SEGMENTS,
-                        help="number of joined line segments (4–48, default 24)")
+                        help=(f"number of joined line segments ({wave_model.MIN_SEGMENTS}–"
+                              f"{wave_model.MAX_SEGMENTS}, default {wave_model.DEFAULT_SEGMENTS})"))
+    parser.add_argument("--background", choices=("noice",), help="draw the wave over the NOICE line art")
     args = parser.parse_args()
     if not wave_model.MIN_SEGMENTS <= args.segments <= wave_model.MAX_SEGMENTS:
         parser.error(f"--segments must be between {wave_model.MIN_SEGMENTS} and {wave_model.MAX_SEGMENTS}")
 
-    BUILD.mkdir(exist_ok=True)
-    for name, data in build_assets().items():
+    output = BUILD / args.background if args.background else BUILD
+    output.mkdir(parents=True, exist_ok=True)
+    assets = build_assets(args.background)
+    background = assets.pop("background", None)
+    for name, data in assets.items():
         (BUILD / f"{name}.bin").write_bytes(data)
+    if background is not None:
+        (output / "background.bin").write_bytes(background)
+        (output / "charset.bin").write_bytes(assets["charset"])
 
-    program = BUILD / "megaplot.prg"
-    symbols = BUILD / "main.sym"
+    program = output / "megaplot.prg"
+    symbols = output / "main.sym"
     kickass = Path.home() / ".local/bin/kickass"
     result = subprocess.run(
-        [kickass, "main.asm", "-odir", BUILD, "-o", program, "-symbolfile",
-         f":segments={args.segments}"],
+        [kickass, "main.asm", "-odir", output, "-o", program, "-symbolfile",
+         f":segments={args.segments}", f":background={args.background or 'blank'}"],
         cwd=HERE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
     )
-    (BUILD / "build.log").write_text(result.stdout)
+    (output / "build.log").write_text(result.stdout)
     if result.returncode or "Internal error" in result.stdout or not symbols.is_file() or not symbols.stat().st_size:
-        raise SystemExit(f"Assembly or symbol generation failed. See {BUILD / 'build.log'}")
+        raise SystemExit(f"Assembly or symbol generation failed. See {output / 'build.log'}")
 
     report = {
         "segments": args.segments,
         "nodes": args.segments + 1,
+        "background": args.background,
         "program": program.name,
         "programSha256": hashlib.sha256(program.read_bytes()).hexdigest(),
     }
-    (BUILD / "megaplot.json").write_text(json.dumps(report, indent=2) + "\n")
+    (output / "megaplot.json").write_text(json.dumps(report, indent=2) + "\n")
     print(f"Built {program} ({args.segments} segments, {args.segments + 1} nodes)")
 
 

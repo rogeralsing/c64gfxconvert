@@ -70,3 +70,53 @@ def build(tile_to_code):
         "char-transform": transform,
         "char-slope": build_slope(),
     }
+
+
+def build_packed_pairs(tile_to_code):
+    """Pack both oriented characters into one indexed page per octant."""
+    standard = build(tile_to_code)
+    first = bytearray(8 * 256)
+    second = bytearray(8 * 256)
+    layouts = [(0, 4), (0, 2), (0, 3), (1, 2), (1, 3), (2, 2)]
+    transform = standard["char-transform"]
+    for octant in range(8):
+        page = octant * 256
+        for row, (u, count) in enumerate(layouts):
+            for v in range(4):
+                for steps in range(16 if row == 0 else 8):
+                    minor = 0
+                    shape = 0
+                    for bit in range(3):
+                        minor += (steps >> bit) & 1
+                        shape |= minor << (2 * bit)
+                    source = (u * 4 + count - 1) * 256 + v * 64 + shape
+                    dest = page + (v * 16 + steps if row == 0
+                                   else (row + 1) * 32 + v * 8 + steps)
+                    first[dest] = transform[page + standard["char-first"][source]]
+                    second[dest] = transform[page + standard["char-second"][source]]
+        for u in range(4):
+            for v in range(4):
+                source = u * 1024 + v * 64
+                first[page + 224 + u * 4 + v] = transform[page + standard["char-first"][source]]
+
+    slopes = standard["char-slope"]
+    for i in range(3 * 256, len(slopes)):
+        shape = slopes[i]
+        first_step = shape & 3
+        second_step = ((shape >> 2) & 3) - first_step
+        third_step = ((shape >> 4) & 3) - first_step - second_step
+        assert 0 <= first_step <= 1 and 0 <= second_step <= 1 and 0 <= third_step <= 1
+        slopes[i] = first_step | (second_step << 1) | (third_step << 2)
+    return {"char-packed-first": first, "char-packed-second": second, "char-slope": slopes}
+
+
+def build_short_decisions():
+    """Pack the first 32 exact Q8 minor-axis decisions by rate."""
+    result = bytearray(4 * 256)
+    for rate in range(256):
+        position = [(128 + step * rate) >> 8 for step in range(33)]
+        bits = sum((after - before) << bit
+                   for bit, (before, after) in enumerate(zip(position, position[1:])))
+        for page in range(4):
+            result[page * 256 + rate] = (bits >> (page * 8)) & 255
+    return result
