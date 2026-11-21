@@ -7,7 +7,7 @@
   <meta name="description" content="A local image editing workspace for C64 graphics, palettes, and native exports.">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%225%22%20fill%3D%22%23112a3c%22%2F%3E%3Ctext%20x%3D%2216%22%20y%3D%2223%22%20text-anchor%3D%22middle%22%20font-family%3D%22monospace%22%20font-size%3D%2223%22%20fill%3D%22%2377c6ff%22%3E64%3C%2Ftext%3E%3C%2Fsvg%3E">
   <title>C64 Studio — Image workspace</title>
-  <link rel="stylesheet" href="./editor.css?v=full-border-blend">
+  <link rel="stylesheet" href="./editor.css?v=talent-shadow-patterns">
 </head>
 <body>
   <svg class="sr-only" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -67,7 +67,7 @@
                 <button id="tab-restricted" class="preview-tab" type="button" role="tab" aria-selected="false" aria-controls="preview-panel" tabindex="-1" data-mode="restricted">FLI</button>
               </div>
               <div class="preview-actions">
-                <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox" checked><span id="grid-label">Tile grid</span></label>
+                <label id="grid-control" class="grid-toggle"><input id="grid-toggle" type="checkbox"><span id="grid-label">Tile grid</span></label>
                 <button id="ifli-playback" class="ifli-playback" type="button" disabled hidden>Pause</button>
                 <label id="ifli-blend-control" class="grid-toggle" hidden><input id="ifli-blend" type="checkbox" disabled>50/50 blend</label>
                 <button id="fli-save" class="afli-save" type="button" title="Save the converted FLI bitmap and fitted colors as a .fli image" disabled hidden>Save FLI</button>
@@ -420,8 +420,8 @@
               <input id="interlace-spacing" class="image-slider" type="range" min="1" max="32" step="1" value="2" aria-valuetext="2 steps between interlace lines" title="Distance between lines. Each line remains one 2×1 pixel thick.">
             </div>
             <div class="image-control">
-              <div class="control-label"><label for="dither">Dither</label><output id="dither-value" for="dither">100%</output></div>
-              <input id="dither" class="image-slider" type="range" min="0" max="100" step="1" value="100" aria-valuetext="100% dither strength">
+              <div class="control-label"><label for="dither">Dither</label><output id="dither-value" for="dither">0%</output></div>
+              <input id="dither" class="image-slider" type="range" min="0" max="100" step="1" value="0" aria-valuetext="0% (off)">
             </div>
             <div class="image-control">
               <label class="grid-toggle"><input id="scanline-dither" type="checkbox">Dither line ends</label>
@@ -452,7 +452,7 @@
             </div>
               <section id="virtual-palette" class="virtual-palette" aria-labelledby="virtual-palette-heading" hidden>
             <h2 id="virtual-palette-heading"><span class="virtual-palette-title">Virtual palette</span><span id="virtual-palette-count" class="virtual-palette-count"></span></h2>
-            <p class="background-value talent-palette-help" hidden>Observed scales, black at the top and white at the bottom. Each scale keeps its own number of tones. Scroll sideways to see more.</p>
+            <p class="background-value talent-palette-help" hidden>Observed scales run from black to white. Scroll sideways to see more tones and the 2×4 patterns.</p>
             <div class="image-control">
               <div class="control-label"><label for="palette-darkest">Darkest level</label><output id="palette-darkest-value" for="palette-darkest">0</output></div>
               <input id="palette-darkest" class="image-slider" type="range" min="0" max="16" step="1" value="0" aria-valuetext="Virtual brightness level 0 of 16">
@@ -486,11 +486,11 @@
   <script src="./color-math.js?v=1"></script>
   <script src="./fli.js?v=mci-joint-fit"></script>
   <script src="./scanline-dither.js?v=enclosed-lines"></script>
-  <script src="./ifli.js?v=shared-brightness-mapper"></script>
-  <script src="./talent-palette.js?v=1"></script>
+  <script src="./ifli.js?v=talent-shadow-patterns"></script>
+  <script src="./talent-palette.js?v=talent-pink-patterns"></script>
   <script src="./talent-neighbors.js?v=1"></script>
-  <script src="./talent-mapping.js?v=paired-full-palette"></script>
-  <script src="./palettes.js?v=all-talent-colors"></script>
+  <script src="./talent-mapping.js?v=talent-shadow-patterns"></script>
+  <script src="./palettes.js?v=talent-shadow-patterns"></script>
   <script src="./virtual-color-mapping.js?v=1"></script>
   <script src="./ifli-export.js?v=funpaint"></script>
   <script src="./fli-export.js?v=1"></script>
@@ -521,14 +521,14 @@
   <script src="./source-crop-editor.js?v=1"></script>
   <script src="./source-levels.js?v=editable-curves"></script>
   <script src="./source-interlace.js?v=patterns"></script>
-  <script src="./converter-controls.js?v=palette-components"></script>
+  <script src="./converter-controls.js?v=talent-shadow-patterns"></script>
   <script src="./border-sprite-controls.js?v=normal-placement"></script>
   <script src="./sprite-grid-controls.js?v=palette-switch"></script>
   <script src="./charset-controls.js?v=palette-switch"></script>
   <script src="./layers.js?v=tile-markers"></script>
   <script src="./layer-panel.js?v=tile-markers"></script>
   <script src="./tile-markers.js?v=border-sprites"></script>
-  <script src="./project.js?v=normal-border-placement"></script>
+  <script src="./project.js?v=talent-pink-patterns"></script>
   <script>
     const paletteState = createC64PaletteState('peptoette-a', 'talent');
     const C64_PALETTE = paletteState.palette;
@@ -743,7 +743,8 @@
 
     virtualPaletteView.setSettings({
       excludedIndices: IFLI_VIRTUAL_PALETTE.filter(color =>
-        color.colorIndices[0] === color.colorIndices[1] && color.colorIndices[0] > 1).map(color => color.index)
+        color.patternWidth === undefined && color.colorIndices[0] === color.colorIndices[1] &&
+        color.colorIndices[0] > 1).map(color => color.index)
     });
     layerStack = createC64LayerStack(readLayerSettings());
     const layerPanel = createC64LayerPanel({
@@ -922,6 +923,7 @@
         layerStack.updateSettings(readLayerSettings());
         const json = projectCodec.stringify({
           image: { graphicsMode, paletteId: paletteState.id, virtualColorMode: paletteState.virtualColorMode,
+            talentPatternVersion: C64_TALENT_PATTERN_VERSION,
             backgroundColorIndex, spriteColorIndex: spriteControls.getState().colorIndex,
             twoColorIndices, spriteConfig: spriteGridControls.getState(),
             borderSprites: borderSpriteControls.getState(),
@@ -1208,7 +1210,7 @@
           updateIfliSaveState();
         }
         try {
-          const worker = new Worker(new URL('./border-color-worker.js?v=normal-placement', location.href));
+          const worker = new Worker(new URL('./border-color-worker.js?v=talent-shadow-patterns', location.href));
           borderColorWorker = worker;
           worker.onerror = event => {
             event.preventDefault();
@@ -1380,8 +1382,8 @@
             virtualIndices[y * pixels.width + x] = mapping.virtualIndices[source + x * 2];
           }
         }
-        // Resolve the retained virtual pairs on the bitmap's logical grid.
-        // Sampling resolved checkers would discard every odd-column component.
+        // Resolve the retained virtual colors on the bitmap's logical grid.
+        // Sampling the full-resolution pattern would discard every odd column.
         nativeTarget = resolveVirtualPaletteColors({ pixels, virtualIndices },
           IFLI_VIRTUAL_PALETTE, C64_PALETTE, values['virtual-colors']);
         if (values['scanline-dither']) nativeTarget = breakUpScanlines(nativeTarget);

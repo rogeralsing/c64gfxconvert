@@ -1,3 +1,5 @@
+const C64_TALENT_PATTERN_VERSION = 2;
+
 /** Versioned JSON projects contain source images and settings, never render caches. */
 function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalettes, virtualColorIndices,
     legacyTalentPalette, resolveVirtualPalettes }) {
@@ -31,10 +33,18 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
     if (image.virtualColorMode !== undefined && !['computed', 'talent'].includes(image.virtualColorMode)) {
       invalid('unsupported virtual color mode');
     }
+    if (image.talentPatternVersion !== undefined && !integer(image.talentPatternVersion, 1, C64_TALENT_PATTERN_VERSION)) {
+      invalid('unsupported Talent pattern version');
+    }
     const documentCatalogs = resolveVirtualPalettes
       ? resolveVirtualPalettes(image.paletteId ?? 'colodore') : catalogs;
     const requestedVirtualPalette = documentCatalogs[image.virtualColorMode ?? 'computed'];
     const oldTalentPalette = documentCatalogs.legacyTalent ?? documentCatalogs.talent;
+    const patternVersion = image.talentPatternVersion ?? 0;
+    const legacyPatternExclusions = image.virtualColorMode === 'talent'
+      ? requestedVirtualPalette.filter(color =>
+        color.patternWidth !== undefined && (color.patternVersion ?? 1) > patternVersion).map(color => color.index)
+      : [];
     if (image.twoColorIndices !== undefined && (!Array.isArray(image.twoColorIndices) ||
         image.twoColorIndices.length !== 2 || image.twoColorIndices.some(value => !colorIndex(value)))) {
       invalid('two-color hires requires two C64 palette colors');
@@ -124,7 +134,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       const { minLevel, maxLevel, excludedIndices } = settings.palette;
       if (!integer(minLevel, 0, 16) || !integer(maxLevel, minLevel, 16) || !Array.isArray(excludedIndices) ||
           excludedIndices.some(value => !virtualIndices.has(value))) invalid(`${label} palette`);
-      const excluded = new Set(excludedIndices);
+      const excluded = new Set([...excludedIndices, ...legacyPatternExclusions]);
       const rowInRange = color => {
         const level = color.brightnessBands[0] + color.brightnessBands[1];
         return level >= minLevel && level <= maxLevel;
@@ -153,8 +163,8 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
       if (legacyTalent && !requestedVirtualPalette.some(color => lightnessInRange(color) && !excluded.has(color.index))) {
         const previous = oldTalentPalette.filter(color => rowInRange(color) && !excluded.has(color.index));
         const target = previous.reduce((sum, color) => sum + lightnessOf(color), 0) / previous.length;
-        const inRange = requestedVirtualPalette.filter(lightnessInRange);
-        const candidates = inRange.length ? inRange : requestedVirtualPalette;
+        const inRange = oldTalentPalette.filter(lightnessInRange);
+        const candidates = inRange.length ? inRange : oldTalentPalette;
         const nearest = candidates.reduce((best, color) =>
           Math.abs(lightnessOf(color) - target) < Math.abs(lightnessOf(best) - target) ? color : best);
         if (!inRange.length) {
@@ -181,6 +191,7 @@ function createC64ProjectCodec({ modeIds, controls, virtualPalette, virtualPalet
         spriteColorIndex: image.spriteColorIndex,
         ...(image.paletteId === undefined ? {} : { paletteId: image.paletteId }),
         ...(image.virtualColorMode === undefined ? {} : { virtualColorMode: image.virtualColorMode }),
+        ...(image.talentPatternVersion === undefined ? {} : { talentPatternVersion: image.talentPatternVersion }),
         ...(image.twoColorIndices === undefined ? {} : { twoColorIndices: [...image.twoColorIndices] }),
         ...(image.charsetMulticolorIndices === undefined ? {} : {
           charsetMulticolorIndices: [...image.charsetMulticolorIndices]

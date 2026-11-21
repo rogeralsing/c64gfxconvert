@@ -22,9 +22,10 @@ const grays = palette([0, 64, 128, 192, 255].map(value => [value, value, value])
 test('similar vertical pixels share one averaged virtual color regardless of upper/lower order', () => {
   const state = runtime.createC64PaletteState('peptoette-a', 'talent');
   const shadow = state.virtualPalette.find(color => color.colorIndices.join('-') === '0-9');
+  const excludedIndices = state.virtualPalette.filter(color => color.patternWidth).map(color => color.index);
   for (const values of [[49, 51], [51, 49]]) {
     const source = image(values.map(value => [value, value, value]), 1);
-    const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, limits);
+    const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, { ...limits, excludedIndices });
     assert.deepEqual(Array.from(mapped.virtualIndices), [shadow.index, shadow.index]);
     assert.deepEqual(Array.from(mapped.pixels.data), [58, 43, 0, 255, 58, 43, 0, 255],
       'the pair average must select one virtual tone, rather than favoring the upper source pixel');
@@ -207,7 +208,8 @@ test('transparency boundaries and an unpaired last row map independently while m
     [35, 35, 95, 32], [19, 87, 123, 0], [52, 51, 131, 80], [101, 62, 42, 0]
   ], 4);
   const before = new Uint8ClampedArray(source.data);
-  const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, limits, 1);
+  const excludedIndices = state.virtualPalette.filter(color => color.patternWidth).map(color => color.index);
+  const mapped = runtime.mapToTalentVirtualPalette(source, state.virtualPalette, { ...limits, excludedIndices }, 1);
   const byIndex = new Map(state.virtualPalette.map(color => [color.index, color]));
   assert.equal(mapped.virtualIndices[0], mapped.virtualIndices[4]);
   assert.deepEqual(Array.from(byIndex.get(mapped.virtualIndices[0]).colorIndices), [0, 6]);

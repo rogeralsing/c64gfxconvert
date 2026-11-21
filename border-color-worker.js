@@ -1,6 +1,6 @@
 /** Search sprite palettes and normal-width placement off the editor's main thread. */
-importScripts('./color-math.js?v=1', './ifli.js?v=shared-brightness-mapper',
-  './talent-mapping.js?v=paired-full-palette', './virtual-color-mapping.js?v=1',
+importScripts('./color-math.js?v=1', './ifli.js?v=talent-shadow-patterns',
+  './talent-mapping.js?v=talent-shadow-patterns', './virtual-color-mapping.js?v=1',
   './layers.js?v=tile-markers', './border-sprites.js?v=normal-placement',
   './border-color-optimizer.js?v=normal-placement');
 

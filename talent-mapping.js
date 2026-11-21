@@ -95,6 +95,7 @@ function getTalentLightnessLimits(settings, virtualPalette) {
   const minLevel = settings.minLevel ?? 0;
   const maxLevel = settings.maxLevel ?? 16;
   const colors = virtualPalette.filter(color => {
+    if (color.patternWidth !== undefined) return false;
     const level = color.brightnessBands[0] + color.brightnessBands[1];
     return level >= minLevel && level <= maxLevel;
   });
@@ -131,7 +132,8 @@ function mapToTalentVirtualPalette(source, virtualPalette, settings = {}, dither
     }
   }
 
-  const levels = buildTalentBrightnessLevels(virtualPalette);
+  const levels = buildTalentBrightnessLevels(virtualPalette.filter(color =>
+    color.patternWidth === undefined || !excluded.has(color.index)));
   const options = { excludedIndices: [...excluded] };
   const mapped = mapToVirtualPaletteLevels(source, levels, 0, options);
   const pairs = new ImageData(source.width, Math.ceil(source.height / 2));
