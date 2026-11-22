@@ -37,11 +37,12 @@ def read_plane(path, length):
     return data
 
 
-def decode(bitmap, top, bottom, colors, palette):
+def decode(bitmap, top, bottom, colors, palette, splits=None):
     double_pixels = [bytes(rgb) * 2 for rgb in palette]
     pixels = bytearray()
     for y in range(200):
-        screen = bottom if y % 8 >= 4 else top
+        split = 4 if splits is None else splits[y // 8] or 8
+        screen = bottom if y % 8 >= split else top
         for column in range(40):
             cell = (y // 8) * 40 + column
             pair = screen[cell]
@@ -75,7 +76,7 @@ def expected_schedule(rasters):
     for raster in rasters:
         schedule.extend([
             ("d018", raster, 8, 0x18),
-            ("d011", raster, 14, 0x3f),
+            ("d011", raster, 14, 0x38 | (raster & 7)),
             ("d011", raster, 60, 0x3b),
             ("d018", raster + 1, 3, 0x08),
         ])

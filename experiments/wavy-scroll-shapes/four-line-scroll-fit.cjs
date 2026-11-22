@@ -12,31 +12,42 @@ const silhouettePenalty = 4;
 // One actual error outranks an entire cell's worth of owner tie-breaks.
 const errorScale = 128;
 
-function createDistance(columns, rowColors) {
+function createDistance(columns, rows, activeRows, rowColors) {
   const stride = columns + 1;
   const period = rowBytes + 1 - columns;
+  const lastWindow = rows - activeRows;
   const distances = new Map();
-  function colorAt(reference, offset) {
-    if (reference >= fixedBlack) return reference & 15;
+  function owner(reference) {
+    if (reference >= fixedBlack) return { row: 0, column: 0, first: 0, last: lastWindow, color: reference & 15 };
     const row = Math.floor(reference / stride);
-    const column = reference % stride;
-    return rowColors[row * rowBytes + (offset + column) % period];
+    return { row, column: reference % stride, first: Math.max(0, row - activeRows + 1), last: Math.min(row, lastWindow) };
   }
   return function distance(from, to) {
     if (from === to) return 0;
-    // Code 00 belongs to the original silhouette and checker mask. Keep
-    // every other position connected to a color, even in crowded cells.
-    if (to === fixedBlack) return Infinity;
+    // Preserve the original silhouette when using a single window.
+    if (to === fixedBlack && lastWindow === 0) return Infinity;
     const key = Math.min(from, to) * 65536 + Math.max(from, to);
     const saved = distances.get(key);
     if (saved !== undefined) return saved;
+    const source = owner(from);
+    const mapped = owner(to);
+    // Rows can share an owner if their active windows coincide. Black is
+    // safe when a crowded cell cannot cover all active wave rows.
+    if (lastWindow > 0 && to !== fixedBlack && (source.first !== mapped.first || source.last !== mapped.last)) {
+      distances.set(key, Infinity);
+      return Infinity;
+    }
 
     let errors = 0;
     if (rowColors) {
-      for (let offset = 0; offset < period; offset++) {
-        const source = colorAt(from, offset);
-        const mapped = colorAt(to, offset);
-        if (source !== mapped) errors += source && mapped ? 1 : silhouettePenalty;
+      for (let window = source.first; window <= source.last; window++) {
+        const sourceBase = (source.row - window) * rowBytes;
+        const mappedBase = (mapped.row - window) * rowBytes;
+        for (let offset = 0; offset < period; offset++) {
+          const wanted = source.color ?? rowColors[sourceBase + (offset + source.column) % period];
+          const actual = mapped.color ?? rowColors[mappedBase + (offset + mapped.column) % period];
+          if (wanted !== actual) errors += wanted && actual ? 1 : silhouettePenalty;
+        }
       }
     } else {
       errors = 1;
@@ -114,21 +125,23 @@ function matchLocalSlots(top, bottom) {
   return [localTop, localBottom];
 }
 
-function fitScrollBitmap(targets, { columns, rows, rowColors }) {
+function fitScrollBitmap(targets, { columns, rows, rowColors, splits, activeRows = rows }) {
   if (targets.length !== width * height) throw new Error("Expected a 160 × 200 scrolling target.");
-  if (rowColors && (rowColors.length !== rows * rowBytes || rowColors.some((color) => color > 15))) {
-    throw new Error(`Expected ${rows} rows of ${rowBytes} C64 palette indices.`);
+  if (rowColors && (rowColors.length !== activeRows * rowBytes || rowColors.some((color) => color > 15))) {
+    throw new Error(`Expected ${activeRows} rows of ${rowBytes} C64 palette indices.`);
   }
-  const distance = createDistance(columns, rowColors);
+  const distance = createDistance(columns, rows, activeRows, rowColors);
   const cellCount = cellsAcross * height / cellHeight;
   const bitmap = new Uint8Array(cellCount * cellHeight);
   const owners = Buffer.alloc(cellCount * 10);
   for (let cell = 0; cell < cellCount; cell++) {
     const left = (cell % cellsAcross) * cellWidth;
-    const top = Math.floor(cell / cellsAcross) * cellHeight;
+    const cellRow = Math.floor(cell / cellsAcross);
+    const top = cellRow * cellHeight;
+    const split = (splits?.[cellRow] ?? halfHeight) || cellHeight;
     const histograms = [new Map(), new Map()];
     for (let y = 0; y < cellHeight; y++) {
-      const histogram = histograms[Math.floor(y / halfHeight)];
+      const histogram = histograms[Number(y >= split)];
       for (let x = 0; x < cellWidth; x++) {
         const target = targets[(top + y) * width + left + x];
         if (target !== fixedBlack) histogram.set(target, (histogram.get(target) ?? 0) + 1);
@@ -138,7 +151,7 @@ function fitScrollBitmap(targets, { columns, rows, rowColors }) {
     const locals = matchLocalSlots(halves[0].local, halves[1].local);
     const displayed = locals.map(([first, second]) => [fixedBlack, first, second, shared]);
     for (let y = 0; y < cellHeight; y++) {
-      const half = Math.floor(y / halfHeight);
+      const half = Number(y >= split);
       let packed = 0;
       for (let x = 0; x < cellWidth; x++) {
         const target = targets[(top + y) * width + left + x];
