@@ -16,13 +16,13 @@ function pixelCode(slots, half, owner) {
   return owner === slots[half * 2] ? 1 : 2;
 }
 
-function readCell(bitmap, owners, index) {
+function readCell(bitmap, owners, index, split) {
   const original = Array.from({ length: ownerCount }, (_, slot) =>
     owners.readUInt16LE(index * ownerBytes + 2 * slot));
   const slots = Array(ownerCount).fill(fixedBlack);
   const halves = [new Set(), new Set()];
   for (let y = 0; y < cellHeight; y++) {
-    const half = Math.floor(y / halfHeight);
+    const half = Number(y >= split);
     const byte = bitmap[index * cellHeight + y];
     for (let shift = 0; shift < 8; shift += 2) {
       const code = (byte >> shift) & 3;
@@ -34,7 +34,7 @@ function readCell(bitmap, owners, index) {
   }
   const late = (slots[2] !== fixedBlack && original[0] !== original[2])
     || (slots[3] !== fixedBlack && original[1] !== original[3]);
-  return { original, slots, halves, late, neighbors: [] };
+  return { original, slots, halves, late, split, neighbors: [] };
 }
 
 function needsLateFetch([upperHigh, upperLow, lowerHigh, lowerLow]) {
@@ -127,9 +127,9 @@ function writeCycleDelta(counts, oldWrites, newWrites) {
   return [delta[0] + delta[1], delta[2]];
 }
 
-function writeCell(bitmap, outputBitmap, outputOwners, index, { slots, original }) {
+function writeCell(bitmap, outputBitmap, outputOwners, index, { slots, original, split }) {
   for (let y = 0; y < cellHeight; y++) {
-    const half = Math.floor(y / halfHeight);
+    const half = Number(y >= split);
     const oldByte = bitmap[index * cellHeight + y];
     let packed = 0;
     for (let shift = 0; shift < 8; shift += 2) {
@@ -149,13 +149,17 @@ function writeCell(bitmap, outputBitmap, outputOwners, index, { slots, original 
   }
 }
 
-function optimizeSlots(bitmap, owners) {
+function optimizeSlots(bitmap, owners, splits) {
   const cellCount = bitmap.length / cellHeight;
   const rows = cellCount / cellsAcross;
   if (!Number.isInteger(rows) || rows === 0 || owners.length !== cellCount * ownerBytes) {
     throw new Error("Invalid bitmap or owner table for slot optimization.");
   }
-  const cells = Array.from({ length: cellCount }, (_, index) => readCell(bitmap, owners, index));
+  const cells = Array.from({ length: cellCount }, (_, index) => {
+    const row = Math.floor(index / cellsAcross);
+    const split = (splits?.[row] ?? halfHeight) || cellHeight;
+    return readCell(bitmap, owners, index, split);
+  });
   const lateCounts = new Uint8Array(rows);
   for (const [index, cell] of cells.entries()) {
     if (cell.late) lateCounts[Math.floor(index / cellsAcross)]++;
@@ -163,7 +167,9 @@ function optimizeSlots(bitmap, owners) {
       connect(cells, index, 0, index + 1, 0);
       connect(cells, index, 1, index + 1, 1);
     }
-    if (index + cellsAcross < cellCount) connect(cells, index, 1, index + cellsAcross, 0);
+    if (index + cellsAcross < cellCount) {
+      connect(cells, index, Number(cell.split < cellHeight), index + cellsAcross, 0);
+    }
   }
 
   const counts = [new Map(), new Map(), new Map()];

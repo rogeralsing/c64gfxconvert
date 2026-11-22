@@ -76,6 +76,7 @@ def summarize_source_errors(fields):
 class Phase:
     bitmap: bytes
     owners: tuple
+    splits: tuple
     late_rasters: tuple
     visible_color_cells: tuple
 
@@ -84,20 +85,28 @@ class Phase:
         bitmap = support.read_plane(directory / "bitmap.bin", 8000)
         raw_owners = support.read_plane(directory / "owners.bin", 1000 * OWNER_RECORD.size)
         owners = tuple(OWNER_RECORD.iter_unpack(raw_owners))
+        fit = json.loads((directory / "fit.json").read_text())
+        splits = fit.get("splits", [4] * 25)
+        support.require(isinstance(splits, list) and len(splits) == 25
+                        and all(type(split) is int and 0 <= split <= 7 for split in splits)
+                        and splits[-1] <= 4, f"{directory.name}: invalid VIC row splits")
         late_groups = set()
         visible_colors = []
         for cell, (top_high, top_low, bottom_high, bottom_low, shared) in enumerate(owners):
-            lower = {packed >> shift & 3 for packed in bitmap[cell * 8 + 4:cell * 8 + 8]
+            row = cell // 40
+            split = splits[row] or 8
+            lower = {packed >> shift & 3 for packed in bitmap[cell * 8 + split:cell * 8 + 8]
                      for shift in (6, 4, 2, 0)}
             if (1 in lower and top_high != bottom_high) or (2 in lower and top_low != bottom_low):
-                late_groups.add(cell // 40)
+                late_groups.add(row)
             if any((packed >> shift & 3) == 3 for packed in bitmap[cell * 8:cell * 8 + 8]
                    for shift in (6, 4, 2, 0)):
                 visible_colors.append(cell)
             for owner in (top_high, top_low, bottom_high, bottom_low, shared):
                 support.require(valid_reference(owner, lookup_size),
                                 f"{directory.name}: invalid owner ${owner:04x} at cell {cell}")
-        return cls(bitmap, owners, tuple(55 + group * 8 for group in sorted(late_groups)),
+        return cls(bitmap, owners, tuple(splits),
+                   tuple(51 + group * 8 + splits[group] for group in sorted(late_groups)),
                    tuple(visible_colors))
 
     def color_planes(self, lookup):
@@ -119,6 +128,44 @@ def seed_offset(monitor, symbols, offset):
     monitor.run(f"delete {breakpoint}")
 
 
+def read_y_sine(raster_plan, max_window_start):
+    if "ySine" not in raster_plan:
+        return None
+    sine = raster_plan["ySine"]
+    support.require(isinstance(sine, dict) and max_window_start > 0,
+                    "Y sine requires a moving active window")
+    base, positions = sine.get("base"), sine.get("positions")
+    support.require(type(base) is int and 0 <= base <= 7, "Invalid Y sine register base")
+    support.require(isinstance(positions, list) and positions and
+                    all(type(value) is int and 0 <= value <= 4 * max_window_start
+                        and base + (value & 3) <= 7 for value in positions),
+                    "Y sine positions must be valid quarter-row values")
+    support.require(isinstance(sine.get("stateLabel"), str), "Missing Y sine state label")
+    return sine
+
+
+def shift_frame(frame, y_delta):
+    if y_delta == 0:
+        return frame
+    shifted = Image.new("RGB", frame.size)
+    shifted.paste(frame, (0, y_delta))
+    return shifted
+
+
+def traced_schedule(trace, y_sine, y_scroll):
+    stores = [(register.lower(), int(line), int(cycle), int(value, 16))
+              for register, line, cycle, value in support.STORE.findall(trace)]
+    if y_sine is not None:
+        # Include the display range at every fine scroll setting and skip the
+        # D011 value that arms the high raster IRQ for vblank.
+        vblank_control = 0xb8 | y_scroll
+        return [(register, line, cycle, value) for register, line, cycle, value in stores
+                if 48 <= line <= 254 and (register, value) != ("d011", vblank_control)]
+    return [(register, line, cycle, value) for register, line, cycle, value in stores
+            if (51 <= line <= 250 and (register, value) != ("d011", 0xbb))
+            or (register == "d011" and 0x38 <= value <= 0x3f and value != 0x3b)]
+
+
 def verify(args, report):
     assets = args.assets.resolve()
     try:
@@ -130,8 +177,10 @@ def verify(args, report):
     support.require(type(step_half_columns) is int and step_half_columns > 0,
                     "stepHalfColumns must be a positive integer")
     fields_per_advance = raster_plan.get("fieldsPerAdvance", DEFAULT_FIELDS_PER_ADVANCE)
-    support.require(type(fields_per_advance) is int and fields_per_advance in (3, 4),
-                    "fieldsPerAdvance must be 3 or 4")
+    support.require(type(fields_per_advance) is int and fields_per_advance in (2, 3, 4),
+                    "fieldsPerAdvance must be 2, 3 or 4")
+    vblank_raster = raster_plan.get("vblankRaster", 256)
+    support.require(type(vblank_raster) is int and 256 <= vblank_raster < 312, "Invalid vblank raster")
     report["stepHalfColumns"] = step_half_columns
     report["fieldsPerAdvance"] = fields_per_advance
     phase_paths = (assets / "phase-a", assets / "phase-b")
@@ -146,9 +195,17 @@ def verify(args, report):
     if args.compare_source or args.target_assets is not None:
         target_assets = (args.target_assets or assets).resolve()
         source_targets = tuple(read_source_targets(target_assets / path.name, rows * stride) for path in phase_paths)
-    colors = support.read_plane(assets / "row-colors.bin", rows * ROW_BYTES)
+    active_rows = raster_plan.get("activeRows", rows)
+    window_pairs = raster_plan.get("windowPairsToHold", 1)
+    support.require(type(active_rows) is int and 1 <= active_rows <= rows and
+                    type(window_pairs) is int and window_pairs >= 1, "Invalid active wave window")
+    max_window_start = rows - active_rows
+    y_sine = read_y_sine(raster_plan, max_window_start)
+    if y_sine is not None:
+        report["ySine"] = y_sine
+    colors = support.read_plane(assets / "row-colors.bin", active_rows * ROW_BYTES)
     support.require(all(color < 16 for color in colors), "Row color data includes an invalid C64 color")
-    for row in range(rows):
+    for row in range(active_rows):
         start = row * ROW_BYTES
         support.require(colors[start + period:start + ROW_BYTES] == colors[start:start + columns - 1],
                         f"Row {row} does not contain the wrap suffix")
@@ -161,6 +218,9 @@ def verify(args, report):
     symbols = read_labels(args.symbols or assets / "four-line-scroll-player.sym")
     checkpoint = symbols["frameComplete"]
     phase_addr, offset_addr = symbols["currentPhase"], symbols["currentOffset"]
+    window_addr = symbols["displayWindowStart"] if max_window_start else None
+    y_addr = symbols[y_sine["stateLabel"]] if y_sine is not None else None
+    missed_addr = symbols.get("missedDeadline")
 
     with socket.socket() as reservation:
         reservation.bind(("127.0.0.1", 0))
@@ -187,7 +247,7 @@ def verify(args, report):
                     for field in range(args.fields):
                         trace = monitor.run("x")
                         registers = monitor.registers()
-                        support.require(registers["pc"] == checkpoint and registers["raster"] == 256,
+                        support.require(registers["pc"] == checkpoint and registers["raster"] == vblank_raster,
                                         f"Field {field}: unexpected VICE checkpoint {registers}")
                         line_clock = registers["clock"] - registers["raster_cycle"]
                         elapsed = None if last_line_clock is None else line_clock - last_line_clock
@@ -199,19 +259,50 @@ def verify(args, report):
                         phase = monitor.dump(scratch, phase_addr, phase_addr)[0]
                         offset = int.from_bytes(monitor.dump(scratch, offset_addr, offset_addr + 1), "little")
                         advance = field // fields_per_advance
+                        y_scroll = 3
+                        window_start = 0
+                        if window_addr is not None:
+                            if y_sine is None:
+                                position = (advance // 2 // window_pairs) % (2 * max_window_start)
+                                expected_window = min(position, 2 * max_window_start - position)
+                            else:
+                                positions = y_sine["positions"]
+                                expected_window, fine_scroll = divmod(positions[(advance // 2) % len(positions)], 4)
+                                y_scroll = y_sine["base"] + fine_scroll
+                            window_start = monitor.dump(scratch, window_addr, window_addr)[0]
+                            support.require(window_start == expected_window,
+                                            f"Field {field}: expected window {expected_window}, got {window_start}")
+                        if y_addr is not None:
+                            actual_y = monitor.dump(scratch, y_addr, y_addr)[0]
+                            support.require(actual_y == y_scroll,
+                                            f"Field {field}: expected Y scroll {y_scroll}, got {actual_y}")
+                        if missed_addr is not None:
+                            support.require(monitor.dump(scratch, missed_addr, missed_addr)[0] == 0,
+                                            f"Field {field}: player missed a display deadline")
                         expected_offset, expected_phase = divmod(2 * args.start_offset + advance * step_half_columns, 2)
                         expected_offset %= period
                         support.require((phase, offset) == (expected_phase, expected_offset),
                                         f"Field {field}: expected phase {expected_phase}, offset {expected_offset}; "
                                         f"got phase {phase}, offset {offset}")
                         image = phases[phase]
+                        y_delta = y_scroll - 3
+                        late_rasters = tuple(raster + y_delta for raster in image.late_rasters)
                         if phase not in checked_bitmaps:
                             bitmap_address = BANK_BASES[phase] + 0x2000
-                            support.require(monitor.dump(scratch, bitmap_address, bitmap_address + 7999) == image.bitmap,
+                            phase_name = "AB"[phase]
+                            first = symbols.get(f"bitmapBodyStart{phase_name}", bitmap_address)
+                            last = symbols.get(f"bitmapBodyEnd{phase_name}", bitmap_address + 8000)
+                            support.require(bitmap_address <= first < last <= bitmap_address + 8000,
+                                            f"Phase {phase}: invalid bitmap RAM bounds")
+                            start, end = first - bitmap_address, last - bitmap_address
+                            support.require(not any(image.bitmap[:start]) and not any(image.bitmap[end:]),
+                                            f"Phase {phase}: runtime overlaps the visible bitmap")
+                            support.require(monitor.dump(scratch, first, last - 1) == image.bitmap[start:end],
                                             f"Phase {phase}: bitmap RAM differs from the asset")
                             checked_bitmaps.add(phase)
 
-                        lookup = bytes(colors[row * ROW_BYTES + (offset + column) % period]
+                        lookup = bytes(colors[(row - window_start) * ROW_BYTES + (offset + column) % period]
+                                       if window_start <= row < window_start + active_rows else 0
                                        for row in range(rows) for column in range(stride))
                         top, bottom, shared = image.color_planes(lookup)
                         monitor.run("bank io")
@@ -230,34 +321,36 @@ def verify(args, report):
                             monitor.run("trace store d018")
                         else:
                             traces.write(trace)
-                            # The $BB write only sets the high raster-IRQ compare bit for R256.
-                            stores = [(register.lower(), int(line), int(cycle), int(value, 16))
-                                      for register, line, cycle, value in support.STORE.findall(trace)
-                                      if ((51 <= int(line) <= 250 and (register.lower(), value.lower()) != ("d011", "bb"))
-                                          or (register.lower(), value.lower()) == ("d011", "3f"))]
-                            expected_stores = support.expected_schedule(image.late_rasters)
-                            support.require(stores == expected_stores,
-                                            f"Field {field}: unexpected register schedule {stores}")
+                            expected_stores = [(register, line, cycle,
+                                                (0x38 | y_scroll) if register == "d011" and cycle == 60 else value)
+                                               for register, line, cycle, value in support.expected_schedule(late_rasters)]
+                            stores = traced_schedule(trace, y_sine, y_scroll)
+                            support.require(stores == expected_stores, f"Field {field}: unexpected register schedule {stores}")
 
                         screenshot = Path(temp) / "frame.png"
                         monitor.run(f'screenshot "{screenshot}" 2')
                         with Image.open(screenshot) as frame:
                             actual = frame.convert("RGB")
-                        expected = support.decode(image.bitmap, top, bottom, shared, palette)
+                        expected = support.decode(image.bitmap, top, bottom, shared, palette, image.splits)
                         support.require(actual.size == expected.size, f"Field {field}: wrong screenshot size {actual.size}")
-                        difference = ImageChops.difference(actual, expected).getbbox()
+                        difference = ImageChops.difference(actual, shift_frame(expected, y_delta)).getbbox()
                         support.require(difference is None, f"Field {field}: native pixel mismatch at {difference}")
                         frame_record = {"field": field, "phase": "AB"[phase], "offset": offset,
-                                        "cyclesFromPreviousField": elapsed, "lateBadlineRasters": image.late_rasters,
+                                        "cyclesFromPreviousField": elapsed, "lateBadlineRasters": late_rasters,
                                         "timingTraced": field != 0, "corePixelsMatched": 64000}
+                        if window_addr is not None:
+                            frame_record["windowStart"] = window_start
+                        if y_sine is not None:
+                            frame_record["yOffset"] = y_delta
                         if field % fields_per_advance == 0:
                             name = f"step-{advance:04d}.png"
                             actual.save(args.out / name)
                             frame_record["screenshot"] = name
                         if source_targets is not None:
-                            step = (phase, offset)
+                            step = (phase, offset, window_start, y_delta)
                             if step not in source_errors:
-                                source_errors[step] = measure_source_errors(actual, source_targets[phase], lookup, palette)
+                                aligned = shift_frame(actual, -y_delta)
+                                source_errors[step] = measure_source_errors(aligned, source_targets[phase], lookup, palette)
                             frame_record["sourceErrors"] = source_errors[step]
                         report["fields"].append(frame_record)
         finally:

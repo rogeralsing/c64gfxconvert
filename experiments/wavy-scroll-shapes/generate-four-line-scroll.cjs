@@ -5,6 +5,8 @@ const { join } = require("node:path");
 const { parseArgs } = require("node:util");
 const { RIBBON_INDEX_PATTERN } = require("./ribbon.js");
 const { compileRasterPlan, instructionCycles } = require("./pack-four-line-raster.cjs");
+const { emitWindowWrites } = require("./active-window-mapping.cjs");
+const { stageColorLookups } = require("./b-color-cache.cjs");
 
 const rowBytes = 1000;
 // At the end of the stream, phase B's extra column and nibble alignment can
@@ -12,12 +14,21 @@ const rowBytes = 1000;
 const packedRowBytes = rowBytes / 2 + 2;
 const cells = 1000;
 const cellsPerRow = 40;
+const characterRows = cells / cellsPerRow;
 const fixedBlack = 0xff00;
 const packedRowAddress = 0xe000;
-const usage = "Usage: node generate-four-line-scroll.cjs <asset-directory> [row-colors.bin] [--step 0.5|1.5] [--fields-per-step 3|4] [--foreground]";
+const windowPairsToHold = 4;
+const verticalSinePairs = 96;
+// Maximum raster code placed after the phase B bitmap, beside the A color writer.
+const screenTailBCapacity = 1300;
+const windowBoundsCycles = 22;
+const usage = "Usage: node generate-four-line-scroll.cjs <asset-directory> [row-colors.bin] [--step 0.5|1.5] [--fields-per-step 2|3|4] [--foreground] [--full-window-writes] [--y-sine]";
 
-function readPhase(out, name, lookupSize) {
-  const path = join(out, `phase-${name.toLowerCase()}`);
+function readPhase(path, name, lookupSize, { splits = Array(characterRows).fill(4) }) {
+  if (!Array.isArray(splits) || splits.length !== characterRows || splits.some((split, row) =>
+    !Number.isInteger(split) || split < 0 || split > (row === characterRows - 1 ? 4 : 7))) {
+    throw new Error(`Invalid raster splits for phase ${name}.`);
+  }
   const bitmap = readFileSync(join(path, "bitmap.bin"));
   const owners = readFileSync(join(path, "owners.bin"));
   if (bitmap.length !== cells * 8 || owners.length !== cells * 10) {
@@ -25,10 +36,13 @@ function readPhase(out, name, lookupSize) {
   }
   const planes = [];
   for (let cell = 0; cell < cells; cell++) {
+    const split = splits[Math.floor(cell / cellsPerRow)];
+    const lowerStart = split || 8;
     const used = [0, 0];
     for (let row = 0; row < 8; row++) {
       const byte = bitmap[cell * 8 + row];
-      for (let shift = 0; shift < 8; shift += 2) used[row >> 2] |= 1 << ((byte >> shift) & 3);
+      const half = row >= lowerStart ? 1 : 0;
+      for (let shift = 0; shift < 8; shift += 2) used[half] |= 1 << ((byte >> shift) & 3);
     }
     const refs = Array.from({ length: 5 }, (_, slot) => owners.readUInt16LE(cell * 10 + slot * 2));
     for (const ref of refs) {
@@ -36,7 +50,7 @@ function readPhase(out, name, lookupSize) {
         throw new Error(`Invalid owner reference for phase ${name} at cell ${cell}.`);
       }
     }
-    planes.push({ used, refs });
+    planes.push({ used, refs, split });
   }
   return planes;
 }
@@ -82,16 +96,17 @@ function loadPair(pair, lookup) {
 }
 
 function collectPhase(planes, phase) {
-  const groups = new Set();
-  for (const [cell, { used, refs }] of planes.entries()) {
+  const groups = new Map();
+  for (const [cell, { used, refs, split }] of planes.entries()) {
     if ((used[1] & 2 && refs[0] !== refs[2]) || (used[1] & 4 && refs[1] !== refs[3])) {
-      groups.add(Math.floor(cell / cellsPerRow));
+      groups.set(Math.floor(cell / cellsPerRow), split);
     }
   }
 
   const top = new Map();
   const bottom = new Map();
   const color = new Map();
+  const spareLow = { top: [], bottom: [] };
   for (const [cell, { used, refs }] of planes.entries()) {
     const split = groups.has(Math.floor(cell / cellsPerRow));
     if (split && cell % cellsPerRow < 3 && (used[1] & ~1)) {
@@ -103,12 +118,17 @@ function collectPhase(planes, phase) {
     const topLow = topCodes & 4 ? refs[1] : fixedBlack;
     const bottomHigh = bottomCodes & 2 ? refs[2] : fixedBlack;
     const bottomLow = bottomCodes & 4 ? refs[3] : fixedBlack;
+    // The moving-window player can store code in blank bitmap edges.
+    if (cell >= 2 * cellsPerRow && cell < cells - 3 * cellsPerRow) {
+      if (!(topCodes & 4)) spareLow.top.push(cell);
+      if (!(bottomCodes & 4)) spareLow.bottom.push(cell);
+    }
     // Both matrices start cleared and each phase always writes to its own bank.
     if (topHigh !== fixedBlack || topLow !== fixedBlack) addDestination(top, topHigh * 0x10000 + topLow, cell);
     if (bottomHigh !== fixedBlack || bottomLow !== fixedBlack) addDestination(bottom, bottomHigh * 0x10000 + bottomLow, cell);
     if ((used[0] | used[1]) & 8) addDestination(color, refs[4], cell);
   }
-  return { groups: [...groups], top, bottom, color };
+  return { groups: [...groups.keys()], splits: [...groups.values()], top, bottom, color, spareLow };
 }
 
 function previousRef(ref, { width, shift }) {
@@ -155,11 +175,13 @@ function reuseScreenLoads(pairs, lookup, metrics) {
     // right neighbor wherever that byte can supply this group of stores.
     const rightNeighbor = findRightNeighbor(sources, destinations);
     const replacement = loadScreenByte(rightNeighbor ?? sources[0]);
-    metrics.groups++;
-    if (rightNeighbor) metrics.rightNeighborGroups++;
-    metrics.stores += destinations.length;
-    metrics.mappingCyclesSaved += load.reduce((total, line) => total + instructionCycles(line), 0)
-      - instructionCycles(replacement);
+    if (metrics) {
+      metrics.groups++;
+      if (rightNeighbor) metrics.rightNeighborGroups++;
+      metrics.stores += destinations.length;
+      metrics.mappingCyclesSaved += load.reduce((total, line) => total + instructionCycles(line), 0)
+        - instructionCycles(replacement);
+    }
     return [replacement];
   };
 }
@@ -215,14 +237,14 @@ function colorBackup(indexes, denseSize) {
   };
 }
 
-function planColorB(writes, lows, lookup, metrics) {
+function planColorB(writes, lows, lookup, metrics, phase) {
   const loads = new Map();
-  const toCopy = new Set();
+  const missing = [];
   for (const [ref, destinations] of writes) {
     if (ref >= fixedBlack) continue;
     const sources = lows.get(previousRef(ref, lookup));
     if (!sources) {
-      toCopy.add(lookupIndex(ref, lookup));
+      missing.push(ref);
       continue;
     }
     // A screen byte already has the needed low nibble. Color RAM discards
@@ -231,7 +253,11 @@ function planColorB(writes, lows, lookup, metrics) {
     metrics.screenLoadGroups++;
     metrics.screenLoadStores += destinations.length;
   }
+  const staged = phase ? stageColorLookups(phase, missing, lookup.width) : new Map();
+  for (const [ref, location] of staged) loads.set(ref, loadScreenByte(location));
+  const toCopy = new Set(missing.filter((ref) => !staged.has(ref)).map((ref) => lookupIndex(ref, lookup)));
   const backup = colorBackup(toCopy, lookup.rows * 2 * lookup.half);
+  if (phase) metrics.stagedGroups = staged.size;
   metrics.backupBytes = backup.size;
   metrics.backupWorstCaseCycles = backup.worstCaseCycles;
   return {
@@ -262,30 +288,74 @@ function emitSparseColorBCopy({ groups, indices }) {
     ".macro EmitSparseColorBIndices() {", ...table, "}"];
 }
 
-function compilePhase({ groups, top, bottom, color }, phase, lookup, previous) {
+function ownersByAddress(writes) {
+  const owners = new Map();
+  for (const [ref, destinations] of writes) {
+    for (const cell of destinations) owners.set(cell, ref);
+  }
+  return owners;
+}
+
+function compilePhase({ groups, splits, top, bottom, color, spareLow }, phase, lookup, previous, window, alternateOwners) {
   const reuse = {
     screenRam: { groups: 0, rightNeighborGroups: 0, stores: 0, mappingCyclesSaved: 0 },
     colorRam: { storesSkipped: 0, mappingCyclesSaved: 0, screenLoadGroups: 0, screenLoadStores: 0 },
   };
   const sources = previous ? previousScreenSources(previous) : null;
   const load = sources
-    ? reuseScreenLoads(sources.pairs, lookup, reuse.screenRam)
+    ? reuseScreenLoads(sources.pairs, lookup, window ? null : reuse.screenRam)
     : (pair) => loadPair(pair, lookup);
+  const windowLoad = sources && window ? reuseScreenLoads(sources.pairs, lookup, reuse.screenRam) : load;
   const colorWrites = previous
     ? omitUnchangedColorWrites(color, previous.color, lookup, reuse.colorRam)
     : color;
-  const colorB = sources ? planColorB(colorWrites, sources.lows, lookup, reuse.colorRam) : null;
+  if (sources && window) {
+    // Staging changes B's writers. The full-width schedule may still need
+    // the original destination maps if the common raster pass does not fit.
+    const copy = (writes) => new Map([...writes].map(([value, destinations]) => [value, [...destinations]]));
+    top = copy(top);
+    bottom = copy(bottom);
+  }
+  const colorB = sources ? planColorB(colorWrites, sources.lows, lookup, reuse.colorRam,
+    window ? { top, bottom, spareLow } : null) : null;
   const colorLoad = colorB ? colorB.load : (ref) => `lda ${operand(ref, false, lookup)}`;
+  const entries = [
+    [`ScreenTop${phase}`, top, `screenTop${phase}`, load],
+    [`ScreenBottom${phase}`, bottom, `screenBottom${phase}`, load],
+    [`Color${phase}`, colorWrites, "colorRam", (ref) => [colorLoad(ref)]],
+  ];
+  const writers = {};
+  const windows = {};
+  for (const [name, destinations, address, loadValue] of entries) {
+    writers[name] = emitWrites(destinations, address, loadValue);
+    if (window) {
+      const commonRaster = address !== "colorRam";
+      windows[name] = emitWindowWrites(destinations, address, commonRaster ? windowLoad : loadValue, {
+        ...window, packBoundary: window.packBoundary?.[name],
+      }, { commonRaster, alternateOwners: commonRaster ? undefined : alternateOwners });
+    }
+  }
   return {
     groups,
+    splits,
     reuse,
     backup: colorB?.backup,
-    writers: {
-      [`ScreenTop${phase}`]: emitWrites(top, `screenTop${phase}`, load),
-      [`ScreenBottom${phase}`]: emitWrites(bottom, `screenBottom${phase}`, load),
-      [`Color${phase}`]: emitWrites(colorWrites, "colorRam", (ref) => [colorLoad(ref)]),
-    },
+    writers,
+    windows,
   };
+}
+
+function compileWindowRasterPlan(a, b, vblankRaster) {
+  const useCommon = (phase) => ({
+    ...phase,
+    writers: Object.fromEntries(Object.entries(phase.writers).map(([name, writer]) => [
+      name, name.startsWith("Screen") ? phase.windows[name].common : writer,
+    ])),
+  });
+  const plan = compileRasterPlan(useCommon(a), useCommon(b), true, {
+    screenTailB: screenTailBCapacity, vblankRaster,
+  });
+  return plan.constants.rasterMapFieldsA === 1 && plan.constants.rasterMapFieldsB === 1 ? plan : null;
 }
 
 function prepareRows(source, rows, columns) {
@@ -356,46 +426,124 @@ function compressRows(data) {
   return Buffer.from([...tokens, 0]);
 }
 
+function emitList(name, values) {
+  return [`.var ${name} = List()`, ...values.map((value) => `.eval ${name}.add(${value})`)];
+}
+
+function makeVerticalSine(lastStart) {
+  // Two low bits carry the pixel offset. The full sine spans the row window.
+  const amplitude = lastStart * 2;
+  const positions = Array.from({ length: verticalSinePairs }, (_, pair) =>
+    Math.round(amplitude * (1 - Math.cos(2 * Math.PI * pair / verticalSinePairs))));
+  return { base: 3, positions, stateLabel: "verticalScroll" };
+}
+
+function emitVerticalSine({ positions } = { positions: [] }) {
+  const bytes = [];
+  for (let start = 0; start < positions.length; start += 16) {
+    bytes.push(`    .byte ${positions.slice(start, start + 16).join(", ")}`);
+  }
+  return [".macro EmitVerticalSine() {", ...bytes, "}"];
+}
+
 function main() {
-  const { positionals: [out, source, ...rest], values: { foreground, step, "fields-per-step": fields } } = parseArgs({
+  const { positionals: [out, source, ...rest], values: args } = parseArgs({
     allowPositionals: true,
     options: {
       foreground: { type: "boolean" },
+      "full-window-writes": { type: "boolean" },
       step: { type: "string", default: "1.5" },
       "fields-per-step": { type: "string", default: "4" },
+      "y-sine": { type: "boolean" },
     },
   });
-  if (!out || rest.length || !["0.5", "1.5"].includes(step) || !["3", "4"].includes(fields)) {
+  const { foreground, step, "fields-per-step": fields,
+    "full-window-writes": fullWindowWrites, "y-sine": useVerticalSine } = args;
+  if (!out || rest.length || !["0.5", "1.5"].includes(step) || !["2", "3", "4"].includes(fields)) {
     throw new Error(usage);
   }
   const fieldsPerAdvance = Number(fields);
+  // A two-field update uses some of the upper border for the final screen
+  // writes. Color RAM still finishes before the next visible field.
+  const vblankRaster = fieldsPerAdvance === 2 ? 292 : 256;
   // Phase B already moves the geometry half a column relative to phase A.
   // A(n), B(n+1), A(n+3) give 1.5 columns on both transitions.
   const stepHalfColumns = step === "1.5" ? 3 : 1;
   const bOffset = (stepHalfColumns - 1) / 2;
-  const { columns, radialRows: rows } = JSON.parse(readFileSync(join(out, "phase-a", "fit.json"), "utf8"));
+  const pathA = join(out, "phase-a");
+  const pathB = join(out, "phase-b");
+  const fitA = JSON.parse(readFileSync(join(pathA, "fit.json"), "utf8"));
+  const fitB = JSON.parse(readFileSync(join(pathB, "fit.json"), "utf8"));
+  const { columns, radialRows: rows, activeRows = rows } = fitA;
+  const { activeRows: activeRowsB = fitB.radialRows } = fitB;
+  if (fitB.columns !== columns || fitB.radialRows !== rows || activeRowsB !== activeRows) {
+    throw new Error("Both phases must have the same wave geometry and active row count.");
+  }
+  if (!Number.isInteger(activeRows) || activeRows < 1 || activeRows > rows) {
+    throw new Error("Active row count must be an integer within the wave geometry.");
+  }
+  if (packedRowAddress + activeRows * packedRowBytes > 0xfffa) {
+    throw new Error("The player can store up to 16 active color rows.");
+  }
+  if (useVerticalSine && (rows - activeRows !== 8 || fieldsPerAdvance > 3 || foreground || fullWindowWrites)) {
+    throw new Error("Y sine needs eight spare wave rows, two or three PAL fields per update, and packed raster work.");
+  }
   const lookupSize = rows * (columns + 1);
   const lookup = { width: columns + 1, half: Math.floor((columns + 1 + bOffset) / 2) + 1, rows };
-  const previous = collectPhase(readPhase(out, "A", lookupSize), "A");
-  const a = compilePhase(previous, "A", { ...lookup, shift: 0 });
-  const b = compilePhase(collectPhase(readPhase(out, "B", lookupSize), "B"), "B",
-    { ...lookup, shift: bOffset }, previous);
-  const plan = compileRasterPlan(a, b, !foreground);
+  const previous = collectPhase(readPhase(pathA, "A", lookupSize, fitA), "A");
+  const following = collectPhase(readPhase(pathB, "B", lookupSize, fitB), "B");
+  let window = activeRows < rows && !foreground && !fullWindowWrites
+    && previous.groups.length && following.groups.length
+    ? { rows, activeRows, width: lookup.width }
+    : null;
+  if (window && fieldsPerAdvance === 2) {
+    window.packBoundary = {
+      ScreenTopA: { prefix: 2, suffix: 2 },
+      ScreenBottomA: { prefix: 2, suffix: 2 },
+      ScreenTopB: { prefix: 1, suffix: 2 },
+      ScreenBottomB: { prefix: 1, suffix: 1 },
+    };
+  }
+  const compileA = () => compilePhase(previous, "A", { ...lookup, shift: 0 }, null,
+    window, ownersByAddress(following.color));
+  const compileB = () => compilePhase(following, "B", { ...lookup, shift: bOffset },
+    previous, window, ownersByAddress(previous.color));
+  let a = compileA();
+  let b = compileB();
+  let plan = window ? compileWindowRasterPlan(a, b, vblankRaster) : null;
+  if (!plan) {
+    if (useVerticalSine) throw new Error("Y sine needs a single packed raster field per active-window phase.");
+    if (fieldsPerAdvance === 2) throw new Error("Two-field timing requires a single packed raster field per active-window phase.");
+    if (window) {
+      window = null;
+      a = compileA();
+      b = compileB();
+    }
+    plan = compileRasterPlan(a, b, !foreground);
+  }
+  const ySine = useVerticalSine ? makeVerticalSine(rows - activeRows) : undefined;
   const assembly = [
     "// Generated by generate-four-line-scroll.cjs.",
     `.const columnsA = ${columns}`,
     `.const rowCount = ${rows}`,
+    `.const activeRowCount = ${activeRows}`,
+    `.const activeWindowWrites = ${Boolean(window)}`,
+    `.const useVerticalSine = ${Boolean(ySine)}`,
+    `.const windowPairsToHold = ${windowPairsToHold}`,
     `.const packedRowBytes = ${packedRowBytes}`,
     `.const fieldsPerAdvance = ${fieldsPerAdvance}`,
+    `.const vblankRaster = ${vblankRaster}`,
     `.const scrollColumnsPerPair = ${stepHalfColumns}`,
     `.const scrollBOffset = ${bOffset}`,
     `.const sparseColorBLookup = ${b.backup.sparse}`,
     `.const colorBLookupSize = ${b.backup.size}`,
+    ...emitVerticalSine(ySine),
     ...emitSparseColorBCopy(b.backup),
-    ".var phaseAGroups = List()",
-    ...a.groups.map((group) => `.eval phaseAGroups.add(${group})`),
-    ".var phaseBGroups = List()",
-    ...b.groups.map((group) => `.eval phaseBGroups.add(${group})`),
+    ...emitList("phaseAGroups", a.groups),
+    ...emitList("phaseASplits", a.splits),
+    ...emitList("phaseBGroups", b.groups),
+    ...emitList("phaseBSplits", b.splits),
+    ...emitList("rasterIdleDelays", plan.idleDelays),
     ...Object.entries(plan.constants).map(([name, value]) => `.const ${name} = ${value}`),
     ".macro EmitRasterPlanTables() {",
     ...plan.tables.map((line) => `    ${line}`),
@@ -408,16 +556,25 @@ function main() {
   for (const [name, code] of Object.entries({ ...a.writers, ...b.writers })) {
     const cycles = code.reduce((sum, line) => sum + instructionCycles(line), 0);
     const metric = name[0].toLowerCase() + name.slice(1, -1) + "Cycles" + name.at(-1);
-    const instructions = plan.writers[name] ?? code;
-    assembly.push(`.const ${metric} = ${cycles}`, `.macro Write${name}() {`,
+    const selected = (name.endsWith("A") ? a : b).windows[name];
+    const instructions = plan.writers[name] ?? selected?.fringe ?? code;
+    const vblankCycles = selected && name.startsWith("Color") ? selected.worstCaseCycles + windowBoundsCycles : cycles;
+    assembly.push(`.const ${metric} = ${vblankCycles}`, `.macro Write${name}() {`,
       ...instructions.map((line) => `    ${line}`), "}", "");
-    console.log(`${name}: ${cycles} mapping cycles`);
+    console.log(selected
+      ? `${name}: ${Math.min(...selected.cyclesByStart)}–${Math.max(...selected.cyclesByStart)} active mapping cycles`
+      : `${name}: ${cycles} mapping cycles`);
+    if (name.startsWith("Screen")) {
+      assembly.push(`.macro Write${name}Fringe() {`,
+        ...(selected?.fringe ?? []).map((line) => `    ${line}`), "}", "");
+    }
   }
-  const raw = prepareRows(source, rows, columns);
+  assembly.push(".macro WriteScreenTailB() {",
+    ...(plan.writers.ScreenTailB ?? []).map((line) => `    ${line}`), "}", "");
+  const raw = prepareRows(source, activeRows, columns);
   const period = rowBytes + 1 - columns;
-  const packed = Buffer.alloc(rows * packedRowBytes);
-  if (packedRowAddress + packed.length > 0xfffa) throw new Error("The player can store up to 16 color rows.");
-  for (let row = 0; row < rows; row++) {
+  const packed = Buffer.alloc(activeRows * packedRowBytes);
+  for (let row = 0; row < activeRows; row++) {
     for (let offset = 0; offset < packedRowBytes; offset++) {
       const low = raw[row * rowBytes + (offset * 2) % period];
       const high = raw[row * rowBytes + (offset * 2 + 1) % period];
@@ -428,7 +585,21 @@ function main() {
   writeFileSync(join(out, "row-colors.bin"), raw);
   writeFileSync(join(out, "row-colors-lz.bin"), packedLz);
   writeFileSync(join(out, "four-line-scroll-generated.asm"), assembly.join("\n"));
-  const report = { mode: plan.report ? "raster" : "foreground", stepHalfColumns, fieldsPerAdvance, reuse: b.reuse, ...plan.report };
+  const windowReport = activeRows < rows ? { activeRows, windowPairsToHold } : {};
+  if (window) {
+    windowReport.activeWindowWrites = Object.fromEntries(Object.entries({ ...a.windows, ...b.windows })
+      .map(([name, { cyclesByStart, storesByStart, worstCaseCycles }]) => [
+        name, { cyclesByStart, storesByStart, worstCaseCycles },
+      ]));
+    for (const [phase, current] of [["A", a], ["B", b]]) {
+      const color = plan.report.colorRam[`phase${phase}`];
+      color.mappingCycles = current.windows[`Color${phase}`].worstCaseCycles + windowBoundsCycles;
+    }
+  }
+  const report = {
+    mode: plan.report ? "raster" : "foreground", stepHalfColumns, fieldsPerAdvance, vblankRaster,
+    ...windowReport, reuse: b.reuse, ...plan.report, ySine,
+  };
   writeFileSync(join(out, "raster-plan.json"), `${JSON.stringify(report, null, 2)}\n`);
   if (plan.report) {
     console.log(`Packed screen updates into ${plan.constants.rasterMapFieldsA} fields during A and ${plan.constants.rasterMapFieldsB} fields during B.`);

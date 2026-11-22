@@ -115,16 +115,15 @@ function packRasterWrites(instructions, budgets) {
   return { chunks, remainder };
 }
 
-// The PAL kernel's 397-cycle delay crosses a natural VIC badline.
-// Enter the job after 27 dispatch cycles, fetch its NOP at CPU cycle 197,
-// and return in six cycles. The NOP absorbs all 43 clocks of VIC stall.
+// Each job crosses a natural VIC badline. The NOP absorbs all 43
+// clocks of VIC stall. With a 4/4 split it starts at CPU cycle 197.
 const dispatchCycles = 27;
 const returnCycles = 6;
 const dmaBridgeCycles = 2;
 const beforeDmaCycles = 197;
 const afterDmaCycles = 198;
-const earlyBudget = beforeDmaCycles - dispatchCycles;
-const lateBudget = afterDmaCycles - returnCycles;
+const palCyclesPerLine = 63;
+const baseDelay = beforeDmaCycles + dmaBridgeCycles + afterDmaCycles;
 // The other fields leave room for preparing the next decoded LUT.
 const maxMappingFields = 2;
 
@@ -156,28 +155,49 @@ function emitRasterJob(before, after) {
   return { code, bytes };
 }
 
-function planScreen(groups, writers, destination) {
+function timingWindows(groups, splits) {
+  const windows = [];
+  for (const [index, group] of groups.entries()) {
+    const previousSplit = index === 0 ? 4 : splits[index - 1];
+    if (index > 0 && (group !== groups[index - 1] + 1 || previousSplit === 7)) continue;
+    const split = splits[index];
+    const naturalRaster = 51 + group * 8;
+    const earlyBudget = beforeDmaCycles + (4 - previousSplit) * palCyclesPerLine - dispatchCycles;
+    const lateBudget = afterDmaCycles + (split - 4) * palCyclesPerLine - returnCycles;
+    windows.push({
+      switchRaster: naturalRaster + split,
+      firstRaster: naturalRaster + previousSplit - 7,
+      naturalRaster,
+      delay: earlyBudget + lateBudget + dispatchCycles + dmaBridgeCycles + returnCycles,
+      earlyBudget,
+      lateBudget,
+    });
+  }
+  return windows;
+}
+
+function planScreen({ groups, splits }, writers, destination, tailCapacity = 0) {
   const first = writers[`ScreenTop${destination}`];
   const second = writers[`ScreenBottom${destination}`];
   const original = [...first, ...second];
-  const switches = groups.filter((group, index) => index === 0 || group === groups[index - 1] + 1);
-  if (!original.length || !switches.length) return null;
+  const windows = timingWindows(groups, splits);
+  if (!original.length || !windows.length) return null;
 
   // Keep the original store order. Select the fewest consecutive fields,
   // then let the packer minimize repeated loads within those fields.
-  const budgets = switches.flatMap(() => [earlyBudget, lateBudget]);
+  const budgets = windows.flatMap(({ earlyBudget, lateBudget }) => [earlyBudget, lateBudget]);
   for (let fieldCount = 1; fieldCount <= maxMappingFields; fieldCount++) {
     const result = packRasterWrites(original, Array.from({ length: fieldCount }, () => budgets).flat());
     if (result.remainder.length) continue;
     const fields = [];
     const jobs = [];
     for (let field = 0; field < fieldCount; field++) {
-      fields.push(switches.map((group, index) => {
-        const start = (field * switches.length + index) * 2;
+      fields.push(windows.map((window, index) => {
+        const start = (field * windows.length + index) * 2;
         const [before, after] = result.chunks.slice(start, start + 2);
         const job = before.cycles + after.cycles ? emitRasterJob(before, after) : null;
         if (job) jobs.push(job);
-        return { switchRaster: 55 + group * 8, before, after, job };
+        return { ...window, before, after, job };
       }));
     }
 
@@ -196,9 +216,16 @@ function planScreen(groups, writers, destination) {
         bestGrowth = growth;
       }
     }
+    let tailStart = jobs.length;
+    let tailBytes = 0;
+    while (tailStart > bestIndex && tailBytes + jobs[tailStart - 1].bytes <= tailCapacity) {
+      tailBytes += jobs[--tailStart].bytes;
+    }
     const sections = {};
-    for (const [name, section] of [[`ScreenTop${destination}`, jobs.slice(0, bestIndex)],
-      [`ScreenBottom${destination}`, jobs.slice(bestIndex)]]) {
+    const placements = [[`ScreenTop${destination}`, jobs.slice(0, bestIndex)],
+      [`ScreenBottom${destination}`, jobs.slice(bestIndex, tailStart)]];
+    if (tailCapacity) placements.push([`ScreenTail${destination}`, jobs.slice(tailStart)]);
+    for (const [name, section] of placements) {
       let offset = 0;
       sections[name] = section.flatMap((job) => {
         job.address = `write${name} + ${offset}`;
@@ -211,19 +238,32 @@ function planScreen(groups, writers, destination) {
   return null;
 }
 
-function compileRasterPlan(a, b, enabled) {
-  const displayA = enabled ? planScreen(a.groups, b.writers, "B") : null;
-  const displayB = enabled ? planScreen(b.groups, a.writers, "A") : null;
-  const packed = Boolean(displayA && displayB);
-  const tableWidth = packed ? Math.max(displayA.fields[0].length, displayB.fields[0].length) : 0;
-  const tables = [];
-  if (packed) {
-    tables.push(Array(tableWidth).fill("rasterIdleChunk"));
-    for (const slots of [...displayA.fields, ...displayB.fields]) {
-      const entries = Array.from({ length: tableWidth }, (_, slot) => slots[slot]?.job?.address ?? "rasterIdleChunk");
-      tables.push(entries);
-    }
+function makePlanTables(displayA, displayB) {
+  const tableWidth = Math.max(displayA.fields[0].length, displayB.fields[0].length);
+  const idleDelays = new Set();
+  for (const { delay } of [...displayA.fields[0], ...displayB.fields[0]]) idleDelays.add(delay);
+  const delays = [...idleDelays];
+  const idleEntry = (slot) => {
+    const index = slot ? delays.indexOf(slot.delay) : 0;
+    return `rasterIdleChunkBase + ${index} * rasterIdleChunkStride`;
+  };
+  const idleA = Array.from({ length: tableWidth }, (_, slot) => idleEntry(displayA.fields[0][slot]));
+  const idleB = Array.from({ length: tableWidth }, (_, slot) => idleEntry(displayB.fields[0][slot]));
+  const distinct = idleA.some((entry, index) => entry !== idleB[index]);
+  const tables = distinct ? [idleA, idleB] : [idleA];
+  for (const slots of [...displayA.fields, ...displayB.fields]) {
+    tables.push(Array.from({ length: tableWidth }, (_, slot) => slots[slot]?.job?.address ?? idleEntry(slots[slot])));
   }
+  const stride = tableWidth * 2;
+  return stride * tables.length <= 256 ? { tables, delays, stride, idlePlanB: Number(distinct) } : null;
+}
+
+function compileRasterPlan(a, b, enabled, { screenTailB, vblankRaster = 256 } = {}) {
+  const displayA = enabled ? planScreen(a, b.writers, "B", screenTailB) : null;
+  const displayB = enabled ? planScreen(b, a.writers, "A") : null;
+  const plan = displayA && displayB ? makePlanTables(displayA, displayB) : null;
+  const packed = Boolean(plan);
+  const tables = plan?.tables ?? [];
 
   const describeWindow = (chunk, startRaster, startCycle) => ({
     startRaster,
@@ -232,20 +272,23 @@ function compileRasterPlan(a, b, enabled) {
     paddingCycles: chunk.pad,
     stores: chunk.instructions.filter((line) => line.startsWith("sta ")).length,
   });
-  const describePhase = (plan) => plan.fields.map((slots) => slots.map(({ switchRaster, before, after }) => {
-    const windows = [describeWindow(before, switchRaster - 7, 3 + dispatchCycles),
-      describeWindow(after, switchRaster - 4, 56)];
+  const describePhase = (phase) => phase.fields.map((slots) => slots.map(({
+    switchRaster, firstRaster, naturalRaster, earlyBudget, lateBudget, before, after,
+  }) => {
+    const windows = [describeWindow(before, firstRaster, 3 + dispatchCycles),
+      describeWindow(after, naturalRaster, 56)];
     return { switchRaster, mappingCycles: before.cycles + after.cycles,
+      budgetCycles: earlyBudget + lateBudget,
       stores: windows[0].stores + windows[1].stores, windows };
   }));
   const describeColorRam = (phase, name) => {
     const first = phase.groups.length ? 46 + phase.groups[0] * 8 : 51;
     const deadline = Math.min(51, first);
     return {
-      startRaster: 256,
+      startRaster: vblankRaster,
       deadlineRaster: deadline,
       mappingCycles: phase.writers[`Color${name}`].reduce((sum, line) => sum + instructionCycles(line), 0),
-      budgetCycles: (312 - 256 + deadline) * 63 - 180,
+      budgetCycles: (312 - vblankRaster + deadline) * palCyclesPerLine - 180,
     };
   };
   return {
@@ -255,15 +298,21 @@ function compileRasterPlan(a, b, enabled) {
       rasterPacked: packed,
       rasterMapFieldsA: packed ? displayA.fields.length : 0,
       rasterMapFieldsB: packed ? displayB.fields.length : 0,
-      rasterTableStride: tableWidth * 2,
+      rasterTableStride: plan?.stride ?? 0,
+      rasterIdlePlanA: 0,
+      rasterIdlePlanB: plan?.idlePlanB ?? 0,
+      rasterIdleFields: plan ? plan.idlePlanB + 1 : 0,
       rasterChunkEntryCycles: dispatchCycles,
       rasterChunkExitCycles: returnCycles,
-      rasterWorkDelayCycles: beforeDmaCycles + dmaBridgeCycles + afterDmaCycles,
+      rasterWorkDelayCycles: baseDelay,
     },
+    idleDelays: plan?.delays ?? [],
     tables: tables.map((entries) => `.word ${entries.join(", ")}`),
     report: packed ? {
       screenRam: { whileDisplayingA: describePhase(displayA), whileDisplayingB: describePhase(displayB) },
-      payloadCyclesPerGap: earlyBudget + lateBudget,
+      ...(plan.delays.length === 1 ? {
+        payloadCyclesPerGap: plan.delays[0] - dispatchCycles - dmaBridgeCycles - returnCycles,
+      } : {}),
       dispatchAndReturnCycles: dispatchCycles + returnCycles,
       colorRam: { phaseA: describeColorRam(a, "A"), phaseB: describeColorRam(b, "B") },
     } : null,

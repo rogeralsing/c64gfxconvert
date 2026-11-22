@@ -11,7 +11,7 @@ const { ribbonColorIndices, ribbonTileIds, RIBBON_INDEX_PATTERN, RIBBON_OUTSIDE_
 const width = 160;
 const height = 200;
 const background = 0;
-const usage = "Usage: node generate-four-line-bitmap.cjs <output-directory> [columns=64] [rows=16] [record|track|ribbon] [none|rows|columns|both|checker] [--scroll [row-colors.bin]]";
+const usage = "Usage: node generate-four-line-bitmap.cjs <output-directory> [columns=64] [rows=16] [record|track|ribbon] [none|rows|columns|both|checker] [--scroll [row-colors.bin]] [--split-plan split-plan.json] [--active-rows count]";
 
 class ImageData {
   constructor(width, height) {
@@ -175,7 +175,7 @@ function buildStatic(out, settings, gutters, fitter) {
   console.log(`The lower-half matrix changes ${changedByBottomMatrix} logical pixels.`);
 }
 
-function buildScrollPhase(out, settings, gutters, rowColors, halfRight) {
+function buildScrollPhase(out, settings, gutters, rowColors, halfRight, splits, activeRows) {
   const { along, across, shape } = settings;
   const { indices, tiles, leftGuard } = samplePhase(settings, gutters, halfRight);
   const phaseColumns = along + Number(halfRight);
@@ -184,29 +184,34 @@ function buildScrollPhase(out, settings, gutters, rowColors, halfRight) {
     if (indices[pixel] === background || tile === RIBBON_OUTSIDE_TILE) return 0xff00 | indices[pixel];
     return Math.floor(tile / phaseColumns) * stride + tile % phaseColumns;
   });
-  const fitted = fitScrollBitmap(targets, { columns: along, rows: across, rowColors });
-  const { bitmap, owners, slotChanges, mappingCycles } = optimizeSlots(fitted.bitmap, fitted.owners);
+  const fitted = fitScrollBitmap(targets, { columns: along, rows: across, rowColors, splits, activeRows });
+  const { bitmap, owners, slotChanges, mappingCycles } = optimizeSlots(fitted.bitmap, fitted.owners, splits);
 
   const targetData = Buffer.alloc(targets.length * 2);
   for (const [pixel, reference] of targets.entries()) targetData.writeUInt16LE(reference, pixel * 2);
   const screenTop = Buffer.alloc(1000);
   const screenBottom = Buffer.alloc(1000);
   const colorRam = Buffer.alloc(1000);
-  const initialColor = (reference) => reference >= 0xff00 ? reference & 15
-    : rowColors[Math.floor(reference / stride) * 1000 + reference % stride];
+  const initialColor = (reference) => {
+    if (reference >= 0xff00) return reference & 15;
+    const row = Math.floor(reference / stride);
+    return row < activeRows ? rowColors[row * 1000 + reference % stride] : background;
+  };
   let ownerChanges = 0;
   for (let cell = 0; cell < 1000; cell++) {
+    const cellRow = Math.floor(cell / 40);
+    const split = (splits?.[cellRow] ?? 4) || 8;
     const references = Array.from({ length: 5 }, (_, slot) => owners.readUInt16LE(cell * 10 + slot * 2));
     const colors = references.map(initialColor);
     screenTop[cell] = colors[0] << 4 | colors[1];
     screenBottom[cell] = colors[2] << 4 | colors[3];
     colorRam[cell] = colors[4];
     for (let row = 0; row < 8; row++) {
-      const pixel = (Math.floor(cell / 40) * 8 + row) * width + (cell % 40) * 4;
+      const pixel = (cellRow * 8 + row) * width + (cell % 40) * 4;
       const bits = bitmap[cell * 8 + row];
       for (let column = 0; column < 4; column++) {
         const code = (bits >> (6 - 2 * column)) & 3;
-        const slot = code === 3 ? 4 : Math.floor(row / 4) * 2 + code - 1;
+        const slot = code === 3 ? 4 : Number(row >= split) * 2 + code - 1;
         const reference = code === 0 ? 0xff00 : references[slot];
         if (reference !== targets[pixel + column]) ownerChanges++;
       }
@@ -220,6 +225,8 @@ function buildScrollPhase(out, settings, gutters, rowColors, halfRight) {
     leftGuardDisplayPixels: leftGuard * 2,
     logicalPixels: width * height,
     changedOwnerPixels: ownerChanges,
+    ...(splits && { splits }),
+    ...(activeRows !== across && { activeRows }),
     slotChanges,
     mappingCycles,
   };
@@ -235,8 +242,24 @@ function buildScrollPhase(out, settings, gutters, rowColors, halfRight) {
   console.log(`Slot changes: ${slotChanges.before} to ${slotChanges.after}. Mapping cycles before raster packing: ${mappingCycles.before} to ${mappingCycles.after}.`);
 }
 
+function readSplitPlan(path) {
+  const plan = JSON.parse(readFileSync(path, "utf8"));
+  for (const phase of ["phaseA", "phaseB"]) {
+    const splits = plan?.[phase];
+    if (!Array.isArray(splits) || splits.length !== 25 ||
+        splits.some((split, row) => !Number.isInteger(split) || split < 0 || split > (row === 24 ? 4 : 7))) {
+      throw new Error(`Split plan ${phase} must contain 25 cuts from 0 to 7, with at most 4 on the last row.`);
+    }
+  }
+  return plan;
+}
+
 function main() {
   const args = process.argv.slice(2);
+  const splitPlanIndex = args.indexOf("--split-plan");
+  const [, splitPlanPath] = splitPlanIndex >= 0 ? args.splice(splitPlanIndex, 2) : [];
+  const activeRowsIndex = args.indexOf("--active-rows");
+  const [, activeRowsArg] = activeRowsIndex >= 0 ? args.splice(activeRowsIndex, 2) : [];
   const scrollIndex = args.indexOf("--scroll");
   const scroll = scrollIndex >= 0;
   const [, rowColorPath, ...extraScrollArgs] = scroll ? args.splice(scrollIndex) : [];
@@ -247,16 +270,21 @@ function main() {
   }
   const along = Number(columns);
   const across = Number(rows);
-  if (!destination || rest.length || extraScrollArgs.length || !["record", "track", "ribbon"].includes(shape) ||
+  const activeRows = activeRowsIndex >= 0 ? Number(activeRowsArg) : across;
+  if (!destination || rest.length || extraScrollArgs.length || (splitPlanIndex >= 0 && (!scroll || !splitPlanPath)) ||
+      (activeRowsIndex >= 0 && (!scroll || !Number.isInteger(activeRows) || activeRows < 1 || activeRows > across)) ||
+      !["record", "track", "ribbon"].includes(shape) ||
       !["none", "rows", "columns", "both", "checker"].includes(gutters) || !Number.isInteger(along) || along < 1 || along > 80 ||
       !Number.isInteger(across) || across < 1 || across > 32) throw new Error(usage);
 
-  const settings = { shape, along, across, amplitude: 0.72, waves: 1.15, twist: 0.8, thickness: 0.57 };
+  const thickness = shape === "ribbon" && activeRows < across ? 0.7 : 0.57;
+  const settings = { shape, along, across, amplitude: 0.72, waves: 1.15, twist: 0.8, thickness };
   const out = resolve(destination);
   if (scroll) {
-    const rowColors = prepareRows(rowColorPath, across, along);
-    buildScrollPhase(join(out, "phase-a"), settings, gutters, rowColors, false);
-    buildScrollPhase(join(out, "phase-b"), settings, gutters, rowColors, true);
+    const rowColors = prepareRows(rowColorPath, activeRows, along);
+    const splitPlan = splitPlanPath ? readSplitPlan(splitPlanPath) : undefined;
+    buildScrollPhase(join(out, "phase-a"), settings, gutters, rowColors, false, splitPlan?.phaseA, activeRows);
+    buildScrollPhase(join(out, "phase-b"), settings, gutters, rowColors, true, splitPlan?.phaseB, activeRows);
     writeFileSync(join(out, "row-colors.bin"), rowColors);
     return;
   }
