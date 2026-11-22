@@ -18,7 +18,7 @@ from vice_monitor import Monitor, connect
 from vice_support import read_labels, vice_command
 
 ROW_BYTES = 1000
-FIELDS_PER_ADVANCE = 4
+DEFAULT_FIELDS_PER_ADVANCE = 4
 OWNER_RECORD = struct.Struct("<5H")
 BANK_BASES = (0x4000, 0x8000)
 LOGICAL_SIZE = (160, 200)
@@ -129,7 +129,11 @@ def verify(args, report):
     step_half_columns = raster_plan.get("stepHalfColumns", 1)
     support.require(type(step_half_columns) is int and step_half_columns > 0,
                     "stepHalfColumns must be a positive integer")
+    fields_per_advance = raster_plan.get("fieldsPerAdvance", DEFAULT_FIELDS_PER_ADVANCE)
+    support.require(type(fields_per_advance) is int and fields_per_advance in (3, 4),
+                    "fieldsPerAdvance must be 3 or 4")
     report["stepHalfColumns"] = step_half_columns
+    report["fieldsPerAdvance"] = fields_per_advance
     phase_paths = (assets / "phase-a", assets / "phase-b")
     fit = json.loads((phase_paths[0] / "fit.json").read_text())
     columns, rows = fit["columns"], fit["radialRows"]
@@ -194,7 +198,7 @@ def verify(args, report):
                         monitor.run("bank ram")
                         phase = monitor.dump(scratch, phase_addr, phase_addr)[0]
                         offset = int.from_bytes(monitor.dump(scratch, offset_addr, offset_addr + 1), "little")
-                        advance = field // FIELDS_PER_ADVANCE
+                        advance = field // fields_per_advance
                         expected_offset, expected_phase = divmod(2 * args.start_offset + advance * step_half_columns, 2)
                         expected_offset %= period
                         support.require((phase, offset) == (expected_phase, expected_offset),
@@ -246,7 +250,7 @@ def verify(args, report):
                         frame_record = {"field": field, "phase": "AB"[phase], "offset": offset,
                                         "cyclesFromPreviousField": elapsed, "lateBadlineRasters": image.late_rasters,
                                         "timingTraced": field != 0, "corePixelsMatched": 64000}
-                        if field % FIELDS_PER_ADVANCE == 0:
+                        if field % fields_per_advance == 0:
                             name = f"step-{advance:04d}.png"
                             actual.save(args.out / name)
                             frame_record["screenshot"] = name
@@ -288,8 +292,9 @@ def main():
         verify(args, report)
         report["passed"] = True
         step = report["stepHalfColumns"]
+        cadence = report["fieldsPerAdvance"]
         units = "half-column" if step == 1 else "half-columns"
-        print(f"Verified {args.fields} PAL fields, advancing {step} {units} every {FIELDS_PER_ADVANCE} fields "
+        print(f"Verified {args.fields} PAL fields, advancing {step} {units} every {cadence} fields "
               "with 64,000 exact display pixels per field.")
     except (KeyError, OSError, RuntimeError, ValueError) as error:
         report["error"] = str(error)

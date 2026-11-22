@@ -24,22 +24,17 @@
 .const firstDelay = (55 - 48) * palCyclesPerLine + (10 - 3) - naturalBadlineStall - 8
 .const groupDelay = 8 * palCyclesPerLine - naturalBadlineStall - lateBadlineStall - 24
 .const skippedGroupDelay = 8 * palCyclesPerLine - naturalBadlineStall
-.const framesPerHalfStep = 4
 .const rowBytes = 1000
-.const packedRowBytes = rowBytes / 2
 .const colorData = $e000
 .const wrapOffset = rowBytes - columnsA
 .const scrollPeriod = wrapOffset + 1
 .const lookupHalf = floor((columnsA + 1 + scrollBOffset) / 2) + 1
 .const lookupStride = 2 * lookupHalf
 .const lookupSize = rowCount * lookupStride
-.const lastLookup = floor(columnsA / 2) + (columnsA & 1) * lookupHalf
-.const extraLookupDelta = floor((columnsA + 1) / 2) + ((columnsA + 1) & 1) * lookupHalf - lastLookup
 .const readPtr = $f7
 .const packedOffset = $f9
 .const lookupRow = $fb
 .const sourceParity = $fc
-.const lookupWrap = $fd
 .const lzDestination = $f9
 .const lzMatch = $fb
 .const lzChunk = $fd
@@ -63,6 +58,7 @@
 
 .errorif imageA.getSize() != 8000 || imageB.getSize() != 8000, "Expected two 8000-byte bitmaps"
 .errorif colorData + rowCount * packedRowBytes > $fffa, "Packed color streams overlap interrupt vectors"
+.errorif floor(wrapOffset / 2) + lookupHalf > packedRowBytes, "Packed color row lacks wrap padding"
 .errorif startOffset != floor(startOffset) || startOffset < 0 || startOffset > wrapOffset, "Start offset outside the scroll loop"
 .errorif scrollBOffset < 0 || scrollBOffset > 1, "Expected at most one leading color column for phase B"
 .errorif colorCyclesA > (palLines - 256 + min(51, firstRasterA)) * palCyclesPerLine - 180, "Phase A Color RAM writer exceeds vblank"
@@ -213,6 +209,21 @@ scroll:
         jsr advanceOffset
         jsr prepareLookup
         inc lookupReady
+        .if (fieldsPerAdvance == 3) {
+            // If the table became ready after vblank, phase B can still start
+            // this field's raster work while its first IRQ is far enough away.
+            lda currentPhase
+            beq !waitB+
+            lda rasterJobActive
+            bne !waitB+
+            bit $d011
+            bmi !rearm+
+            lda $d012
+            cmp #firstRasterB - 2
+            bcs !waitB+
+        !rearm:
+            jsr selectRasterPlan
+        }
     !waitB:
         lda currentPhase
         beq !waitB-
@@ -257,25 +268,29 @@ writeScreenB:
     }
 
 preserveColorB:
-    .if (lookupSize >= 256) {
-        ldx #0
-    !pageByte:
-        .for (var page = 0; page < floor(lookupSize / 256); page++) {
-            lda waveLutLow + page * 256,x
-            sta waveLutColorB + page * 256,x
+    .if (sparseColorBLookup) {
+        PreserveSparseColorB()
+    } else {
+        .if (lookupSize >= 256) {
+            ldx #0
+        !pageByte:
+            .for (var page = 0; page < floor(lookupSize / 256); page++) {
+                lda waveLutLow + page * 256,x
+                sta waveLutColorB + page * 256,x
+            }
+            inx
+            bne !pageByte-
         }
-        inx
-        bne !pageByte-
-    }
-    .if ((lookupSize & $ff) != 0) {
-        .const pageOffset = lookupSize & $ff00
-        ldx #(lookupSize & $ff) - 1
-    !tailByte:
-        lda waveLutLow + pageOffset,x
-        sta waveLutColorB + pageOffset,x
-        dex
-        cpx #$ff
-        bne !tailByte-
+        .if ((lookupSize & $ff) != 0) {
+            .const pageOffset = lookupSize & $ff00
+            ldx #(lookupSize & $ff) - 1
+        !tailByte:
+            lda waveLutLow + pageOffset,x
+            sta waveLutColorB + pageOffset,x
+            dex
+            cpx #$ff
+            bne !tailByte-
+        }
     }
     rts
 
@@ -460,27 +475,6 @@ prepareLookup:
     lda nextOffset
     and #1
     sta sourceParity
-    lda #0
-    sta lookupWrap
-    lda nextOffset+1
-    cmp #>wrapOffset
-    bne !tryPrevious+
-    lda nextOffset
-    cmp #<wrapOffset
-    bne !tryPrevious+
-    lda #2
-    sta lookupWrap
-    bne !loadRow+
-!tryPrevious:
-    .if (scrollBOffset != 0) {
-        lda nextOffset+1
-        cmp #>(wrapOffset - 1)
-        bne !loadRow+
-        lda nextOffset
-        cmp #<(wrapOffset - 1)
-        bne !loadRow+
-        inc lookupWrap
-    }
 !loadRow:
     ldx lookupRow
     clc
@@ -506,9 +500,8 @@ prepareLookup:
 !decode:
     ldy #0
 !packedByte:
-    lda (readPtr),y
-    tax
-    lda lowNibble,x
+    lax (readPtr),y
+    and #$0f
 storeEvenLow:
     sta $ffff,y
     lda lowShifted,x
@@ -525,79 +518,12 @@ storeOddHigh:
     cpy #lookupHalf
     bne !packedByte-
 
-    lda lookupWrap
-    beq !next+
-    ldx lookupRow
-    jsr wrapLookup
-!next:
     inc lookupRow
     lda lookupRow
     cmp #rowCount
     beq !done+
     jmp !loadRow-
 !done:
-    rts
-
-// Beyond the physical end of a packed row, take the next colors from
-// that same row's prefix rather than from the next packed row.
-.macro LoadWrappedColumn(column) {
-    ldy #floor(column / 2)
-    lda (readPtr),y
-    .if ((column & 1) != 0) {
-        lsr
-        lsr
-        lsr
-        lsr
-    }
-    and #$f
-}
-
-.macro MoveWrapDestination(store, distance) {
-    .const displacement = distance & $ffff
-    clc
-    lda store+1
-    adc #<displacement
-    sta store+1
-    lda store+2
-    adc #>displacement
-    sta store+2
-}
-
-wrapLookup:
-    lda wrapLowLo,x
-    sta wrapStoreLow+1
-    lda wrapLowHi,x
-    sta wrapStoreLow+2
-    lda wrapHighLo,x
-    sta wrapStoreHigh+1
-    lda wrapHighHi,x
-    sta wrapStoreHigh+2
-    lda packedRowsLo,x
-    sta readPtr
-    lda packedRowsHi,x
-    sta readPtr+1
-    LoadWrappedColumn(columnsA - 1)
-    .if (scrollBOffset != 0) {
-        ldx lookupWrap
-        cpx #2
-        bne !extra+
-        jsr storeWrapColor
-        LoadWrappedColumn(columnsA)
-    !extra:
-        pha
-        MoveWrapDestination(wrapStoreLow, extraLookupDelta)
-        MoveWrapDestination(wrapStoreHigh, extraLookupDelta)
-        pla
-    }
-storeWrapColor:
-wrapStoreLow:
-    sta $ffff
-    asl
-    asl
-    asl
-    asl
-wrapStoreHigh:
-    sta $ffff
     rts
 
 armPhase:
@@ -769,7 +695,7 @@ frameComplete:
     .if (rasterPacked) {
         sta rasterMapCursor
     }
-    lda #framesPerHalfStep
+    lda #fieldsPerAdvance
     sta framesLeft
     bne !resume+
 !missed:
@@ -791,7 +717,7 @@ currentPhase:    .byte 0
 currentOffset:   .word startOffset
 nextOffset:      .word startOffset
 phaseReady:      .byte 0
-framesLeft:      .byte framesPerHalfStep
+framesLeft:      .byte fieldsPerAdvance
 missedDeadline:  .byte 0
 rasterMapCursor:
     .if (rasterPacked) { .byte 0 }
@@ -832,10 +758,6 @@ highOddLo:    .fill rowCount, <(waveLutHigh + i * lookupStride + lookupHalf)
 highOddHi:    .fill rowCount, >(waveLutHigh + i * lookupStride + lookupHalf)
 highShiftLo:  .fill rowCount, <(waveLutHigh + i * lookupStride + lookupHalf - 1)
 highShiftHi:  .fill rowCount, >(waveLutHigh + i * lookupStride + lookupHalf - 1)
-wrapLowLo:    .fill rowCount, <(waveLutLow + i * lookupStride + lastLookup)
-wrapLowHi:    .fill rowCount, >(waveLutLow + i * lookupStride + lastLookup)
-wrapHighLo:   .fill rowCount, <(waveLutHigh + i * lookupStride + lastLookup)
-wrapHighHi:   .fill rowCount, >(waveLutHigh + i * lookupStride + lastLookup)
 colorChunkStartsLo: .byte <colorChunk0, <colorChunk1, <colorChunk2, <colorChunk3
 colorChunkStartsHi: .byte >colorChunk0, >colorChunk1, >colorChunk2, >colorChunk3
 colorChunkEndsLo:   .byte <colorChunk0End, <colorChunk1End, <colorChunk2End, <colorChunk3End
@@ -851,7 +773,6 @@ colorChunkEndsHi:   .byte >colorChunk0End, >colorChunk1End, >colorChunk2End, >co
 }
 
 .align $100
-lowNibble:  .fill 256, i & $f
 lowShifted: .fill 256, (i & $f) << 4
 highNibble: .fill 256, i >> 4
 writeScreenTopA:
@@ -906,7 +827,9 @@ colorChunk2End:
 writeColorA:
     WriteColorA()
     rts
-waveLutColorB: .fill lookupSize, 0
+waveLutColorB: .fill colorBLookupSize, 0
+colorBIndices:
+    EmitSparseColorBIndices()
 .errorif * > $d000, "Color RAM writer and backup lookup overlap I/O"
 colorChunk3:
     StoreColorChunk($d000)

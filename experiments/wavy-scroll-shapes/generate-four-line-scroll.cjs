@@ -7,10 +7,14 @@ const { RIBBON_INDEX_PATTERN } = require("./ribbon.js");
 const { compileRasterPlan, instructionCycles } = require("./pack-four-line-raster.cjs");
 
 const rowBytes = 1000;
+// At the end of the stream, phase B's extra column and nibble alignment can
+// make the lookup fetch two more packed bytes than fit in the base row.
+const packedRowBytes = rowBytes / 2 + 2;
 const cells = 1000;
+const cellsPerRow = 40;
 const fixedBlack = 0xff00;
 const packedRowAddress = 0xe000;
-const usage = "Usage: node generate-four-line-scroll.cjs <asset-directory> [row-colors.bin] [--step 0.5|1.5] [--foreground]";
+const usage = "Usage: node generate-four-line-scroll.cjs <asset-directory> [row-colors.bin] [--step 0.5|1.5] [--fields-per-step 3|4] [--foreground]";
 
 function readPhase(out, name, lookupSize) {
   const path = join(out, `phase-${name.toLowerCase()}`);
@@ -41,20 +45,23 @@ function immediate(value) {
   return `#$${value.toString(16).padStart(2, "0")}`;
 }
 
-function operand(ref, high, lookup, lowTable = "waveLutLow") {
-  if (ref >= fixedBlack) return immediate((ref & 15) << (high ? 4 : 0));
+function lookupIndex(ref, lookup) {
   // The player writes the even and odd colors into separate halves of each LUT row.
   const { width, half, shift } = lookup;
   const row = Math.floor(ref / width);
   const column = ref % width + shift;
-  const index = row * 2 * half + (column >> 1) + (column & 1) * half;
-  return `${high ? "waveLutHigh" : lowTable} + ${index}`;
+  return row * 2 * half + (column >> 1) + (column & 1) * half;
+}
+
+function operand(ref, high, lookup, lowTable = "waveLutLow") {
+  if (ref >= fixedBlack) return immediate((ref & 15) << (high ? 4 : 0));
+  return `${high ? "waveLutHigh" : lowTable} + ${lookupIndex(ref, lookup)}`;
 }
 
 function emitWrites(cellsByValue, address, load) {
   const code = [];
   for (const [value, destinations] of cellsByValue.entries()) {
-    code.push(...load(value));
+    code.push(...load(value, destinations));
     for (const cell of destinations) code.push(`sta ${address} + ${cell}`);
   }
   return code;
@@ -74,11 +81,11 @@ function loadPair(pair, lookup) {
   return [`lda ${operand(high, true, lookup)}`, `ora ${operand(low, false, lookup)}`];
 }
 
-function compilePhase(planes, phase, lookup) {
+function collectPhase(planes, phase) {
   const groups = new Set();
   for (const [cell, { used, refs }] of planes.entries()) {
     if ((used[1] & 2 && refs[0] !== refs[2]) || (used[1] & 4 && refs[1] !== refs[3])) {
-      groups.add(Math.floor(cell / 40));
+      groups.add(Math.floor(cell / cellsPerRow));
     }
   }
 
@@ -86,8 +93,8 @@ function compilePhase(planes, phase, lookup) {
   const bottom = new Map();
   const color = new Map();
   for (const [cell, { used, refs }] of planes.entries()) {
-    const split = groups.has(Math.floor(cell / 40));
-    if (split && cell % 40 < 3 && (used[1] & ~1)) {
+    const split = groups.has(Math.floor(cell / cellsPerRow));
+    if (split && cell % cellsPerRow < 3 && (used[1] & ~1)) {
       throw new Error(`Phase ${phase} must leave the first three cells clear on late fetches.`);
     }
     const topCodes = split ? used[0] : used[0] | used[1];
@@ -101,14 +108,182 @@ function compilePhase(planes, phase, lookup) {
     if (bottomHigh !== fixedBlack || bottomLow !== fixedBlack) addDestination(bottom, bottomHigh * 0x10000 + bottomLow, cell);
     if ((used[0] | used[1]) & 8) addDestination(color, refs[4], cell);
   }
+  return { groups: [...groups], top, bottom, color };
+}
+
+function previousRef(ref, { width, shift }) {
+  if (ref >= fixedBlack) return ref;
+  // The trailing column can fall beyond A's available columns. Keep it
+  // distinct from the first column of the following wave row.
+  return ref % width + shift < width ? ref + shift : -1;
+}
+
+function previousScreenSources(previous) {
+  const pairs = new Map();
+  const lows = new Map();
+  for (const [address, writes] of [["screenTopA", previous.top], ["screenBottomA", previous.bottom]]) {
+    for (const [pair, locations] of writes) {
+      for (const cell of locations) {
+        const source = { address, cell };
+        addDestination(pairs, pair, source);
+        addDestination(lows, pair & 0xffff, source);
+      }
+    }
+  }
+  return { pairs, lows };
+}
+
+function findRightNeighbor(sources, destinations) {
+  return sources.find(({ cell }) => cell % cellsPerRow !== 0 && destinations.includes(cell - 1));
+}
+
+function loadScreenByte({ address, cell }) {
+  return `lda ${address} + ${cell}`;
+}
+
+function reuseScreenLoads(pairs, lookup, metrics) {
+  return (pair, destinations) => {
+    const load = loadPair(pair, lookup);
+    if (load.length === 1) return load;
+    const high = previousRef(pair >>> 16, lookup);
+    const low = previousRef(pair & 0xffff, lookup);
+    if (high < 0 || low < 0) return load;
+    const sources = pairs.get(high * 0x10000 + low);
+    if (!sources) return load;
+
+    // A remains displayed while we build B. Pick the previous image's
+    // right neighbor wherever that byte can supply this group of stores.
+    const rightNeighbor = findRightNeighbor(sources, destinations);
+    const replacement = loadScreenByte(rightNeighbor ?? sources[0]);
+    metrics.groups++;
+    if (rightNeighbor) metrics.rightNeighborGroups++;
+    metrics.stores += destinations.length;
+    metrics.mappingCyclesSaved += load.reduce((total, line) => total + instructionCycles(line), 0)
+      - instructionCycles(replacement);
+    return [replacement];
+  };
+}
+
+function omitUnchangedColorWrites(color, previous, lookup, metrics) {
+  const previousAt = new Map();
+  for (const [ref, destinations] of previous) {
+    for (const cell of destinations) previousAt.set(cell, ref);
+  }
+  const changed = new Map();
+  for (const [ref, destinations] of color) {
+    const priorRef = previousRef(ref, lookup);
+    const writes = destinations.filter((cell) => previousAt.get(cell) !== priorRef);
+    const skipped = destinations.length - writes.length;
+    metrics.storesSkipped += skipped;
+    metrics.mappingCyclesSaved += skipped * 4;
+    if (writes.length) changed.set(ref, writes);
+    else metrics.mappingCyclesSaved += instructionCycles(`lda ${operand(ref, false, lookup, "waveLutColorB")}`);
+  }
+  return changed;
+}
+
+function denseCopyCycles(size, load, branch) {
+  const pages = Math.floor(size / 256);
+  const tail = size % 256;
+  return (pages ? 1 + 256 * ((load + 5) * pages + 2 + branch) : 0)
+    + (tail ? 1 + tail * (load + 5 + 2 + 2 + branch) : 0);
+}
+
+function colorBackup(indexes, denseSize) {
+  const sorted = [...indexes].sort((a, b) => a - b);
+  const slots = new Map();
+  const groups = [];
+  for (const [slot, index] of sorted.entries()) {
+    const page = index >> 8;
+    const last = groups.at(-1);
+    if (last?.page !== page || last.count === 128) groups.push({ page, start: slot, count: 0 });
+    groups.at(-1).count++;
+    slots.set(index, slot);
+  }
+  // Compare a worst-case sparse loop against the cheapest dense copy.
+  // Each sparse entry occupies one index byte and one destination byte.
+  const sparseCycles = sorted.length * 21 + groups.length * 2;
+  const sparse = sparseCycles < denseCopyCycles(denseSize, 4, 3)
+    && 2 * sorted.length + 14 * groups.length <= denseSize;
   return {
-    groups: [...groups],
+    sparse,
+    size: sparse ? sorted.length : denseSize,
+    worstCaseCycles: sparse ? sparseCycles : denseCopyCycles(denseSize, 5, 4),
+    slots,
+    groups: sparse ? groups : [],
+    indices: sparse ? sorted.map((index) => index & 255) : [],
+  };
+}
+
+function planColorB(writes, lows, lookup, metrics) {
+  const loads = new Map();
+  const toCopy = new Set();
+  for (const [ref, destinations] of writes) {
+    if (ref >= fixedBlack) continue;
+    const sources = lows.get(previousRef(ref, lookup));
+    if (!sources) {
+      toCopy.add(lookupIndex(ref, lookup));
+      continue;
+    }
+    // A screen byte already has the needed low nibble. Color RAM discards
+    // the high nibble, so using the displayed matrix needs no mask.
+    loads.set(ref, loadScreenByte(findRightNeighbor(sources, destinations) ?? sources[0]));
+    metrics.screenLoadGroups++;
+    metrics.screenLoadStores += destinations.length;
+  }
+  const backup = colorBackup(toCopy, lookup.rows * 2 * lookup.half);
+  metrics.backupBytes = backup.size;
+  metrics.backupWorstCaseCycles = backup.worstCaseCycles;
+  return {
+    backup,
+    load(ref) {
+      if (loads.has(ref)) return loads.get(ref);
+      if (ref < fixedBlack && backup.sparse) return `lda waveLutColorB + ${backup.slots.get(lookupIndex(ref, lookup))}`;
+      return `lda ${operand(ref, false, lookup, "waveLutColorB")}`;
+    },
+  };
+}
+
+function emitSparseColorBCopy({ groups, indices }) {
+  const copy = groups.flatMap(({ page, start, count }) => [
+    `    ldx #${count - 1}`,
+    "!copy:",
+    `    ldy colorBIndices + ${start},x`,
+    `    lda waveLutLow + ${page * 256},y`,
+    `    sta waveLutColorB + ${start},x`,
+    "    dex",
+    "    bpl !copy-",
+  ]);
+  const table = [];
+  for (let start = 0; start < indices.length; start += 16) {
+    table.push(`    .byte ${indices.slice(start, start + 16).join(", ")}`);
+  }
+  return [".macro PreserveSparseColorB() {", ...copy, "}",
+    ".macro EmitSparseColorBIndices() {", ...table, "}"];
+}
+
+function compilePhase({ groups, top, bottom, color }, phase, lookup, previous) {
+  const reuse = {
+    screenRam: { groups: 0, rightNeighborGroups: 0, stores: 0, mappingCyclesSaved: 0 },
+    colorRam: { storesSkipped: 0, mappingCyclesSaved: 0, screenLoadGroups: 0, screenLoadStores: 0 },
+  };
+  const sources = previous ? previousScreenSources(previous) : null;
+  const load = sources
+    ? reuseScreenLoads(sources.pairs, lookup, reuse.screenRam)
+    : (pair) => loadPair(pair, lookup);
+  const colorWrites = previous
+    ? omitUnchangedColorWrites(color, previous.color, lookup, reuse.colorRam)
+    : color;
+  const colorB = sources ? planColorB(colorWrites, sources.lows, lookup, reuse.colorRam) : null;
+  const colorLoad = colorB ? colorB.load : (ref) => `lda ${operand(ref, false, lookup)}`;
+  return {
+    groups,
+    reuse,
+    backup: colorB?.backup,
     writers: {
-      [`ScreenTop${phase}`]: emitWrites(top, `screenTop${phase}`, (pair) => loadPair(pair, lookup)),
-      [`ScreenBottom${phase}`]: emitWrites(bottom, `screenBottom${phase}`, (pair) => loadPair(pair, lookup)),
-      [`Color${phase}`]: emitWrites(color, "colorRam", (ref) => [
-        `lda ${operand(ref, false, lookup, phase === "B" ? "waveLutColorB" : "waveLutLow")}`,
-      ]),
+      [`ScreenTop${phase}`]: emitWrites(top, `screenTop${phase}`, load),
+      [`ScreenBottom${phase}`]: emitWrites(bottom, `screenBottom${phase}`, load),
+      [`Color${phase}`]: emitWrites(colorWrites, "colorRam", (ref) => [colorLoad(ref)]),
     },
   };
 }
@@ -182,27 +357,41 @@ function compressRows(data) {
 }
 
 function main() {
-  const { positionals: [out, source, ...rest], values: { foreground, step } } = parseArgs({
+  const { positionals: [out, source, ...rest], values: { foreground, step, "fields-per-step": fields } } = parseArgs({
     allowPositionals: true,
-    options: { foreground: { type: "boolean" }, step: { type: "string", default: "1.5" } },
+    options: {
+      foreground: { type: "boolean" },
+      step: { type: "string", default: "1.5" },
+      "fields-per-step": { type: "string", default: "4" },
+    },
   });
-  if (!out || rest.length || !["0.5", "1.5"].includes(step)) throw new Error(usage);
+  if (!out || rest.length || !["0.5", "1.5"].includes(step) || !["3", "4"].includes(fields)) {
+    throw new Error(usage);
+  }
+  const fieldsPerAdvance = Number(fields);
   // Phase B already moves the geometry half a column relative to phase A.
   // A(n), B(n+1), A(n+3) give 1.5 columns on both transitions.
   const stepHalfColumns = step === "1.5" ? 3 : 1;
   const bOffset = (stepHalfColumns - 1) / 2;
   const { columns, radialRows: rows } = JSON.parse(readFileSync(join(out, "phase-a", "fit.json"), "utf8"));
   const lookupSize = rows * (columns + 1);
-  const lookup = { width: columns + 1, half: Math.floor((columns + 1 + bOffset) / 2) + 1 };
-  const a = compilePhase(readPhase(out, "A", lookupSize), "A", { ...lookup, shift: 0 });
-  const b = compilePhase(readPhase(out, "B", lookupSize), "B", { ...lookup, shift: bOffset });
+  const lookup = { width: columns + 1, half: Math.floor((columns + 1 + bOffset) / 2) + 1, rows };
+  const previous = collectPhase(readPhase(out, "A", lookupSize), "A");
+  const a = compilePhase(previous, "A", { ...lookup, shift: 0 });
+  const b = compilePhase(collectPhase(readPhase(out, "B", lookupSize), "B"), "B",
+    { ...lookup, shift: bOffset }, previous);
   const plan = compileRasterPlan(a, b, !foreground);
   const assembly = [
     "// Generated by generate-four-line-scroll.cjs.",
     `.const columnsA = ${columns}`,
     `.const rowCount = ${rows}`,
+    `.const packedRowBytes = ${packedRowBytes}`,
+    `.const fieldsPerAdvance = ${fieldsPerAdvance}`,
     `.const scrollColumnsPerPair = ${stepHalfColumns}`,
     `.const scrollBOffset = ${bOffset}`,
+    `.const sparseColorBLookup = ${b.backup.sparse}`,
+    `.const colorBLookupSize = ${b.backup.size}`,
+    ...emitSparseColorBCopy(b.backup),
     ".var phaseAGroups = List()",
     ...a.groups.map((group) => `.eval phaseAGroups.add(${group})`),
     ".var phaseBGroups = List()",
@@ -225,20 +414,27 @@ function main() {
     console.log(`${name}: ${cycles} mapping cycles`);
   }
   const raw = prepareRows(source, rows, columns);
-  const packed = Buffer.alloc(raw.length / 2);
-  for (let offset = 0; offset < packed.length; offset++) packed[offset] = raw[offset * 2] | (raw[offset * 2 + 1] << 4);
+  const period = rowBytes + 1 - columns;
+  const packed = Buffer.alloc(rows * packedRowBytes);
   if (packedRowAddress + packed.length > 0xfffa) throw new Error("The player can store up to 16 color rows.");
+  for (let row = 0; row < rows; row++) {
+    for (let offset = 0; offset < packedRowBytes; offset++) {
+      const low = raw[row * rowBytes + (offset * 2) % period];
+      const high = raw[row * rowBytes + (offset * 2 + 1) % period];
+      packed[row * packedRowBytes + offset] = low | (high << 4);
+    }
+  }
   const packedLz = compressRows(packed);
   writeFileSync(join(out, "row-colors.bin"), raw);
   writeFileSync(join(out, "row-colors-lz.bin"), packedLz);
   writeFileSync(join(out, "four-line-scroll-generated.asm"), assembly.join("\n"));
-  const report = { mode: plan.report ? "raster" : "foreground", stepHalfColumns, ...plan.report };
+  const report = { mode: plan.report ? "raster" : "foreground", stepHalfColumns, fieldsPerAdvance, reuse: b.reuse, ...plan.report };
   writeFileSync(join(out, "raster-plan.json"), `${JSON.stringify(report, null, 2)}\n`);
   if (plan.report) {
     console.log(`Packed screen updates into ${plan.constants.rasterMapFieldsA} fields during A and ${plan.constants.rasterMapFieldsB} fields during B.`);
   }
   console.log(`Late fetches per field: A=${a.groups.length}, B=${b.groups.length}.`);
-  console.log(`Scroll step: ${step} columns per update.`);
+  console.log(`Scroll step: ${step} columns every ${fieldsPerAdvance} PAL fields.`);
   console.log(`Packed color rows: ${packedLz.length} compressed bytes.`);
 }
 
