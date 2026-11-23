@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vågscrollern · Tre geometrier</title>
+  <style>
+    :root { color-scheme: dark; font: 16px system-ui, sans-serif; background: #111213; color: #e9ebec; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    main { width: min(100% - 2rem, 62rem); margin: clamp(1rem, 5vw, 3rem) auto; }
+    header { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+    h1 { margin: 0; font-size: clamp(1.45rem, 4vw, 2rem); font-weight: 650; }
+    nav, .controls { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+    .controls { margin: .9rem 0; }
+    button, select, a { font: inherit; color: inherit; }
+    button, select { padding: .45rem .7rem; border: 1px solid #47494b; border-radius: .35rem; background: #222426; }
+    button[aria-pressed="true"] { background: #d8edb5; color: #161c12; border-color: #d8edb5; }
+    label { display: flex; align-items: center; gap: .45rem; }
+    a { color: #d8edb5; text-underline-offset: .18em; }
+    .screen { border: 1px solid #434649; background: #000; overflow: hidden; }
+    canvas { display: block; width: 100%; aspect-ratio: 8 / 5; image-rendering: pixelated; }
+    .timeline { display: flex; gap: .7rem; align-items: center; margin-top: .9rem; }
+    .timeline input { flex: 1; min-width: 4rem; accent-color: #d8edb5; }
+    output { min-width: 4.5em; text-align: right; font-variant-numeric: tabular-nums; }
+    @media (max-width: 38rem) { .timeline label { font-size: .85rem; } }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>Tre geometrier för vågscrollern</h1>
+      <nav aria-label="Välj geometri"></nav>
+    </header>
+    <div class="controls">
+      <button id="play" type="button">Pausa</button>
+      <label>Visning
+        <select id="view"><option value="target">Geometri</option><option value="fitted">C64 FLI</option></select>
+      </label>
+      <label>Färger
+        <select id="texture"><option value="pattern">Färgrutor</option><option value="tape">Färgström</option></select>
+      </label>
+      <a id="program" download>Hämta PRG</a>
+    </div>
+    <div class="screen"><canvas id="screen" aria-label="Geometriförhandsvisning"></canvas></div>
+    <div class="timeline">
+      <label for="position">Kolumn</label>
+      <input id="position" type="range" min="0" value="0">
+      <output for="position"></output>
+    </div>
+  </main>
+  <script id="data" type="application/json">/* DATA */</script>
+  <script>/* PLAYER */</script>
+</body>
+</html>

@@ -9,19 +9,29 @@ const rowBytes = 1000;
 const wrapBytes = 63;
 const period = rowBytes - wrapBytes;
 const glyphSize = 16;
+const black = 0;
+const white = 1;
 const darkBlue = 6;
 const lightBlue = 14;
+const darkGray = 11;
+const mediumGray = 12;
+const lightGray = 15;
+const gradientColors = [0, 9, 2, 4, 12, 10, 15, 7, 1, 13, 3, 14, 12, 4, 11, 6];
 const intro = "*** COMMODORE 64 ***";
 const caption = "ASYNKRON PRESENTS";
 const graphicsPath = join(__dirname, "demo", "font-scroll-colors.bin");
-// The original tape contains this same group of game graphics and color patterns twice.
+// Keep the five game graphics from the original tape.
 const graphicsSourceStart = 148;
-const graphicsSourceEnd = 357;
+const graphicsSourceEnd = 239;
 const introStart = 16;
 const fadeStart = introStart + intro.length * glyphSize + 16;
 const fadeWidth = 64;
 const graphicsStart = fadeStart + fadeWidth + 8;
-const captionStart = graphicsStart + graphicsSourceEnd - graphicsSourceStart + 16;
+const gradientStart = graphicsStart + graphicsSourceEnd - graphicsSourceStart + 9;
+const gradientStep = 7;
+const gradientWidth = (gradientColors.length - 1) * gradientStep + 4;
+const gradientTop = 4;
+const captionStart = gradientStart + gradientWidth + 16;
 
 const bayer = [
   [0, 48, 12, 60, 3, 51, 15, 63],
@@ -46,6 +56,28 @@ function readRom(path) {
   return rom;
 }
 
+function antialiasGlyph(mask) {
+  const inkAt = (x, y) => x >= 0 && x < glyphSize && y >= 0 && y < glyphSize
+    && (mask[y] & (0x8000 >> x)) !== 0;
+
+  return mask.map((_, y) => Uint8Array.from({ length: glyphSize }, (_, x) => {
+    const ink = inkAt(x, y);
+    let corners = 0;
+    // A change at a corner requires all three surrounding pixels to agree.
+    // Straight edges and the centers of strokes keep their original color.
+    for (const dy of [-1, 1]) {
+      for (const dx of [-1, 1]) {
+        corners += Number(inkAt(x + dx, y) !== ink
+          && inkAt(x, y + dy) !== ink
+          && inkAt(x + dx, y + dy) !== ink);
+      }
+    }
+    if (ink) return corners > 0 ? lightGray : white;
+    if (corners === 0) return black;
+    return corners === 1 ? darkGray : mediumGray;
+  }));
+}
+
 function readFont(path) {
   const data = JSON.parse(readFileSync(path, "utf8"));
   const glyphs = new Map();
@@ -55,9 +87,21 @@ function readFont(path) {
         !mask.every((line) => typeof line === "string" && /^[0-9a-f]{4}$/i.test(line))) {
       throw new Error(`Expected 16 four-digit hex rows for ${JSON.stringify(character)} in the 16×16 font.`);
     }
-    glyphs.set(character, mask.map((line) => Number.parseInt(line, 16)));
+    glyphs.set(character, antialiasGlyph(mask.map((line) => Number.parseInt(line, 16))));
   }
   return glyphs;
+}
+
+function drawGradientRow(colors, base, row) {
+  const thresholds = bayer[row - gradientTop];
+  if (!thresholds) return;
+
+  for (let x = 0; x < gradientWidth; x += 1) {
+    const stop = Math.floor(x / gradientStep);
+    const blend = x % gradientStep;
+    const useNext = stop + 1 < gradientColors.length && thresholds[x & 7] * gradientStep < blend * 64;
+    colors[base + gradientStart + x] = gradientColors[stop + Number(useNext)];
+  }
 }
 
 function render(rom, font, graphics) {
@@ -87,12 +131,10 @@ function render(rom, font, graphics) {
       }
     }
     graphics.copy(colors, base + graphicsStart, base + graphicsSourceStart, base + graphicsSourceEnd);
+    drawGradientRow(colors, base, row);
     for (const [index, character] of Array.from(caption).entries()) {
-      const mask = font.get(character)[row];
       const start = base + captionStart + index * glyphSize;
-      for (let x = 0; x < glyphSize; x += 1) {
-        if (mask & (0x8000 >> x)) colors[start + x] = lightBlue;
-      }
+      colors.set(font.get(character)[row], start);
     }
     colors.copy(colors, base + period, base, base + wrapBytes);
   }
