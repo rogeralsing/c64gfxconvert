@@ -175,9 +175,10 @@ function buildStatic(out, settings, gutters, fitter) {
   console.log(`The lower-half matrix changes ${changedByBottomMatrix} logical pixels.`);
 }
 
-function buildScrollPhase(out, settings, gutters, rowColors, halfRight, splits, activeRows) {
+function buildScrollPhase(out, settings, gutters, rowColors, halfRight, splits, activeRows,
+  phase = samplePhase(settings, gutters, halfRight)) {
   const { along, across, shape } = settings;
-  const { indices, tiles, leftGuard } = samplePhase(settings, gutters, halfRight);
+  const { indices, tiles, leftGuard } = phase;
   const phaseColumns = along + Number(halfRight);
   const stride = along + 1;
   const targets = Uint16Array.from(tiles, (tile, pixel) => {
@@ -298,9 +299,13 @@ function main() {
   buildStatic(out, settings, gutters, { ...fitter, palette, brightnessBands, colorGroups });
 }
 
-try {
-  main();
-} catch (error) {
-  console.error(error.message);
-  process.exitCode = 1;
+if (require.main === module) {
+  try {
+    main();
+  } catch (error) {
+    console.error(error.message);
+    process.exitCode = 1;
+  }
 }
+
+module.exports = { buildScrollPhase };

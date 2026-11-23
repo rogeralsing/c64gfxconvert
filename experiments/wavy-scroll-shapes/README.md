@@ -20,12 +20,12 @@ python3 verify-four-line-scroll-vice.py /tmp/wavy-active-window --fields 260 --s
 
 One raster pass per phase writes the common Screen RAM destinations and a few bordering groups. The foreground mapper handles the remaining active destinations and clears those that leave the window. Phase B saves staged colors in Screen RAM nibbles unused by the bitmap.
 
-[The Y-sine demo](demo/wave-four-line-y-sine.prg) moves the active window through all nine starts over 96 A/B pairs. The sine is sampled in quarter rows. The upper bits select the window start and the low two bits set the fine-scroll offset. Both changes take effect together in VBlank.
+[The Y-sine demo](demo/wave-four-line-y-sine.prg) advances half a wave column every two PAL fields (25.06 updates/s). It moves the active window through all nine starts over 96 A/B pairs. The sine is sampled in quarter rows. The upper bits select the window start and the low two bits set the fine-scroll offset. Both changes take effect together in VBlank.
 
-The color tape starts with `*** COMMODORE 64 ***` in doubled C64 ROM letters, fades the blue to black with ordered dithering and plays the original game graphics. The closing caption uses Shiru's CC0 Jelly 16×16 font, converted to a monochrome 2×2 C64 character layout at its original size. [Jelly 16×16 source](https://opengameart.org/content/jelly-16x16-font)
+The color tape starts with `*** COMMODORE 64 ***` in doubled C64 ROM letters and fades from blue to black. The original game graphics are followed by an eight-row palette dither. The closing caption uses Shiru's CC0 Jelly 16×16 font at its original size, in white with corner antialiasing in the three C64 grays. [Jelly 16×16 source](https://opengameart.org/content/jelly-16x16-font)
 
 ```sh
-bash build-four-line-scroll.sh /tmp/wavy-y-sine 64 24 ribbon none demo/y-sine-colors.bin 1.5 2 '' 16 --y-sine
+bash build-four-line-scroll.sh /tmp/wavy-y-sine 64 24 ribbon none demo/y-sine-colors.bin 0.5 2 '' 16 --y-sine
 python3 verify-four-line-scroll-vice.py /tmp/wavy-y-sine --fields 388 --start-offset 932
 ```
 
