@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fake sprites · C64</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --page: #101421;
+    --panel: #171c2b;
+    --line: #333e55;
+    --text: #edf3fb;
+    --quiet: #acb9d0;
+    --accent: #81e5db;
+    --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    background: var(--page);
+    color: var(--text);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font: 16px/1.5 system-ui, sans-serif;
+  }
+
+  main {
+    max-width: 1152px;
+    margin-inline: auto;
+    padding: clamp(16px, 4vw, 48px);
+  }
+
+  header {
+    margin-bottom: 24px;
+    padding: 0 0 24px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  h1, h2, p { margin: 0; }
+  h1 {
+    margin-block: 2px 6px;
+    font-size: clamp(34px, 6vw, 60px);
+    line-height: 1;
+    letter-spacing: -.056em;
+  }
+
+  .mode, .axis, th, output, .swatch span {
+    font: 600 13px/1.35 var(--mono);
+  }
+
+  .mode { color: var(--accent); }
+  .summary, .axis, th { color: var(--quiet); }
+  h2 { font-size: 16px; }
+
+  .simulation { margin-bottom: 22px; }
+
+  .simulation .panel-head { margin-bottom: 12px; }
+
+  .simulation-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 228px;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .screen-frame {
+    position: relative;
+    background: #000;
+    border: 1px solid var(--line);
+  }
+
+  .screen-frame canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+
+  #overlap-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: center;
+  }
+
+  .timeline button {
+    color: var(--text);
+    min-height: 44px;
+    font: 600 18px var(--mono);
+  }
+
+  .timeline button:disabled {
+    opacity: .4;
+    cursor: default;
+  }
+
+  .frame-label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  #frame { display: block; width: 100%; min-height: 24px; cursor: ew-resize; }
+
+  .overlap-controls {
+    display: grid;
+    align-content: start;
+    gap: 9px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+  }
+
+  .overlap-controls p { color: var(--quiet); font-size: 13px; }
+  .overlap-controls output { color: #ffd174; }
+
+  .workspace {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 288px;
+    gap: 22px;
+    align-items: start;
+  }
+
+  .panel {
+    min-width: 0;
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: clamp(12px, 2.2vw, 24px);
+  }
+
+  .panel-head, .tile-key {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+
+  .axis { margin-block: 13px 3px; }
+  table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    text-align: center;
+  }
+
+  thead th { padding-block: 0 4px; }
+  th:first-child {
+    width: 25px;
+    text-align: left;
+  }
+
+  td { padding: clamp(2px, 0.6vw, 7px); }
+  button {
+    display: block;
+    width: 100%;
+    max-width: 108px;
+    margin-inline: auto;
+    padding: 4px;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover { border-color: var(--quiet); }
+  button[aria-pressed="true"] {
+    background: #223b42;
+    border-color: var(--accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .tile {
+    display: block;
+    position: relative;
+  }
+
+  .tile canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+    image-rendering: pixelated;
+  }
+
+  .show-grid .tile::after {
+    --char-size: calc(100% / var(--tile-chars));
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, transparent calc(100% - 1px), #c8dfff46 0) left top / var(--char-size) 100% repeat-x,
+      linear-gradient(to bottom, transparent calc(100% - 1px), #c8dfff46 0) left top / 100% var(--char-size) repeat-y;
+    content: "";
+    pointer-events: none;
+  }
+
+  .preview {
+    margin-block: 14px;
+    max-width: 256px;
+    border: 1px solid var(--line);
+  }
+
+  output { color: var(--accent); }
+  label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  input { margin: 0; accent-color: var(--accent); }
+
+  .colors {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-block: 16px 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    list-style: none;
+  }
+
+  .swatch {
+    display: grid;
+    gap: 5px;
+    color: var(--quiet);
+    text-align: center;
+  }
+
+  .swatch i {
+    height: 10px;
+    border: 1px solid #ffffff38;
+    background: var(--swatch);
+  }
+
+  @media (max-width: 780px) {
+    .workspace, .simulation-layout { grid-template-columns: minmax(0, 1fr); }
+  }
+
+  @media (max-width: 460px) {
+    main { padding-inline: 10px; }
+    button { padding: 2px; }
+  }
+</style>
+</head>
+<body>
+<main class="show-grid">
+  <header>
+    <p class="mode">C64 / MULTICOLOR CHAR</p>
+    <h1>Fake sprites</h1>
+    <p class="summary">En 2×2-char-sfär i en 3×3-char-tile. <span id="charset-size"></span></p>
+  </header>
+
+  <section class="panel simulation" aria-labelledby="simulation-heading">
+    <div class="panel-head">
+      <h2 id="simulation-heading">Liveplottning</h2>
+      <p class="mode" id="simulation-mode"></p>
+    </div>
+    <div class="simulation-layout">
+      <div>
+        <div class="timeline">
+          <button id="previous-frame" type="button" aria-label="Föregående bildruta">←</button>
+          <div>
+            <div class="frame-label">
+              <label for="frame">Bildruta</label>
+              <output id="frame-number" for="frame"></output>
+            </div>
+            <input id="frame" type="range" min="0" max="255" step="1" value="0">
+          </div>
+          <button id="next-frame" type="button" aria-label="Nästa bildruta">→</button>
+        </div>
+        <div class="screen-frame">
+          <canvas id="screen" width="320" height="200" role="img" aria-label="Simulerad C64-bild"></canvas>
+          <canvas id="overlap-layer" width="320" height="200" aria-hidden="true"></canvas>
+        </div>
+      </div>
+      <div class="overlap-controls">
+        <label><input id="patching" type="checkbox" checked> Teckenpatchning</label>
+        <label><input id="show-overlaps" type="checkbox" checked> <span id="overlay-label">Markera patchade celler</span></label>
+        <output id="overlap-count" for="frame patching"></output>
+        <p id="overlay-note">Gul ram visar patchade celler i teckenlagret.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="workspace">
+    <section class="panel" aria-labelledby="positions">
+      <div class="panel-head">
+        <h2 id="positions">25 bollpositioner</h2>
+        <label><input type="checkbox" id="grid" checked> Teckenrutnät</label>
+      </div>
+      <p class="axis" id="axes">X i breda pixlar · Y i rasterrader</p>
+      <table id="atlas" aria-labelledby="positions" aria-describedby="axes"></table>
+    </section>
+
+    <section class="panel" aria-labelledby="preview-heading">
+      <div class="tile-key">
+        <h2 id="preview-heading">Vald tile</h2>
+        <output id="position"></output>
+      </div>
+      <div class="tile preview">
+        <canvas id="preview" role="img" aria-label="Förstoring av vald tile"></canvas>
+      </div>
+      <ul class="colors" id="colors" aria-label="Multicolor-värden"></ul>
+    </section>
+  </div>
+</main>
+<script src="ball-tiles.js"></script>
+<script src="four-phase-motion.js"></script>
+<script>
+  const {
+    CHAR_WIDTH, CHAR_HEIGHT, TILE_CHARS, TILE_WIDTH, TILE_HEIGHT, BALL_WIDTH, BALL_HEIGHT,
+    Y_STEP, palette, charset, sprite, tileAt,
+  } = BallTiles;
+
+  function drawMulticolorByte(context, byte, x, y, transparent = false) {
+    for (let pixel = 0; pixel < CHAR_WIDTH; pixel++) {
+      const shift = 2 * (CHAR_WIDTH - 1 - pixel);
+      const color = (byte >> shift) & 3;
+      if (transparent && color === 0) continue;
+      context.fillStyle = palette[color][0];
+      context.fillRect(x + 2 * pixel, y, 2, 1);
+    }
+  }
+
+  function drawGlyph(context, glyph, x, y) {
+    glyph.forEach((byte, row) => drawMulticolorByte(context, byte, x, y + row));
+  }
+
+  function drawSprite(context, x, y) {
+    const rowBytes = 3;
+    const rows = 21;
+    for (let row = 0; row < rows; row++) {
+      for (let column = 0; column < rowBytes; column++) {
+        drawMulticolorByte(context, sprite[row * rowBytes + column], x + 2 * column * CHAR_WIDTH, y + row, true);
+      }
+    }
+  }
+
+  function drawTile(canvas, tile) {
+    canvas.width = 2 * TILE_WIDTH;
+    canvas.height = TILE_HEIGHT;
+    const context = canvas.getContext('2d');
+    tile.forEach((charCode, slot) => {
+      const charX = slot % TILE_CHARS;
+      const charY = Math.floor(slot / TILE_CHARS);
+      drawGlyph(context, charset[charCode], 2 * charX * CHAR_WIDTH, charY * CHAR_HEIGHT);
+    });
+  }
+
+  const {
+    PHASE_COUNT, SCREEN_COLUMNS, coveringGlyphs, placeBall, selectLiveSources, selectSpriteSources, plotFrame,
+  } = FourPhaseMotion;
+  const sources = selectLiveSources();
+  const spriteSources = selectSpriteSources(sources);
+  const screen = document.querySelector('#screen');
+  const screenContext = screen.getContext('2d', { alpha: false });
+  const overlapContext = document.querySelector('#overlap-layer').getContext('2d');
+  const frameInput = document.querySelector('#frame');
+  const frameNumber = document.querySelector('#frame-number');
+  const previousFrame = document.querySelector('#previous-frame');
+  const nextFrame = document.querySelector('#next-frame');
+  const patchingInput = document.querySelector('#patching');
+  const showOverlaps = document.querySelector('#show-overlaps');
+  const overlapCount = document.querySelector('#overlap-count');
+  const overlayLabel = document.querySelector('#overlay-label');
+  const overlayNote = document.querySelector('#overlay-note');
+  const simulationMode = document.querySelector('#simulation-mode');
+  const lastFrame = PHASE_COUNT - 1;
+  const cellWidth = 2 * CHAR_WIDTH;
+  frameInput.max = lastFrame;
+
+  function drawFrame() {
+    const frame = frameInput.valueAsNumber;
+    const patching = patchingInput.checked;
+    const { screen: codes, font, missingPixels, patchedCells } = plotFrame(frame, sources, patching);
+    screenContext.fillStyle = palette[0][0];
+    screenContext.fillRect(0, 0, screen.width, screen.height);
+    overlapContext.clearRect(0, 0, screen.width, screen.height);
+    overlapContext.strokeStyle = '#ffd174';
+    let markedCells = 0;
+    for (const [index, code] of codes.entries()) {
+      const x = index % SCREEN_COLUMNS * cellWidth;
+      const y = Math.floor(index / SCREEN_COLUMNS) * CHAR_HEIGHT;
+      if (code) drawGlyph(screenContext, font[code], x, y);
+      const marked = patching ? patchedCells[index] : !coveringGlyphs[code] && missingPixels[index];
+      if (!marked) continue;
+      markedCells++;
+      if (showOverlaps.checked) {
+        overlapContext.strokeRect(x + .5, y + .5, cellWidth - 1, CHAR_HEIGHT - 1);
+      }
+    }
+    for (const source of spriteSources) {
+      const { x, y } = placeBall(frame, source);
+      drawSprite(screenContext, 2 * x, y);
+    }
+    simulationMode.textContent = `${sources.length} teckenbollar + ${spriteSources.length} sprites · PAL${patching ? ' 25 fps' : ''}`;
+    overlayLabel.textContent = patching ? 'Markera patchade celler' : 'Markera ritfel vid överlapp';
+    overlayNote.textContent = patching
+      ? 'Gul ram visar patchade celler i teckenlagret.'
+      : 'Gul ram visar pixelförlust i teckenlagret. Tecken med högst en svart multicolor-pixel räknas som heltäckande.';
+    frameNumber.value = `${String(frame).padStart(3, '0')} / ${lastFrame}`;
+    overlapCount.value = patching
+      ? `${markedCells} ${markedCells === 1 ? 'patchad cell' : 'patchade celler'}`
+      : `${markedCells} ${markedCells === 1 ? 'cell' : 'celler'} med ritfel`;
+    previousFrame.disabled = frame === 0;
+    nextFrame.disabled = frame === lastFrame;
+    screen.setAttribute('aria-label', `Simulerad C64-bild, bildruta ${frame}`);
+  }
+
+  frameInput.addEventListener('input', drawFrame);
+  patchingInput.addEventListener('change', drawFrame);
+  showOverlaps.addEventListener('change', drawFrame);
+  previousFrame.addEventListener('click', () => {
+    frameInput.stepDown();
+    drawFrame();
+  });
+  nextFrame.addEventListener('click', () => {
+    frameInput.stepUp();
+    drawFrame();
+  });
+  drawFrame();
+
+  const main = document.querySelector('main');
+  main.style.setProperty('--tile-chars', TILE_CHARS);
+  const atlas = document.querySelector('#atlas');
+  const preview = document.querySelector('#preview');
+  const position = document.querySelector('#position');
+  const xOffsets = Array.from({ length: TILE_WIDTH - BALL_WIDTH + 1 }, (_, x) => x);
+  const yOffsets = Array.from({ length: (TILE_HEIGHT - BALL_HEIGHT) / Y_STEP + 1 }, (_, index) => index * Y_STEP);
+  let selectedButton;
+
+  function select(button, tile, x, y) {
+    selectedButton?.setAttribute('aria-pressed', 'false');
+    selectedButton = button;
+    selectedButton.setAttribute('aria-pressed', 'true');
+    position.value = `X ${x} · Y ${y}`;
+    preview.setAttribute('aria-label', `Förstoring av tile vid X ${x}, Y ${y}`);
+    drawTile(preview, tile);
+  }
+
+  atlas.createTHead().insertRow().innerHTML =
+    '<th scope="col">Y</th>' + xOffsets.map(x => `<th scope="col">X ${x}</th>`).join('');
+  const body = atlas.createTBody();
+  for (const y of yOffsets) {
+    const row = body.insertRow();
+    row.innerHTML = `<th scope="row">${y}</th>`;
+    for (const x of xOffsets) {
+      const cell = row.insertCell();
+      cell.innerHTML = `
+        <button type="button" aria-label="X ${x}, Y ${y}" aria-pressed="false">
+          <span class="tile"><canvas aria-hidden="true"></canvas></span>
+        </button>`;
+      const button = cell.firstElementChild;
+      const tile = tileAt(x, y);
+      drawTile(button.querySelector('canvas'), tile);
+      button.addEventListener('click', () => select(button, tile, x, y));
+      if (x === 0 && y === yOffsets.at(-1)) select(button, tile, x, y);
+    }
+  }
+
+  document.querySelector('#charset-size').textContent = `${charset.length} unika chars inklusive blanktecknet.`;
+
+  document.querySelector('#grid').addEventListener('change', event => {
+    main.classList.toggle('show-grid', event.target.checked);
+  });
+
+  document.querySelector('#colors').innerHTML = palette.map(([hex, name], index) => `
+    <li class="swatch" title="${name}">
+      <i style="--swatch: ${hex}" aria-hidden="true"></i>
+      <span aria-label="${name}">${index.toString(2).padStart(2, '0')}</span>
+    </li>`).join('');
+</script>
+</body>
+</html>
