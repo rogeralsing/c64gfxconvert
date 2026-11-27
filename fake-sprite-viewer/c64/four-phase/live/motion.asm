@@ -34,7 +34,7 @@ advanceMotion:
     sta motionY2
     rts
 
-// X selects the source ordinal and is preserved. Coordinates are in wide pixels and raster lines.
+// X selects the source ordinal and is preserved. Return wide X in A and raster Y in Y.
 locateBall:
     ldy motionOffsetX1,x
     lda (motionX1),y
@@ -52,7 +52,8 @@ locateBall:
     adc (motionY2),y
     tay
     lda motionQuantY,y
-    sta ballY
+    tay
+    lda ballX
     rts
 
 .align $100

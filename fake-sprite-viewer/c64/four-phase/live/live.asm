@@ -25,7 +25,6 @@
 .label ballOrdinal = $07
 .label pendingXHigh = $08
 .label ballX = $40
-.label ballY = $41
 
 BasicUpstart2(start)
 
@@ -127,8 +126,6 @@ beginFrame:
 
 renderBall:
     jsr locateBall
-    lda ballX
-    ldy ballY
     jsr drawCharacterBall
     ldx ballOrdinal
     inx
@@ -142,13 +139,12 @@ renderBall:
     .for (var slot = SPRITE_COUNT - 1; slot >= 0; slot--) {
         ldx #TOTAL_BALL_COUNT - 1 - slot
         jsr locateBall
-        lda ballX
         clc
         adc #12
         asl
         sta pendingX + slot
         rol pendingXHigh
-        lda ballY
+        tya
         clc
         adc #50
         sta pendingY + slot
