@@ -6,7 +6,6 @@
 .const LIVE_CHAR_TILE_BYTES = LIVE_CHAR_TILE_SIZE * LIVE_CHAR_TILE_SIZE
 
 .label liveCharPage = $20
-.label liveCharFont = $21
 .label liveCharX = $22
 .label liveCharFront = $24
 .label liveCharNextScratch = $27
@@ -18,6 +17,8 @@
 .label liveCharPhaseByY = LIVE_CHAR_POSITION_DATA
 .label liveCharRowLo = LIVE_CHAR_POSITION_DATA + $100
 .label liveCharRowHi = LIVE_CHAR_POSITION_DATA + $200
+.label liveCharGlyphPageA = LIVE_CHAR_POSITION_DATA + $300
+.label liveCharGlyphPageB = LIVE_CHAR_POSITION_DATA + $400
 
 .function liveCharKeepMask(byte) {
     .var mask = 0
@@ -179,7 +180,13 @@ initCharacters:
 // A is the target screen page. X is the matching charset page.
 beginCharacterFrame:
     sta liveCharPage
-    stx liveCharFont
+    lda #>liveCharGlyphPageA
+    cpx #>CHARSET
+    beq liveCharSelectGlyphTable
+    lda #>liveCharGlyphPageB
+liveCharSelectGlyphTable:
+    sta liveCharUnderPageLookup + 2
+    sta liveCharScratchPageLookup + 2
     lda #FIXED_CHARS
     sta liveCharNextScratch
     lda #0
@@ -263,8 +270,8 @@ liveMergeCharacterCell:
     tax
     lda liveCharGlyphLo,x
     sta liveCharUnder
-    lda liveCharGlyphPage,x
-    ora liveCharFont
+liveCharUnderPageLookup:
+    lda liveCharGlyphPageA,x
     sta liveCharUnder + 1
     cpx #FIXED_CHARS
     bcs liveCharReuseScratch
@@ -277,8 +284,8 @@ liveMergeCharacterCell:
     sta (liveCharScreenPointer),y
     lda liveCharGlyphLo,x
     sta liveCharOutput
-    lda liveCharGlyphPage,x
-    ora liveCharFont
+liveCharScratchPageLookup:
+    lda liveCharGlyphPageA,x
     sta liveCharOutput + 1
     jmp liveCharBlend
 
@@ -319,7 +326,6 @@ liveCharOldEraseLo: .fill 2 * BALL_COUNT, 0
 
 .align $100
 liveCharGlyphLo: .fill 256, <(i * 8)
-liveCharGlyphPage: .fill 256, >(i * 8)
 
 .var liveCharBlendAddresses = List()
 .var liveCharBlendAddress = LIVE_CHAR_BLEND_CODE
@@ -388,4 +394,7 @@ liveCharBlendHi: .fill FIXED_CHARS, >liveCharBlendAddresses.get(i)
     .fill 256, (i & 6) * 2
     .fill 256, <((i >> 3) * LIVE_CHAR_SCREEN_WIDTH)
     .fill 256, >((i >> 3) * LIVE_CHAR_SCREEN_WIDTH)
+    // These two pages already include the respective font bank's high byte.
+    .fill 256, >(CHARSET + i * 8)
+    .fill 256, >(CHARSET_B + i * 8)
 }
